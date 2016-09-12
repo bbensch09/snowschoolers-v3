@@ -7,14 +7,14 @@ default: &default
 
 development:
   <<: *default
-  database: surfing_development
+  database: snowschoolers_development
 
 test:
   <<: *default
-  database: surfing_test
+  database: snowschoolers_test
 
 production:
   <<: *default
-  database: surfing_production
+  database: snowschoolers_production
   username: snowschoolers
   password: bb4ss109
