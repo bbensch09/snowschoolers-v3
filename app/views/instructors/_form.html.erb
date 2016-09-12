@@ -18,10 +18,10 @@
             </div>
             <div class="field">
               <%= f.label "Instructor Type" %><br />
-              <%= f.select :sport, ['Always Available', 'Weekends Only'], class: 'form-control' %>
+              <%= f.select :sport, ['Ski Instructor', 'Snowboard Instructor'], class: 'form-control' %>
             </div>
             <div class="field">
-              <%= f.label "Preferred Beaches" %><br />
+              <%= f.label "Preferred Resorts" %><br />
               <%= f.collection_check_boxes :location_ids, Location.all, :id, :name do |location_item| %>
                 <div class="collection-check-box">
                   <%= location_item.check_box %>
