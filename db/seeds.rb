@@ -6,11 +6,22 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Location.create!({
-  name: "Pacifica"
-  })
-Location.create!({
-  name: "Santa Cruz"
-  })
+resorts = [
+  "Bear Valley",
+  "Boreal",
+  "Diamond Peak",
+  "Dodge Ridge",
+  "Donner Ski Ranch",
+  "Homewood",
+  "Mt. Rose",
+  "Soda Springs",
+  "Sugar Bowl",
+  "Tahoe Donner"]
 
-puts "seed complete, locations created."
+resorts.each do |resort|
+  Location.create!({
+  name: resort
+  })
+end
+
+puts "seed complete, locations created. #{Location.count} resorts have been added."
