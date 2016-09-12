@@ -50,7 +50,7 @@ class InstructorsController < ApplicationController
 
     respond_to do |format|
       if @instructor.save
-        format.html { redirect_to root_path, notice: 'Your instructor application was successfully submitted, you will be contacted shortly. You may also reach out with questions to info@surfschoolers.com' }
+        format.html { redirect_to root_path, notice: 'Your instructor application was successfully submitted, you will be contacted shortly. You may also reach out with questions to info@snowschoolers.com' }
         format.json { render action: 'show', status: :created, location: @instructor }
       else
         format.html { render action: 'new' }

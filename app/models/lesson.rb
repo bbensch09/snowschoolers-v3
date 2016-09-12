@@ -73,9 +73,9 @@ class Lesson < ActiveRecord::Base
 
   def price
     if self.actual_duration.nil?
-      price = self.duration.to_i * 75
+      price = self.duration.to_i * 60
     else
-      price = self.actual_duration.to_i*75
+      price = self.actual_duration.to_i*60
     end
   end
 
@@ -164,7 +164,7 @@ class Lesson < ActiveRecord::Base
   private
 
   def instructors_must_be_available
-    errors.add(:instructor, " not available at that time. Email info@surfschoolers.com to be notified if there are cancellations.") unless available_instructors.any?
+    errors.add(:instructor, " not available at that time. Email info@snowschoolers.com to be notified if there are cancellations.") unless available_instructors.any?
   end
 
   def requester_must_not_be_instructor

@@ -5,9 +5,10 @@ var LESSON = {
     LESSON._slot = $('#lesson_lesson_time_slot');
     LESSON._duration = $('#lesson_duration');
     LESSON._durations = {
-      'two': $('#lesson_duration option:eq(1)'),
-      'three': $('#lesson_duration option:eq(2)'),
-      'six': $('#lesson_duration option:eq(3)')
+      'one': $('#lesson_duration option:eq(1)'),
+      'two': $('#lesson_duration option:eq(2)'),
+      'three': $('#lesson_duration option:eq(3)'),
+      'six': $('#lesson_duration option:eq(4)')
     };
     LESSON._startTime = $('#timepicker');
     LESSON._actualStartTime = $('#start-timepicker');
@@ -183,15 +184,24 @@ $(document).ready(function(){
 });
 
 var calculatePriceListener = function() {
+  var hourlyRate = 60;
   $('.lesson-length-input').change(function(e){
     e.preventDefault();
     console.log("listening for changes to lesson_length");
     var lesson_length = $('.lesson-length-input').val();
       console.log("the input value is:" + lesson_length);
-    var lesson_price = lesson_length*75;
+    var lesson_price = lesson_length*hourlyRate;
       console.log("the lesson price is:" +lesson_price);
     $('#donation-amount').html(lesson_price);
-
+  });
+  $('.lesson-slot-input').change(function(e){
+    console.log("detected slot change.");
+    if ( $('.lesson-slot-input').val() == 'Full Day'){
+    console.log("the lesson slot is now full day.");
+    var lesson_price = 6*hourlyRate;
+    console.log("lesson price is: "+lesson_price)
+    $('#donation-amount').html(lesson_price);
+    };
   });
 }
 

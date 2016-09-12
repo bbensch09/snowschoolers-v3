@@ -52,7 +52,7 @@ class LessonsController < ApplicationController
         @lesson.deposit_status = 'confirmed'
       end
       send_lesson_update_notice_to_instructor
-      flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when an instructor has been matched to your request. If it has been more than an hour since your request, please email support@surfschoolers.com.'
+      flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when an instructor has been matched to your request. If it has been more than an hour since your request, please email support@snowschoolers.com.'
     else
       determine_update_state
     end

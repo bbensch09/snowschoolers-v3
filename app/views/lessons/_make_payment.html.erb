@@ -30,7 +30,7 @@
               <br>
               Lesson fee: <%= number_to_currency(@lesson.price) %>
               <br>
-              Tip amount: <%= number_to_currency(@lesson.transaction.tip_amount)%>
+              Tip amount: <%= number_to_currency(@lesson.transaction.tip_amount*@lesson.price)%>
               <%= link_to 'Edit Tip', edit_transaction_path(@lesson.transaction), class: 'btn btn-default' %>
               <br>
               Total Lesson Cost: <%=number_to_currency(@lesson.transaction.final_amount)%>
@@ -40,8 +40,8 @@
           <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                   data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                   data-description="Lesson Payment"
-                  data-name="Adventure Out"
-                  data-image="https://s3.amazonaws.com/snowschoolers/AdventureOut-icon.png"
+                  data-name="Snow Schoolers"
+                  data-image="https://s3.amazonaws.com/snowschoolers/SnowSchoolers-logo.png"
                   data-amount=<%= @lesson.transaction.final_amount.to_i - 25 %>00
                   data-locale="auto"
                   data-zip-code="true">
