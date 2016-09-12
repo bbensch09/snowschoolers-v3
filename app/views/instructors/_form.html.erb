@@ -18,10 +18,10 @@
             </div>
             <div class="field">
               <%= f.label "Instructor Type" %><br />
-              <%= f.select :sport, ['Always Available', 'Weekends Only'], class: 'form-control' %>
+              <%= f.select :sport, ['Ski Instructor', 'Snowboard Instructor'], class: 'form-control' %>
             </div>
             <div class="field">
-              <%= f.label "Preferred Beaches" %><br />
+              <%= f.label "Preferred Resorts" %><br />
               <%= f.collection_check_boxes :location_ids, Location.all, :id, :name do |location_item| %>
                 <div class="collection-check-box">
                   <%= location_item.check_box %>
@@ -37,7 +37,11 @@
             </div>
             <div class="row">
               <div class="col-md-12">
-                <%= f.submit "Submit your application", class: "btn sign-up-btn pull-right push-bottom" %>
+                <% if controller.action_name == 'new' %>
+                <%= f.submit "Submit Instructor Application", class: "btn sign-up-btn pull-right push-bottom" %>
+                  <% else %>
+                <%= f.submit "Update Instructor Profile", class: "btn sign-up-btn pull-right push-bottom" %>
+                <% end %>
               </div>
             </div>
           <% end %>

@@ -68,11 +68,23 @@
 }
 .price-header{
   color: white;
-  background-color: #0067ab;;
+  background-color: #3b5998;;
 }
 .full-form-focus{
-  border: 1px solid #0067ab;;
+  border: 1px solid #3b5998;;
 }
+.control-label{
+  font-weight: bold;
+}
+
+@media (min-width:768px) {
+  .vertical-middle{
+    top: 25px;
+    position: relative;
+}
+
+}
+
 @media (max-width: 768px) {
 
 .pricing-container{

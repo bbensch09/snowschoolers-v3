@@ -5,9 +5,10 @@ var LESSON = {
     LESSON._slot = $('#lesson_lesson_time_slot');
     LESSON._duration = $('#lesson_duration');
     LESSON._durations = {
-      'two': $('#lesson_duration option:eq(1)'),
-      'three': $('#lesson_duration option:eq(2)'),
-      'six': $('#lesson_duration option:eq(3)')
+      'one': $('#lesson_duration option:eq(1)'),
+      'two': $('#lesson_duration option:eq(2)'),
+      'three': $('#lesson_duration option:eq(3)'),
+      'six': $('#lesson_duration option:eq(4)')
     };
     LESSON._startTime = $('#timepicker');
     LESSON._actualStartTime = $('#start-timepicker');
@@ -31,7 +32,7 @@ var LESSON = {
     LESSON._actualStartTime.change(LESSON.updateInstructorTimepickers);
   },
 
-  setDatepicker: function() { LESSON._date.datepicker({ minDate: 0, dateFormat: 'yy-mm-dd' }); },
+  setDatepicker: function() { LESSON._date.datepicker({ minDate: 1, dateFormat: 'yy-mm-dd' }); },
 
   toggleDuration: function() {
     if (LESSON.slotValid()) {
@@ -153,8 +154,8 @@ var LESSON = {
   },
 
   initializeConfirmTimepickers: function() {
-    LESSON._actualStartTime.timepicker({ 'minTime': '9:00am', 'maxTime': '2:30pm', 'step': 15 });
-    LESSON._actualEndTime.timepicker({ 'minTime': '11:00am', 'maxTime': '4:30pm', 'step': 15 });
+    LESSON._actualStartTime.timepicker({ 'minTime': '9:00am', 'maxTime': '2:30pm', 'step': 30 });
+    LESSON._actualEndTime.timepicker({ 'minTime': '11:00am', 'maxTime': '4:30pm', 'step': 30 });
     LESSON.disable(LESSON._actualEndTime);
   },
 
@@ -170,12 +171,51 @@ var LESSON = {
 $(function() { LESSON.init(); });
 $(window).bind('page:change', function() { LESSON.init(); });
 // pre-load first student form
+
+
+
 $(document).ready(function(){
   if($('.remove-student').length <=1){
     $('#add-student-button').click();
     console.log("loaded first student.");
-  }
-  var lesson_length = $('.full-form-focus').val()
-  $('#lesson-length').append(lesson_length);
-  $('#donation-amount').append(lesson_price);
+  };
+  calculatePriceListener();
+  // calculateTotalListener();
 });
+
+var calculatePriceListener = function() {
+  var hourlyRate = 60;
+  $('.lesson-length-input').change(function(e){
+    e.preventDefault();
+    console.log("listening for changes to lesson_length");
+    var lesson_length = $('.lesson-length-input').val();
+      console.log("the input value is:" + lesson_length);
+    var lesson_price = lesson_length*hourlyRate;
+      console.log("the lesson price is:" +lesson_price);
+    $('#donation-amount').html(lesson_price);
+  });
+  $('.lesson-slot-input').change(function(e){
+    console.log("detected slot change.");
+    if ( $('.lesson-slot-input').val() == 'Full Day'){
+    console.log("the lesson slot is now full day.");
+    var lesson_price = 6*hourlyRate;
+    console.log("lesson price is: "+lesson_price)
+    $('#donation-amount').html(lesson_price);
+    };
+  });
+}
+
+// Abandoned this approach for now
+var calculateTotalListener = function() {
+  console.log("totalListener is listening...");
+  $('tip-amount-input').change(function(e){
+    e.preventDefault();
+    console.log("listening for changes to the tip");
+    var tip_amount = $('tip-amount-input').val();
+    var base_amount = $('base-amount-input').val();
+      console.log("the tip amount is:" + tip_amount);
+    var total_amount = base_amount + tip_amount;
+      console.log("the lesson price is:" +total_amount);
+    $('#transaction_final_amount').html(total_amount);
+  });
+}

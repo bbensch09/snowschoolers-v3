@@ -3,6 +3,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :instructor
   belongs_to :lesson_time
   has_many :students
+  has_one :transaction
   accepts_nested_attributes_for :students, reject_if: :all_blank, allow_destroy: true
 
   validates :requested_location, :lesson_time, presence: true
@@ -10,14 +11,14 @@ class Lesson < ActiveRecord::Base
             presence: true, on: :update
   # validates :gear, inclusion: { in: [true, false] }, on: :update
   validates :terms_accepted, inclusion: { in: [true], message: 'must accept terms' }, on: :update
-  # validates :actual_start_time, :actual_end_time, presence: true, if: :just_finalized?
-  validate :instructors_must_be_available, unless: :no_instructors_post_instructor_drop?
+  validates :actual_start_time, :actual_end_time, presence: true, if: :just_finalized?
+  validate :instructors_must_be_available, unless: :no_instructors_post_instructor_drop?, on: :create
   validate :requester_must_not_be_instructor, on: :create
   validate :lesson_time_must_be_valid
   validate :student_exists, on: :update
 
   after_update :send_lesson_request_to_instructors
-  # before_save :calculate_actual_lesson_duration, if: :just_finalized?
+  before_save :calculate_actual_lesson_duration, if: :just_finalized?
 
   def date
     lesson_time.date
@@ -58,6 +59,24 @@ class Lesson < ActiveRecord::Base
 
   def waiting_for_payment?
     state == 'waiting for payment'
+  end
+
+  def calculate_actual_lesson_duration
+    start_time = Time.parse(actual_start_time)
+    end_time = Time.parse(actual_end_time)
+    self.actual_duration = (end_time - start_time)/3600
+  end
+
+  def just_finalized?
+    waiting_for_payment?
+  end
+
+  def price
+    if self.actual_duration.nil?
+      price = self.duration.to_i * 60
+    else
+      price = self.actual_duration.to_i*60
+    end
   end
 
   def get_changed_attributes(original_lesson)
@@ -145,11 +164,11 @@ class Lesson < ActiveRecord::Base
   private
 
   def instructors_must_be_available
-    errors.add(:instructor, " not available at that time. Email info@surfschoolers.com to be notified if there are cancellations.") unless available_instructors.any?
+    errors.add(:instructor, " not available at that time. Email info@snowschoolers.com to be notified if there are cancellations.") unless available_instructors.any?
   end
 
   def requester_must_not_be_instructor
-    errors.add(:instructor, "cannot request a lesson") if self.requester.verified_instructor?
+    errors.add(:instructor, "cannot request a lesson") unless self.requester.instructor.nil?
   end
 
   def lesson_time_must_be_valid
@@ -161,19 +180,9 @@ class Lesson < ActiveRecord::Base
   end
 
   def send_lesson_request_to_instructors
-    if 2+2==4 #replace with logic that tests whether lesson is newly complete, vs. already booked, etc.
+    if self.active? #replace with logic that tests whether lesson is newly complete, vs. already booked, etc.
       LessonMailer.send_lesson_request_to_instructors(self).deliver
     end
-  end
-
-  def calculate_actual_lesson_duration
-    start_time = Time.parse(actual_start_time)
-    end_time = Time.parse(actual_end_time)
-    self.actual_duration = (end_time - start_time)/3600
-  end
-
-  def just_finalized?
-    waiting_for_payment?
   end
 
   def no_instructors_post_instructor_drop?

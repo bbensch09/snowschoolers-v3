@@ -4,16 +4,23 @@
     <header class="page-header">
       <h1>Lesson Details</h1>
     </header>
+    <% if @lesson.waiting_for_payment? && current_user == @lesson.requester %>
+      <%= render partial: 'make_payment' %>
+      <% elsif @lesson.waiting_for_payment? && current_user.instructor %>
+          <%= link_to "Edit Lesson Times", mark_lesson_complete_path, method: :put, class: "btn btn-success" %>
+    <% end %>
 
-    <%= render partial: 'lesson_details' %>
+    <% if @lesson.finalizing? %>
+      <%= render partial: 'confirming_lesson_duration' %>
+    <% end %>
 
     <% if @lesson.active? %>
       <%= render partial: 'lesson_actions_active' %>
     <% end %>
 
-    <% if @lesson.finalizing? %>
-      <%= render partial: 'lesson_actions_finalizing' %>
-    <% end %>
+    <%= render partial: 'lesson_details' %>
+
+
 
     <% if @lesson.canceled? %>
       <p>Lesson has been canceled.</p>
@@ -26,6 +33,6 @@
 <img id="cycle-loader" src="/assets/spinner.gif" alt="loader" />
 
 <ul id="slider">
-  <li><img src="/assets/demo/slider/surfing-bright.jpg" alt="" /></li>
+  <li><img src="/assets/demo/slider/thredbo-sunrise.jpg" alt="" /></li>
 </ul>
 <!-- /SLIDER
