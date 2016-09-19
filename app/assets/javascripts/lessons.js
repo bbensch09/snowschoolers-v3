@@ -184,7 +184,7 @@ $(document).ready(function(){
 });
 
 var calculatePriceListener = function() {
-  var hourlyRate = 60;
+  var hourlyRate = 75;
   $('.lesson-length-input').change(function(e){
     e.preventDefault();
     console.log("listening for changes to lesson_length");

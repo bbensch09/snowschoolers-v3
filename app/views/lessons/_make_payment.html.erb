@@ -28,7 +28,7 @@
             <% end %>
             <h4 class="amount">
               <br>
-              Lesson fee: <%= number_to_currency(@lesson.price) %>
+              Lesson fee: <%= number_to_currency(@lesson.price, precision: 2) %>
               <br>
               Tip amount: <%= number_to_currency(@lesson.transaction.tip_amount*@lesson.price)%>
               <%= link_to 'Edit Tip', edit_transaction_path(@lesson.transaction), class: 'btn btn-default' %>

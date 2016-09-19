@@ -73,9 +73,9 @@ class Lesson < ActiveRecord::Base
 
   def price
     if self.actual_duration.nil?
-      price = self.duration.to_i * 60
+      price = (self.duration * 75).to_f
     else
-      price = self.actual_duration.to_i*60
+      price = (self.actual_duration * 75).to_f
     end
   end
 
