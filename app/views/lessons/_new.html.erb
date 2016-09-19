@@ -24,7 +24,7 @@
               </div>
 
               <div class="col-md-3">
-                <%= f.input :requested_location , as: :select, collection: Location.all, include_blank: 'Location', label: false %>
+                <%= f.input :requested_location , as: :select, collection: Location.all.sort_by { |location| location.name.downcase} , include_blank: 'Location', label: false %>
               </div>
 
               <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
