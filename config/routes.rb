@@ -9,6 +9,7 @@ SnowSchoolers::Application.routes.draw do
   resources :charges
 
   # root to: "lessons#new"
+  get 'sugarbowl' => "welcome#sugarbowl"
   root to: "welcome#index"
   resources :instructors do
     member do
