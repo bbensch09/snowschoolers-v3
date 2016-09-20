@@ -10,6 +10,10 @@ SnowSchoolers::Application.routes.draw do
 
   # root to: "lessons#new"
   get 'sugarbowl' => "welcome#sugarbowl"
+  get   'lessons/sugarbowl'               => 'lessons#sugarbowl'
+  get 'homewood' => "welcome#homewood"
+  get 'homewood2' => "welcome#homewood2"
+  get   'lessons/homewood'               => 'lessons#homewood'
   root to: "welcome#index"
   resources :instructors do
     member do
@@ -25,7 +29,6 @@ SnowSchoolers::Application.routes.draw do
 
   devise_for :users, controllers: { registrations: 'users/registrations', omniauth_callbacks: "users/omniauth_callbacks" }
 
-  get   'lessons/sugarbowl'               => 'lessons#sugarbowl'
   resources :lessons
   put   'lessons/:id/set_instructor'      => 'lessons#set_instructor',      as: :set_instructor
   put   'lessons/:id/remove_instructor'   => 'lessons#remove_instructor',   as: :remove_instructor

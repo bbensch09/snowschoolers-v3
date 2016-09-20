@@ -16,6 +16,13 @@ class LessonsController < ApplicationController
     render 'new'
   end
 
+  def homewood
+    @lesson = Lesson.new
+    @promo_location = 6
+    @lesson_time = @lesson.lesson_time
+    render 'new'
+  end
+
   def new
     @lesson = Lesson.new
     @promo_location = nil
