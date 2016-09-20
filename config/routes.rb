@@ -25,6 +25,7 @@ SnowSchoolers::Application.routes.draw do
 
   devise_for :users, controllers: { registrations: 'users/registrations', omniauth_callbacks: "users/omniauth_callbacks" }
 
+  get   'lessons/sugarbowl'               => 'lessons#sugarbowl'
   resources :lessons
   put   'lessons/:id/set_instructor'      => 'lessons#set_instructor',      as: :set_instructor
   put   'lessons/:id/remove_instructor'   => 'lessons#remove_instructor',   as: :remove_instructor

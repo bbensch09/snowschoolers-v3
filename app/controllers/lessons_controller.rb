@@ -9,8 +9,16 @@ class LessonsController < ApplicationController
     @lessons = Lesson.all
   end
 
+  def sugarbowl
+    @lesson = Lesson.new
+    @promo_location = 9
+    @lesson_time = @lesson.lesson_time
+    render 'new'
+  end
+
   def new
     @lesson = Lesson.new
+    @promo_location = nil
     @lesson_time = @lesson.lesson_time
   end
 

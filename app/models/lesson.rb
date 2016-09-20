@@ -24,6 +24,9 @@ class Lesson < ActiveRecord::Base
     lesson_time.date
   end
 
+  def promo_location
+  end
+
   def slot
     lesson_time.slot
   end
