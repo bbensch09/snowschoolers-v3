@@ -8,8 +8,8 @@
     <%= f.input :actual_end_time, as: :string, input_html: { id: 'end-timepicker' }, class: "end-times" %>
   </div>
   <div class="col-md-12">
-    <label>Lesson Notes & Feedback</label>
-    <%= f.input :public_feedback_for_student, as: :string, input_html: { required:true }, placeholder: 'What do you hope to get out of this lesson?', class: "feedback-for-student" %>
+    <label><b> Lesson Notes & Feedback</b></label>
+    <%= f.input :public_feedback_for_student, as: :string, input_html: { required:true }, placeholder: 'What should the student continue to practice?', class: "feedback-for-student" , label:false %>
 
   </div>
   <div class="col-md-4">  </div>

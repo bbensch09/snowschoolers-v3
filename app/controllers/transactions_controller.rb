@@ -42,7 +42,7 @@ class TransactionsController < ApplicationController
 
     @transaction.lesson.state = "Payment Complete"
     @transaction.lesson.save
-    flash[:notice] = 'Thank you! Your card has been charged successfully, please now review your instructor.'
+    flash[:notice] = 'Thank you! Your card has been charged successfully.'
     redirect_to @transaction.lesson
 
   rescue Stripe::CardError => e
