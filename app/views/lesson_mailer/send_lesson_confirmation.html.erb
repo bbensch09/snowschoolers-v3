@@ -6,14 +6,14 @@
   <body>
     <h1>Lesson Request Confirmed</h1>
     <ul>
-      <li>Instructor: <%= @lesson.instructor.username %></li>
+      <li>Instructor: <%= @lesson.instructor.name %></li>
       <li>Students: <%= @lesson.students.map(&:name).join(', ') %></li>
       <li>Date: <%= @lesson.date %></li>
       <li>Slot: <%= @lesson.slot %></li>
       <li>Duration: <%= "#{@lesson.duration} hours" if @lesson.duration %></li>
       <li>Start Time: <%= @lesson.start_time %></li>
-      <li>Location: <%= @lesson.location %></li>
-      <li>Gear: <%= @lesson.gear? ? 'Yes' : 'No' %></li>
+      <li>Location: <%= @lesson.location.name %></li>
+      <!-- <li>Gear: <%= @lesson.gear? ? 'Yes' : 'No' %></li> -->
       <li>Objectives: <%= @lesson.objectives %></li>
     </ul>
     <p>

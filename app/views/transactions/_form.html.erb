@@ -1,5 +1,5 @@
 <div class="col-md-4">
-<% @transaction = Transaction.new unless @lesson.transaction %>
+<% @transaction = Transaction.new unless @lesson && @lesson.transaction %>
 
 <%= semantic_form_for @transaction do |f| %>
   <%= f.inputs do %>
@@ -11,7 +11,7 @@
   Lesson Fee: <%= number_to_currency(@lesson.price) %>
 </h3>
     <!-- <%= f.input :tip_amount, placeholder: '20%', label: "Include Instructor Tip (optional)", :input_html => {class:'tip-amount-input'} %> -->
-    <%= f.input :tip_amount, as: :select, collection: [['15%',0.15],['20%',0.20],['25%',0.25],['30%',0.30],['No Tip',0]], include_blank: 'Select Tip Amount', label: "Include Instructor Tip (optional)", :input_html => {class:'tip-amount-input'} %>
+    <%= f.input :tip_amount, as: :select, collection: [['15%',0.15],['20%',0.20],['25%',0.25],['30%',0.30],['No Tip',0]], include_blank: 'Select Tip Amount', label: "Include Instructor Tip (optional)", :input_html => {class:'tip-amount-input', required: true} %>
   <% end %>
   <%= f.submit "Confirm Tip Amount", class: 'btn btn-success' %>
   <%= link_to 'Back', @transaction.lesson, class: 'btn btn-default' %>

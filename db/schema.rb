@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160905193011) do
+ActiveRecord::Schema.define(version: 20160921025911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,8 @@ ActiveRecord::Schema.define(version: 20160905193011) do
     t.string   "actual_end_time"
     t.float    "actual_duration"
     t.boolean  "terms_accepted"
+    t.string   "public_feedback_for_student"
+    t.string   "private_feedback_for_student"
   end
 
   create_table "locations", force: true do |t|

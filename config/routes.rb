@@ -12,7 +12,6 @@ SnowSchoolers::Application.routes.draw do
   root to: "welcome#index"
 
   #twilio testing
-  get 'twilio/voice' => 'twilio#voice'
   get 'twilio/test_sms' => 'twilio#test_sms'
   #promo pages
   get 'sugarbowl' => "welcome#sugarbowl"

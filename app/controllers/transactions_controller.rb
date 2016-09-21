@@ -10,6 +10,7 @@ class TransactionsController < ApplicationController
   # GET /transactions/1
   # GET /transactions/1.json
   def show
+      @lesson = Lesson.find(@transaction.lesson_id)
   end
 
   # GET /transactions/new

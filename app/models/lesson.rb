@@ -33,9 +33,14 @@ class Lesson < ActiveRecord::Base
   end
 
   def active?
-    active_states = ['new', 'booked', 'confirmed', 'pending instructor', 'pending requester','']
+    active_states = ['new', 'booked', 'pending instructor', 'pending requester','']
+    #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
     active_states.include?(state)
   end
+
+  def confirmable?
+    confirmable_states = ['confirmed', 'new','booked', 'pending instructor', 'pending requester','']
+    confirmable_states.include?(state)  end
 
   def new?
     state == 'new'
@@ -72,10 +77,17 @@ class Lesson < ActiveRecord::Base
   end
 
   def price
+    hourly_base = 75
+    surge = 1
+    hourly_price = hourly_base*surge
     if self.actual_duration.nil?
-      price = (self.duration * 75).to_f
+      if self.duration.nil?
+          price = hourly_price * 2
+        else
+          price = self.duration * hourly_price
+      end
     else
-      price = (self.actual_duration * 75).to_f
+      price = self.actual_duration * hourly_price
     end
   end
 
@@ -182,6 +194,16 @@ class Lesson < ActiveRecord::Base
   def send_lesson_request_to_instructors
     if self.active? #replace with logic that tests whether lesson is newly complete, vs. already booked, etc.
       LessonMailer.send_lesson_request_to_instructors(self).deliver
+      account_sid = ENV['TWILIO_SID']
+      auth_token = ENV['TWILIO_AUTH']
+      snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
+      recipient = Instructor.first.phone_number
+      @client = Twilio::REST::Client.new account_sid, auth_token
+          @client.account.messages.create({
+          :to => recipient,
+          :from => "#{snow_schoolers_twilio_number}",
+          :body => "You have a new lesson request from #{self.requester.name} at #{self.start_time} on #{self.lesson_time.date} at #{self.location.name}. Are you available? Reply 'YES' to accept this lesson. Reply 'NO' to dismiss."
+      })
     end
   end
 

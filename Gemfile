@@ -12,6 +12,8 @@ gem 'twilio-ruby'
 group :development, :test do
   gem 'debugger'
   gem 'pry-debugger'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 # Use SCSS for stylesheets
