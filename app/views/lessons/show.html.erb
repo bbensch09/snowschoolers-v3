@@ -14,7 +14,7 @@
       <%= render partial: 'confirming_lesson_duration' %>
     <% end %>
 
-    <% if @lesson.active? %>
+    <% if @lesson.confirmable? %>
       <%= render partial: 'lesson_actions_active' %>
     <% end %>
 

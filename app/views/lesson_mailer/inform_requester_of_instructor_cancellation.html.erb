@@ -13,7 +13,7 @@
       <li>Students: <%= @lesson.students.map(&:name).join(', ') %></li>
       <li>Date: <%= @lesson.date %></li>
       <li>Slot: <%= @lesson.slot %></li>
-      <li>Location: <%= @lesson.location %></li>
+      <li>Location: <%= @lesson.location.name %></li>
     </ul>
     <p>
       <% if @available_instructors %>
@@ -21,8 +21,8 @@
         are currently trying to find you a replacement.
       <% else %>
         Unfortunately, no other instructors are available at this time. We
-        apologize for the inconvenience. Please go to your lesson page and 
-        either update your preferences or cancel the lesson if you are no 
+        apologize for the inconvenience. Please go to your lesson page and
+        either update your preferences or cancel the lesson if you are no
         longer interested.
       <% end %>
     </p>

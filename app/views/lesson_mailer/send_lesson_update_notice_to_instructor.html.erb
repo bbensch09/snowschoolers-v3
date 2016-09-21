@@ -13,7 +13,7 @@
       <li>Slot: <%= @original_lesson.slot %></li>
       <li>Duration: <%= "#{@original_lesson.duration} hours" if @original_lesson.duration %></li>
       <li>Start Time: <%= @original_lesson.start_time %></li>
-      <li>Location: <%= @original_lesson.location %></li>
+      <li>Location: <%= @original_lesson.location.name %></li>
       <li>Gear: <%= @original_lesson.gear? ? 'Yes' : 'No' %></li>
       <li>Objectives: <%= @original_lesson.objectives %></li>
     </ul>
@@ -31,7 +31,7 @@
       Please go to the lesson page below and take an action.
       If this still works for you, click the 'Confirm Updates'
       button to reconfirm your lesson. If you are no longer able
-      to take this lesson, click the 'Drop It' button so we can 
+      to take this lesson, click the 'Drop It' button so we can
       reassign the lesson to another instructor.
     </p>
     <p>

@@ -7,12 +7,17 @@
   <div class="col-md-4">
     <%= f.input :actual_end_time, as: :string, input_html: { id: 'end-timepicker' }, class: "end-times" %>
   </div>
+  <div class="col-md-12">
+    <label><b> Lesson Notes & Feedback</b></label>
+    <%= f.input :public_feedback_for_student, as: :string, input_html: { required:true }, placeholder: 'What should the student continue to practice?', class: "feedback-for-student" , label:false %>
+
+  </div>
   <div class="col-md-4">  </div>
   <!-- <div class="col-md-4">
     <%= f.input :actual_duration, as: :select, collection: [['1.5 hours', 1.5],['2 hours', 2],['2.5 hours', 2.5],['3 hours', 3],['3.5 hours', 3],['4 hours', 4]], class: "duration?" %>
   </div> -->
   <div class="col-md-12">
-    <%= f.submit "Confirm Lesson Times", class: "btn btn-success" %>
+    <%= f.submit "Confirm Feedback & Lesson Times", class: "btn btn-success" %>
   </div>
   <% end %>
 <% else %>

@@ -5,20 +5,40 @@
   </head>
   <body>
     <h1>Urgent Lesson Request</h1>
-    <h4>Another instructor had to cancel this previously confirmed lesson. If you're available, please confirm this lesson asap.</h4>
-    <ul>
-      <li>Requester: <%= @lesson.requester.name %></li>
-      <li>Date: <%= @lesson.date %></li>
-      <li>Slot: <%= @lesson.slot %></li>
-      <li>Location: <%= @lesson.location %></li>
-    </ul>
-    <p>
-      To take the lesson, go to the lesson page below
-      and click the 'Take It' button before another
-      instructor beats you to it!
-    </p>
+    <h4>Another instructor had to cancel this previously confirmed lesson. If you're available, please confirm this lesson ASAP. To take the lesson, go to the lesson page below and click the 'Accept' button.</h4>
     <p>
       <%= lesson_url(@lesson) %>
     </p>
+    <div class='row'>
+      <h4>Basic <strong>Info</strong></h4>
+
+      <ul>
+          <li>Location:<%= @lesson.location.name %> </li>
+          <li>Date:<%= @lesson.date %> </li>
+          <li>Slot:<%= @lesson.slot %> </li>
+          <li>Duration:<%= "#{@lesson.duration} hours" %> </li>
+          <li>Start Time:<%= @lesson.start_time %> </li>
+          <li>Pre-Tip Earnings:<%= number_to_currency(@lesson.price * 0.4) %> </li>
+      </ul>
+
+      <h4>Objectives <strong> and Experience</strong></h4>
+
+        <ul>
+          <li>Skill Level:<%= @lesson.ability_level %> </li>
+          <li>Objectives:<%= @lesson.objectives %> </li>
+        </ul>
+
+      <h4>Student <strong>Info</strong></h4>
+      <% @lesson.students.each do |student| %>
+        <ul>
+            <li>Name: <%= student.name %> </li>
+            <li>Age Range: <%= student.age_range %></li>
+            <li>Gender: <%= student.gender %></li>
+            <li>About the student: <%= student.relationship_to_requester %></li>
+            <li>Previous Experience: <%= student.experience.to_s %> </li>
+        </ul>
+      <% end %>
+    </div>
+    <button> <h2> <a href=<%= lesson_url(@lesson) %>> Accept this Lesson </a> </h2></button>
   </body>
 </html>

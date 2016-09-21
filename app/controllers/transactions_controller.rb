@@ -10,6 +10,7 @@ class TransactionsController < ApplicationController
   # GET /transactions/1
   # GET /transactions/1.json
   def show
+      @lesson = Lesson.find(@transaction.lesson_id)
   end
 
   # GET /transactions/new
@@ -41,7 +42,7 @@ class TransactionsController < ApplicationController
 
     @transaction.lesson.state = "Payment Complete"
     @transaction.lesson.save
-    flash[:notice] = 'Thank you! Your card has been charged successfully, please now review your instructor.'
+    flash[:notice] = 'Thank you! Your card has been charged successfully.'
     redirect_to @transaction.lesson
 
   rescue Stripe::CardError => e

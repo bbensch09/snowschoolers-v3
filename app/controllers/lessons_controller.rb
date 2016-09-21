@@ -65,6 +65,8 @@ class LessonsController < ApplicationController
             :currency    => 'usd'
           )
         @lesson.deposit_status = 'confirmed'
+        # DEBUGGING NEEDED -- deposit status not being saved as confirmed unless second save, which triggers redundant email;
+        # @lesson.save
       end
       send_lesson_update_notice_to_instructor
       flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when an instructor has been matched to your request. If it has been more than an hour since your request, please email support@snowschoolers.com.'
@@ -201,11 +203,6 @@ class LessonsController < ApplicationController
     end
   end
 
-  # def format_previous_experiences
-  #   previous_experience_ids = params[:lesson][:previous_experience_ids].reject(&:blank?)
-  #   previous_experience_ids.map { |id| PreviousExperience.find(id) }
-  # end
-
   def determine_update_state
     @lesson.state = 'new' unless params[:lesson][:terms_accepted] == '1'
     if @lesson.deposit_status == 'confirmed'
@@ -217,8 +214,7 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :objectives, :duration, :ability_level,
-      :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status,
+    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student,
       students_attributes: [:id, :name, :age_range, :gender, :relationship_to_requester, :lesson_history, :experience, :_destroy])
   end
 
