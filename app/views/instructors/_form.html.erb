@@ -1,46 +1,51 @@
 
   <!-- REGISTER -->
-        <div class="col-md-6">
+        <div class="navy-text">
            <div>
           <%= form_for @instructor do |f| %>
 
-            <div class="field">
+            <div class="col-md-6">
               <%= f.text_field :first_name, placeholder: 'First name', class: 'form-control' %>
             </div>
-            <div class="field">
+            <div class="col-md-6">
               <%= f.text_field :last_name, placeholder: 'Last name', class: 'form-control' %>
             </div>
-            <div class="field">
-              <%= f.text_field :username, placeholder: 'Visible username', class: 'form-control' %>
+            <div class="col-md-6">
+              <%= f.text_field :username, placeholder: current_user.email, class: 'form-control' %>
             </div>
-            <div class="field">
+            <div class="col-md-6">
               <%= f.text_field :phone_number, placeholder: 'Phone number', class: 'form-control' %>
             </div>
-            <div class="field">
-              <%= f.label "Instructor Type" %><br />
-              <%= f.select :sport, ['Ski Instructor', 'Snowboard Instructor'], class: 'form-control' %>
+            <div class="col-md-12">
+              <h4> What type of instructor are you? </h4>
+              <%= f.select :sport, ['Ski Instructor', 'Snowboard Instructor','Both Ski & Snowboard'], class: 'form-control' %>
+              <br><br>
             </div>
-            <div class="field">
-              <%= f.label "Preferred Resorts" %><br />
+            <div class="col-md-12">
+              <h4> Preferred Resorts (select up to 4)</h4>
               <%= f.collection_check_boxes :location_ids, Location.all, :id, :name do |location_item| %>
                 <div class="collection-check-box">
                   <%= location_item.check_box %>
                   <%= location_item.label %>
                 </div>
               <% end %>
+              <br>
             </div>
-            <div class="field">
+            <div class="col-md-12">
+              <h4>Previous professional certifications (PSIA, AASI) </h4>
               <%= f.text_field :certification, placeholder: 'Do you hold any certifications?', class: 'form-control' %>
+              <br>
             </div>
-            <div class="field">
-              <%= f.text_area :intro, rows:5, placeholder: 'Describe your background in 2-3 sentences', class: 'form-control' %>
+            <div class="col-md-12">
+            <h4>Why are you excited to join Snow Schoolers?</h4>
+              <%= f.text_area :intro, rows:5, placeholder: 'Describe your background in a few sentences', class: 'form-control' %>
             </div>
             <div class="row">
               <div class="col-md-12">
                 <% if controller.action_name == 'new' %>
-                <%= f.submit "Submit Instructor Application", class: "btn sign-up-btn pull-right push-bottom" %>
+                <%= f.submit "Submit Instructor Application", class: "btn btn-primary btn-xl page-scroll pull-right push-bottom" %>
                   <% else %>
-                <%= f.submit "Update Instructor Profile", class: "btn sign-up-btn pull-right push-bottom" %>
+                <%= f.submit "Update Instructor Profile", class: "btn btn-primary btn-xl page-scroll pull-right push-bottom" %>
                 <% end %>
               </div>
             </div>

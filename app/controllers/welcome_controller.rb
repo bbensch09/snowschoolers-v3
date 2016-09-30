@@ -4,4 +4,8 @@ class WelcomeController < ApplicationController
     @lesson = Lesson.new
     @lesson_time = @lesson.lesson_time
   end
+
+  def apply
+    @instructor = Instructor.new
+  end
 end
