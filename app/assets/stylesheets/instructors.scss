@@ -3,8 +3,78 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 */
 
+#recruiting-landing-page{
+  padding-top:20px;
+}
 .buffer{
   min-height:50px;
   position: relative;
   clear: both;
+}
+.white-transparent-bg{
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 0.5rem;
+}
+.black-transparent-bg{
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 0.5rem;
+}
+.why-ss{
+  border-radius: 0.5rem;
+  border: 1px solid #3b5998;
+}
+.navy-bg{
+  background: rgba(59,89,152, 0.9);
+  border-radius: 0.5rem;
+  padding-bottom: 20px;
+}
+.navy-text{
+  color: #3b5998;
+}
+.white-text{ color: #fff; }
+.padding-top{
+  padding-top: 20px;
+}
+.vertical-padding{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.ski-bum-photo{
+  margin: 0 auto;
+  display: block;
+  max-height: 55vh;
+}
+.recruiting-ctas{
+  margin: 0 0 0 0px;
+}
+#weekend-warrior-comparison{
+  background-color: #fff;
+}
+.ski-expenses li{
+  font-size: 2em;
+  line-height: 1.5;
+  color: #fff;
+}
+.ski-expenses{
+    left: 90px;
+    position: relative;
+}
+.expenses-total{
+  max-width: 50%;
+  text-align: center;
+  display:block;
+  margin: 0 auto;
+}
+.bold{
+  font-style: bold;
+}
+.red{
+  color: red;
+}
+.green {
+  color: green;
+}
+.why-snow-schoolers{
+  max-width: 350px;
+  height: 150px;
 }

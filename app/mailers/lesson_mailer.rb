@@ -6,8 +6,8 @@ class LessonMailer < ActionMailer::Base
     mail(to: 'brian@snowschoolers.com', subject: "A new user has registered for Snow Schoolers")
   end
 
-  def new_instructor_application_received(user)
-    @user = user
+  def new_instructor_application_received(instructor)
+    @instructor = instructor
     mail(to: 'brian@snowschoolers.com', subject: "A new instructor has applied to join Snow Schoolers")
   end
 

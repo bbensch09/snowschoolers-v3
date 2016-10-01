@@ -1,6 +1,8 @@
 class InstructorsController < ApplicationController
   before_action :set_instructor, only: [:show, :edit, :update, :destroy]
   before_action :confirm_admin_permissions, except: [:create, :new, :show, :edit]
+  skip_before_action :authenticate_user!, only: [:new, :create]
+
 
   def verify
     instructor = Instructor.find(params[:id])
@@ -45,7 +47,7 @@ class InstructorsController < ApplicationController
   # POST /instructors.json
   def create
     @instructor = Instructor.new(instructor_params)
-    @instructor.user_id = current_user.id
+    @instructor.user_id = current_user.id unless current_user.nil?
     @instructor.status = "new applicant"
 
     respond_to do |format|

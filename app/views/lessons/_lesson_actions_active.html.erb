@@ -1,6 +1,8 @@
 <div class='active-actions'>
   <% if current_user.instructor && current_user.instructor.status == "Active" && @lesson.instructor.nil? %>
-    <%= button_to "Accept this Lesson Request", set_instructor_path, method: :put, class: "btn btn-success" %>
+    <%= button_to "Accept Lesson Request", set_instructor_path, method: :put, class: "btn btn-success" %>
+    <br>
+    <%= button_to "Decline Lesson Request", set_instructor_path, method: :put, class: "btn btn-danger" %>
   <% end %>
 
   <% if current_user.instructor && @lesson.instructor && current_user == @lesson.instructor.user %>
