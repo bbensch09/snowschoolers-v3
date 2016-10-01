@@ -202,7 +202,7 @@ class Lesson < ActiveRecord::Base
           @client.account.messages.create({
           :to => recipient,
           :from => "#{snow_schoolers_twilio_number}",
-          :body => "You have a new lesson request from #{self.requester.name} at #{self.start_time} on #{self.lesson_time.date} at #{self.location.name}. Are you available? Reply 'YES' to accept this lesson. Reply 'NO' to dismiss."
+          :body => "You have a new lesson request from #{self.requester.name} at #{self.start_time} on #{self.lesson_time.date} at #{self.location.name}. Are you available? Visit www.snowschoolers.com/lessons/#{self.id} to confirm the lesson."
       })
     end
   end
