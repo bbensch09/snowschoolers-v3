@@ -222,7 +222,8 @@ aside {
     font-size: 50px;
   }
   #header-creative .header-content .header-content-inner p {
-    font-size: 18px;
+    font-size: 28px;
+    line-height: 1;
     max-width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -309,7 +310,6 @@ aside {
 }
 .btn-default {
   color: #222222;
-  background-color: white;
   border-color: white;
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
@@ -538,6 +538,17 @@ h2.how-it-works {
   padding-right: 2px !important;
   padding-top: 2px !important;
 }
+}
+
+h2 {
+    font-size: 2.5em;
+    font-weight: 300;
+    line-height: 42px;
+    margin: 0 0 32px 0;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 32px;
+    margin-left: 0px;
 }
 
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/

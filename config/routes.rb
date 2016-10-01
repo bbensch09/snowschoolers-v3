@@ -21,6 +21,7 @@ SnowSchoolers::Application.routes.draw do
   get   'lessons/homewood'               => 'lessons#homewood'
   #landing page for prospective instructors
   get 'apply' => 'welcome#apply'
+  get 'index' => 'welcome#index'
   resources :instructors do
     member do
         post :verify
