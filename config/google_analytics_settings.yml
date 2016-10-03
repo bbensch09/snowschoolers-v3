@@ -1,0 +1,9 @@
+development:
+  endpoint: "http://www.google-analytics.com/collect"
+  version: 1
+  tracking_code: UA-80641194-1
+
+production:
+  endpoint: "http://www.google-analytics.com/collect"
+  version: 1
+  tracking_code: UA-80641194-1

@@ -224,6 +224,7 @@ DEPENDENCIES
   pry-debugger
   rails (= 4.0.2)
   rails_12factor
+  rest-client
   sass-rails (~> 4.0.0)
   sdoc
   stripe
