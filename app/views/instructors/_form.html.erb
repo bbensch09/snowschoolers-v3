@@ -1,6 +1,6 @@
 
 <!-- REGISTER -->
-<div class="navy-text">
+<div id="apply" class="navy-text">
  <div>
   <%= form_for @instructor do |f| %>
   <div class="">
@@ -58,7 +58,7 @@
       <% if controller.action_name == 'update' %>
       <%= f.submit "Update Instructor Profile", class: "btn btn-primary btn-xl page-scroll pull-right push-bottom" %>
       <% else %>
-      <%= f.submit "Submit Instructor Application", class: "btn btn-primary btn-xl page-scroll pull-right push-bottom" %>
+      <%= f.submit "Submit Application", class: "btn btn-primary btn-xl page-scroll pull-right push-bottom" %>
       <% end %>
     </div>
   </div>
