@@ -53,6 +53,7 @@
   <div class="col-md-12">
     <%= f.text_area :intro, rows:5, placeholder: 'Describe your background in a few sentences', class: 'form-control' %>
   </div>
+  <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
   <div class="row">
     <div class="col-md-12 vertical-padding">
       <% if controller.action_name == 'update' %>

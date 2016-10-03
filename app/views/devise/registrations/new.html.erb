@@ -30,6 +30,7 @@
                 <div class="col-md-6">
                   <%= f.label :password_confirmation %><br />
                   <%= f.password_field :password_confirmation, class: 'form-control' %>
+                  <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
                 </div>
               </div>
             </div>
@@ -56,6 +57,7 @@
               <div class="col-md-6">
                 <%- resource_class.omniauth_providers.each do |provider| %>
                   <%= link_to "Login or Register", omniauth_authorize_path(resource_name, provider), class: "#{provider.to_s}-login form-control" %><br />
+                  <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
                 <% end -%>
               </div>
               <div class="col-md-3"></div>

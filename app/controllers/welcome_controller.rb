@@ -7,6 +7,11 @@ class WelcomeController < ApplicationController
 
   def apply
     @instructor = Instructor.new
+    ga_test_code = GOOGLE_ANALYTICS_SETTINGS[:tracking_code]
+    ga_endpoint = GOOGLE_ANALYTICS_SETTINGS[:endpoint]
+    puts "The GA tracking code is known to be: #{ga_test_code} and the endpoint is #{ga_endpoint}"
+    GoogleAnalyticsApi.new.event('instructor-recruitment', 'load-application-page', params[:ga_client_id])
+    puts "-------attempt to fire new event for loading application page"
     if current_user.nil?
         LessonMailer.track_apply_visits.deliver
       else
