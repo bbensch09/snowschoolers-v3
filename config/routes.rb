@@ -22,6 +22,7 @@ SnowSchoolers::Application.routes.draw do
   #landing page for prospective instructors
   get 'apply' => 'welcome#apply'
   get 'index' => 'welcome#index'
+  post '/notify_admin' => 'welcome#notify_admin'
   resources :instructors do
     member do
         post :verify
