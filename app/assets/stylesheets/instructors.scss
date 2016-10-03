@@ -43,6 +43,8 @@
   margin: 0 auto;
   display: block;
   max-height: 55vh;
+  max-width: 95%;
+
 }
 .recruiting-ctas{
   margin: 0 0 0 0px;
@@ -54,10 +56,6 @@
   font-size: 2em;
   line-height: 1.5;
   color: #fff;
-}
-.ski-expenses{
-    left: 90px;
-    position: relative;
 }
 .expenses-total{
   max-width: 50%;
@@ -77,4 +75,57 @@
 .why-snow-schoolers{
   max-width: 350px;
   height: 150px;
+}
+
+.btn-apply{
+    color: white;
+    background-color: #3b5998;
+}
+
+/*DESKTOP ONLY ADJUSTMENTS*/
+@media (min-width: 768px) {
+.ski-expenses{
+    left: 90px;
+    position: relative;
+}
+.hidden-unless-mobile{
+  display: none;
+  margin-top: 20px;
+}
+}
+/*MOBILE ADJUSTMENTS*/
+@media (max-width: 768px) {
+
+.hidden-unless-desktop{
+  display: none;
+}
+.recruiting-ctas {
+  font-size: 1.8em;
+}
+h2 {
+  font-size: 1.8em;
+}
+.comparison-header{
+  font-size: 1.8em;
+  }
+.comparison-subheading{
+  font-size: 1.6em;
+  margin-bottom: 5px;
+}
+.ski-expenses li {
+  font-size: 1.5em;
+}
+.expenses-total{
+  max-width: 80%;
+}
+#recruiting-Carousel{
+  height: 15vh;
+}
+.how-it-works{
+  height:100px;
+  font-size: 0.8em;
+}
+label, select{
+  font-size: 1.3em;
+}
 }

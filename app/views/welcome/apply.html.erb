@@ -7,20 +7,64 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-xs-12 white-transparent-bg">
-                    <div class="col-md-12 padding-top">
-                        <h1 class="center navy-text"> Apply Today</h1>
+                    <div class="hidden-unless-mobile col-md-12">
+
+                        <div id="recruiting-Carousel" class="carousel slide" data-ride="carousel">
+
+                          <!-- Indicators -->
+                          <ol class="carousel-indicators">
+                            <li data-target="#recruiting-Carousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#recruiting-Carousel" data-slide-to="1"></li>
+                            <li data-target="#recruiting-Carousel" data-slide-to="2"></li>
+                          </ol>
+                          <!-- Wrapper for slides -->
+                          <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                              <h1 class="navy-text center padding-top">Be your own boss. <br> Set your own schedule.</h1>
+                            </div>
+
+                            <div class="item">
+                              <h1 class="navy-text center padding-top">Earn up to $25 per hour.</h1>
+                            </div>
+
+                            <div class="item">
+                              <h1 class="navy-text center padding-top">
+                                Earn extra cash sharing your love for the mountains.
+                              </h1>
+                            </div>
+
+                          </div>
+
+                        </div>
+
+                        <div class="col-md-12 vertical-padding">
+                          <h1 class="center navy-text btn-apply btn-lg">
+                            <a href="#recruiting-learn-more"> Learn More </a>
+                          </h1>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12 padding-top hidden-unless-desktop">
+                        <h1 class="center navy-text btn-apply btn-lg"> Get Started and Apply Today</h1>
                     </div>
                     <%= render partial: 'instructors/form' %>
                 </div>
-                <div id="recruiting-cta" class="col-md-6 col-xs-12 black-transparent-bg">
-                    <h1 class="center white-text"> Transform your passion into a profession and you'll never have to "work" again.</h2>
-                    <img src="/assets/tahoe-ski-bum.jpeg" class="ski-bum-photo" alt="ski-bum-photo">
-                    <h2 class="recruiting-ctas center white-text"> Ski More - across any mountain.</h2>
-                    <h2 class="recruiting-ctas center white-text"> Earn More - $25+ per hour.</h2>
-                    <h2 class="recruiting-ctas center white-text"> Learn More - train with Tahoe's best.</h2>
+                <div id="recruiting-learn-more" class="col-md-6 col-xs-12 black-transparent-bg">
+                    <h1 class="center white-text"> Earn extra cash this winter on your own schedule.</h2>
+                    <img src="/assets/ultimate-ski-bum.jpeg" class="ski-bum-photo" alt="ski-bum-photo">
+                    <hr>
+                    <h2 class="recruiting-ctas center white-text"> Teach across any mountain.</h2>
+                    <h2 class="recruiting-ctas center white-text"> Earn up to $25+ per hour.</h2>
+                    <h2 class="recruiting-ctas center white-text"> Train along side Tahoe's finest.</h2>
                     <div id="spacer"></div>
+                    <hr>
                     <img src="/assets/Working-on-a-Mountain.png" class="ski-bum-photo" alt="ski-bum-photo">
                     <h2 class="recruiting-ctas center white-text"> #workingFromHome</h2>
+                    <hr>
+                    <h3 class="white-text center">
+                        "Find a job you love, and you will never have to work a day in your life."
+                    </h3>
+                    <h4 class="white-text center">-Confucious</h4>
                 </div>
             </div>
         </div>
@@ -35,26 +79,29 @@
             </div>
             <div class="row navy-bg">
                 <div class="col-md-6">
-                    <h2 class="center white-text"><b> Will </b> is a weekend warrior </span></h2>
+                    <h2 class="padding-top center white-text comparison-header"><b> Will </b> is a weekend warrior </span></h2>
                     <img src="/assets/will-weekend-bro.jpg" class="ski-bum-photo" alt="weekend-warrior">
-                    <h2 class="center white-text">He'll spend $1600 skiing this winter:</h2>
+                    <h2 class="center white-text comparison-subheading">He'll spend $1600 on ski trips:</h2>
                     <ul class="ski-expenses">
-                        <li>Ski Lease: ($1,050.00)</li>
-                        <li>Season pass: ($550.00) </li>
+                        <li>Lodging, food & gas: ($1,050)</li>
+                        <li>Season pass: ($550) </li>
                     </ul>
-                    <h2 class="white-transparent-bg expenses-total red bold">Total: ($1,600.00) </h2>
+                    <h2 class="white-transparent-bg expenses-total red bold">Total: ($1,600) </h2>
+                </div>
+                <div class="hidden-unless-mobile col-md-12">
+                    <hr>
                 </div>
                 <div class="col-md-6">
-                    <h2 class="center  white-text"><b> Sam </b> is with <b> Snow Schoolers </b></h2>
+                    <h2 class="padding-top center white-text comparison-header"><b> Sam </b> is with <b> Snow Schoolers </b></h2>
                     <img src="/assets/sam-Milli-Simpson-Altitude-Verbier.jpg" class="ski-bum-photo" alt="sam-snow-schoolers">
-                    <h2 class="center white-text">She'll EARN $250 this winter:</h2>
+                    <h2 class="center white-text comparison-subheading">She'll EARN $250 this winter:</h2>
                     <ul class="ski-expenses">
-                        <li>Ski Lease: ($1,050.00)</li>
+                        <li>Lodging, food & gas: ($1,050)</li>
                         <li>Season pass: FREE </li>
-                        <li>All-day private lessons (4): +$960.00 </li>
-                        <li>2hr morning privates (4): +$340.00 </li>
+                        <li>All-day private lessons (4): +$960 </li>
+                        <li>2hr morning privates (4): +$340 </li>
                     </ul>
-                    <h2 class="white-transparent-bg expenses-total green bold">Total: +$250.00 </h2>
+                    <h2 class="white-transparent-bg expenses-total green bold">Total: +$250 </h2>
                 </div>
             </div>
         </div>
@@ -74,7 +121,7 @@
         <div class="container">
             <div class="row how-it-works">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading how-it-works">Why Snow Schoolers</h2>
+                    <h2 class="section-heading how-it-works">Why Snow Schoolers?</h2>
                 </div>
             </div>
         </div>
@@ -107,7 +154,7 @@
     <section class="navy-bg small">
         <div class="container text-center">
             <div class="call-to-action">
-                   <a href="/apply" class="btn btn-primary btn-xl page-scroll">Apply Now</a>
+                   <a href="#apply" class="btn btn-primary btn-xl page-scroll">Apply Now</a>
                    <h4 class="white-text">
                     Questions or inquiries? Email us at <a href="mailto:info@snowschoolers.com">info@snowschoolers.com</a>
                    </h4>
