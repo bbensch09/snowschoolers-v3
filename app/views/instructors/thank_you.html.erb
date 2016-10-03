@@ -1,0 +1,70 @@
+<div id="middle" class="container">
+  <div class="white">
+
+    <header class="page-header">
+      <h3>Thanks for <strong>Applying!</strong> </h3>
+    </header>
+
+      <div class="row">
+
+        <div class="col-md-6" class="white-transparent-bg navy-text">
+
+          <h4>If you have not already, click below to register with Facebook.</h4>
+
+          <h2 class="center">
+                <!-- %= link_to 'Login or Register with Facebook', new_user_registration_path, class: 'btn-lg sign-up-btn' %> -->
+                  <%= link_to "Login or Register with Facebook", user_omniauth_authorize_path(:facebook), class: "btn-lg sign-up-btn" %><br />
+          </h2>
+
+          <p>Once you're registered, you can:</p>
+          <ul class="list-icon check">
+            <li>Book ski or snowboarding lessons.</li>
+            <li>Apply to become an instructor.</li>
+            <li>Keep track of your lesson history and performance.</li>
+            <li>View your Snow Schoolers information from any computer in the world.</li>
+            <li>Connect with the Snow Schoolers community.</li>
+          </ul>
+
+
+        </div>
+        <!-- /WHY? -->
+
+      </div>
+
+
+    <hr />
+
+    <!-- CALLOUT -->
+    <div class="alert alert-default fade in">
+
+      <div class="row">
+
+        <div class="col-md-9 col-sm-8"><!-- left text -->
+          <h4 class="nomargin">Contact <strong>Customer Support</strong></h4>
+          <p class="nomargin">
+            If you're looking for more help or have a question to ask, please contact us.
+          </p>
+        </div><!-- /left text -->
+
+
+        <div class="col-md-3 col-sm-4 text-right"><!-- right btn -->
+          <a href="mailto:info@snowschoolers.com" target="_blank" class="btn btn-primary btn-lg">CONTACT</a>
+        </div><!-- /right btn -->
+
+      </div>
+
+    </div>
+    <!-- /CALLOUT -->
+
+
+  </div>
+</div>
+
+
+<!-- SLIDER -->
+<img id="cycle-loader" src="/assets/spinner.gif" alt="loader" />
+
+<ul id="slider">
+  <li><img src="/assets/demo/slider/chamonix-skiing.jpg" alt="" /></li>
+</ul>
+<!-- /SLIDER

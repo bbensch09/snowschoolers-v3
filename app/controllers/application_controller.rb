@@ -12,6 +12,8 @@ def store_location
       request.path != "/users/password/edit" &&
       request.path != "/users/confirmation" &&
       request.path != "/users/sign_out" &&
+      request.path != "/apply" &&
+      request.path != "/thank_you" &&
       !request.xhr? # don't store ajax calls
       )
     session[:previous_url] = request.fullpath

@@ -1,6 +1,17 @@
 class LessonMailer < ActionMailer::Base
   default from: 'brian@snowschoolers.com'
 
+  def track_apply_visits(email="Unknown user")
+      @email = email
+      mail(to: 'brian@snowschoolers.com', subject: "#{email} is interested in applying.")
+  end
+
+  def application_begun(email="Unknown user",first_name="John", last_name="Doe")
+      @email = email
+      @name = first_name + last_name
+      mail(to: 'brian@snowschoolers.com', subject: "#{email} has begun filling out the instructor application page.")
+  end
+
   def new_user_signed_up(user)
     @user = user
     mail(to: 'brian@snowschoolers.com', subject: "A new user has registered for Snow Schoolers")

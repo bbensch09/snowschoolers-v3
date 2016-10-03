@@ -1,7 +1,7 @@
 class InstructorsController < ApplicationController
   before_action :set_instructor, only: [:show, :edit, :update, :destroy]
-  before_action :confirm_admin_permissions, except: [:create, :new, :show, :edit]
-  skip_before_action :authenticate_user!, only: [:new, :create]
+  before_action :confirm_admin_permissions, except: [:create, :new, :show, :edit, :thank_you]
+  skip_before_action :authenticate_user!, only: [:new, :create, :thank_you]
 
 
   def verify
@@ -43,6 +43,9 @@ class InstructorsController < ApplicationController
   def edit
   end
 
+  def thank_you
+  end
+
   # POST /instructors
   # POST /instructors.json
   def create
@@ -52,7 +55,7 @@ class InstructorsController < ApplicationController
 
     respond_to do |format|
       if @instructor.save
-        format.html { redirect_to root_path, notice: 'Your instructor application was successfully submitted, you will be contacted shortly. You may also reach out with questions to info@snowschoolers.com' }
+        format.html { render 'thank_you', notice: 'Your instructor application was successfully submitted, you will be contacted shortly. You may also reach out with questions to info@snowschoolers.com' }
         format.json { render action: 'show', status: :created, location: @instructor }
       else
         format.html { render action: 'new' }
