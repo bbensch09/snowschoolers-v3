@@ -42,6 +42,8 @@ class LessonsController < ApplicationController
 
   def edit
     @lesson = Lesson.find(params[:id])
+    @lesson.deposit_status = 'confirmed'
+    @lesson.save
     @lesson_time = @lesson.lesson_time
     @state = @lesson.instructor ? 'pending instructor' : 'booked'
   end
@@ -65,11 +67,9 @@ class LessonsController < ApplicationController
             :currency    => 'usd'
           )
         @lesson.deposit_status = 'confirmed'
-        # DEBUGGING NEEDED -- deposit status not being saved as confirmed unless second save, which triggers redundant email;
-        # @lesson.save
       end
+      GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-submitted', params[:ga_client_id])
       send_lesson_update_notice_to_instructor
-      GoogleAnalyticsApi.new.event('lesson-requests', 'request-submitted', params[:ga_client_id])
       flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when an instructor has been matched to your request. If it has been more than an hour since your request, please email support@snowschoolers.com.'
     else
       determine_update_state
@@ -168,6 +168,7 @@ class LessonsController < ApplicationController
     @lesson.requester = current_user
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
     @lesson.save ? (redirect_to complete_lesson_path(@lesson)) : (render :new)
+    GoogleAnalyticsApi.new.event('lesson-requests', 'request-initiated', params[:ga_client_id])
   end
 
   def send_cancellation_email_to_instructor

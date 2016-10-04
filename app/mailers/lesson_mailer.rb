@@ -31,7 +31,10 @@ class LessonMailer < ActionMailer::Base
     @lesson = lesson
     available_instructors = (lesson.available_instructors - [excluded_instructor])
     @available_instructors = []
-    available_instructors.each do |instructor|
+    #select only the first instructor in the array that is available to email.
+    instructors_to_email = available_instructors[0...1]
+    #load email addresses for instructors to email
+    instructors_to_email.each do |instructor|
       @available_instructors << instructor.user.email
     end
     mail(to: 'notify@snowschoolers.com', bcc: @available_instructors, subject: 'New Snow Schoolers lesson request')

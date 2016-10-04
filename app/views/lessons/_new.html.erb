@@ -41,6 +41,7 @@
           </div>
 
         <%= f.input :state, as: :hidden, input_html: { value: 'new' } %>
+        <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
 
         <div class="block">
           <%= f.actions do %>

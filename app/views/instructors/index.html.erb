@@ -25,7 +25,13 @@
 <!--         <td><%= instructor.first_name %></td>
         <td><%= instructor.last_name %></td> -->
         <td><%= link_to instructor.username, edit_user_registration_path(instructor.user) %></td>
-        <td><%= link_to instructor.user.email, edit_user_registration_path(instructor.user) %></td>
+        <td>
+        <% if instructor.user %>
+          <%= link_to instructor.user.email, edit_user_registration_path(instructor.user) %>
+            <% else %>
+            N/A - must link to new user.
+        <% end %>
+        </td>
         <td>
           <% instructor.locations.each do |location| %>
               <%= location.name %> <br>
@@ -35,7 +41,6 @@
         <td><%= instructor.phone_number %></td>
         <td><%= instructor.sport %></td>
         <td><%= instructor.status %></td>
-        <!-- <td><%= instructor.user.verified_instructor %></td> -->
         <% if instructor.status != "Active" %>
         <td><%= link_to 'Verify Now', verify_instructor_path(instructor), method: :post, class: 'btn btn-success' %></td>
           <% else %>
