@@ -110,7 +110,7 @@ class Lesson < ActiveRecord::Base
     #     sport = "Snowboard Instructor"
     # end
     # puts "The instructor type sought is: #{sport}"
-    eligible_resort_instructors = resort_instructors
+    eligible_resort_instructors = resort_instructors.where(status:'Active')
     # puts "Before filtering for booked lessons, there are #{eligible_resort_instructors.count} eligible instructors."
     already_booked_instructors = Lesson.booked_instructors(lesson_time)
     # puts "The number of already booked instructors is: #{already_booked_instructors.count}"
@@ -192,12 +192,14 @@ class Lesson < ActiveRecord::Base
   end
 
   def send_lesson_request_to_instructors
-    if self.active? #replace with logic that tests whether lesson is newly complete, vs. already booked, etc.
+    #currently testing just to see whether lesson is active and deposit has gone through successfully.
+    #replace with logic that tests whether lesson is newly complete, vs. already booked, etc.
+    if self.active? && self.deposit_status == 'verfied'
       LessonMailer.send_lesson_request_to_instructors(self).deliver
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
-      recipient = Instructor.first.phone_number
+      recipient = self.available_instructors.first.phone_number
       @client = Twilio::REST::Client.new account_sid, auth_token
           @client.account.messages.create({
           :to => recipient,
