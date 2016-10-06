@@ -8,7 +8,11 @@
 </p>
 <p>
   <strong>User Email:</strong>
-  <%= @instructor.user.email %>
+  <% if @instructor.user %>
+      <%= @instructor.user.email %>
+    <% else %>
+      <%= @instructor.username %>
+  <% end %>
 </p>
 <p>
   <strong>First name:</strong>
@@ -36,7 +40,7 @@
 </p>
 
 <p>
-  <strong>Beaches:</strong>
+  <strong>Resorts:</strong>
   <ul>
     <% @instructor.locations.each do |location| %>
     <li> <%= location.name %> </li>

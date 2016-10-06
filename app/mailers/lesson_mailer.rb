@@ -3,13 +3,13 @@ class LessonMailer < ActionMailer::Base
 
   def track_apply_visits(email="Unknown user")
       @email = email
-      mail(to: 'brian@snowschoolers.com', subject: "#{email} is interested in applying.")
+      mail(to: 'brian@snowschoolers.com', subject: "Pageview at /apply - #{email}.")
   end
 
   def application_begun(email="Unknown user",first_name="John", last_name="Doe")
       @email = email
       @name = first_name + last_name
-      mail(to: 'brian@snowschoolers.com', subject: "#{email} has begun filling out the instructor application page.")
+      mail(to: 'brian@snowschoolers.com', subject: "Application begun - #{email} has entered their email.")
   end
 
   def new_user_signed_up(user)
@@ -19,7 +19,7 @@ class LessonMailer < ActionMailer::Base
 
   def new_instructor_application_received(instructor)
     @instructor = instructor
-    mail(to: 'brian@snowschoolers.com', subject: "A new instructor has applied to join Snow Schoolers")
+    mail(to: 'brian@snowschoolers.com', subject: "Submitted Application: #{@instructor.username} has applied to join Snow Schoolers")
   end
 
   def subscriber_sign_up(beta_user)
