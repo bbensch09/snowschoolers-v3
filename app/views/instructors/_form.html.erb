@@ -16,7 +16,7 @@
   <% end %>
   <div class="">
     <% if current_user && current_user.email == "brian@snowschoolers.com"%>
-    <div class="col-md-16 vertical-padding">
+    <div class="col-md-12 vertical-padding">
     <h4> ADMIN ONLY: Select user email to link to instructor application.</h4>
       <%= f.select :user_id, options_from_collection_for_select(User.all, :id, :email) %>
     </div>

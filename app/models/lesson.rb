@@ -4,6 +4,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :lesson_time
   has_many :students
   has_one :transaction
+  has_many :lesson_actions
   accepts_nested_attributes_for :students, reject_if: :all_blank, allow_destroy: true
 
   validates :requested_location, :lesson_time, presence: true
@@ -99,11 +100,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def available_instructors
-    # puts "the lesson location is #{self.location}"
-    # resort = Resort.where("id = ?",self.location).first
-    # puts "the resort is #{resort.name}"
     resort_instructors = self.location.instructors
-    # puts "there are #{resort_instructors.count} total instructors at #{resort.name}."
     # if self.activity == 'Ski'
     #     sport = "Ski Instructor"
     #   else
@@ -113,8 +110,13 @@ class Lesson < ActiveRecord::Base
     eligible_resort_instructors = resort_instructors.where(status:'Active')
     # puts "Before filtering for booked lessons, there are #{eligible_resort_instructors.count} eligible instructors."
     already_booked_instructors = Lesson.booked_instructors(lesson_time)
+    declined_instructors = []
+    declined_actions = LessonAction.where(lesson_id: self.id, action:"Decline")
+    declined_actions.each do |action|
+      declined_instructors << Instructor.find(action.instructor_id)
+    end
     # puts "The number of already booked instructors is: #{already_booked_instructors.count}"
-    available_instructors = eligible_resort_instructors - already_booked_instructors
+    available_instructors = eligible_resort_instructors - already_booked_instructors - declined_instructors
     return available_instructors
   end
 
@@ -173,6 +175,29 @@ class Lesson < ActiveRecord::Base
     return booked_lessons
   end
 
+  def send_sms_to_instructor
+      account_sid = ENV['TWILIO_SID']
+      auth_token = ENV['TWILIO_AUTH']
+      snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
+      recipient = self.available_instructors.first.phone_number
+      @client = Twilio::REST::Client.new account_sid, auth_token
+          @client.account.messages.create({
+          :to => recipient,
+          :from => "#{snow_schoolers_twilio_number}",
+          :body => "#{self.available_instructors.first.first_name}, You have a new lesson request from #{self.requester.name} at #{self.start_time} on #{self.lesson_time.date} at #{self.location.name}. Are you available? Visit www.snowschoolers.com/lessons/#{self.id} to confirm the lesson."
+      })
+  end
+
+  def send_sms_to_admin
+      puts "---------Sending alert to admin that all instructors have declined a request--------"
+      @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
+          @client.account.messages.create({
+          :to => "408-315-2900",
+          :from => ENV['TWILIO_NUMBER'],
+          :body => "ALERT - no instructors are available to teach #{self.requester.name} at #{self.start_time} on #{self.lesson_time.date} at #{self.location.name}. The last person to decline was #{Instructor.find(LessonAction.last.instructor_id).username}."
+      })
+  end
+
   private
 
   def instructors_must_be_available
@@ -193,19 +218,10 @@ class Lesson < ActiveRecord::Base
 
   def send_lesson_request_to_instructors
     #currently testing just to see whether lesson is active and deposit has gone through successfully.
-    #replace with logic that tests whether lesson is newly complete, vs. already booked, etc.
-    if self.active? && self.deposit_status == 'verfied'
+    #need to replace with logic that tests whether lesson is newly complete, vs. already booked, etc.
+    if self.active? #&& self.deposit_status == 'verfied'
       LessonMailer.send_lesson_request_to_instructors(self).deliver
-      account_sid = ENV['TWILIO_SID']
-      auth_token = ENV['TWILIO_AUTH']
-      snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
-      recipient = self.available_instructors.first.phone_number
-      @client = Twilio::REST::Client.new account_sid, auth_token
-          @client.account.messages.create({
-          :to => recipient,
-          :from => "#{snow_schoolers_twilio_number}",
-          :body => "You have a new lesson request from #{self.requester.name} at #{self.start_time} on #{self.lesson_time.date} at #{self.location.name}. Are you available? Visit www.snowschoolers.com/lessons/#{self.id} to confirm the lesson."
-      })
+      self.send_sms_to_instructor
     end
   end
 

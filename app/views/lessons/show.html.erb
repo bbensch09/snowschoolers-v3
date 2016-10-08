@@ -4,6 +4,18 @@
     <header class="page-header">
       <h1>Lesson Details</h1>
     </header>
+
+    <% if current_user || current_user.email == "brian@snowschoolers.com"%>
+    <div class="col-md-12 vertical-padding">
+    <h4> (ADMIN ONLY) Eligible instructors are:</h4>
+      <ul>
+        <% @lesson.available_instructors.each do |instructor| %>
+        <li> <%= instructor.username  %> - <%= instructor.phone_number %> </li>
+      <% end %>
+      </ul>
+    </div>
+    <% end %>
+
     <% if @lesson.waiting_for_payment? && current_user == @lesson.requester %>
       <%= render partial: 'make_payment' %>
       <% elsif @lesson.waiting_for_payment? && current_user.instructor %>

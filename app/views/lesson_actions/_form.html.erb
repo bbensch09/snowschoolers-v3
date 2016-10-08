@@ -1,0 +1,11 @@
+<%= semantic_form_for @lesson_action do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :lesson_id %>
+    <%= f.input :instructor_id %>
+    <%= f.input :action, as: :select, collection: ['Accept', 'Decline'], include_blank: 'Take an action', input_html: {class: 'width100'}, required: true, label: false %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>

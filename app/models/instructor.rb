@@ -1,6 +1,7 @@
 class Instructor < ActiveRecord::Base
   belongs_to :user
   has_and_belongs_to_many :locations
+  has_many :lesson_actions
   after_create :send_admin_notification
 
   validates :username, :first_name, :last_name, :certification, :sport, :intro, presence: true

@@ -1,6 +1,5 @@
 class LessonsController < ApplicationController
   respond_to :html
-
   skip_before_action :authenticate_user!, only: [:new, :create]
   before_action :save_lesson_params_and_redirect, only: :create
   before_action :create_lesson_from_session, only: [:create, :update]
@@ -98,6 +97,23 @@ class LessonsController < ApplicationController
     @lesson.instructor_id = current_user.instructor.id
     @lesson.update(state: 'confirmed')
     LessonMailer.send_lesson_confirmation(@lesson).deliver
+    redirect_to @lesson
+  end
+
+  def decline_instructor
+    @lesson = Lesson.find(params[:id])
+    LessonAction.create!({
+      lesson_id: @lesson.id,
+      instructor_id: current_user.instructor.id,
+      action: "Decline"
+      })
+    if @lesson.available_instructors.count >= 1
+      @lesson.send_sms_to_instructor
+      else
+      @lesson.send_sms_to_admin
+    end
+    flash[:notice] = 'You have declined the request; another instructor has now been notified.'
+    # LessonMailer.send_lesson_confirmation(@lesson).deliver
     redirect_to @lesson
   end
 

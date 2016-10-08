@@ -5,7 +5,8 @@
     <tr>
 <!--       <th>First</th>
       <th>Last</th> -->
-      <th>Username</th>
+      <th>ID</th>
+      <th>Name</th>
       <th>Email</th>
       <th>Resorts</th>
       <th>Rank</th>
@@ -23,9 +24,10 @@
   <tbody>
     <% @instructors.each do |instructor| %>
       <tr>
+        <td><%= instructor.id %></td>
 <!--         <td><%= instructor.first_name %></td>
         <td><%= instructor.last_name %></td> -->
-        <td><%= link_to instructor.username, edit_user_registration_path(instructor.user) %></td>
+        <td><%= link_to "#{instructor.first_name} #{instructor.last_name}", edit_user_registration_path(instructor.user) %></td>
         <td>
         <% if instructor.user %>
           <%= link_to instructor.user.email, edit_user_registration_path(instructor.user) %>
