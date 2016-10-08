@@ -3,21 +3,38 @@
 <div id="apply" class="navy-text">
  <div>
   <%= form_for @instructor do |f| %>
+  <% if @instructor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@instructor.errors.count, "error") %> prohibited this instructor from being saved:</h2>
+
+      <ul>
+      <% @instructor.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
   <div class="">
+    <% if current_user && current_user.email == "brian@snowschoolers.com"%>
+    <div class="col-md-16 vertical-padding">
+    <h4> ADMIN ONLY: Select user email to link to instructor application.</h4>
+      <%= f.select :user_id, options_from_collection_for_select(User.all, :id, :email) %>
+    </div>
+    <% end %>
     <h4> Your Contact Info </h4>
     <div class="col-md-6 vertical-padding">
-      <%= f.text_field :first_name, placeholder: 'First name', class: 'form-control' %>
+      <%= f.text_field :first_name, placeholder: 'First name', class: 'form-control', required:true %>
     </div>
     <div class="col-md-6 vertical-padding">
-      <%= f.text_field :last_name, placeholder: 'Last name', class: 'form-control' %>
+      <%= f.text_field :last_name, placeholder: 'Last name', class: 'form-control', required:true %>
     </div>
   </div>
   <div class="">
     <div class="col-md-6 vertical-padding">
       <% if current_user %>
-      <%= f.text_field :username, placeholder: current_user.email, class: 'form-control' %>
+      <%= f.text_field :username, placeholder: current_user.email, class: 'form-control', required:true %>
         <% else %>
-              <%= f.text_field :username, placeholder: "name@example.com", class: 'form-control' %>
+              <%= f.text_field :username, placeholder: "email@example.com", class: 'form-control', required:true %>
       <% end %>
     </div>
     <div class="col-md-6 vertical-padding">
@@ -26,12 +43,12 @@
   </div>
   <h4> Where are you based? </h4>
   <div class="col-md-12">
-    <%= f.text_field :city, placeholder: 'City', class: 'form-control' %>
+    <%= f.text_field :city, placeholder: 'City', class: 'form-control', required:true %>
     <br><br>
   </div>
   <h4> What type of instructor are you? </h4>
   <div class="col-md-12">
-    <%= f.select :sport, ['Ski Instructor', 'Snowboard Instructor','Both Ski & Snowboard'], class: 'form-control' %>
+    <%= f.select :sport, ['Ski Instructor', 'Snowboard Instructor','Both Ski & Snowboard'], class: 'form-control', required:true %>
     <br><br>
   </div>
   <h4> Preferred Resorts (select up to 4)</h4>
@@ -46,12 +63,12 @@
   </div>
   <h4>Previous professional certifications (PSIA, AASI) </h4>
   <div class="col-md-12">
-    <%= f.text_field :certification, placeholder: 'Do you hold any certifications?', class: 'form-control' %>
+    <%= f.text_field :certification, placeholder: 'Do you hold any certifications?', class: 'form-control', required:true %>
     <br>
   </div>
   <h4>Why are you excited to join Snow Schoolers?</h4>
   <div class="col-md-12">
-    <%= f.text_area :intro, rows:5, placeholder: 'Describe your background in a few sentences', class: 'form-control' %>
+    <%= f.text_area :intro, rows:5, placeholder: 'Describe your background in a few sentences', class: 'form-control', required:true %>
   </div>
   <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
   <div class="row">

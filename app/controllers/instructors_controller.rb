@@ -57,6 +57,7 @@ class InstructorsController < ApplicationController
       if @instructor.save
         # ga_test_cid = params[:ga_client_id]
         # puts "The GA ga_client_id is #{ga_test_cid}."
+        session[:instructor_id] = @instructor.id
         GoogleAnalyticsApi.new.event('instructor-recruitment', 'new-application-submitted', params[:ga_client_id])
         format.html { render 'thank_you', notice: 'Your instructor application was successfully submitted, you will be contacted shortly. You may also reach out with questions to info@snowschoolers.com' }
         format.json { render action: 'show', status: :created, location: @instructor }
@@ -93,7 +94,7 @@ class InstructorsController < ApplicationController
 
   private
     def confirm_admin_permissions
-      return if current_user.email == 'brian@skischool.co' || current_user.email == 'bbensch@gmail.com'
+      return if current_user.email == 'brian@snowschoolers.com' || current_user.email == 'bbensch@gmail.com'
       redirect_to root_path, notice: 'You do not have permission to view that page.'
     end
 
@@ -104,6 +105,6 @@ class InstructorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def instructor_params
-      params.require(:instructor).permit(:first_name, :last_name, :username, :preferred_locations, :certification, :phone_number, :sport, :bio, :intro, :status, location_ids:[])
+      params.require(:instructor).permit(:first_name, :last_name, :username, :preferred_locations, :certification, :phone_number, :sport, :bio, :intro, :status, :city, :user_id, location_ids:[])
     end
 end

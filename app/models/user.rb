@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
+         :lockable, :timeoutable, :confirmable,
          :omniauthable, :omniauth_providers => [:facebook]
 
   has_many :lessons
@@ -13,6 +14,12 @@ class User < ActiveRecord::Base
       @user = User.last
       LessonMailer.new_user_signed_up(@user).deliver
       puts "an admin notification has been sent."
+  end
+
+  def self.confirm_all_users
+    User.all.each do |user|
+      user.confirm!
+    end
   end
 
   def self.instructors
@@ -34,6 +41,8 @@ class User < ActiveRecord::Base
       user.name = auth.info.name
       user.instructor = false
       user.image = auth.info.image
+      user.skip_confirmation!
+      user.save!
     end
   end
 

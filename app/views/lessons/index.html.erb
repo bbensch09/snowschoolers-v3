@@ -3,12 +3,13 @@
 <table class="instructors-table">
   <thead>
     <tr>
-      <th>Lesson ID</th>
-      <th>Lesson Details</th>
-      <th>Deposit Status</th>
+      <th>ID</th>
+      <th>Type</th>
+      <th>Deposit?</th>
+      <th>Lesson State?</th>
       <th>Requester</th>
       <th>Instructor</th>
-      <th>Beach</th>
+      <th>Mountain</th>
       <th>Date</th>
       <th>Time Slot</th>
       <th>Time Stamp</th>
@@ -21,8 +22,9 @@
     <% @lessons.each do |lesson| %>
       <tr>
         <td><%= lesson.id %></td>
-        <td><%= link_to "#{lesson.activity} lesson at #{lesson.location.name}", lesson %></td>
+        <td><%= link_to "#{lesson.activity}", lesson, class: "btn btn-default" %></td>
         <td><%= lesson.deposit_status %></td>
+        <td><%= lesson.state %></td>
         <td><%= lesson.requester.email %></td>
         <% if lesson.instructor %>
         <td><%= lesson.instructor.username %></td>
@@ -32,6 +34,7 @@
         <td><%= lesson.location.name %></td>
         <td><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
         <td><%= lesson.lesson_time.slot %></td>
+        <td><%= lesson.created_at.strftime("%m/%d/%Y at %I:%M%p") %></td>
         <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>
         <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

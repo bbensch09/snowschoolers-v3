@@ -6,7 +6,7 @@ class LessonsController < ApplicationController
   before_action :create_lesson_from_session, only: [:create, :update]
 
   def index
-    @lessons = Lesson.all
+    @lessons = Lesson.all.sort_by { |lesson| lesson.id}
   end
 
   def sugarbowl

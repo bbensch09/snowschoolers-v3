@@ -3,6 +3,7 @@ class Instructor < ActiveRecord::Base
   has_and_belongs_to_many :locations
   after_create :send_admin_notification
 
+  validates :username, :first_name, :last_name, :certification, :sport, :intro, presence: true
 
   def name
     self.first_name + " " + self.last_name
