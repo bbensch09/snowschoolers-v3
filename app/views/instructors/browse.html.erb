@@ -1,0 +1,23 @@
+<div class="container">
+
+<h1>Browse instructors</h1>
+<div class="col-md-12">
+    <% @instructors.each do |instructor| %>
+      <div class="col-md-4 col-xs-12">
+        <div class="instructor-box">
+        <h2 class="center instructor-name">
+          <%= link_to instructor.name, instructor %>
+        </h2>
+          <img src="assets/cd-sillouhete.jpg" class="instructor-photo img-circle">
+        </div>
+        <ul>
+          <li><%= instructor.city %></li>
+          <li>Certification: <%= instructor.certification %> </li>
+          <li><%= instructor.bio %> </li>
+        </ul>
+        <h3 class="center"><a href="/lessons/new" class="btn btn-primary">Book a lesson with <%=instructor.first_name %> </a></h3>
+        <hr>
+      </div>
+    <% end %>
+
+</div>

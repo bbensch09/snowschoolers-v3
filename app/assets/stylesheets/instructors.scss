@@ -81,6 +81,14 @@
     color: white;
     background-color: #3b5998;
 }
+.instructor-photo{
+  border: 1px solid #3b5998;
+  margin: auto;
+  display: block;
+}
+.instructor-name{
+  margin-bottom: 0px;
+}
 
 /*DESKTOP ONLY ADJUSTMENTS*/
 @media (min-width: 768px) {

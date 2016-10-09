@@ -13,6 +13,7 @@ SnowSchoolers::Application.routes.draw do
   # root to: "lessons#new"
   root to: "welcome#index"
 
+  get 'browse' => 'instructors#browse'
   #twilio testing
   get 'twilio/test_sms' => 'twilio#test_sms'
   #promo pages

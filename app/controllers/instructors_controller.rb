@@ -24,6 +24,12 @@ class InstructorsController < ApplicationController
     @instructors = Instructor.all.sort {|a,b| a.last_name <=> b.last_name}
   end
 
+  # GET /browse
+  # GET /browse.json
+  def browse
+    @instructors = Instructor.where(status: "Active").sort {|a,b| a.overall_initial_rank <=> b.overall_initial_rank}
+  end
+
   # GET /instructors/1
   # GET /instructors/1.json
   def show
