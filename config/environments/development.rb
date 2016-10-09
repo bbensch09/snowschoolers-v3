@@ -27,6 +27,13 @@ SnowSchoolers::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+  #PAPERCLIP AWS S3 CONFIG
+  config.paperclip_defaults = {
+  :storage => :s3,
+  :s3_host_name => 's3-us-west-2.amazonaws.com',
+  :bucket => 'citizen-debate'
+  }
+
   #GMAIL CONFIG
   config.action_mailer.default_url_options = { :host => 'snowschoolers.com' }
   config.action_mailer.delivery_method = :smtp
