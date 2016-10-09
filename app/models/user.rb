@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
     Lesson.find_lesson_times_by_requester(self)
   end
 
+  def active_instructor?
+    return true if self.instructor && self.instructor.status == "Active"
+  end
+
   # Facebook OAuth
 
   def self.find_for_facebook_oauth(auth)

@@ -77,7 +77,7 @@ class LessonsController < ApplicationController
       end
       GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-submitted', params[:ga_client_id])
       send_lesson_update_notice_to_instructor
-      flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when an instructor has been matched to your request. If it has been more than an hour since your request, please email support@snowschoolers.com.'
+      flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when your instructor confirmed your request. If it has been more than an hour since your request, please email support@snowschoolers.com.'
     else
       determine_update_state
     end
@@ -104,6 +104,11 @@ class LessonsController < ApplicationController
     @lesson = Lesson.find(params[:id])
     @lesson.instructor_id = current_user.instructor.id
     @lesson.update(state: 'confirmed')
+    LessonAction.create!({
+      lesson_id: @lesson.id,
+      instructor_id: current_user.instructor.id,
+      action: "Accept"
+      })
     LessonMailer.send_lesson_confirmation(@lesson).deliver
     redirect_to @lesson
   end
@@ -115,7 +120,10 @@ class LessonsController < ApplicationController
       instructor_id: current_user.instructor.id,
       action: "Decline"
       })
-    if @lesson.available_instructors.count >= 1
+    if @lesson.instructor
+        @lesson.send_sms_to_admin_1to1_request_failed
+        @lesson.update(state: "requested instructor not available")
+      elsif @lesson.available_instructors.count >= 1
       @lesson.send_sms_to_instructor
       else
       @lesson.send_sms_to_admin
@@ -212,12 +220,8 @@ class LessonsController < ApplicationController
       changed_attributes = @lesson.get_changed_attributes(@original_lesson)
       return unless changed_attributes.any?
 
-      if @lesson.available_instructors.include?(@lesson.instructor)
+      if @lesson.instructor_accepted?
         LessonMailer.send_lesson_update_notice_to_instructor(@original_lesson, @lesson, changed_attributes).deliver
-      else
-        @lesson.instructor = nil
-        @lesson.update(state: @lesson.available_instructors? ? 'new' : 'pending requester')
-        send_instructor_cancellation_emails
       end
     end
   end

@@ -41,7 +41,21 @@ class Lesson < ActiveRecord::Base
 
   def confirmable?
     confirmable_states = ['confirmed', 'new','booked', 'pending instructor', 'pending requester','']
-    confirmable_states.include?(state)  end
+    confirmable_states.include?(state)
+  end
+
+  def instructor_accepted?
+    LessonAction.where(action:"Accept", lesson_id: self.id).any?
+  end
+
+  def declined_instructors
+    decline_actions = LessonAction.where(action:"Decline", lesson_id: self.id)
+    declined_instructors = []
+    decline_actions.each do |action|
+      declined_instructors << Instructor.find(action.instructor_id)
+    end
+    declined_instructors
+  end
 
   def new?
     state == 'new'
@@ -100,6 +114,9 @@ class Lesson < ActiveRecord::Base
   end
 
   def available_instructors
+    if self.instructor_id
+        return [self.instructor]
+    else
     resort_instructors = self.location.instructors
     # if self.activity == 'Ski'
     #     sport = "Ski Instructor"
@@ -118,6 +135,7 @@ class Lesson < ActiveRecord::Base
     # puts "The number of already booked instructors is: #{already_booked_instructors.count}"
     available_instructors = eligible_resort_instructors - already_booked_instructors - declined_instructors
     return available_instructors
+    end
   end
 
   def available_instructors?
@@ -189,12 +207,20 @@ class Lesson < ActiveRecord::Base
   end
 
   def send_sms_to_admin
-      puts "---------Sending alert to admin that all instructors have declined a request--------"
       @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
           @client.account.messages.create({
           :to => "408-315-2900",
           :from => ENV['TWILIO_NUMBER'],
           :body => "ALERT - no instructors are available to teach #{self.requester.name} at #{self.start_time} on #{self.lesson_time.date} at #{self.location.name}. The last person to decline was #{Instructor.find(LessonAction.last.instructor_id).username}."
+      })
+  end
+
+  def send_sms_to_admin_1to1_request_failed
+      @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
+          @client.account.messages.create({
+          :to => "408-315-2900",
+          :from => ENV['TWILIO_NUMBER'],
+          :body => "ALERT - A private 1:1 request was made and declined. #{self.requester.name} had requested #{self.instructor.name} but they are unavailable at #{self.start_time} on #{self.lesson_time.date} at #{self.location.name}."
       })
   end
 

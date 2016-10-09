@@ -91,6 +91,8 @@
             <li>
             <% if current_user.instructor.nil? %>
               <%= link_to 'Become an Instructor', '/apply', class: 'sign-up-btn' %>
+              <% elsif current_user.active_instructor? %>
+                  <a href="/lessons" class="btn-success"> View Lesson & Requests </a>
               <% else %>
               <%= link_to 'Check Instructor Status', instructor_path(current_user.instructor), class: 'sign-up-btn' %>
             <% end %>
