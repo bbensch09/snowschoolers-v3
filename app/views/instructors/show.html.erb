@@ -14,8 +14,8 @@
       <%= @instructor.username %>
   <% end %>
 </p>
-<div class="col-lg-12 col-sm-12 pull-left">
-    <%= image_tag @instructor.avatar.url(:large), alt:"avatar-img", class:"img-responsive img-circle instructor-photo" %>
+<div class="col-lg-12 col-sm-12 square-image">
+    <%= image_tag @instructor.avatar.url(:large), alt:"avatar-img", class:"img-responsive img-circle instructor-photo avatar-left" %>
   </div>
 <p>
   <strong>First name:</strong>

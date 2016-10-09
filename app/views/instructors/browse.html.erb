@@ -8,12 +8,23 @@
         <h2 class="center instructor-name">
           <%= link_to instructor.name, instructor %>
         </h2>
-          <img src="assets/cd-sillouhete.jpg" class="instructor-photo img-circle">
+        <div class="square-image">
+          <% if instructor.avatar.nil? %>
+            <img src="assets/cd-sillouhete.jpg" class="instructor-photo img-circle">
+          <% else %>
+            <%= image_tag instructor.avatar.url(:large), alt:"avatar-img", class:"img-circle instructor-photo avatar-center" %>
+          <%end%>
+        </div>
         </div>
         <ul>
-          <li><%= instructor.city %></li>
-          <li>Certification: <%= instructor.certification %> </li>
+          <li><b> Location:</b> <%= instructor.city %></li>
+          <li><b> Sport: </b> <%= instructor.sport %>, <%= instructor.certification %> </li>
           <li><%= instructor.bio %> </li>
+        </ul>
+        <ul class="instructor-resorts">
+          <% instructor.locations.each do |location| %>
+            <li><%= location.name %></li>
+          <% end %>
         </ul>
         <h3 class="center"><a href="/lessons/new" class="btn sign-up-btn">Book a lesson with <%=instructor.first_name %> </a></h3>
         <hr>

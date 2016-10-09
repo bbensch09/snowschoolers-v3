@@ -83,13 +83,38 @@
 }
 .instructor-photo{
   border: 1px solid #3b5998;
-  margin: auto;
   display: block;
-  max-height: 200px;
-  max-width: 200px;
+  height: 150px;
+  max-width: 150px;
+  overflow:hidden;
+}
+.square-image{
+    position:relative;
+    overflow:hidden;
+    padding-bottom:10px;
+}
+.avatar-left{
+  margin: none ;
+}
+.avatar-center{
+  margin:auto;
 }
 .instructor-name{
   margin-bottom: 0px;
+}
+.instructor-resorts{
+  list-style: none;
+  list-style-type: none;
+}
+.instructor-resorts li {
+  float: left;
+  background-color: #3b5998;
+  text-align: center;
+  color: #fff;
+  border: solid 1px black;
+  padding: 10px;
+  margin-right :10px;
+  margin-bottom: 20px;
 }
 
 

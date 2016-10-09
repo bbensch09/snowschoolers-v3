@@ -15,17 +15,17 @@
     </div>
   <% end %>
   <div class="">
-    <% if current_user && current_user.email == "brian@snowschoolers.com"%>
+    <% if current_user && current_user.email == "brian@snowschoolers.com" && @instructor.user.nil? %>
     <div class="col-md-12 vertical-padding">
     <h4> ADMIN ONLY: Select user email to link to instructor application.</h4>
       <%= f.select :user_id, options_from_collection_for_select(User.all, :id, :email) %>
     </div>
     <% end %>
     <% if current_user %>
-    <div class="col-md-12 vertical-padding">
-      <%= f.label :avatar %><br>
-      <%= f.file_field :avatar %>
-  </div>
+      <div class="col-md-12 vertical-padding">
+        <%= f.label :avatar %><br>
+        <%= f.file_field :avatar %>
+      </div>
     <% end %>
     <h4> Your Contact Info </h4>
     <div class="col-md-6 vertical-padding">
