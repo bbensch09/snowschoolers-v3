@@ -118,13 +118,14 @@ class Lesson < ActiveRecord::Base
         return [self.instructor]
     else
     resort_instructors = self.location.instructors
-    # if self.activity == 'Ski'
-    #     sport = "Ski Instructor"
-    #   else
-    #     sport = "Snowboard Instructor"
-    # end
-    # puts "The instructor type sought is: #{sport}"
+    if self.activity == 'Ski'
+        wrong_sport = "Snowboard Instructor"
+      else
+        wrong_sport = "Ski Instructor"
+    end
     eligible_resort_instructors = resort_instructors.where(status:'Active')
+    wrong_sport_instructors = Instructor.where(sport: wrong_sport)
+    puts wrong_sport_instructors
     # puts "Before filtering for booked lessons, there are #{eligible_resort_instructors.count} eligible instructors."
     already_booked_instructors = Lesson.booked_instructors(lesson_time)
     declined_instructors = []
@@ -133,7 +134,7 @@ class Lesson < ActiveRecord::Base
       declined_instructors << Instructor.find(action.instructor_id)
     end
     # puts "The number of already booked instructors is: #{already_booked_instructors.count}"
-    available_instructors = eligible_resort_instructors - already_booked_instructors - declined_instructors
+    available_instructors = eligible_resort_instructors - already_booked_instructors - declined_instructors - wrong_sport_instructors
     return available_instructors
     end
   end

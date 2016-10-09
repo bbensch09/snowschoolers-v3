@@ -72,7 +72,7 @@
               <%= render 'student_fields', f: student %>
             <% end %>
             <div class='links'>
-              <%= link_to_add_association 'Add Student', f, :students, class: 'hidden', id:'add-student-button' %>
+              <%= link_to_add_association 'Add Student', f, :students, class: 'btn btn-default', id:'add-student-button' %>
             </div>
             <%= f.semantic_errors :students %>
           </div>
