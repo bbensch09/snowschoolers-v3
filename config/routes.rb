@@ -1,4 +1,5 @@
 SnowSchoolers::Application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
   resources :lesson_actions
 
   resources :transactions do

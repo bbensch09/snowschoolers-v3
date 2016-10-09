@@ -7,7 +7,17 @@ gem 'rails', '4.0.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.15'
 
+#twilio for SMS notifications
 gem 'twilio-ruby'
+
+#AWS SDK's for storing images
+gem 'aws-sdk-v1'
+gem 'aws-sdk', '~> 2'
+
+#Using CKeditor as the WYSIWYG editor for potential custom formatting in-line.
+gem 'ckeditor'
+#paperclip for file upload management
+gem 'paperclip'
 
 #suggested by DEVEO article re. GA server-side tracking - http://blog.deveo.com/server-side-google-analytics-event-tracking-with-rails/
 gem 'rest-client'
@@ -21,6 +31,8 @@ end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
+gem 'bootstrap-sass'
+gem 'sprockets-rails', :require => 'sprockets/railtie'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'

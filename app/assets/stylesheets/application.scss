@@ -8,9 +8,14 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require formtastic-bootstrap
- *= require jquery.ui.datepicker
- *= require jquery.timepicker.css
- *= require_self
  *= require_tree .
  */
+
+ // *= require formtastic-bootstrap
+ // *= require jquery.ui.datepicker
+ // *= require jquery.timepicker.css
+ // *= require_tree .
+ // *= require_self
+ // Custom bootstrap variables must be set or import before bootstrap itself.
+@import "bootstrap-sprockets";
+@import "bootstrap";
