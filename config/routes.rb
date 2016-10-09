@@ -14,7 +14,6 @@ SnowSchoolers::Application.routes.draw do
   # root to: "lessons#new"
   root to: "welcome#index"
 
-  get 'browse' => 'instructors#browse'
   #twilio testing
   get 'twilio/test_sms' => 'twilio#test_sms'
   #promo pages
@@ -34,6 +33,7 @@ SnowSchoolers::Application.routes.draw do
         post :revoke
       end
   end
+  get 'browse' => 'instructors#browse'
 
   resources :beta_users
 
@@ -43,6 +43,8 @@ SnowSchoolers::Application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations', omniauth_callbacks: "users/omniauth_callbacks" }
 
   resources :lessons
+  get 'new_request' => 'lessons#new_request'
+  get 'new_request/:id' => 'lessons#new_request'
   put   'lessons/:id/set_instructor'      => 'lessons#set_instructor',      as: :set_instructor
   put   'lessons/:id/decline_instructor'      => 'lessons#decline_instructor',      as: :decline_instructor
   put   'lessons/:id/remove_instructor'   => 'lessons#remove_instructor',   as: :remove_instructor

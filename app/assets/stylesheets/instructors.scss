@@ -116,6 +116,27 @@
   margin-right :10px;
   margin-bottom: 20px;
 }
+.instructor-selection{
+  position: absolute;
+  z-index: 3;
+  color: #fff;
+  bottom: 60px;
+  right: 50px;
+  max-height: 300px;
+  width:300px;
+  color:#fff !important;
+  padding:6px;
+  background:rgba(0,0,0,0.3);
+  margin:0;
+  margin-bottom:2px;
+}
+
+.browse-instructors-btn{
+  left:300px;
+  font-size: 0.9em;
+  bottom: -48px;
+  position: relative;
+}
 
 
 /*DESKTOP ONLY ADJUSTMENTS*/
@@ -165,4 +186,25 @@ h2 {
 label, select{
   font-size: 1.3em;
 }
+.browse-instructors-btn{
+  left:180px;
+  font-size: 0.9em;
+  bottom: -48px;
+  position: relative;
+}
+.instructor-selection{
+  position: absolute;
+  z-index: 3;
+  color: #fff;
+  top: 70px;
+  left: 30px;
+  max-height: 200px;
+  width:300px;
+  color:#fff !important;
+  padding:6px;
+  background:rgba(0,0,0,0.3);
+  margin:0;
+  margin-bottom:2px;
+}
+
 }

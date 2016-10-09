@@ -28,6 +28,14 @@ class LessonsController < ApplicationController
     @lesson_time = @lesson.lesson_time
   end
 
+  def new_request
+    @lesson = Lesson.new
+    @promo_location = nil
+    @instructor_requested = params[:id]
+    @lesson_time = @lesson.lesson_time
+    render 'new'
+  end
+
   def create
     create_lesson_and_redirect
   end
@@ -232,7 +240,7 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student,
+    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id,
       students_attributes: [:id, :name, :age_range, :gender, :relationship_to_requester, :lesson_history, :experience, :_destroy])
   end
 
