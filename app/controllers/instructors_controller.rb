@@ -22,7 +22,7 @@ class InstructorsController < ApplicationController
   # GET /instructors
   # GET /instructors.json
   def index
-    @instructors = Instructor.all.sort {|a,b| a.last_name <=> b.last_name}
+    @instructors = Instructor.all.sort {|a,b| b.id <=> a.id}
   end
 
   # GET /browse
