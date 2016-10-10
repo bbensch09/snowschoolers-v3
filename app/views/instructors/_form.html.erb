@@ -1,7 +1,7 @@
 
 <!-- REGISTER -->
 <div id="apply" class="navy-text">
- <div>
+ <div class="container">
   <%= form_for @instructor do |f| %>
   <% if @instructor.errors.any? %>
     <div id="error_explanation">
@@ -47,14 +47,14 @@
       <%= f.text_field :phone_number, placeholder: 'Phone number', class: 'form-control' %>
     </div>
   </div>
-  <h4> Where are you based? </h4>
-  <div class="col-md-12">
-    <%= f.text_field :city, placeholder: 'City', class: 'form-control', required:true %>
+  <div class="col-md-6">
+  <h4> In what city are you based? </h4>
+    <%= f.text_field :city, placeholder: 'i.e. Tahoe City, CA', class: 'form-control', required:true %>
     <br><br>
   </div>
-  <h4> What type of instructor are you? </h4>
-  <div class="col-md-12">
-    <%= f.select :sport, ['Ski Instructor', 'Snowboard Instructor','Both Ski & Snowboard'], class: 'form-control', required:true %>
+  <div class="col-md-6">
+  <h4> What sports do you teach? </h4>
+    <%= f.select :sport, ['Ski Instructor', 'Snowboard Instructor','Both Ski & Snowboard'], {}, {class: 'form-control', required:true} %>
     <br><br>
   </div>
   <h4> Preferred Resorts (select up to 4)</h4>
@@ -75,6 +75,11 @@
   <h4>Why are you excited to join Snow Schoolers?</h4>
   <div class="col-md-12">
     <%= f.text_area :intro, rows:5, placeholder: 'Describe your background in a few sentences', class: 'form-control', required:true %>
+    <br>
+  </div>
+  <h4>How did you first hear about Snow Schoolers?</h4>
+  <div class="col-md-6">
+    <%= f.select :how_did_you_hear, [['From a Friend',1],['Facebook',2],['Google',3],['From a Flyer',4],['Other',5]], {}, {class: 'form-control', required:true, include_blank:false} %>
   </div>
   <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
   <div class="row">

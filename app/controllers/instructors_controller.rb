@@ -1,6 +1,6 @@
 class InstructorsController < ApplicationController
   before_action :set_instructor, only: [:show, :edit, :update, :destroy]
-  before_action :confirm_admin_permissions, except: [:create, :new, :show, :edit, :thank_you]
+  before_action :confirm_admin_permissions, except: [:create, :new, :show, :edit, :thank_you, :browse]
   before_action :confirm_user_permissions, only: [:edit, :update]
   skip_before_action :authenticate_user!, only: [:new, :create, :thank_you]
 
@@ -117,6 +117,6 @@ class InstructorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def instructor_params
-      params.require(:instructor).permit(:first_name, :last_name, :username, :preferred_locations, :certification, :phone_number, :sport, :bio, :intro, :status, :city, :user_id, :avatar, location_ids:[])
+      params.require(:instructor).permit(:first_name, :last_name, :username, :preferred_locations, :certification, :phone_number, :sport, :bio, :intro, :status, :city, :user_id, :avatar, :how_did_you_hear, location_ids:[])
     end
 end
