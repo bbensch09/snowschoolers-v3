@@ -152,6 +152,10 @@ class Lesson < ActiveRecord::Base
     else
       calendar_blocks = self.find_calendar_blocks_(lesson_time)
     end
+    blocked_instructors =[]
+    calendar_blocks.each do |block|
+      blocked_instructors << Instructor.find(block.instructor_id)
+    end
   end
 
   def self.find_calendar_blocks(lesson_time)
