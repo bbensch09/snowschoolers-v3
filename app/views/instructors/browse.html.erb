@@ -26,7 +26,7 @@
             <li><%= location.name %></li>
           <% end %>
         </ul>
-        <h3 class="center"><a href="/new_request/<%=instructor.id%>" class="btn sign-up-btn">Book a lesson with <%=instructor.first_name %> </a></h3>
+        <h3 class="center"><a href="/new_request/<%=instructor.to_param%>" class="btn sign-up-btn">Book a lesson with <%=instructor.first_name %> </a></h3>
         <hr>
       </div>
     <% end %>
