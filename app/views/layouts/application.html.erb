@@ -77,17 +77,25 @@
     <div class="navbar-collapse nav-main-collapse collapse pull-right">
       <nav class="nav-main">
         <ul class="nav nav-pills nav-main scroll-menu" id="topMain">
+          <% if current_user && current_user.email == "brian@snowschoolers.com" %>
+           <!-- <li>  <a href="/"> <span class="glyphicon glyphicon glyphicon-home" aria-hidden="true"></span> </a></li> -->
+           <li> <a href="/instructors" class="btn btn-success"> View Instructors </a></li>
+           <li> <a href="/browse" class="btn btn-success"> Browse</a></li>
+          <% end %>
           <% if current_user %>
-            <% name = current_user.name.present? ? current_user.name : 'Profile' %>
-            <li>
-              <%= link_to name, edit_user_registration_path %>
-            </li>
-            <li>
+            <% name = current_user.email.present? ? current_user.email : 'Edit Profile' %>
             <% if current_user.instructor.nil? %>
-              <%= link_to 'Become an Instructor', '/apply', class: 'sign-up-btn' %>
+                <li><%= link_to name, edit_user_registration_path %></li>
+                <li><a href="/lessons" class="sign-up-btn"> My Lessons</a></li>
+                <li><a href="/browse" class="sign-up-btn">Browse by Instructors</a></li>
+                <li><%= link_to 'Apply as an Instructor', '/apply', class: 'sign-up-btn' %></li>
+              <% elsif current_user.active_instructor? %>
+                <li><%= link_to name, instructor_path(current_user.instructor) %></li>
+                <li><a href="/lessons" class="sign-up-btn"> Lessons & Requests </a></li>
+                <li><a href="/browse" class="sign-up-btn">Browse Instructors</a></li>
+                <li><a href="/calendar_blocks" class="sign-up-btn"> Manage Availability </a></li>
               <% else %>
-              <%= link_to 'Become an Instructor', '/apply', class: 'sign-up-btn' %>
-              <%= link_to 'Profile', instructor_path(current_user.instructor), class: 'sign-up-btn' %>
+                <li><%= link_to 'Check Instructor Status', instructor_path(current_user.instructor), class: 'sign-up-btn' %></li>
             <% end %>
             </li>
             <li>
@@ -99,9 +107,9 @@
                 <%= link_to 'Sign Up', new_user_registration_path(date: params[:date], slot: params[:slot]), class: 'sign-up-btn' %>
               </li>
             <% else %>
-              <li>
-                <%= link_to 'Sign Up', new_user_registration_path, class: 'sign-up-btn' %>
-              </li>
+              <!-- <li><%= link_to 'Sign Up', new_user_registration_path, class: 'sign-up-btn' %></li> -->
+          <li><a href="#" class="sign-up-btn" data-toggle="modal" data-target="#registerModal">Register</a></li>
+          <li><a href="#" class="sign-up-btn" data-toggle="modal" data-target="#loginModal">Log In</a></li>
               <li>
                 <%= link_to 'Become an Instructor', '/apply', class: 'sign-up-btn' %>
               </li>
@@ -117,6 +125,75 @@
   </div>
 </header>
 <!-- /HEADER -->
+
+<!-- Registration Modal -->
+<div class="modal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Register with Facebook, or with an email and password below.</h4>
+      </div>
+      <div class="modal-body">
+          <h3 class="center">
+            <%= link_to image_tag("fb-login.png", class:"fb-login-btn"), user_omniauth_authorize_path(:facebook) %>
+          </h3>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <%= devise_error_messages! %>
+            <div class="field center">
+              <%= f.email_field :email, placeholder: "Email", autofocus: true %>
+            </div>
+            <div class="field center">
+              <% if @minimum_password_length %>
+              <em>(<%= @minimum_password_length %> characters minimum)</em>
+              <% end %>
+              <%= f.password_field :password, placeholder: "password", autocomplete: "off" %>
+            </div>
+            <div class="field center">
+              <%= f.password_field :password_confirmation,  placeholder: "confirm password", autocomplete: "off" %>
+            </div>
+            <br>
+            <div class="actions center">
+              <%= f.submit "Register", class: "btn btn-success"%>
+            </div>
+          <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Login Modal -->
+<div class="modal" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Login with either Facebook, or your email and password.</h4>
+      </div>
+      <div class="modal-body">
+          <h3 class="center">
+            <%= link_to image_tag("fb-login.png", class:"fb-login-btn"), user_omniauth_authorize_path(:facebook) %>
+          </h3>
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="field center">
+              <%= f.email_field :email, placeholder: "Email", autofocus: true %>
+            </div>
+            <div class="field center">
+              <%= f.password_field :password, placeholder: "password", autocomplete: "off" %>
+            </div>
+            <div class="actions center">
+              <%= f.submit "Log in", class: "btn btn-success" %>
+            <% end %>
+            </div>
+            <div class="center">
+              <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+                <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
+              <% end -%>
+              <a href="#" data-toggle="modal" data-target="#registerModal">New user? First register your Account</a>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class='container'>
   <% if notice %>

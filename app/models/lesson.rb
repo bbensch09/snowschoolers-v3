@@ -4,6 +4,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :lesson_time
   has_many :students
   has_one :transaction
+  has_many :lesson_actions
   accepts_nested_attributes_for :students, reject_if: :all_blank, allow_destroy: true
 
   validates :requested_location, :lesson_time, presence: true
@@ -40,7 +41,21 @@ class Lesson < ActiveRecord::Base
 
   def confirmable?
     confirmable_states = ['confirmed', 'new','booked', 'pending instructor', 'pending requester','']
-    confirmable_states.include?(state)  end
+    confirmable_states.include?(state)
+  end
+
+  def instructor_accepted?
+    LessonAction.where(action:"Accept", lesson_id: self.id).any?
+  end
+
+  def declined_instructors
+    decline_actions = LessonAction.where(action:"Decline", lesson_id: self.id)
+    declined_instructors = []
+    decline_actions.each do |action|
+      declined_instructors << Instructor.find(action.instructor_id)
+    end
+    declined_instructors
+  end
 
   def new?
     state == 'new'
@@ -99,23 +114,32 @@ class Lesson < ActiveRecord::Base
   end
 
   def available_instructors
-    # puts "the lesson location is #{self.location}"
-    # resort = Resort.where("id = ?",self.location).first
-    # puts "the resort is #{resort.name}"
+    if self.instructor_id
+        if  Lesson.instructors_with_calendar_blocks(self.lesson_time).include?(self.instructor)
+          return []
+        else
+          return [self.instructor]
+        end
+    else
     resort_instructors = self.location.instructors
-    # puts "there are #{resort_instructors.count} total instructors at #{resort.name}."
-    # if self.activity == 'Ski'
-    #     sport = "Ski Instructor"
-    #   else
-    #     sport = "Snowboard Instructor"
-    # end
-    # puts "The instructor type sought is: #{sport}"
-    eligible_resort_instructors = resort_instructors.where(status:'Active')
-    # puts "Before filtering for booked lessons, there are #{eligible_resort_instructors.count} eligible instructors."
+    if self.activity == 'Ski'
+        wrong_sport = "Snowboard Instructor"
+      else
+        wrong_sport = "Ski Instructor"
+    end
+    active_resort_instructors = resort_instructors.where(status:'Active')
+    wrong_sport_instructors = Instructor.where(sport: wrong_sport)
     already_booked_instructors = Lesson.booked_instructors(lesson_time)
+    busy_instructors = Lesson.instructors_with_calendar_blocks(lesson_time)
+    declined_instructors = []
+    declined_actions = LessonAction.where(lesson_id: self.id, action:"Decline")
+    declined_actions.each do |action|
+      declined_instructors << Instructor.find(action.instructor_id)
+    end
     # puts "The number of already booked instructors is: #{already_booked_instructors.count}"
-    available_instructors = eligible_resort_instructors - already_booked_instructors
+    available_instructors = active_resort_instructors - already_booked_instructors - declined_instructors - wrong_sport_instructors - busy_instructors
     return available_instructors
+    end
   end
 
   def available_instructors?
@@ -124,6 +148,49 @@ class Lesson < ActiveRecord::Base
 
   def self.find_lesson_times_by_requester(user)
     self.where('requester_id = ?', user.id).map { |lesson| lesson.lesson_time }
+  end
+
+  def self.instructors_with_calendar_blocks(lesson_time)
+    if lesson_time.slot == 'Full Day'
+      calendar_blocks = self.find_all_calendar_blocks_in_day(lesson_time)
+    else
+      calendar_blocks = self.find_calendar_blocks(lesson_time)
+    end
+    blocked_instructors =[]
+    calendar_blocks.each do |block|
+      blocked_instructors << Instructor.find(block.instructor_id)
+    end
+    return blocked_instructors
+  end
+
+  def self.find_calendar_blocks(lesson_time)
+    same_slot_blocks = CalendarBlock.where(lesson_time_id:lesson_time.id, status:'Block this time slot')
+    overlapping_full_day_blocks = self.find_full_day_blocks(lesson_time)
+    return same_slot_blocks + overlapping_full_day_blocks
+  end
+
+  def self.find_full_day_blocks(lesson_time)
+    full_day_lesson_time = LessonTime.find_by_date_and_slot(lesson_time.date,'Full Day')
+    return [] if full_day_lesson_time.nil?
+    full_day_blocks = []
+    blocks_on_same_day = CalendarBlock.where(lesson_time_id:full_day_lesson_time.id, status:'Block this time slot')
+      blocks_on_same_day.each do |block|
+        full_day_blocks << block
+      end
+    return full_day_blocks
+  end
+
+  def self.find_all_calendar_blocks_in_day(lesson_time)
+    matching_lesson_times = LessonTime.where(date:lesson_time.date)
+    return [] if matching_lesson_times.nil?
+    calendar_blocks = []
+    matching_lesson_times.each do |lt|
+      blocks_at_lt = CalendarBlock.where(lesson_time_id:lt.id)
+      blocks_at_lt.each do |block|
+        calendar_blocks << block
+      end
+    end
+    return calendar_blocks
   end
 
   def self.booked_instructors(lesson_time)
@@ -173,6 +240,37 @@ class Lesson < ActiveRecord::Base
     return booked_lessons
   end
 
+  def send_sms_to_instructor
+      account_sid = ENV['TWILIO_SID']
+      auth_token = ENV['TWILIO_AUTH']
+      snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
+      recipient = self.available_instructors.first.phone_number
+      @client = Twilio::REST::Client.new account_sid, auth_token
+          @client.account.messages.create({
+          :to => recipient,
+          :from => "#{snow_schoolers_twilio_number}",
+          :body => "#{self.available_instructors.first.first_name}, You have a new lesson request from #{self.requester.name} at #{self.start_time} on #{self.lesson_time.date} at #{self.location.name}. Are you available? Visit www.snowschoolers.com/lessons/#{self.id} to confirm the lesson."
+      })
+  end
+
+  def send_sms_to_admin
+      @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
+          @client.account.messages.create({
+          :to => "408-315-2900",
+          :from => ENV['TWILIO_NUMBER'],
+          :body => "ALERT - no instructors are available to teach #{self.requester.name} at #{self.start_time} on #{self.lesson_time.date} at #{self.location.name}. The last person to decline was #{Instructor.find(LessonAction.last.instructor_id).username}."
+      })
+  end
+
+  def send_sms_to_admin_1to1_request_failed
+      @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
+          @client.account.messages.create({
+          :to => "408-315-2900",
+          :from => ENV['TWILIO_NUMBER'],
+          :body => "ALERT - A private 1:1 request was made and declined. #{self.requester.name} had requested #{self.instructor.name} but they are unavailable at #{self.start_time} on #{self.lesson_time.date} at #{self.location.name}."
+      })
+  end
+
   private
 
   def instructors_must_be_available
@@ -193,19 +291,10 @@ class Lesson < ActiveRecord::Base
 
   def send_lesson_request_to_instructors
     #currently testing just to see whether lesson is active and deposit has gone through successfully.
-    #replace with logic that tests whether lesson is newly complete, vs. already booked, etc.
-    if self.active? && self.deposit_status == 'verfied'
+    #need to replace with logic that tests whether lesson is newly complete, vs. already booked, etc.
+    if self.active? #&& self.deposit_status == 'verfied'
       LessonMailer.send_lesson_request_to_instructors(self).deliver
-      account_sid = ENV['TWILIO_SID']
-      auth_token = ENV['TWILIO_AUTH']
-      snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
-      recipient = self.available_instructors.first.phone_number
-      @client = Twilio::REST::Client.new account_sid, auth_token
-          @client.account.messages.create({
-          :to => recipient,
-          :from => "#{snow_schoolers_twilio_number}",
-          :body => "You have a new lesson request from #{self.requester.name} at #{self.start_time} on #{self.lesson_time.date} at #{self.location.name}. Are you available? Visit www.snowschoolers.com/lessons/#{self.id} to confirm the lesson."
-      })
+      self.send_sms_to_instructor
     end
   end
 

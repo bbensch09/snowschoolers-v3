@@ -1,6 +1,7 @@
 class InstructorsController < ApplicationController
   before_action :set_instructor, only: [:show, :edit, :update, :destroy]
-  before_action :confirm_admin_permissions, except: [:create, :new, :show, :edit, :thank_you]
+  before_action :confirm_admin_permissions, except: [:create, :new, :show, :edit, :thank_you, :browse]
+  before_action :confirm_user_permissions, only: [:edit, :update]
   skip_before_action :authenticate_user!, only: [:new, :create, :thank_you]
 
 
@@ -22,6 +23,12 @@ class InstructorsController < ApplicationController
   # GET /instructors.json
   def index
     @instructors = Instructor.all.sort {|a,b| a.last_name <=> b.last_name}
+  end
+
+  # GET /browse
+  # GET /browse.json
+  def browse
+    @instructors = Instructor.where(status: "Active").sort {|a,b| a.overall_initial_rank <=> b.overall_initial_rank}
   end
 
   # GET /instructors/1
@@ -57,6 +64,7 @@ class InstructorsController < ApplicationController
       if @instructor.save
         # ga_test_cid = params[:ga_client_id]
         # puts "The GA ga_client_id is #{ga_test_cid}."
+        session[:instructor_id] = @instructor.id
         GoogleAnalyticsApi.new.event('instructor-recruitment', 'new-application-submitted', params[:ga_client_id])
         format.html { render 'thank_you', notice: 'Your instructor application was successfully submitted, you will be contacted shortly. You may also reach out with questions to info@snowschoolers.com' }
         format.json { render action: 'show', status: :created, location: @instructor }
@@ -92,8 +100,13 @@ class InstructorsController < ApplicationController
   end
 
   private
+    def confirm_user_permissions
+      return if current_user.instructor == @instructor || current_user.email == 'brian@snowschoolers.com'
+      redirect_to @instructor, notice: 'You do not have permission to edit this page.'
+    end
+
     def confirm_admin_permissions
-      return if current_user.email == 'brian@skischool.co' || current_user.email == 'bbensch@gmail.com'
+      return if current_user.email == 'brian@snowschoolers.com' || current_user.email == 'bbensch@gmail.com'
       redirect_to root_path, notice: 'You do not have permission to view that page.'
     end
 
@@ -104,6 +117,6 @@ class InstructorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def instructor_params
-      params.require(:instructor).permit(:first_name, :last_name, :username, :preferred_locations, :certification, :phone_number, :sport, :bio, :intro, :status, location_ids:[])
+      params.require(:instructor).permit(:first_name, :last_name, :username, :preferred_locations, :certification, :phone_number, :sport, :bio, :intro, :status, :city, :user_id, :avatar, :how_did_you_hear, location_ids:[])
     end
 end

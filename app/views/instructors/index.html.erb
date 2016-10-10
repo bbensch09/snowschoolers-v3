@@ -1,13 +1,16 @@
-<h1>Listing instructors</h1>
+<div class="container">
+<h1>Admin View: All Instructors</h1>
 
 <table class="instructors-table">
   <thead>
     <tr>
 <!--       <th>First</th>
       <th>Last</th> -->
-      <th>Username</th>
-      <th>Email</th>
+      <th>ID</th>
+      <th>Name</th>
+      <th class="column-wrap">Email</th>
       <th>Resorts</th>
+      <th>Rank</th>
       <th>Certification</th>
       <th>Phone number</th>
       <th>Sport</th>
@@ -22,10 +25,11 @@
   <tbody>
     <% @instructors.each do |instructor| %>
       <tr>
+        <td><%= instructor.id %></td>
 <!--         <td><%= instructor.first_name %></td>
         <td><%= instructor.last_name %></td> -->
-        <td><%= link_to instructor.username, edit_user_registration_path(instructor.user) %></td>
-        <td>
+        <td><%= link_to "#{instructor.first_name} #{instructor.last_name}", edit_user_registration_path(instructor.user) %></td>
+        <td class="column-wrap">
         <% if instructor.user %>
           <%= link_to instructor.user.email, edit_user_registration_path(instructor.user) %>
             <% else %>
@@ -37,6 +41,7 @@
               <%= location.name %> <br>
           <% end %>
         </td>
+        <td><%= instructor.overall_initial_rank %></td>
         <td><%= instructor.certification %></td>
         <td><%= instructor.phone_number %></td>
         <td><%= instructor.sport %></td>
@@ -57,3 +62,4 @@
 <br>
 
 <%= link_to 'New Instructor', new_instructor_path %>
+</div>

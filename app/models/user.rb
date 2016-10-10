@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
+         :lockable, :timeoutable, :confirmable,
          :omniauthable, :omniauth_providers => [:facebook]
 
   has_many :lessons
@@ -15,12 +16,22 @@ class User < ActiveRecord::Base
       puts "an admin notification has been sent."
   end
 
+  def self.confirm_all_users
+    User.all.each do |user|
+      user.confirm!
+    end
+  end
+
   def self.instructors
     self.where('instructor = true')
   end
 
   def lesson_times
     Lesson.find_lesson_times_by_requester(self)
+  end
+
+  def active_instructor?
+    return true if self.instructor && self.instructor.status == "Active"
   end
 
   # Facebook OAuth
@@ -34,6 +45,8 @@ class User < ActiveRecord::Base
       user.name = auth.info.name
       user.instructor = false
       user.image = auth.info.image
+      user.skip_confirmation!
+      user.save!
     end
   end
 

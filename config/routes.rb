@@ -1,4 +1,9 @@
 SnowSchoolers::Application.routes.draw do
+  resources :calendar_blocks
+
+  mount Ckeditor::Engine => '/ckeditor'
+  resources :lesson_actions
+
   resources :transactions do
     member do
       post :charge_lesson
@@ -30,6 +35,7 @@ SnowSchoolers::Application.routes.draw do
         post :revoke
       end
   end
+  get 'browse' => 'instructors#browse'
 
   resources :beta_users
 
@@ -39,7 +45,10 @@ SnowSchoolers::Application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations', omniauth_callbacks: "users/omniauth_callbacks" }
 
   resources :lessons
+  get 'new_request' => 'lessons#new_request'
+  get 'new_request/:id' => 'lessons#new_request'
   put   'lessons/:id/set_instructor'      => 'lessons#set_instructor',      as: :set_instructor
+  put   'lessons/:id/decline_instructor'      => 'lessons#decline_instructor',      as: :decline_instructor
   put   'lessons/:id/remove_instructor'   => 'lessons#remove_instructor',   as: :remove_instructor
   put   'lessons/:id/mark_lesson_complete'   => 'lessons#mark_lesson_complete',   as: :mark_lesson_complete
   patch 'lessons/:id/confirm_lesson_time' => 'lessons#confirm_lesson_time', as: :confirm_lesson_time

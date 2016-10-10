@@ -78,6 +78,14 @@ SnowSchoolers::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
+
+  #PAPERCLIP AWS S3 CONFIG
+  config.paperclip_defaults = {
+  :storage => :s3,
+  :s3_host_name => 's3.amazonaws.com',
+  :bucket => 'citizen-debate'
+  }
+
   #GMAIL CONFIG
   config.action_mailer.default_url_options = { :host => 'snowschoolers.com' }
   config.action_mailer.delivery_method = :smtp

@@ -5,6 +5,29 @@
   <li>
     <!-- <img src="/assets/demo/slider/thredbo-village-resort-hero.jpg" class="bg-photo" alt="" /> -->
     <img src="/assets/demo/slider/thredbo1.jpg" class="bg-photo" alt="" />
+  <%= semantic_form_for @lesson do |f| %>
+    <% if @instructor_requested %>
+      <div class="instructor-selection">
+          <div class="block-inputs">
+            <p>
+              <div class="col-md-12">
+                <h4 class="hidden-unless-desktop">Instructor Requested:</h4>
+                  <h3>
+                    <%= link_to Instructor.find(@instructor_requested).name, Instructor.find(@instructor_requested) %>
+                  </h3>
+                  <div class="hidden">
+                    <%= f.input :instructor_id, as: :select, collection: Instructor.all.sort_by{ |instructor| instructor.name}, selected:@instructor_requested, include_blank: 'Instructor', label: false %>
+                  </div>
+                <div class="square-image">
+                  <% if Instructor.find(@instructor_requested).avatar? %>
+                    <%= image_tag Instructor.find(@instructor_requested).avatar.url(:large), alt:"avatar-img", class:"img-circle instructor-photo avatar-center" %>
+                  <%end%>
+                </div>
+              </div>
+            </p>
+          </div>
+      </div>
+    <% end %>
     <div class="caption">
 
       <div class="block">
@@ -15,7 +38,6 @@
         <p>Personalized one-on-one attention from an expert <strong>Snow Schoolers </strong> instructor is the best way to elevate your skills!</p>
       </div>
 
-      <%= semantic_form_for @lesson do |f| %>
         <%= f.semantic_errors :instructor %>
           <div class="block inputs">
             <p>
@@ -34,12 +56,12 @@
                 </div>
 
                 <div class="col-md-3">
-                  <%= lt_f.input :slot, as: :select, collection: ['Morning', 'Afternoon', 'Full Day'], include_blank: 'Length', label: false %>
+                  <%= lt_f.input :slot, as: :select, collection: ['Morning', 'Afternoon', 'Full Day'], include_blank: 'Time', label: false %>
                 </div>
-              <% end %>
             </p>
           </div>
 
+      <% end %>
         <%= f.input :state, as: :hidden, input_html: { value: 'new' } %>
         <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
 
@@ -47,6 +69,9 @@
           <%= f.actions do %>
             <%= f.action :submit, as: :input, button_html: { class: 'btn btn-primary btn-lg', value: 'Book Lesson' } %>
           <% end %>
+          <% if @instructor_requested.nil? %>
+<!--             <a href="/browse" class="browse-instructors-btn btn btn-default btn-lg">Browse by Instructors</a>
+ -->          <% end %>
         </div>
       <% end %>
     </div>

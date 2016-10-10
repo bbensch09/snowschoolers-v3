@@ -1,0 +1,34 @@
+<div class="container">
+
+<h1>Browse instructors</h1>
+<div class="col-md-12">
+    <% @instructors.each do |instructor| %>
+      <div class="col-md-4 col-lg-4 col-xs-12 instructor-box">
+        <div class="">
+        <h2 class="center instructor-name">
+          <%= link_to instructor.name, instructor %>
+        </h2>
+        <div class="square-image">
+          <% if instructor.avatar.nil? %>
+            <img src="assets/cd-sillouhete.jpg" class="instructor-photo img-circle">
+          <% else %>
+            <%= image_tag instructor.avatar.url(:large), alt:"avatar-img", class:"img-circle instructor-photo avatar-center" %>
+          <%end%>
+        </div>
+        </div>
+        <ul>
+          <li><b> Location:</b> <%= instructor.city %></li>
+          <li><b> Sport: </b> <%= instructor.sport %>, <%= instructor.certification %> </li>
+          <li><%= instructor.bio %> </li>
+        </ul>
+        <ul class="instructor-resorts">
+          <% instructor.locations.each do |location| %>
+            <li><%= location.name %></li>
+          <% end %>
+        </ul>
+        <h3 class="center"><a href="/new_request/<%=instructor.id%>" class="btn sign-up-btn">Book a lesson with <%=instructor.first_name %> </a></h3>
+        <hr>
+      </div>
+    <% end %>
+
+</div>

@@ -1,0 +1,21 @@
+<div class="container">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Calendar block created for:</strong>
+  <%= Instructor.find(@calendar_block.instructor_id).name %>
+</p>
+
+<p>
+  <strong>Time blocked:</strong>
+  <%= @calendar_block.lesson_time.date.strftime("%a, %b %d")%> - <%= @calendar_block.lesson_time.slot %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @calendar_block.status %>
+</p>
+
+<%= link_to 'Edit', edit_calendar_block_path(@calendar_block) %> |
+<%= link_to 'Back', calendar_blocks_path %>
+</div>

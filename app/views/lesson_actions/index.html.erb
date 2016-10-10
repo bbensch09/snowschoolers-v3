@@ -1,0 +1,31 @@
+<h1>Listing lesson_actions</h1>
+
+<table class="instructors-table">
+  <thead>
+    <tr>
+      <th>Lesson</th>
+      <th>Instructor</th>
+      <th>Action</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lesson_actions.each do |lesson_action| %>
+      <tr>
+        <td><%= lesson_action.lesson_id %></td>
+        <td><%= lesson_action.instructor_id %></td>
+        <td><%= lesson_action.action %></td>
+        <td><%= link_to 'Show', lesson_action %></td>
+        <td><%= link_to 'Edit', edit_lesson_action_path(lesson_action) %></td>
+        <td><%= link_to 'Destroy', lesson_action, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Lesson action', new_lesson_action_path %>

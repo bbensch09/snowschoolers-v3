@@ -1,12 +1,17 @@
 class LessonsController < ApplicationController
   respond_to :html
-
   skip_before_action :authenticate_user!, only: [:new, :create]
   before_action :save_lesson_params_and_redirect, only: :create
   before_action :create_lesson_from_session, only: [:create, :update]
 
   def index
-    @lessons = Lesson.all
+    if current_user.email == "brian@snowschoolers.com"
+      @lessons = Lesson.all.sort_by { |lesson| lesson.id}
+      elsif current_user.instructor
+        @lessons = Lesson.where(instructor_id:current_user.instructor.id).sort_by { |lesson| lesson.id}
+      else
+        @lessons = Lesson.where(requester_id:current_user.id).sort_by { |lesson| lesson.id}
+    end
   end
 
   def sugarbowl
@@ -27,6 +32,14 @@ class LessonsController < ApplicationController
     @lesson = Lesson.new
     @promo_location = nil
     @lesson_time = @lesson.lesson_time
+  end
+
+  def new_request
+    @lesson = Lesson.new
+    @promo_location = nil
+    @instructor_requested = params[:id]
+    @lesson_time = @lesson.lesson_time
+    render 'new'
   end
 
   def create
@@ -70,7 +83,7 @@ class LessonsController < ApplicationController
       end
       GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-submitted', params[:ga_client_id])
       send_lesson_update_notice_to_instructor
-      flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when an instructor has been matched to your request. If it has been more than an hour since your request, please email support@snowschoolers.com.'
+      flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when your instructor confirmed your request. If it has been more than an hour since your request, please email support@snowschoolers.com.'
     else
       determine_update_state
     end
@@ -97,7 +110,32 @@ class LessonsController < ApplicationController
     @lesson = Lesson.find(params[:id])
     @lesson.instructor_id = current_user.instructor.id
     @lesson.update(state: 'confirmed')
+    LessonAction.create!({
+      lesson_id: @lesson.id,
+      instructor_id: current_user.instructor.id,
+      action: "Accept"
+      })
     LessonMailer.send_lesson_confirmation(@lesson).deliver
+    redirect_to @lesson
+  end
+
+  def decline_instructor
+    @lesson = Lesson.find(params[:id])
+    LessonAction.create!({
+      lesson_id: @lesson.id,
+      instructor_id: current_user.instructor.id,
+      action: "Decline"
+      })
+    if @lesson.instructor
+        @lesson.send_sms_to_admin_1to1_request_failed
+        @lesson.update(state: "requested instructor not available")
+      elsif @lesson.available_instructors.count >= 1
+      @lesson.send_sms_to_instructor
+      else
+      @lesson.send_sms_to_admin
+    end
+    flash[:notice] = 'You have declined the request; another instructor has now been notified.'
+    # LessonMailer.send_lesson_confirmation(@lesson).deliver
     redirect_to @lesson
   end
 
@@ -188,12 +226,8 @@ class LessonsController < ApplicationController
       changed_attributes = @lesson.get_changed_attributes(@original_lesson)
       return unless changed_attributes.any?
 
-      if @lesson.available_instructors.include?(@lesson.instructor)
+      if @lesson.instructor_accepted?
         LessonMailer.send_lesson_update_notice_to_instructor(@original_lesson, @lesson, changed_attributes).deliver
-      else
-        @lesson.instructor = nil
-        @lesson.update(state: @lesson.available_instructors? ? 'new' : 'pending requester')
-        send_instructor_cancellation_emails
       end
     end
   end
@@ -216,7 +250,7 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student,
+    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id,
       students_attributes: [:id, :name, :age_range, :gender, :relationship_to_requester, :lesson_history, :experience, :_destroy])
   end
 
