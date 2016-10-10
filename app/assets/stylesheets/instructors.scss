@@ -42,8 +42,9 @@
 .ski-bum-photo{
   margin: 0 auto;
   display: block;
-  max-height: 55vh;
+  max-height: 50vh;
   max-width: 95%;
+  border: 1px solid #3b5998;
 
 }
 .recruiting-ctas{
@@ -141,6 +142,9 @@
   height:450px;
   border-bottom: 1px solid #3b5998;
   margin-bottom: 20px;
+}
+.why-snow-schoolers-box{
+  height:300px;
 }
 .column-wrap{
   max-width: 200px;

@@ -15,6 +15,10 @@ class Instructor < ActiveRecord::Base
     self.first_name + " " + self.last_name
   end
 
+  def to_param
+        [id, name.parameterize].join("-")
+  end
+
   def send_admin_notification
       @instructor = Instructor.last
       LessonMailer.new_instructor_application_received(@instructor).deliver
