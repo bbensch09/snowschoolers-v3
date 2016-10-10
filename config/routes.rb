@@ -1,4 +1,6 @@
 SnowSchoolers::Application.routes.draw do
+  resources :calendar_blocks
+
   mount Ckeditor::Engine => '/ckeditor'
   resources :lesson_actions
 

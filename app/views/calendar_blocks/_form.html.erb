@@ -1,0 +1,40 @@
+<div class="container">
+
+<%= semantic_form_for @calendar_block do |f| %>
+    <% if @calendar_block.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@calendar_block.errors.count, "error") %> prohibited this calendar_block from being saved:</h2>
+
+      <ul>
+      <% @calendar_block.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.inputs do %>
+      <%= f.input :instructor_id, as: :select, collection: Instructor.all.sort_by{ |instructor| instructor.name}, selected:@instructor, include_blank: 'Instructor', label: false %>
+      <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
+        <div class='row'>
+          <div class="col-md-6">
+            <label>Date</label>
+            <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker' }, placeholder: 'Pick a date', label: false, required:true %>
+            <span class="search-area-icon"></span>
+          </div>
+
+          <div class="col-md-6">
+            <label>Slot</label>
+            <%= lt_f.input :slot, as: :select, collection: ['Morning', 'Afternoon', 'Full Day'], include_blank: 'All day? Morning? Afternoon?', :input_html => { :class => 'lesson-slot-input'}, label: false, required:true %>
+          </div>
+        </div>
+      <% end %>
+      <%= f.input :status, as: :select, collection: ['Block this time slot','Mark this time slot available'], selected:'Block this time slot', label: false, required:true %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>
+
+</div>

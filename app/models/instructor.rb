@@ -2,6 +2,7 @@ class Instructor < ActiveRecord::Base
   belongs_to :user
   has_and_belongs_to_many :locations
   has_many :lesson_actions
+  has_many :calendar_blocks
   after_create :send_admin_notification
   validates :username, :first_name, :last_name, :certification, :sport, :intro, presence: true
   has_attached_file :avatar, styles: { large: "400x400>", thumb: "80x80>" },  default_url: "https://s3.amazonaws.com/snowschoolers/cd-sillouhete.jpg",

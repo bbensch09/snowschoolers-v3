@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  instructor_id: 1
+  lesson_time_id: 1
+  status: MyString
+
+two:
+  instructor_id: 1
+  lesson_time_id: 1
+  status: MyString

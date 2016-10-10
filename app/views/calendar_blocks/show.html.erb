@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Instructor:</strong>
+  <%= @calendar_block.instructor_id %>
+</p>
+
+<p>
+  <strong>Lesson time:</strong>
+  <%= @calendar_block.lesson_time_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @calendar_block.status %>
+</p>
+
+<%= link_to 'Edit', edit_calendar_block_path(@calendar_block) %> |
+<%= link_to 'Back', calendar_blocks_path %>

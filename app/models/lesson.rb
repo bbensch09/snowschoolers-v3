@@ -123,18 +123,17 @@ class Lesson < ActiveRecord::Base
       else
         wrong_sport = "Ski Instructor"
     end
-    eligible_resort_instructors = resort_instructors.where(status:'Active')
+    active_resort_instructors = resort_instructors.where(status:'Active')
     wrong_sport_instructors = Instructor.where(sport: wrong_sport)
-    puts wrong_sport_instructors
-    # puts "Before filtering for booked lessons, there are #{eligible_resort_instructors.count} eligible instructors."
     already_booked_instructors = Lesson.booked_instructors(lesson_time)
+    busy_instructors = Lesson.instructors_with_calendar_blocks(lesson_time)
     declined_instructors = []
     declined_actions = LessonAction.where(lesson_id: self.id, action:"Decline")
     declined_actions.each do |action|
       declined_instructors << Instructor.find(action.instructor_id)
     end
     # puts "The number of already booked instructors is: #{already_booked_instructors.count}"
-    available_instructors = eligible_resort_instructors - already_booked_instructors - declined_instructors - wrong_sport_instructors
+    available_instructors = active_resort_instructors - already_booked_instructors - declined_instructors - wrong_sport_instructors - busy_instructors
     return available_instructors
     end
   end
@@ -145,6 +144,43 @@ class Lesson < ActiveRecord::Base
 
   def self.find_lesson_times_by_requester(user)
     self.where('requester_id = ?', user.id).map { |lesson| lesson.lesson_time }
+  end
+
+  def self.instructors_with_calendar_blocks(lesson_time)
+    if lesson_time.slot == 'Full Day'
+      calendar_blocks = self.find_all_calendar_blocks_in_day(lesson_time)
+    else
+      calendar_blocks = self.find_calendar_blocks_(lesson_time)
+    end
+  end
+
+  def self.find_calendar_blocks(lesson_time)
+    same_slot_blocks = CalendarBlock.where(lesson_time_id:lesson_time.id, status:'Block this time slot')
+    overlapping_full_day_blocks = self.find_full_day_blocks(lesson_time)
+    return same_slot_blocks + overlapping_full_day_blocks
+  end
+
+  def self.find_full_day_blocks(lesson_time)
+    full_day_lesson_time = LessonTime.find_by_date_and_slot(lesson_time.date,'Full Day')
+    return [] if full_day_lesson_time.nil?
+    full_day_blocks = []
+    blocks_on_same_day = CalendarBlock.where(lesson_time_id:full_day_lesson_time.id, status:'Block this time slot')
+      blocks_on_same_day.each do |block|
+        full_day_blocks << block
+      end
+    return full_day_blocks
+  end
+
+  def self.find_all_calendar_blocks_in_day(lesson_time)
+    matching_lesson_times = LessonTime.where(date:lesson_time.date)
+    return [] if matching_lesson_times.nil?
+    calendar_blocks = []
+    matching_lesson_times.each do |lt|
+      blocks_at_lt = CalendarBlock.where(lesson_time_id:lt.id)
+      blocks_at_lt.each do |block|
+        calendar_blocks << block
+      end
+    end
   end
 
   def self.booked_instructors(lesson_time)
