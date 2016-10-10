@@ -1,6 +1,7 @@
 class InstructorsController < ApplicationController
   before_action :set_instructor, only: [:show, :edit, :update, :destroy]
   before_action :confirm_admin_permissions, except: [:create, :new, :show, :edit, :thank_you]
+  before_action :confirm_user_permissions, only: [:edit, :update]
   skip_before_action :authenticate_user!, only: [:new, :create, :thank_you]
 
 
@@ -99,6 +100,11 @@ class InstructorsController < ApplicationController
   end
 
   private
+    def confirm_user_permissions
+      return if current_user.instructor == @instructor || current_user.email == 'brian@snowschoolers.com'
+      redirect_to @instructor, notice: 'You do not have permission to edit this page.'
+    end
+
     def confirm_admin_permissions
       return if current_user.email == 'brian@snowschoolers.com' || current_user.email == 'bbensch@gmail.com'
       redirect_to root_path, notice: 'You do not have permission to view that page.'

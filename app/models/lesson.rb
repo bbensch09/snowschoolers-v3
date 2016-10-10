@@ -115,7 +115,11 @@ class Lesson < ActiveRecord::Base
 
   def available_instructors
     if self.instructor_id
-        return [self.instructor]
+        if  Lesson.instructors_with_calendar_blocks(self.lesson_time).include?(self.instructor)
+          return []
+        else
+          return [self.instructor]
+        end
     else
     resort_instructors = self.location.instructors
     if self.activity == 'Ski'
@@ -150,12 +154,13 @@ class Lesson < ActiveRecord::Base
     if lesson_time.slot == 'Full Day'
       calendar_blocks = self.find_all_calendar_blocks_in_day(lesson_time)
     else
-      calendar_blocks = self.find_calendar_blocks_(lesson_time)
+      calendar_blocks = self.find_calendar_blocks(lesson_time)
     end
     blocked_instructors =[]
     calendar_blocks.each do |block|
       blocked_instructors << Instructor.find(block.instructor_id)
     end
+    return blocked_instructors
   end
 
   def self.find_calendar_blocks(lesson_time)
@@ -185,6 +190,7 @@ class Lesson < ActiveRecord::Base
         calendar_blocks << block
       end
     end
+    return calendar_blocks
   end
 
   def self.booked_instructors(lesson_time)

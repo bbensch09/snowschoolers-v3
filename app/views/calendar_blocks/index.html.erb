@@ -4,9 +4,10 @@
 <table class="instructors-table">
   <thead>
     <tr>
-      <th>ID</th>
+<!--       <th>ID</th>
       <th>Instructor</th>
-      <th>Lesson time ID</th>
+      <th>Lesson time ID</th> -->
+      <th>Instructor</th>
       <th>Date blocked</th>
       <th>Slot blocked</th>
       <th>Status</th>
@@ -19,10 +20,11 @@
   <tbody>
     <% @calendar_blocks.each do |calendar_block| %>
       <tr>
-        <td><%= calendar_block.id %></td>
+<!--         <td><%= calendar_block.id %></td>
         <td><%= calendar_block.instructor_id %></td>
-        <td><%= calendar_block.lesson_time_id %></td>
-        <td><%= calendar_block.lesson_time.date %></td>
+        <td><%= calendar_block.lesson_time_id %></td> -->
+        <td><%= Instructor.find(calendar_block.instructor_id).name %></td>
+        <td><%= calendar_block.lesson_time.date.strftime("%a, %b %d") %></td>
         <td><%= calendar_block.lesson_time.slot %></td>
         <td><%= calendar_block.status %></td>
         <td><%= link_to 'Show', calendar_block %></td>

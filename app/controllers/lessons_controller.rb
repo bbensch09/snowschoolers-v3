@@ -5,7 +5,13 @@ class LessonsController < ApplicationController
   before_action :create_lesson_from_session, only: [:create, :update]
 
   def index
-    @lessons = Lesson.all.sort_by { |lesson| lesson.id}
+    if current_user.email == "brian@snowschoolers.com"
+      @lessons = Lesson.all.sort_by { |lesson| lesson.id}
+      elsif current_user.instructor
+        @lessons = Lesson.where(instructor_id:current_user.instructor.id).sort_by { |lesson| lesson.id}
+      else
+        @lessons = Lesson.where(requester_id:current_user.id).sort_by { |lesson| lesson.id}
+    end
   end
 
   def sugarbowl

@@ -4,7 +4,11 @@ class CalendarBlocksController < ApplicationController
   # GET /calendar_blocks
   # GET /calendar_blocks.json
   def index
-    @calendar_blocks = CalendarBlock.all
+    if current_user.email == "brian@snowschoolers.com"
+      @calendar_blocks = CalendarBlock.all.sort{ |a,b| a.lesson_time.date <=> b.lesson_time.date}
+      else
+      @calendar_blocks = CalendarBlock.where(instructor_id:current_user.instructor.id).sort{ |a,b| a.lesson_time.date <=> b.lesson_time.date}
+    end
   end
 
   # GET /calendar_blocks/1
