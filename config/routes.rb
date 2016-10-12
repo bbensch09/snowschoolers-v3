@@ -47,6 +47,7 @@ SnowSchoolers::Application.routes.draw do
   get 'users/:id' => 'welcome#admin_show_user', as: :user
   put 'users/:id' => 'welcome#admin_update_user'
   patch 'users/:id' => 'welcome#admin_update_user'
+  delete 'users/:id' => 'welcome#admin_destroy', as: :admin_destroy
 
 
   resources :lessons

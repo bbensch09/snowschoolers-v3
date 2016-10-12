@@ -1,5 +1,5 @@
 <div class="container">
-<h1>Admin View: All Instructors</h1>
+<h1>Admin View: All Instructors | <%= link_to "Manage Users", admin_users_path %> </h1>
 <h4>Total instructor count: <%= Instructor.count - 1 %> </h4>
 <h4>Skiers: <%= Instructor.where(sport:"Ski Instructor").count - 1 %> </h4>
 <h4>Snowboarders: <%= Instructor.where(sport:"Snowboard Instructor").count %> </h4>

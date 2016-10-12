@@ -1,8 +1,8 @@
 
 class WelcomeController < ApplicationController
     skip_before_action :authenticate_user!
-    # before_action :confirm_admin_permissions, only: [:admin_users]
-    before_action :set_user, only: [:admin_edit, :admin_show_user, :admin_update_user]
+    before_action :confirm_admin_permissions, only: [:admin_users,:admin_edit, :admin_destroy]
+    before_action :set_user, only: [:admin_edit, :admin_show_user, :admin_update_user, :admin_destroy]
     include ApplicationHelper
 
   def index
@@ -17,27 +17,9 @@ class WelcomeController < ApplicationController
   def admin_edit
   end
 
-  def admin_update_user1
-      puts "--------the user_params are #{user_params}"
-        # @user.email = params[:user][:email]
-        # @user.user_type = params[:user][:user_type]
-        # @user.location_id = params[:user][:location_id]
-      if @user.update(user_params)
-        redirect_to admin_users_path, notice: 'User was successfully updated.'
-      else
-        redirect_to admin_edit_user_path(@user), notice: "Unsuccessful. Error: #{@user.errors.full_messages}"
-      end
-  end
-
   def admin_update_user
-    if user_params[:password].blank?
-      Rails.logger.info "entered if statement"
-      user_params.delete :password
-      user_params.delete :password_confirmation
-      Rails.logger.info("Inspect Params #{user_params.inspect}")
-    end
     if @user.update(user_params)
-      redirect_to @user, notice: 'Did not hit user error. Successfully updated?'
+        redirect_to admin_users_path, notice: 'User was successfully updated. If email was changed, it will need to be confirmed.'
     else
       Rails.logger.info(@user.errors.inspect)
       redirect_to admin_edit_user_path(@user), notice: "Unsuccessful. Error: #{@user.errors.full_messages}"
@@ -47,6 +29,11 @@ class WelcomeController < ApplicationController
   def admin_show_user
     redirect_to admin_users_path
   end
+
+   def admin_destroy
+    @user.destroy
+    redirect_to admin_users_path
+   end
 
 
   def apply

@@ -21,11 +21,11 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= user.id %></td>
-        <td><%= link_to "#{user.email}", "/user_path" %></td>
+        <td><%=  user.email %></td>
         <td><%= user.user_type %></td>
         <td> <% if user.location %> <%= user.location.name%> <%end%></td>
         <td><%= link_to 'Edit', admin_edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', 'destroy_user_path', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', admin_destroy_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
