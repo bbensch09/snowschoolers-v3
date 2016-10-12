@@ -1,0 +1,45 @@
+ <div class="container">
+    <%= form_for @user do |f| %>
+        <% if @user.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+            <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <div class="col-md-12">
+          <h4>User <strong>Info</strong></h4>
+
+            <div class="form-group">
+              <div class="col-md-3">
+                <span> <%= @user.email %></span>
+<!--                 <%= f.email_field :email, class: 'form-control' %>
+ -->              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-3">
+                <h4>User sign up date:</h4>
+                <%= @user.created_at %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-3">
+                <%= f.label :user_type %><br />
+                <%= f.select :user_type, ['Normal', 'Employee','Partner'], {selected:'Normal'}, {class: 'form-control', include_blank:false, required:true} %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-3">
+                <%= f.label :resort_affiliation %><br />
+                <%= f.select :location_id, options_from_collection_for_select(Location.all, :id, :name), {selected:Location.first}, {include_blank:false,class: 'form-control', required:true} %>
+              </div>
+            </div>
+
+        <%= f.submit "Update User", class: "btn btn-primary btn-xl page-scroll pull-right push-bottom" %>
+      <% end %>
+      <%= link_to 'Back to All Users', admin_users_path, class:'btn btn-default' %>
+</div>

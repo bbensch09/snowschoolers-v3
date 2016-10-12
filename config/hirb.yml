@@ -11,12 +11,6 @@
         - sport
         - status
 
-  User:
-    :options:
-      :fields:
-        - id
-        - email
-        - verified_instructor
 
   Lesson:
     :options:

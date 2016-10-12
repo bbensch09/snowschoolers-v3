@@ -4,9 +4,12 @@ class User < ActiveRecord::Base
          :lockable, :timeoutable, :confirmable,
          :omniauthable, :omniauth_providers => [:facebook]
 
+validates :password, presence: false
+
   has_many :lessons
   has_many :transactions
   has_one :instructor
+  belongs_to :location
   has_many :lesson_times, through: :lessons
   after_create :send_admin_notification
 
