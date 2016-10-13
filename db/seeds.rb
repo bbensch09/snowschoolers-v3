@@ -44,7 +44,7 @@ Instructor.create!({
   certification: "Level 4000 FTW!",
   intro: "I want to teach for Snow Schoolers!!!!",
   bio: "I am the best instructor on the mountain. period.",
-  location_ids: [1,2], #just Alta & Bear Valley
+  location_ids: [6,2], #just Alta & Bear Valley
   # location_ids: [1,2,3,4,5,6,7,8,9,10,11,12],
   adults_initial_rank: rand(1..10),
   kids_initial_rank: rand(1..10),

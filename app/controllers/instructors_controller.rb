@@ -23,7 +23,7 @@ class InstructorsController < ApplicationController
   # GET /instructors.json
   def index
     if current_user.user_type == "Partner"
-      @instructors = Instructor.all.sort {|a,b| b.id <=> a.id}
+      @instructors = Location.find(current_user.location_id).instructors.sort {|a,b| b.overall_initial_rank <=> a.overall_initial_rank}
       else
       @instructors = Instructor.all.sort {|a,b| b.id <=> a.id}
     end
@@ -114,7 +114,7 @@ class InstructorsController < ApplicationController
     end
 
     def confirm_admin_permissions
-      return if current_user.email == 'brian@snowschoolers.com' || current_user.email == 'bbensch@gmail.com'
+      return if current_user.email == 'brian@snowschoolers.com' || current_user.email == 'bbensch@gmail.com' || current_user.user_type == "Partner"
       redirect_to root_path, notice: 'You do not have permission to view that page.'
     end
 

@@ -1,6 +1,6 @@
 <div class="container">
 
-<%if current_user && current_user.user_type == "Employee" %>
+<%if current_user && current_user.user_type == "Employee" || current_user.email == "brian@snowschoolers.com" %>
     <%= link_to "View Detailed Info for All Instructors (Recruiting)", "/admin_index", class: 'btn btn-primary' %>
 <%end%>
 
@@ -20,7 +20,7 @@
       <th>Rank</th>
       <th>Certification</th>
       <th>Sport</th>
-      <th>Active Status?</th>
+      <th>Status?</th>
       <th>Admin Actions</th>
       <!-- <th>Verified Instructor?</th> -->
       <th></th>
@@ -33,7 +33,7 @@
     <% @instructors.each do |instructor| %>
       <tr>
         <!-- <td><%= instructor.id %></td> -->
-        <td> <%= image_tag instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail" %> </td>
+        <td> <%= link_to image_tag(instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail"), edit_instructor_path(instructor) %> </td>
         <td><%= link_to "#{instructor.name}", edit_instructor_path(instructor) %></td>
         <!-- <td>
           <% instructor.locations.each do |location| %>
@@ -44,7 +44,7 @@
         <td><%= instructor.overall_initial_rank %></td>
         <td><%= instructor.certification %></td>
         <td><%= instructor.sport %></td>
-        <td><%= instructor.status %></td>
+        <td>Currently <%= instructor.status %></td>
         <% if instructor.status != "Active" %>
         <td><%= link_to 'Activate', verify_instructor_path(instructor), method: :post, class: 'btn btn-success' %></td>
           <% else %>
