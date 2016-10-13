@@ -7,15 +7,14 @@
   <thead>
     <tr>
       <th>ID</th>
+      <th>Instructor</th>
       <th>Type</th>
       <!-- <th>Deposit?</th> -->
-      <th>Lesson State?</th>
-      <th>Requester</th>
-      <th>Instructor</th>
-      <th>Mountain</th>
+      <th>Student</th>
+      <!-- <th>Mountain</th> -->
+      <th>Start Time</th>
       <th>Date</th>
-      <th>Time Slot</th>
-      <th>Time Stamp</th>
+      <th>Status</th>
       <th></th>
       <th></th>
     </tr>
@@ -25,20 +24,20 @@
     <% @lessons.each do |lesson| %>
         <% if lesson.completed? %>
           <tr>
-            <td><%= lesson.id %></td>
-            <td><%= link_to "#{lesson.activity}", lesson, class: "btn btn-default" %></td>
-            <!-- <td><%= lesson.deposit_status %></td> -->
-            <td><%= lesson.state %></td>
-            <td><%= lesson.requester.email %></td>
             <% if lesson.instructor %>
-            <td><%= lesson.instructor.username %></td>
+            <td><%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td>
+            <td><%= lesson.instructor.name %></td>
             <% else %>
             <td>"TBD"</td>
+            <td>"TBD"</td>
             <% end %>
-            <td><%= lesson.location.name %></td>
+            <td><%= link_to "#{lesson.activity}", lesson, class: "btn btn-default" %></td>
+            <!-- <td><%= lesson.deposit_status %></td> -->
+            <td><%= lesson.requester.name %></td>
+            <!-- <td><%= lesson.location.name %></td> -->
+            <td><%= lesson.start_time %></td>
             <td><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
-            <td><%= lesson.lesson_time.slot %></td>
-            <td><%= lesson.created_at.strftime("%m/%d/%Y at %I:%M%p") %></td>
+            <td><%= lesson.state %></td>
             <td></td>
             <td></td>
             <!-- <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td> -->
@@ -58,15 +57,14 @@
   <thead>
     <tr>
       <th>ID</th>
+      <th>Instructor</th>
       <th>Type</th>
       <!-- <th>Deposit?</th> -->
-      <th>Lesson State?</th>
-      <th>Requester</th>
-      <th>Instructor</th>
-      <th>Mountain</th>
+      <th>Student</th>
+      <!-- <th>Mountain</th> -->
+      <th>Start Time</th>
       <th>Date</th>
-      <th>Time Slot</th>
-      <th>Time Stamp</th>
+      <th>Status</th>
       <th></th>
       <th></th>
     </tr>
@@ -76,20 +74,20 @@
     <% @lessons.each do |lesson| %>
         <% if lesson.active_today? %>
           <tr>
-            <td><%= lesson.id %></td>
-            <td><%= link_to "#{lesson.activity}", lesson, class: "btn btn-default" %></td>
-            <!-- <td><%= lesson.deposit_status %></td> -->
-            <td><%= lesson.state %></td>
-            <td><%= lesson.requester.email %></td>
             <% if lesson.instructor %>
-            <td><%= lesson.instructor.username %></td>
+            <td><%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td>
+            <td><%= lesson.instructor.name %></td>
             <% else %>
             <td>"TBD"</td>
+            <td>"TBD"</td>
             <% end %>
-            <td><%= lesson.location.name %></td>
+            <td><%= link_to "#{lesson.activity}", lesson, class: "btn btn-default" %></td>
+            <!-- <td><%= lesson.deposit_status %></td> -->
+            <td><%= lesson.requester.name %></td>
+            <!-- <td><%= lesson.location.name %></td> -->
+            <td><%= lesson.start_time %></td>
             <td><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
-            <td><%= lesson.lesson_time.slot %></td>
-            <td><%= lesson.created_at.strftime("%m/%d/%Y at %I:%M%p") %></td>
+            <td><%= lesson.state %></td>
             <td></td>
             <td></td>
             <!-- <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td> -->
@@ -111,15 +109,14 @@
   <thead>
     <tr>
       <th>ID</th>
+      <th>Instructor</th>
       <th>Type</th>
       <!-- <th>Deposit?</th> -->
-      <th>Lesson State?</th>
-      <th>Requester</th>
-      <th>Instructor</th>
-      <th>Mountain</th>
+      <th>Student</th>
+      <!-- <th>Mountain</th> -->
+      <th>Start Time</th>
       <th>Date</th>
-      <th>Time Slot</th>
-      <th>Time Stamp</th>
+      <th>Status</th>
       <th></th>
       <th></th>
     </tr>
@@ -129,20 +126,20 @@
     <% @lessons.each do |lesson| %>
         <% if lesson.active_next_7_days? %>
           <tr>
-            <td><%= lesson.id %></td>
-            <td><%= link_to "#{lesson.activity}", lesson, class: "btn btn-default" %></td>
-            <!-- <td><%= lesson.deposit_status %></td> -->
-            <td><%= lesson.state %></td>
-            <td><%= lesson.requester.email %></td>
             <% if lesson.instructor %>
-            <td><%= lesson.instructor.username %></td>
+            <td><%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td>
+            <td><%= lesson.instructor.name %></td>
             <% else %>
             <td>"TBD"</td>
+            <td>"TBD"</td>
             <% end %>
-            <td><%= lesson.location.name %></td>
+            <td><%= link_to "#{lesson.activity}", lesson, class: "btn btn-default" %></td>
+            <!-- <td><%= lesson.deposit_status %></td> -->
+            <td><%= lesson.requester.name %></td>
+            <!-- <td><%= lesson.location.name %></td> -->
+            <td><%= lesson.start_time %></td>
             <td><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
-            <td><%= lesson.lesson_time.slot %></td>
-            <td><%= lesson.created_at.strftime("%m/%d/%Y at %I:%M%p") %></td>
+            <td><%= lesson.state %></td>
             <td></td>
             <td></td>
             <!-- <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td> -->

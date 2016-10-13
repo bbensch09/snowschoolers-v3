@@ -41,3 +41,22 @@
   line-height: 1.6;
 }
 }
+
+/*MOBILE ADJUSTMENTS*/
+@media (max-width: 768px) {
+.instructors-table{
+  padding: 2 2 2 2px;
+  border: 1px solid gray;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.instructors-table tbody tr td, .instructors-table thead tr th {
+    padding-left: 20px;
+    font-size: 0.8em;
+}
+.instructors-table thead {
+  font-size: 1.2em;
+  border: 1px solid gray;
+  background-color: rgba(0,60,128,0.3);
+}
+}
