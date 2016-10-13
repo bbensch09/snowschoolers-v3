@@ -22,7 +22,15 @@ class InstructorsController < ApplicationController
   # GET /instructors
   # GET /instructors.json
   def index
-    @instructors = Instructor.all.sort {|a,b| b.id <=> a.id}
+    if current_user.user_type == "Partner"
+      @instructors = Instructor.all.sort {|a,b| b.id <=> a.id}
+      else
+      @instructors = Instructor.all.sort {|a,b| b.id <=> a.id}
+    end
+  end
+
+  def admin_index
+     @instructors = Instructor.all.sort {|a,b| b.id <=> a.id}
   end
 
   # GET /browse

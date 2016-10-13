@@ -1,9 +1,5 @@
 <div class="container">
-
-<%if current_user && current_user.user_type == "Employee" %>
-    <%= link_to "View Detailed Info for All Instructors (Recruiting)", "/admin_index", class: 'btn btn-primary' %>
-<%end%>
-
+<h1>Admin View: All Instructors | <%= link_to "Manage Users", admin_users_path %> </h1>
 <h4>Total instructor count: <%= Instructor.count - 1 %> </h4>
 <h4>Skiers: <%= Instructor.where(sport:"Ski Instructor").count - 1 %> </h4>
 <h4>Snowboarders: <%= Instructor.where(sport:"Snowboard Instructor").count %> </h4>
@@ -13,15 +9,15 @@
     <tr>
 <!--       <th>First</th>
       <th>Last</th> -->
-      <!-- <th>ID</th> -->
-      <th></th>
+      <th>ID</th>
       <th>Name</th>
-      <th>Resort</th>
+      <th class="column-wrap">Email</th>
+      <th>Resorts</th>
       <th>Rank</th>
       <th>Certification</th>
+      <th>Phone number</th>
       <th>Sport</th>
       <th>Active Status?</th>
-      <th>Admin Actions</th>
       <!-- <th>Verified Instructor?</th> -->
       <th></th>
       <th></th>
@@ -32,9 +28,17 @@
   <tbody>
     <% @instructors.each do |instructor| %>
       <tr>
-        <!-- <td><%= instructor.id %></td> -->
-        <td> <%= image_tag instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail" %> </td>
-        <td><%= link_to "#{instructor.name}", edit_instructor_path(instructor) %></td>
+        <td><%= instructor.id %></td>
+<!--         <td><%= instructor.first_name %></td>
+        <td><%= instructor.last_name %></td> -->
+        <td><%= link_to "#{instructor.first_name} #{instructor.last_name}", edit_user_registration_path(instructor.user) %></td>
+        <td class="column-wrap">
+        <% if instructor.user %>
+          <%= link_to instructor.user.email, edit_user_registration_path(instructor.user) %>
+            <% else %>
+            N/A - must link to new user.
+        <% end %>
+        </td>
         <!-- <td>
           <% instructor.locations.each do |location| %>
               <%= location.name %> <br>
@@ -43,17 +47,23 @@
         <td><%= instructor.locations.first.name %></td>
         <td><%= instructor.overall_initial_rank %></td>
         <td><%= instructor.certification %></td>
+        <td><%= instructor.phone_number %></td>
         <td><%= instructor.sport %></td>
         <td><%= instructor.status %></td>
         <% if instructor.status != "Active" %>
-        <td><%= link_to 'Activate', verify_instructor_path(instructor), method: :post, class: 'btn btn-success' %></td>
+        <td><%= link_to 'Verify Now', verify_instructor_path(instructor), method: :post, class: 'btn btn-success' %></td>
           <% else %>
         <td><%= link_to 'Revoke', revoke_instructor_path(instructor), method: :post, class: 'btn btn-danger' %></td>
         <% end %>
+        <td><%= link_to 'Show', instructor %></td>
+        <td><%= link_to 'Edit', edit_instructor_path(instructor) %></td>
+        <td><%= link_to 'Destroy', instructor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
+
+<%= link_to 'New Instructor', new_instructor_path %>
 </div>

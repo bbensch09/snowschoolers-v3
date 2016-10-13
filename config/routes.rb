@@ -35,6 +35,7 @@ SnowSchoolers::Application.routes.draw do
         post :revoke
       end
   end
+  get '/admin_index' => 'instructors#admin_index'
   get 'browse' => 'instructors#browse'
 
   resources :beta_users
