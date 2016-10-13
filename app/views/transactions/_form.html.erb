@@ -6,7 +6,7 @@
     <%= f.input :lesson_id, :input_html => {value: @lesson.id, class: 'hidden'}, label: false %>
     <%= f.input :requester_id, :input_html => {value: @lesson.requester.id, class: 'hidden'}, label: false %>
     <%= f.input :base_amount, :input_html => {value: @lesson.price, class: 'hidden'}, label: false %>
-<h3>Hourly rate: <%= number_to_currency(75) %> </h3>
+<!-- <h3>Hourly rate: <%= number_to_currency(75) %> </h3> -->
 <h3>
   Lesson Fee: <%= number_to_currency(@lesson.price) %>
 </h3>

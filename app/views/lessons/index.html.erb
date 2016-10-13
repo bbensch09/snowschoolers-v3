@@ -28,10 +28,10 @@
             <td><%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td>
             <td><%= lesson.instructor.name %></td>
             <% else %>
-            <td>"TBD"</td>
-            <td>"TBD"</td>
+            <td></td>
+            <td>TBD</td>
             <% end %>
-            <td><%= link_to "#{lesson.activity}", lesson, class: "btn btn-default" %></td>
+            <td><%= link_to "#{lesson.lesson_time.slot}", lesson, class: "btn btn-default" %></td>
             <!-- <td><%= lesson.deposit_status %></td> -->
             <td><%= lesson.requester.name %></td>
             <!-- <td><%= lesson.location.name %></td> -->
@@ -78,10 +78,10 @@
             <td><%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td>
             <td><%= lesson.instructor.name %></td>
             <% else %>
-            <td>"TBD"</td>
-            <td>"TBD"</td>
+            <td></td>
+            <td>TBD</td>
             <% end %>
-            <td><%= link_to "#{lesson.activity}", lesson, class: "btn btn-default" %></td>
+            <td><%= link_to "#{lesson.lesson_time.slot}", lesson, class: "btn btn-default" %></td>
             <!-- <td><%= lesson.deposit_status %></td> -->
             <td><%= lesson.requester.name %></td>
             <!-- <td><%= lesson.location.name %></td> -->
@@ -130,10 +130,10 @@
             <td><%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td>
             <td><%= lesson.instructor.name %></td>
             <% else %>
-            <td>"TBD"</td>
-            <td>"TBD"</td>
+            <td></td>
+            <td>TBD</td>
             <% end %>
-            <td><%= link_to "#{lesson.activity}", lesson, class: "btn btn-default" %></td>
+            <td><%= link_to "#{lesson.lesson_time.slot}", lesson, class: "btn btn-default" %></td>
             <!-- <td><%= lesson.deposit_status %></td> -->
             <td><%= lesson.requester.name %></td>
             <!-- <td><%= lesson.location.name %></td> -->

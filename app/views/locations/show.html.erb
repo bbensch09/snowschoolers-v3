@@ -1,8 +1,16 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Ski Area name:</strong>
   <%= @location.name %>
+</p>
+<p>
+  <strong>Partner Status:</strong>
+  <%= @location.partner_status %>
+</p>
+<p>
+  <strong>Calendar Status:</strong>
+  <%= @location.calendar_status %>
 </p>
 
 <%= link_to 'Edit', edit_location_path(@location) %> |

@@ -8,8 +8,9 @@ class Lesson < ActiveRecord::Base
   accepts_nested_attributes_for :students, reject_if: :all_blank, allow_destroy: true
 
   validates :requested_location, :lesson_time, presence: true
-  validates :phone_number, :objectives, :duration, :start_time, :ability_level,
+  validates :phone_number, :objectives, :ability_level,
             presence: true, on: :update
+  # validates :duration, :start_time, presence: true, on: :update
   # validates :gear, inclusion: { in: [true, false] }, on: :update
   validates :terms_accepted, inclusion: { in: [true], message: 'must accept terms' }, on: :update
   validates :actual_start_time, :actual_end_time, presence: true, if: :just_finalized?
@@ -110,19 +111,23 @@ class Lesson < ActiveRecord::Base
   end
 
   def price
-    hourly_base = 75
-    surge = 1
-    hourly_price = hourly_base*surge
-    if self.actual_duration.nil?
-      if self.duration.nil?
-          price = hourly_price * 2
-        else
-          price = self.duration * hourly_price
-      end
-    else
-      price = self.actual_duration * hourly_price
-    end
+    Product.where(location_id:self.requested_location.to_i,name:self.lesson_time.slot).first.price
   end
+
+  # def price
+  #   hourly_base = 75
+  #   surge = 1
+  #   hourly_price = hourly_base*surge
+  #   if self.actual_duration.nil?
+  #     if self.duration.nil?
+  #         price = hourly_price * 2
+  #       else
+  #         price = self.duration * hourly_price
+  #     end
+  #   else
+  #     price = self.actual_duration * hourly_price
+  #   end
+  # end
 
   def get_changed_attributes(original_lesson)
     lesson_changes = self.previous_changes
