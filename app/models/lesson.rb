@@ -49,7 +49,7 @@ class Lesson < ActiveRecord::Base
   def active_today?
     active_states = ['new', 'booked', 'confirmed','pending instructor', 'pending requester','']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
-    return true if active_states.include?(state) && self.date == Date.today
+    return true if self.date == Date.today
   end
 
   def active_next_7_days?
