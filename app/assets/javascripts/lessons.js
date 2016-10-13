@@ -181,6 +181,7 @@ $(document).ready(function(){
   };
   calculatePriceListener();
   // calculateTotalListener();
+  toggleElementListener();
 });
 
 var calculatePriceListener = function() {
@@ -217,5 +218,18 @@ var calculateTotalListener = function() {
     var total_amount = base_amount + tip_amount;
       console.log("the lesson price is:" +total_amount);
     $('#transaction_final_amount').html(total_amount);
+  });
+}
+
+var toggleElementListener = function(){
+  $('#toggle-completed-lessons').click(function(e){
+    e.preventDefault();
+    $('#completed-lessons').toggleClass('hidden');
+    console.log("lessons revealed, buttons switched.");
+  });
+   $('#toggle-upcoming-lessons').click(function(e){
+    e.preventDefault();
+    $('#upcoming-lessons').toggleClass('hidden');
+    console.log("lessons revealed, buttons switched.");
   });
 }

@@ -1,4 +1,6 @@
 <div class="container">
+<h3><a href="#hideLessons" class="btn btn-success" id="toggle-completed-lessons">Show (hide) Completed Lessons</a></h3>
+<div id="completed-lessons" class="hidden">
 <h1>Previously Completed Lessons</h1>
 
 <table class="instructors-table">
@@ -46,8 +48,10 @@
     <% end %>
   </tbody>
 </table>
+</div>
 <hr>
 <!-- SECTION 2 - ACTIVE LESSONS -->
+<div id="todays-lessons" class="">
 <h1>Today's Lessons </h1>
 
 <table class="instructors-table">
@@ -95,8 +99,12 @@
     <% end %>
   </tbody>
 </table>
+</div>
 
 <!-- SECTION 2 - ACTIVE LESSONS -->
+
+<h3><a href="#hideLessons" class="btn btn-success" id="toggle-upcoming-lessons">Show (hide) upcoming Lessons</a></h3>
+<div id="upcoming-lessons" class="hidden">
 <h1>Next Week's Lessons </h1>
 
 <table class="instructors-table">
@@ -144,5 +152,6 @@
     <% end %>
   </tbody>
 </table>
+</div>
 
 </div>
