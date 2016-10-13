@@ -1,3 +1,6 @@
+<header class="page-header">
+  <h1>Lesson Details</h1>
+</header>
 <p>Requester: <%= @lesson.requester.name %>
 <br>
 Status: <%= @lesson.state %>
@@ -13,6 +16,10 @@ Status: <%= @lesson.state %>
 <% end %>
 
 <div class='row'>
+  <%if @lesson.state == "waiting_for_payment" || @lesson.state == "Payment Complete" %>
+      <%= render partial: 'lessons/confirmed_time_and_feedback' %>
+  <%end%>
+
   <div class="col-md-6">
     <h4>Basic <strong>Info</strong></h4>
 

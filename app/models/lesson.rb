@@ -33,10 +33,28 @@ class Lesson < ActiveRecord::Base
     Location.find(self.requested_location.to_i)
   end
 
-  def active?
-    active_states = ['new', 'booked', 'pending instructor', 'pending requester','']
+  def completed?
+    active_states = ['waiting_for_payment','Payment Complete']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
     active_states.include?(state)
+  end
+
+  def active?
+    active_states = ['new', 'booked', 'confirmed','pending instructor', 'pending requester','']
+    #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
+    active_states.include?(state)
+  end
+
+  def active_today?
+    active_states = ['new', 'booked', 'confirmed','pending instructor', 'pending requester','']
+    #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
+    return true if active_states.include?(state) && self.date == Date.today
+  end
+
+  def active_next_7_days?
+    active_states = ['new', 'booked', 'confirmed','pending instructor', 'pending requester','']
+    #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
+    return true if active_states.include?(state) && self.date <= Date.today + 7
   end
 
   def confirmable?

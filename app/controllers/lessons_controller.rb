@@ -7,6 +7,9 @@ class LessonsController < ApplicationController
   def index
     if current_user.email == "brian@snowschoolers.com"
       @lessons = Lesson.all.sort_by { |lesson| lesson.id}
+      elsif current_user.user_type == "Partner"
+        @lessons = Lesson.where(requested_location:current_user.location.id.to_s).sort_by { |lesson| lesson.id}
+        # @active_lessons = Lesson.where(requested_location:current_user.location.id.to_s).sort_by { |lesson| lesson.id}
       elsif current_user.instructor
         @lessons = Lesson.where(instructor_id:current_user.instructor.id).sort_by { |lesson| lesson.id}
       else

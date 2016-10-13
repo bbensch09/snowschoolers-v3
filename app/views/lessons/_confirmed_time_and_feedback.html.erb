@@ -1,0 +1,26 @@
+  <div class="">
+      <div class='col-md-12'>
+        <div class="col-md-6">
+          <label>Lesson Start Time:</label>
+          <div class='form-control'><%= @lesson.actual_start_time %></div>
+        </div>
+        <div class="col-md-6">
+          <label>Lesson End Time:</label>
+          <div class='form-control'><%= @lesson.actual_end_time %></div>
+        </div>
+      </div>
+  </div>
+  <h1> </h1>
+  <h1> </h1>
+  <div class="">
+      <div class="col-md-12">
+          <div class="col-md-3">
+            <label>Lesson Duration:</label>
+            <div class='form-control'><%= @lesson.actual_duration %></div>
+          </div>
+          <div class="col-md-9">
+            <label>Instructor Feedback:</label>
+            <div class='form-control'><%= @lesson.public_feedback_for_student %></div>
+          </div>
+      </div>
+  </div>
