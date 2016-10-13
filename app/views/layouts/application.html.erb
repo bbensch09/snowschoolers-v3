@@ -78,7 +78,7 @@
     <div class="navbar-collapse nav-main-collapse collapse pull-right">
       <nav class="nav-main">
         <ul class="nav nav-pills nav-main scroll-menu" id="topMain">
-          <% if current_user && current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Partner" %>
+          <% if current_user && (current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Partner") %>
            <!-- <li>  <a href="/"> <span class="glyphicon glyphicon glyphicon-home" aria-hidden="true"></span> </a></li> -->
            <li> <a href="/instructors" class="btn btn-success"> Admin</a></li>
           <% end %>

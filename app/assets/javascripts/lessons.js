@@ -232,4 +232,9 @@ var toggleElementListener = function(){
     $('#upcoming-lessons').toggleClass('hidden');
     console.log("lessons revealed, buttons switched.");
   });
+      $('#toggle-available-lessons').click(function(e){
+    e.preventDefault();
+    $('#available-lessons').toggleClass('hidden');
+    console.log("lessons revealed, buttons switched.");
+  });
 }

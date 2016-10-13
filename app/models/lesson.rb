@@ -59,7 +59,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def confirmable?
-    confirmable_states = ['confirmed', 'new','booked', 'pending instructor', 'pending requester','']
+    confirmable_states = ['', 'new','booked', 'pending instructor', 'pending requester','']
     confirmable_states.include?(state)
   end
 
