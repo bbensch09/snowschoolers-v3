@@ -80,8 +80,8 @@
         <ul class="nav nav-pills nav-main scroll-menu" id="topMain">
           <% if current_user && (current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Partner") %>
            <!-- <li>  <a href="/"> <span class="glyphicon glyphicon glyphicon-home" aria-hidden="true"></span> </a></li> -->
-           <li> <a href="/instructors" class="btn btn-success"> Admin</a></li>
-           <li> <a href="/lessons" class="btn btn-success"> Daily Dash</a></li>
+           <li> <a href="/instructors" class="btn-success"> Admin</a></li>
+           <li> <a href="/lessons" class="btn-success"> Daily Dash</a></li>
           <% end %>
           <% if current_user %>
             <% name = current_user.email.present? ? current_user.email : 'Edit Profile' %>
