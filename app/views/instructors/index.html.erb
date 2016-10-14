@@ -27,7 +27,7 @@
       <th>Name</th>
       <th>Admin Actions</th>
       <th>Status?</th>
-      <th>Resort</th>
+      <th>Resort(s)</th>
       <th>Rank</th>
       <th>Certification</th>
       <th>Sport</th>
@@ -52,7 +52,13 @@
         <td><%= link_to 'Revoke', revoke_instructor_path(instructor), method: :post, class: 'btn btn-danger' %></td>
         <% end %>
         <td>Currently <%= instructor.status %></td>
-        <td><%= instructor.locations.first.name %></td>
+        <td>
+        <%if instructor.locations %>
+          <%= instructor.locations.first.name %>
+          <% else %>
+          TBD
+          <%end%>
+        </td>
         <td><%= instructor.overall_initial_rank %></td>
         <td><%= instructor.certification %></td>
         <td><%= instructor.sport %></td>
