@@ -22,7 +22,15 @@ class InstructorsController < ApplicationController
   # GET /instructors
   # GET /instructors.json
   def index
-    @instructors = Instructor.all.sort {|a,b| b.id <=> a.id}
+    if current_user.user_type == "Partner"
+      @instructors = Location.find(current_user.location_id).instructors.sort {|a,b| b.overall_initial_rank <=> a.overall_initial_rank}
+      else
+      @instructors = Instructor.all.sort {|a,b| b.id <=> a.id}
+    end
+  end
+
+  def admin_index
+     @instructors = Instructor.all.sort {|a,b| b.id <=> a.id}
   end
 
   # GET /browse
@@ -106,7 +114,7 @@ class InstructorsController < ApplicationController
     end
 
     def confirm_admin_permissions
-      return if current_user.email == 'brian@snowschoolers.com' || current_user.email == 'bbensch@gmail.com'
+      return if current_user.email == 'brian@snowschoolers.com' || current_user.email == 'bbensch@gmail.com' || current_user.user_type == "Partner"
       redirect_to root_path, notice: 'You do not have permission to view that page.'
     end
 

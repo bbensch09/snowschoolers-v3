@@ -8,8 +8,9 @@ class Lesson < ActiveRecord::Base
   accepts_nested_attributes_for :students, reject_if: :all_blank, allow_destroy: true
 
   validates :requested_location, :lesson_time, presence: true
-  validates :phone_number, :objectives, :duration, :start_time, :ability_level,
+  validates :phone_number, :objectives, :ability_level,
             presence: true, on: :update
+  # validates :duration, :start_time, presence: true, on: :update
   # validates :gear, inclusion: { in: [true, false] }, on: :update
   validates :terms_accepted, inclusion: { in: [true], message: 'must accept terms' }, on: :update
   validates :actual_start_time, :actual_end_time, presence: true, if: :just_finalized?
@@ -29,23 +30,60 @@ class Lesson < ActiveRecord::Base
     lesson_time.slot
   end
 
+  def tip
+    self.transaction.final_amount - self.transaction.base_amount
+  end
+
   def location
     Location.find(self.requested_location.to_i)
   end
 
-  def active?
-    active_states = ['new', 'booked', 'pending instructor', 'pending requester','']
+  def completed?
+    active_states = ['waiting for payment','Payment Complete']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
     active_states.include?(state)
   end
 
+  def payment_complete?
+    self.state == 'Payment Complete'
+  end
+
+  def active?
+    active_states = ['new', 'booked', 'confirmed','pending instructor', 'pending requester','']
+    #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
+    active_states.include?(state)
+  end
+
+  def active_today?
+    active_states = ['booked', 'confirmed','pending instructor', 'pending requester','Payment Complete','waiting for payment']
+    #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
+    return true if self.date == Date.today && active_states.include?(state)
+  end
+
+  def active_next_7_days?
+    active_states = ['new', 'booked', 'confirmed','pending instructor', 'pending requester','']
+    #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
+    return true if active_states.include?(state) && self.date <= Date.today + 7 && self.date > Date.today
+  end
+
   def confirmable?
-    confirmable_states = ['confirmed', 'new','booked', 'pending instructor', 'pending requester','']
+    confirmable_states = ['', 'new','booked', 'pending instructor', 'pending requester','']
     confirmable_states.include?(state)
+  end
+
+  def completable?
+    self.state == 'confirmed'
   end
 
   def instructor_accepted?
     LessonAction.where(action:"Accept", lesson_id: self.id).any?
+  end
+
+  def self.visible_to_instructor?(instructor)
+      lessons = []
+      assigned_to_instructor = Lesson.where(instructor_id:instructor.id)
+      available_to_instructor = Lesson.all.keep_if {|lesson| lesson.confirmable? }
+      lessons = assigned_to_instructor + available_to_instructor
   end
 
   def declined_instructors
@@ -92,19 +130,23 @@ class Lesson < ActiveRecord::Base
   end
 
   def price
-    hourly_base = 75
-    surge = 1
-    hourly_price = hourly_base*surge
-    if self.actual_duration.nil?
-      if self.duration.nil?
-          price = hourly_price * 2
-        else
-          price = self.duration * hourly_price
-      end
-    else
-      price = self.actual_duration * hourly_price
-    end
+    Product.where(location_id:self.requested_location.to_i,name:self.lesson_time.slot).first.price
   end
+
+  # def price
+  #   hourly_base = 75
+  #   surge = 1
+  #   hourly_price = hourly_base*surge
+  #   if self.actual_duration.nil?
+  #     if self.duration.nil?
+  #         price = hourly_price * 2
+  #       else
+  #         price = self.duration * hourly_price
+  #     end
+  #   else
+  #     price = self.actual_duration * hourly_price
+  #   end
+  # end
 
   def get_changed_attributes(original_lesson)
     lesson_changes = self.previous_changes

@@ -1,0 +1,35 @@
+<div class="container">
+<h1>Admin View: All Users & Access Types</h1>
+<h4>Total user count: <%= User.count %> </h4>
+<h4>Resort Partners: <%= User.where(user_type:"Partner").count %> </h4>
+<h4>Employees: <%= User.where(user_type:"Employee").count %> </h4>
+
+<table class="instructors-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th class="column-wrap">Email</th>
+      <th>User Type</th>
+      <th>Resort Affiliation</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%=  user.email %></td>
+        <td><%= user.user_type %></td>
+        <td> <% if user.location %> <%= user.location.name%> <%end%></td>
+        <td><%= link_to 'Edit', admin_edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', admin_destroy_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+</div>

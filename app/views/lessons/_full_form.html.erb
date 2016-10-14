@@ -35,13 +35,15 @@
 
               <div class="col-md-6">
                 <label>Slot</label>
-                <%= lt_f.input :slot, as: :select, collection: ['Morning', 'Afternoon', 'Full Day'], include_blank: 'Length', :input_html => { :class => 'lesson-slot-input'}, label: false %>
+                <!-- <%= lt_f.input :slot, as: :select, collection: ['Morning', 'Afternoon', 'Full Day'], include_blank: 'Length', :input_html => { :class => 'lesson-slot-input'}, label: false %> -->
+                <%= lt_f.input :slot, as: :select, collection: ['1hr Early Bird @9am', '3hr Half-day @10am', '3hr Half-day @1pm', 'Full-day @10am'], include_blank: 'Time', label: false %>
+
               </div>
             </div>
           <% end %>
 
           <div class='row'>
-            <div class="col-md-4">
+            <!-- <div class="col-md-4">
               <label>Lesson Length</label>
               <%= f.input :duration, as: :select, collection: [['1 hour', 1],['2 hours', 2], ['3 hours', 3], ['6 hours', 6]], selected: '2', include_blank: 'Length', required: true, label: false, :input_html => { :class => 'lesson-length-input  full-form-focus'} %>
             </div>
@@ -49,19 +51,21 @@
             <div class="col-md-4">
               <label>Start Time</label>
               <%= f.input :start_time, as: :string, input_html: { id: 'timepicker' }, placeholder: 'Pick a start time', required: true, label: false %>
-            </div>
+            </div> -->
             <div class="col-md-4">
               <label>Cell Phone</label>
               <%= f.input :phone_number, as: :string, include_blank: '(xxx)xxx-xxxx', label: false, required: true %>
+            </div>
+            <div class="col-md-4">
+              <label>Price</label>
+                <h2> <span id="lesson-price"><%= number_to_currency(@lesson.price) %></span></h2>
             </div>
             <!--             <div class="col-md-4">
               <label>Do you have gear?</label>
               <%= f.input :gear, as: :select, collection: [['Yes, already have gear.', true], ['No, need gear.', false]], include_blank: '(Skis,boots,etc.)', label: false %>
             </div> -->
             <div class="col-md-12">
-            <h4>
-            Price ($75 per hour): $<span id="donation-amount"><%= @lesson.price %></span>.00
-            </h4>
+            <!-- Price ($75 per hour): $<span id="donation-amount"><%= @lesson.price %></span>.00 -->
             </div>
           </div>
 
@@ -72,7 +76,7 @@
               <%= render 'student_fields', f: student %>
             <% end %>
             <div class='links'>
-              <%= link_to_add_association 'Add Student', f, :students, class: 'btn btn-default', id:'add-student-button' %>
+              <%= link_to_add_association 'Add Another Student', f, :students, class: 'btn btn-default', id:'add-student-button' %>
             </div>
             <%= f.semantic_errors :students %>
           </div>

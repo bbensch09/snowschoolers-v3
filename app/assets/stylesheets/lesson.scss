@@ -23,3 +23,58 @@
   border: 1px solid gray;
   background-color: rgba(0,60,128,0.3);
 }
+.complete-payment{
+  height:220px;
+  max-height: 50vh;
+}
+.payment-amounts{
+  font-size: 1.2em;
+  left: -20px;
+  position: relative;
+  width: 110%;
+}
+
+/*DESKTOP ONLY ADJUSTMENTS*/
+@media (min-width: 768px) {
+.payment-amounts{
+  font-size: 1.6em;
+  line-height: 1.6;
+}
+}
+
+/*MOBILE ADJUSTMENTS*/
+@media (max-width: 768px) {
+.instructors-table{
+  padding: 2 2 2 2px;
+  border: 1px solid gray;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.instructors-table tbody tr td, .instructors-table thead tr th {
+    padding-left: 20px;
+    font-size: 0.8em;
+}
+.instructors-table thead {
+  font-size: 1.2em;
+  border: 1px solid gray;
+  background-color: rgba(0,60,128,0.3);
+}
+.lessons-table-cells{
+  padding-left: 3px !important;
+  padding-right: 3px !important;
+  padding-top: 3px !important;
+  padding-bottom: 3px !important;
+}
+.lesson-type{
+    width: 140px;
+}
+.lesson-student{
+  width:100px;
+}
+.lesson-date{
+  width: 30px;
+}
+.lesson-instructor{
+  width: 60px;
+}
+}

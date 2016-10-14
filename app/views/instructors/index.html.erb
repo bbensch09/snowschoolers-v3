@@ -1,68 +1,65 @@
 <div class="container">
-<h1>Admin View: All Instructors</h1>
-<h4>Total instructor count: <%= Instructor.count - 1 %> </h4>
-<h4>Skiers: <%= Instructor.where(sport:"Ski Instructor").count - 1 %> </h4>
-<h4>Snowboarders: <%= Instructor.where(sport:"Snowboard Instructor").count %> </h4>
 
+<%if current_user && current_user.user_type == "Employee" || current_user.email == "brian@snowschoolers.com" %>
+  <div class="row">
+    <%= link_to "View Detailed Info (CRM)", "/admin_index", class: 'btn btn-primary' %>
+  </div>
+<%end%>
+<div class="col-md-6">
+    <h4>Total Instructor count: <%= Instructor.count %> </h4>
+    <h4>Active Ski Instructors: <%= (Instructor.where(sport:"Ski Instructor",status:"Active").count + Instructor.where(sport:"Both Ski & Snowboard",status:"Active").count) %> </h4>
+    <h4>Active Snowboard Instructors: <%= (Instructor.where(sport:"Snowboard Instructor", status:"Active").count + Instructor.where(sport:"Both Ski & Snowboard",status:"Active").count) %> </h4>
+    <h4>Inactive Instructors: <%= (Instructor.count - Instructor.where(status:"Active").count) %> </h4>
+</div>
+<div class="col-md-6">
+    <h4>Lifetime Lessons: <%= Location.find(current_user.location).lifetime_lessons.count %> </h4>
+    <h4>Lifetime Revenue: <%= number_to_currency(Location.find(current_user.location).lifetime_revenue) %> </h4>
+    <h4>Lessons Today: <%= Location.find(current_user.location).today_lessons.count %> </h4>
+    <h4>Revenue Today: <%= number_to_currency(Location.find(current_user.location).today_revenue) %> </h4>
+</div>
 <table class="instructors-table">
   <thead>
     <tr>
 <!--       <th>First</th>
       <th>Last</th> -->
-      <th>ID</th>
+      <!-- <th>ID</th> -->
+      <th></th>
       <th>Name</th>
-      <th class="column-wrap">Email</th>
-      <th>Resorts</th>
+      <th>Admin Actions</th>
+      <th>Status?</th>
+      <th>Resort</th>
       <th>Rank</th>
       <th>Certification</th>
-      <th>Phone number</th>
       <th>Sport</th>
-      <th>Active Status?</th>
       <!-- <th>Verified Instructor?</th> -->
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @instructors.each do |instructor| %>
       <tr>
-        <td><%= instructor.id %></td>
-<!--         <td><%= instructor.first_name %></td>
-        <td><%= instructor.last_name %></td> -->
-        <td><%= link_to "#{instructor.first_name} #{instructor.last_name}", edit_user_registration_path(instructor.user) %></td>
-        <td class="column-wrap">
-        <% if instructor.user %>
-          <%= link_to instructor.user.email, edit_user_registration_path(instructor.user) %>
-            <% else %>
-            N/A - must link to new user.
-        <% end %>
-        </td>
-        <td>
+        <!-- <td><%= instructor.id %></td> -->
+        <td> <%= link_to image_tag(instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail"), edit_instructor_path(instructor) %> </td>
+        <td><%= link_to "#{instructor.name}", edit_instructor_path(instructor) %></td>
+        <!-- <td>
           <% instructor.locations.each do |location| %>
               <%= location.name %> <br>
           <% end %>
-        </td>
-        <td><%= instructor.overall_initial_rank %></td>
-        <td><%= instructor.certification %></td>
-        <td><%= instructor.phone_number %></td>
-        <td><%= instructor.sport %></td>
-        <td><%= instructor.status %></td>
+        </td> -->
         <% if instructor.status != "Active" %>
-        <td><%= link_to 'Verify Now', verify_instructor_path(instructor), method: :post, class: 'btn btn-success' %></td>
+        <td><%= link_to 'Activate', verify_instructor_path(instructor), method: :post, class: 'btn btn-success' %></td>
           <% else %>
         <td><%= link_to 'Revoke', revoke_instructor_path(instructor), method: :post, class: 'btn btn-danger' %></td>
         <% end %>
-        <td><%= link_to 'Show', instructor %></td>
-        <td><%= link_to 'Edit', edit_instructor_path(instructor) %></td>
-        <td><%= link_to 'Destroy', instructor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>Currently <%= instructor.status %></td>
+        <td><%= instructor.locations.first.name %></td>
+        <td><%= instructor.overall_initial_rank %></td>
+        <td><%= instructor.certification %></td>
+        <td><%= instructor.sport %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Instructor', new_instructor_path %>
 </div>

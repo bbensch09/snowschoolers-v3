@@ -12,7 +12,7 @@
   <%= javascript_include_tag "bootstrap/modernizr.min.js" %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
-  <script type="text/javascript" src="http://classic.avantlink.com/affiliate_app_confirm.php?mode=js&authResponse=3c6023abd8ef4829a51d672c9c8b4b02a6d7741e"></script>
+
 
  <!-- GOOGLE ANALYTICS DEVELOPMENT TRACKING -  -->
 <!--     <script>
@@ -78,9 +78,10 @@
     <div class="navbar-collapse nav-main-collapse collapse pull-right">
       <nav class="nav-main">
         <ul class="nav nav-pills nav-main scroll-menu" id="topMain">
-          <% if current_user && current_user.email == "brian@snowschoolers.com" %>
+          <% if current_user && (current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Partner") %>
            <!-- <li>  <a href="/"> <span class="glyphicon glyphicon glyphicon-home" aria-hidden="true"></span> </a></li> -->
-           <li> <a href="/instructors" class="btn btn-success"> Admin</a></li>
+           <li> <a href="/instructors" class="btn-success"> Admin</a></li>
+           <li> <a href="/lessons" class="btn-success"> Daily Dash</a></li>
           <% end %>
           <% if current_user %>
             <% name = current_user.email.present? ? current_user.email : 'Edit Profile' %>
@@ -91,10 +92,11 @@
                 <li><%= link_to 'Apply as an Instructor', '/apply', class: 'sign-up-btn' %></li>
               <% elsif current_user.active_instructor? %>
                 <li><%= link_to name, instructor_path(current_user.instructor) %></li>
-                <li><a href="/lessons" class="sign-up-btn"> Lessons & Requests </a></li>
-                <li><a href="/browse" class="sign-up-btn">Browse Instructors</a></li>
+                <li><a href="/lessons" class="sign-up-btn"> Lessons </a></li>
+                <li><a href="/browse" class="sign-up-btn">Instructors</a></li>
                 <li><a href="/calendar_blocks" class="sign-up-btn"> Manage Availability </a></li>
               <% else %>
+                <li><%= link_to name, edit_user_registration_path %></li>
                 <li><%= link_to 'Check Instructor Status', instructor_path(current_user.instructor), class: 'sign-up-btn' %></li>
             <% end %>
             </li>
@@ -240,16 +242,10 @@
       <div class="modal-body">
         <p>Follow us online, join our conversations, engage with our teams around the world!</p>
         <div class="text-center">
-          <a href="#" class="socialbtn facebook"><i class="fa fa-facebook"></i>Facebook</a>
-          <a href="#" class="socialbtn twitter"><i class="fa fa-twitter"></i>Twitter</a>
-          <a href="#" class="socialbtn google"><i class="fa fa-google-plus"></i>Google Plus</a>
-          <a href="#" class="socialbtn linkedin"><i class="fa fa-linkedin"></i>Linkedin</a>
-          <a href="#" class="socialbtn pinterest"><i class="fa fa-pinterest"></i>Pinterest</a>
-          <a href="#" class="socialbtn flickr"><i class="fa fa-flickr"></i>Flickr</a>
-          <a href="#" class="socialbtn youtube"><i class="fa fa-youtube"></i>Youtube</a>
-          <a href="#" class="socialbtn vimeo"><i class="fa fa-vimeo-square"></i>Vimeo</a>
-          <a href="#" class="socialbtn skype"><i class="fa fa-skype"></i>Skype</a>
-          <a href="#" class="socialbtn rss"><i class="fa fa-rss"></i>Rss</a>
+          <a href="https://www.facebook.com/snowschoolers2016" class="socialbtn facebook"><i class="fa fa-facebook"></i>Facebook</a>
+          <a href="https://twitter.com/snowschoolers" class="socialbtn twitter"><i class="fa fa-twitter"></i>Twitter</a>
+          <a href="https://www.linkedin.com/company/snow-schoolers" class="socialbtn linkedin"><i class="fa fa-linkedin"></i>Linkedin</a>
+          <a href="https://www.youtube.com/channel/UCHhUiwRmAQSrmzNUimeP7Uw" class="socialbtn youtube"><i class="fa fa-youtube"></i>Youtube</a>
         </div>
       </div>
       <!-- /modal body -->

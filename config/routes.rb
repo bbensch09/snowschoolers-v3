@@ -1,4 +1,6 @@
 SnowSchoolers::Application.routes.draw do
+  resources :products
+
   resources :calendar_blocks
 
   mount Ckeditor::Engine => '/ckeditor'
@@ -35,14 +37,21 @@ SnowSchoolers::Application.routes.draw do
         post :revoke
       end
   end
+  get '/admin_index' => 'instructors#admin_index'
   get 'browse' => 'instructors#browse'
 
   resources :beta_users
-
-
   resources :lesson_times
-
   devise_for :users, controllers: { registrations: 'users/registrations', omniauth_callbacks: "users/omniauth_callbacks" }
+
+  #snowschoolers admin views
+  get 'admin_users' => 'welcome#admin_users'
+  get 'admin_edit/:id' => 'welcome#admin_edit', as: :admin_edit_user
+  get 'users/:id' => 'welcome#admin_show_user', as: :user
+  put 'users/:id' => 'welcome#admin_update_user'
+  patch 'users/:id' => 'welcome#admin_update_user'
+  delete 'users/:id' => 'welcome#admin_destroy', as: :admin_destroy
+
 
   resources :lessons
   get 'new_request' => 'lessons#new_request'

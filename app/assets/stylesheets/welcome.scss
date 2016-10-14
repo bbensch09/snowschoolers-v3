@@ -188,7 +188,7 @@ aside {
   font-size: 30px;
 }
 .shadow-box-highlight{
-  background-color: rgba(59, 89, 152, .5);
+  background-color: rgba(59, 89, 152, .8);
   padding-top: 15px;
   padding-bottom: 15px;
 }
@@ -589,4 +589,10 @@ h2 {
     font-size: 2.5em;
     text-transform: uppercase;
   }
+  #header-creative .header-content {
+  position: relative;
+  text-align: center;
+  padding: 20px 15px 100px;
+  width: 100%;
+}
 }

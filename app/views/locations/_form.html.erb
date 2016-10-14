@@ -1,9 +1,13 @@
+<div class="container">
 <%= semantic_form_for @location do |f| %>
   <%= f.inputs do %>
     <%= f.input :name %>
+    <%= f.input :partner_status, as: :select, collection: ['Active','Inactive'] %>
+    <%= f.input :calendar_status, as: :select, collection: ['Regular','Peak','Peak Plus'] %>
   <% end %>
 
   <%= f.actions do %>
     <%= f.action :submit, :as => :input %>
   <% end %>
 <% end %>
+</div>

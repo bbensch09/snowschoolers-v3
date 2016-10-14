@@ -32,7 +32,7 @@ var LESSON = {
     LESSON._actualStartTime.change(LESSON.updateInstructorTimepickers);
   },
 
-  setDatepicker: function() { LESSON._date.datepicker({ minDate: 1, dateFormat: 'yy-mm-dd' }); },
+  setDatepicker: function() { LESSON._date.datepicker({ minDate: 0, dateFormat: 'yy-mm-dd' }); },
 
   toggleDuration: function() {
     if (LESSON.slotValid()) {
@@ -181,6 +181,7 @@ $(document).ready(function(){
   };
   calculatePriceListener();
   // calculateTotalListener();
+  toggleElementListener();
 });
 
 var calculatePriceListener = function() {
@@ -217,5 +218,23 @@ var calculateTotalListener = function() {
     var total_amount = base_amount + tip_amount;
       console.log("the lesson price is:" +total_amount);
     $('#transaction_final_amount').html(total_amount);
+  });
+}
+
+var toggleElementListener = function(){
+  $('#toggle-completed-lessons').click(function(e){
+    e.preventDefault();
+    $('#completed-lessons').toggleClass('hidden');
+    console.log("lessons revealed, buttons switched.");
+  });
+   $('#toggle-upcoming-lessons').click(function(e){
+    e.preventDefault();
+    $('#upcoming-lessons').toggleClass('hidden');
+    console.log("lessons revealed, buttons switched.");
+  });
+      $('#toggle-available-lessons').click(function(e){
+    e.preventDefault();
+    $('#available-lessons').toggleClass('hidden');
+    console.log("lessons revealed, buttons switched.");
   });
 }

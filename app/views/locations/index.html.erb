@@ -1,9 +1,11 @@
 <h1>Listing locations</h1>
 
-<table>
+<table class="instructors-table">
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Ski Area Name</th>
+      <th>Partner Status</th>
+      <th>Calendar Status</th>
       <th></th>
       <th></th>
       <th></th>
@@ -14,6 +16,8 @@
     <% @locations.each do |location| %>
       <tr>
         <td><%= location.name %></td>
+        <td><%= location.partner_status %></td>
+        <td><%= location.calendar_status %></td>
         <td><%= link_to 'Show', location %></td>
         <td><%= link_to 'Edit', edit_location_path(location) %></td>
         <td><%= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' } %></td>

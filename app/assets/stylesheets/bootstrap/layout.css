@@ -685,7 +685,7 @@ div.mc-image {
 }
 #middle .page-header {
 	padding: 0;
-	margin: 0 0 15px 0;
+	margin: 10px 0 10px 0;
 }
 	#middle  .page-header h1 {
 		padding: 0;
@@ -753,7 +753,7 @@ div.e404 {
 	}
 
 	.modal .modal-dialog {
-		border:#333 10px solid;
+		border:#3b5998 2px solid;
 	}
 	.modal .modal-content {
 		border:0; padding:0;

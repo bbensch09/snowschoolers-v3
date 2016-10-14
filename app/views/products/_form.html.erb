@@ -1,0 +1,15 @@
+<div class="container">
+<%= semantic_form_for @product do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :name, as: :select, collection: ['1hr Early Bird @9am', '3hr Half-day @10am', '3hr Half-day @1pm', 'Full-day @10am'], include_blank: 'Select Product', label: false , required:true %>
+
+    <%= f.input :price %>
+    <%= f.input :location_id, as: :select, collection: Location.all, include_blank: 'Location', label: false , required:true%>
+    <%= f.input :calendar_period, as: :select, collection: ['Regular','Peak','Peak Plus'], selected:'Regular', required:true %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>
+</div>

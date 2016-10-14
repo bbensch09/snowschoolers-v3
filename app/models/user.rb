@@ -1,12 +1,16 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
+         :recoverable, :rememberable, :trackable, #:validatable,
          :lockable, :timeoutable, :confirmable,
          :omniauthable, :omniauth_providers => [:facebook]
+
+  validates :password, length: { in: 5..128 }, on: :create
+  validates :password, length: { in: 5..128 }, on: :update, allow_blank: true
 
   has_many :lessons
   has_many :transactions
   has_one :instructor
+  belongs_to :location
   has_many :lesson_times, through: :lessons
   after_create :send_admin_notification
 
