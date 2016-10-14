@@ -2,19 +2,20 @@
   <h1>Lesson Details</h1>
 </header>
 <p>Requester: <%= @lesson.requester.name %>
-<br>
-Status: <%= @lesson.state %>
-<br>
 <% if @lesson.instructor %>
-  Instructor: <%= @lesson.instructor.name %></p>
+  <br> Instructor: <%= @lesson.instructor.name %>
 <% else %>
   <% if @lesson.pending_requester? %>
-    No instructors available for this date and time. Please edit or cancel.</p>
+    <br> No instructors available for this date and time. Please edit or cancel
   <% else %>
-    No instructor assigned yet.</p>
+    <br> No instructor assigned yet
   <% end %>
 <% end %>
-
+<br> Status: <%= @lesson.state %>
+<% if @lesson.payment_complete? %>
+<br> Tip Amount: <%= number_to_currency(@lesson.tip) %>
+<% end %>
+</p>
 <div class='row'>
   <%if @lesson.state == "waiting_for_payment" || @lesson.state == "Payment Complete" %>
       <%= render partial: 'lessons/confirmed_time_and_feedback' %>

@@ -30,14 +30,22 @@ class Lesson < ActiveRecord::Base
     lesson_time.slot
   end
 
+  def tip
+    self.transaction.final_amount - self.transaction.base_amount
+  end
+
   def location
     Location.find(self.requested_location.to_i)
   end
 
   def completed?
-    active_states = ['waiting_for_payment','Payment Complete']
+    active_states = ['waiting for payment','Payment Complete']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
     active_states.include?(state)
+  end
+
+  def payment_complete?
+    self.state == 'Payment Complete'
   end
 
   def active?
@@ -47,7 +55,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def active_today?
-    active_states = ['booked', 'confirmed','pending instructor', 'pending requester','']
+    active_states = ['booked', 'confirmed','pending instructor', 'pending requester','Payment Complete','waiting for payment']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
     return true if self.date == Date.today && active_states.include?(state)
   end
@@ -61,6 +69,10 @@ class Lesson < ActiveRecord::Base
   def confirmable?
     confirmable_states = ['', 'new','booked', 'pending instructor', 'pending requester','']
     confirmable_states.include?(state)
+  end
+
+  def completable?
+    self.state == 'confirmed'
   end
 
   def instructor_accepted?

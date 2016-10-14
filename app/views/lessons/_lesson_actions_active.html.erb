@@ -1,5 +1,5 @@
 <div class='active-actions'>
-  <% if current_user.instructor && @lesson.instructor_accepted? == false && @lesson.available_instructors.include?(current_user.instructor) && @lesson.declined_instructors.exclude?(current_user.instructor) || @lesson.instructor.nil? %>
+  <% if current_user.instructor && @lesson.instructor_accepted? == false && @lesson.available_instructors.include?(current_user.instructor) && @lesson.declined_instructors.exclude?(current_user.instructor) %>
     <%= button_to "Accept Lesson Request", set_instructor_path, method: :put, class: "btn btn-success" %>
     <br>
     <%= button_to "Decline Lesson Request", decline_instructor_path, method: :put, class: "btn btn-danger" %>

@@ -21,12 +21,12 @@
       <!-- <th>ID</th> -->
       <th></th>
       <th>Name</th>
+      <th>Admin Actions</th>
       <th>Resort</th>
       <th>Rank</th>
       <th>Certification</th>
       <th>Sport</th>
       <th>Status?</th>
-      <th>Admin Actions</th>
       <!-- <th>Verified Instructor?</th> -->
       <th></th>
       <th></th>
@@ -45,16 +45,16 @@
               <%= location.name %> <br>
           <% end %>
         </td> -->
-        <td><%= instructor.locations.first.name %></td>
-        <td><%= instructor.overall_initial_rank %></td>
-        <td><%= instructor.certification %></td>
-        <td><%= instructor.sport %></td>
-        <td>Currently <%= instructor.status %></td>
         <% if instructor.status != "Active" %>
         <td><%= link_to 'Activate', verify_instructor_path(instructor), method: :post, class: 'btn btn-success' %></td>
           <% else %>
         <td><%= link_to 'Revoke', revoke_instructor_path(instructor), method: :post, class: 'btn btn-danger' %></td>
         <% end %>
+        <td><%= instructor.locations.first.name %></td>
+        <td><%= instructor.overall_initial_rank %></td>
+        <td><%= instructor.certification %></td>
+        <td><%= instructor.sport %></td>
+        <td>Currently <%= instructor.status %></td>
       </tr>
     <% end %>
   </tbody>
