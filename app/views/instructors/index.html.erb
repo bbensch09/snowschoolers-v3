@@ -1,18 +1,22 @@
 <div class="container">
 
 <%if current_user && current_user.user_type == "Employee" || current_user.email == "brian@snowschoolers.com" %>
-    <%= link_to "View Detailed Info for All Instructors (Recruiting)", "/admin_index", class: 'btn btn-primary' %>
+  <div class="row">
+    <%= link_to "View Detailed Info (CRM)", "/admin_index", class: 'btn btn-primary' %>
+  </div>
 <%end%>
-
-<h4>Total instructor count: <%= Instructor.count - 1 %> </h4>
-<h4>Skiers: <%= Instructor.where(sport:"Ski Instructor").count - 1 %> </h4>
-<h4>Snowboarders: <%= Instructor.where(sport:"Snowboard Instructor").count %> </h4>
-<hr>
-<h4>Lifetime Lessons: <%= Location.find(current_user.location).lifetime_lessons.count %> </h4>
-<h4>Lifetime Revenue: <%= number_to_currency(Location.find(current_user.location).lifetime_revenue) %> </h4>
-<h4>Lessons Today: <%= Location.find(current_user.location).today_lessons.count %> </h4>
-<h4>Revenue Today: <%= number_to_currency(Location.find(current_user.location).today_revenue) %> </h4>
-
+<div class="col-md-6">
+    <h4>Total Instructor count: <%= Instructor.count %> </h4>
+    <h4>Active Ski Instructors: <%= (Instructor.where(sport:"Ski Instructor",status:"Active").count + Instructor.where(sport:"Both Ski & Snowboard",status:"Active").count) %> </h4>
+    <h4>Active Snowboard Instructors: <%= (Instructor.where(sport:"Snowboard Instructor", status:"Active").count + Instructor.where(sport:"Both Ski & Snowboard",status:"Active").count) %> </h4>
+    <h4>Inactive Instructors: <%= (Instructor.count - Instructor.where(status:"Active").count) %> </h4>
+</div>
+<div class="col-md-6">
+    <h4>Lifetime Lessons: <%= Location.find(current_user.location).lifetime_lessons.count %> </h4>
+    <h4>Lifetime Revenue: <%= number_to_currency(Location.find(current_user.location).lifetime_revenue) %> </h4>
+    <h4>Lessons Today: <%= Location.find(current_user.location).today_lessons.count %> </h4>
+    <h4>Revenue Today: <%= number_to_currency(Location.find(current_user.location).today_revenue) %> </h4>
+</div>
 <table class="instructors-table">
   <thead>
     <tr>
@@ -22,15 +26,12 @@
       <th></th>
       <th>Name</th>
       <th>Admin Actions</th>
+      <th>Status?</th>
       <th>Resort</th>
       <th>Rank</th>
       <th>Certification</th>
       <th>Sport</th>
-      <th>Status?</th>
       <!-- <th>Verified Instructor?</th> -->
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -50,11 +51,11 @@
           <% else %>
         <td><%= link_to 'Revoke', revoke_instructor_path(instructor), method: :post, class: 'btn btn-danger' %></td>
         <% end %>
+        <td>Currently <%= instructor.status %></td>
         <td><%= instructor.locations.first.name %></td>
         <td><%= instructor.overall_initial_rank %></td>
         <td><%= instructor.certification %></td>
         <td><%= instructor.sport %></td>
-        <td>Currently <%= instructor.status %></td>
       </tr>
     <% end %>
   </tbody>
