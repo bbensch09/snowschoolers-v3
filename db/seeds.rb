@@ -19,17 +19,18 @@ resorts.each do |resort|
 end
 
 fake_instructor_emails = [
-  "brian+instructor_1@snowschoolers.com",
-  "brian+instructor_2@snowschoolers.com",
-  "brian+instructor_3@snowschoolers.com",
-  "brian+instructor_4@snowschoolers.com",
-  "brian+instructor_5@snowschoolers.com",
+  "brian+hw_instructor_1@snowschoolers.com",
+  "brian+hw_instructor_2@snowschoolers.com",
+  "brian+hw_admin@snowschoolers.com",
+  "brian+bv_instructor_1@snowschoolers.com",
+  "brian+bv_instructor_2@snowschoolers.com",
 ]
 
 fake_instructor_emails.each do |email|
 User.create!({
   email: email,
-  password: "password"
+  password: "password",
+  user_type: "Partner",
   })
 
 puts "User created: #{User.last.email}."
@@ -39,9 +40,9 @@ Instructor.create!({
   last_name: Faker::Name.last_name,
   username: email,
   phone_number: "408-315-2900",
-  city: "Powder Paradise",
+  city: "Powder Paradise, CA",
   sport: "Ski Instructor",
-  certification: "Level 4000 FTW!",
+  certification: ['PSIA Level 1','PSIA Level 2','PSIA Level 3','AASI Level 1','AASI Level 2'].sample,
   intro: "I want to teach for Snow Schoolers!!!!",
   bio: "I am the best instructor on the mountain. period.",
   location_ids: [6,2], #just Alta & Bear Valley
@@ -77,5 +78,30 @@ Instructor.create!({
   })
 
 User.confirm_all_users
+
+Product.create!({
+  name: '1hr Early Bird @9am',
+  price: 89,
+  location_id: 6,
+  calendar_period: 'Regular'
+  })
+Product.create!({
+  name: '3hr Half-day @10am',
+  price: 399,
+  location_id: 6,
+  calendar_period: 'Regular'
+  })
+Product.create!({
+  name: '3hr Half-day @1pm',
+  price: 399,
+  location_id: 6,
+  calendar_period: 'Regular'
+  })
+Product.create!({
+  name: 'Full-day @10am',
+  price: 499,
+  location_id: 6,
+  calendar_period: 'Regular'
+  })
 
 puts "seed complete, locations created."
