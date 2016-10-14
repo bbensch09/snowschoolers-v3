@@ -11,7 +11,7 @@ class LessonsController < ApplicationController
         @lessons = Lesson.where(requested_location:current_user.location.id.to_s).sort_by { |lesson| lesson.id}
         # @active_lessons = Lesson.where(requested_location:current_user.location.id.to_s).sort_by { |lesson| lesson.id}
       elsif current_user.instructor
-        @lessons = Lesson.where(instructor_id:current_user.instructor.id).sort_by { |lesson| lesson.id}
+        @lessons = Lesson.visible_to_instructor?(current_user.instructor)
       else
         @lessons = Lesson.where(requester_id:current_user.id).sort_by { |lesson| lesson.id}
     end
@@ -112,7 +112,8 @@ class LessonsController < ApplicationController
   def set_instructor
     @lesson = Lesson.find(params[:id])
     @lesson.instructor_id = current_user.instructor.id
-    @lesson.update(state: 'confirmed')
+    @lesson.state = 'confirmed'
+    if @lesson.save
     LessonAction.create!({
       lesson_id: @lesson.id,
       instructor_id: current_user.instructor.id,
@@ -120,6 +121,9 @@ class LessonsController < ApplicationController
       })
     LessonMailer.send_lesson_confirmation(@lesson).deliver
     redirect_to @lesson
+    else
+     redirect_to @lesson, notice: "Error: could not accept lesson. #{@lesson.errors.full_messages}"
+    end
   end
 
   def decline_instructor
@@ -236,7 +240,7 @@ class LessonsController < ApplicationController
   end
 
   def check_user_permissions
-    unless current_user && (current_user == @lesson.requester || current_user.instructor && current_user.instructor.status == "Active")
+    unless current_user && (current_user == @lesson.requester || (current_user.instructor && current_user.instructor.status == "Active") || current_user.user_type == "Partner" )
       flash[:alert] = "You do not have access to this page."
       redirect_to root_path
     end

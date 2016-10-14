@@ -10,7 +10,13 @@
         - locations
         - sport
         - status
-
+  User:
+    :options:
+        :fields:
+        - id
+        - email
+        - user_type
+        - location_id
 
   Lesson:
     :options:

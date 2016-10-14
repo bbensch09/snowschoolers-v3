@@ -47,9 +47,9 @@ class Lesson < ActiveRecord::Base
   end
 
   def active_today?
-    active_states = ['new', 'booked', 'confirmed','pending instructor', 'pending requester','']
+    active_states = ['booked', 'confirmed','pending instructor', 'pending requester','']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
-    return true if self.date == Date.today
+    return true if self.date == Date.today && active_states.include?(state)
   end
 
   def active_next_7_days?
@@ -65,6 +65,13 @@ class Lesson < ActiveRecord::Base
 
   def instructor_accepted?
     LessonAction.where(action:"Accept", lesson_id: self.id).any?
+  end
+
+  def self.visible_to_instructor?(instructor)
+      lessons = []
+      assigned_to_instructor = Lesson.where(instructor_id:instructor.id)
+      available_to_instructor = Lesson.all.keep_if {|lesson| lesson.confirmable? }
+      lessons = assigned_to_instructor + available_to_instructor
   end
 
   def declined_instructors

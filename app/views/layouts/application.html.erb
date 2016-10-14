@@ -81,6 +81,7 @@
           <% if current_user && (current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Partner") %>
            <!-- <li>  <a href="/"> <span class="glyphicon glyphicon glyphicon-home" aria-hidden="true"></span> </a></li> -->
            <li> <a href="/instructors" class="btn btn-success"> Admin</a></li>
+           <li> <a href="/lessons" class="btn btn-success"> Daily Dash</a></li>
           <% end %>
           <% if current_user %>
             <% name = current_user.email.present? ? current_user.email : 'Edit Profile' %>
@@ -91,10 +92,11 @@
                 <li><%= link_to 'Apply as an Instructor', '/apply', class: 'sign-up-btn' %></li>
               <% elsif current_user.active_instructor? %>
                 <li><%= link_to name, instructor_path(current_user.instructor) %></li>
-                <li><a href="/lessons" class="sign-up-btn"> My Lessons </a></li>
+                <li><a href="/lessons" class="sign-up-btn"> Lessons </a></li>
                 <li><a href="/browse" class="sign-up-btn">Instructors</a></li>
                 <li><a href="/calendar_blocks" class="sign-up-btn"> Manage Availability </a></li>
               <% else %>
+                <li><%= link_to name, edit_user_registration_path %></li>
                 <li><%= link_to 'Check Instructor Status', instructor_path(current_user.instructor), class: 'sign-up-btn' %></li>
             <% end %>
             </li>

@@ -8,17 +8,13 @@
 <table class="instructors-table">
   <thead>
     <tr>
-      <th>ID</th>
-      <th>Instructor</th>
-      <th>Type</th>
-      <!-- <th>Deposit?</th> -->
-      <th>Student</th>
-      <!-- <th>Mountain</th> -->
-      <th>Start Time</th>
-      <th>Date</th>
-      <th>Status</th>
-      <th></th>
-      <th></th>
+      <th class="lessons-table-cells lesson-instructor">Instructor</th>
+      <th class="lessons-table-cells lesson-type">Type</th>
+      <!-- <th class="lessons-table-cells">Deposit?</th> -->
+      <th class="lessons-table-cells lesson-student">Student</th>
+      <!-- <th class="lessons-table-cells">Mountain</th> -->
+      <th class="lessons-table-cells lesson-date">Date</th>
+      <!-- <th class="lessons-table-cells">Status</th> -->
     </tr>
   </thead>
 
@@ -26,24 +22,13 @@
     <% @lessons.each do |lesson| %>
         <% if lesson.confirmable? %>
           <tr>
-            <% if lesson.instructor %>
-            <td><%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td>
-            <td><%= lesson.instructor.name %></td>
-            <% else %>
-            <td></td>
-            <td>TBD</td>
-            <% end %>
-            <td><%= link_to "#{lesson.lesson_time.slot}", lesson, class: "btn btn-default" %></td>
-            <!-- <td><%= lesson.deposit_status %></td> -->
-            <td><%= lesson.requester.name %></td>
-            <!-- <td><%= lesson.location.name %></td> -->
-            <td><%= lesson.start_time %></td>
-            <td><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
-            <td><%= lesson.state %></td>
-            <td></td>
-            <td></td>
-            <!-- <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td> -->
-            <!-- <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+            <td class="lessons-table-cells lesson-instructor"><%= link_to "Review", lesson, class: "btn btn-default" %></td>
+            <td class="lessons-table-cells lesson-type"><%= lesson.lesson_time.slot %></td>
+            <!-- <td class="lessons-table-cells"><%= lesson.deposit_status %></td> -->
+            <td class="lessons-table-cells lesson-student"><%= lesson.requester.name %></td>
+            <!-- <td class="lessons-table-cells"><%= lesson.location.name %></td> -->
+            <td class="lessons-table-cells lesson-date"><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
+            <!-- <td class="lessons-table-cells"><%= lesson.state %></td> -->
           </tr>
         <%end%>
     <% end %>
@@ -54,7 +39,7 @@
 <% end %>
 
 <!-- SECTION 1 - PREVIOUS LESSONS -->
-<h3><a href="#hideLessons" class="btn btn-success" id="toggle-completed-lessons">Show (hide) Completed Lessons</a></h3>
+<h3><a href="#hideLessons" class="btn btn-success" id="toggle-completed-lessons">Show (hide) Past Lessons</a></h3>
 <div id="completed-lessons" class="hidden">
 <h1>Previously Completed Lessons</h1>
 
@@ -67,11 +52,9 @@
       <!-- <th>Deposit?</th> -->
       <th>Student</th>
       <!-- <th>Mountain</th> -->
-      <th>Start Time</th>
       <th>Date</th>
       <th>Status</th>
-      <th></th>
-      <th></th>
+      <th>Price</th>
     </tr>
   </thead>
 
@@ -90,13 +73,9 @@
             <!-- <td><%= lesson.deposit_status %></td> -->
             <td><%= lesson.requester.name %></td>
             <!-- <td><%= lesson.location.name %></td> -->
-            <td><%= lesson.start_time %></td>
             <td><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
             <td><%= lesson.state %></td>
-            <td></td>
-            <td></td>
-            <!-- <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td> -->
-            <!-- <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+            <td><%= number_to_currency(lesson.price) %></td>
           </tr>
         <%end%>
     <% end %>
@@ -117,7 +96,6 @@
       <!-- <th>Deposit?</th> -->
       <th>Student</th>
       <!-- <th>Mountain</th> -->
-      <th>Start Time</th>
       <th>Date</th>
       <th>Status</th>
       <th></th>
@@ -140,7 +118,6 @@
             <!-- <td><%= lesson.deposit_status %></td> -->
             <td><%= lesson.requester.name %></td>
             <!-- <td><%= lesson.location.name %></td> -->
-            <td><%= lesson.start_time %></td>
             <td><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
             <td><%= lesson.state %></td>
             <td></td>
@@ -169,7 +146,6 @@
       <!-- <th>Deposit?</th> -->
       <th>Student</th>
       <!-- <th>Mountain</th> -->
-      <th>Start Time</th>
       <th>Date</th>
       <th>Status</th>
       <th></th>
@@ -192,7 +168,6 @@
             <!-- <td><%= lesson.deposit_status %></td> -->
             <td><%= lesson.requester.name %></td>
             <!-- <td><%= lesson.location.name %></td> -->
-            <td><%= lesson.start_time %></td>
             <td><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
             <td><%= lesson.state %></td>
             <td></td>

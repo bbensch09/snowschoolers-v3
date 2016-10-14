@@ -59,4 +59,22 @@
   border: 1px solid gray;
   background-color: rgba(0,60,128,0.3);
 }
+.lessons-table-cells{
+  padding-left: 3px !important;
+  padding-right: 3px !important;
+  padding-top: 3px !important;
+  padding-bottom: 3px !important;
+}
+.lesson-type{
+    width: 140px;
+}
+.lesson-student{
+  width:100px;
+}
+.lesson-date{
+  width: 30px;
+}
+.lesson-instructor{
+  width: 60px;
+}
 }
