@@ -53,7 +53,7 @@
         <% end %>
         <td>Currently <%= instructor.status %></td>
         <td>
-        <%if instructor.locations %>
+        <%if instructor.locations.first %>
           <%= instructor.locations.first.name %>
           <% else %>
           TBD
