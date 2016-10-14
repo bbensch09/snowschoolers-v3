@@ -9,7 +9,6 @@ class LessonsController < ApplicationController
       @lessons = Lesson.all.sort_by { |lesson| lesson.id}
       elsif current_user.user_type == "Partner"
         @lessons = Lesson.where(requested_location:current_user.location.id.to_s).sort_by { |lesson| lesson.id}
-        # @active_lessons = Lesson.where(requested_location:current_user.location.id.to_s).sort_by { |lesson| lesson.id}
       elsif current_user.instructor
         @lessons = Lesson.visible_to_instructor?(current_user.instructor)
       else
