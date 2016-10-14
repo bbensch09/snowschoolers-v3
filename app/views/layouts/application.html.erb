@@ -82,8 +82,13 @@
            <!-- <li>  <a href="/"> <span class="glyphicon glyphicon glyphicon-home" aria-hidden="true"></span> </a></li> -->
            <li> <a href="/instructors" class="btn-success"> Admin</a></li>
            <li> <a href="/lessons" class="btn-success"> Daily Dash</a></li>
-          <% end %>
-          <% if current_user %>
+           <li><%= link_to current_user.email, edit_user_registration_path %></li>
+            <li><a href="/lessons" class="sign-up-btn"> Lessons </a></li>
+            <li><a href="/browse" class="sign-up-btn">Instructors</a></li>
+            <li><%= link_to 'Apply', '/apply', class: 'sign-up-btn' %></li>
+            <li> <%= link_to 'Logout', destroy_user_session_path %> </li>
+
+          <% elsif current_user %>
             <% name = current_user.email.present? ? current_user.email : 'Edit Profile' %>
             <% if current_user.instructor.nil? %>
                 <li><%= link_to name, edit_user_registration_path %></li>
@@ -100,9 +105,7 @@
                 <li><%= link_to 'Check Instructor Status', instructor_path(current_user.instructor), class: 'sign-up-btn' %></li>
             <% end %>
             </li>
-            <li>
-              <%= link_to 'Logout', destroy_user_session_path %>
-            </li>
+            <li> <%= link_to 'Logout', destroy_user_session_path %> </li>
           <% else %>
             <% if params[:date] && params[:slot] %>
               <li>
