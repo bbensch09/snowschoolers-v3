@@ -79,6 +79,7 @@ Instructor.create!({
 
 User.confirm_all_users
 
+#LOAD HOMEWOOD PRODUCTS
 Product.create!({
   name: '1hr Early Bird @9am',
   price: 89,
@@ -102,6 +103,80 @@ Product.create!({
   price: 499,
   location_id: 6,
   calendar_period: 'Regular'
+  })
+Product.create!({
+  name: '1hr Early Bird @9am',
+  price: 119,
+  location_id: 6,
+  calendar_period: 'Peak'
+  })
+Product.create!({
+  name: '3hr Half-day @10am',
+  price: 479,
+  location_id: 6,
+  calendar_period: 'Peak'
+  })
+Product.create!({
+  name: '3hr Half-day @1pm',
+  price: 479,
+  location_id: 6,
+  calendar_period: 'Peak'
+  })
+Product.create!({
+  name: 'Full-day @10am',
+  price: 599,
+  location_id: 6,
+  calendar_period: 'Peak'
+  })
+
+#LOAD SUGAR BOWL PRODUCTS
+Product.create!({
+  name: '1hr Early Bird @9am',
+  price: 109,
+  location_id: 11,
+  calendar_period: 'Regular'
+  })
+Product.create!({
+  name: '3hr Half-day @10am',
+  price: 449,
+  location_id: 11,
+  calendar_period: 'Regular'
+  })
+Product.create!({
+  name: '3hr Half-day @1pm',
+  price: 449,
+  location_id: 11,
+  calendar_period: 'Regular'
+  })
+Product.create!({
+  name: 'Full-day @10am',
+  price: 699,
+  location_id: 11,
+  calendar_period: 'Regular'
+  })
+Product.create!({
+  name: '1hr Early Bird @9am',
+  price: 139,
+  location_id: 11,
+  calendar_period: 'Peak'
+  })
+Product.create!({
+  name: '3hr Half-day @10am',
+  price: 499,
+  location_id: 11,
+  calendar_period: 'Peak'
+  })
+Product.create!({
+  name: '3hr Half-day @1pm',
+  price: 499,
+  location_id: 11,
+  calendar_period: 'Peak'
+  })
+Product.create!({
+  name: 'Full-day @10am',
+  price: 749,
+  location_id: 11,
+  calendar_period: 'Peak'
   })
 
 puts "seed complete, locations created."

@@ -39,6 +39,7 @@ SnowSchoolers::Application.routes.draw do
   end
   get '/admin_index' => 'instructors#admin_index'
   get 'browse' => 'instructors#browse'
+  get 'search' => 'products#search'
 
   resources :beta_users
   resources :lesson_times
