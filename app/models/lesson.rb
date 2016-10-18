@@ -321,7 +321,7 @@ class Lesson < ActiveRecord::Base
   private
 
   def instructors_must_be_available
-    errors.add(:instructor, " not available at that time. Email info@snowschoolers.com to be notified if there are cancellations.") unless available_instructors.any?
+    errors.add(:instructor, " not available at that time and location. Email info@snowschoolers.com to be notified if we have any instructors that become available.") unless available_instructors.any?
   end
 
   def requester_must_not_be_instructor
