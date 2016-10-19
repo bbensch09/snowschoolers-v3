@@ -1,0 +1,91 @@
+<div class="container">
+<div id="primary-search-bar">
+  <ul class="primary-search-form">
+      <%= form_tag(search_results_path, :method => "get", id: "search-form") do %>
+      <li>
+        <%= text_field_tag :search, params[:search], placeholder: "Where do you plan to ski...", class:'navy-text form-control search-form' %>
+      </li>
+      <li>
+        <%= submit_tag "Refine Search", class:"btn btn-primary btn-xl page-scroll" %>
+      </li>
+      <li><h2>Sort by: <a href="#" class="btn btn-default">[Price]</a></h2></li>
+      <% end %>
+  </ul>
+</div>
+<hr class="full-hr">
+
+<div id="secondary-search-filters">
+  <div id="lesson-length-filter">
+    <h3>Lesson Length</h3>
+    <ul>
+      <li>1hr</li>
+      <li>2hr</li>
+      <li>3hr</li>
+    </ul>
+  </div>
+  <div id="online-booking-filter">
+    <h3>Online checkout?</h3>
+    <ul>
+      <li>Yes</li>
+      <li>No</li>
+    </ul>
+  </div>
+  <div id="certification-filter">
+    <h3>Instructor Certification</h3>
+    <ul>
+      <li>any</li>
+      <li>Level 1</li>
+      <li>Level 2</li>
+      <li>Level 3</li>
+    </ul>
+  </div>
+  <div id="reviews-filter">
+    <h3>Reviews</h3>
+    <ul>
+      <li>5 stars</li>
+      <li>4+ stars</li>
+      <li>3+ stars</li>
+      <li>2+ stars</li>
+      <li>1+ stars</li>
+    </ul>
+  </div>
+</div>
+
+<div id="search-results-section">
+
+<div class="notice">
+<% if @products.present? %>
+<% else %>
+  <p>There are no products containing the term(s) "<%= params[:search] %>".</p>
+<% end %>
+</div>
+
+<% @products.each do |product| %>
+
+  <div class="row search-results-card">
+    <div class="col-md-3 location-logo">
+          <% if product %>
+          <!-- % if product.avatar.nil? %> -->
+            <img src="assets/vail-logo.jpg" class="instructor-photo ">
+          <% else %>
+            <%= image_tag product.avatar.url(:large), alt:"avatar-img", class:"instructor-photo avatar-center" %>
+          <%end%>
+    </div>
+    <div class="col-md-6 location-details">
+      <h1><%= product.name %></h1>
+      <h2><%= product.location.name %></h2>
+      <ul>
+        <li>Starts at: XXXX</li>
+        <li>Ends at: XXXX</li>
+        <li>Ends at: XXXX</li>
+      </ul>
+    </div>
+    <div class="col-md-3 price-details">
+        <h1><%= product.price %> <br> <span class="smaller-text"> <%= product.calendar_period %> </span> </h1>
+        <h2 class="center"><a href="lessons/new" class="btn sign-up-btn">Book Now</a></h2>
+    </div>
+  </div>
+
+<% end %>
+
+</div>

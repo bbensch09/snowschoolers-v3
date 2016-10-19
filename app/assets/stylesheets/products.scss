@@ -2,3 +2,29 @@
   width: 300px;
   display: inline-block;
 }
+.primary-search-form li{
+  display: inline-block;
+  margin: auto;
+  position: relative;
+  left: 20vw;
+}
+.full-hr{
+  max-width:90vw !important;
+  border: solid 1px #3b5998;
+}
+#secondary-search-filters{
+  float:left;
+  width:250px;
+  border-right: solid 1px #3b5998;
+}
+#search-results-section{
+  float:left;
+  padding-left: 30px;
+}
+.search-results-card{
+  background-color:#d9e9f7;
+  border: solid 1px #3b5998;
+  padding: 10px 10px 10px 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

@@ -5,6 +5,9 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     @products = Product.all
+  end
+
+  def search_results
     if params[:search]
       @products = Product.search(params[:search])#.order("price DESC")
     else
