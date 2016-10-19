@@ -49,6 +49,15 @@
       <li>1+ stars</li>
     </ul>
   </div>
+  <div id="locations-filter">
+    <h3>Ski Areas</h3>
+    <ul>
+      <li>Homewood</li>
+      <li>Mt. Rose</li>
+      <li>Sugar Bowl</li>
+      <li>Northstar</li>
+    </ul>
+  </div>
 </div>
 
 <div id="search-results-section">
@@ -63,17 +72,16 @@
 <% @products.each do |product| %>
 
   <div class="row search-results-card">
-    <div class="col-md-3 location-logo">
-          <% if product %>
-          <!-- % if product.avatar.nil? %> -->
-            <img src="assets/vail-logo.jpg" class="instructor-photo ">
+    <div class="col-md-3 location-logo-section">
+          <% if product.location.logo.nil? %>
+            <img src="assets/copyright.jpg" class="instructor-photo ">
           <% else %>
-            <%= image_tag product.avatar.url(:large), alt:"avatar-img", class:"instructor-photo avatar-center" %>
+            <%= image_tag product.location.logo.url(:large), alt:"location-logo", class:"location-logo avatar-center" %>
           <%end%>
+      <h2 class="location-name"><%= product.location.name %></h2>
     </div>
     <div class="col-md-6 location-details">
-      <h1><%= product.name %></h1>
-      <h2><%= product.location.name %></h2>
+      <h1 class="product-name"><%= product.name %></h1>
       <ul>
         <li>Starts at: XXXX</li>
         <li>Ends at: XXXX</li>
@@ -81,8 +89,8 @@
       </ul>
     </div>
     <div class="col-md-3 price-details">
-        <h1><%= product.price %> <br> <span class="smaller-text"> <%= product.calendar_period %> </span> </h1>
-        <h2 class="center"><a href="lessons/new" class="btn sign-up-btn">Book Now</a></h2>
+        <h1><%= number_to_currency(product.price) %> <br> <span class="smaller-text calendar-period"> (<%= product.calendar_period %>) </span> </h1>
+        <h2 class="center products-cta"><a href="lessons/new" class="btn btn-primary btn-xl page-scroll">Book Now</a></h2>
     </div>
   </div>
 

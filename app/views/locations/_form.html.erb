@@ -2,6 +2,7 @@
 <%= semantic_form_for @location do |f| %>
   <%= f.inputs do %>
     <%= f.input :name %>
+    <%= f.input :logo %>
     <%= f.input :region, as: :select, collection: ['North Tahoe','South Tahoe','Central Sierras','Southern California','Northern California'] %>
     <%= f.input :state, as: :select, collection: ['California','Utah','Colorado'] %>
     <%= f.input :partner_status, as: :select, collection: ['Active','Inactive'] %>

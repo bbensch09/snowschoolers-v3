@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161019063056) do
+ActiveRecord::Schema.define(version: 20161019220619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20161019063056) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string   "how_did_you_hear"
+    t.string   "confirmed_certification"
   end
 
   create_table "instructors_locations", id: false, force: true do |t|
@@ -123,6 +124,10 @@ ActiveRecord::Schema.define(version: 20161019063056) do
     t.string   "calendar_status"
     t.string   "region"
     t.string   "state"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
   end
 
   create_table "products", force: true do |t|
@@ -132,6 +137,9 @@ ActiveRecord::Schema.define(version: 20161019063056) do
     t.string   "calendar_period"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "length"
+    t.string   "slot"
+    t.string   "start_time"
   end
 
   create_table "students", force: true do |t|
