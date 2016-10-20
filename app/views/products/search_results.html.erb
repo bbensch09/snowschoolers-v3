@@ -2,14 +2,17 @@
 <div id="primary-search-bar">
   <ul class="primary-search-form">
       <%= form_tag(search_results_path, :method => "get", id: "search-form") do %>
+      <!-- %= semantic_form_for search_results_path, :html=> {:method => :get} do |f| %> -->
+        <!-- %= f.inputs do %> -->
       <li>
+        <!-- %= f.input :search, placeholder: "Where do you plan to ski...", input_html: {class:'navy-text form-control search-form'}, label:false %> -->
         <%= text_field_tag :search, params[:search], placeholder: "Where do you plan to ski...", class:'navy-text form-control search-form' %>
       </li>
       <li>
-        <%= submit_tag "Refine Search", class:"btn btn-primary btn-xl page-scroll" %>
+        <!-- %= f.submit "Refine Search" , class:"btn btn-primary btn-xl page-scroll" %> -->
+          <%= submit_tag "Refine Search", class:"btn btn-primary btn-xl page-scroll" %>
       </li>
       <li><h2>Sort by: <a href="#" class="btn btn-default">[Price]</a></h2></li>
-      <% end %>
   </ul>
 </div>
 <hr class="full-hr">
@@ -17,10 +20,23 @@
 <div id="secondary-search-filters">
   <div id="lesson-length-filter">
     <h3>Lesson Length</h3>
-    <ul>
-      <li>1hr</li>
-      <li>2hr</li>
-      <li>3hr</li>
+    <ul class="length-list">
+        <li>
+        <%= check_box_tag :search_length_1, 1 %>
+          <%= label_tag(:search_length, "1 hour", {class:'navy-text'}) %>
+        </li>
+        <li>
+        <%= check_box_tag :search_length_2, 2 %>
+          <%= label_tag(:search_length, "2 hours", {class:'navy-text'}) %>
+        </li>
+        <li>
+        <%= check_box_tag :search_length_3, 3 %>
+          <%= label_tag(:search_length, "3 hours", {class:'navy-text'}) %>
+        </li>
+        <li>
+        <%= check_box_tag :search_length_6, 6 %>
+          <%= label_tag(:search_length, "6-7 hours", {class:'navy-text'}) %>
+        </li>
     </ul>
   </div>
   <div id="online-booking-filter">
@@ -59,6 +75,8 @@
     </ul>
   </div>
 </div>
+      <!-- % end %> -->
+    <% end %>
 
 <div id="search-results-section">
 

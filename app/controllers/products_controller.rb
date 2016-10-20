@@ -8,10 +8,15 @@ class ProductsController < ApplicationController
   end
 
   def search_results
+    # byebug
     if params[:search]
-      @products = Product.search(params[:search])#.order("price DESC")
+      search_params = {search_text: params[:search], length: [params[:search_length_1],params[:search_length_2],params[:search_length_3],params[:search_length_6]],slot: params[:seach_slot]}
+      puts "!!!!! the search_params are: #{search_params}"
+      @products = Product.search(search_params)
+      @products.sort! {|a,b| a.price <=> b.price}
     else
-      @products = Product.all.order("price DESC")
+      puts "!!!!!!! search params NOT found, retuning all products"
+      @products = Product.all.order("price ASC")
     end
   end
 

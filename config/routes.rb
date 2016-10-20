@@ -41,6 +41,7 @@ SnowSchoolers::Application.routes.draw do
   get 'browse' => 'instructors#browse'
   get 'search' => 'products#search'
   get 'search_results' => 'products#search_results', as: :search_results
+  # post 'search_results' => 'products#search_results', as: :refresh_search_results
 
   resources :beta_users
   resources :lesson_times
