@@ -4,6 +4,9 @@
   <thead>
     <tr>
       <th>Ski Area Name</th>
+      <th>Logo</th>
+      <th>Region</th>
+      <th>State</th>
       <th>Partner Status</th>
       <th>Calendar Status</th>
       <th></th>
@@ -16,6 +19,11 @@
     <% @locations.each do |location| %>
       <tr>
         <td><%= location.name %></td>
+        <td>
+        <%= image_tag location.logo.url(:large), alt:"avatar-img", class:"location-logo-index avatar-center" %>
+        </td>
+        <td><%= location.region %></td>
+        <td><%= location.state %></td>
         <td><%= location.partner_status %></td>
         <td><%= location.calendar_status %></td>
         <td><%= link_to 'Show', location %></td>

@@ -12,6 +12,14 @@
   <strong>Calendar Status:</strong>
   <%= @location.calendar_status %>
 </p>
+<p>
+  <strong>Region:</strong>
+  <%= @location.region %>
+</p>
+<p>
+  <strong>State:</strong>
+  <%= @location.state %>
+</p>
 
 <%= link_to 'Edit', edit_location_path(@location) %> |
 <%= link_to 'Back', locations_path %>

@@ -1,0 +1,86 @@
+.search-form{
+  width: 300px;
+  display: inline-block;
+  line-height: 1.5;
+  font-size: 0.7em;
+  height: 50px;
+}
+.search-form-serp{
+  font-size: 1.2em;
+  height: 50px;
+}
+#primary-search-bar h2{
+  margin-bottom: 0px;
+}
+.primary-search-form li{
+  display: inline-block;
+  margin: auto;
+  position: relative;
+  left: 20vw;
+}
+.full-hr{
+  max-width:90vw !important;
+  border: solid 1px #3b5998;
+}
+#secondary-search-filters{
+  float:left;
+  width:250px;
+  min-height: 70vh;
+  border-right: solid 1px #3b5998;
+}
+#search-results-section{
+  float:left;
+  padding-left: 30px;
+  width: 870px;
+}
+.search-results-card{
+  background-color:#d9e9f7;
+  border: solid 1px #3b5998;
+  padding: 10px 10px 10px 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.inactive-partner{
+  background-color: #bfb7b7;
+}
+.calendar-period{
+  font-style: italic;
+}
+.product-name{
+    font-size: 2.7em;
+}
+.location-name{
+    margin-bottom: 0px;
+    font-size: 1.7em;
+    text-align: center;
+}
+.location-logo-index{
+  height:50px;
+}
+.location-logo{
+  max-height: 100px;
+  width: auto;
+  max-width: 150px;
+}
+.products-cta{
+  margin-bottom: 0px;
+}
+#lesson-length-filter ul, #online-booking-filter ul, .location-details ul, #resort-filter ul{
+  list-style-type: none;
+}
+.location-details ul li {
+    font-size: 1.4em;
+    padding-bottom: 15px;
+    left: -40px;
+    position: relative;
+}
+.filter-heading{
+  padding-right: 5px;
+}
+#sort_tag, #search_slot{
+  width:90%;
+}
+#secondary-search-filters div h3 {
+  color: #3b5998;
+  text-transform: uppercase;
+}

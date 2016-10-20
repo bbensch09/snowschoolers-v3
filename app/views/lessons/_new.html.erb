@@ -21,7 +21,7 @@
                 <div class="square-image">
                   <% if Instructor.find(@instructor_requested).avatar? %>
                     <%= image_tag Instructor.find(@instructor_requested).avatar.url(:large), alt:"avatar-img", class:"img-circle instructor-photo avatar-center" %>
-                  <%end%>
+                  <% end %>
                 </div>
               </div>
             </p>
@@ -57,7 +57,7 @@
 
                 <div class="col-md-3">
                   <!-- <%= lt_f.input :slot, as: :select, collection: ['Morning', 'Afternoon', 'Full Day'], include_blank: 'Time', label: false %> -->
-                  <%= lt_f.input :slot, as: :select, collection: ['1hr Early Bird @9am', '3hr Half-day @10am', '3hr Half-day @1pm', 'Full-day @10am'], include_blank: 'Time', label: false %>
+                  <%= lt_f.input :slot, as: :select, collection: ['1hr Early Bird', 'Half-day Morning', 'Half-day Afternoon', 'Full-day Private'], selected: @promo_slot, include_blank: 'Time', label: false %>
                 </div>
             </p>
           </div>
@@ -65,15 +65,20 @@
       <% end %>
         <%= f.input :state, as: :hidden, input_html: { value: 'new' } %>
         <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
-
-        <div class="block">
-          <%= f.actions do %>
-            <%= f.action :submit, as: :input, button_html: { class: 'btn btn-primary btn-lg', value: 'Book Lesson' } %>
-          <% end %>
-          <% if @instructor_requested.nil? %>
-<!--             <a href="/browse" class="browse-instructors-btn btn btn-default btn-lg">Browse by Instructors</a>
- -->          <% end %>
-        </div>
+        <ul class="new-lesson-ctas-list">
+          <li>
+            <%= f.actions do %>
+              <%= f.action :submit, as: :input, button_html: { class: 'btn btn-default btn-lg', value: 'Book Lesson' } %>
+            <% end %>
+          </li>
+            <% if @instructor_requested.nil? %>
+            <li>  OR </li>
+          <li>
+              <a id='browser-instructors-cta' href="/browse" class="btn btn-default btn-lg">Browse instructors</a>
+              <!-- class="browse-instructors-btn" -->
+          </li>
+            <% end %>
+        </ul>
       <% end %>
     </div>
   </li>

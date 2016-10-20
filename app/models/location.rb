@@ -2,6 +2,11 @@ class Location < ActiveRecord::Base
   has_and_belongs_to_many :instructors  #, dependent: :destroy
   has_one :user
   has_many :products
+  has_attached_file :logo, styles: { large: "400x400>", thumb: "80x80>" },  default_url: "https://s3.amazonaws.com/snowschoolers/cd-sillouhete.jpg",
+        :storage => :s3,
+        :bucket => 'snowschoolers'
+  validates_attachment_content_type :logo, content_type: /\Aimage\/.*\Z/
+
 
   def lifetime_lessons
     Lesson.where(state:"Payment Complete",requested_location:self.id.to_s)

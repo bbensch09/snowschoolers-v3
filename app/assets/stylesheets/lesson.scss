@@ -33,6 +33,13 @@
   position: relative;
   width: 110%;
 }
+.new-lesson-ctas-list li{
+  display: inline-block;
+  list-style-type: none;
+}
+#browser-instructors-cta, #lesson_submit_action{
+  position: relative !important;
+}
 
 /*DESKTOP ONLY ADJUSTMENTS*/
 @media (min-width: 768px) {

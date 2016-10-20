@@ -1,16 +1,22 @@
 resorts = [
+      "Alpine Meadows",
       "Alta",
+      "Aspen",
       "Bear Valley",
       "Diamond Peak",
       "Dodge Ridge",
       "Donner Ski Ranch",
       "Homewood",
+      "Jackson Hole",
       "Mt. Rose",
       "Soda Springs",
       "Snowbasin",
       "Snowbird",
+      "Squaw Valley",
+      "Sun Valley",
       "Sugar Bowl",
-      "Tahoe Donner"
+      "Tahoe Donner",
+      "Taos"
       ]
 resorts.each do |resort|
   Location.create!({
@@ -79,29 +85,171 @@ Instructor.create!({
 
 User.confirm_all_users
 
+#LOAD HOMEWOOD PRODUCTS
 Product.create!({
-  name: '1hr Early Bird @9am',
+  name: '1hr Early Bird',
   price: 89,
-  location_id: 6,
+  location_id: 8,
+  length: 1,
+  slot: 'Morning',
+  start_time: '9:00am',
   calendar_period: 'Regular'
   })
 Product.create!({
-  name: '3hr Half-day @10am',
+  name: '1hr Early Bird',
+  price: 119,
+  location_id: 8,
+  length: 1,
+  slot: 'Morning',
+  start_time: '9:00am',
+  calendar_period: 'Peak'
+  })
+Product.create!({
+  name: '1hr Early Bird',
+  price: 129,
+  location_id: 8,
+  length: 1,
+  slot: 'Morning',
+  start_time: '9:00am',
+  calendar_period: 'Holiday'
+  })
+Product.create!({
+  name: 'Half-day Morning',
   price: 399,
-  location_id: 6,
+  location_id: 8,
+  length: 3,
+  slot: 'Morning',
+  start_time: '10:00am',
   calendar_period: 'Regular'
   })
 Product.create!({
-  name: '3hr Half-day @1pm',
-  price: 399,
-  location_id: 6,
-  calendar_period: 'Regular'
+  name: 'Half-day Morning',
+  price: 479,
+  location_id: 8,
+  length: 3,
+  slot: 'Morning',
+  start_time: '10:00am',
+  calendar_period: 'Peak'
   })
 Product.create!({
-  name: 'Full-day @10am',
+  name: 'Half-day Morning',
   price: 499,
-  location_id: 6,
+  location_id: 8,
+  length: 3,
+  slot: 'Morning',
+  start_time: '10:00am',
+  calendar_period: 'Holiday'
+  })
+Product.create!({
+  name: 'Half-day Afternoon',
+  price: 399,
+  location_id: 8,
+  length: 3,
+  slot: 'Afternoon',
+  start_time: '1:00pm',
   calendar_period: 'Regular'
+  })
+Product.create!({
+  name: 'Half-day Afternoon',
+  price: 479,
+  location_id: 8,
+  length: 3,
+  slot: 'Afternoon',
+  start_time: '1:00pm',
+  calendar_period: 'Peak'
+  })
+Product.create!({
+  name: 'Half-day Afternoon',
+  price: 499,
+  location_id: 8,
+  length: 3,
+  slot: 'Afternoon',
+  start_time: '1:00pm',
+  calendar_period: 'Holiday'
+  })
+Product.create!({
+  name: 'Full-day Private',
+  price: 499,
+  location_id: 8,
+  length: 6,
+  slot: 'All Day',
+  start_time: '10:00am',
+  calendar_period: 'Regular'
+  })
+Product.create!({
+  name: 'Full-day Private',
+  price: 599,
+  location_id: 8,
+  length: 6,
+  slot: 'All Day',
+  start_time: '10:00am',
+  calendar_period: 'Peak'
+  })
+Product.create!({
+  name: 'Full-day Private',
+  price: 649,
+  location_id: 8,
+  length: 6,
+  slot: 'All Day',
+  start_time: '10:00am',
+  calendar_period: 'Holiday'
+  })
+
+# LOAD SQUAW VALLEY PRODUCTS
+
+Product.create!({
+  name: 'Half-day Morning',
+  price: 519,
+  location_id: 14,
+  length: 3,
+  slot: 'Morning',
+  start_time: '9:00am',
+  calendar_period: 'Regular'
+  })
+Product.create!({
+  name: 'Half-day Morning',
+  price: 559,
+  location_id: 14,
+  length: 3,
+  slot: 'Morning',
+  start_time: '9:00am',
+  calendar_period: 'Peak'
+  })
+Product.create!({
+  name: 'Half-day Afternoon',
+  price: 419,
+  location_id: 14,
+  length: 3,
+  slot: 'Afternoon',
+  start_time: '1:00pm',
+  calendar_period: 'Regular'
+  })
+Product.create!({
+  name: 'Half-day Afternoon',
+  price: 459,
+  location_id: 14,
+  length: 3,
+  slot: 'Afternoon',
+  start_time: '1:00pm',
+  calendar_period: 'Peak'
+  })
+Product.create!({
+  name: 'Full-day Private',
+  price: 739,
+  location_id: 14,
+  length: 7,
+  slot: 'All Day',
+  start_time: '9:00am',
+  calendar_period: 'Regular'
+  })
+Product.create!({
+  name: 'Full-day Private',
+  price: 779,
+  location_id: 14,
+  length: 7,
+  slot: 'All Day',
+  start_time: '9:00am',
+  calendar_period: 'Peak'
   })
 
 puts "seed complete, locations created."
