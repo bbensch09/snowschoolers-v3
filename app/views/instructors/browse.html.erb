@@ -22,7 +22,7 @@
           <li><%= instructor.bio %> </li>
         </ul>
         <ul class="instructor-resorts">
-          <% instructor.locations.each do |location| %>
+          <% instructor.locations[0..3].each do |location| %>
             <li><%= location.name %></li>
           <% end %>
         </ul>

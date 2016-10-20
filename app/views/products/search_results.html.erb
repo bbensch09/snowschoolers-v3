@@ -10,43 +10,65 @@
       </li>
       <li>
         <!-- %= f.submit "Refine Search" , class:"btn btn-primary btn-xl page-scroll" %> -->
-          <%= submit_tag "Refine Search", class:"btn btn-primary btn-xl page-scroll" %>
+          <%= submit_tag "Search Again", class:"btn btn-primary btn-xl page-scroll" %>
       </li>
-      <li><h2>Sort by: <a href="#" class="btn btn-default">[Price]</a></h2></li>
   </ul>
 </div>
 <hr class="full-hr">
 
 <div id="secondary-search-filters">
+  <div id="sort-selector">
+      <h3>
+      Sort results by: <br> <%= select_tag :sort_tag, options_for_select(["Recommended","Price Low to High","Price High to Low","Resort A-Z"], params[:sort_tag]), {class: 'navy-text form-control'} %>
+      </h3>
+  </div>
   <div id="lesson-length-filter">
     <h3>Lesson Length</h3>
     <ul class="length-list">
         <li>
-        <%= check_box_tag :search_length_1, 1 %>
+        <%= check_box_tag :search_length_1, 1, params[:search_length_1] %>
           <%= label_tag(:search_length, "1 hour", {class:'navy-text'}) %>
         </li>
         <li>
-        <%= check_box_tag :search_length_2, 2 %>
+        <%= check_box_tag :search_length_2, 2,  params[:search_length_2] %>
           <%= label_tag(:search_length, "2 hours", {class:'navy-text'}) %>
         </li>
         <li>
-        <%= check_box_tag :search_length_3, 3 %>
+        <%= check_box_tag :search_length_3, 3, params[:search_length_3] %>
           <%= label_tag(:search_length, "3 hours", {class:'navy-text'}) %>
         </li>
         <li>
-        <%= check_box_tag :search_length_6, 6 %>
-          <%= label_tag(:search_length, "6-7 hours", {class:'navy-text'}) %>
+        <%= check_box_tag :search_length_6, 6, params[:search_length_6] %>
+          <%= label_tag(:search_length, "6 hours", {class:'navy-text'}) %>
+        </li>
+        <li>
+        <%= check_box_tag :search_length_7, 7, params[:search_length_7] %>
+          <%= label_tag(:search_length, "7 hours", {class:'navy-text'}) %>
         </li>
     </ul>
   </div>
   <div id="online-booking-filter">
-    <h3>Online checkout?</h3>
-    <ul>
-      <li>Yes</li>
-      <li>No</li>
+    <h3 class="filter-heading"> Book direct with Snow Schoolers?</h3>
+    <ul class="length-list">
+      <li>
+          <%= check_box_tag :search_status, true, params[:search_status] %>
+          <%= label_tag(:search_status, "Filter results", {class:'navy-text'}) %>
+      </li>
     </ul>
   </div>
-  <div id="certification-filter">
+<div id="resort-filter">
+    <h3>Compare Resorts</h3>
+    <p>(Recommended to first clear text-search above.)</p>
+    <ul class="">
+        <%= collection_check_boxes :resort_filter, :location_ids, Location.all.reverse, :id, :name do |location_item| %>
+        <li class="navy-text">
+          <%= location_item.check_box %>
+          <%= location_item.label %>
+        </li>
+        <% end %>
+    </ul>
+  </div>
+  <!-- <div id="certification-filter">
     <h3>Instructor Certification</h3>
     <ul>
       <li>any</li>
@@ -73,7 +95,7 @@
       <li>Sugar Bowl</li>
       <li>Northstar</li>
     </ul>
-  </div>
+  </div> -->
 </div>
       <!-- % end %> -->
     <% end %>
@@ -84,12 +106,17 @@
 <% if @products.present? %>
 <% else %>
   <p>There are no products containing the term(s) "<%= params[:search] %>".</p>
+  <p>The full set of search parameters are: <%= @search_params %>.</p>
 <% end %>
 </div>
 
 <% @products.each do |product| %>
 
-  <div class="row search-results-card">
+    <% if product.location.partner_status == "Active" %>
+      <div class="row search-results-card">
+      <% else %>
+      <div class="row search-results-card inactive-partner">
+    <% end %>
     <div class="col-md-3 location-logo-section">
           <% if product.location.logo.nil? %>
             <img src="assets/copyright.jpg" class="instructor-photo ">
@@ -101,14 +128,13 @@
     <div class="col-md-6 location-details">
       <h1 class="product-name"><%= product.name %></h1>
       <ul>
-        <li>Starts at: XXXX</li>
-        <li>Ends at: XXXX</li>
-        <li>Ends at: XXXX</li>
+        <li>Starts at: <%= product.start_time %></li>
+        <li>Length: <%= product.length %> hours</li>
       </ul>
     </div>
     <div class="col-md-3 price-details">
-        <h1><%= number_to_currency(product.price) %> <br> <span class="smaller-text calendar-period"> (<%= product.calendar_period %>) </span> </h1>
-        <h2 class="center products-cta"><a href="lessons/new" class="btn btn-primary btn-xl page-scroll">Book Now</a></h2>
+        <h1><%= number_to_currency(product.price) %> <br> <span class="smaller-text center calendar-period"> (<%= product.calendar_period %> rate) </span> </h1>
+        <h2 class="center products-cta"><a href="/lessons/new" class="btn btn-primary page-scroll">Book a Lesson</a></h2>
     </div>
   </div>
 

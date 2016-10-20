@@ -15,11 +15,13 @@
 #secondary-search-filters{
   float:left;
   width:250px;
+  min-height: 70vh;
   border-right: solid 1px #3b5998;
 }
 #search-results-section{
   float:left;
   padding-left: 30px;
+  width: 870px;
 }
 .search-results-card{
   background-color:#d9e9f7;
@@ -27,6 +29,9 @@
   padding: 10px 10px 10px 10px;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+.inactive-partner{
+  background-color: #bfb7b7;
 }
 .calendar-period{
   font-style: italic;
@@ -36,7 +41,7 @@
 }
 .location-name{
     margin-bottom: 0px;
-    font-size: 1.9em;
+    font-size: 1.7em;
     text-align: center;
 }
 .location-logo-index{
@@ -45,11 +50,20 @@
 .location-logo{
   max-height: 100px;
   width: auto;
-  max-width: 160px;
+  max-width: 150px;
 }
 .products-cta{
   margin-bottom: 0px;
 }
-#lesson-length-filter ul {
+#lesson-length-filter ul, #online-booking-filter ul, .location-details ul, #resort-filter ul{
   list-style-type: none;
+}
+.location-details ul li {
+    font-size: 1.4em;
+    padding-bottom: 15px;
+    left: -40px;
+    position: relative;
+}
+.filter-heading{
+  padding-right: 5px;
 }

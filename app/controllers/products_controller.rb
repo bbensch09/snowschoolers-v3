@@ -8,15 +8,22 @@ class ProductsController < ApplicationController
   end
 
   def search_results
-    # byebug
     if params[:search]
-      search_params = {search_text: params[:search], length: [params[:search_length_1],params[:search_length_2],params[:search_length_3],params[:search_length_6]],slot: params[:seach_slot]}
-      puts "!!!!! the search_params are: #{search_params}"
-      @products = Product.search(search_params)
-      @products.sort! {|a,b| a.price <=> b.price}
+      @search_params = {search_text: params[:search], length: [params[:search_length_1],params[:search_length_2],params[:search_length_3],params[:search_length_6],params[:search_length_7]],status: params[:search_status],slot: params[:seach_slot],resort_filter: params[:resort_filter]}
+      puts "!!!!! the search_params are: #{@search_params}"
+      @products = Product.search(@search_params)
     else
-      puts "!!!!!!! search params NOT found, retuning all products"
       @products = Product.all.order("price ASC")
+    end
+    case params[:sort_tag]
+      when "Price Low to High"
+        @products.sort! {|a,b| a.price <=> b.price}
+      when "Price High to Low"
+        @products.sort! {|a,b| b.price <=> a.price}
+      when "Resort A-Z"
+        @products.sort! {|a,b| a.location.name <=> b.location.name}
+      else
+        @products.sort! {|a,b| a.price <=> b.price}
     end
   end
 
@@ -82,6 +89,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:name, :price, :location_id, :calendar_period, :search, :length, :slot, :start_time, :search_length, :search_slot, :search_cert, :search_sport, :search_location)
+      params.require(:product).permit(:name, :price, :location_id, :calendar_period, :search, :length, :slot, :start_time, :search_length, :search_status, :search_slot, :search_cert, :search_sport, :search_location, :sort_tag)
     end
 end
