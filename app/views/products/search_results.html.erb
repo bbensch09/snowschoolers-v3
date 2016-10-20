@@ -143,7 +143,7 @@
         <% if product.location.partner_status == "Active" %>
         <h2 class="center products-cta"><a href="/lessons/book_product/<%=product.id%>" class="btn btn-primary page-scroll">Book Today</a></h2>
         <% else %>
-        <h2 class="center products-cta"><a href="mailto:info@snowschoolers.com" target="_blank" class="btn btn-primary page-scroll">Request More Info</a></h2>
+        <h2 class="center products-cta"><a href="mailto:info@snowschoolers.com?subject=How%20do%20I%20make%20a%20lesson%20reservation%20at%20<%=product.location.name%>" target="_blank" class="btn btn-primary page-scroll">Request More Info</a></h2>
         <% end %>
     </div>
   </div>
