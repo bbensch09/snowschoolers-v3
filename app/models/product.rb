@@ -5,6 +5,7 @@ class Product < ActiveRecord::Base
     search_results = []
     #SEARCH LOCATION BASED ON TEXT
     if search_params[:search_text].length >=1
+      # puts "!!!!!!!!!!!!entered text-based location search"
       matched_locations = Location.where("name ILIKE ?","%#{search_params[:search_text]}%")
       matched_regions = Location.where("region ILIKE ?","%#{search_params[:search_text]}%")
       matched_state = Location.where("state ILIKE ?","%#{search_params[:search_text]}%")
@@ -29,11 +30,17 @@ class Product < ActiveRecord::Base
       search_results = search_results.keep_if { |product| product.location.partner_status == "Active" }
       # puts "FOURTH!!!!!!!!the current number of search_results is #{search_results.count}"
     end
-      puts "FIFTH!!!!!!!!! the current number of search_results is #{search_results.count}"
-    if search_params[:resort_filter][:location_ids] == [""]
+      # puts "FIFTH!!!!!!!!! the current number of search_results is #{search_results.count}"
+    if search_params[:resort_filter].nil? || search_params[:resort_filter][:location_ids] == [""]
       search_results
     else
-      puts "!!!!!!applied a resort filter for the location_ids: #{search_params[:resort_filter][:location_ids]}"
+      location_ids = search_params[:resort_filter][:location_ids]
+      search_results = search_results.keep_if {|product| location_ids.include?(product.location_id.to_s)}
+      # puts "SIXTH!!!!!!!!! the current number of search_results is #{search_results.count}"
+    end
+    if search_params[:slot] && search_params[:slot] != "Any Slot"
+      search_results = search_results.keep_if {|product| product.slot == search_params[:slot]}
+      # puts "SEVENTH!!!!!!!!! the current number of search_results is #{search_results.count}"
     end
     return search_results
   end

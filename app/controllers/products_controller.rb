@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
 
   def search_results
     if params[:search]
-      @search_params = {search_text: params[:search], length: [params[:search_length_1],params[:search_length_2],params[:search_length_3],params[:search_length_6],params[:search_length_7]],status: params[:search_status],slot: params[:seach_slot],resort_filter: params[:resort_filter]}
+      @search_params = {search_text: params[:search], length: [params[:search_length_1],params[:search_length_2],params[:search_length_3],params[:search_length_6],params[:search_length_7]],status: params[:search_status],slot: params[:search_slot],resort_filter: params[:resort_filter]}
       puts "!!!!! the search_params are: #{@search_params}"
       @products = Product.search(@search_params)
     else

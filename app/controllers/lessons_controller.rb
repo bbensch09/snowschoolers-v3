@@ -30,6 +30,15 @@ class LessonsController < ApplicationController
     render 'new'
   end
 
+  def book_product
+    @lesson = Lesson.new
+    @promo_location = Product.find(params[:id]).location.id
+    @promo_slot = Product.find(params[:id]).name.to_s
+    puts "The selected slot is #{@promo_slot}"
+    @lesson_time = @lesson.lesson_time
+    render 'new'
+  end
+
   def new
     @lesson = Lesson.new
     @promo_location = nil

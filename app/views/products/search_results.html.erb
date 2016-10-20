@@ -1,12 +1,13 @@
 <div class="container">
 <div id="primary-search-bar">
+  <h2 class="center">We found <%= @products.count %> lessons that match your search:</h2>
   <ul class="primary-search-form">
       <%= form_tag(search_results_path, :method => "get", id: "search-form") do %>
       <!-- %= semantic_form_for search_results_path, :html=> {:method => :get} do |f| %> -->
         <!-- %= f.inputs do %> -->
       <li>
         <!-- %= f.input :search, placeholder: "Where do you plan to ski...", input_html: {class:'navy-text form-control search-form'}, label:false %> -->
-        <%= text_field_tag :search, params[:search], placeholder: "Where do you plan to ski...", class:'navy-text form-control search-form' %>
+        <%= text_field_tag :search, params[:search], placeholder: "Where do you plan to ski...", class:'navy-text form-control search-form-serp' %>
       </li>
       <li>
         <!-- %= f.submit "Refine Search" , class:"btn btn-primary btn-xl page-scroll" %> -->
@@ -19,10 +20,15 @@
 <div id="secondary-search-filters">
   <div id="sort-selector">
       <h3>
-      Sort results by: <br> <%= select_tag :sort_tag, options_for_select(["Recommended","Price Low to High","Price High to Low","Resort A-Z"], params[:sort_tag]), {class: 'navy-text form-control'} %>
+      Sort results by <br> <%= select_tag :sort_tag, options_for_select(["Recommended","Price Low to High","Price High to Low","Resort A-Z"], params[:sort_tag]), {class: 'navy-text form-control'} %>
       </h3>
   </div>
-  <div id="lesson-length-filter">
+  <div id="lesson-slot-filter">
+      <h3>Lesson Slot
+      </h3>
+      <%= select_tag :search_slot, options_for_select(["Any Slot","Morning","Afternoon","All Day"], params[:search_slot]), {class: 'navy-text form-control'} %>
+  </div>
+  <!-- <div id="lesson-length-filter">
     <h3>Lesson Length</h3>
     <ul class="length-list">
         <li>
@@ -46,7 +52,7 @@
           <%= label_tag(:search_length, "7 hours", {class:'navy-text'}) %>
         </li>
     </ul>
-  </div>
+  </div> -->
   <div id="online-booking-filter">
     <h3 class="filter-heading"> Book direct with Snow Schoolers?</h3>
     <ul class="length-list">
@@ -58,7 +64,7 @@
   </div>
 <div id="resort-filter">
     <h3>Compare Resorts</h3>
-    <p>(Recommended to first clear text-search above.)</p>
+    <span class="text-danger"><em>(Recommended to first clear any text-search above.)</em></span>
     <ul class="">
         <%= collection_check_boxes :resort_filter, :location_ids, Location.all.reverse, :id, :name do |location_item| %>
         <li class="navy-text">
@@ -118,12 +124,12 @@
       <div class="row search-results-card inactive-partner">
     <% end %>
     <div class="col-md-3 location-logo-section">
+      <h2 class="location-name center"><%= product.location.name %></h2>
           <% if product.location.logo.nil? %>
             <img src="assets/copyright.jpg" class="instructor-photo ">
           <% else %>
-            <%= image_tag product.location.logo.url(:large), alt:"location-logo", class:"location-logo avatar-center" %>
+            <%= image_tag product.location.logo.url(:large), alt:"location-logo", class:"location-logo center " %>
           <%end%>
-      <h2 class="location-name"><%= product.location.name %></h2>
     </div>
     <div class="col-md-6 location-details">
       <h1 class="product-name"><%= product.name %></h1>
@@ -134,7 +140,11 @@
     </div>
     <div class="col-md-3 price-details">
         <h1><%= number_to_currency(product.price) %> <br> <span class="smaller-text center calendar-period"> (<%= product.calendar_period %> rate) </span> </h1>
-        <h2 class="center products-cta"><a href="/lessons/new" class="btn btn-primary page-scroll">Book a Lesson</a></h2>
+        <% if product.location.partner_status == "Active" %>
+        <h2 class="center products-cta"><a href="/lessons/book_product/<%=product.id%>" class="btn btn-primary page-scroll">Book Today</a></h2>
+        <% else %>
+        <h2 class="center products-cta"><a href="mailto:info@snowschoolers.com" target="_blank" class="btn btn-primary page-scroll">Request More Info</a></h2>
+        <% end %>
     </div>
   </div>
 

@@ -1,6 +1,16 @@
 .search-form{
   width: 300px;
   display: inline-block;
+  line-height: 1.5;
+  font-size: 0.7em;
+  height: 50px;
+}
+.search-form-serp{
+  font-size: 1.2em;
+  height: 50px;
+}
+#primary-search-bar h2{
+  margin-bottom: 0px;
 }
 .primary-search-form li{
   display: inline-block;
@@ -66,4 +76,11 @@
 }
 .filter-heading{
   padding-right: 5px;
+}
+#sort_tag, #search_slot{
+  width:90%;
+}
+#secondary-search-filters div h3 {
+  color: #3b5998;
+  text-transform: uppercase;
 }

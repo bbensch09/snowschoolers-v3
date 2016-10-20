@@ -116,11 +116,6 @@ div.maximage-controls #slider_prev:hover {
   background-color: #EB62EB;
 }
 
-#slider .caption .btn-default:hover {
-  color:#333;
-  background-color:#fff !important;
-  border-color :#fff !important;
-}
 
 .search-area-icon {
   background: url(https://a0.muscache.com/airbnb/static/landing_pages/home_v2/homepage-sprite-54617e9d9dbd7f5e375a5667bb7a393f.png) 1px -178px no-repeat;
