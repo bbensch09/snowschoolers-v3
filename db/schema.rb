@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161019220619) do
+ActiveRecord::Schema.define(version: 20161022173812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(version: 20161019220619) do
     t.boolean  "terms_accepted"
     t.string   "public_feedback_for_student"
     t.string   "private_feedback_for_student"
+    t.string   "focus_area"
   end
 
   create_table "locations", force: true do |t|
@@ -150,6 +151,10 @@ ActiveRecord::Schema.define(version: 20161019220619) do
     t.string  "lesson_history"
     t.string  "experience"
     t.string  "relationship_to_requester"
+    t.integer "requester_id"
+    t.string  "most_recent_experience"
+    t.string  "most_recent_level"
+    t.text    "other_sports_experience"
   end
 
   create_table "transactions", force: true do |t|

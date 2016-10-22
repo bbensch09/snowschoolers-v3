@@ -182,7 +182,15 @@ $(document).ready(function(){
   calculatePriceListener();
   // calculateTotalListener();
   toggleElementListener();
+  abilityLevelWarningListener();
 });
+
+var abilityLevelWarningListener = function(){
+  $('#add-student-button').click(function(e){
+    $('#ability-level-warning').removeClass('hidden');
+    console.log("removed hidden status of ability warning line.");
+  });
+}
 
 var calculatePriceListener = function() {
   var hourlyRate = 75;

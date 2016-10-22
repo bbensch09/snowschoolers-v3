@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   has_many :lessons
   has_many :transactions
+  has_many :students, class_name: 'Student', foreign_key: 'requester_id'
   has_one :instructor
   belongs_to :location
   has_many :lesson_times, through: :lessons

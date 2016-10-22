@@ -70,8 +70,8 @@
     <h4>Objectives <strong> and Experience</strong></h4>
 
     <div class='col-md-12'>
-      <label>Skill Level:</label>
-      <div class='form-control'><%= @lesson.ability_level %></div>
+      <label>Focus Area:</label>
+      <div class='form-control'><%= @lesson.focus_area %></div>
     </div>
 
     <div class='col-md-12'>
@@ -103,9 +103,17 @@
         <%= student.relationship_to_requester %>
       </div>
       <div class='col-md-12'>
-            <label>Previous Experience </label>
-            <%= student.experience.to_s %>
-          </div>
+            <label>Most Recent Experience </label>
+            <%= student.most_recent_experience.to_s %>
+      </div>
+      <div class='col-md-12'>
+            <label>Most Recent Level </label>
+            <%= student.most_recent_level.to_s %>
+      </div>
+      <div class='col-md-12'>
+            <label>Other Athletic Experience </label>
+            <%= student.other_sports_experience.to_s %>
+      </div>
     </div>
     <hr>
   <% end %>

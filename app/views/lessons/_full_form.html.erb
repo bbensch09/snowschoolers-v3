@@ -36,7 +36,7 @@
               <div class="col-md-6">
                 <label>Slot</label>
                 <!-- <%= lt_f.input :slot, as: :select, collection: ['Morning', 'Afternoon', 'Full Day'], include_blank: 'Length', :input_html => { :class => 'lesson-slot-input'}, label: false %> -->
-                <%= lt_f.input :slot, as: :select, collection: ['1hr Early Bird @9am', '3hr Half-day @10am', '3hr Half-day @1pm', 'Full-day @10am'], include_blank: 'Time', label: false %>
+                <%= lt_f.input :slot, as: :select, collection: ['1hr Early Bird', 'Half-day Morning', 'Half-day Afternoon', 'Full-day Private'], include_blank: 'Time', label: false %>
 
               </div>
             </div>
@@ -75,6 +75,7 @@
             <%= f.semantic_fields_for :students do |student| %>
               <%= render 'student_fields', f: student %>
             <% end %>
+            <h3 class="text-warning hidden" id="ability-level-warning">Warning - students must all be within one level of each other in order to participate in the same lesson.</h3>
             <div class='links'>
               <%= link_to_add_association 'Add Another Student', f, :students, class: 'btn btn-default', id:'add-student-button' %>
             </div>
@@ -85,12 +86,16 @@
         <div class="col-md-6">
           <h4>Lesson  <strong> Objectives</strong></h4>
 
-          <div class='col-md-12'>
+          <!-- <div class='col-md-12'>
             <label>Skill Level</label>
              <%= f.input :ability_level, as: :select, collection: ['First-time ever', 'Beginner', 'Intermediate','Advanced'], include_blank: 'Ability Level', input_html: {class: 'width100'}, required: true, label: false %>
-          </div>
+          </div> -->
           <div class='col-md-12'>
-            <label>Objectives</label>
+            <label>If you had to choose one focus area for this lesson, what would it be?</label>
+            <%= f.input :focus_area, as: :select, collection: ['Basic Fundamentals','Racing Technique', 'Moguls','Terrain Park','Powder Skiing or Riding','Big-Mountain Skiing or Riding'], include_blank: 'Select a focus area', input_html: {class: 'width100'}, required: true, label: false %>
+          </div>
+         <div class='col-md-12'>
+            <label>Anything else you want your instructor to know?</label>
             <%= f.input :objectives, placeholder: 'What do you hope to get out of this lesson?', required: true, label: false %>
           </div>
           <div class="col-md-12">
