@@ -161,6 +161,13 @@ class Lesson < ActiveRecord::Base
     changed_attributes.reject { |attribute, change| ['updated_at', 'id', 'state', 'lesson_time_id'].include?(attribute) }
   end
 
+  def kids_lesson?
+    self.students.each do |student|
+      return true if student.age_range == 'Under 10' || student.age_range == '11-17'
+    end
+    return false
+  end
+
   def available_instructors
     if self.instructor_id
         if  Lesson.instructors_with_calendar_blocks(self.lesson_time).include?(self.instructor)
