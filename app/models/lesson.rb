@@ -21,7 +21,7 @@ class Lesson < ActiveRecord::Base
   validate :student_exists, on: :update
 
   # MUST UNCOMMENT LESSON REQUEST METHOD BELOW TO ENABLE EMAILS & TWILIO
-  # after_update :send_lesson_request_to_instructors
+  after_update :send_lesson_request_to_instructors
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
 
   def date
