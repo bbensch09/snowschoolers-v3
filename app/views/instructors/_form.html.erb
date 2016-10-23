@@ -15,11 +15,40 @@
     </div>
   <% end %>
   <div class="">
-    <% if current_user && current_user.email == "brian@snowschoolers.com" && @instructor.user.nil? %>
+    <% if current_user && current_user.email == "brian@snowschoolers.com" #&& @instructor.user.nil? %>
     <div class="col-md-12 vertical-padding">
     <h4> ADMIN ONLY: Select user email to link to instructor application.</h4>
-      <%= f.select :user_id, options_from_collection_for_select(User.all, :id, :email) %>
+      <%= f.select :user_id, options_from_collection_for_select(User.all, :id, :email, selected:Instructor.find(params[:id]).user_id) %>
     </div>
+    <div class="col-md-12 vertical-padding">
+    <h4> Select eligibility for kids, seniors, and regular adults.</h4>
+    <label>Can teach kids?</label>
+      <%= f.select :kids_eligibility, [['Eligible',true],['Not Approved',false]], required:true %>
+    <label>Can teach seniors?</label>
+      <%= f.select :seniors_eligibility, [['Eligible',true],['Not Approved',false]], required:true %>
+    <label>Can teach regular adults?</label>
+      <%= f.select :adults_eligibility, [['Eligible',true],['Not Approved',false]], required:true %>
+    </div>
+  <div class="col-md-12">
+    <h4>ADMIN ONLY: Select which ski levels the instructor is approved for:</h4>
+    <%= f.collection_check_boxes :ski_level_ids, SkiLevel.all, :id, :name do |level| %>
+    <div class="collection-check-box">
+      <%= level.check_box %>
+      <%= level.label %>
+    </div>
+    <% end %>
+    <br>
+  </div>
+  <div class="col-md-12">
+    <h4>Now select which snowboard levels the instructor is approved for:</h4>
+    <%= f.collection_check_boxes :snowboard_level_ids, SnowboardLevel.all, :id, :name do |level| %>
+    <div class="collection-check-box">
+      <%= level.check_box %>
+      <%= level.label %>
+    </div>
+    <% end %>
+    <br>
+  </div>
     <% end %>
     <% if current_user %>
       <div class="col-md-12 vertical-padding">

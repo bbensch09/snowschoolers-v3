@@ -24,6 +24,7 @@ resorts.each do |resort|
   })
 end
 
+
 fake_instructor_emails = [
   "brian+hw_instructor_1@snowschoolers.com",
   "brian+hw_instructor_2@snowschoolers.com",
@@ -253,3 +254,26 @@ Product.create!({
   })
 
 puts "seed complete, locations created."
+
+ski_levels = ["Level 1 - first-time ever, no previous experience.",
+              "Level 2 - safely stops on beginner green circle terrain.",
+              "Level 3 - makes wedge turns (heel-side turns for snowboarding) in both directions on beginner terrain.",
+              "Level 4 - skis all green circle runs confidently.",
+              "Level 5 - makes parallel turns (S-turns for snowboarding) on easy terrain, comfortable on most blue runs.",
+              "Level 6 - confidently links turns across all intermediate blue square terrain.",
+              "Level 7 - demonstrates edge control in carving turns on advanced terrain.",
+              "Level 8 - safely navigates moguls and off-piste terrain",
+              "Level 9 - confidently and safely skis expert-only (double-black diamond) terrain."]
+
+ski_levels.each do |level|
+  SkiLevel.create!({
+  name: level,
+  value: SkiLevel.count + 1
+  })
+
+  SnowboardLevel.create!({
+  name: level,
+  value: SnowboardLevel.count + 1
+  })
+end
+puts "Ski and snowboard level 1-9 created."

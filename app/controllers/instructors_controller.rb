@@ -88,7 +88,7 @@ class InstructorsController < ApplicationController
   def update
     respond_to do |format|
       if @instructor.update(instructor_params)
-        format.html { redirect_to root_path, notice: 'Your instructor application was successfully updated.' }
+        format.html { redirect_to instructors_path, notice: 'Your instructor application was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -125,6 +125,6 @@ class InstructorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def instructor_params
-      params.require(:instructor).permit(:first_name, :last_name, :username, :preferred_locations, :certification, :phone_number, :sport, :bio, :intro, :status, :city, :user_id, :avatar, :how_did_you_hear, :confirmed_certification, location_ids:[])
+      params.require(:instructor).permit(:first_name, :last_name, :username, :preferred_locations, :certification, :phone_number, :sport, :bio, :intro, :status, :city, :user_id, :avatar, :how_did_you_hear, :confirmed_certification, :kids_eligibility, :seniors_eligibility, :adults_eligibility, location_ids:[], ski_level_ids:[], snowboard_level_ids:[])
     end
 end

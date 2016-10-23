@@ -1,4 +1,8 @@
 SnowSchoolers::Application.routes.draw do
+  resources :snowboard_levels
+
+  resources :ski_levels
+
   resources :products
 
   resources :calendar_blocks

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161022173812) do
+ActiveRecord::Schema.define(version: 20161023162423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,11 +72,24 @@ ActiveRecord::Schema.define(version: 20161022173812) do
     t.datetime "avatar_updated_at"
     t.string   "how_did_you_hear"
     t.string   "confirmed_certification"
+    t.boolean  "kids_eligibility"
+    t.boolean  "seniors_eligibility"
+    t.boolean  "adults_eligibility"
   end
 
   create_table "instructors_locations", id: false, force: true do |t|
     t.integer "instructor_id", null: false
     t.integer "location_id",   null: false
+  end
+
+  create_table "instructors_ski_levels", id: false, force: true do |t|
+    t.integer "instructor_id", null: false
+    t.integer "ski_level_id",  null: false
+  end
+
+  create_table "instructors_snowboard_levels", id: false, force: true do |t|
+    t.integer "instructor_id",      null: false
+    t.integer "snowboard_level_id", null: false
   end
 
   create_table "lesson_actions", force: true do |t|
@@ -141,6 +154,20 @@ ActiveRecord::Schema.define(version: 20161022173812) do
     t.string   "length"
     t.string   "slot"
     t.string   "start_time"
+  end
+
+  create_table "ski_levels", force: true do |t|
+    t.string   "name"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "snowboard_levels", force: true do |t|
+    t.string   "name"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "students", force: true do |t|

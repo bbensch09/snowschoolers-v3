@@ -1,0 +1,29 @@
+<h1>Listing ski_levels</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Value</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ski_levels.each do |ski_level| %>
+      <tr>
+        <td><%= ski_level.name %></td>
+        <td><%= ski_level.value %></td>
+        <td><%= link_to 'Show', ski_level %></td>
+        <td><%= link_to 'Edit', edit_ski_level_path(ski_level) %></td>
+        <td><%= link_to 'Destroy', ski_level, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ski level', new_ski_level_path %>

@@ -79,17 +79,17 @@ class LessonsController < ApplicationController
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
     if @lesson.save
       if @lesson.deposit_status != 'confirmed'
-        @amount = 2500
-          customer = Stripe::Customer.create(
-            :email => params[:stripeEmail],
-            :source  => params[:stripeToken]
-          )
-          charge = Stripe::Charge.create(
-            :customer    => customer.id,
-            :amount      => @amount,
-            :description => 'Lesson reservation deposit',
-            :currency    => 'usd'
-          )
+      #   @amount = 2500
+      #     customer = Stripe::Customer.create(
+      #       :email => params[:stripeEmail],
+      #       :source  => params[:stripeToken]
+      #     )
+      #     charge = Stripe::Charge.create(
+      #       :customer    => customer.id,
+      #       :amount      => @amount,
+      #       :description => 'Lesson reservation deposit',
+      #       :currency    => 'usd'
+      #     )
         @lesson.deposit_status = 'confirmed'
       end
       GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-submitted', params[:ga_client_id])

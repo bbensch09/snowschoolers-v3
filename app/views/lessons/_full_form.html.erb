@@ -114,7 +114,7 @@
           <div class="col-md-9">
             <h4>Submit <strong> Lesson Request</strong></h4>
           </div>
-         <% if @lesson.deposit_status == 'confirmed' %>
+         <% if @lesson #.deposit_status == 'confirmed' %>
           <div class="col-md-3">
             <%= f.input :state, as: :hidden, input_html: { value: @state } %>
             <%= f.submit "Submit", class: 'btn sign-up-btn pull-right' %>
@@ -133,7 +133,7 @@
                   </label>
                 </article>
 
-                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                <!-- <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                         data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                         data-description="Refundable $25 Lesson Deposit. The remaining balance will be due upon completion of your lesson."
                         data-name="Snow Schoolers"
@@ -141,7 +141,7 @@
                         data-amount="2500"
                         data-locale="auto"
                         data-zip-code="true">
-                </script>
+                </script> -->
               <% end %>
               </span>
             </div>
