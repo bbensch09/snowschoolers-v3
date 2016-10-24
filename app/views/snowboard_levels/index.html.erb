@@ -1,0 +1,29 @@
+<h1>Listing snowboard_levels</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Value</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @snowboard_levels.each do |snowboard_level| %>
+      <tr>
+        <td><%= snowboard_level.name %></td>
+        <td><%= snowboard_level.value %></td>
+        <td><%= link_to 'Show', snowboard_level %></td>
+        <td><%= link_to 'Edit', edit_snowboard_level_path(snowboard_level) %></td>
+        <td><%= link_to 'Destroy', snowboard_level, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Snowboard level', new_snowboard_level_path %>

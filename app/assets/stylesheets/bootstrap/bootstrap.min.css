@@ -2050,7 +2050,7 @@ fieldset[disabled] .form-control {
 }
 
 textarea.form-control {
-    height: auto
+    height: 100px;
 }
 
 input[type=search] {

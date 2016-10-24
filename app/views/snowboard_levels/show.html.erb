@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @snowboard_level.name %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @snowboard_level.value %>
+</p>
+
+<%= link_to 'Edit', edit_snowboard_level_path(@snowboard_level) %> |
+<%= link_to 'Back', snowboard_levels_path %>

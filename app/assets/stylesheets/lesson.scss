@@ -40,7 +40,9 @@
 #browser-instructors-cta, #lesson_submit_action{
   position: relative !important;
 }
-
+#lesson_students_attributes_0_other_sports_experience {
+  max-height: 100px;
+}
 /*DESKTOP ONLY ADJUSTMENTS*/
 @media (min-width: 768px) {
 .payment-amounts{

@@ -29,7 +29,9 @@
       <th>Name</th>
       <th>Admin Actions</th>
       <th>Status?</th>
-      <th>Resort(s)</th>
+      <th>Home resort</th>
+      <th>Max Ski Level</th>
+      <th>Max Snowboard Level</th>
       <th>Rank</th>
       <th>Certification</th>
       <th>Sport</th>
@@ -55,12 +57,22 @@
         <% end %>
         <td>Currently <%= instructor.status %></td>
         <td>
-        <%if instructor.locations.first %>
-          <%= instructor.locations.first.name %>
+        <%if instructor.locations && instructor.locations.include?(current_user.location) %>
+          <%= current_user.location.name %>
           <% else %>
-          TBD
+          Other
           <%end%>
         </td>
+        <%if instructor.ski_levels.any? %>
+        <td><%= instructor.ski_levels.max.value %></td>
+          <%else%>
+          <td>N/A</td>
+        <%end%>
+        <%if instructor.snowboard_levels.any? %>
+        <td><%= instructor.snowboard_levels.max.value %></td>
+          <%else%>
+          <td>N/A</td>
+        <%end%>
         <td><%= instructor.overall_initial_rank %></td>
         <td><%= instructor.certification %></td>
         <td><%= instructor.sport %></td>

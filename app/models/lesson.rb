@@ -8,10 +8,11 @@ class Lesson < ActiveRecord::Base
   accepts_nested_attributes_for :students, reject_if: :all_blank, allow_destroy: true
 
   validates :requested_location, :lesson_time, presence: true
-  validates :phone_number, :objectives, :ability_level,
+  validates :phone_number, :objectives,
             presence: true, on: :update
   # validates :duration, :start_time, presence: true, on: :update
   # validates :gear, inclusion: { in: [true, false] }, on: :update
+  # validates :ability_level, presence: true
   validates :terms_accepted, inclusion: { in: [true], message: 'must accept terms' }, on: :update
   validates :actual_start_time, :actual_end_time, presence: true, if: :just_finalized?
   validate :instructors_must_be_available, unless: :no_instructors_post_instructor_drop?, on: :create
@@ -19,6 +20,7 @@ class Lesson < ActiveRecord::Base
   validate :lesson_time_must_be_valid
   validate :student_exists, on: :update
 
+  # MUST UNCOMMENT LESSON REQUEST METHOD BELOW TO ENABLE EMAILS & TWILIO
   after_update :send_lesson_request_to_instructors
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
 
@@ -160,6 +162,30 @@ class Lesson < ActiveRecord::Base
     changed_attributes.reject { |attribute, change| ['updated_at', 'id', 'state', 'lesson_time_id'].include?(attribute) }
   end
 
+  def kids_lesson?
+    self.students.each do |student|
+      return true if student.age_range == 'Under 10' || student.age_range == '11-17'
+    end
+    return false
+  end
+
+  def seniors_lesson?
+    self.students.each do |student|
+      return true if student.age_range == '51 and up'
+    end
+    return false
+  end
+
+  def level
+    return false if self.students.nil?
+    student_levels = []
+    self.students.each do |student|
+      #REFACTOR ALERT extract the 7th character from student experience level, which yields the level#, such as in 'Level 2 - wedge turns...'
+      student_levels << student.most_recent_level[6].to_i
+    end
+    return student_levels.max
+  end
+
   def available_instructors
     if self.instructor_id
         if  Lesson.instructors_with_calendar_blocks(self.lesson_time).include?(self.instructor)
@@ -169,12 +195,29 @@ class Lesson < ActiveRecord::Base
         end
     else
     resort_instructors = self.location.instructors
+    # puts "!!!!!!! - Step #1 Filtered for location, found #{resort_instructors.count} instructors."
     if self.activity == 'Ski'
         wrong_sport = "Snowboard Instructor"
       else
         wrong_sport = "Ski Instructor"
     end
     active_resort_instructors = resort_instructors.where(status:'Active')
+    # puts "!!!!!!! - Step #2 Filtered for active status, found #{active_resort_instructors.count} instructors."
+    if self.activity == 'Ski' && self.level
+      active_resort_instructors = active_resort_instructors.keep_if {|instructor| instructor.ski_levels.max.value >= self.level }
+    end
+    if self.activity == 'Snowboard' && self.level
+      active_resort_instructors = active_resort_instructors.keep_if {|instructor| instructor.snowboard_levels.max.value >= self.level }
+    end
+    # puts "!!!!!!! - Step #3 Filtered for level, found #{active_resort_instructors.count} instructors."
+    if kids_lesson?
+      active_resort_instructors = active_resort_instructors.keep_if {|instructor| instructor.kids_eligibility == true }
+      # puts "!!!!!!! - Step #3b Filtered for kids specialist, now have #{active_resort_instructors.count} instructors."
+    end
+    if seniors_lesson?
+      active_resort_instructors = active_resort_instructors.keep_if {|instructor| instructor.seniors_eligibility == true }
+      # puts "!!!!!!! - Step #3c Filtered for seniors specialist, now have #{active_resort_instructors.count} instructors."
+    end
     wrong_sport_instructors = Instructor.where(sport: wrong_sport)
     already_booked_instructors = Lesson.booked_instructors(lesson_time)
     busy_instructors = Lesson.instructors_with_calendar_blocks(lesson_time)
@@ -183,10 +226,27 @@ class Lesson < ActiveRecord::Base
     declined_actions.each do |action|
       declined_instructors << Instructor.find(action.instructor_id)
     end
-    # puts "The number of already booked instructors is: #{already_booked_instructors.count}"
+    # puts "!!!!!!! - Step #4a - eliminating #{wrong_sport_instructors.count} that teach the wrong sport."
+    # puts "!!!!!!! - Step #4b - eliminating #{already_booked_instructors.count} that are already booked."
+    # puts "!!!!!!! - Step #4c - eliminating #{declined_instructors.count} that have declined."
+    # puts "!!!!!!! - Step #4d - eliminating #{busy_instructors.count} that are busy."
     available_instructors = active_resort_instructors - already_booked_instructors - declined_instructors - wrong_sport_instructors - busy_instructors
+    # puts "!!!!!!! - Step #5 after all filters, found #{available_instructors.count} instructors."
+    available_instructors = self.rank_instructors(available_instructors)
     return available_instructors
     end
+  end
+
+  def rank_instructors(available_instructors)
+    puts "!!!!!!!ranking instructors now"
+    if kids_lesson?
+      available_instructors.sort! {|a,b| b.kids_score <=> a.kids_score }
+      elsif seniors_lesson?
+      available_instructors.sort! {|a,b| b.seniors_score <=> a.seniors_score }
+      else
+      available_instructors.sort! {|a,b| b.overall_score <=> a.overall_score }
+    end
+    return available_instructors
   end
 
   def available_instructors?
