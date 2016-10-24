@@ -114,7 +114,7 @@
           <div class="col-md-9">
             <h4>Submit <strong> Lesson Request</strong></h4>
           </div>
-         <% if @lesson #.deposit_status == 'confirmed' %>
+         <% if @lesson.deposit_status == 'confirmed' %>
           <div class="col-md-3">
             <%= f.input :state, as: :hidden, input_html: { value: @state } %>
             <%= f.submit "Submit", class: 'btn sign-up-btn pull-right' %>
