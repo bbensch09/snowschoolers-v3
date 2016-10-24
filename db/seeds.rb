@@ -25,19 +25,25 @@ resorts.each do |resort|
 end
 
 
-fake_instructor_emails = [
+hw_seed_accounts = [
   "brian+hw_instructor_1@snowschoolers.com",
   "brian+hw_instructor_2@snowschoolers.com",
-  "brian+hw_admin@snowschoolers.com",
-  "brian+bv_instructor_1@snowschoolers.com",
-  "brian+bv_instructor_2@snowschoolers.com",
+  "brian+hw_director@snowschoolers.com",
+  "brian+hw_gm@snowschoolers.com"
+]
+sb_seed_accounts = []
+  "brian+sb_instructor_1@snowschoolers.com",
+  "brian+sb_instructor_2@snowschoolers.com",
+  "brian+sb_director@snowschoolers.com",
+  "brian+sb_gm@snowschoolers.com",
 ]
 
-fake_instructor_emails.each do |email|
+hw_seed_accounts.each do |email|
 User.create!({
   email: email,
   password: "password",
   user_type: "Partner",
+  location_id: 8
   })
 
 puts "User created: #{User.last.email}."
@@ -51,8 +57,8 @@ Instructor.create!({
   sport: "Ski Instructor",
   certification: ['PSIA Level 1','PSIA Level 2','PSIA Level 3','AASI Level 1','AASI Level 2'].sample,
   intro: "I want to teach for Snow Schoolers!!!!",
-  bio: "I am the best instructor on the mountain. period.",
-  location_ids: [6,2], #just Alta & Bear Valley
+  bio: "John hails from New York where he learned to ski as a kid and first began teaching children's ski lessons in high school at the local resort. He later coached the traveling freestyle ski team, and eventually moved to Crested Butte to live the ski bum dream for awhile, which included competing in the U.S. Freeskiing Championships. He recently moved to Tahoe 5 years ago. With nearly three decades of instructor experience across all skill levels, he will happily share his local secrets and ensure you have a wonderful experience on the mountain..",
+  location_ids: [8], #location_id for homewood
   # location_ids: [1,2,3,4,5,6,7,8,9,10,11,12],
   adults_initial_rank: rand(1..10),
   kids_initial_rank: rand(1..10),
@@ -65,6 +71,41 @@ puts "Instructor created: #{Instructor.last.first_name}."
 
 end
 
+
+sb_seed_accounts.each do |email|
+User.create!({
+  email: email,
+  password: "password",
+  user_type: "Partner",
+  location_id: 16
+  })
+
+puts "User created: #{User.last.email}."
+
+Instructor.create!({
+  first_name: Faker::Name.first_name,
+  last_name: Faker::Name.last_name,
+  username: email,
+  phone_number: "408-315-2900",
+  city: "Powder Paradise, CA",
+  sport: "Ski Instructor",
+  certification: ['PSIA Level 1','PSIA Level 2','PSIA Level 3','AASI Level 1','AASI Level 2'].sample,
+  intro: "I want to teach for Snow Schoolers!!!!",
+  bio: "At the age of two, Sam began her life by chasing her ski nut parents through the steeps, trees and chutes of Alpine Meadows, Lake Tahoe. Their passion for the sport, love for their community, and strong ambition have rubbed off on Sam and pushed her to become the family/community oriented skier she is today - always willing and wanting to share the ski love. Sam traveled to UC Boulder to pursue an undergraduate degree in skiing with minors in Latin American and Native American Studies, before returning to Tahoe in 2014. You can find her on hill, with a permanent smile and trails of laughter...and never without candy in her pockets.",
+  location_ids: [16], #location_id for homewood
+  # location_ids: [1,2,3,4,5,6,7,8,9,10,11,12],
+  adults_initial_rank: rand(1..10),
+  kids_initial_rank: rand(1..10),
+  overall_initial_rank: rand(1..10),
+  status: 'Active',
+  user_id: User.last.id
+  })
+
+puts "Instructor created: #{Instructor.last.first_name}."
+
+end
+
+
 Instructor.create!({
   first_name: "Shane",
   last_name: "McSki School",
@@ -75,8 +116,8 @@ Instructor.create!({
   certification: "Level 1 PSIA",
   intro: "I am the founder.",
   bio: "I am the best instructor on the mountain. period.",
-  location_ids: [1,2], #just Alta & Bear Valley
-  # location_ids: [1,2,3,4,5,6,7,8,9,10,11,12],
+  # location_ids: [1,2], #just Alta & Bear Valley
+  location_ids: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],
   adults_initial_rank: 10,
   kids_initial_rank: 10,
   overall_initial_rank: 10,
