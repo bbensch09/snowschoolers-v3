@@ -2,7 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 */
-
+.profile-container{
+  max-width: 1000px;
+  margin: auto;
+  position: relative;
+}
 #recruiting-landing-page{
   padding-top:20px;
 }
@@ -162,7 +166,28 @@
   height: 800px;
 }
 .complete-instructor-bio-section{
-
+}
+.instructor-profile-photo{
+  max-height: 500px;
+  border: 1px solid #3b5998;
+  margin: auto;
+  position: relative;
+}
+.resorts-container{
+  float: left;
+}
+.maps-container iframe{
+    border: 1px solid #3b5998;
+}
+.reviews-container{
+  max-width: 800px;
+  margin: auto;
+  position: relative;
+  background-color: #3b5998;
+  min-height: 200px;
+}
+.reviews-container h4, .reviews-container h5{
+  color: white;
 }
 
 /*DESKTOP ONLY ADJUSTMENTS*/

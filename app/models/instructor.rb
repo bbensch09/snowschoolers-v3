@@ -5,6 +5,7 @@ class Instructor < ActiveRecord::Base
   has_and_belongs_to_many :snowboard_levels
   has_many :lesson_actions
   has_many :lessons
+  has_many :reviews
   has_many :calendar_blocks
   after_create :send_admin_notification
   validates :username, :first_name, :last_name, :certification, :sport, :intro, presence: true
@@ -12,6 +13,15 @@ class Instructor < ActiveRecord::Base
         :storage => :s3,
         :bucket => 'snowschoolers'
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+
+  def average_rating
+    return false if reviews.count == 0
+    total_stars = 0
+    reviews.each do |review|
+      total_stars += review.rating
+    end
+    return (total_stars.to_f / reviews.count.to_f)
+  end
 
   def completed_lessons
     self.lessons.where(state:'Completed')

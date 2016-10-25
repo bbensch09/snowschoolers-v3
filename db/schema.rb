@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161023162423) do
+ActiveRecord::Schema.define(version: 20161024231918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,13 @@ ActiveRecord::Schema.define(version: 20161023162423) do
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
 
+  create_table "conversations", force: true do |t|
+    t.integer  "instructor_id"
+    t.integer  "requester_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "instructors", force: true do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -75,6 +82,8 @@ ActiveRecord::Schema.define(version: 20161023162423) do
     t.boolean  "kids_eligibility"
     t.boolean  "seniors_eligibility"
     t.boolean  "adults_eligibility"
+    t.integer  "age"
+    t.date     "dob"
   end
 
   create_table "instructors_locations", id: false, force: true do |t|
@@ -144,6 +153,16 @@ ActiveRecord::Schema.define(version: 20161023162423) do
     t.datetime "logo_updated_at"
   end
 
+  create_table "messages", force: true do |t|
+    t.integer  "author_id"
+    t.integer  "conversation_id"
+    t.text     "content"
+    t.boolean  "unread"
+    t.integer  "recipient_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "products", force: true do |t|
     t.string   "name"
     t.integer  "price"
@@ -154,6 +173,16 @@ ActiveRecord::Schema.define(version: 20161023162423) do
     t.string   "length"
     t.string   "slot"
     t.string   "start_time"
+  end
+
+  create_table "reviews", force: true do |t|
+    t.integer  "instructor_id"
+    t.integer  "lesson_id"
+    t.integer  "reviewer_id"
+    t.integer  "rating"
+    t.text     "review"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "ski_levels", force: true do |t|

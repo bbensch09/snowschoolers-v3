@@ -31,6 +31,14 @@ class User < ActiveRecord::Base
     self.where('instructor = true')
   end
 
+  def display_name
+    if self.name.nil?
+      "Anonymous User"
+    else
+      return name
+    end
+  end
+
   def lesson_times
     Lesson.find_lesson_times_by_requester(self)
   end

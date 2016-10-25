@@ -55,10 +55,18 @@
 </section>
   <div class="complete-instructor-bio-section">
     <% if current_user %>
+  <h4>Please attach a profile photo to complete your instructor profile.</h4>
       <div class="col-md-12 vertical-padding">
         <%= f.label :avatar %><br>
-        <%= f.file_field :avatar %>
+        <%= f.file_field :avatar, class: 'form-control' %>
       </div>
+  <h4>Please provide your age and a short bio to introduce yourself to prospective clients.</h4>
+  <div class="col-md-12">
+      <%= f.text_field :age, placeholder: 'age', class: 'form-control', required:true %>
+      <br>
+      <%= f.text_area :bio, rows:5, placeholder: 'Describe your background in a few sentences', class: 'form-control', required:true %>
+    <br>
+  </div>
     <% end %>
     <h4> Your Contact Info </h4>
     <div class="col-md-6 vertical-padding">

@@ -1,0 +1,13 @@
+<%= semantic_form_for @review do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :instructor_id %>
+    <%= f.input :lesson_id %>
+    <%= f.input :reviewer_id %>
+    <%= f.input :rating %>
+    <%= f.input :review %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>

@@ -1,4 +1,8 @@
 SnowSchoolers::Application.routes.draw do
+  resources :messages
+
+  resources :reviews
+
   resources :snowboard_levels
 
   resources :ski_levels
