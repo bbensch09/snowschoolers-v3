@@ -15,7 +15,7 @@ class Instructor < ActiveRecord::Base
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   def average_rating
-    return false if reviews.count == 0
+    return "N/A" if reviews.count == 0
     total_stars = 0
     reviews.each do |review|
       total_stars += review.rating

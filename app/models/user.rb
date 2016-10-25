@@ -48,6 +48,10 @@ class User < ActiveRecord::Base
     return true if self.instructor && self.instructor.status == "Active"
   end
 
+  def instructor_candidate?
+    return true if self.instructor && (self.instructor.status == "new applicant" || self.instructor.status == "Revoked")
+  end
+
   # Facebook OAuth
 
   def self.find_for_facebook_oauth(auth)
