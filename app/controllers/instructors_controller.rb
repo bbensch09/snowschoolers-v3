@@ -1,7 +1,7 @@
 class InstructorsController < ApplicationController
   before_action :set_instructor, only: [:show, :edit, :update, :destroy]
-  before_action :confirm_admin_permissions, except: [:create, :new, :show, :edit, :thank_you, :browse]
-  before_action :confirm_user_permissions, only: [:edit, :update]
+  before_action :confirm_admin_permissions, except: [:create, :new, :show, :thank_you, :browse]
+  # before_action :confirm_user_permissions, only: [:edit, :update]
   skip_before_action :authenticate_user!, only: [:new, :create, :thank_you, :browse]
 
 
@@ -67,6 +67,7 @@ class InstructorsController < ApplicationController
     @instructor = Instructor.new(instructor_params)
     @instructor.user_id = current_user.id unless current_user.nil?
     @instructor.status = "new applicant"
+    @instructor.overall_initial_rank = 1
 
     respond_to do |format|
       if @instructor.save
