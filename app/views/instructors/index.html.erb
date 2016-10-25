@@ -1,6 +1,6 @@
 <div class="container">
 
-<%if current_user && current_user.user_type == "Employee" || (current_user.email == "brian@snowschoolers.com") %>
+<%if current_user && current_user.user_type == "Partner" || (current_user.email == "brian@snowschoolers.com") %>
   <div class="row">
     <%= link_to "View Detailed Info (CRM)", "/admin_index", class: 'btn btn-primary' %>
   </div>
