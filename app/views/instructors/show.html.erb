@@ -1,6 +1,10 @@
 <div class="profile-container">
 
 <div class="col-md-7 instructor-core-info">
+  <% if current_user && current_user.instructor_candidate? %>
+    <h2 class="text-warning">Instructor status: <%= current_user.instructor.status %> </h2>
+    <p class="text-warning">Email info@snowschoolers.com for more information.</p>
+  <% end %>
   <h1> <%= @instructor.name %>, 29 </h1>
   <h4> Hometown: <%= @instructor.city %> <a href="/start_conversation/<%=@instructor.id%>" class="btn btn-success">Send <%= @instructor.first_name %> a message</a> </h4>
   <h3> <%= @instructor.sport %> | Avg. Rating: <%= @instructor.average_rating%> stars </h3>
