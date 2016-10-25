@@ -65,7 +65,7 @@ class Lesson < ActiveRecord::Base
 
   def confirmable?
     confirmable_states = ['booked', 'pending instructor', 'pending requester','seeking replacement instructor']
-    confirmable_states.include?(state)
+    confirmable_states.include?(state) && self.available_instructors.any?
   end
 
   def completable?
@@ -361,7 +361,7 @@ class Lesson < ActiveRecord::Base
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
-      recipient = self.available_instructors.first.phone_number
+      recipient = self.available_instructors.any? ? self.available_instructors.first.phone_number : "4083152900"
       case self.state
         when 'new'
           body = "A lesson booking was begun and not finished. Please contact an admin or email info@snowschoolers.com if you intended to complete the lesson booking."
@@ -445,6 +445,8 @@ class Lesson < ActiveRecord::Base
     if self.active? && self.confirmable? #&& self.deposit_status == 'verfied'
       LessonMailer.send_lesson_request_to_instructors(self).deliver
       self.send_sms_to_instructor
+    elsif self.available_instructors.any? == false
+      self.send_sms_to_admin
     end
   end
 

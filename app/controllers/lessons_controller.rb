@@ -48,7 +48,7 @@ class LessonsController < ApplicationController
   def new_request
     @lesson = Lesson.new
     @promo_location = nil
-    @instructor_requested = params[:id]
+    @instructor_requested = params[:id][0]
     @lesson_time = @lesson.lesson_time
     render 'new'
   end

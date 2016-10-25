@@ -10,6 +10,9 @@
         - locations
         - sport
         - status
+        - overall_initial_rank
+        - kids_initial_rank
+        - adults_initial_rank
   User:
     :options:
         :fields:

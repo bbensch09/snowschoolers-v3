@@ -68,6 +68,8 @@ class InstructorsController < ApplicationController
     @instructor.user_id = current_user.id unless current_user.nil?
     @instructor.status = "new applicant"
     @instructor.overall_initial_rank = 1
+    @instructor.kids_initial_rank = 1
+    @instructor.adults_initial_rank = 1
 
     respond_to do |format|
       if @instructor.save
