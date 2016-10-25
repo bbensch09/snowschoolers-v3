@@ -52,13 +52,13 @@ class Lesson < ActiveRecord::Base
   end
 
   def active_today?
-    active_states = ['confirmed','seeking replacement instructor','pending instructor', 'pending requester','Lesson Complete','waiting for payment','waiting for review']
+    active_states = ['confirmed','seeking replacement instructor','pending instructor', 'pending requester','Lesson Complete','waiting for payment','waiting for review','finalizing']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
     return true if self.date == Date.today && active_states.include?(state)
   end
 
   def active_next_7_days?
-    active_states = ['new','booked','confirmed','seeking replacement instructor','pending instructor', 'pending requester','Lesson Complete','waiting for payment','waiting for review']
+    active_states = ['new','booked','confirmed','seeking replacement instructor','pending instructor', 'pending requester','Lesson Complete','waiting for payment','waiting for review','finalizing']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
     return true if active_states.include?(state) && self.date <= Date.today + 7 && self.date > Date.today
   end
