@@ -3,6 +3,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :instructor
   belongs_to :lesson_time
   has_many :students
+  has_one :review
   has_one :transaction
   has_many :lesson_actions
   accepts_nested_attributes_for :students, reject_if: :all_blank, allow_destroy: true
@@ -40,16 +41,6 @@ class Lesson < ActiveRecord::Base
     Location.find(self.requested_location.to_i)
   end
 
-  def completed?
-    active_states = ['waiting for payment','Payment Complete']
-    #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
-    active_states.include?(state)
-  end
-
-  def payment_complete?
-    self.state == 'Payment Complete'
-  end
-
   def active?
     active_states = ['new', 'booked', 'confirmed','pending instructor', 'pending requester','']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
@@ -77,27 +68,7 @@ class Lesson < ActiveRecord::Base
     self.state == 'confirmed'
   end
 
-  def instructor_accepted?
-    LessonAction.where(action:"Accept", lesson_id: self.id).any?
-  end
-
-  def self.visible_to_instructor?(instructor)
-      lessons = []
-      assigned_to_instructor = Lesson.where(instructor_id:instructor.id)
-      available_to_instructor = Lesson.all.keep_if {|lesson| lesson.confirmable? }
-      lessons = assigned_to_instructor + available_to_instructor
-  end
-
-  def declined_instructors
-    decline_actions = LessonAction.where(action:"Decline", lesson_id: self.id)
-    declined_instructors = []
-    decline_actions.each do |action|
-      declined_instructors << Instructor.find(action.instructor_id)
-    end
-    declined_instructors
-  end
-
-  def new?
+   def new?
     state == 'new'
   end
 
@@ -120,6 +91,41 @@ class Lesson < ActiveRecord::Base
   def waiting_for_payment?
     state == 'waiting for payment'
   end
+
+  def waiting_for_review?
+    state == 'Payment complete, waiting for review.'
+  end
+
+  def completed?
+    active_states = ['waiting for payment','Payment complete, waiting for review.','Lesson Complete']
+    #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
+    active_states.include?(state)
+  end
+
+  def payment_complete?
+    state == 'Payment complete, waiting for review.' || state == 'Lesson Complete'
+  end
+
+  def instructor_accepted?
+    LessonAction.where(action:"Accept", lesson_id: self.id).any?
+  end
+
+  def self.visible_to_instructor?(instructor)
+      lessons = []
+      assigned_to_instructor = Lesson.where(instructor_id:instructor.id)
+      available_to_instructor = Lesson.all.keep_if {|lesson| lesson.confirmable? }
+      lessons = assigned_to_instructor + available_to_instructor
+  end
+
+  def declined_instructors
+    decline_actions = LessonAction.where(action:"Decline", lesson_id: self.id)
+    declined_instructors = []
+    decline_actions.each do |action|
+      declined_instructors << Instructor.find(action.instructor_id)
+    end
+    declined_instructors
+  end
+
 
   def calculate_actual_lesson_duration
     start_time = Time.parse(actual_start_time)
@@ -204,10 +210,10 @@ class Lesson < ActiveRecord::Base
     active_resort_instructors = resort_instructors.where(status:'Active')
     # puts "!!!!!!! - Step #2 Filtered for active status, found #{active_resort_instructors.count} instructors."
     if self.activity == 'Ski' && self.level
-      active_resort_instructors = active_resort_instructors.keep_if {|instructor| instructor.ski_levels.max.value >= self.level }
+      active_resort_instructors = active_resort_instructors.keep_if {|instructor| (instructor.ski_levels.any? && instructor.ski_levels.max.value >= self.level) }
     end
     if self.activity == 'Snowboard' && self.level
-      active_resort_instructors = active_resort_instructors.keep_if {|instructor| instructor.snowboard_levels.max.value >= self.level }
+      active_resort_instructors = active_resort_instructors.keep_if {|instructor| (instructor.snowboard_levels.any? && instructor.snowboard_levels.max.value >= self.level )}
     end
     # puts "!!!!!!! - Step #3 Filtered for level, found #{active_resort_instructors.count} instructors."
     if kids_lesson?
