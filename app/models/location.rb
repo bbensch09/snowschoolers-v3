@@ -9,7 +9,7 @@ class Location < ActiveRecord::Base
 
 
   def lifetime_lessons
-    Lesson.where(state:"Payment Complete",requested_location:self.id.to_s)
+    Lesson.where(state:"Lesson Complete",requested_location:self.id.to_s)
   end
 
   def lifetime_revenue
