@@ -14,8 +14,8 @@
       </ul>
     </div>
   <% end %>
-  <section class="admin-viewable">
     <% if current_user && current_user.email == "brian@snowschoolers.com" #&& @instructor.user.nil? %>
+  <section class="admin-viewable">
     <div class="col-md-12 vertical-padding">
     <h4> ADMIN ONLY: Select user email to link to instructor application.</h4>
       <%= f.select :user_id, options_from_collection_for_select(User.all, :id, :email, selected:Instructor.find(params[:id]).user_id) %>
@@ -51,8 +51,8 @@
     <% end %>
     <br>
   </div>
-    <% end %>
 </section>
+    <% end %>
   <div class="complete-instructor-bio-section">
     <% if current_user %>
   <h4>Please attach a profile photo to complete your instructor profile.</h4>
