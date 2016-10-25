@@ -42,6 +42,7 @@ class TransactionsController < ApplicationController
 
     @transaction.lesson.state = "Payment complete, waiting for review."
     @transaction.lesson.save
+    @transaction.lesson.send_sms_to_instructor
     flash[:notice] = 'Thank you! Your card has been charged successfully, please now review your instructor.'
     redirect_to @transaction.lesson
 

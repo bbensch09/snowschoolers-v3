@@ -185,9 +185,16 @@
   position: relative;
   background-color: #3b5998;
   min-height: 200px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 .reviews-container h4, .reviews-container h5{
   color: white;
+}
+.individual-review{
+  clear:both;
 }
 
 /*DESKTOP ONLY ADJUSTMENTS*/

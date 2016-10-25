@@ -41,13 +41,16 @@
 
 <hr>
 <h1 class="center"> <%= @instructor.name %>'s Recent Reviews </h1>
-<div class="row">
-<div class="reviews-container">
+<div class="row reviews-container">
+<div class="">
   <% @instructor.reviews.each do |review| %>
-    <div class="col-md-12 individual-review">
-      <h4> <%= review.review %></h4>
-      <h5 class="pull-right"> <em> - <%=review.reviewer.display_name %> on <%= review.created_at.strftime("%B %d, %Y") %></em></h5>
+    <div class="individual-review">
+      <h4> <%= review.rating %> stars - <%= review.review %></h4>
+      <h5 class="center"> <em> - <%=review.reviewer.display_name %> on <%= review.created_at.strftime("%B %d, %Y") %></em></h5>
     </div>
+    <br>
+    <hr>
+    <br>
 <% end %>
 </div>
 </div>
