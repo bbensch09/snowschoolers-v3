@@ -17,6 +17,28 @@ class MessagesController < ApplicationController
     @message = Message.new
   end
 
+  def show_conversation
+    @conversation = Conversation.find(params[:id])
+    @messages = @conversation.messages
+    @message = Message.new
+    render 'conversation'
+  end
+
+  def start_conversation
+    @message = Message.new
+    @conversation = Conversation.where(requester_id:current_user.id, instructor_id: params[:instructor_id]).first
+    if @message.conversation.nil?
+      @conversation = Conversation.create!({
+      instructor_id: params[:instructor_id],
+      requester_id: current_user.id
+      })
+    render 'new'
+      else
+      @messages = @conversation.messages
+      render 'conversation'
+    end
+  end
+
   # GET /messages/1/edit
   def edit
   end
@@ -28,7 +50,7 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
-        format.html { redirect_to @message, notice: 'Message was successfully created.' }
+        format.html { redirect_to show_conversation_path(@message.conversation_id), notice: 'Message was successfully created.' }
         format.json { render action: 'show', status: :created, location: @message }
       else
         format.html { render action: 'new' }
@@ -65,6 +87,10 @@ class MessagesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_message
       @message = Message.find(params[:id])
+    end
+
+    def set_instructor
+      @instructor = Instructor.find(params[:instructor_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
