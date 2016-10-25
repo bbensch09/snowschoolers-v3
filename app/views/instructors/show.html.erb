@@ -1,71 +1,66 @@
-<div class="container">
-<p>
-  <strong>User ID:</strong>
-  <%= @instructor.user_id %>
-</p>
-<p>
-  <strong>User Email:</strong>
-  <% if @instructor.user %>
-      <%= @instructor.user.email %>
-    <% else %>
-      <%= @instructor.username %>
-  <% end %>
-</p>
-<div class="col-lg-12 col-sm-12 square-image">
-    <%= image_tag @instructor.avatar.url(:large), alt:"avatar-img", class:"img-responsive img-circle instructor-photo avatar-left" %>
+<div class="profile-container">
+
+<div class="col-md-7 instructor-core-info">
+  <h1> <%= @instructor.name %>, 29 </h1>
+  <h4> Hometown: <%= @instructor.city %> <a href="/start_conversation/<%=@instructor.id%>" class="btn btn-success">Send <%= @instructor.first_name %> a message</a> </h4>
+  <h3> <%= @instructor.sport %> | Avg. Rating: <%= @instructor.average_rating%> stars </h3>
+  <h4> Certification Status: <%= @instructor.certification %></h4>
+
+  <div class="maps-container col-md-6">
+    <iframe
+    width="250"
+    height="150"
+    frameborder="0"
+    src="https://www.google.com/maps/embed/v1/place?key=<%= ENV["GOOGLE_MAPS_API"] %>
+      &q=<%= @instructor.city %>" allowfullscreen>
+  </iframe>
   </div>
-<p>
-  <strong>First name:</strong>
-  <%= @instructor.first_name %>
-</p>
+  <div class="resorts-container col-md-6">
+    <p> Available resorts:</p>
+    <ul class="instructor-resorts">
+      <% @instructor.locations[0..3].each do |location| %>
+        <li><%= location.name %></li>
+      <% end %>
+    </ul>
+  </div>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @instructor.last_name %>
-</p>
-<p>
-  <strong>City:</strong>
-  <%= @instructor.city %>
-</p>
+</div>
 
-<p>
-  <strong>Certification:</strong>
-  <%= @instructor.certification %>
-</p>
+<div class="col-md-5 instructor-avatar-box">
+  <div class="col-lg-12 col-sm-12 square-image">
+      <%= image_tag @instructor.avatar.url(:large), alt:"avatar-img", class:" center img-responsive instructor-profile-photo" %>
+    </div>
+  <h3 class="center"><a href="/new_request/<%=@instructor.to_param%>" class="btn btn-primary btn-xl">Book a lesson with <%= @instructor.first_name %> </a></h3>
+</div>
 
-<p>
-  <strong>Phone number:</strong>
-  <%= @instructor.phone_number %>
-</p>
+<hr>
+<h1 class="center"> About <%= @instructor.name %> </h1>
+<h4>
+  <%= @instructor.bio %>
+</h4>
 
-<p>
-  <strong>Sport:</strong>
-  <%= @instructor.sport %>
-</p>
-
-<p>
-  <strong>Resorts:</strong>
-  <ul>
-    <% @instructor.locations.each do |location| %>
-    <li> <%= location.name %> </li>
-    <% end %>
-  </ul>
-</p>
-
-<p>
-  <strong>Intro:</strong>
-  <%= @instructor.intro %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @instructor.status %>
-</p>
-
-<%= link_to 'Edit', edit_instructor_path(@instructor) %> |
-<% if current_user.email == 'brian@skischool.co' %>
-<%= link_to 'Verify Instructor', edit_user_registration_path(@instructor.user), class: 'btn btn-success' %> |
+<hr>
+<h1 class="center"> <%= @instructor.name %>'s Recent Reviews </h1>
+<div class="row reviews-container">
+<div class="">
+  <% @instructor.reviews.each do |review| %>
+    <div class="individual-review">
+      <h4> <%= review.rating %> stars - <%= review.review %></h4>
+      <h5 class="center"> <em> - <%=review.reviewer.display_name %> on <%= review.created_at.strftime("%B %d, %Y") %></em></h5>
+    </div>
+    <br>
+    <hr>
+    <br>
 <% end %>
-<%= link_to 'Back', instructors_path %>
+</div>
+</div>
+
+<hr>
+<% if current_user && current_user.email == 'brian@snowschoolers.com' %>
+    <%= link_to 'Edit', edit_instructor_path(@instructor) %> |
+    <%= link_to 'Verify Instructor', edit_user_registration_path(@instructor.user), class: 'btn btn-success' %>
+<% end %>
+<br> <br>
+<%= link_to 'Back to all instructors', instructors_path, class: 'btn sign-up-btn' %>
 <div class="buffer"></div>
 </div>

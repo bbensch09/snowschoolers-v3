@@ -3,6 +3,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :instructor
   belongs_to :lesson_time
   has_many :students
+  has_one :review
   has_one :transaction
   has_many :lesson_actions
   accepts_nested_attributes_for :students, reject_if: :all_blank, allow_destroy: true
@@ -32,22 +33,16 @@ class Lesson < ActiveRecord::Base
     lesson_time.slot
   end
 
+  def product
+    Product.where(location_id:self.location.id, name:self.lesson_time.slot,calendar_period:self.location.calendar_status).first
+  end
+
   def tip
     self.transaction.final_amount - self.transaction.base_amount
   end
 
   def location
     Location.find(self.requested_location.to_i)
-  end
-
-  def completed?
-    active_states = ['waiting for payment','Payment Complete']
-    #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
-    active_states.include?(state)
-  end
-
-  def payment_complete?
-    self.state == 'Payment Complete'
   end
 
   def active?
@@ -69,7 +64,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def confirmable?
-    confirmable_states = ['', 'new','booked', 'pending instructor', 'pending requester','']
+    confirmable_states = ['booked', 'pending instructor', 'pending requester','seeking replacement instructor']
     confirmable_states.include?(state)
   end
 
@@ -77,27 +72,7 @@ class Lesson < ActiveRecord::Base
     self.state == 'confirmed'
   end
 
-  def instructor_accepted?
-    LessonAction.where(action:"Accept", lesson_id: self.id).any?
-  end
-
-  def self.visible_to_instructor?(instructor)
-      lessons = []
-      assigned_to_instructor = Lesson.where(instructor_id:instructor.id)
-      available_to_instructor = Lesson.all.keep_if {|lesson| lesson.confirmable? }
-      lessons = assigned_to_instructor + available_to_instructor
-  end
-
-  def declined_instructors
-    decline_actions = LessonAction.where(action:"Decline", lesson_id: self.id)
-    declined_instructors = []
-    decline_actions.each do |action|
-      declined_instructors << Instructor.find(action.instructor_id)
-    end
-    declined_instructors
-  end
-
-  def new?
+   def new?
     state == 'new'
   end
 
@@ -120,6 +95,41 @@ class Lesson < ActiveRecord::Base
   def waiting_for_payment?
     state == 'waiting for payment'
   end
+
+  def waiting_for_review?
+    state == 'Payment complete, waiting for review.'
+  end
+
+  def completed?
+    active_states = ['waiting for payment','Payment complete, waiting for review.','Lesson Complete']
+    #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
+    active_states.include?(state)
+  end
+
+  def payment_complete?
+    state == 'Payment complete, waiting for review.' || state == 'Lesson Complete'
+  end
+
+  def instructor_accepted?
+    LessonAction.where(action:"Accept", lesson_id: self.id).any?
+  end
+
+  def self.visible_to_instructor?(instructor)
+      lessons = []
+      assigned_to_instructor = Lesson.where(instructor_id:instructor.id)
+      available_to_instructor = Lesson.all.keep_if {|lesson| lesson.confirmable? }
+      lessons = assigned_to_instructor + available_to_instructor
+  end
+
+  def declined_instructors
+    decline_actions = LessonAction.where(action:"Decline", lesson_id: self.id)
+    declined_instructors = []
+    decline_actions.each do |action|
+      declined_instructors << Instructor.find(action.instructor_id)
+    end
+    declined_instructors
+  end
+
 
   def calculate_actual_lesson_duration
     start_time = Time.parse(actual_start_time)
@@ -204,10 +214,10 @@ class Lesson < ActiveRecord::Base
     active_resort_instructors = resort_instructors.where(status:'Active')
     # puts "!!!!!!! - Step #2 Filtered for active status, found #{active_resort_instructors.count} instructors."
     if self.activity == 'Ski' && self.level
-      active_resort_instructors = active_resort_instructors.keep_if {|instructor| instructor.ski_levels.max.value >= self.level }
+      active_resort_instructors = active_resort_instructors.keep_if {|instructor| (instructor.ski_levels.any? && instructor.ski_levels.max.value >= self.level) }
     end
     if self.activity == 'Snowboard' && self.level
-      active_resort_instructors = active_resort_instructors.keep_if {|instructor| instructor.snowboard_levels.max.value >= self.level }
+      active_resort_instructors = active_resort_instructors.keep_if {|instructor| (instructor.snowboard_levels.any? && instructor.snowboard_levels.max.value >= self.level )}
     end
     # puts "!!!!!!! - Step #3 Filtered for level, found #{active_resort_instructors.count} instructors."
     if kids_lesson?
@@ -352,11 +362,44 @@ class Lesson < ActiveRecord::Base
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
       recipient = self.available_instructors.first.phone_number
+      case self.state
+        when 'new'
+          body = "A lesson booking was begun and not finished. Please contact an admin or email info@snowschoolers.com if you intended to complete the lesson booking."
+        when 'booked'
+          body = "#{self.available_instructors.first.first_name}, You have a new lesson request from #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. Are you available? Visit www.snowschoolers.com/lessons/#{self.id} to confirm the lesson."
+        when 'seeking replacement instructor'
+          body = "We need your help! Another instructor unfortunately had to cancel. Are you available to teach #{self.requester.name} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name} at #{self.product.start_time}? Please visit www.snowschoolers.com/lessons/#{self.id} to confirm. "
+        when 'pending instructor'
+          body =  "#{self.available_instructors.first.first_name}, There has been a change in your previously confirmed lesson request. #{self.requester.name} would now like their lesson to be at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. Are you still available? Visit www.snowschoolers.com/lessons/#{self.id} to confirm or decline."
+        when 'Payment complete, waiting for review.'
+          body = "#{self.requester.name} has completed payment for their lesson and you've received a tip of $#{(self.tip.to_i)}. Great work!"
+      end
       @client = Twilio::REST::Client.new account_sid, auth_token
           @client.account.messages.create({
           :to => recipient,
           :from => "#{snow_schoolers_twilio_number}",
-          :body => "#{self.available_instructors.first.first_name}, You have a new lesson request from #{self.requester.name} at #{self.start_time} on #{self.lesson_time.date} at #{self.location.name}. Are you available? Visit www.snowschoolers.com/lessons/#{self.id} to confirm the lesson."
+          :body => body
+      })
+  end
+
+  def send_sms_to_requester
+      account_sid = ENV['TWILIO_SID']
+      auth_token = ENV['TWILIO_AUTH']
+      snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
+      recipient = self.phone_number
+      case self.state
+        when 'confirmed'
+        body = "Congrats! Your Snow Schoolers lesson has been confirmed. #{self.instructor.name} will be your instructor at #{self.location.name} on #{self.lesson_time.date.strftime("%b %d")} at #{self.product.start_time}. Please check your email for more details about meeting location & to review your pre-lesson checklist."
+        when 'seeking replacement instructor'
+        body = "Bad news! Your instructor has unfortunately had to cancel your lesson. Don't worry, we are finding you a new instructor right now."
+        when 'waiting for payment'
+        body = "We hope you had a great lesson today with #{self.instructor.name}! You may now complete your lesson payment and leave a quick review for your instructor by visiting www.snowschoolers.com/lessons/#{self.id}. Thanks for using Snow Schoolers!"
+      end
+      @client = Twilio::REST::Client.new account_sid, auth_token
+          @client.account.messages.create({
+          :to => recipient,
+          :from => "#{snow_schoolers_twilio_number}",
+          :body => body
       })
   end
 
@@ -365,7 +408,7 @@ class Lesson < ActiveRecord::Base
           @client.account.messages.create({
           :to => "408-315-2900",
           :from => ENV['TWILIO_NUMBER'],
-          :body => "ALERT - no instructors are available to teach #{self.requester.name} at #{self.start_time} on #{self.lesson_time.date} at #{self.location.name}. The last person to decline was #{Instructor.find(LessonAction.last.instructor_id).username}."
+          :body => "ALERT - no instructors are available to teach #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date} at #{self.location.name}. The last person to decline was #{Instructor.find(LessonAction.last.instructor_id).username}."
       })
   end
 
@@ -374,7 +417,7 @@ class Lesson < ActiveRecord::Base
           @client.account.messages.create({
           :to => "408-315-2900",
           :from => ENV['TWILIO_NUMBER'],
-          :body => "ALERT - A private 1:1 request was made and declined. #{self.requester.name} had requested #{self.instructor.name} but they are unavailable at #{self.start_time} on #{self.lesson_time.date} at #{self.location.name}."
+          :body => "ALERT - A private 1:1 request was made and declined. #{self.requester.name} had requested #{self.instructor.name} but they are unavailable at #{self.product.start_time} on #{self.lesson_time.date} at #{self.location.name}."
       })
   end
 
@@ -399,7 +442,7 @@ class Lesson < ActiveRecord::Base
   def send_lesson_request_to_instructors
     #currently testing just to see whether lesson is active and deposit has gone through successfully.
     #need to replace with logic that tests whether lesson is newly complete, vs. already booked, etc.
-    if self.active? #&& self.deposit_status == 'verfied'
+    if self.active? && self.confirmable? #&& self.deposit_status == 'verfied'
       LessonMailer.send_lesson_request_to_instructors(self).deliver
       self.send_sms_to_instructor
     end

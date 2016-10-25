@@ -18,6 +18,12 @@
           <%= link_to "Edit Lesson Times", mark_lesson_complete_path, method: :put, class: "btn btn-success" %>
     <% end %>
 
+    <% if @lesson.waiting_for_review? && current_user == @lesson.requester %>
+      <%= render partial: 'reviews/form' %>
+      <% elsif @lesson.waiting_for_review? && current_user.instructor %>
+          <%= link_to "Remind student to submit their review", mark_lesson_complete_path, method: :get, class: "btn btn-success" %>
+    <% end %>
+
     <% if @lesson.finalizing? %>
       <%= render partial: 'confirming_lesson_duration' %>
     <% end %>

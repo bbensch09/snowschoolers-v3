@@ -66,8 +66,6 @@ class LessonsController < ApplicationController
 
   def edit
     @lesson = Lesson.find(params[:id])
-    @lesson.deposit_status = 'confirmed'
-    # @lesson.save
     @lesson_time = @lesson.lesson_time
     @state = @lesson.instructor ? 'pending instructor' : 'booked'
   end
@@ -91,6 +89,9 @@ class LessonsController < ApplicationController
             :currency    => 'usd'
           )
         @lesson.deposit_status = 'confirmed'
+        @lesson.state = 'booked'
+        puts "!!!!!About to save state & deposit status after processing lessons#update"
+        @lesson.save
       end
       GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-submitted', params[:ga_client_id])
       send_lesson_update_notice_to_instructor
@@ -128,6 +129,7 @@ class LessonsController < ApplicationController
       action: "Accept"
       })
     LessonMailer.send_lesson_confirmation(@lesson).deliver
+    @lesson.send_sms_to_requester
     redirect_to @lesson
     else
      redirect_to @lesson, notice: "Error: could not accept lesson. #{@lesson.errors.full_messages}"
@@ -157,9 +159,15 @@ class LessonsController < ApplicationController
   def remove_instructor
     puts "the params are {#{params}"
     @lesson = Lesson.find(params[:id])
-    send_instructor_cancellation_emails
     @lesson.instructor = nil
-    @lesson.update(state: @lesson.available_instructors? ? 'new' : 'pending requester')
+    @lesson.update(state: 'seeking replacement instructor')
+    @lesson.send_sms_to_requester
+    if @lesson.available_instructors?
+      @lesson.send_sms_to_instructor
+      else
+      @lesson.send_sms_to_admin
+    end
+    send_instructor_cancellation_emails
     redirect_to @lesson
   end
 
@@ -176,6 +184,7 @@ class LessonsController < ApplicationController
     if valid_duration_params?
       @lesson.update(lesson_params.merge(state: 'waiting for payment'))
       @lesson.state = @lesson.valid? ? 'waiting for payment' : 'confirmed'
+      @lesson.send_sms_to_requester
       LessonMailer.send_payment_email_to_requester(@lesson).deliver
     end
     respond_with @lesson, action: :show

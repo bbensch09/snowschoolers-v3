@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   validates :password, length: { in: 5..128 }, on: :update, allow_blank: true
 
   has_many :lessons
+  has_many :reviews
   has_many :transactions
   has_many :students, class_name: 'Student', foreign_key: 'requester_id'
   has_one :instructor
@@ -29,6 +30,14 @@ class User < ActiveRecord::Base
 
   def self.instructors
     self.where('instructor = true')
+  end
+
+  def display_name
+    if self.name.nil?
+      "Anonymous User"
+    else
+      return name
+    end
   end
 
   def lesson_times

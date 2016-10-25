@@ -121,7 +121,8 @@ Instructor.create!({
   adults_initial_rank: 10,
   kids_initial_rank: 10,
   overall_initial_rank: 10,
-  status: 'Active'
+  status: 'Active',
+  user_id: 9
 
   })
 

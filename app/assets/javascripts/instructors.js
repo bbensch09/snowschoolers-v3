@@ -1,5 +1,6 @@
 $(document).ready(function(){
     applyFormListener();
+    selectAllLevelsListener();
     console.log("listening for form changes");
 });
 
@@ -22,4 +23,30 @@ var applyFormListener = function() {
       });
 
   });
+  }
+
+  var selectAllLevelsListener = function() {
+    $('#selectAllSkiLevels').click(function() {
+    if (this.checked) {
+       $('.ski-checkbox').each(function() {
+           this.checked = true;
+       });
+    } else {
+      $('.ski-checkbox').each(function() {
+           this.checked = false;
+       });
+    }
+    });
+
+    $('#selectAllSnowboardLevels').click(function() {
+    if (this.checked) {
+       $('.snowboard-checkbox').each(function() {
+           this.checked = true;
+       });
+    } else {
+      $('.snowboard-checkbox').each(function() {
+           this.checked = false;
+       });
+    }
+    });
   }

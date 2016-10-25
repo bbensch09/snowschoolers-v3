@@ -1,4 +1,10 @@
 SnowSchoolers::Application.routes.draw do
+  resources :messages
+  get 'start_conversation/:instructor_id' => 'messages#start_conversation'
+  get 'conversations/:id' => 'messages#show_conversation', as: :show_conversation
+
+  resources :reviews
+
   resources :snowboard_levels
 
   resources :ski_levels

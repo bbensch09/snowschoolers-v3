@@ -12,6 +12,10 @@
   <% end %>
 <% end %>
 <br> Status: <%= @lesson.state %>
+<% if @lesson.review %>
+<br>
+  Instructor Review: <%= @lesson.review.rating %> stars - <%= @lesson.review.review %>
+<% end %>
 <% if @lesson.payment_complete? %>
 <br> Tip Amount: <%= number_to_currency(@lesson.tip) %>
 <% end %>

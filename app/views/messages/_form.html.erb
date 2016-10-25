@@ -1,0 +1,25 @@
+<div class="container">
+
+<%= semantic_form_for @message do |f| %>
+  <%= f.inputs do %>
+
+
+  <div class="review-id-inputs hidden">
+    <%= f.input :author_id, :input_html => {value: current_user.id, class:'form-control'}, label: true %>
+    <%= f.input :conversation_id,  :input_html => {value: @conversation.id, class:'form-control'}, label: true %>
+    <% if current_user.id == @conversation.requester.id %>
+    <%= f.input :recipient_id,  :input_html => {value: @conversation.instructor.id, class:'form-control'}, label: true %>
+    <% else %>
+        <%= f.input :recipient_id,  :input_html => {value: @conversation.requester.id, class:'form-control'}, label: true %>
+    <% end %>
+    <%= f.input :unread, :input_html => {value: true, class:'form-control'}, label: "Unread?"  %>
+  </div>
+    <%= f.input :content, label:"Message Text" %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>
+
+</div>

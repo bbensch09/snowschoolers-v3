@@ -1,0 +1,52 @@
+<% @lesson.review = Review.new unless @lesson.review %>
+<%= semantic_form_for @lesson.review do |f| %>
+  <%= f.inputs do %>
+  <div class="review-id-inputs hidden">
+    <%= f.input :instructor_id, :input_html => {value: @lesson.instructor.id, class:'form-control'}, label: false %>
+    <%= f.input :lesson_id,  :input_html => {value: @lesson.id, class:'form-control'}, label: false %>
+    <%= f.input :reviewer_id,  :input_html => {value: @lesson.requester.id, class:'form-control'}, label: false %>
+  </div>
+    <!-- %= f.input :rating %> -->
+
+
+<div class="star-ratings-field col-md-12" >
+  <h4>Please rate your instructor on the overall quality of the lesson:</h4>
+  <span class="instructor-rating">
+
+    <input type="radio" class="rating-input" id="review_rating_5" name="review[rating]" value="5" >
+    <label for="review_rating_5" class="rating-star" data-toggle="tooltip" data-placement="top" title="Outstanding">
+      <span class="rating-text">Outstanding</span>
+    </label>
+
+    <input type="radio" class="rating-input" id="review_rating_4" name="review[rating]" value="4">
+    <label for="review_rating_4" class="rating-star">
+      <span class="rating-text">Very Good</span>
+    </label>
+
+    <input type="radio" class="rating-input" id="review_rating_3" name="review[rating]" value="3">
+    <label for="review_rating_3" class="rating-star">
+      <span class="rating-text">Acceptable</span>
+    </label>
+
+    <input type="radio" class="rating-input" id="review_rating_2" name="review[rating]" value="2">
+    <label for="review_rating_2" class="rating-star">
+      <span class="rating-text">Not okay</span>
+    </label>
+
+    <input type="radio" class="rating-input" id="review_rating_1" name="review[rating]" value="1">
+    <label for="review_rating_1" class="rating-star">
+      <span class="rating-text">Awful</span>
+    </label>
+
+</span>
+</div>
+
+<div class="free-response-review">
+    <%= f.input :review %>
+</div>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input, label: "Submit Review", button_html: {class: "btn btn-primary"} %>
+  <% end %>
+<% end %>

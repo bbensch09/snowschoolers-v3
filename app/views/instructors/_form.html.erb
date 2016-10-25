@@ -14,7 +14,7 @@
       </ul>
     </div>
   <% end %>
-  <div class="">
+  <section class="admin-viewable">
     <% if current_user && current_user.email == "brian@snowschoolers.com" #&& @instructor.user.nil? %>
     <div class="col-md-12 vertical-padding">
     <h4> ADMIN ONLY: Select user email to link to instructor application.</h4>
@@ -30,10 +30,11 @@
       <%= f.select :adults_eligibility, [['Eligible',true],['Not Approved',false]], required:true %>
     </div>
   <div class="col-md-12">
-    <h4>ADMIN ONLY: Select which ski levels the instructor is approved for:</h4>
+    <h4>Now select which ski levels the instructor is approved for:</h4>
+    <input type="checkbox" id="selectAllSkiLevels" value="selectAll"> Select / De-select All<br/><br/>
     <%= f.collection_check_boxes :ski_level_ids, SkiLevel.all, :id, :name do |level| %>
     <div class="collection-check-box">
-      <%= level.check_box %>
+      <%= level.check_box(class: 'ski-checkbox') %>
       <%= level.label %>
     </div>
     <% end %>
@@ -41,20 +42,31 @@
   </div>
   <div class="col-md-12">
     <h4>Now select which snowboard levels the instructor is approved for:</h4>
+    <input type="checkbox" id="selectAllSnowboardLevels" value="selectAll"> Select / De-select All<br/><br/>
     <%= f.collection_check_boxes :snowboard_level_ids, SnowboardLevel.all, :id, :name do |level| %>
     <div class="collection-check-box">
-      <%= level.check_box %>
+      <%= level.check_box(class: 'snowboard-checkbox') %>
       <%= level.label %>
     </div>
     <% end %>
     <br>
   </div>
     <% end %>
+</section>
+  <div class="complete-instructor-bio-section">
     <% if current_user %>
+  <h4>Please attach a profile photo to complete your instructor profile.</h4>
       <div class="col-md-12 vertical-padding">
         <%= f.label :avatar %><br>
-        <%= f.file_field :avatar %>
+        <%= f.file_field :avatar, class: 'form-control' %>
       </div>
+  <h4>Please provide your age and a short bio to introduce yourself to prospective clients.</h4>
+  <div class="col-md-12">
+      <%= f.text_field :age, placeholder: 'age', class: 'form-control', required:true %>
+      <br>
+      <%= f.text_area :bio, rows:5, placeholder: 'Describe your background in a few sentences', class: 'form-control', required:true %>
+    <br>
+  </div>
     <% end %>
     <h4> Your Contact Info </h4>
     <div class="col-md-6 vertical-padding">

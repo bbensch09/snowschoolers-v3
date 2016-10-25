@@ -1,0 +1,89 @@
+.instructor-rating {
+    /*overflow: hidden;*/
+    display: inline-block;
+    font-size: 10px;
+    position: relative;
+    left:20vw;
+    max-width: 600px;
+}
+
+.rating-input {
+    float: right;
+    width: 10px;
+    height: 70px;
+    padding: 0;
+    margin: 0 0 0 0px;
+    opacity: 0;
+}
+.instructor-rating:hover .rating-star:hover,
+.instructor-rating:hover .rating-star:hover ~ .rating-star,
+.rating-input:checked ~ .rating-star {
+    background: url('https://s3-us-west-2.amazonaws.com/citizen-debate/static_images/green-star.png');
+    background-size: contain;
+}
+.rating-star,
+.instructor-rating:hover .rating-star {
+    position: relative;
+    float: right;
+    display: block;
+    width: 70px;
+    height: 70px;
+    background: url('https://s3-us-west-2.amazonaws.com/citizen-debate/static_images/gray-star.png') 0 0px;
+    background-size: contain;
+}
+
+.rating-text,
+.instructor-rating:hover .rating-star .rating-text{
+  font-size: 14px;
+  top:70px;
+  color: gray;
+  position: relative;
+}
+
+.submit-ratings-button{
+  margin-top: 40px;
+}
+.star-ratings-field, .negative-field{
+  display: inline-block;
+  max-width: 100vw;
+}
+.civility-container{
+  position:fixed;
+  top:100px;
+  max-width: 1100px;
+  min-width: 50vw;
+  padding-bottom: 20px;
+  background-color: white;
+  z-index: 2;
+  border: 1px solid gray;
+}
+.submit-ratings-button{
+    clear: both;
+    display: block !important;
+    width: 150px;
+    margin-right: auto;
+    margin-left: auto;
+}
+@media screen and (max-width:767px) {
+.rating-star,
+.instructor-rating:hover .rating-star {
+    width: 50px;
+    height: 50px;
+  }
+.rating-input {
+    width: 10px;
+    height: 50px;
+  }
+.rating-text,
+.instructor-rating:hover .rating-star .rating-text{
+  font-size: 10px;
+  top:50px;
+  }
+.instructor-rating {
+    left:-15vw;
+    width: 95vw;
+}
+.star-ratings-field h4 {
+  max-width: 90vw;
+}
+}
