@@ -14,7 +14,7 @@
       </ul>
     </div>
   <% end %>
-    <% if current_user && current_user.email == "brian@snowschoolers.com" #&& @instructor.user.nil? %>
+    <% if current_user && (current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Partner")%>
   <section class="admin-viewable">
     <div class="col-md-12 vertical-padding">
     <h4> ADMIN ONLY: Select user email to link to instructor application.</h4>
