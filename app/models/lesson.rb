@@ -117,7 +117,7 @@ class Lesson < ActiveRecord::Base
   def self.visible_to_instructor?(instructor)
       lessons = []
       assigned_to_instructor = Lesson.where(instructor_id:instructor.id)
-      available_to_instructor = Lesson.all.keep_if {|lesson| lesson.confirmable? }
+      available_to_instructor = Lesson.all.keep_if {|lesson| lesson.confirmable? && instructor_id:nil}
       lessons = assigned_to_instructor + available_to_instructor
   end
 
