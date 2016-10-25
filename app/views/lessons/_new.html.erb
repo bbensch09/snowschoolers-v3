@@ -15,7 +15,7 @@
                   <h3>
                     <%= link_to Instructor.find(@instructor_requested).name, Instructor.find(@instructor_requested) %>
                   </h3>
-                  <div class="">
+                  <div class="hidden">
                     <%= f.input :instructor_id, as: :select, collection: Instructor.all.sort_by{ |instructor| instructor.name}, selected:@instructor_requested, include_blank: 'Instructor', label: false %>
                   </div>
                 <div class="square-image">
