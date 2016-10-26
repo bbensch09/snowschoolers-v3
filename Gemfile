@@ -22,7 +22,7 @@ gem 'paperclip'
 #suggested by DEVEO article re. GA server-side tracking - http://blog.deveo.com/server-side-google-analytics-event-tracking-with-rails/
 gem 'rest-client'
 
-group :development, :production, :test do
+group :development, :test do
   gem 'debugger'
   gem 'pry-debugger'
   gem  'byebug'
