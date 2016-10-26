@@ -6,6 +6,11 @@ class LessonMailer < ActionMailer::Base
       mail(to: 'brian@snowschoolers.com', subject: "Pageview at /apply - #{email}.")
   end
 
+  def notify_admin_preseason_request(request)
+      @location_name = request.name
+      mail(to: 'brian@snowschoolers.com', subject: "New Preseason Resort request - #{@location_name}.")
+  end
+
   def application_begun(email="Unknown user",first_name="John", last_name="Doe")
       @email = email
       @name = first_name + last_name

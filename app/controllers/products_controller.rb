@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :confirm_admin_permissions
+
 
   # GET /products
   # GET /products.json
@@ -91,4 +93,10 @@ class ProductsController < ApplicationController
     def product_params
       params.require(:product).permit(:name, :price, :location_id, :calendar_period, :search, :length, :slot, :start_time, :search_length, :search_status, :search_slot, :search_cert, :search_sport, :search_location, :sort_tag)
     end
+
+    def confirm_admin_permissions
+      return if current_user.email == 'brian@snowschoolers.com' || current_user.email == 'bbensch@gmail.com' #|| current_user.user_type == "Partner"
+      redirect_to root_path, notice: 'You do not have permission to view that page.'
+    end
+
 end
