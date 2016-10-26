@@ -28,6 +28,7 @@ class PreSeasonLocationRequestsController < ApplicationController
 
     respond_to do |format|
       if @pre_season_location_request.save
+        LessonMailer.notify_admin_preseason_request(@pre_season_location_request).deliver
         format.html { redirect_to '/lessons/new', notice: 'Thank you! Your opinion has been counted. Feel free to explore the rest of our website.' }
         format.json { render action: 'show', status: :created, location: @pre_season_location_request }
       else
