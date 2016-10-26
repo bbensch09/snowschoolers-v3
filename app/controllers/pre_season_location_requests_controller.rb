@@ -1,5 +1,5 @@
 class PreSeasonLocationRequestsController < ApplicationController
-  skip_before_action :authenticate_user! #, only: [:new, :create, :update]
+  skip_before_action :authenticate_user! , only: [:new, :create]
   before_action :set_pre_season_location_request, only: [:show, :edit, :update, :destroy]
 
   # GET /pre_season_location_requests
