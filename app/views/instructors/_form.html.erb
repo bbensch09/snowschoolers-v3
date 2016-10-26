@@ -18,7 +18,7 @@
   <section class="admin-viewable">
     <div class="col-md-12 vertical-padding">
     <h4> ADMIN ONLY: Select user email to link to instructor application.</h4>
-      <%= f.select :user_id, options_from_collection_for_select(User.all, :id, :email, selected:Instructor.find(params[:id]).user_id) %>
+      <%= f.select :user_id, options_from_collection_for_select(User.all, :id, :email, selected:@instructor_id), include_blank:true %>
     </div>
     <div class="col-md-12 vertical-padding">
     <h4> Select eligibility for kids, seniors, and regular adults.</h4>
@@ -98,7 +98,8 @@
     <%= f.select :sport, ['Ski Instructor', 'Snowboard Instructor','Both Ski & Snowboard'], {}, {class: 'form-control', required:true} %>
     <br><br>
   </div>
-  <h4> Preferred Resorts (select up to 4)</h4>
+  <!-- <h4> Preferred Resorts (select up to 4)</h4> -->
+  <h4> Where are you interested in teaching?</h4>
   <div class="col-md-12">
     <%= f.collection_check_boxes :location_ids, Location.all, :id, :name do |location_item| %>
     <div class="collection-check-box">
