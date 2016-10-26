@@ -14,6 +14,15 @@ class Instructor < ActiveRecord::Base
         :bucket => 'snowschoolers'
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
+  def self.create_default_bios
+    Instructor.all.each do |instructor|
+      if instructor.bio.nil?
+      instructor.bio = "TBD - PSIA Level 1 certified instructor."
+      instructor.save
+      end
+    end
+  end
+
   def average_rating
     return "N/A" if reviews.count == 0
     total_stars = 0

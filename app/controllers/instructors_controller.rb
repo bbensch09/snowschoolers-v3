@@ -48,10 +48,13 @@ class InstructorsController < ApplicationController
   def new
     if current_user.instructor
       @instructor = current_user.instructor
+      @instructor_id = Instructor.find(params[:id]).user_id
       render 'edit'
       else
       @instructor = Instructor.new
+      @instructor_id = nil
     end
+
   end
 
   # GET /instructors/1/edit
