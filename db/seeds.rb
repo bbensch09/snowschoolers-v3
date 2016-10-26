@@ -304,7 +304,7 @@ ski_levels = ["Level 1 - first-time ever, no previous experience.",
               "Level 5 - makes parallel turns (S-turns for snowboarding) on easy terrain, comfortable on most blue runs.",
               "Level 6 - confidently links turns across all intermediate blue square terrain.",
               "Level 7 - demonstrates edge control in carving turns on advanced terrain.",
-              "Level 8 - safely navigates moguls and off-piste terrain",
+              "Level 8 - safely navigates moguls and off-piste terrain.",
               "Level 9 - confidently and safely skis expert-only (double-black diamond) terrain."]
 
 ski_levels.each do |level|
