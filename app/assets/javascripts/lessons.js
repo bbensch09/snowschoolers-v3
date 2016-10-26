@@ -179,6 +179,10 @@ $(document).ready(function(){
     $('#add-student-button').click();
     console.log("loaded first student.");
   };
+  if($('#preSeasonModalButton').length > 0){
+    $('#preSeasonModalButton').click();
+    console.log("triggered preSeasonModal");
+  }
   calculatePriceListener();
   // calculateTotalListener();
   toggleElementListener();

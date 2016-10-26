@@ -41,6 +41,7 @@ class LessonsController < ApplicationController
 
   def new
     @lesson = Lesson.new
+    @preseasonlocationrequest = PreSeasonLocationRequest.new
     @promo_location = nil
     @lesson_time = @lesson.lesson_time
   end
