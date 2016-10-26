@@ -2,6 +2,7 @@ class LessonsController < ApplicationController
   respond_to :html
   skip_before_action :authenticate_user!, only: [:new, :create]
   before_action :save_lesson_params_and_redirect, only: :create
+  before_action :load_lesson_params_post_fb_login, only: :new
   before_action :create_lesson_from_session, only: [:create, :update]
 
   def index
@@ -41,8 +42,10 @@ class LessonsController < ApplicationController
 
   def new
     @lesson = Lesson.new
-    @preseasonlocationrequest = PreSeasonLocationRequest.new
-    @promo_location = nil
+    @activity = session[:lesson].nil? ? nil : session[:lesson][:activity]
+    @promo_location = session[:lesson].nil? ? nil : session[:lesson][:requested_location]
+    @slot = session[:lesson].nil? ? nil : session[:lesson][:lesson_time][:slot]
+    @date = session[:lesson].nil? ? nil : session[:lesson][:lesson_time][:date]
     @lesson_time = @lesson.lesson_time
   end
 
@@ -214,15 +217,22 @@ class LessonsController < ApplicationController
 
   def save_lesson_params_and_redirect
     unless current_user
+      session[:lesson] = params[:lesson]
       flash[:alert] = 'You need to sign in or sign up before continuing.'
+      # flash[:notice] = "The captured params are #{params[:lesson]}"
       redirect_to new_user_registration_path and return
     end
       validate_new_lesson_params
   end
 
+  def load_lesson_params_post_fb_login
+    puts "!!!!!!loaded params from previous session"
+    puts "params are #{session[:lesson]}"
+  end
+
   def create_lesson_from_session
     return unless current_user && session[:lesson]
-    params[:lesson] = session.delete(:lesson)
+    params[:lesson] = session[:lesson]
     create_lesson_and_redirect
   end
 
