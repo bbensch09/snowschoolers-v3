@@ -33,16 +33,18 @@ class LessonsController < ApplicationController
   def book_product
     @lesson = Lesson.new
     @promo_location = Product.find(params[:id]).location.id
-    @promo_slot = Product.find(params[:id]).name.to_s
-    puts "The selected slot is #{@promo_slot}"
+    @slot = Product.find(params[:id]).name.to_s
+    puts "The selected slot is #{@slot}"
     @lesson_time = @lesson.lesson_time
     render 'new'
   end
 
   def new
     @lesson = Lesson.new
-    @preseasonlocationrequest = PreSeasonLocationRequest.new
-    @promo_location = nil
+    @activity = session[:lesson].nil? ? nil : session[:lesson][:activity]
+    @promo_location = session[:lesson].nil? ? nil : session[:lesson][:requested_location]
+    @slot = session[:lesson].nil? ? nil : session[:lesson][:lesson_time][:slot]
+    @date = session[:lesson].nil? ? nil : session[:lesson][:lesson_time][:date]
     @lesson_time = @lesson.lesson_time
   end
 
@@ -214,7 +216,9 @@ class LessonsController < ApplicationController
 
   def save_lesson_params_and_redirect
     unless current_user
+      session[:lesson] = params[:lesson]
       flash[:alert] = 'You need to sign in or sign up before continuing.'
+      # flash[:notice] = "The captured params are #{params[:lesson]}"
       redirect_to new_user_registration_path and return
     end
       validate_new_lesson_params
@@ -222,7 +226,7 @@ class LessonsController < ApplicationController
 
   def create_lesson_from_session
     return unless current_user && session[:lesson]
-    params[:lesson] = session.delete(:lesson)
+    params[:lesson] = session[:lesson]
     create_lesson_and_redirect
   end
 

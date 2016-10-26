@@ -17,13 +17,13 @@
           <h3 class="center">
             Where do you want to take a lesson this year?
           </h3>
-        <%= semantic_form_for @preseasonlocationrequest do |f| %>
+        <%= semantic_form_for(PreSeasonLocationRequest.new, :url => {:action => "create"}) do |ps_request| %>
             <div class="field center">
-              <%= f.input :name,  placeholder: "My favorite ski area is...", autocomplete: "off", label:false %>
+              <%= ps_request.input :name,  placeholder: "My favorite ski area is...", autocomplete: "off", label:false %>
             </div>
             <br>
             <div class="actions center">
-              <%= f.submit "Submit", class: "btn btn-success"%>
+              <%= ps_request.submit "Submit", class: "btn btn-success"%>
             </div>
           <% end %>
       </div>
@@ -72,23 +72,23 @@
           <div class="block inputs">
             <p>
               <div class="col-md-3">
-                <%= f.input :activity, as: :select, collection: ['Ski', 'Snowboard'], include_blank: 'Lesson Type', label: false %>
+                <%= f.input :activity, as: :select, collection: ['Ski', 'Snowboard'], selected:@activity, include_blank: 'Lesson Type', label: false %>
               </div>
 
               <div class="col-md-3">
                 <!-- %= f.input :requested_location , as: :select, collection: Location.all.sort_by { |location| location.name.downcase} , selected: @promo_location, include_blank: 'Location', label: false %> -->
-                <%= f.input :requested_location , as: :select, collection: [['NorthIdah Tahoe',1],['South Lake Tahoe',2],['Southern CA',3],['Utah',4],['Colorado',5],['Wyoming',6],['Idaho',7],['New Mexico',8]], selected: @promo_location, include_blank: 'Location', label: false %>
+                <%= f.input :requested_location , as: :select, collection: [['North Tahoe',1],['South Lake Tahoe',2],['Southern CA',3],['Utah',4],['Colorado',5],['Wyoming',6],['Idaho',7],['New Mexico',8]], selected: @promo_location, include_blank: 'Location', label: false %>
               </div>
 
               <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
                 <div class="col-md-3">
-                  <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker' }, placeholder: 'Date', label: false %>
+                  <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker', value:@date }, placeholder: 'Date', label: false %>
                   <span class="search-area-icon"></span>
                 </div>
 
                 <div class="col-md-3">
                   <!-- <%= lt_f.input :slot, as: :select, collection: ['Morning', 'Afternoon', 'Full Day'], include_blank: 'Time', label: false %> -->
-                  <%= lt_f.input :slot, as: :select, collection: ['1hr Early Bird', 'Half-day Morning', 'Half-day Afternoon', 'Full-day Private'], selected: @promo_slot, include_blank: 'Time', label: false %>
+                  <%= lt_f.input :slot, as: :select, collection: ['1hr Early Bird', 'Half-day Morning', 'Half-day Afternoon', 'Full-day Private'], selected: @slot, include_blank: 'Time', label: false %>
                 </div>
             </p>
           </div>
