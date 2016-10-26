@@ -1,0 +1,27 @@
+<h1>Listing pre_season_location_requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pre_season_location_requests.each do |pre_season_location_request| %>
+      <tr>
+        <td><%= pre_season_location_request.name %></td>
+        <td><%= link_to 'Show', pre_season_location_request %></td>
+        <td><%= link_to 'Edit', edit_pre_season_location_request_path(pre_season_location_request) %></td>
+        <td><%= link_to 'Destroy', pre_season_location_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Pre season location request', new_pre_season_location_request_path %>

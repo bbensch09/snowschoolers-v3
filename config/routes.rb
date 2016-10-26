@@ -1,4 +1,6 @@
 SnowSchoolers::Application.routes.draw do
+  resources :pre_season_location_requests
+
   resources :messages
   get 'start_conversation/:instructor_id' => 'messages#start_conversation'
   get 'conversations/:id' => 'messages#show_conversation', as: :show_conversation
