@@ -206,7 +206,7 @@ class LessonsController < ApplicationController
   end
 
   def validate_new_lesson_params
-    if params[:lesson][:requested_location].to_i < 1 || params[:lesson][:lesson_time][:date].length < 10
+    if params[:lesson].nil? || params[:lesson][:requested_location].to_i < 1 || params[:lesson][:lesson_time][:date].length < 10
       flash[:alert] = "Please first select a location and date."
       redirect_to new_lesson_path
     else
