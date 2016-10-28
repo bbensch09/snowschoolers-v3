@@ -101,11 +101,15 @@
   <!-- <h4> Preferred Resorts (select up to 4)</h4> -->
   <h4> Where are you interested in teaching?</h4>
   <div class="col-md-12">
-    <%= f.collection_check_boxes :location_ids, Location.all, :id, :name do |location_item| %>
-    <div class="collection-check-box">
-      <%= location_item.check_box %>
-      <%= location_item.label %>
-    </div>
+    <% if current_user && (current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Partner") %>
+      <%= f.collection_check_boxes :location_ids, Location.all, :id, :name do |location_item| %>
+      <div class="collection-check-box">
+        <%= location_item.check_box %>
+        <%= location_item.label %>
+      </div>
+      <% end %>
+      <% else %>
+      <%= f.text_field :preferred_locations, placeholder: 'Please list any and all ski areas you are interested in teaching at.', class: 'form-control', required:true %>
     <% end %>
     <br>
   </div>
