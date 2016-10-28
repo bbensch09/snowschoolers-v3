@@ -99,7 +99,7 @@
     <br><br>
   </div>
   <!-- <h4> Preferred Resorts (select up to 4)</h4> -->
-  <h4> Where are you interested in teaching?</h4>
+  <h4> <b> Where </b> do you want to teach ski or snowboard lessons?</h4>
   <div class="col-md-12">
     <% if current_user && (current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Partner") %>
       <%= f.collection_check_boxes :location_ids, Location.all, :id, :name do |location_item| %>
@@ -113,7 +113,7 @@
     <% end %>
     <br>
   </div>
-  <h4>Previous professional certifications (PSIA, AASI) </h4>
+  <h4>Professional certifications (PSIA, AASI) </h4>
   <div class="col-md-12">
     <%= f.text_field :certification, placeholder: 'Do you hold any certifications?', class: 'form-control', required:true %>
     <br>
@@ -125,7 +125,7 @@
   </div>
   <h4>How did you first hear about Snow Schoolers?</h4>
   <div class="col-md-6">
-    <%= f.select :how_did_you_hear, [['From a Friend',1],['Facebook',2],['Google',3],['From a Flyer',4],['Other',5]], {}, {class: 'form-control', required:true, include_blank:false} %>
+    <%= f.select :how_did_you_hear, [['From a Friend',1],['Facebook',2],['Google',3],['From a Flyer',4],['Linkedin',5],['Other',100]], {}, {class: 'form-control', required:true, include_blank:false} %>
   </div>
   <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
   <div class="row">
