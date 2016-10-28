@@ -47,6 +47,7 @@ SnowSchoolers::Application.routes.draw do
     member do
         post :verify
         post :revoke
+        get :show_candidate
       end
   end
   get '/admin_index' => 'instructors#admin_index'

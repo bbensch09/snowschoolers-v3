@@ -44,7 +44,7 @@
       <tr>
         <!-- <td><%= instructor.id %></td> -->
         <td> <%= link_to image_tag(instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail"), edit_instructor_path(instructor) %> </td>
-        <td><%= link_to "#{instructor.name}", edit_instructor_path(instructor) %></td>
+        <td><%= link_to "#{instructor.name}", show_candidate_instructor_path(instructor) %></td>
         <!-- <td>
           <% instructor.locations.each do |location| %>
               <%= location.name %> <br>
