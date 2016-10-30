@@ -48,18 +48,15 @@ class WelcomeController < ApplicationController
 
   def notify_admin
     if request.xhr?
-      # DEBUGGING JSON PARAMS - CLEAN UP LATER
-      # puts "received ajax request"
-      # first_name = params[:first_name]
-      # last_name = params[:last_name]
-      # email = params[:email]
-      # puts "email was captured as #{email}."
+      first_name = params[:first_name]
+      last_name = params[:last_name]
+      email = params[:email]
       if current_user.nil?
         LessonMailer.application_begun(email, first_name, last_name).deliver
       else
         LessonMailer.application_begun(current_user.email).deliver
       end
-      render json: {email: email}
+      render json: {notice: "Email has been validated."}
     end
   end
 
