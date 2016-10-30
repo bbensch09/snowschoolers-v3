@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161026165951) do
+ActiveRecord::Schema.define(version: 20161030004305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -151,6 +151,14 @@ ActiveRecord::Schema.define(version: 20161026165951) do
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
+    t.integer  "vertical_feet"
+    t.integer  "base_elevation"
+    t.integer  "peak_elevation"
+    t.integer  "skiable_acres"
+    t.integer  "average_snowfall"
+    t.integer  "lift_count"
+    t.string   "address"
+    t.boolean  "night_skiing"
   end
 
   create_table "messages", force: true do |t|
@@ -171,7 +179,7 @@ ActiveRecord::Schema.define(version: 20161026165951) do
 
   create_table "products", force: true do |t|
     t.string   "name"
-    t.integer  "price"
+    t.float    "price"
     t.integer  "location_id"
     t.string   "calendar_period"
     t.datetime "created_at"
@@ -179,6 +187,18 @@ ActiveRecord::Schema.define(version: 20161026165951) do
     t.string   "length"
     t.string   "slot"
     t.string   "start_time"
+    t.string   "product_type"
+    t.boolean  "is_lesson",                     default: false
+    t.boolean  "is_private_lesson",             default: false
+    t.boolean  "is_group_lesson",               default: false
+    t.boolean  "is_lift_ticket",                default: false
+    t.boolean  "is_rental",                     default: false
+    t.boolean  "is_lift_rental_package",        default: false
+    t.boolean  "is_lift_lesson_package",        default: false
+    t.boolean  "is_lift_lesson_rental_package", default: false
+    t.boolean  "is_multi_day",                  default: false
+    t.string   "age_type"
+    t.text     "details"
   end
 
   create_table "reviews", force: true do |t|

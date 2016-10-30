@@ -7,8 +7,16 @@
       <th>Logo</th>
       <th>Region</th>
       <th>State</th>
+      <th>Address</th>
       <th>Partner Status</th>
       <th>Calendar Status</th>
+      <th>Vertical Feet</th>
+      <th>Base Elevation</th>
+      <th>Peak Elevation</th>
+      <th>Skiable acres</th>
+      <th>Avg. Snowfall</th>
+      <th>Number of Lifts</th>
+      <th>Night Skiing?</th>
       <th></th>
       <th></th>
       <th></th>
@@ -24,8 +32,16 @@
         </td>
         <td><%= location.region %></td>
         <td><%= location.state %></td>
+        <td><%= location.address %></td>
         <td><%= location.partner_status %></td>
         <td><%= location.calendar_status %></td>
+        <td><%= location.vertical_feet %></td>
+        <td><%= location.base_elevation %></td>
+        <td><%= location.peak_elevation %></td>
+        <td><%= location.skiable_acres %></td>
+        <td><%= location.average_snowfall %></td>
+        <td><%= location.lift_count %></td>
+        <td><%= location.night_skiing %></td>
         <td><%= link_to 'Show', location %></td>
         <td><%= link_to 'Edit', edit_location_path(location) %></td>
         <td><%= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -1,12 +1,26 @@
 <div class="container">
 <%= semantic_form_for @product do |f| %>
   <%= f.inputs do %>
-    <%= f.input :name, as: :select, collection: ['1hr Early Bird', 'Half-day Morning', 'Half-day Afternoon', 'Full-day Private'], include_blank: 'Select Product', label: false , required:true %>
-    <%= f.input :length, as: :select, collection: [['1 hour',1],['3 hours',3],['6 hours',6]], include_blank: 'Length', label: true , required:true %>
-    <%= f.input :slot, as: :select, collection: ['Morning', 'Afternoon', 'All Day'], include_blank: 'Slot', label: true , required:true %>
-    <%= f.input :start_time, as: :select, collection: ['9:00am', '10:00am', '1:00pm'], include_blank: 'Slot', label: true , required:true %>
-
     <%= f.input :price %>
+    <%= f.input :product_type %>
+    <%= f.input :details %>
+    <%= f.input :name, placeholder: "1hr Early Bird, Half-day Morning, Half-day Afternoon, Full-day Private, etc.", required:true %>
+    <!-- %= f.input :name, as: :select, collection: ['1hr Early Bird', 'Half-day Morning', 'Half-day Afternoon', 'Full-day Private'], include_blank: 'Select Product', label: false , required:true %> -->
+    <%= f.input :length, as: :select, collection: [['1 hour',1],['3 hours',3],['6 hours',6]], include_blank: 'Length', label: true , required:false %>
+    <%= f.input :slot, as: :select, collection: ['Morning', 'Afternoon', 'All Day'], include_blank: 'Slot', label: true , required:false %>
+    <%= f.input :start_time, as: :select, collection: ['9:00am', '10:00am', '1:00pm'], include_blank: 'Slot', label: true , required:false %>
+    <%= f.input :is_lesson %>
+    <%= f.input :is_private_lesson %>
+    <%= f.input :is_group_lesson %>
+    <%= f.input :is_lift_ticket %>
+    <%= f.input :is_rental %>
+    <%= f.input :is_lift_rental_package %>
+    <%= f.input :is_lift_lesson_package %>
+    <%= f.input :is_lift_lesson_rental_package %>
+    <%= f.input :is_multi_day %>
+    <%= f.input :age_type %>
+
+
     <%= f.input :location_id, as: :select, collection: Location.all, include_blank: 'Location', label: false , required:true%>
     <%= f.input :calendar_period, as: :select, collection: ['Regular','Peak','Peak Plus'], selected:'Regular', required:true %>
   <% end %>
@@ -15,4 +29,7 @@
     <%= f.action :submit, :as => :input %>
   <% end %>
 <% end %>
+<%= link_to 'Back to all products', products_path %>
+<div class="buffer"></div>
+
 </div>

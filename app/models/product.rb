@@ -1,5 +1,13 @@
 class Product < ActiveRecord::Base
+  require 'csv'
   belongs_to :location
+
+  def self.import(file)
+    CSV.foreach(file.path, headers:true) do |row|
+      Product.create!(row.to_hash)
+      puts "new product created with name: #{Product.last.name}"
+    end
+  end
 
   def self.search(search_params)
     search_results = []

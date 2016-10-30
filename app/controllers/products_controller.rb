@@ -3,6 +3,16 @@ class ProductsController < ApplicationController
   before_action :confirm_admin_permissions
 
 
+  def import
+   Product.import(params[:file])
+   redirect_to products_path, notice: "New products data successfully imported."
+  end
+
+  def delete_all
+    Product.delete_all
+    redirect_to products_path, notice: "All products have been deleted."
+  end
+
   # GET /products
   # GET /products.json
   def index
@@ -91,7 +101,7 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:name, :price, :location_id, :calendar_period, :search, :length, :slot, :start_time, :search_length, :search_status, :search_slot, :search_cert, :search_sport, :search_location, :sort_tag)
+      params.require(:product).permit(:name, :price, :location_id, :calendar_period, :search, :length, :slot, :start_time, :search_length, :search_status, :search_slot, :search_cert, :search_sport, :search_location, :sort_tag, :product_type, :is_lesson, :is_private_lesson, :is_group_lesson, :is_lift_ticket, :is_rental, :is_lift_rental_package, :is_lift_lesson_package, :is_lift_less_rental_package, :is_multi_day, :age_type, :details)
     end
 
     def confirm_admin_permissions
