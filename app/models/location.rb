@@ -8,6 +8,10 @@ class Location < ActiveRecord::Base
   validates_attachment_content_type :logo, content_type: /\Aimage\/.*\Z/
 
 
+  def self.active_partners
+    Location.where(partner_status:'Active')
+  end
+
   def lifetime_lessons
     Lesson.where(state:"Lesson Complete",requested_location:self.id.to_s)
   end

@@ -6,16 +6,36 @@
   <p>There are no products containing the term(s) "<%= params[:search] %>".</p>
 <% end %>
 
+<%= form_tag import_products_path, multipart: true do %>
+  <%= file_field_tag :file, class: 'form-control' %>
+  <%= submit_tag "Import Products from CSV", class: 'btn btn-default' %>
+<% end %>
+<hr>
+  <%= link_to 'Delete Products Database', delete_all_products_path, method: :delete_all, data: { confirm: 'Are you sure?' },  class: 'btn btn-danger' %>
+
+
 <table class="instructors-table">
   <thead>
     <tr>
-      <th>Name</th>
       <th>Price</th>
+      <th>Product Type</th>
+      <th>Name</th>
       <th>Location</th>
       <th>Length</th>
       <th>Slot</th>
       <th>Start time</th>
       <th>Calendar period</th>
+      <th>Is Lesson?</th>
+      <th>Is Private Lesson?</th>
+      <th>Is Group Lesson?</th>
+      <th>Is Lift Ticket?</th>
+      <th>Is Rental?</th>
+      <th>Lift Rental Package?</th>
+      <th>Lift Lesson Package?</th>
+      <th>Lift Lesson Rental Package?</th>
+      <th>Multi-day?</th>
+      <th>Age Restrictions</th>
+      <th>Details</th>
       <th></th>
       <th></th>
       <th></th>
@@ -25,13 +45,25 @@
   <tbody>
     <% @products.each do |product| %>
       <tr>
-        <td><%= product.name %></td>
-        <td><%= product.price %></td>
+        <td><%= number_to_currency(product.price) %></td>
+        <td><%= product.product_type %></td>
+        <td><%= link_to product.name, edit_product_path(product) %></td>
         <td><%= product.location.name %></td>
         <td><%= product.length %></td>
         <td><%= product.slot %></td>
         <td><%= product.start_time %></td>
         <td><%= product.calendar_period %></td>
+        <td><%= product.is_lesson %></td>
+        <td><%= product.is_private_lesson %></td>
+        <td><%= product.is_group_lesson %></td>
+        <td><%= product.is_lift_ticket %></td>
+        <td><%= product.is_rental %></td>
+        <td><%= product.is_lift_rental_package %></td>
+        <td><%= product.is_lift_lesson_package %></td>
+        <td><%= product.is_lift_lesson_rental_package %></td>
+        <td><%= product.is_multi_day %></td>
+        <td><%= product.age_type %></td>
+        <td><%= product.details %></td>
         <td><%= link_to 'Show', product %></td>
         <td><%= link_to 'Edit', edit_product_path(product) %></td>
         <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -41,6 +73,7 @@
 </table>
 
 <br>
+<%= link_to 'New Product', new_product_path, class: 'btn btn-default' %>
+<div class="buffer"></div>
 
-<%= link_to 'New Product', new_product_path %>
 </div>

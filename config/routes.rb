@@ -11,7 +11,10 @@ SnowSchoolers::Application.routes.draw do
 
   resources :ski_levels
 
-  resources :products
+  resources :products do
+    collection {post :import}
+    collection {post :delete_all}
+  end
 
   resources :calendar_blocks
 
