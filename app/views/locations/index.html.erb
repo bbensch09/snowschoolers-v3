@@ -26,7 +26,7 @@
   <tbody>
     <% @locations.each do |location| %>
       <tr>
-        <td><%= location.name %></td>
+        <td><%= link_to location.name, edit_location_path(location) %></td>
         <td>
         <%= image_tag location.logo.url(:large), alt:"avatar-img", class:"location-logo-index avatar-center" %>
         </td>
