@@ -23,59 +23,76 @@
         </div>
     </section>
 
-   <!--  <section class="pricing-section">
+    <section class="pricing-section">
         <div class="pricing-container">
-            <h1 class="center price-header">Private Lesson Rate Comparison</h1>
             <table class="col-lg-12 col-xs-12 pricing-table">
               <thead class="">
+                <tr>
+                    <th class="center price-header" colspan="4">Private Lesson Rates Comparison</th>
+
+                </tr>
                 <tr class="">
                   <th class="col-xs-2"> </th>
                   <th class="pricing-snowschoolers col-xs-2">Snow Schoolers </th>
-                  <th class="pricing-competitors-names col-xs-2">North Star</th>
-                  <th class="pricing-competitors-names col-xs-2">Vail</th>
-                  <th class="pricing-competitors-names col-xs-2">Deer Valley</th>
+                  <th class="pricing-competitors-names col-xs-2">Northstar</th>
+                  <th class="pricing-competitors-names col-xs-2">Squaw Valley</th>
                 </tr>
               </thead>
 
               <tbody>
                 <tr>
                     <td class="pricing-length">1hr</td>
-                    <td class="pricing-snowschoolers">$75</td>
-                    <td class="pricing-competitors">$153</td>
-                    <td class="pricing-competitors">$175</td>
-                    <td class="pricing-competitors">$148</td>
+                    <td class="pricing-snowschoolers">$89</td>
+                    <td class="pricing-competitors">N/A</td>
+                    <td class="pricing-competitors">N/A</td>
                 </tr>
-                <tr>
+<!--                 <tr>
                     <td class="pricing-length">2hr</td>
                     <td class="pricing-snowschoolers">$150</td>
                     <td class="pricing-competitors">$295</td>
                     <td class="pricing-competitors">$325</td>
-                    <td class="pricing-competitors">$287</td>
-                </tr>
+                </tr> -->
                 <tr>
                     <td class="pricing-length">Half-day (3hr)</td>
-                    <td class="pricing-snowschoolers">$225</td>
-                    <td class="pricing-competitors">$398</td>
-                    <td class="pricing-competitors">$525</td>
-                    <td class="pricing-competitors">$375</td>
+                    <td class="pricing-snowschoolers">$399</td>
+                    <td class="pricing-competitors">$595</td>
+                    <td class="pricing-competitors">$519</td>
                 </tr>
                 <tr>
                     <td class="pricing-length">Full-day (6hr)</td>
-                    <td class="pricing-snowschoolers">$450</td>
-                    <td class="pricing-competitors">$693</td>
-                    <td class="pricing-competitors">$1049</td>
-                    <td class="pricing-competitors">$699</td>
+                    <td class="pricing-snowschoolers">$499</td>
+                    <td class="pricing-competitors">$810</td>
+                    <td class="pricing-competitors">$739</td>
                 </tr>
               </tbody>
             </table>
         </div>
-    </section> -->
+    </section>
 
     <section class="bg-primary" id="about">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-xs12 text-center">
                     <h2 class="section-heading">Learning to ski or snowboard is hard. <br> Booking a private lesson shouldn't be.</h2>
+                    <div class="col-md-12 beta_user-sign-up">
+                        <%= form_for(@beta_user = BetaUser.new) do |f| %>
+                          <% if @beta_user.errors.any? %>
+                            <div id="error_explanation">
+                              <h2><%= pluralize(@beta_user.errors.count, "error") %> prohibited this beta_user from being saved:</h2>
+                              <ul>
+                              <% @beta_user.errors.full_messages.each do |message| %>
+                                <li><%= message %></li>
+                              <% end %>
+                              </ul>
+                            </div>
+                          <% end %>
+                          <div class="email-input">
+                            <%= f.email_field :email, autofocus: true, class:"black-text form-control beta-sign-up", placeholder:"Enter Email"  %>
+                          <%= f.submit "Sign Up for Updates & Special Offers", class:"btn btn-success btn-xl page-scroll" %>
+                          <h3 class="offer-limitations">*First 100 sign ups receive 30% their first lesson.</h3>
+                          </div>
+                        <% end %>
+                    </div>
                     <hr class="light text-center">
                     <!-- <h3 class="text-white">Instructors at Snow Schoolers loving sharing their passion for the mountain, and don't care to see your wallet drained. </h3> -->
                     <div class="col-md-8 col-md-offset-2">

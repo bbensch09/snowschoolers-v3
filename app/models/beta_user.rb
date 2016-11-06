@@ -1,5 +1,5 @@
 class BetaUser < ActiveRecord::Base
-    after_create :send_admin_notification
+    # after_create :send_admin_notification
 
   def send_admin_notification
       @beta_user = BetaUser.last

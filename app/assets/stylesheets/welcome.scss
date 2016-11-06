@@ -64,8 +64,8 @@ section.small{
   min-height: 300px ;
 }
 section.pricing-section{
-  min-height: 350px !important;
-  padding-top:10px !important;
+  min-height: 250px !important;
+  padding-top:30px !important;
   padding-bottom: 1px;
   background-color: #fff;
 }
@@ -494,7 +494,7 @@ h2.how-it-works {
 .pricing-competitors{
       text-align: center;
       color: #980000;
-      text-decoration: line-through;
+      /*text-decoration: line-through;*/
 }
 .pricing-table thead {
   font-size: 1.5em;
@@ -560,6 +560,17 @@ h2 {
 #search-index-header{
   padding-bottom: 20px;
 }
+.beta-sign-up{
+  display: inline-block;
+  width: 200px !important;
+  margin-bottom: 10px;
+}
+.offer-limitations{
+  font-size: 0.9em;
+  margin-bottom: 0px;
+  margin-top: 5px;
+  font-style: italic;
+}
 
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/
 @media (max-width: 768px) {
@@ -576,10 +587,11 @@ h2 {
     max-width: 95vw;
   }
   section.pricing-section{
-  min-height: 300px ;
+  min-height: 150px !important;
   padding-top:50px;
   padding-bottom: 0px;
   background-color: #fff;
+  max-height: 45vh;
   }
   section.small {
       min-height: 200px;

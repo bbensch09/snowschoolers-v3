@@ -11,6 +11,11 @@ class LessonMailer < ActionMailer::Base
       mail(to: 'brian@snowschoolers.com', subject: "New Preseason Resort request - #{@location_name}.")
   end
 
+  def notify_admin_beta_user(beta_user)
+      @beta_user = beta_user
+      mail(to: 'brian@snowschoolers.com', subject: "New Beta User - #{@beta_user.email}.")
+  end
+
   def application_begun(email="Unknown user",first_name="John", last_name="Doe")
       @email = email
       @name = first_name + last_name
