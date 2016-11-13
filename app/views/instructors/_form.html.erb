@@ -19,6 +19,12 @@
     <div class="col-md-12 vertical-padding">
     <h4> ADMIN ONLY: Select user email to link to instructor application.</h4>
       <%= f.select :user_id, options_from_collection_for_select(User.all, :id, :email, selected:@instructor_id), include_blank:true %>
+    <h4>Initial Adults Rank</h4>
+      <%= f.select :adults_initial_rank, [1,2,3,4,5,6,7,8,9,10], include_blank:false %>
+    <h4>Initial Kids Rank</h4>
+      <%= f.select :kids_initial_rank, [1,2,3,4,5,6,7,8,9,10], include_blank:false %>
+    <h4>Initial Overral Rank</h4>
+      <%= f.select :overall_initial_rank, [1,2,3,4,5,6,7,8,9,10], include_blank:false %>
     </div>
     <div class="col-md-12 vertical-padding">
     <h4> Select eligibility for kids, seniors, and regular adults.</h4>
