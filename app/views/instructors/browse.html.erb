@@ -21,11 +21,11 @@
           <li><b> Sport: </b> <%= instructor.sport %>, <%= instructor.certification %> </li>
           <li><%= instructor.bio[0..200].gsub(/\s\w+$/,'...') %> </li>
         </ul>
-        <ul class="instructor-resorts">
+       <!--  <ul class="instructor-resorts">
           <% instructor.locations[0..3].each do |location| %>
             <li><%= location.name %></li>
           <% end %>
-        </ul>
+        </ul> -->
         <h3 class="center"><a href="/new_request/<%=instructor.to_param%>" class="btn sign-up-btn">Book a lesson with <%=instructor.first_name %> </a></h3>
         <hr>
       </div>
