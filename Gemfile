@@ -79,6 +79,9 @@ gem 'cocoon', '>= 1.2.0'
 gem 'faker'
 gem 'hirb'
 
+#delayed_jobs for sending Twilio SMS messages if instructors are unresponsive
+gem 'delayed_job_active_record'
+
 # Heroku
 group :production do
   gem 'rails_12factor'
