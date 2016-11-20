@@ -17,6 +17,7 @@
 <table class="instructors-table">
   <thead>
     <tr>
+      <th></th>
       <th>Price</th>
       <th>Product Type</th>
       <th>Name</th>
@@ -38,13 +39,13 @@
       <th>Details</th>
       <th></th>
       <th></th>
-      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @products.each do |product| %>
       <tr>
+        <td><%= link_to 'Edit', edit_product_path(product) %></td>
         <td><%= number_to_currency(product.price) %></td>
         <td><%= product.product_type %></td>
         <td><%= link_to product.name, edit_product_path(product) %></td>
@@ -65,7 +66,6 @@
         <td><%= product.age_type %></td>
         <td><%= product.details %></td>
         <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
         <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

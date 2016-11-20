@@ -144,7 +144,7 @@ class Lesson < ActiveRecord::Base
   def price
     product = Product.where(location_id:self.requested_location.to_i,name:self.lesson_time.slot).first
     if product.nil?
-      return 99 #default lesson price - temporary
+      return "Error - lesson price not found" #99 #default lesson price - temporary
     else
       return product.price
     end
