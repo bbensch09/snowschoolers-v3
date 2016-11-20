@@ -70,7 +70,12 @@
           </div>
 
           <h4>Student <strong>Info</strong></h4>
-
+          <div id="previous_students">
+            <% if current_user.students %>
+            <h4>This lesson is for the previously entered student(s) below.</h4>
+              <%= f.select :id, options_from_collection_for_select(current_user.students, :id, :name), {}, {required: false, class: 'form-control'} %>
+            <% end %>
+          </div>
           <div id='lesson_students_input'>
             <%= f.semantic_fields_for :students do |student| %>
               <%= render 'student_fields', f: student %>
