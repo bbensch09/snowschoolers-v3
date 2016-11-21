@@ -141,7 +141,7 @@
       </div>
       <div class="modal-body">
           <h3 class="center">
-            <%= link_to image_tag("fb-login.png", class:"fb-login-btn"), user_omniauth_authorize_path(:facebook) %>
+            <%= link_to image_tag("fb-login.png", class:"fb-login-btn"), user_facebook_omniauth_authorize_path %>
           </h3>
           <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
             <%= devise_error_messages! %>
@@ -176,7 +176,7 @@
       </div>
       <div class="modal-body">
           <h3 class="center">
-            <%= link_to image_tag("fb-login.png", class:"fb-login-btn"), user_omniauth_authorize_path(:facebook) %>
+            <%= link_to image_tag("fb-login.png", class:"fb-login-btn"), user_facebook_omniauth_authorize_path %>
           </h3>
           <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <div class="field center">

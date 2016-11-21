@@ -37,7 +37,7 @@ class Instructor < ActiveRecord::Base
   end
 
   def kids_score
-    kids_lessons = self.completed_lessons.keep_if {|lesson| lesson.kids_lesson? }
+    kids_lessons = self.completed_lessons.to_a.keep_if {|lesson| lesson.kids_lesson? }
     points_for_completed_lessons = kids_lessons.count * 10
     points_for_5star_reviews = 0
     points_for_acceptenace_rate = 0
@@ -45,7 +45,7 @@ class Instructor < ActiveRecord::Base
   end
 
   def seniors_score
-    seniors_lessons = self.completed_lessons.keep_if {|lesson| lesson.seniors_lesson? }
+    seniors_lessons = self.completed_lessons.to_a.keep_if {|lesson| lesson.seniors_lesson? }
     points_for_completed_lessons = seniors_lessons.count * 10
     points_for_5star_reviews = 0
     points_for_acceptenace_rate = 0

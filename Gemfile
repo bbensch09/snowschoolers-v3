@@ -76,7 +76,7 @@ end
 # gem 'capistrano', group: :development
 
 gem 'devise'
-gem 'formtastic', '2.3.0.rc2'
+gem 'formtastic', '~> 3.0'
 gem 'formtastic-bootstrap'
 gem 'omniauth-facebook'
 gem 'cocoon', '>= 1.2.0'

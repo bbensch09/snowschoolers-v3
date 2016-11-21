@@ -385,12 +385,12 @@ class Lesson < ActiveRecord::Base
   end
 
   def send_reminder_sms
+    return if self.state == 'confirmed' || (LessonAction.last.created_at - Time.now) < 300
     account_sid = ENV['TWILIO_SID']
     auth_token = ENV['TWILIO_AUTH']
     snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
-    # recipient = self.available_instructors.any? ? self.available_instructors.first.phone_number : "4083152900"
-    recipient = "4083152900"
-    body = "#{self.available_instructors.first.first_name}, it has been over 5 minutes and you have not accepted or declined this request. We are not making it available to other instructors. You may still visit www.snowschoolers.com/lessons/#{self.id} to confirm the lesson."
+    recipient = self.available_instructors.any? ? self.available_instructors.first.phone_number : "4083152900"
+    body = "#{self.available_instructors.first.first_name}, it has been over 5 minutes and you have not accepted or declined this request. We are now making this lesson available to other instructors. You may still visit www.snowschoolers.com/lessons/#{self.id} to confirm the lesson."
     @client = Twilio::REST::Client.new account_sid, auth_token
           @client.account.messages.create({
           :to => recipient,
@@ -398,8 +398,35 @@ class Lesson < ActiveRecord::Base
           :body => body
       })
       puts "!!!!! - reminder SMS has been sent"
+      send_sms_to_all_other_instructors
   end
-  handle_asynchronously :send_reminder_sms, :run_at => Proc.new {10.seconds.from_now }
+  handle_asynchronously :send_reminder_sms, :run_at => Proc.new {15.seconds.from_now }
+
+  def send_sms_to_all_other_instructors
+    recipients = self.available_instructors
+    if recipients.count < 2
+      @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
+          @client.account.messages.create({
+          :to => "408-315-2900",
+          :from => ENV['TWILIO_NUMBER'],
+          :body => "ALERT - #{self.available_instructors.first.name} is the only instructor available and they have not responded after 10 minutes. No other instructors are available to teach #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date} at #{self.location.name}."
+      })
+    end
+    # identify recipients to be notified as all available instructors except for the first instructor, who has been not responsive
+    recipients[1..-1].each do |instructor|
+      account_sid = ENV['TWILIO_SID']
+      auth_token = ENV['TWILIO_AUTH']
+      snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
+      body = "#{instructor.first_name}, we have a customer who is eager to find an instructor. #{self.requester.name} wants a lesson at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. Are you available? The lesson is now available to the first instructor that claims it by visiting www.snowschoolers.com/lessons/#{self.id} and accepting the request."
+      @client = Twilio::REST::Client.new account_sid, auth_token
+            @client.account.messages.create({
+            :to => instructor.phone_number,
+            :from => "#{snow_schoolers_twilio_number}",
+            :body => body
+        })
+    end
+  end
+  # handle_asynchronously :send_sms_to_all_other_instructors, :run_at => Proc.new {5.seconds.from_now }
 
   def send_sms_to_requester
       account_sid = ENV['TWILIO_SID']

@@ -16,7 +16,7 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
-//= require jquery.ui.datepicker
+//= require jquery-ui/datepicker
 //= require jquery.timepicker.js
 //= require cocoon
 //= require_tree .
