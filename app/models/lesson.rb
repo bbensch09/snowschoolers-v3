@@ -385,7 +385,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def send_reminder_sms
-    return if self.state == 'confirmed' || (LessonAction.last.created_at - Time.now) < 300
+    return if self.state == 'confirmed' || (Time.now - LessonAction.last.created_at) < 30
     account_sid = ENV['TWILIO_SID']
     auth_token = ENV['TWILIO_AUTH']
     snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
@@ -400,7 +400,7 @@ class Lesson < ActiveRecord::Base
       puts "!!!!! - reminder SMS has been sent"
       send_sms_to_all_other_instructors
   end
-  handle_asynchronously :send_reminder_sms, :run_at => Proc.new {15.seconds.from_now }
+  handle_asynchronously :send_reminder_sms, :run_at => Proc.new {300.seconds.from_now }
 
   def send_sms_to_all_other_instructors
     recipients = self.available_instructors
@@ -488,7 +488,7 @@ class Lesson < ActiveRecord::Base
   def send_lesson_request_to_instructors
     #currently testing just to see whether lesson is active and deposit has gone through successfully.
     #need to replace with logic that tests whether lesson is newly complete, vs. already booked, etc.
-    if self.active? && self.confirmable? #&& self.deposit_status == 'verfied'
+    if self.active? && self.confirmable? #&& self.deposit_status == 'verified'
       LessonMailer.send_lesson_request_to_instructors(self).deliver
       self.send_sms_to_instructor
     elsif self.available_instructors.any? == false
