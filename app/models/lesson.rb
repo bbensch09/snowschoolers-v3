@@ -4,7 +4,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :lesson_time
   has_many :students
   has_one :review
-  has_one :transaction
+  has_many :transactions
   has_many :lesson_actions
   accepts_nested_attributes_for :students, reject_if: :all_blank, allow_destroy: true
 
@@ -117,7 +117,7 @@ class Lesson < ActiveRecord::Base
   def self.visible_to_instructor?(instructor)
       lessons = []
       assigned_to_instructor = Lesson.where(instructor_id:instructor.id)
-      available_to_instructor = Lesson.all.keep_if {|lesson| (lesson.confirmable? && lesson.instructor_id.nil? )}
+      available_to_instructor = Lesson.all.to_a.keep_if {|lesson| (lesson.confirmable? && lesson.instructor_id.nil? )}
       lessons = assigned_to_instructor + available_to_instructor
   end
 
@@ -144,7 +144,7 @@ class Lesson < ActiveRecord::Base
   def price
     product = Product.where(location_id:self.requested_location.to_i,name:self.lesson_time.slot).first
     if product.nil?
-      return 99 #default lesson price - temporary
+      return "Error - lesson price not found" #99 #default lesson price - temporary
     else
       return product.price
     end
@@ -214,18 +214,18 @@ class Lesson < ActiveRecord::Base
     active_resort_instructors = resort_instructors.where(status:'Active')
     # puts "!!!!!!! - Step #2 Filtered for active status, found #{active_resort_instructors.count} instructors."
     if self.activity == 'Ski' && self.level
-      active_resort_instructors = active_resort_instructors.keep_if {|instructor| (instructor.ski_levels.any? && instructor.ski_levels.max.value >= self.level) }
+      active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| (instructor.ski_levels.any? && instructor.ski_levels.max.value >= self.level) }
     end
     if self.activity == 'Snowboard' && self.level
-      active_resort_instructors = active_resort_instructors.keep_if {|instructor| (instructor.snowboard_levels.any? && instructor.snowboard_levels.max.value >= self.level )}
+      active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| (instructor.snowboard_levels.any? && instructor.snowboard_levels.max.value >= self.level )}
     end
     # puts "!!!!!!! - Step #3 Filtered for level, found #{active_resort_instructors.count} instructors."
     if kids_lesson?
-      active_resort_instructors = active_resort_instructors.keep_if {|instructor| instructor.kids_eligibility == true }
+      active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| instructor.kids_eligibility == true }
       # puts "!!!!!!! - Step #3b Filtered for kids specialist, now have #{active_resort_instructors.count} instructors."
     end
     if seniors_lesson?
-      active_resort_instructors = active_resort_instructors.keep_if {|instructor| instructor.seniors_eligibility == true }
+      active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| instructor.seniors_eligibility == true }
       # puts "!!!!!!! - Step #3c Filtered for seniors specialist, now have #{active_resort_instructors.count} instructors."
     end
     wrong_sport_instructors = Instructor.where(sport: wrong_sport)
@@ -380,7 +380,53 @@ class Lesson < ActiveRecord::Base
           :from => "#{snow_schoolers_twilio_number}",
           :body => body
       })
+      send_reminder_sms
+      puts "!!!!! - reminder SMS has been scheduled"
   end
+
+  def send_reminder_sms
+    return if self.state == 'confirmed' || (Time.now - LessonAction.last.created_at) < 30
+    account_sid = ENV['TWILIO_SID']
+    auth_token = ENV['TWILIO_AUTH']
+    snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
+    recipient = self.available_instructors.any? ? self.available_instructors.first.phone_number : "4083152900"
+    body = "#{self.available_instructors.first.first_name}, it has been over 5 minutes and you have not accepted or declined this request. We are now making this lesson available to other instructors. You may still visit www.snowschoolers.com/lessons/#{self.id} to confirm the lesson."
+    @client = Twilio::REST::Client.new account_sid, auth_token
+          @client.account.messages.create({
+          :to => recipient,
+          :from => "#{snow_schoolers_twilio_number}",
+          :body => body
+      })
+      puts "!!!!! - reminder SMS has been sent"
+      send_sms_to_all_other_instructors
+  end
+  handle_asynchronously :send_reminder_sms, :run_at => Proc.new {300.seconds.from_now }
+
+  def send_sms_to_all_other_instructors
+    recipients = self.available_instructors
+    if recipients.count < 2
+      @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
+          @client.account.messages.create({
+          :to => "408-315-2900",
+          :from => ENV['TWILIO_NUMBER'],
+          :body => "ALERT - #{self.available_instructors.first.name} is the only instructor available and they have not responded after 10 minutes. No other instructors are available to teach #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date} at #{self.location.name}."
+      })
+    end
+    # identify recipients to be notified as all available instructors except for the first instructor, who has been not responsive
+    recipients[1..-1].each do |instructor|
+      account_sid = ENV['TWILIO_SID']
+      auth_token = ENV['TWILIO_AUTH']
+      snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
+      body = "#{instructor.first_name}, we have a customer who is eager to find an instructor. #{self.requester.name} wants a lesson at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. Are you available? The lesson is now available to the first instructor that claims it by visiting www.snowschoolers.com/lessons/#{self.id} and accepting the request."
+      @client = Twilio::REST::Client.new account_sid, auth_token
+            @client.account.messages.create({
+            :to => instructor.phone_number,
+            :from => "#{snow_schoolers_twilio_number}",
+            :body => body
+        })
+    end
+  end
+  # handle_asynchronously :send_sms_to_all_other_instructors, :run_at => Proc.new {5.seconds.from_now }
 
   def send_sms_to_requester
       account_sid = ENV['TWILIO_SID']
@@ -442,7 +488,7 @@ class Lesson < ActiveRecord::Base
   def send_lesson_request_to_instructors
     #currently testing just to see whether lesson is active and deposit has gone through successfully.
     #need to replace with logic that tests whether lesson is newly complete, vs. already booked, etc.
-    if self.active? && self.confirmable? #&& self.deposit_status == 'verfied'
+    if self.active? && self.confirmable? #&& self.deposit_status == 'verified'
       LessonMailer.send_lesson_request_to_instructors(self).deliver
       self.send_sms_to_instructor
     elsif self.available_instructors.any? == false

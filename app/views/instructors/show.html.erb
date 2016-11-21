@@ -1,10 +1,15 @@
 <div class="profile-container">
+  <% if current_user && current_user.instructor %>
+    <div class="row">
+      <h3 class="text-warning">Instructor status: <%= current_user.instructor.status %> </h3>
+      <p class="text-warning">Questions? Email info@snowschoolers.com.</p>
+      <%= link_to 'Edit Your Profile', edit_instructor_path(current_user.instructor), class: 'btn btn-default' %>
+    </div>
+    <hr>
+  <% end %>
 
 <div class="col-md-7 instructor-core-info">
-  <% if current_user && current_user.instructor_candidate? %>
-    <h2 class="text-warning">Instructor status: <%= current_user.instructor.status %> </h2>
-    <p class="text-warning">Email info@snowschoolers.com for more information.</p>
-  <% end %>
+
   <h1> <%= @instructor.name %>, 29 </h1>
   <h4> Hometown: <%= @instructor.city %> <a href="/start_conversation/<%=@instructor.id%>" class="btn btn-success">Send <%= @instructor.first_name %> a message</a> </h4>
   <h3> <%= @instructor.sport %> | Avg. Rating: <%= @instructor.average_rating%> stars </h3>

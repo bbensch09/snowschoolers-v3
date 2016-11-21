@@ -33,7 +33,7 @@ class Location < ActiveRecord::Base
 
   def today_lessons
       lessons = Lesson.where(requested_location:self.id.to_s)
-      lessons.keep_if {|lesson| lesson.lesson_time.date == Date.today }
+      lessons.to_a.keep_if {|lesson| lesson.lesson_time.date == Date.today }
   end
 
   def today_revenue

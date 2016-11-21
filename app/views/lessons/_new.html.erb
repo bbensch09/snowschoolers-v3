@@ -5,12 +5,13 @@
 <% if notice.nil? && alert.nil? && @lesson.errors.count == 0 %>
 <a id="preSeasonModalButton" class="hidden" href="#" data-toggle="modal" data-target="#preSeasonModal">New user? First register your Account</a>
 <% end %>
-<div class="modal" id="preSeasonModal" tabindex="1" role="dialog" aria-labelledby="preSeasonModalLabel">
+<!-- <div class="modal" id="preSeasonModal" tabindex="1" role="dialog" aria-labelledby="preSeasonModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content preSeasonModal">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h2 class="modal-title text-warning" id="myModalLabel">Attention - we have not yet begun accepting new reservations for the '16/17 winter. </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="modal-title text-warning" id="myModalLabel">Attention - we have not yet begun accepting new reservations for the '16/17 winter. </h3>
         <h4 class="text-notice">If you have questions about when and where we will be offering lessons, please email us at <a href="mailto:info@snowschoolers.com">info@snowschoolers.com</a>, or enter your favorite resort in the form below.</h4>
       </div>
       <div class="modal-body">
@@ -19,17 +20,17 @@
           </h3>
         <%= semantic_form_for(PreSeasonLocationRequest.new) do |ps_request| %>
             <div class="field center">
-              <%= ps_request.input :name,  placeholder: "My favorite ski area is...", autocomplete: "off", label:false %>
+              <%= ps_request.input :name,  placeholder: "My favorite ski area is...", label:false %>
             </div>
             <br>
             <div class="actions center">
-              <%= ps_request.submit "Submit", class: "btn btn-success"%>
+              <%= ps_request.submit "Submit", class: "btn btn-success" %>
             </div>
           <% end %>
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <ul id="slider">
   <li>

@@ -2,7 +2,7 @@ class LessonsController < ApplicationController
   respond_to :html
   skip_before_action :authenticate_user!, only: [:new, :create]
   before_action :save_lesson_params_and_redirect, only: :create
-  before_action :create_lesson_from_session, only: [:create, :update]
+  before_action :create_lesson_from_session, only: [:create]
 
   def index
     if current_user.email == "brian@snowschoolers.com"
