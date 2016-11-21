@@ -1,6 +1,6 @@
 class InstructorsController < ApplicationController
   before_action :set_instructor, only: [:show, :edit, :update, :destroy, :show_candidate]
-  before_action :confirm_admin_permissions, except: [:create, :new, :show, :thank_you, :browse, :show, :show_candidate]
+  before_action :confirm_admin_permissions, except: [:create, :update, :new, :edit, :show, :thank_you, :browse, :show, :show_candidate]
   # before_action :confirm_user_permissions, only: [:edit, :update]
   skip_before_action :authenticate_user!, only: [:new, :create, :thank_you, :browse, :show, :show_candidate]
 
@@ -26,6 +26,7 @@ class InstructorsController < ApplicationController
       @instructors = Location.find(current_user.location_id).instructors.sort {|a,b| b.overall_initial_rank <=> a.overall_initial_rank}
       else
       @instructors = Instructor.all.sort {|a,b| b.id <=> a.id}
+      @instructors = @instructors.sort {|a,b| a.status <=> b.status}
     end
   end
 
@@ -97,7 +98,7 @@ class InstructorsController < ApplicationController
   def update
     respond_to do |format|
       if @instructor.update(instructor_params)
-        format.html { redirect_to instructors_path, notice: 'Your instructor application was successfully updated.' }
+        format.html { redirect_to instructor_path, notice: 'Your instructor application was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

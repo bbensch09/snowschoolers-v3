@@ -4,7 +4,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :lesson_time
   has_many :students
   has_one :review
-  has_one :transaction
+  # has_one :transaction
   has_many :lesson_actions
   accepts_nested_attributes_for :students, reject_if: :all_blank, allow_destroy: true
 
@@ -117,7 +117,7 @@ class Lesson < ActiveRecord::Base
   def self.visible_to_instructor?(instructor)
       lessons = []
       assigned_to_instructor = Lesson.where(instructor_id:instructor.id)
-      available_to_instructor = Lesson.all.keep_if {|lesson| (lesson.confirmable? && lesson.instructor_id.nil? )}
+      available_to_instructor = Lesson.all.to_a.keep_if {|lesson| (lesson.confirmable? && lesson.instructor_id.nil? )}
       lessons = assigned_to_instructor + available_to_instructor
   end
 
@@ -214,18 +214,18 @@ class Lesson < ActiveRecord::Base
     active_resort_instructors = resort_instructors.where(status:'Active')
     # puts "!!!!!!! - Step #2 Filtered for active status, found #{active_resort_instructors.count} instructors."
     if self.activity == 'Ski' && self.level
-      active_resort_instructors = active_resort_instructors.keep_if {|instructor| (instructor.ski_levels.any? && instructor.ski_levels.max.value >= self.level) }
+      active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| (instructor.ski_levels.any? && instructor.ski_levels.max.value >= self.level) }
     end
     if self.activity == 'Snowboard' && self.level
-      active_resort_instructors = active_resort_instructors.keep_if {|instructor| (instructor.snowboard_levels.any? && instructor.snowboard_levels.max.value >= self.level )}
+      active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| (instructor.snowboard_levels.any? && instructor.snowboard_levels.max.value >= self.level )}
     end
     # puts "!!!!!!! - Step #3 Filtered for level, found #{active_resort_instructors.count} instructors."
     if kids_lesson?
-      active_resort_instructors = active_resort_instructors.keep_if {|instructor| instructor.kids_eligibility == true }
+      active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| instructor.kids_eligibility == true }
       # puts "!!!!!!! - Step #3b Filtered for kids specialist, now have #{active_resort_instructors.count} instructors."
     end
     if seniors_lesson?
-      active_resort_instructors = active_resort_instructors.keep_if {|instructor| instructor.seniors_eligibility == true }
+      active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| instructor.seniors_eligibility == true }
       # puts "!!!!!!! - Step #3c Filtered for seniors specialist, now have #{active_resort_instructors.count} instructors."
     end
     wrong_sport_instructors = Instructor.where(sport: wrong_sport)
@@ -380,7 +380,26 @@ class Lesson < ActiveRecord::Base
           :from => "#{snow_schoolers_twilio_number}",
           :body => body
       })
+      send_reminder_sms
+      puts "!!!!! - reminder SMS has been scheduled"
   end
+
+  def send_reminder_sms
+    account_sid = ENV['TWILIO_SID']
+    auth_token = ENV['TWILIO_AUTH']
+    snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
+    # recipient = self.available_instructors.any? ? self.available_instructors.first.phone_number : "4083152900"
+    recipient = "4083152900"
+    body = "#{self.available_instructors.first.first_name}, it has been over 5 minutes and you have not accepted or declined this request. We are not making it available to other instructors. You may still visit www.snowschoolers.com/lessons/#{self.id} to confirm the lesson."
+    @client = Twilio::REST::Client.new account_sid, auth_token
+          @client.account.messages.create({
+          :to => recipient,
+          :from => "#{snow_schoolers_twilio_number}",
+          :body => body
+      })
+      puts "!!!!! - reminder SMS has been sent"
+  end
+  handle_asynchronously :send_reminder_sms, :run_at => Proc.new {10.seconds.from_now }
 
   def send_sms_to_requester
       account_sid = ENV['TWILIO_SID']

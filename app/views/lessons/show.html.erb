@@ -6,7 +6,7 @@
     <h4> (ADMIN ONLY) Eligible instructors are:</h4>
       <ul>
         <% @lesson.available_instructors.each do |instructor| %>
-        <li> <%= instructor.username  %> - <%= instructor.phone_number %> </li>
+        <li> <%= instructor.name  %> - <%= instructor.user_id %> - <%= instructor.phone_number %> </li>
       <% end %>
       </ul>
     </div>

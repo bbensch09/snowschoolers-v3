@@ -20,8 +20,10 @@ module SnowSchoolers
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+
   #LOAD all files in library
   config.autoload_paths << Rails.root.join('lib')
+
 
   #LOAD local ENV variables
     config.before_configuration do
@@ -30,5 +32,7 @@ module SnowSchoolers
         ENV[key.to_s] = value
             end if File.exists?(env_file)
         end
+
   end
+
 end

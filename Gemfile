@@ -1,9 +1,14 @@
 source 'https://rubygems.org'
 
-#strip for charging credit cards
+
+#delayed_jobs for sending Twilio SMS messages if instructors are unresponsive
+gem 'delayed_job_active_record', '~>4.0.3'
+
+#stripe for charging credit cards
 gem 'stripe'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.2'
+# gem 'rails', '4.0.2'
+gem 'rails', '4.2.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.15'
 
@@ -79,8 +84,6 @@ gem 'cocoon', '>= 1.2.0'
 gem 'faker'
 gem 'hirb'
 
-#delayed_jobs for sending Twilio SMS messages if instructors are unresponsive
-gem 'delayed_job_active_record'
 
 # Heroku
 group :production do

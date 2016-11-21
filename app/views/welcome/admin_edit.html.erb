@@ -30,14 +30,14 @@
             <div class="form-group">
               <div class="col-md-3">
                 <%= f.label :user_type %><br />
-                <%= f.select :user_type, ['Normal', 'Employee','Partner'], {selected:@user.user_type}, {class: 'form-control', include_blank:false, required:true} %>
+                <%= f.select :user_type, ['Student','Instructor','Ski Area Partner','Snow Schoolers Employee'], {selected:@user.user_type}, {class: 'form-control', include_blank:false, required:true} %>
               </div>
             </div>
             <div class="form-group">
               <div class="col-md-3">
                 <%= f.label :resort_affiliation %><br />
                 <%if @user.location %>
-                  <%= f.select :location_id, options_from_collection_for_select(Location.all, :id, :name, @user.location.id), {}, {include_blank:false,class: 'form-control', required:true} %>
+                  <%= f.select :location_id, options_from_collection_for_select(Location.all, :id, :name, @user.location.id), {}, {include_blank:false,class: 'form-control', required:false} %>
                   <%else%>
                 <%= f.select :location_id, options_from_collection_for_select(Location.all, :id, :name), {}, {include_blank:false,class: 'form-control', required:true} %>
                 <%end%>
