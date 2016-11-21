@@ -4,7 +4,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :lesson_time
   has_many :students
   has_one :review
-  # has_one :transaction
+  has_many :transactions
   has_many :lesson_actions
   accepts_nested_attributes_for :students, reject_if: :all_blank, allow_destroy: true
 
