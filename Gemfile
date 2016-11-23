@@ -28,8 +28,6 @@ gem 'paperclip'
 gem 'rest-client'
 
 group :development, :test do
-  gem 'debugger'
-  gem 'pry-debugger'
   gem  'byebug'
   gem 'better_errors'
   gem 'binding_of_caller'
