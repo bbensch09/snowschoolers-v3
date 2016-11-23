@@ -2,13 +2,20 @@ source 'https://rubygems.org'
 
 
 #delayed_jobs for sending Twilio SMS messages if instructors are unresponsive
-gem 'delayed_job_active_record', '~>4.0.3'
+gem 'delayed_job_active_record'
+
+#For supporting controller tests from Rails 4
+gem 'rails-controller-testing'
+
+#Railties is dependency for various devise and jquery gems in rails 5
+
+gem 'railties'
 
 #stripe for charging credit cards
 gem 'stripe'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-# gem 'rails', '4.0.2'
-gem 'rails', '4.2.0'
+# gem 'rails', '5.0.0.1'
+gem 'rails', '5.0.0.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.15'
 
@@ -34,7 +41,7 @@ group :development, :test do
 end
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails'
 gem 'bootstrap-sass'
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 
@@ -42,7 +49,7 @@ gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby

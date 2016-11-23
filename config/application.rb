@@ -6,6 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
+ActiveSupport.halt_callback_chains_on_return_false = false
+
 module SnowSchoolers
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
