@@ -16,7 +16,7 @@ gem 'pg', '~> 0.15'
 gem 'twilio-ruby'
 
 #AWS SDK's for storing images
-gem 'aws-sdk-v1'
+# gem 'aws-sdk-v1'
 gem 'aws-sdk', '~> 2'
 
 #Using CKeditor as the WYSIWYG editor for potential custom formatting in-line.

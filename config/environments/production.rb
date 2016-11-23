@@ -82,6 +82,7 @@ SnowSchoolers::Application.configure do
   #PAPERCLIP AWS S3 CONFIG
   config.paperclip_defaults = {
   :storage => :s3,
+  :s3_region => ENV['AWS_REGION'],
   :s3_host_name => 's3.amazonaws.com',
   :bucket => 'citizen-debate'
   }
