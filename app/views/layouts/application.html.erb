@@ -83,7 +83,9 @@
            <!-- <li> <a href="/search" class="btn-success"> Search</a></li> -->
            <li> <a href="/instructors" class="btn-success"> Admin</a></li>
            <li> <a href="/lessons" class="btn-success"> Daily Dash</a></li>
+           <% if current_user.instructor %>
            <li><%= link_to current_user.email, instructor_path(current_user.instructor) %></li>
+           <% end %>
             <li><a href="/lessons" class="sign-up-btn"> Lessons </a></li>
             <li><a href="/browse" class="sign-up-btn">Instructors</a></li>
             <li><%= link_to 'Apply', '/apply', class: 'sign-up-btn' %></li>
