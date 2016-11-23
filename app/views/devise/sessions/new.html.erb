@@ -63,9 +63,6 @@
           <div class="row button">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-              <!--
-              <%= link_to image_tag("fb-login.png", class:"fb-login-btn"), user_omniauth_authorize_path(:facebook) %>
-               -->
               <%- resource_class.omniauth_providers.each do |provider| %>
                 <%= link_to "#{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider), class: "#{provider.to_s}-login form-control" %><br />
               <% end -%>
