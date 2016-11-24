@@ -1,5 +1,5 @@
 <div class="col-md-4">
-<% @transaction = Transaction.new unless @lesson && @lesson.transaction %>
+<% @transaction = Transaction.new unless @lesson && @lesson.transactions.count > 0 %>
 
 <%= semantic_form_for @transaction do |f| %>
   <%= f.inputs do %>
