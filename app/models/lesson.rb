@@ -385,7 +385,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def send_reminder_sms
-    return if self.state == 'confirmed' || (Time.now - LessonAction.last.created_at) < 30
+    return if self.state == 'confirmed' || (Time.now - LessonAction.last.created_at) < 20
     account_sid = ENV['TWILIO_SID']
     auth_token = ENV['TWILIO_AUTH']
     snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
