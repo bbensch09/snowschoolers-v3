@@ -1,4 +1,4 @@
-SnowSchoolers::Application.routes.draw do
+Rails.application.routes.draw do
   resources :pre_season_location_requests
 
   resources :messages
