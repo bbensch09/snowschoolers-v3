@@ -38,7 +38,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def tip
-    self.transaction.final_amount - self.transaction.base_amount
+    self.transactions.last.final_amount - self.transactions.last.base_amount
   end
 
   def location
