@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_filter :authenticate_user!
-  after_filter :store_location
+  before_action :authenticate_user!
+  after_action :store_location
 
 def store_location
   # store last url - this is needed for post-login redirect to whatever the user last visited.
