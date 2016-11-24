@@ -41,10 +41,10 @@ class LessonsController < ApplicationController
 
   def new
     @lesson = Lesson.new
-    @activity = session[:lesson].nil? ? nil : session[:lesson][:activity]
-    @promo_location = session[:lesson].nil? ? nil : session[:lesson][:requested_location]
-    @slot = session[:lesson].nil? ? nil : session[:lesson][:lesson_time][:slot]
-    @date = session[:lesson].nil? ? nil : session[:lesson][:lesson_time][:date]
+    @activity = session[:lesson].nil? ? nil : session[:lesson]["activity"]
+    @promo_location = session[:lesson].nil? ? nil : session[:lesson]["requested_location"]
+    @slot = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["slot"]
+    @date = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["date"]
     @lesson_time = @lesson.lesson_time
   end
 
