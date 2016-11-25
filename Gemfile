@@ -17,7 +17,7 @@ gem 'stripe'
 # gem 'rails', '5.0.0.1'
 gem 'rails', '5.0.0.1'
 #ensure that puma server is available
-# gem 'puma'
+gem 'puma'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.15'
 
