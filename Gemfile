@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-"ruby 2.3.3"
+ruby "~> 2.3.0"
 
 #delayed_jobs for sending Twilio SMS messages if instructors are unresponsive
 gem 'delayed_job_active_record'
