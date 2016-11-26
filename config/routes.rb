@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :blogs
+  get 'blog' => 'blogs#index'
   resources :pre_season_location_requests
 
   resources :messages
