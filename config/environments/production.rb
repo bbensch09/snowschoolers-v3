@@ -19,7 +19,7 @@ Rails.application.configure do
   # For large-scale production use, consider using a caching reverse proxy like nginx, varnish or squid.
   # config.action_dispatch.rack_cache = true
 
-  
+
   # Disable serving static files from the `/public` folder by default since
 	  # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
@@ -88,7 +88,7 @@ Rails.application.configure do
   :storage => :s3,
   :s3_region => ENV['AWS_REGION'],
   :s3_host_name => 's3.amazonaws.com',
-  :bucket => 'citizen-debate'
+  :bucket => 'snowschoolers'
   }
 
   #GMAIL CONFIG

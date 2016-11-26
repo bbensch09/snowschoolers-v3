@@ -1,12 +1,39 @@
-<%= semantic_form_for @blog do |f| %>
-  <%= f.inputs do %>
-    <%= f.input :author %>
-    <%= f.input :title %>
-    <%= f.input :published %>
-    <%= f.input :content %>
+<div class="container">
+<%= form_for(@blog) do |f| %>
+  <% if @blog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@blog.errors.count, "error") %> prohibited this blog from being saved:</h2>
+
+      <ul>
+      <% @blog.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
   <% end %>
 
-  <%= f.actions do %>
-    <%= f.action :submit, :as => :input %>
-  <% end %>
+  <div class="field">
+    <%= f.label :author %><br>
+    <%= f.text_field :author %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :published %><br>
+    <%= f.date_select :published %>
+  </div>
+  <div class="field">
+    <%= f.label :cover_photo %><br>
+    <%= f.file_field :cover_photo %>
+  </div>
+  <div class="field">
+    <%= f.label :content %><br>
+    <%= f.cktext_area :content, :class => "ckeditor-content", :ckeditor => {:language => 'us'} %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
 <% end %>
+</div>

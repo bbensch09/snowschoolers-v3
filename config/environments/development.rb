@@ -28,7 +28,7 @@ Rails.application.configure do
      }
   else
      config.action_controller.perform_caching = false
- 
+
      config.cache_store = :null_store
   end
 
@@ -70,7 +70,7 @@ Rails.application.configure do
   :storage => :s3,
   :s3_region => ENV['AWS_REGION'],
   :s3_host_name => 's3.amazonaws.com',
-  :bucket => 'citizen-debate'
+  :bucket => 'snowschoolers'
   }
 
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker

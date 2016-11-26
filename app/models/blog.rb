@@ -3,7 +3,7 @@ class Blog < ApplicationRecord
   has_attached_file :cover_photo, styles: { large: "400x400>", thumb: "80x80>" },  default_url: "https://s3.amazonaws.com/snowschoolers/cd-sillouhete.jpg",
         :storage => :s3,
         :bucket => 'snowschoolers'
-  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+  validates_attachment_content_type :cover_photo, content_type: /\Aimage\/.*\Z/
   validates_attachment_content_type :cover_photo, content_type: /\Aimage\/.*\Z/
 
   def to_param
