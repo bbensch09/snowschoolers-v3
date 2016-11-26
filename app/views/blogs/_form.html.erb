@@ -1,0 +1,12 @@
+<%= semantic_form_for @blog do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :author %>
+    <%= f.input :title %>
+    <%= f.input :published %>
+    <%= f.input :content %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>

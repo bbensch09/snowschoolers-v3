@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :blogs
   resources :pre_season_location_requests
 
   resources :messages
