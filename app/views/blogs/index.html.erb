@@ -1,0 +1,56 @@
+<div class="container">
+<h1 class="title">Snow Schoolers Official Blog</h1>
+<% if user_signed_in? && (current_user.email == "bbensch@gmail.com" || current_user.email == "brian@snowschoolers.com") %>
+<h3>
+  <%= link_to 'Create New Post', new_blog_path, class:"btn btn-default" %>
+</h3>
+<table>
+  <thead>
+    <tr>
+      <th class="col-md-5">Title</th>
+      <th class="col-md-3">Written by</th>
+      <th class="col-md-2">Published</th>
+      <th class="col-md-1"></th>
+      <th class="col-md-1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @blogs.each do |blog| %>
+      <tr>
+        <td class="col-md-5"><%= link_to blog.title, blog %></td>
+        <td class="col-md-3"><%= blog.author %></td>
+        <td class="col-md-2"><%= blog.time_since_written %></td>
+          <td class="col-md-1">
+            <%= link_to edit_blog_path(blog), class:"btn btn-default" do %>
+            <i class="glyphicon glyphicon-pencil">Edit</i>
+            <%end%>
+          </td>
+          <td class="col-md-1">
+            <%= link_to 'Destroy', blog, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%end%>
+<br>
+
+
+<div class="row">
+  <% @blogs.each do |blog| %>
+    <div class="col-sm-10 col-md-6">
+      <div class="thumbnail">
+        <%= image_tag blog.cover_photo.url(:large), alt:"cover-photo", class:"img-responsive img-thumbnail" %>
+        <!-- <img itemprop="image" src="http://i2.wp.com/thehockeywriters.com/wp-content/uploads/2015/09/Max-Domi.jpg?zoom=2&amp;resize=395%2C238" alt="5 Reasons to Believe in the San Jose Sharks" class="img-responsive img-thumbnail" width="395" height="238"> -->
+        <div class="caption">
+          <%= link_to blog.title, blog, :class=>"btn btn-primary title-link" %>
+        </div>
+      </div>
+    </div>
+  <%end%>
+
+</div>
+<div class="archives">
+</div>
+</div>

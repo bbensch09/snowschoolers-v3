@@ -20,4 +20,13 @@ def confirm_admin_permissions
   redirect_to root_path, notice: 'You do not have permission to view that page.'
 end
 
+def title(title = nil)
+    if title.present?
+      content_for :title, title
+    else
+      content_for?(:title) ? content_for(:title) : 'Snow Schoolers'
+    end
+end
+
+
 end
