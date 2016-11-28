@@ -24,4 +24,20 @@ SitemapGenerator::Sitemap.create do
   #   Article.find_each do |article|
   #     add article_path(article), :lastmod => article.updated_at
   #   end
+
+  add '/apply', :priority => 0.9
+  add '/browse', :priority => 0.8
+  add '/lessons/new', :priority => 1.0
+  add '/new_request', :priority => 0.9
+  add blogs_path, :priority => 0.9
+  add instructors_path, :priority => 0.9
+  Blog.find_each do |blog|
+      add blog_path(blog), :lastmod => blog.updated_at
+    end
+  Instructor.find_each do |instructor|
+      add instructor_path(instructor), :lastmod => instructor.updated_at, :priority => 0.7
+    end
+
+
+
 end
