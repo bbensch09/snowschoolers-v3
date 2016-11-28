@@ -11,6 +11,8 @@ gem 'rails-controller-testing'
 
 gem 'railties'
 
+#sitemap generator
+gem 'sitemap_generator'
 #stripe for charging credit cards
 gem 'stripe'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
