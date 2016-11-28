@@ -27,8 +27,9 @@ SitemapGenerator::Sitemap.create do
 
   add '/apply', :priority => 0.9
   add '/browse', :priority => 0.8
+  add '/index', :priority => 0.8
   add '/lessons/new', :priority => 1.0
-  add '/new_request', :priority => 0.9
+  add '/new_request/:id', :priority => 0.9
   add blogs_path, :priority => 0.9
   add instructors_path, :priority => 0.9
   Blog.find_each do |blog|
@@ -37,7 +38,5 @@ SitemapGenerator::Sitemap.create do
   Instructor.find_each do |instructor|
       add instructor_path(instructor), :lastmod => instructor.updated_at, :priority => 0.7
     end
-
-
 
 end
