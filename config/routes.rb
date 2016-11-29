@@ -46,6 +46,8 @@ Rails.application.routes.draw do
   #landing page for prospective instructors
   get 'apply' => 'welcome#apply'
   get 'index' => 'welcome#index'
+  get 'privacy' => 'welcome#privacy'
+  get 'terms_of_service' => 'welcome#terms_of_service'
   get 'thank_you' => 'instructors#thank_you'
   post '/notify_admin' => 'welcome#notify_admin'
   resources :instructors do
