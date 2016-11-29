@@ -134,7 +134,7 @@
                     </div>
                   <% end %>
                   <label class="amount">
-                    <span>A $25.00 refundable deposit is required to complete your reservation. The remaining balance will be due upon completion of your lesson.</span>
+                    <span>A $25.00 refundable deposit is required to complete your reservation. Your payment information will be saved and the remaining balance will be charged 24 hours before the start of your lesson. If for any reason you are unsatisfied with your Snow Schoolers experience, please ask about our 100% satisfaction guarantee.</span>
                   </label>
                 </article>
 
@@ -142,7 +142,7 @@
                         data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                         data-description="Refundable $25 Lesson Deposit. The remaining balance will be due upon completion of your lesson."
                         data-name="Snow Schoolers"
-                        data-image="https://s3.amazonaws.com/snowschoolers/SnowSchoolers-logo.png"
+                        data-image="https://s3.amazonaws.com/snowschoolers/SnowSchoolers-favicon.png"
                         data-amount="2500"
                         data-locale="auto"
                         data-zip-code="true">
