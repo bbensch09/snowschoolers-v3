@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   get 'index' => 'welcome#index'
   get 'privacy' => 'welcome#privacy'
   get 'terms_of_service' => 'welcome#terms_of_service'
+  get 'new_hire_packet' => 'welcome#new_hire_packet'
   get 'thank_you' => 'instructors#thank_you'
   post '/notify_admin' => 'welcome#notify_admin'
   resources :instructors do
