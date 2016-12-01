@@ -5,6 +5,16 @@ class WelcomeController < ApplicationController
     before_action :set_user, only: [:admin_edit, :admin_show_user, :admin_update_user, :admin_destroy]
     include ApplicationHelper
 
+  def new_hire_packet
+    file = "public/Homewood-Hire-Packet-2016-2017.pdf"
+    if File.exists?(file)
+      send_file file, :type=>"application/pdf", :x_sendfile=>true
+    else
+      flash[:notice] = 'File not found'
+      redirect_to :index
+    end
+  end
+
   def index
     @lesson = Lesson.new
     @lesson_time = @lesson.lesson_time
