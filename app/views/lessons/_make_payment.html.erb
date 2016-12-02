@@ -25,7 +25,7 @@
                   data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                   data-description="Lesson Payment"
                   data-name="Snow Schoolers"
-                  data-image="https://s3.amazonaws.com/snowschoolers/SnowSchoolers-logo.png"
+                  data-image="https://s3.amazonaws.com/snowschoolers/SnowSchoolers-favicon.png"
                   data-amount=<%= @lesson.transactions.last.final_amount.to_i - 25 %>00
                   data-locale="auto"
                   data-zip-code="true">
