@@ -33,7 +33,7 @@ gem 'twilio-ruby'
 gem 'aws-sdk', '~> 2'
 
 #Using CKeditor as the WYSIWYG editor for potential custom formatting in-line.
-gem 'ckeditor'
+# gem 'ckeditor'
 #paperclip for file upload management
 gem 'paperclip'
 
