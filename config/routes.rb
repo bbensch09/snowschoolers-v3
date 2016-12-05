@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  mount ActionCable.server => '/cable'
+
   resources :blogs
   get 'blog' => 'blogs#index'
   resources :pre_season_location_requests

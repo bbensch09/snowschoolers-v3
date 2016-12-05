@@ -18,6 +18,7 @@ class MessagesController < ApplicationController
   end
 
   def show_conversation
+    @user = current_user
     @conversation = Conversation.find(params[:id])
     @messages = @conversation.messages
     @message = Message.new
