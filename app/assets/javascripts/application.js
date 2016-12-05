@@ -20,3 +20,4 @@
 //= require jquery.timepicker.js
 //= require cocoon
 //= require_tree .
+//= require tinymce-jquery
