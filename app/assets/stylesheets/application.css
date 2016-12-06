@@ -11,9 +11,8 @@
  *= require_tree .
  */
 
- *= require formtastic-bootstrap
- *= require jquery-ui
- *= require jquery-ui/datepicker
- *= require jquery.timepicker.css
- *= require_tree .
- *= require_self
+// *= require formtastic-bootstrap
+// *= require jquery-ui/datepicker
+// *= require jquery.timepicker.css
+// *= require_tree .
+// *= require_self

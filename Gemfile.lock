@@ -120,7 +120,7 @@ GEM
     jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
       turbolinks
-    jquery-ui-rails (6.0.1)
+    jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (1.8.3)
     jwt (1.5.6)
@@ -277,7 +277,7 @@ DEPENDENCIES
   jquery-rails
   jquery-timepicker-rails
   jquery-turbolinks
-  jquery-ui-rails
+  jquery-ui-rails (= 5.0.5)
   omniauth-facebook
   paperclip
   pg (~> 0.15)

@@ -13,10 +13,8 @@
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require jquery
-//= require jquery-ui
- // (removed)
-  // require jquery-ui/datepicker
-// = require jquery_ujs
+//= require jquery-ui/datepicker
+//= require jquery_ujs
 //= require jquery.timepicker.js
 //= require cocoon
 //= require_tree .
