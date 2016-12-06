@@ -16,8 +16,8 @@ class WelcomeController < ApplicationController
   end
 
   def index
-    @lesson = Lesson.new
-    @lesson_time = @lesson.lesson_time
+    # @lesson = Lesson.new
+    # @lesson_time = @lesson.lesson_time
   end
 
   def admin_users
