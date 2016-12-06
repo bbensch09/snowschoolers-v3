@@ -30,7 +30,10 @@
   </div>
   <div class="field">
     <%= f.label :content %><br>
-    <%= f.cktext_area :content, :class => "ckeditor-content", :ckeditor => {:language => 'us'} %>
+    <!-- %= f.cktext_area :content, :class => "ckeditor-content", :ckeditor => {:language => 'us'} %> -->
+    <%= f.text_area :content, :class => "tinymce", :rows => 40, :cols => 120 %>
+    <%= tinymce %>
+
   </div>
   <div class="actions">
     <%= f.submit %>
