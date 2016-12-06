@@ -33,7 +33,9 @@ gem 'twilio-ruby'
 gem 'aws-sdk', '~> 2'
 
 #Using CKeditor as the WYSIWYG editor for potential custom formatting in-line.
-gem 'ckeditor'
+# gem 'ckeditor'
+#now using TinyMCE due to Malware trouble-shooting
+gem 'tinymce-rails'
 #paperclip for file upload management
 gem 'paperclip'
 
@@ -62,7 +64,7 @@ gem 'coffee-rails'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails', '5.0.5'
 gem 'jquery-timepicker-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

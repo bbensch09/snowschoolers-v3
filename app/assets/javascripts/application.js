@@ -10,13 +10,13 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require ckeditor/init
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require jquery
-//= require jquery.turbolinks
-//= require jquery_ujs
 //= require jquery-ui/datepicker
+//= require jquery_ujs
 //= require jquery.timepicker.js
 //= require cocoon
 //= require_tree .
+//= require tinymce-jquery
+//= require_self

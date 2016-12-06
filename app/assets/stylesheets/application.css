@@ -11,13 +11,8 @@
  *= require_tree .
  */
 
- // *= require formtastic-bootstrap
- // *= require jquery-ui/datepicker
- // *= require jquery.timepicker.css
- // *= require_tree .
- // *= require_self
- /*// Custom bootstrap variables must be set or import before bootstrap itself.*/
-/*@import "bootstrap-sprockets";*/
-/*@import "bootstrap";*/
-/*primary color: #3b5998; */
-/*primary color-logo-nov30: #2D56A3; */
+// *= require formtastic-bootstrap
+// *= require jquery-ui/datepicker
+// *= require jquery.timepicker.css
+// *= require_tree .
+// *= require_self

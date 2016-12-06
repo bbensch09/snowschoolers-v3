@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
   resources :calendar_blocks
 
-  mount Ckeditor::Engine => '/ckeditor'
+  # mount Ckeditor::Engine => '/ckeditor'
   resources :lesson_actions
 
   resources :transactions do

@@ -1,3 +1,5 @@
+=begin
+#disable all CK editor setup
 # Use this hook to configure ckeditor
 Ckeditor.setup do |config|
   # ==> ORM configuration
@@ -56,3 +58,4 @@ Ckeditor.setup do |config|
   # By default: "/assets/ckeditor/config.js"
   # config.js_config_url = "/assets/ckeditor/config.js"
 end
+=end
