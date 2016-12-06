@@ -26,7 +26,11 @@ def after_sign_in_path_for(resource)
 end
 
 def set_user
-  cookies[:userId] = current_user.id || 'guest'
+  if current_user
+    cookies[:userId] = current_user.id
+    else
+      cookies[:userId] = 'guest'
+    end
 end
 
 end
