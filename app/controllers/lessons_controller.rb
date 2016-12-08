@@ -97,7 +97,10 @@ class LessonsController < ApplicationController
         @lesson.save
       GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-submitted', params[:ga_client_id])
       flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when your instructor confirmed your request. If it has been more than an hour since your request, please email support@snowschoolers.com.'
+      flash[:conversion] = 'TRUE'
       else
+      # flash[:notice] = 'Testing confirmation of AWCT'
+      # flash[:conversion] = 'TRUE'
       GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-updated', params[:ga_client_id])
       send_lesson_update_notice_to_instructor
     end

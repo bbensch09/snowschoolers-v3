@@ -224,6 +224,30 @@
      <p> <%= alert %> <%= notice %> </p>
     </div>
   <% end %>
+
+  <% if notice && flash[:conversion] == 'TRUE' %>
+    <!-- <h3> Adwords conversion = <%= flash[:conversion] %> </h3> -->
+      <!-- Google Code for Lesson Bookings Conversion Page -->
+      <script type="text/javascript">
+      /* <![CDATA[ */
+      var google_conversion_id = 880357341;
+      var google_conversion_language = "en";
+      var google_conversion_format = "3";
+      var google_conversion_color = "ffffff";
+      var google_conversion_label = "bMVQCIvNxWwQ3d_kowM";
+      var google_conversion_value = 30.00;
+      var google_conversion_currency = "USD";
+      var google_remarketing_only = false;
+      /* ]]> */
+      </script>
+      <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+      </script>
+      <noscript>
+      <div style="display:inline;">
+      <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/880357341/?value=30.00&amp;currency_code=USD&amp;label=bMVQCIvNxWwQ3d_kowM&amp;guid=ON&amp;script=0"/>
+      </div>
+      </noscript>
+  <% end %>
 </div>
 
 <%= yield %>
