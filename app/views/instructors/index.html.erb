@@ -27,6 +27,7 @@
       <!-- <th>ID</th> -->
       <th></th>
       <th>Name</th>
+      <th>Email</th>
       <th>Admin Actions</th>
       <th>Status?</th>
       <th>Home resort</th>
@@ -50,6 +51,7 @@
               <%= location.name %> <br>
           <% end %>
         </td> -->
+        <td> <%= instructor.user ? instructor.user.email : "N/A - must link to user" %> </td>
         <% if instructor.status != "Active" %>
         <td><%= link_to 'Activate', verify_instructor_path(instructor), method: :post, class: 'btn btn-success' %></td>
           <% else %>
