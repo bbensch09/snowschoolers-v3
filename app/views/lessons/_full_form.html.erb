@@ -117,12 +117,18 @@
             </div>
 
           <div class="col-md-9">
+          <% if @lesson.state == 'new' %>
             <h4>Submit <strong> Lesson Request</strong></h4>
+            <% button_text = "Submit" %>
+            <% else %>
+            <h4>Update <strong> Lesson Request</strong></h4>
+            <% button_text = "Update" %>
+          <% end %>
           </div>
          <% if @lesson.deposit_status == 'confirmed' %>
           <div class="col-md-3">
             <%= f.input :state, as: :hidden, input_html: { value: @state } %>
-            <%= f.submit "Submit", class: 'btn sign-up-btn pull-right' %>
+            <%= f.submit button_text, class: 'btn sign-up-btn pull-right' %>
           </div>
           <% else %>
           <div class="col-md-12">

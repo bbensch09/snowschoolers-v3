@@ -5,7 +5,7 @@
 <img id="cycle-loader" src="/assets/spinner.gif" alt="loader" />
 
 <!-- PreSeason Modal -->
-<% if notice.nil? && alert.nil? && @lesson.errors.count == 0 %>
+<% if notice.nil? && alert.nil? && @lesson.errors.count == 0 && session[:pre_season_location_request].nil? %>
 <a id="preSeasonModalButton" class="hidden" href="#" data-toggle="modal" data-target="#preSeasonModal">New user? First register your Account</a>
 <% end %>
 <div class="modal" id="preSeasonModal" tabindex="1" role="dialog" aria-labelledby="preSeasonModalLabel">

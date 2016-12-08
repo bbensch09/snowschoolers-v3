@@ -17,7 +17,7 @@ class Lesson < ActiveRecord::Base
   validates :terms_accepted, inclusion: { in: [true], message: 'must accept terms' }, on: :update
   validates :actual_start_time, :actual_end_time, presence: true, if: :just_finalized?
   validate :instructors_must_be_available, unless: :no_instructors_post_instructor_drop?, on: :create
-  validate :requester_must_not_be_instructor, on: :create
+  # validate :requester_must_not_be_instructor, on: :create
   validate :lesson_time_must_be_valid
   validate :student_exists, on: :update
 
@@ -167,7 +167,7 @@ class Lesson < ActiveRecord::Base
 
   def get_changed_attributes(original_lesson)
     lesson_changes = self.previous_changes
-    lesson_time_changes = self.lesson_time.attributes.diff(original_lesson.lesson_time.attributes)
+    lesson_time_changes = self.lesson_time.changes
     changed_attributes = lesson_changes.merge(lesson_time_changes)
     changed_attributes.reject { |attribute, change| ['updated_at', 'id', 'state', 'lesson_time_id'].include?(attribute) }
   end
@@ -488,7 +488,7 @@ class Lesson < ActiveRecord::Base
   def send_lesson_request_to_instructors
     #currently testing just to see whether lesson is active and deposit has gone through successfully.
     #need to replace with logic that tests whether lesson is newly complete, vs. already booked, etc.
-    if self.active? && self.confirmable? #&& self.deposit_status == 'verified'
+    if self.active? && self.confirmable? && self.state != "pending instructor" #&& self.deposit_status == 'verified'
       LessonMailer.send_lesson_request_to_instructors(self).deliver
       self.send_sms_to_instructor
     elsif self.available_instructors.any? == false

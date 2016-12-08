@@ -136,7 +136,7 @@
   <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
   <div class="row">
     <div class="col-md-12 vertical-padding">
-      <% if controller.action_name == 'update' %>
+      <% if controller.action_name == 'edit' %>
       <%= f.submit "Update Instructor Profile", class: "btn btn-primary btn-xl page-scroll pull-right push-bottom" %>
       <% else %>
       <%= f.submit "Submit Application", class: "btn btn-primary btn-xl page-scroll pull-right push-bottom" %>
