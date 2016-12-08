@@ -40,7 +40,6 @@ class InstructorsController < ApplicationController
     @instructors = Instructor.where(status: "Active")
     @instructors = @instructors.to_a.keep_if {|instructor| instructor.ski_levels.any? || instructor.snowboard_levels.any? }
     @instructors.sort {|a,b| b.overall_initial_rank <=> a.overall_initial_rank}
-
   end
 
   # GET /instructors/1

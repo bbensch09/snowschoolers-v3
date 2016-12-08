@@ -95,10 +95,12 @@ class LessonsController < ApplicationController
         @lesson.state = 'booked'
         puts "!!!!!About to save state & deposit status after processing lessons#update"
         @lesson.save
-      end
       GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-submitted', params[:ga_client_id])
-      send_lesson_update_notice_to_instructor
       flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when your instructor confirmed your request. If it has been more than an hour since your request, please email support@snowschoolers.com.'
+      else
+      GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-updated', params[:ga_client_id])
+      send_lesson_update_notice_to_instructor
+    end
     else
       determine_update_state
     end
@@ -254,10 +256,8 @@ class LessonsController < ApplicationController
     if @lesson.instructor.present?
       changed_attributes = @lesson.get_changed_attributes(@original_lesson)
       return unless changed_attributes.any?
-
-      if @lesson.instructor_accepted?
-        LessonMailer.send_lesson_update_notice_to_instructor(@original_lesson, @lesson, changed_attributes).deliver
-      end
+      LessonMailer.send_lesson_update_notice_to_instructor(@original_lesson, @lesson, changed_attributes).deliver
+      @lesson.send_sms_to_instructor
     end
   end
 
@@ -274,7 +274,7 @@ class LessonsController < ApplicationController
       flash.now[:notice] = "Your lesson deposit has been recorded, but your lesson reservation is incomplete. Please fix the fields below and resubmit."
       @lesson.state = 'booked'
     end
-      @lesson.save
+    @lesson.save
     @state = params[:lesson][:state]
   end
 
