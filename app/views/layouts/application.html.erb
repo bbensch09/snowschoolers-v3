@@ -7,27 +7,15 @@
   <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
   <link rel="icon" type="image/png" href="https://s3.amazonaws.com/snowschoolers/SnowSchoolers-favicon.png">
   <meta name="google-site-verification" content="W1jQsfy52H6ubJcGDNxflQmKuSNdLuId5JvlfBaLBF4" />
-<!-- Robots noindex tag should be added when pushing to dev.branch -->
-  <!-- <meta name="robots" content="noindex"> -->
+  <% if ENV['HOST_DOMAIN'] == "demo.snowschoolers.com" %>
+    <!-- Robots noindex tag in place on demo.snowschoolers.com site -->
+  <meta name="robots" content="noindex">
+  <% end %>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet" type="text/css" />
   <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "bootstrap/modernizr.min.js" %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
-
-
- <!-- GOOGLE ANALYTICS DEVELOPMENT TRACKING -  -->
-<!--     <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-      // property ID for dev.snowschoolers.com
-      ga('create', 'UA-80641194-2', {"cookieDomain":"none"});
-      ga('send', 'pageview');
-
-  </script> -->
 
    <!-- GOOGLE ANALYTICS PRODUCTION TRACKING -  -->
   <script>
