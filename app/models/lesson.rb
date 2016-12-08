@@ -17,7 +17,7 @@ class Lesson < ActiveRecord::Base
   validates :terms_accepted, inclusion: { in: [true], message: 'must accept terms' }, on: :update
   validates :actual_start_time, :actual_end_time, presence: true, if: :just_finalized?
   validate :instructors_must_be_available, unless: :no_instructors_post_instructor_drop?, on: :create
-  validate :requester_must_not_be_instructor, on: :create
+  # validate :requester_must_not_be_instructor, on: :create
   validate :lesson_time_must_be_valid
   validate :student_exists, on: :update
 
