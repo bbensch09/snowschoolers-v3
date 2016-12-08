@@ -1,7 +1,7 @@
 <div class="profile-container">
   <% if current_user && current_user.instructor %>
     <div class="row">
-      <h3 class="text-warning">Instructor status: <%= current_user.instructor.status %> </h3>
+      <h3 class="text-warning">Instructor status: <%= @instructor.instructor.status %> </h3>
       <p class="text-warning">Questions? Email info@snowschoolers.com.</p>
       <%= link_to 'Edit Your Profile', edit_instructor_path(@instructor), class: 'btn btn-default' %>
     </div>
