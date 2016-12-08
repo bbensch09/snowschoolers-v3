@@ -3,7 +3,7 @@
     <div class="row">
       <h3 class="text-warning">Instructor status: <%= current_user.instructor.status %> </h3>
       <p class="text-warning">Questions? Email info@snowschoolers.com.</p>
-      <%= link_to 'Edit Your Profile', edit_instructor_path(current_user.instructor), class: 'btn btn-default' %>
+      <%= link_to 'Edit Your Profile', edit_instructor_path(@instructor), class: 'btn btn-default' %>
     </div>
     <hr>
   <% end %>
