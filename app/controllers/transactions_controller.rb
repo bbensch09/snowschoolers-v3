@@ -26,7 +26,7 @@ class TransactionsController < ApplicationController
   def charge_lesson
     @lesson = Lesson.find(@transaction.lesson_id)
     # Amount in cents
-    @amount = (@lesson.transactions.last.final_amount - @lesson.price).to_i*100
+    @amount = ((@lesson.transactions.last.final_amount - @lesson.price)*100).to_i
     puts "The final amount to be charged is #{@amount}"
 
     customer = Stripe::Customer.create(
