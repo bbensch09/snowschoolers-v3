@@ -57,13 +57,13 @@
               <%= f.input :phone_number, as: :string, include_blank: '(xxx)xxx-xxxx', label: false, required: true %>
             </div>
             <div class="col-md-4">
+              <label>Do you have equipment?</label>
+              <%= f.input :gear, as: :select, collection: [['Yes, I already have my equipment.', true], ['No, I will need to rent equipment.', false]], include_blank: '(Skis,boots,etc.)', label: false, required:true %>
+            </div>
+            <div class="col-md-4">
               <label>Price</label>
                 <h2> <span id="lesson-price"><%= number_to_currency(@lesson.price) %></span></h2>
             </div>
-            <!--             <div class="col-md-4">
-              <label>Do you have gear?</label>
-              <%= f.input :gear, as: :select, collection: [['Yes, already have gear.', true], ['No, need gear.', false]], include_blank: '(Skis,boots,etc.)', label: false %>
-            </div> -->
             <div class="col-md-12">
             <!-- Price ($75 per hour): $<span id="donation-amount"><%= @lesson.price %></span>.00 -->
             </div>
