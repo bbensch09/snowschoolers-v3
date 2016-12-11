@@ -39,6 +39,29 @@ class Lesson < ActiveRecord::Base
     self.transactions.last.final_amount - self.transactions.last.base_amount
   end
 
+  def adjusted_price
+    return self.price if actual_duration == self.product.length.to_i
+    delta = actual_duration - self.product.length.to_i
+    if delta == 3 && self.product.length.to_i == 1
+      upsell_type = "extend_early_bird_to_half"
+    elsif delta == 3 && self.product.length.to_i == 3
+      upsell_type = "extend_half_day_to_full"
+    elsif delta == 6 && self.product.length.to_i == 1
+      upsell_type = "extend_early_bird_to_full"
+    else
+      puts "!!!!!!ERROR"
+    end
+    puts "!!!!!! length of lesson extension = #{delta}"
+    case upsell_type
+    when "extend_early_bird_to_half"
+      return Product.where(length:3,calendar_period:self.location.calendar_status).first.price
+    when "extend_half_day_to_full"
+      return Product.where(length:6,calendar_period:self.location.calendar_status).first.price
+    when "extend_early_bird_to_full"
+      return Product.where(length:6,calendar_period:self.location.calendar_status).first.price
+    end
+  end
+
   def location
     Location.find(self.requested_location.to_i)
   end

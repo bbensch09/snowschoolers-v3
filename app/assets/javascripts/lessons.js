@@ -154,8 +154,8 @@ var LESSON = {
   },
 
   initializeConfirmTimepickers: function() {
-    LESSON._actualStartTime.timepicker({ 'minTime': '9:00am', 'maxTime': '2:30pm', 'step': 30 });
-    LESSON._actualEndTime.timepicker({ 'minTime': '11:00am', 'maxTime': '4:30pm', 'step': 30 });
+    LESSON._actualStartTime.timepicker({ 'minTime': '9:00am', 'maxTime': '1:00pm', 'step': 60 });
+    LESSON._actualEndTime.timepicker({ 'minTime': '10:00am', 'maxTime': '4:00pm', 'step': 60 });
     LESSON.disable(LESSON._actualEndTime);
   },
 
