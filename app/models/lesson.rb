@@ -36,7 +36,8 @@ class Lesson < ActiveRecord::Base
   end
 
   def tip
-    self.transactions.last.final_amount - self.transactions.last.base_amount
+    tip_amount = (self.transactions.last.final_amount - self.transactions.last.base_amount)
+    tip_amount = ((tip_amount*100).to_i).to_f/100
   end
 
   def adjusted_price
@@ -393,7 +394,7 @@ class Lesson < ActiveRecord::Base
         when 'pending instructor'
           body =  "#{self.available_instructors.first.first_name}, There has been a change in your previously confirmed lesson request. #{self.requester.name} would now like their lesson to be at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. Are you still available? Please visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm."
         when 'Payment complete, waiting for review.'
-          body = "#{self.requester.name} has completed payment for their lesson and you've received a tip of $#{(self.tip.to_i)}. Great work!"
+          body = "#{self.requester.name} has completed payment for their lesson and you've received a tip of $#{self.tip}. Great work!"
       end
       @client = Twilio::REST::Client.new account_sid, auth_token
           @client.account.messages.create({
