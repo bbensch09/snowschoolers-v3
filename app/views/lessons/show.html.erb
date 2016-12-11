@@ -12,11 +12,10 @@
     </div>
     <% end %>
 
-<hr>
-    <% if @lesson.state == "booked" && @lesson.deposit_status.nil? %>
+    <% if @lesson.state == "ready_to_book" && @lesson.deposit_status.nil? %>
       <%= render partial: 'confirm_reservation' %>
     <% end %>
-<hr>
+
     <% if @lesson.waiting_for_payment? && current_user == @lesson.requester %>
       <%= render partial: 'make_payment' %>
       <% elsif @lesson.waiting_for_payment? && current_user.instructor %>

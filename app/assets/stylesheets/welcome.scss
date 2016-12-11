@@ -192,8 +192,14 @@ aside {
   padding-top: 15px;
   padding-bottom: 15px;
 }
-#header-creative .header-content .header-content-inner hr {
+#header-creative .header-content .header-content-inner hr, hr {
   margin: 30px auto;
+}
+.deposit-hr-navy{
+border-top: 3px solid #3b5998 !important;
+margin-left: auto !important;;
+margin-right: auto !important;;
+
 }
 #header-creative .header-content .header-content-inner p {
   font-weight: 300;
