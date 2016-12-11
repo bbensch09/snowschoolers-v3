@@ -89,41 +89,27 @@
   <% @lesson.students.each do |student| %>
     <div class='row'>
       <div class='col-md-12'>
-        <h5><b>Name:</b>
+        <h4><b>Name:</b>
         <%= student.name %>
-        </h5>
-      </div>
-      <div class='col-md-12'>
-        <h5><b>Age Range:</b>
+          <br>
+        <b>Age Range:</b>
         <%= student.age_range %>
-        </h5>
-      </div>
-      <div class='col-md-12'>
-        <h5><b>Gender:</b>
+          <br>
+        <b>Gender:</b>
         <%= student.gender %>
-        </h5>
-      </div>
-    </div>
-    <div class='row'>
-      <div class='col-md-12'>
-        <h5><b>About the student:</b>
+        <br>
+        <b>About the student:</b>
         <%= student.relationship_to_requester %>
-        </h5>
-      </div>
-      <div class='col-md-12'>
-            <h5><b>Most Recent Experience :</b>
-            <%= student.most_recent_experience.to_s %>
-            </h5>
-      </div>
-      <div class='col-md-12'>
-            <h5><b>Most Recent Level :</b>
+          <br>
+        <b>Most Recent Experience :</b>
+          <%= student.most_recent_experience.to_s %>
+          <br>
+       <b>Most Recent Level :</b>
             <%= student.most_recent_level.to_s %>
-            </h5>
-      </div>
-      <div class='col-md-12'>
-            <h5><b>Other Athletic Experience :</b>
+          <br>
+       <b>Other Athletic Experience :</b>
             <%= student.other_sports_experience.to_s %>
-            </h5>
+        </h4>
       </div>
     </div>
     <hr>

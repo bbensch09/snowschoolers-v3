@@ -269,12 +269,11 @@ class LessonsController < ApplicationController
       changed_attributes = @lesson.get_changed_attributes(@original_lesson)
       return unless changed_attributes.any?
       LessonMailer.send_lesson_update_notice_to_instructor(@original_lesson, @lesson, changed_attributes).deliver
-      @lesson.send_sms_to_instructor
     end
   end
 
   def check_user_permissions
-    unless current_user && (current_user == @lesson.requester || (current_user.instructor && current_user.instructor.status == "Active") || current_user.user_type == "Partner" )
+    unless current_user && (current_user == @lesson.requester || (current_user.instructor && current_user.instructor.status == "Active") || current_user.user_type == "Ski Area Partner" || current_user.user_type == "Snow Schoolers Employee")
       flash[:alert] = "You do not have access to this page."
       redirect_to root_path
     end
