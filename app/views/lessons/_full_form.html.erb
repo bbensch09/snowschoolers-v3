@@ -54,7 +54,7 @@
             </div> -->
             <div class="col-md-4">
               <label>Cell Phone</label>
-              <%= f.input :phone_number, as: :string, include_blank: '(xxx)xxx-xxxx', label: false, required: true %>
+              <%= f.input :phone_number, as: :string, include_blank: '(xxx)xxx-xxxx', required: true, label: false %>
             </div>
             <div class="col-md-4">
               <label>Do you have equipment?</label>
@@ -107,14 +107,9 @@
             <span class="remember-box checkbox ">
               <label for="rememberme">
                   <%= f.check_box :terms_accepted, id: "rememberme", required: true  %>I agree to the <span><a href="/terms_of_service" target="_blank">Terms and Conditions</a></span>
-<!--                 <% if @lesson.terms_accepted.nil? %>
-                  <%= f.check_box :terms_accepted, id: "rememberme" %>I agree to the <span><a href="#">Terms and Conditions</a></span>
-                <% else %>
-                  <%= f.input :terms_accepted, as: :hidden, input_html: { value: true } %>
-                <% end %>
- -->              </label>
+              </label>
             </span>
-            </div>
+        </div>
 
           <div class="col-md-9">
           <% if @lesson.state == 'new' %>

@@ -16,6 +16,10 @@
       <%= render partial: 'confirm_reservation' %>
     <% end %>
 
+    <% if @lesson.state == "booked" %>
+      <script src="https://www.smartwaiver.com/m/webpl/f.js?webpl_waiver=584daa0c8f287&webpl_title=Please%20now%20sign%20your%20waiver&webpl_align=Left&webpl_fontsize=20&webpl_background=%2355c9b2&webpl_fontcolor=%23ffffff&webpl_font=Verdana" type="text/javascript"></script>
+    <% end %>
+
     <% if @lesson.waiting_for_payment? && current_user == @lesson.requester %>
       <%= render partial: 'make_payment' %>
       <% elsif @lesson.waiting_for_payment? && current_user.instructor %>

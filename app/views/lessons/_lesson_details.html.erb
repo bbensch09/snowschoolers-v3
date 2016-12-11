@@ -30,21 +30,23 @@
 
     <div class='row'>
 
-      <div class="col-md-3">
-      <h4>
+      <div class="col-md-3 col-xs-3">
+      <h4 class="slot-details-mobile">
         <b>Location:</b> <br>
         <b>Sport:</b> <br>
         <b>Date:</b> <br>
         <b>Slot:</b> <br>
+        <!-- <b>Equipment:</b> <br> -->
         <b>Price:</b>
       </h4>
       </div>
-      <div class="col-md-9">
-      <h4>
+      <div class="col-md-9 col-xs-9">
+      <h4 class="slot-details-mobile">
         <%= @lesson.location.name %><br>
         <%= @lesson.activity %><br>
         <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %><br>
-        <%= @lesson.slot %><br>
+        <span> <%= @lesson.slot %></span><br>
+<!--         <%= @lesson.gear %><br> -->
         <%= number_to_currency(@lesson.price) %>
       </h4>
       </div>

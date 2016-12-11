@@ -12,8 +12,7 @@ class Lesson < ActiveRecord::Base
   validates :phone_number, :objectives,
             presence: true, on: :update
   # validates :duration, :start_time, presence: true, on: :update
-  # validates :gear, inclusion: { in: [true, false] }, on: :update
-  # validates :ability_level, presence: true
+  validates :gear, inclusion: { in: [true, false] }, on: :update
   validates :terms_accepted, inclusion: { in: [true], message: 'must accept terms' }, on: :update
   validates :actual_start_time, :actual_end_time, presence: true, if: :just_finalized?
   validate :instructors_must_be_available, unless: :no_instructors_post_instructor_drop?, on: :create

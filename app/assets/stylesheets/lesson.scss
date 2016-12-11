@@ -46,6 +46,15 @@
 .preSeasonModal{
   padding: 20px 20px 20px 20px !important;
 }
+#smartwaiver_floater{
+    position: fixed !important;
+    height: 100px !important;
+    width: 100vw !important;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 60px;
+    line-height: 28px;
+}
 /*DESKTOP ONLY ADJUSTMENTS*/
 @media (min-width: 768px) {
 .payment-amounts{
@@ -88,5 +97,8 @@
 }
 .lesson-instructor{
   width: 60px;
+}
+.slot-details-mobile{
+  font-size: 1.2em
 }
 }
