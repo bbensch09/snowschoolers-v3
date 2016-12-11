@@ -16,8 +16,12 @@
       <%= render partial: 'confirm_reservation' %>
     <% end %>
 
-    <% if @lesson.state == "booked" %>
+    <% if @lesson.state == "booked" || @lesson.state == "confirmed" %>
       <script src="https://www.smartwaiver.com/m/webpl/f.js?webpl_waiver=584daa0c8f287&webpl_title=Please%20now%20sign%20your%20waiver&webpl_align=Left&webpl_fontsize=20&webpl_background=%2355c9b2&webpl_fontcolor=%23ffffff&webpl_font=Verdana" type="text/javascript"></script>
+    <% end %>
+
+    <% if @lesson.finalizing? %>
+      <%= render partial: 'confirming_lesson_duration' %>
     <% end %>
 
     <% if @lesson.waiting_for_payment? && current_user == @lesson.requester %>
@@ -30,10 +34,6 @@
       <%= render partial: 'reviews/form' %>
       <% elsif @lesson.waiting_for_review? && current_user.instructor %>
           <%= link_to "Remind student to submit their review", mark_lesson_complete_path, method: :get, class: "btn btn-success" %>
-    <% end %>
-
-    <% if @lesson.finalizing? %>
-      <%= render partial: 'confirming_lesson_duration' %>
     <% end %>
 
     <% if @lesson.confirmable? || @lesson.completable? %>

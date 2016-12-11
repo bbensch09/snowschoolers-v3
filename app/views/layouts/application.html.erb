@@ -84,7 +84,7 @@
           <% elsif current_user %>
             <% name = current_user.email.present? ? current_user.email : 'Edit Profile' %>
             <% if current_user.instructor.nil? %>
-                <li><%= link_to name, edit_user_registration_path %></li>
+                <li><%= link_to name, "#", class: "nav-email-noaction" %></li>
                 <li><a href="/lessons" class="sign-up-btn"> My Lessons</a></li>
                 <li><a href="/browse" class="sign-up-btn">Browse by Instructors</a></li>
                 <li><%= link_to 'Apply as an Instructor', '/apply', class: 'sign-up-btn' %></li>
@@ -94,7 +94,7 @@
                 <li><a href="/browse" class="sign-up-btn">Instructors</a></li>
                 <li><a href="/calendar_blocks" class="sign-up-btn"> Manage Availability </a></li>
               <% else %>
-                <li><%= link_to name, edit_user_registration_path %></li>
+                <li><%= link_to name, "#", class: "nav-email-noaction" %></li>
                 <li><%= link_to 'Check Instructor Status', instructor_path(current_user.instructor), class: 'sign-up-btn' %></li>
             <% end %>
             </li>
