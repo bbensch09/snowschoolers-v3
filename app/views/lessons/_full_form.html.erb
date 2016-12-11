@@ -118,45 +118,17 @@
 
           <div class="col-md-9">
           <% if @lesson.state == 'new' %>
-            <h4>Submit <strong> Lesson Request</strong></h4>
-            <% button_text = "Submit" %>
+            <!-- <h4>Review <strong> Lesson Request</strong></h4> -->
+            <% button_text = "Continue to Payment" %>
             <% else %>
             <h4>Update <strong> Lesson Request</strong></h4>
-            <% button_text = "Update" %>
+            <% button_text = "Update Lesson Request" %>
           <% end %>
           </div>
-         <% if @lesson.deposit_status == 'confirmed' %>
           <div class="col-md-3">
             <%= f.input :state, as: :hidden, input_html: { value: @state } %>
             <%= f.submit button_text, class: 'btn sign-up-btn pull-right' %>
           </div>
-          <% else %>
-          <div class="col-md-12">
-              <%= form_tag charges_path do %>
-                <article>
-                  <% if flash[:error].present? %>
-                    <div id="error_explanation">
-                      <p><%= flash[:error] %></p>
-                    </div>
-                  <% end %>
-                  <label class="amount">
-                    <span>A $25.00 refundable deposit is required to complete your reservation. Your payment information will be saved and the remaining balance will be charged 24 hours before the start of your lesson. If for any reason you are unsatisfied with your Snow Schoolers experience, please ask about our 100% satisfaction guarantee.</span>
-                  </label>
-                </article>
-
-                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                        data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                        data-description="Refundable $25 Lesson Deposit. The remaining balance will be due upon completion of your lesson."
-                        data-name="Snow Schoolers"
-                        data-image="https://s3.amazonaws.com/snowschoolers/SnowSchoolers-favicon.png"
-                        data-amount="2500"
-                        data-locale="auto"
-                        data-zip-code="true">
-                </script>
-              <% end %>
-              </span>
-            </div>
-          <% end %>
 
         </div>
       </div>

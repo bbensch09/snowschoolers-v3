@@ -73,13 +73,8 @@ class LessonsController < ApplicationController
     @state = @lesson.instructor ? 'pending instructor' : 'booked'
   end
 
-  def update
-    @lesson = Lesson.find(params[:id])
-    @original_lesson = @lesson.dup
-    @lesson.assign_attributes(lesson_params)
-    @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
-    if @lesson.save
-      if @lesson.deposit_status != 'confirmed'
+  def confirm_reservation
+    if @lesson.deposit_status != 'confirmed'
         @amount = 2500
           customer = Stripe::Customer.create(
             :email => params[:stripeEmail],
@@ -98,12 +93,19 @@ class LessonsController < ApplicationController
       GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-submitted', params[:ga_client_id])
       flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when your instructor confirmed your request. If it has been more than an hour since your request, please email support@snowschoolers.com.'
       flash[:conversion] = 'TRUE'
-      else
+    end
+  end
+
+  def update
+    @lesson = Lesson.find(params[:id])
+    @original_lesson = @lesson.dup
+    @lesson.assign_attributes(lesson_params)
+    @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
+    if @lesson.save
       # flash[:notice] = 'Testing confirmation of AWCT'
       # flash[:conversion] = 'TRUE'
       GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-updated', params[:ga_client_id])
       send_lesson_update_notice_to_instructor
-    end
     else
       determine_update_state
     end
