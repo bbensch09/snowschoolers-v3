@@ -24,14 +24,15 @@
               <li>Tip amount: <%= number_to_currency(@lesson.transactions.last.tip_amount*@lesson.transactions.last.base_amount)%>
               <%= link_to 'Edit Tip', edit_transaction_path(@lesson.transactions.last), class: 'btn btn-default' %></li>
               <li>Total Lesson Cost: <%=number_to_currency(@lesson.transactions.last.final_amount)%></li>
-              <li><span>After deducting your initial <%= number_to_currency(@lesson.price) %> lesson fee, your remaining balance to be charged is <b><%= number_to_currency(@lesson.transactions.last.final_amount - @lesson.price)%>.</b></span></li>
+              <% amount_to_charge = (@lesson.transactions.last.final_amount - @lesson.price) %>
+              <li><span>After deducting your initial <%= number_to_currency(@lesson.price) %> lesson fee, your remaining balance to be charged is <b><%= number_to_currency(amount_to_charge)%>.</b></span></li>
             </ul>
           <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                   data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                   data-description="Lesson Payment"
                   data-name="Snow Schoolers"
                   data-image="https://s3.amazonaws.com/snowschoolers/SnowSchoolers-favicon.png"
-                  data-amount=<%= (@lesson.transactions.last.final_amount - @lesson.price)*100 %>
+                  data-amount=<%= (('%.2f' % amount_to_charge).to_f*100).to_i %>
                   data-locale="auto"
                   data-zip-code="true">
           </script>
