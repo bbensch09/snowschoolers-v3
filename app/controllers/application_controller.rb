@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
+  before_action :set_user
   after_action :store_location
 
 def store_location
@@ -22,6 +23,14 @@ end
 
 def after_sign_in_path_for(resource)
   session[:previous_url] || root_path
+end
+
+def set_user
+  if current_user
+    cookies[:userId] = current_user.id
+    else
+      cookies[:userId] = 'guest'
+    end
 end
 
 end

@@ -1,38 +1,64 @@
-<h1>Listing messages</h1>
+<div class="container">
+  <div class="row">
+      <!-- <h4>
+        <% if @conversation.instructor.user_id == current_user.id %>
+          Instructor: "You" <br>
+          Student: <%= @conversation.requester.name %>
+          <% else %>
+          Instructor: <%=@conversation.instructor.name %> <br>
+          Student: "You"
+        <% end %>
+      </h4> -->
+    <div class="col-md-10 col-xs-10 chat-container">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <span class=""></span> Conversation between <%= @conversation.instructor.name %> and <%= @conversation.requester.name %>
+          <div class="btn-group pull-right">
+              </div>
+            </div>
+            <div class="panel-body">
+              <ul class="chat">
+              <% @messages.each do |message| %>
+                <% if message.author_id == @user.id%>
+                  <%= render partial: 'current_user_message', locals: {message: message, user: @user}%>
+                <% else %>
+                  <%= render partial: 'other_user_message', locals: {message: message, user: User.find( message.author_id )} %>
+                <% end %>
+              <% end %>
+              </ul>
+            </div>
+            <div class="panel-footer">
+              <div class="input-group">
+                <div class="container new-message-container">
 
-<table class="instructors-table">
-  <thead>
-    <tr>
-      <th>Author</th>
-      <th>Conversation</th>
-      <th>Content</th>
-      <th>Unread</th>
-      <th>Recipient</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @messages.each do |message| %>
-      <tr>
-        <td><%= message.author_id %></td>
-        <td><%= message.conversation_id %></td>
-        <td><%= message.content %></td>
-        <td><%= message.unread %></td>
-        <td><%= message.recipient_id %></td>
-        <td><%= link_to 'Show', message %></td>
-        <td><%= link_to 'Edit', edit_message_path(message) %></td>
-        <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= render 'form' %>
+                  <%= semantic_form_for @message do |f| %>
+                  <%= f.inputs do %>
 
 
-<br>
+                  <div class="review-id-inputs hidden">
+                    <%= f.input :author_id, :input_html => {value: current_user.id, class:'form-control'}, label: true %>
+                    <%= f.input :conversation_id,  :input_html => {value: @conversation.id, class:'form-control'}, label: true %>
+                    <% if current_user.id == @conversation.requester.id %>
+                    <%= f.input :recipient_id,  :input_html => {value: @conversation.instructor.id, class:'form-control'}, label: true %>
+                    <% else %>
+                    <%= f.input :recipient_id,  :input_html => {value: @conversation.requester.id, class:'form-control'}, label: true %>
+                    <% end %>
+                    <%= f.input :unread, :input_html => {value: true, class:'form-control'}, label: "Unread?"  %>
+                  </div>
+                <%=f.text_field :content, class: "form-control input-sm" ,id: "btn-input", autofocus:true %>
 
-<%= link_to 'New Message', new_message_path %>
+                <% end %>
+                </div>
+
+
+                <span class="input-group-btn">
+                  <input class="btn btn-warning btn-sm" id="btn-chat" type="submit" value="Send">
+                </span>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
