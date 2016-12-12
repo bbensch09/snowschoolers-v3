@@ -32,7 +32,16 @@ var LESSON = {
     LESSON._actualStartTime.change(LESSON.updateInstructorTimepickers);
   },
 
-  setDatepicker: function() { LESSON._date.datepicker({ minDate: 0, dateFormat: 'yy-mm-dd' }); },
+  setDatepicker: function() { LESSON._date.datepicker({ minDate: '2016-12-16', dateFormat: 'yy-mm-dd' }); },
+  // setDatepicker: function() { LESSON._date.datepicker({ minDate: 1, dateFormat: 'yy-mm-dd' }); },
+
+  // var TODAYS_DATE = new Date().getDate();
+  // var LAUNCH_DATE = new Date('2016','11','16').getDate();
+  // if ((launch - today) > 0 ){
+  //   setDatepicker: function() { LESSON._date.datepicker({ minDate: '2016-12-16', dateFormat: 'yy-mm-dd' }); }
+  // } else {
+  //   setDatepicker: function() { LESSON._date.datepicker({ minDate: 0, dateFormat: 'yy-mm-dd' }); }
+  // }
 
   toggleDuration: function() {
     if (LESSON.slotValid()) {
@@ -154,8 +163,8 @@ var LESSON = {
   },
 
   initializeConfirmTimepickers: function() {
-    LESSON._actualStartTime.timepicker({ 'minTime': '9:00am', 'maxTime': '2:30pm', 'step': 30 });
-    LESSON._actualEndTime.timepicker({ 'minTime': '11:00am', 'maxTime': '4:30pm', 'step': 30 });
+    LESSON._actualStartTime.timepicker({ 'minTime': '9:00am', 'maxTime': '1:00pm', 'step': 60 });
+    LESSON._actualEndTime.timepicker({ 'minTime': '10:00am', 'maxTime': '4:00pm', 'step': 60 });
     LESSON.disable(LESSON._actualEndTime);
   },
 

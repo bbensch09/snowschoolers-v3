@@ -9,20 +9,18 @@ class Lesson < ActiveRecord::Base
   accepts_nested_attributes_for :students, reject_if: :all_blank, allow_destroy: true
 
   validates :requested_location, :lesson_time, presence: true
-  validates :phone_number, :objectives,
+  validates :phone_number, :focus_area,
             presence: true, on: :update
   # validates :duration, :start_time, presence: true, on: :update
-  # validates :gear, inclusion: { in: [true, false] }, on: :update
-  # validates :ability_level, presence: true
+  validates :gear, inclusion: { in: [true, false] }, on: :update
   validates :terms_accepted, inclusion: { in: [true], message: 'must accept terms' }, on: :update
   validates :actual_start_time, :actual_end_time, presence: true, if: :just_finalized?
-  validate :instructors_must_be_available, unless: :no_instructors_post_instructor_drop?, on: :create
   # validate :requester_must_not_be_instructor, on: :create
   validate :lesson_time_must_be_valid
   validate :student_exists, on: :update
 
-  # MUST UNCOMMENT LESSON REQUEST METHOD BELOW TO ENABLE EMAILS & TWILIO
-  after_update :send_lesson_request_to_instructors
+  validate :instructors_must_be_available, unless: :no_instructors_post_instructor_drop?, on: :create
+  after_save :send_lesson_request_to_instructors
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
 
   def date
@@ -38,7 +36,31 @@ class Lesson < ActiveRecord::Base
   end
 
   def tip
-    self.transactions.last.final_amount - self.transactions.last.base_amount
+    tip_amount = (self.transactions.last.final_amount - self.transactions.last.base_amount)
+    tip_amount = ((tip_amount*100).to_i).to_f/100
+  end
+
+  def adjusted_price
+    return self.price if actual_duration == self.product.length.to_i
+    delta = actual_duration - self.product.length.to_i
+    if delta == 3 && self.product.length.to_i == 1
+      upsell_type = "extend_early_bird_to_half"
+    elsif delta == 3 && self.product.length.to_i == 3
+      upsell_type = "extend_half_day_to_full"
+    elsif delta == 6 && self.product.length.to_i == 1
+      upsell_type = "extend_early_bird_to_full"
+    else
+      puts "!!!!!!ERROR"
+    end
+    puts "!!!!!! length of lesson extension = #{delta}"
+    case upsell_type
+    when "extend_early_bird_to_half"
+      return Product.where(length:3,calendar_period:self.location.calendar_status).first.price
+    when "extend_half_day_to_full"
+      return Product.where(length:6,calendar_period:self.location.calendar_status).first.price
+    when "extend_early_bird_to_full"
+      return Product.where(length:6,calendar_period:self.location.calendar_status).first.price
+    end
   end
 
   def location
@@ -196,6 +218,14 @@ class Lesson < ActiveRecord::Base
     return student_levels.max
   end
 
+  def athlete
+    if self.activity == "Ski"
+      return "skier"
+    else
+      return "snowboarder"
+    end
+  end
+
   def available_instructors
     if self.instructor_id
         if  Lesson.instructors_with_calendar_blocks(self.lesson_time).include?(self.instructor)
@@ -205,28 +235,28 @@ class Lesson < ActiveRecord::Base
         end
     else
     resort_instructors = self.location.instructors
-    # puts "!!!!!!! - Step #1 Filtered for location, found #{resort_instructors.count} instructors."
+    puts "!!!!!!! - Step #1 Filtered for location, found #{resort_instructors.count} instructors."
     if self.activity == 'Ski'
         wrong_sport = "Snowboard Instructor"
       else
         wrong_sport = "Ski Instructor"
     end
     active_resort_instructors = resort_instructors.where(status:'Active')
-    # puts "!!!!!!! - Step #2 Filtered for active status, found #{active_resort_instructors.count} instructors."
+    puts "!!!!!!! - Step #2 Filtered for active status, found #{active_resort_instructors.count} instructors."
     if self.activity == 'Ski' && self.level
       active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| (instructor.ski_levels.any? && instructor.ski_levels.max.value >= self.level) }
     end
     if self.activity == 'Snowboard' && self.level
       active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| (instructor.snowboard_levels.any? && instructor.snowboard_levels.max.value >= self.level )}
     end
-    # puts "!!!!!!! - Step #3 Filtered for level, found #{active_resort_instructors.count} instructors."
+    puts "!!!!!!! - Step #3 Filtered for level, found #{active_resort_instructors.count} instructors."
     if kids_lesson?
       active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| instructor.kids_eligibility == true }
-      # puts "!!!!!!! - Step #3b Filtered for kids specialist, now have #{active_resort_instructors.count} instructors."
+      puts "!!!!!!! - Step #3b Filtered for kids specialist, now have #{active_resort_instructors.count} instructors."
     end
     if seniors_lesson?
       active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| instructor.seniors_eligibility == true }
-      # puts "!!!!!!! - Step #3c Filtered for seniors specialist, now have #{active_resort_instructors.count} instructors."
+      puts "!!!!!!! - Step #3c Filtered for seniors specialist, now have #{active_resort_instructors.count} instructors."
     end
     wrong_sport_instructors = Instructor.where(sport: wrong_sport)
     already_booked_instructors = Lesson.booked_instructors(lesson_time)
@@ -236,12 +266,12 @@ class Lesson < ActiveRecord::Base
     declined_actions.each do |action|
       declined_instructors << Instructor.find(action.instructor_id)
     end
-    # puts "!!!!!!! - Step #4a - eliminating #{wrong_sport_instructors.count} that teach the wrong sport."
-    # puts "!!!!!!! - Step #4b - eliminating #{already_booked_instructors.count} that are already booked."
-    # puts "!!!!!!! - Step #4c - eliminating #{declined_instructors.count} that have declined."
-    # puts "!!!!!!! - Step #4d - eliminating #{busy_instructors.count} that are busy."
+    puts "!!!!!!! - Step #4a - eliminating #{wrong_sport_instructors.count} that teach the wrong sport."
+    puts "!!!!!!! - Step #4b - eliminating #{already_booked_instructors.count} that are already booked."
+    puts "!!!!!!! - Step #4c - eliminating #{declined_instructors.count} that have declined."
+    puts "!!!!!!! - Step #4d - eliminating #{busy_instructors.count} that are busy."
     available_instructors = active_resort_instructors - already_booked_instructors - declined_instructors - wrong_sport_instructors - busy_instructors
-    # puts "!!!!!!! - Step #5 after all filters, found #{available_instructors.count} instructors."
+    puts "!!!!!!! - Step #5 after all filters, found #{available_instructors.count} instructors."
     available_instructors = self.rank_instructors(available_instructors)
     return available_instructors
     end
@@ -268,7 +298,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def self.instructors_with_calendar_blocks(lesson_time)
-    if lesson_time.slot == 'Full Day'
+    if lesson_time.slot == 'Full-day (10am-4pm)'
       calendar_blocks = self.find_all_calendar_blocks_in_day(lesson_time)
     else
       calendar_blocks = self.find_calendar_blocks(lesson_time)
@@ -287,10 +317,10 @@ class Lesson < ActiveRecord::Base
   end
 
   def self.find_full_day_blocks(lesson_time)
-    full_day_lesson_time = LessonTime.find_by_date_and_slot(lesson_time.date,'Full Day')
-    return [] if full_day_lesson_time.nil?
+    full_day_block_time = LessonTime.find_by_date_and_slot(lesson_time.date,'Full-day (10am-4pm)')
+    return [] if full_day_block_time.nil?
     full_day_blocks = []
-    blocks_on_same_day = CalendarBlock.where(lesson_time_id:full_day_lesson_time.id, status:'Block this time slot')
+    blocks_on_same_day = CalendarBlock.where(lesson_time_id:full_day_block_time.id, status:'Block this time slot')
       blocks_on_same_day.each do |block|
         full_day_blocks << block
       end
@@ -312,7 +342,7 @@ class Lesson < ActiveRecord::Base
 
   def self.booked_instructors(lesson_time)
     # puts "checking for booked instructors on #{lesson_time.date} during the #{lesson_time.slot} slot"
-    if lesson_time.slot == 'Full Day'
+    if lesson_time.slot == 'Full-day (10am-4pm)'
       booked_lessons = self.find_all_booked_lessons_in_day(lesson_time)
     else
       booked_lessons = self.find_booked_lessons(lesson_time)
@@ -332,14 +362,14 @@ class Lesson < ActiveRecord::Base
   end
 
   def self.find_full_day_lessons(full_day_lesson_time)
-    return [] unless full_day_lesson_time = LessonTime.find_by_date_and_slot(full_day_lesson_time.date,'Full Day')
+    return [] unless full_day_lesson_time = LessonTime.find_by_date_and_slot(full_day_lesson_time.date,'Full-day (10am-4pm)')
     booked_lessons = []
     lessons_on_same_day = Lesson.where("lesson_time_id=? AND instructor_id is not null",full_day_lesson_time.id)
       lessons_on_same_day.each do |lesson|
         booked_lessons << lesson
         # puts "added a booked lesson to the booked_lesson set"
       end
-    # puts "After searching through the matching lesson times on this date, the booked lesson count on this day is now: #{booked_lessons.count}"
+    puts "After searching for other full-day lessons on this date, we found a total of #{booked_lessons.count} other lessons on this date."
     return booked_lessons
   end
 
@@ -366,13 +396,13 @@ class Lesson < ActiveRecord::Base
         when 'new'
           body = "A lesson booking was begun and not finished. Please contact an admin or email info@snowschoolers.com if you intended to complete the lesson booking."
         when 'booked'
-          body = "#{self.available_instructors.first.first_name}, You have a new lesson request from #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. Are you available? Please visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm."
+          body = "#{self.available_instructors.first.first_name}, You have a new lesson request from #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. They are a level #{self.level.to_s} #{self.athlete}. Are you available? Please visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm."
         when 'seeking replacement instructor'
           body = "We need your help! Another instructor unfortunately had to cancel. Are you available to teach #{self.requester.name} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name} at #{self.product.start_time}? Please visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm."
         when 'pending instructor'
           body =  "#{self.available_instructors.first.first_name}, There has been a change in your previously confirmed lesson request. #{self.requester.name} would now like their lesson to be at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. Are you still available? Please visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm."
         when 'Payment complete, waiting for review.'
-          body = "#{self.requester.name} has completed payment for their lesson and you've received a tip of $#{(self.tip.to_i)}. Great work!"
+          body = "#{self.requester.name} has completed payment for their lesson and you've received a tip of $#{self.tip}. Great work!"
       end
       @client = Twilio::REST::Client.new account_sid, auth_token
           @client.account.messages.create({
@@ -381,6 +411,7 @@ class Lesson < ActiveRecord::Base
           :body => body
       })
       send_reminder_sms
+      # puts "!!!!Body: #{body}"
       puts "!!!!! - reminder SMS has been scheduled"
   end
 
@@ -432,7 +463,7 @@ class Lesson < ActiveRecord::Base
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
-      recipient = self.phone_number
+      recipient = self.phone_number.gsub(/[^0-9a-z ]/i,"")
       case self.state
         when 'confirmed'
         body = "Congrats! Your Snow Schoolers lesson has been confirmed. #{self.instructor.name} will be your instructor at #{self.location.name} on #{self.lesson_time.date.strftime("%b %d")} at #{self.product.start_time}. Please check your email for more details about meeting location & to review your pre-lesson checklist."
@@ -470,7 +501,7 @@ class Lesson < ActiveRecord::Base
   private
 
   def instructors_must_be_available
-    errors.add(:instructor, " not available at that time and location. Email info@snowschoolers.com to be notified if we have any instructors that become available.") unless available_instructors.any?
+    errors.add(:instructor, " unfortunately not available at that time. Please email info@snowschoolers.com to be notified if we have any instructors that become available.") unless available_instructors.any?
   end
 
   def requester_must_not_be_instructor
@@ -488,7 +519,7 @@ class Lesson < ActiveRecord::Base
   def send_lesson_request_to_instructors
     #currently testing just to see whether lesson is active and deposit has gone through successfully.
     #need to replace with logic that tests whether lesson is newly complete, vs. already booked, etc.
-    if self.active? && self.confirmable? && self.state != "pending instructor" #&& self.deposit_status == 'verified'
+    if self.active? && self.confirmable? && self.deposit_status == 'confirmed' && self.state != "pending instructor" #&& self.deposit_status == 'verified'
       LessonMailer.send_lesson_request_to_instructors(self).deliver
       self.send_sms_to_instructor
     elsif self.available_instructors.any? == false

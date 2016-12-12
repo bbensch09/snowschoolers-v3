@@ -41,8 +41,8 @@ class LessonsController < ApplicationController
 
   def new
     @lesson = Lesson.new
-    @activity = session[:lesson].nil? ? nil : session[:lesson]["activity"]
     @promo_location = session[:lesson].nil? ? nil : session[:lesson]["requested_location"]
+    @activity = session[:lesson].nil? ? nil : session[:lesson]["activity"]
     @slot = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["slot"]
     @date = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["date"]
     @lesson_time = @lesson.lesson_time
@@ -57,6 +57,7 @@ class LessonsController < ApplicationController
   end
 
   def create
+    session[:lesson] = params[:lesson]
     create_lesson_and_redirect
   end
 
@@ -73,21 +74,17 @@ class LessonsController < ApplicationController
     @state = @lesson.instructor ? 'pending instructor' : 'booked'
   end
 
-  def update
+  def confirm_reservation
     @lesson = Lesson.find(params[:id])
-    @original_lesson = @lesson.dup
-    @lesson.assign_attributes(lesson_params)
-    @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
-    if @lesson.save
-      if @lesson.deposit_status != 'confirmed'
-        @amount = 2500
+    if @lesson.deposit_status != 'confirmed'
+        @amount = @lesson.price.to_i
           customer = Stripe::Customer.create(
             :email => params[:stripeEmail],
             :source  => params[:stripeToken]
           )
           charge = Stripe::Charge.create(
             :customer    => customer.id,
-            :amount      => @amount,
+            :amount      => @amount*100,
             :description => 'Lesson reservation deposit',
             :currency    => 'usd'
           )
@@ -95,15 +92,28 @@ class LessonsController < ApplicationController
         @lesson.state = 'booked'
         puts "!!!!!About to save state & deposit status after processing lessons#update"
         @lesson.save
-      GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-submitted', params[:ga_client_id])
+      GoogleAnalyticsApi.new.event('lesson-requests', 'deposit-submitted', params[:ga_client_id])
+      LessonMailer.send_lesson_request_notification(@lesson).deliver
       flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when your instructor confirmed your request. If it has been more than an hour since your request, please email support@snowschoolers.com.'
       flash[:conversion] = 'TRUE'
-      else
+      puts "!!!!!!!! Lesson deposit successfully charged"
+    end
+    respond_with @lesson
+  end
+
+  def update
+    @lesson = Lesson.find(params[:id])
+    @original_lesson = @lesson.dup
+    @lesson.assign_attributes(lesson_params)
+    @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
+    unless @lesson.deposit_status == 'confirmed'
+      @lesson.state = 'ready_to_book'
+    end
+    if @lesson.save
       # flash[:notice] = 'Testing confirmation of AWCT'
       # flash[:conversion] = 'TRUE'
       GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-updated', params[:ga_client_id])
       send_lesson_update_notice_to_instructor
-    end
     else
       determine_update_state
     end
@@ -239,8 +249,15 @@ class LessonsController < ApplicationController
     @lesson = Lesson.new(lesson_params)
     @lesson.requester = current_user
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
-    @lesson.save ? (redirect_to complete_lesson_path(@lesson)) : (render :new)
-    GoogleAnalyticsApi.new.event('lesson-requests', 'request-initiated', params[:ga_client_id])
+    if @lesson.save
+      redirect_to complete_lesson_path(@lesson)
+      GoogleAnalyticsApi.new.event('lesson-requests', 'request-initiated', params[:ga_client_id])
+      else
+        @activity = session[:lesson].nil? ? nil : session[:lesson]["activity"]
+        @slot = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["slot"]
+        @date = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["date"]
+        render 'new'
+    end
   end
 
   def send_cancellation_email_to_instructor
@@ -256,16 +273,16 @@ class LessonsController < ApplicationController
   end
 
   def send_lesson_update_notice_to_instructor
+    return unless @lesson.deposit_status == 'confirmed'
     if @lesson.instructor.present?
       changed_attributes = @lesson.get_changed_attributes(@original_lesson)
       return unless changed_attributes.any?
       LessonMailer.send_lesson_update_notice_to_instructor(@original_lesson, @lesson, changed_attributes).deliver
-      @lesson.send_sms_to_instructor
     end
   end
 
   def check_user_permissions
-    unless current_user && (current_user == @lesson.requester || (current_user.instructor && current_user.instructor.status == "Active") || current_user.user_type == "Partner" )
+    unless current_user && (current_user == @lesson.requester || (current_user.instructor && current_user.instructor.status == "Active") || current_user.user_type == "Ski Area Partner" || current_user.user_type == "Snow Schoolers Employee")
       flash[:alert] = "You do not have access to this page."
       redirect_to root_path
     end
@@ -282,7 +299,7 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area,
+    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area,
       students_attributes: [:id, :name, :age_range, :gender, :relationship_to_requester, :lesson_history, :requester_id, :most_recent_experience, :most_recent_level, :other_sports_experience, :experience, :_destroy])
   end
 

@@ -24,8 +24,10 @@ class TransactionsController < ApplicationController
   end
 
   def charge_lesson
+    @lesson = Lesson.find(@transaction.lesson_id)
     # Amount in cents
-    @amount = (@transaction.final_amount.to_i - 25)*100
+    amount_to_charge = (@lesson.transactions.last.final_amount - @lesson.price)
+    amount_for_stripe = (('%.2f' % amount_to_charge).to_f*100).to_i
     puts "The final amount to be charged is #{@amount}"
 
     customer = Stripe::Customer.create(
@@ -35,8 +37,8 @@ class TransactionsController < ApplicationController
 
     charge = Stripe::Charge.create(
       :customer    => customer.id,
-      :amount      => @amount,
-      :description => 'Lesson reservation deposit',
+      :amount      => amount_for_stripe,
+      :description => 'Lesson completion payment',
       :currency    => 'usd'
     )
 
@@ -55,7 +57,7 @@ class TransactionsController < ApplicationController
   # POST /transactions.json
   def create
     @transaction = Transaction.new(transaction_params)
-    tip_amount = @transaction.tip_amount.nil? ? 0 : @transaction.tip_amount*@transaction.lesson.price
+    tip_amount = @transaction.tip_amount.nil? ? 0 : @transaction.tip_amount*@transaction.base_amount
     @transaction.final_amount = @transaction.base_amount + tip_amount
     respond_to do |format|
       if @transaction.save
@@ -73,7 +75,7 @@ class TransactionsController < ApplicationController
   def update
     respond_to do |format|
       if @transaction.update(transaction_params)
-        tip_amount = @transaction.tip_amount.nil? ? 0 : @transaction.tip_amount*@transaction.lesson.price
+        tip_amount = @transaction.tip_amount.nil? ? 0 : @transaction.tip_amount*@transaction.base_amount
         @transaction.final_amount = @transaction.base_amount + tip_amount
         @transaction.save
         format.html { redirect_to @transaction.lesson, notice: 'Transaction was successfully updated.' }

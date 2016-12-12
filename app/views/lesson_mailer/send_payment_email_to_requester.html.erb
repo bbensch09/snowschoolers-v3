@@ -4,27 +4,48 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Lesson Completion Notice</h1>
+    <p>Hello <%= @lesson.requester.name.split(" ").first %>,</p>
     <p>
-      Thank you for completing a lesson with Snow Schoolers!
-      Here are the lesson details, for your reference:
+      We hope you thoroughly enjoyed your Snow Schoolers experience and that your lesson today with <%=@lesson.instructor.first_name %> exceeded your expectations.
     </p>
+    <p>
+      You have likely already received an SMS message asking you to complete your lesson online by giving <%=@lesson.instructor.first_name %> a brief review out of 5-stars, and we thank you for <b> considering giving <%=@lesson.instructor.first_name %> a tip </b> if it was deserved. As you may be aware, ski instructors in the U.S. only make a small fraction of the lesson fee amount, usually between $15-20 per hour (source: <a href="https://www.snowskool.com/blog/ski-instructor-salaries-2016-how-much-do-instructors-earn-get-paid-make"> Snowskool, 2016</a>), and thus tips are incredibly appreciated. If you'd like to learn more about what Snow Schoolers is doing to help increase instructor wages, please <a href="mailto:info@snowschoolers.com">let us know</a>.
+    </p>
+    <p>
+      If you haven't yet had a chance to complete your lesson online, you can do so by visiting: <%= lesson_url(@lesson) %>
+    </p>
+    <h4>Completed Lesson Details</h4>
+    <p>You will always be able to your lesson details in your online account, but we wanted to also give you an email record of them as well, below:</p>
     <ul>
       <li>Instructor: <%= @lesson.instructor.name %></li>
       <li>Students: <%= @lesson.students.map(&:name).join(', ') %></li>
-      <li>Date: <%= @lesson.date %></li>
-      <li>Slot: <%= @lesson.slot %></li>
-      <li>Duration: <%= "#{@lesson.duration} hours" if @lesson.duration %></li>
-      <li>Start Time: <%= @lesson.start_time %></li>
       <li>Location: <%= @lesson.location.name %></li>
-      <li>Gear: <%= @lesson.gear? ? 'Yes' : 'No' %></li>
+      <li>Date: <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %></li>
+      <li>Slot: <%= @lesson.slot %></li>
+      <li>Booked lesson length: <%= @lesson.product.length.to_f %> hours.
+      </li>
+      <li>Actual lesson length: <%= @lesson.actual_duration %> hours.
+      </li>
+      <% if @lesson.price == @lesson.adjusted_price %>
+          <li>Lesson fee: <%= number_to_currency(@lesson.price, precision: 2) %> </li>
+          <% else %>
+          <li>Original Lesson fee: <%= number_to_currency(@lesson.price, precision: 2) %> </li>
+          <li>Final Lesson fee: <%= number_to_currency(@lesson.adjusted_price, precision: 2) %> </li>
+      <% end %>
       <li>Objectives: <%= @lesson.objectives %></li>
-      <li>Actual Start Time: <%= @lesson.actual_start_time %></li>
-      <li>Actual End Time: <%= @lesson.actual_end_time %></li>
-      <li>Actual Duration: <%= "#{@lesson.actual_duration} hours" %></li>
+      <li>Instructor feedback: <%=@lesson.public_feedback_for_student%></li>
     </ul>
-    <p>
-      <%= lesson_url(@lesson) %>
+    <p>Again, we hope you loved the Snow Schoolers experience, and hope to see you back on the mountain again soon. If you'd like to book a repeat lesson with <%=@lesson.instructor.first_name%>, you can do so online or likewise simply reply with the dates you are interested and one of our concierges will start coordinating schedules.
     </p>
+    <p>Lastly, if there is anything we can do to improve the experience for next time, we always appreciate feedback. If you're willing to take just <b> two more minutes </b> to help out, we would love if you answered our 2-question feedback survey that can be found at <a href="http://bit.ly/snowschoolers_survey">bit.ly/snowschoolers_survey</a>.</p>
+
+    <p>Thank you again!</p>
+    <p>
+      Best, <br>
+      - Brian Bensch <br>
+      Founder, SnowSchoolers.com <br>
+      brian@snowschoolers.com
+    </p>
+    <img src="https://s3.amazonaws.com/snowschoolers/thanks.gif" alt="thanks" height="400" width="700" />
   </body>
 </html>

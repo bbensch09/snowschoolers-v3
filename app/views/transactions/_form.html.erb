@@ -1,16 +1,27 @@
-<div class="col-md-4">
+<div class="col-md-6">
 <% @transaction = Transaction.new unless @lesson && @lesson.transactions.count > 0 %>
 
 <%= semantic_form_for @transaction do |f| %>
   <%= f.inputs do %>
     <%= f.input :lesson_id, :input_html => {value: @lesson.id, class: 'hidden'}, label: false %>
     <%= f.input :requester_id, :input_html => {value: @lesson.requester.id, class: 'hidden'}, label: false %>
-    <%= f.input :base_amount, :input_html => {value: @lesson.price, class: 'hidden'}, label: false %>
+<h3>
+    <b> Booked lesson length:</b> <%= booked_length = @lesson.product.length.to_f %> hours. <br>
+    <b> Actual lesson length:</b> <%= actual_length = @lesson.actual_duration %> hours.
+</h3>
+    <% if actual_length == booked_length %>
+      <h3>No adjustments necessary</h3>
+      <%= f.input :base_amount, :input_html => {value: @lesson.price, class: 'hidden'}, label: false %>
+    <% else %>
+      <h3>Lesson extended</h3>
+      <%= f.input :base_amount, :input_html => {value: @lesson.adjusted_price, class: 'hidden'}, label: false %>
+    <% end %>
 <!-- <h3>Hourly rate: <%= number_to_currency(75) %> </h3> -->
 <h3>
-  Lesson Fee: <%= number_to_currency(@lesson.price) %>
+  Original Lesson Fee: <%= number_to_currency(@lesson.price) %> <br>
+  Final Lesson Fee: <%= number_to_currency(@lesson.adjusted_price) %> <br>
+  Amount Due: <%= number_to_currency(@lesson.adjusted_price - @lesson.price) %>
 </h3>
-    <!-- <%= f.input :tip_amount, placeholder: '20%', label: "Include Instructor Tip (optional)", :input_html => {class:'tip-amount-input'} %> -->
     <%= f.input :tip_amount, as: :select, collection: [['10%',0.1],['20%',0.20],['30%',0.30],['No Tip',0]], include_blank: 'Select Tip Amount', label: "Include Instructor Tip (optional)", :input_html => {class:'tip-amount-input', required: true} %>
   <% end %>
   <%= f.submit "Confirm Tip Amount", class: 'btn btn-success' %>

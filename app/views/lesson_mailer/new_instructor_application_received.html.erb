@@ -8,5 +8,6 @@
     <p>
       A new user, <%= @instructor.username %> has just applied to become an instructor.
     </p>
+    <p>You can view <%= @instructor.first_name %>'s application at: <%= instructor_url(@instructor) %> </p>
   </body>
 </html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Hi <%= @lesson.requester.name.split(" ").first %>,</p>
+    <p>
+      Thank you for submitting your private lesson request through Snow Schoolers!
+    </p>
+
+    <h4>What happens now?</h4>
+    <p>
+      Our system has begun automatically contacting our instructors to determine the best available instructor for your lesson. If you requested an individual instructor specifically, we will keep you informed as to that instructor's availability, and will give you the option to book with another instructor if they are unavailable.
+    </p>
+    <p>On average, it takes less than 30 minutes for our instructors to confirm if they are available, but please be patient. If it has been more than an hour since your request, please feel free to reach out to us at <a href="mailto:support@snowschoolers.com">support@snowschoolers.com.</p>
+
+    <h4>Lesson Details</h4>
+    <ul>
+      <li>Students: <%= @lesson.students.map(&:name).join(', ') %></li>
+      <li>Date: <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %></li>
+      <li>Slot: <%= @lesson.slot %></li>
+      <li>Location: <%= @lesson.location.name %></li>
+      <li>Objectives: <%= @lesson.objectives %></li>
+    </ul>
+    <p>
+      If you need to make changes to your lessons, please visit: <%= lesson_url(@lesson) %>
+    </p>
+
+    <p>If you have any questions or if there is anything we can do to help you prepare for your upcoming lesson, please don't be afraid to reach out.</p>
+    <p>
+      - Brian Bensch <br>
+      Founder, SnowSchoolers.com <br>
+      brian@snowschoolers.com
+    </p>
+  </body>
+</html>

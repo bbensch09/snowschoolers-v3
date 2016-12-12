@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Instructor Status: Now Active</h1>
+    <p>Hi <%=@instructor.first_name %>,</p>
+    <p>
+      Congratulations, your instructor status with Snow Schoolers has been marked active. Please review the information below and let us know if anything does not appear to be accurate.
+    </p>
+    <ul>
+      <li>Instructor Type: <%= @instructor.sport %></li>
+      <li>Certification Level: <%= @instructor.certification %></li>
+      <li>Maximum eligible ability level to teach for skiing: Level <%= @instructor.ski_levels.max.value %></li>
+      <li>Maximum eligible ability level to teach snowboarding: Level <%= @instructor.snowboard_levels.max.value %></li>
+    </ul>
+
+    <p>
+      To edit your profile (bio, photo, etc.) you may do so by visiting <%= lesson_url(@instructor) %>
+    </p>
+  </body>
+</html>

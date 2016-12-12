@@ -20,7 +20,9 @@ class Location < ActiveRecord::Base
     lessons = self.lifetime_lessons
     revenue = 0
     lessons.each do |lesson|
-      revenue += lesson.price
+      if lesson.price.class == Float
+        revenue += lesson.price
+      end
     end
     return revenue
   end

@@ -4,7 +4,9 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Confirmation of Lesson Cancellation</h1>
+    <p>Hello <%= @lesson.requester.name.split(" ").first %>,</p>
+
+    <h4>Confirmation of Lesson Cancellation</h4>
     <p>
       You have unfortunately canceled the lesson below. Other instructors have been notified, but you are likewise encouraged to email the instructor alias to try and find someone to cover your absence. Please help us keep our clients satisfied.
     </p>
@@ -14,10 +16,13 @@
       <li>Slot: <%= @lesson.slot %></li>
       <li>Location: <%= @lesson.location.name %></li>
     </ul>
+    <p> <b> Please </b> make every attempt to honor your scheduling commitments once you accept a lesson. We strive to delight each and every one of our instructors, and cancellations must be avoided if at all possible.
+    </p>
     <p>
       <% if @available_instructors %>
         The good news is that there are other instructors theoretically available at this time.
       <% else %>
+        Unfortunately we currently don't have any other instructors available, so if there is any way you can still teach this lesson, please contact Brian immediately.
       <% end %>
     </p>
     <p>

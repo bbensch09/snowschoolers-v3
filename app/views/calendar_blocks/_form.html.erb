@@ -31,7 +31,7 @@
 
           <div class="col-md-6">
             <label>Time Slot (All day vs. morning/afternoon)</label>
-            <%= lt_f.input :slot, as: :select, collection: ['Morning', 'Afternoon', 'Full Day'], selected: 'Full Day', include_blank: false, :input_html => { :class => 'lesson-slot-input'}, label: false, required:true %>
+            <%= lt_f.input :slot, as: :select, collection: ['Early Bird (9-10am)', 'Half-day Morning (10am-1pm)', 'Half-day Afternoon (1pm-4pm)','Full-day (10am-4pm)'], selected: 'Full-day (10am-4pm)', include_blank: false, :input_html => { :class => 'lesson-slot-input'}, label: false, required:true %>
           </div>
         </div>
       <% end %>
@@ -39,7 +39,8 @@
   <% end %>
 
   <%= f.actions do %>
-    <%= f.action :submit, :as => :input %>
+    <%= f.action  :submit, :label => "Create calendar block", :as => :input, :button_html => {class:'btn btn-primary'} %>
+    <%= f.action  :submit, :label => "Create 10-week recurring block", :as => :input %>
   <% end %>
 <% end %>
 
