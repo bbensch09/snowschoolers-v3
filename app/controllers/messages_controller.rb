@@ -29,6 +29,7 @@ class MessagesController < ApplicationController
     @message = Message.new
     @conversation = Conversation.find_or_create_by(requester_id:current_user.id, instructor_id: params[:instructor_id])
     @messages = @conversation.messages
+    @message.send_sms_to_instructor(@conversation)
     redirect_to show_conversation_path(@conversation)
   end
 
