@@ -12,8 +12,8 @@
     <ul>
       <li>Instructor Type: <%= @instructor.sport %></li>
       <li>Certification Level: <%= @instructor.certification %></li>
-      <li>Maximum eligible ability level to teach for skiing: Level <%= @instructor.ski_levels.max.value %></li>
-      <li>Maximum eligible ability level to teach snowboarding: Level <%= @instructor.snowboard_levels.max.value %></li>
+      <li>Maximum eligible ability level to teach for skiing: Level <%= @instructor.ski_levels.max ? @instructor.ski_levels.max.value : "n/a"%></li>
+      <li>Maximum eligible ability level to teach snowboarding: Level <%= @instructor.snowboard_levels.max ? @instructor.snowboard_levels.max.value : "n/a" %></li>
     </ul>
 
     <p>
