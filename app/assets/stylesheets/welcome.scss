@@ -192,8 +192,14 @@ aside {
   padding-top: 15px;
   padding-bottom: 15px;
 }
-#header-creative .header-content .header-content-inner hr {
+#header-creative .header-content .header-content-inner hr, hr {
   margin: 30px auto;
+}
+.deposit-hr-navy{
+border-top: 3px solid #3b5998 !important;
+margin-left: auto !important;;
+margin-right: auto !important;;
+
 }
 #header-creative .header-content .header-content-inner p {
   font-weight: 300;
@@ -570,6 +576,17 @@ h2 {
   margin-bottom: 0px;
   margin-top: 5px;
   font-style: italic;
+}
+.homewood-pricing{
+  font-size: 0.7em;
+}
+.contact-link{
+  color: #3b5998;
+  text-decoration: underline;
+}
+.nav-email-noaction:hover, .nav-email-noaction:visited{
+  background: #3b5998 !important;
+  color: #DADADA;
 }
 
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/

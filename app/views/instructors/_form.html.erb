@@ -18,7 +18,7 @@
   <section class="admin-viewable">
     <div class="col-md-12 vertical-padding">
     <h4> ADMIN ONLY: Select user email to link to instructor application.</h4>
-      <%= f.select :user_id, options_from_collection_for_select(User.all, :id, :email, selected:@instructor_id), include_blank:true %>
+      <%= f.select :user_id, options_from_collection_for_select(User.all.sort {|a,b| a.email <=> b.email}, :id, :email, selected:@instructor_id), include_blank:true %>
     <h4>Initial Adults Rank</h4>
       <%= f.select :adults_initial_rank, [1,2,3,4,5,6,7,8,9,10], include_blank:false %>
     <h4>Initial Kids Rank</h4>
@@ -136,7 +136,7 @@
   <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
   <div class="row">
     <div class="col-md-12 vertical-padding">
-      <% if controller.action_name == 'update' %>
+      <% if controller.action_name == 'edit' %>
       <%= f.submit "Update Instructor Profile", class: "btn btn-primary btn-xl page-scroll pull-right push-bottom" %>
       <% else %>
       <%= f.submit "Submit Application", class: "btn btn-primary btn-xl page-scroll pull-right push-bottom" %>

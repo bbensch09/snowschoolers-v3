@@ -8,27 +8,15 @@
   <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
   <link rel="icon" type="image/png" href="https://s3.amazonaws.com/snowschoolers/SnowSchoolers-favicon.png">
   <meta name="google-site-verification" content="W1jQsfy52H6ubJcGDNxflQmKuSNdLuId5JvlfBaLBF4" />
-<!-- Robots noindex tag should be added when pushing to dev.branch -->
-  <!-- <meta name="robots" content="noindex"> -->
+  <% if ENV['HOST_DOMAIN'] == "demo.snowschoolers.com" %>
+    <!-- Robots noindex tag in place on demo.snowschoolers.com site -->
+  <meta name="robots" content="noindex">
+  <% end %>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet" type="text/css" />
   <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "bootstrap/modernizr.min.js" %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
-
-
- <!-- GOOGLE ANALYTICS DEVELOPMENT TRACKING -  -->
-<!--     <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-      // property ID for dev.snowschoolers.com
-      ga('create', 'UA-80641194-2', {"cookieDomain":"none"});
-      ga('send', 'pageview');
-
-  </script> -->
 
    <!-- GOOGLE ANALYTICS PRODUCTION TRACKING -  -->
   <script>
@@ -97,7 +85,7 @@
           <% elsif current_user %>
             <% name = current_user.email.present? ? current_user.email : 'Edit Profile' %>
             <% if current_user.instructor.nil? %>
-                <li><%= link_to name, edit_user_registration_path %></li>
+                <li><%= link_to name, "#", class: "nav-email-noaction" %></li>
                 <li><a href="/lessons" class="sign-up-btn"> My Lessons</a></li>
                 <li><a href="/browse" class="sign-up-btn">Browse by Instructors</a></li>
                 <li><%= link_to 'Apply as an Instructor', '/apply', class: 'sign-up-btn' %></li>
@@ -107,7 +95,7 @@
                 <li><a href="/browse" class="sign-up-btn">Instructors</a></li>
                 <li><a href="/calendar_blocks" class="sign-up-btn"> Manage Availability </a></li>
               <% else %>
-                <li><%= link_to name, edit_user_registration_path %></li>
+                <li><%= link_to name, "#", class: "nav-email-noaction" %></li>
                 <li><%= link_to 'Check Instructor Status', instructor_path(current_user.instructor), class: 'sign-up-btn' %></li>
             <% end %>
             </li>
@@ -207,22 +195,58 @@
 
 <div class='container'>
   <% if notice %>
-    <p class="alert alert-success"><%= notice %></p>
+  <!--   <p class="alert alert-success alert-dismissable"><%= notice %>
+    </p> -->
+    <div class="alert alert-success alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+     <p> <%= notice %> </p>
+    </div>
   <% end %>
 
   <% if alert %>
-    <p class="alert alert-danger"><%= alert %></p>
+    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+     <p> <%= alert %> <%= notice %> </p>
+    </div>
+  <% end %>
+
+  <% if notice && flash[:conversion] == 'TRUE' %>
+    <!-- <h3> Adwords conversion = <%= flash[:conversion] %> </h3> -->
+      <!-- Google Code for Lesson Bookings Conversion Page -->
+      <script type="text/javascript">
+      /* <![CDATA[ */
+      var google_conversion_id = 880357341;
+      var google_conversion_language = "en";
+      var google_conversion_format = "3";
+      var google_conversion_color = "ffffff";
+      var google_conversion_label = "bMVQCIvNxWwQ3d_kowM";
+      var google_conversion_value = 30.00;
+      var google_conversion_currency = "USD";
+      var google_remarketing_only = false;
+      /* ]]> */
+      </script>
+      <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+      </script>
+      <noscript>
+      <div style="display:inline;">
+      <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/880357341/?value=30.00&amp;currency_code=USD&amp;label=bMVQCIvNxWwQ3d_kowM&amp;guid=ON&amp;script=0"/>
+      </div>
+      </noscript>
   <% end %>
 </div>
 
 <%= yield %>
 
-<% if controller.controller_name == "welcome" || controller.controller_name == "lessons" || controller.controller_name == "instructors" %>
-<script type="text/javascript">CRISP_WEBSITE_ID = "0ae9bf60-bc66-4da4-b4d3-716ab557898c";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.im/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
-<% end %>
 
 <!-- FOOTER -->
 <footer id="footer">
+<% if controller.controller_name == "welcome" || controller.controller_name == "lessons" || controller.controller_name == "instructors" %>
+<script type="text/javascript">CRISP_WEBSITE_ID = "0ae9bf60-bc66-4da4-b4d3-716ab557898c";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.im/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+<% end %>
   <span id="slideTimer"><!-- fs-slideshow timer line --></span>
 
   <!-- right menu -->
@@ -268,6 +292,26 @@
   </div>
 </div>
 <!-- /FOLLOW US -->
+
+<!-- Google Code for Remarketing Tag -->
+<!--------------------------------------------------
+Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. See more information and instructions on how to setup the tag on: http://google.com/ads/remarketingsetup
+--------------------------------------------------->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 880357341;
+var google_custom_params = window.google_tag_params;
+var google_remarketing_only = true;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/880357341/?guid=ON&amp;script=0"/>
+</div>
+</noscript>
+
 
 </body>
 </html>

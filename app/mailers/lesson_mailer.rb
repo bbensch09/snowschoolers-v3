@@ -32,6 +32,11 @@ class LessonMailer < ActionMailer::Base
     mail(to: 'brian@snowschoolers.com', subject: "Submitted Application: #{@instructor.username} has applied to join Snow Schoolers")
   end
 
+  def instructor_status_activated(instructor)
+    @instructor = instructor
+    mail(to: @instructor.user.email, cc: 'brian@snowschoolers.com', subject: "Instructor status is now Active!")
+  end
+
   def subscriber_sign_up(beta_user)
     @beta_user = beta_user
     mail(to: 'brian@snowschoolers.com', subject: "Someone has subscribed to the Snow Schoolers mailing list")
@@ -68,7 +73,12 @@ class LessonMailer < ActionMailer::Base
 
   def send_lesson_confirmation(lesson)
     @lesson = lesson
-    mail(to: @lesson.requester.email, cc:'notify@snowschoolers.com', bcc:@lesson.instructor.user.email, subject: 'Your Snow Schoolers lesson has been confirmed')
+    mail(to: @lesson.requester.email, cc:'notify@snowschoolers.com', bcc:@lesson.instructor.user.email, subject: 'Your Snow Schoolers certified instructor has confirmed your reservation!')
+  end
+
+  def send_lesson_request_notification(lesson)
+    @lesson = lesson
+    mail(to: @lesson.requester.email, cc:'notify@snowschoolers.com', subject: 'Lesson Request Received')
   end
 
   def send_lesson_update_notice_to_instructor(original_lesson, updated_lesson, changed_attributes)
@@ -92,6 +102,6 @@ class LessonMailer < ActionMailer::Base
 
   def send_payment_email_to_requester(lesson)
     @lesson = lesson
-    mail(to: @lesson.requester.email, cc:'notify@snowschoolers.com', subject: 'Please complete your Snow Schoolers lesson payment')
+    mail(to: @lesson.requester.email, cc:'notify@snowschoolers.com', subject: 'Please complete your Snow Schoolers online experience!')
   end
 end

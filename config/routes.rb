@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   end
 
   resources :calendar_blocks
+  post 'calendar_blocks/create_10_week_recurring_block' => 'calendar_blocks#create_10_week_recurring_block', as: :create_10_week_recurring_block
 
   # mount Ckeditor::Engine => '/ckeditor'
   resources :lesson_actions
@@ -90,4 +91,5 @@ Rails.application.routes.draw do
   put   'lessons/:id/mark_lesson_complete'   => 'lessons#mark_lesson_complete',   as: :mark_lesson_complete
   patch 'lessons/:id/confirm_lesson_time' => 'lessons#confirm_lesson_time', as: :confirm_lesson_time
   get   'lessons/:id/complete'            => 'lessons#complete',            as: :complete_lesson
+  post 'lessons/:id/confirm_reservation'              => 'lessons#confirm_reservation', as: :confirm_reservation
 end

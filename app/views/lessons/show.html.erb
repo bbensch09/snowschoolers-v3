@@ -5,11 +5,27 @@
     <div class="col-md-12 vertical-padding">
     <h4> (ADMIN ONLY) Eligible instructors are:</h4>
       <ul>
-        <% @lesson.available_instructors.each do |instructor| %>
-        <li> <%= instructor.name  %> - <%= instructor.user_id %> - <%= instructor.phone_number %> </li>
-      <% end %>
+        <% if @lesson.available_instructors.any? %>
+            <% @lesson.available_instructors.each do |instructor| %>
+            <li> <%= instructor.name  %> - <%= instructor.user_id %> - <%= instructor.phone_number %> </li>
+            <% end %>
+          <% else %>
+          <li><p class="alert-danger">No instructors available!</p></li>
+          <% end %>
       </ul>
     </div>
+    <% end %>
+
+    <% if @lesson.state == "ready_to_book" && @lesson.deposit_status.nil? %>
+      <%= render partial: 'confirm_reservation' %>
+    <% end %>
+
+    <% if current_user && current_user.instructor.nil? && @lesson.state == "booked" || @lesson.state == "confirmed" %>
+      <script src="https://www.smartwaiver.com/m/webpl/f.js?webpl_waiver=584daa0c8f287&webpl_title=Please%20now%20sign%20your%20waiver&webpl_align=Left&webpl_fontsize=20&webpl_background=%2355c9b2&webpl_fontcolor=%23ffffff&webpl_font=Verdana" type="text/javascript"></script>
+    <% end %>
+
+    <% if @lesson.finalizing? %>
+      <%= render partial: 'confirming_lesson_duration' %>
     <% end %>
 
     <% if @lesson.waiting_for_payment? && current_user == @lesson.requester %>
@@ -22,10 +38,6 @@
       <%= render partial: 'reviews/form' %>
       <% elsif @lesson.waiting_for_review? && current_user.instructor %>
           <%= link_to "Remind student to submit their review", mark_lesson_complete_path, method: :get, class: "btn btn-success" %>
-    <% end %>
-
-    <% if @lesson.finalizing? %>
-      <%= render partial: 'confirming_lesson_duration' %>
     <% end %>
 
     <% if @lesson.confirmable? || @lesson.completable? %>

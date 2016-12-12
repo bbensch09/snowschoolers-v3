@@ -23,47 +23,41 @@
               <label>Location</label>
                 <%= f.input :requested_location, as: :select, collection: Location.all, include_blank: 'Location', label: false %>
             </div>
-          </div>
 
+          </div>
           <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
             <div class='row'>
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <label>Date</label>
                 <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker' }, placeholder: 'Pick a date', label: false %>
                 <span class="search-area-icon"></span>
               </div>
 
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <label>Slot</label>
-                <!-- <%= lt_f.input :slot, as: :select, collection: ['Morning', 'Afternoon', 'Full Day'], include_blank: 'Length', :input_html => { :class => 'lesson-slot-input'}, label: false %> -->
-                <%= lt_f.input :slot, as: :select, collection: ['1hr Early Bird', 'Half-day Morning', 'Half-day Afternoon', 'Full-day Private'], include_blank: 'Time', label: false %>
+                <%= lt_f.input :slot, as: :select, collection: ['Early Bird (9-10am)', 'Half-day Morning (10am-1pm)', 'Half-day Afternoon (1pm-4pm)','Full-day (10am-4pm)'], include_blank: 'Time', label: false %>
 
               </div>
-            </div>
           <% end %>
+              <div class="col-md-4">
+                <label>Cell Phone</label>
+                <%= f.input :phone_number, as: :string, placeholder: 'xxx-xxx-xxxx', required: true, label: false %>
+              </div>
+            </div>
 
           <div class='row'>
-            <!-- <div class="col-md-4">
-              <label>Lesson Length</label>
-              <%= f.input :duration, as: :select, collection: [['1 hour', 1],['2 hours', 2], ['3 hours', 3], ['6 hours', 6]], selected: '2', include_blank: 'Length', required: true, label: false, :input_html => { :class => 'lesson-length-input  full-form-focus'} %>
+            <div class="col-md-4">
+              <label>Do you have equipment?</label>
+              <%= f.input :gear, as: :select, collection: [['Yes, I already have my equipment.', true], ['No, I will need to rent equipment.', false]], include_blank: '(Skis,boots,etc.)', label: false, required:true %>
             </div>
-
             <div class="col-md-4">
-              <label>Start Time</label>
-              <%= f.input :start_time, as: :string, input_html: { id: 'timepicker' }, placeholder: 'Pick a start time', required: true, label: false %>
-            </div> -->
-            <div class="col-md-4">
-              <label>Cell Phone</label>
-              <%= f.input :phone_number, as: :string, include_blank: '(xxx)xxx-xxxx', label: false, required: true %>
+              <label>Have a lift ticket or pass?</label>
+              <%= f.input :lift_ticket_status, as: :select, collection: [['Yes, I have one.', true], ['No, I still need one.', false]], include_blank: 'Choose one', label: false, required:true %>
             </div>
             <div class="col-md-4">
               <label>Price</label>
                 <h2> <span id="lesson-price"><%= number_to_currency(@lesson.price) %></span></h2>
             </div>
-            <!--             <div class="col-md-4">
-              <label>Do you have gear?</label>
-              <%= f.input :gear, as: :select, collection: [['Yes, already have gear.', true], ['No, need gear.', false]], include_blank: '(Skis,boots,etc.)', label: false %>
-            </div> -->
             <div class="col-md-12">
             <!-- Price ($75 per hour): $<span id="donation-amount"><%= @lesson.price %></span>.00 -->
             </div>
@@ -101,56 +95,29 @@
           </div>
          <div class='col-md-12'>
             <label>Anything else you want your instructor to know?</label>
-            <%= f.input :objectives, placeholder: 'What do you hope to get out of this lesson?', required: true, label: false %>
+            <%= f.input :objectives, placeholder: 'What do you hope to get out of this lesson?', required: false, label: false %>
           </div>
           <div class="col-md-12">
             <span class="remember-box checkbox ">
               <label for="rememberme">
                   <%= f.check_box :terms_accepted, id: "rememberme", required: true  %>I agree to the <span><a href="/terms_of_service" target="_blank">Terms and Conditions</a></span>
-<!--                 <% if @lesson.terms_accepted.nil? %>
-                  <%= f.check_box :terms_accepted, id: "rememberme" %>I agree to the <span><a href="#">Terms and Conditions</a></span>
-                <% else %>
-                  <%= f.input :terms_accepted, as: :hidden, input_html: { value: true } %>
-                <% end %>
- -->              </label>
+              </label>
             </span>
-            </div>
+        </div>
 
           <div class="col-md-9">
-            <h4>Submit <strong> Lesson Request</strong></h4>
+          <% if @lesson.state == 'new' %>
+            <!-- <h4>Review <strong> Lesson Request</strong></h4> -->
+            <% button_text = "Continue to Payment" %>
+            <% else %>
+            <h4>Update <strong> Lesson Request</strong></h4>
+            <% button_text = "Update Lesson Request" %>
+          <% end %>
           </div>
-         <% if @lesson.deposit_status == 'confirmed' %>
           <div class="col-md-3">
             <%= f.input :state, as: :hidden, input_html: { value: @state } %>
-            <%= f.submit "Submit", class: 'btn sign-up-btn pull-right' %>
+            <%= f.submit button_text, class: 'btn sign-up-btn pull-right' %>
           </div>
-          <% else %>
-          <div class="col-md-12">
-              <%= form_tag charges_path do %>
-                <article>
-                  <% if flash[:error].present? %>
-                    <div id="error_explanation">
-                      <p><%= flash[:error] %></p>
-                    </div>
-                  <% end %>
-                  <label class="amount">
-                    <span>A $25.00 refundable deposit is required to complete your reservation. Your payment information will be saved and the remaining balance will be charged 24 hours before the start of your lesson. If for any reason you are unsatisfied with your Snow Schoolers experience, please ask about our 100% satisfaction guarantee.</span>
-                  </label>
-                </article>
-
-                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                        data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                        data-description="Refundable $25 Lesson Deposit. The remaining balance will be due upon completion of your lesson."
-                        data-name="Snow Schoolers"
-                        data-image="https://s3.amazonaws.com/snowschoolers/SnowSchoolers-favicon.png"
-                        data-amount="2500"
-                        data-locale="auto"
-                        data-zip-code="true">
-                </script>
-              <% end %>
-              </span>
-            </div>
-          <% end %>
 
         </div>
       </div>

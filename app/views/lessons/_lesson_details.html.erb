@@ -1,5 +1,5 @@
 <header class="page-header">
-  <h1>Lesson Details</h1>
+  <h2>Full Lesson Details</h2>
 </header>
 <p>Requester: <%= @lesson.requester.name %>
 <% if @lesson.instructor %>
@@ -26,101 +26,94 @@
   <%end%>
 
   <div class="col-md-6">
-    <h4>Basic <strong>Info</strong></h4>
+    <h3>Basic <strong>Info</strong></h3>
 
     <div class='row'>
 
-      <div class="col-md-6">
-        <label>Location:</label>
-        <div class='form-control'><%= @lesson.location.name %></div>
+      <div class="col-md-3 col-xs-3">
+      <h4 class="slot-details-mobile">
+        <b>Location:</b> <br>
+        <b>Sport:</b> <br>
+        <b>Date:</b> <br>
+        <b>Slot:</b> <br>
+        <b>Equipment:</b> <br>
+        <b>Lift Ticket:</b> <br>
+        <b>Price:</b>
+      </h4>
       </div>
-      <div class="col-md-6">
-        <label>Sport:</label>
-        <div class='form-control'><%= @lesson.activity %></div>
+      <div class="col-md-9 col-xs-9">
+      <h4 class="slot-details-mobile">
+        <%= @lesson.location.name %><br>
+        <%= @lesson.activity %><br>
+        <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %><br>
+        <span> <%= @lesson.slot %></span><br>
+        <%= @lesson.gear ? "Already have gear." : "Need to rent." %><br>
+        <%= @lesson.lift_ticket_status ? "Already have one." : "Need lift ticket." %><br>
+        <%= number_to_currency(@lesson.price) %>
+      </h4>
       </div>
     </div>
 
-      <div class='row'>
-        <div class="col-md-4">
-          <label>Date:</label>
-          <div class='form-control'><%= @lesson.date %></div>
-        </div>
-
-        <div class="col-md-4">
-          <label>Slot:</label>
-          <div class='form-control'><%= @lesson.slot %></div>
-        </div>
-        <div class="col-md-4">
-          <label>Price:</label>
-          <div class='form-control'><%= number_to_currency(@lesson.price) %></div>
-        </div>
-      </div>
-
+    <!--
     <div class='row'>
-     <!--  <div class="col-md-4">
+       <div class="col-md-4">
         <label>Duration:</label>
-        <div class='form-control'><%= "#{@lesson.duration} hours" if @lesson.duration %></div>
+        <div class=''><%= "#{@lesson.duration} hours" if @lesson.duration %></div>
       </div>
 
       <div class="col-md-4">
         <label>Start Time:</label>
-        <div class='form-control'><%= @lesson.start_time %></div>
-      </div> -->
+        <div class=''><%= @lesson.start_time %></div>
+      </div>
 
-<!--       <div class="col-md-4">
+      <div class="col-md-4">
         <label>Do you have gear?</label>
-        <div class='form-control'><%= @lesson.gear? ? 'Yes, already have gear' : 'No, need gear.' %></div>
-      </div> -->
+        <div class=''><%= @lesson.gear? ? 'Yes, already have gear' : 'No, need gear.' %></div>
+      </div>
     </div>
+     -->
   </div>
 
   <div class="col-md-6">
-    <h4>Objectives <strong> and Experience</strong></h4>
+    <h3>Objectives <strong> and Experience</strong></h3>
 
     <div class='col-md-12'>
-      <label>Focus Area:</label>
-      <div class='form-control'><%= @lesson.focus_area %></div>
+      <h4><b>Focus Area:</b></h4>
+      <div class=''><%= @lesson.focus_area %></div>
     </div>
 
     <div class='col-md-12'>
-      <label>Objectives:</label>
-      <div class='form-control'><%= @lesson.objectives %></div>
+      <h4><b>Objectives:</b></h4>
+      <div class=''><%= @lesson.objectives %></div>
     </div>
   </div>
 
   <div class='col-md-12 student-box'>
-      <h4>Student <strong>Info</strong></h4>
+      <h3>Student <strong>Info</strong></h3>
   <% @lesson.students.each do |student| %>
     <div class='row'>
       <div class='col-md-12'>
-        <label>Name</label>
+        <h4><b>Name:</b>
         <%= student.name %>
-      </div>
-      <div class='col-md-12'>
-        <label>Age Range</label>
+          <br>
+        <b>Age Range:</b>
         <%= student.age_range %>
-      </div>
-      <div class='col-md-12'>
-        <label>Gender</label>
+          <br>
+        <b>Gender:</b>
         <%= student.gender %>
-      </div>
-    </div>
-    <div class='row'>
-      <div class='col-md-12'>
-        <label>About the student</label>
+        <br>
+        <b>About the student:</b>
         <%= student.relationship_to_requester %>
-      </div>
-      <div class='col-md-12'>
-            <label>Most Recent Experience </label>
-            <%= student.most_recent_experience.to_s %>
-      </div>
-      <div class='col-md-12'>
-            <label>Most Recent Level </label>
+          <br>
+        <b>Most Recent Experience :</b>
+          <%= student.most_recent_experience.to_s %>
+          <br>
+       <b>Most Recent Level :</b>
             <%= student.most_recent_level.to_s %>
-      </div>
-      <div class='col-md-12'>
-            <label>Other Athletic Experience </label>
+          <br>
+       <b>Other Athletic Experience :</b>
             <%= student.other_sports_experience.to_s %>
+        </h4>
       </div>
     </div>
     <hr>
