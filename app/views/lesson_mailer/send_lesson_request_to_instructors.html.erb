@@ -9,24 +9,22 @@
       To take the lesson, go to the lesson page below and click the 'Take It' button before another instructor beats you to it!
     </p>
     <p>
-      <%= lesson_url(@lesson) %>
+      To review this lesson and accept or decline, visit: <%= lesson_url(@lesson) %>
     </p>
     <div class='row'>
       <h4>Basic <strong>Info</strong></h4>
 
       <ul>
           <li>Location:<%= @lesson.location.name %> </li>
-          <li>Date:<%= @lesson.date %> </li>
+          <li>Date: <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %></li>
           <li>Slot:<%= @lesson.slot %> </li>
-          <!-- <li>Duration:<%= "#{@lesson.duration} hours" %> </li> -->
-          <!-- <li>Start Time:<%= @lesson.start_time %> </li> -->
           <li>Pre-Tip Earnings:<%= number_to_currency(@lesson.price * 0.15) %> </li>
       </ul>
 
       <h4>Objectives <strong> and Experience</strong></h4>
 
         <ul>
-          <li>Skill Level:<%= @lesson.ability_level %> </li>
+          <li>Focus Area:<%= @lesson.focus_area %> </li>
           <li>Objectives:<%= @lesson.objectives %> </li>
         </ul>
 
@@ -37,7 +35,9 @@
             <li>Age Range: <%= student.age_range %></li>
             <li>Gender: <%= student.gender %></li>
             <li>About the student: <%= student.relationship_to_requester %></li>
-            <li>Previous Experience: <%= student.experience.to_s %> </li>
+            <li>Previous Experience: <%= student.most_recent_experience %> </li>
+            <li>Ability Level: <%= student.most_recent_level %> </li>
+            <li>Athletic Background: <%= student.other_sports_experience %> </li>
         </ul>
       <% end %>
     </div>
