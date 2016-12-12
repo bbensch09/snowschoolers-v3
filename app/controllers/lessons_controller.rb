@@ -41,8 +41,8 @@ class LessonsController < ApplicationController
 
   def new
     @lesson = Lesson.new
-    @activity = session[:lesson].nil? ? nil : session[:lesson]["activity"]
     @promo_location = session[:lesson].nil? ? nil : session[:lesson]["requested_location"]
+    @activity = session[:lesson].nil? ? nil : session[:lesson]["activity"]
     @slot = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["slot"]
     @date = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["date"]
     @lesson_time = @lesson.lesson_time
@@ -57,6 +57,7 @@ class LessonsController < ApplicationController
   end
 
   def create
+    session[:lesson] = params[:lesson]
     create_lesson_and_redirect
   end
 
@@ -247,8 +248,15 @@ class LessonsController < ApplicationController
     @lesson = Lesson.new(lesson_params)
     @lesson.requester = current_user
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
-    @lesson.save ? (redirect_to complete_lesson_path(@lesson)) : (render :new)
-    GoogleAnalyticsApi.new.event('lesson-requests', 'request-initiated', params[:ga_client_id])
+    if @lesson.save
+      redirect_to complete_lesson_path(@lesson)
+      GoogleAnalyticsApi.new.event('lesson-requests', 'request-initiated', params[:ga_client_id])
+      else
+        @activity = session[:lesson].nil? ? nil : session[:lesson]["activity"]
+        @slot = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["slot"]
+        @date = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["date"]
+        render 'new'
+    end
   end
 
   def send_cancellation_email_to_instructor

@@ -1,6 +1,9 @@
 <div class="container">
-<h1>Listing calendar_blocks</h1>
-
+<h1 class="center"><%= current_user.instructor.first_name %>'s Calendar Blocks</h1>
+<p>By blocking your calendar ahead of time, the system knows you are unavailable and will not send you SMS requests during these times.</p>
+<h4 class="alert-warning">
+  Note that selecting "Full-day 10am-4pm" will actually block your calendar from receiving less requests for the entire day, including early birds. If you would like to be eligible for early birds but not the 10am-4pm window, please contact Brian at <a href="mailto:brian@snowschoolers.com">brian@snowschoolers.com.</a>
+</h4>
 <table class="instructors-table">
   <thead>
     <tr>
@@ -37,5 +40,5 @@
 
 <br>
 
-<%= link_to 'New Calendar block', new_calendar_block_path %>
+<%= link_to 'New Calendar block', new_calendar_block_path, class: 'btn btn-primary' %>
 </div>

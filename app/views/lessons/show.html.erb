@@ -5,9 +5,13 @@
     <div class="col-md-12 vertical-padding">
     <h4> (ADMIN ONLY) Eligible instructors are:</h4>
       <ul>
-        <% @lesson.available_instructors.each do |instructor| %>
-        <li> <%= instructor.name  %> - <%= instructor.user_id %> - <%= instructor.phone_number %> </li>
-      <% end %>
+        <% if @lesson.available_instructors.any? %>
+            <% @lesson.available_instructors.each do |instructor| %>
+            <li> <%= instructor.name  %> - <%= instructor.user_id %> - <%= instructor.phone_number %> </li>
+            <% end %>
+          <% else %>
+          <li><p class="alert-danger">No instructors available!</p></li>
+          <% end %>
       </ul>
     </div>
     <% end %>

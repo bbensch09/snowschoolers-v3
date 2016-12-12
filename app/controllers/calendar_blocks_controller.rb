@@ -32,17 +32,32 @@ class CalendarBlocksController < ApplicationController
   # POST /calendar_blocks
   # POST /calendar_blocks.json
   def create
-    @calendar_block = CalendarBlock.new(calendar_block_params)
-    @calendar_block.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
+    if params[:commit] == "Create calendar block"
+      @calendar_block = CalendarBlock.new(calendar_block_params)
+      @calendar_block.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
 
-    respond_to do |format|
-      if @calendar_block.save
-        format.html { redirect_to @calendar_block, notice: 'Calendar block was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @calendar_block }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @calendar_block.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @calendar_block.save
+          format.html { redirect_to @calendar_block, notice: 'Calendar block was successfully created.' }
+          format.json { render action: 'show', status: :created, location: @calendar_block }
+        else
+          format.html { render action: 'new' }
+          format.json { render json: @calendar_block.errors, status: :unprocessable_entity }
+        end
       end
+
+    elsif params[:commit] == "Create 10-week recurring block"
+      @calendar_block = CalendarBlock.new(calendar_block_params)
+      @calendar_block.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
+      (1..11).to_a.each do |week|
+          puts "!!!!!!params are: #{calendar_block_params}"
+          @lesson_time = LessonTime.create!(date:(LessonTime.last.date+7),slot:LessonTime.last.slot)
+          @calendar_block = CalendarBlock.new(calendar_block_params)
+          @calendar_block.lesson_time = @lesson_time
+          @calendar_block.save
+          end
+        redirect_to calendar_blocks_path
+    else
     end
   end
 

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   end
 
   resources :calendar_blocks
+  post 'calendar_blocks/create_10_week_recurring_block' => 'calendar_blocks#create_10_week_recurring_block', as: :create_10_week_recurring_block
 
   # mount Ckeditor::Engine => '/ckeditor'
   resources :lesson_actions
