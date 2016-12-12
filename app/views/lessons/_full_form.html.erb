@@ -23,42 +23,36 @@
               <label>Location</label>
                 <%= f.input :requested_location, as: :select, collection: Location.all, include_blank: 'Location', label: false %>
             </div>
-          </div>
 
+          </div>
           <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
             <div class='row'>
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <label>Date</label>
                 <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker' }, placeholder: 'Pick a date', label: false %>
                 <span class="search-area-icon"></span>
               </div>
 
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <label>Slot</label>
-                <!-- <%= lt_f.input :slot, as: :select, collection: ['Morning', 'Afternoon', 'Full Day'], include_blank: 'Length', :input_html => { :class => 'lesson-slot-input'}, label: false %> -->
                 <%= lt_f.input :slot, as: :select, collection: ['Early Bird (9-10am)', 'Half-day Morning (10am-1pm)', 'Half-day Afternoon (1pm-4pm)','Full-day (10am-4pm)'], include_blank: 'Time', label: false %>
 
               </div>
-            </div>
           <% end %>
+              <div class="col-md-4">
+                <label>Cell Phone</label>
+                <%= f.input :phone_number, as: :string, placeholder: 'xxx-xxx-xxxx', required: true, label: false %>
+              </div>
+            </div>
 
           <div class='row'>
-            <!-- <div class="col-md-4">
-              <label>Lesson Length</label>
-              <%= f.input :duration, as: :select, collection: [['1 hour', 1],['2 hours', 2], ['3 hours', 3], ['6 hours', 6]], selected: '2', include_blank: 'Length', required: true, label: false, :input_html => { :class => 'lesson-length-input  full-form-focus'} %>
-            </div>
-
-            <div class="col-md-4">
-              <label>Start Time</label>
-              <%= f.input :start_time, as: :string, input_html: { id: 'timepicker' }, placeholder: 'Pick a start time', required: true, label: false %>
-            </div> -->
-            <div class="col-md-4">
-              <label>Cell Phone</label>
-              <%= f.input :phone_number, as: :string, include_blank: '(xxx)xxx-xxxx', required: true, label: false %>
-            </div>
             <div class="col-md-4">
               <label>Do you have equipment?</label>
               <%= f.input :gear, as: :select, collection: [['Yes, I already have my equipment.', true], ['No, I will need to rent equipment.', false]], include_blank: '(Skis,boots,etc.)', label: false, required:true %>
+            </div>
+            <div class="col-md-4">
+              <label>Have a lift ticket or pass?</label>
+              <%= f.input :lift_ticket_status, as: :select, collection: [['Yes, I have one.', true], ['No, I still need one.', false]], include_blank: 'Choose one', label: false, required:true %>
             </div>
             <div class="col-md-4">
               <label>Price</label>

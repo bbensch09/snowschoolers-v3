@@ -36,7 +36,8 @@
         <b>Sport:</b> <br>
         <b>Date:</b> <br>
         <b>Slot:</b> <br>
-        <!-- <b>Equipment:</b> <br> -->
+        <b>Equipment:</b> <br>
+        <b>Lift Ticket:</b> <br>
         <b>Price:</b>
       </h4>
       </div>
@@ -46,7 +47,8 @@
         <%= @lesson.activity %><br>
         <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %><br>
         <span> <%= @lesson.slot %></span><br>
-<!--         <%= @lesson.gear %><br> -->
+        <%= @lesson.gear ? "Already have gear." : "Need to rent." %><br>
+        <%= @lesson.lift_ticket_status ? "Already have one." : "Need lift ticket." %><br>
         <%= number_to_currency(@lesson.price) %>
       </h4>
       </div>

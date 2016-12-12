@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161126062851) do
+ActiveRecord::Schema.define(version: 20161212001439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,6 +163,7 @@ ActiveRecord::Schema.define(version: 20161126062851) do
     t.string   "public_feedback_for_student",  limit: 255
     t.string   "private_feedback_for_student", limit: 255
     t.string   "focus_area",                   limit: 255
+    t.string   "lift_ticket_status"
   end
 
   create_table "locations", force: :cascade do |t|
