@@ -21,13 +21,14 @@ App.room = App.cable.subscriptions.create("ConversationChannel", {
 
 $(document).on('submit', 'form[id=new_message]' , function(event) {
   event.preventDefault();
+  console.log("listening for submit....");
   var formDataJson = {};
   var allFormTags = $(this).serializeArray();
-  $.each(allFormTags, function() { 
-    formDataJson[this.name] = this.value; 
+  $.each(allFormTags, function() {
+    formDataJson[this.name] = this.value;
   })
   App.room.speak(formDataJson);
-  $('#btn-input').value = '';
+  $('#btn-input').val('');
 });
 
 function getCookie(name) {

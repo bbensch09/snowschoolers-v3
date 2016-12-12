@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :messages
   get 'start_conversation/:instructor_id' => 'messages#start_conversation'
   get 'conversations/:id' => 'messages#show_conversation', as: :show_conversation
+  get 'my_conversations' => 'messages#my_conversations', as: :conversations
 
   resources :reviews
 

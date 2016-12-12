@@ -27,17 +27,19 @@ class MessagesController < ApplicationController
 
   def start_conversation
     @message = Message.new
-    @conversation = Conversation.where(requester_id:current_user.id, instructor_id: params[:instructor_id]).first
-    if @message.conversation.nil?
-      @conversation = Conversation.create!({
-      instructor_id: params[:instructor_id],
-      requester_id: current_user.id
-      })
-    render 'new'
-      else
-      @messages = @conversation.messages
-      render 'conversation'
+    @conversation = Conversation.find_or_create_by(requester_id:current_user.id, instructor_id: params[:instructor_id])
+    @messages = @conversation.messages
+    redirect_to show_conversation_path(@conversation)
+  end
+
+  def my_conversations
+    if current_user.instructor.nil?
+      @conversations = Conversation.where(requester_id:current_user.id)
+    elsif current_user.instructor
+      @conversations = Conversation.where(instructor_id: current_user.instructor.id)
+    else
     end
+    render 'my_conversations'
   end
 
   # GET /messages/1/edit

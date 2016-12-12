@@ -79,19 +79,21 @@
            <% end %>
             <li><a href="/lessons" class="sign-up-btn"> Lessons </a></li>
             <li><a href="/browse" class="sign-up-btn">Instructors</a></li>
-            <li><%= link_to 'Apply', '/apply', class: 'sign-up-btn' %></li>
+            <li><%= link_to 'Inbox', '/my_conversations', class: 'sign-up-btn' %></li>
             <li> <%= link_to 'Logout', destroy_user_session_path %> </li>
 
           <% elsif current_user %>
             <% name = current_user.email.present? ? current_user.email : 'Edit Profile' %>
             <% if current_user.instructor.nil? %>
                 <li><%= link_to name, "#", class: "nav-email-noaction" %></li>
-                <li><a href="/lessons" class="sign-up-btn"> My Lessons</a></li>
-                <li><a href="/browse" class="sign-up-btn">Browse by Instructors</a></li>
-                <li><%= link_to 'Apply as an Instructor', '/apply', class: 'sign-up-btn' %></li>
+                <li><a href="/lessons" class="sign-up-btn"> Lessons</a></li>
+                <li><%= link_to 'Inbox', '/my_conversations', class: 'sign-up-btn' %></li>
+                <li><a href="/browse" class="sign-up-btn">Browse Instructors</a></li>
+                <li><%= link_to 'Apply', '/apply', class: 'sign-up-btn' %></li>
               <% elsif current_user.active_instructor? %>
                 <li><%= link_to name, instructor_path(current_user.instructor) %></li>
                 <li><a href="/lessons" class="sign-up-btn"> Lessons </a></li>
+                <li><%= link_to 'Inbox', '/my_conversations', class: 'sign-up-btn' %></li>
                 <li><a href="/browse" class="sign-up-btn">Instructors</a></li>
                 <li><a href="/calendar_blocks" class="sign-up-btn"> Manage Availability </a></li>
               <% else %>
@@ -108,7 +110,7 @@
             <% else %>
               <!-- <li><%= link_to 'Sign Up', new_user_registration_path, class: 'sign-up-btn' %></li> -->
               <li><a href="/browse" class="sign-up-btn">Browse Instructors</a></li>
-              <li> <%= link_to 'Become an Instructor', '/apply', class: 'sign-up-btn' %></li>
+              <li> <%= link_to 'Apply', '/apply', class: 'sign-up-btn' %></li>
               <li><a href="#" class="sign-up-btn" data-toggle="modal" data-target="#registerModal">Register</a></li>
               <li><a href="#" class="sign-up-btn" data-toggle="modal" data-target="#loginModal">Log In</a></li>
 <!--               <li>
