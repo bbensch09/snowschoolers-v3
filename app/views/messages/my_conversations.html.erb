@@ -1,0 +1,68 @@
+<div class="container cont2">
+<h1 class="center">Snow Schoolers Messages</h1>
+<!-- <table class="instructors-table">
+  <thead>
+    <tr>
+      <th>Conversation ID</th>
+      <th>Student</th>
+      <th>Instructor</th>
+      <th>Last Message</th>
+      <th>Unread?</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @conversations.each do |convo| %>
+      <tr>
+        <td><%= convo.id %></td>
+        <td><%= convo.requester.name %></td>
+        <td><%= convo.instructor.name %></td>
+        <td><%= convo.messages.last.content %></td>
+        <td><%= convo %></td>
+        <td><%= link_to 'Show', show_conversation_path(convo) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table> -->
+
+<% @conversations.each do |convo| %>
+<% if current_user.instructor.nil? %>
+  <% matched_user = convo.instructor.user %>
+  <% matched_user_name = convo.instructor.first_name %>
+  <% else %>
+  <% matched_user = convo.requester %>
+  <% matched_user_name = convo.requester.name.split(" ").first %>
+<% end %>
+<% message = convo.messages.last %>
+
+<div class="match-row cl-b">
+  <div class="col-md-1 col-xs-3 profile-container">
+    <a href=<%="/conversations/#{convo.id}"%> >
+      <img class="img-circle" src="<%= matched_user.instructor ? matched_user.instructor.avatar : 'http://placehold.it/50/55C1E7/fff&text=User' %>" alt="profile"/>
+    </a>
+  </div>
+  <div class="col-md-11 col-xs-9">
+    <a class="btn btn-blank link-area" role="button" href=<%="/conversations/#{convo.id}"%> >
+        <!--
+        <% unread_messages = 0 #current_user.unread_messages_in_match(match) %>
+          <% if unread_messages > 0 %>
+            <span class="unread-badge badge"><%= unread_messages %></span>
+        <% end %>
+         -->
+    <div class="name-and-text">
+        <p class="last-message name"><%= matched_user_name %></p>
+        <% if !message.nil? %>
+          <p class="last-message">
+            <% if message.content.length <=75 %>
+              <%= message.content %>
+              <% else %>
+              <%= message.content[0..75] %>...
+            <% end %>
+          </p>
+        <% end %>
+    </div>
+  </a>
+</div>
+</div>
+<% end %>
