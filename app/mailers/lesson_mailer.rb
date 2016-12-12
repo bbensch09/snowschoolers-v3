@@ -32,6 +32,11 @@ class LessonMailer < ActionMailer::Base
     mail(to: 'brian@snowschoolers.com', subject: "Submitted Application: #{@instructor.username} has applied to join Snow Schoolers")
   end
 
+  def instructor_status_activated(instructor)
+    @instructor = instructor
+    mail(to: @instructor.user.email, cc: 'brian@snowschoolers.com', subject: "Instructor status is now Active!")
+  end
+
   def subscriber_sign_up(beta_user)
     @beta_user = beta_user
     mail(to: 'brian@snowschoolers.com', subject: "Someone has subscribed to the Snow Schoolers mailing list")

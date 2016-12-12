@@ -4,20 +4,33 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Lesson Request Confirmed</h1>
+    <p>Hello <%= @lesson.requester.name %>,</p>
+    <p>
+      Good news! One of our expert instructors, <%=@lesson.instructor.name %>, has confirmed your lesson request. Please review your instructor's info and the details of your lesson below, and don't be afraid to <a href="mailto:info@snowschoolers.com">reach out to us</a> if you have any questions. You may also reach your instructor directly the day of your lesson using their contact info below.
+    </p>
+
+    <h4>Meeting Location</h4>
+    <p>Please plan to meet <%=@lesson.instructor.first_name %> upstairs in the back corner of Homewood North Lodge a few minutes before the scheduled start of your lesson, as depicted below. The lodge is located at <a href="https://www.google.com/maps/place/Homewood+Mountain+Resort/@39.086085,-120.1627817,17z/data=!4m12!1m6!3m5!1s0x809bd57fbf0e6771:0x6cdf8953d18f267f!2sSR+89+Homewood+(Homewood+Mountain+Resort)!8m2!3d39.086085!4d-120.160593!3m4!1s0x0:0x73b0c46aa0c1068d!8m2!3d39.0855831!4d-120.1605392" >5145 W Lake Blvd, Homewood, CA 96141</a>. If you would like to meet somewhere else, such as on mountain or in a lift line, please be sure to message your instructor ahead of time. </p>
+    <img src="https://s3.amazonaws.com/snowschoolers/meeting_location_north_lodge.png" alt="meeting-spot" height="400" width="700" alt="" />
+
+    <h4>Lesson Details</h4>
     <ul>
-      <li>Instructor: <%= @lesson.instructor.name %></li>
+      <li>Instructor Name: <%= link_to @lesson.instructor.name, @lesson.instructor %></li>
+      <li>Instructor phone number: <%= @lesson.instructor.phone_number %></li>
       <li>Students: <%= @lesson.students.map(&:name).join(', ') %></li>
-      <li>Date: <%= @lesson.date %></li>
+      <li>Date: <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %></li>
       <li>Slot: <%= @lesson.slot %></li>
-      <li>Duration: <%= "#{@lesson.duration} hours" if @lesson.duration %></li>
-      <li>Start Time: <%= @lesson.start_time %></li>
       <li>Location: <%= @lesson.location.name %></li>
       <!-- <li>Gear: <%= @lesson.gear? ? 'Yes' : 'No' %></li> -->
       <li>Objectives: <%= @lesson.objectives %></li>
     </ul>
     <p>
-      <%= lesson_url(@lesson) %>
+      To make changes to your lessons: <%= lesson_url(@lesson) %>
     </p>
+    <% if @lesson.gear == false %>
+    <% end %>
+
+    <% if @lesson.lift_ticket_status == false %>
+    <% end %>
   </body>
 </html>
