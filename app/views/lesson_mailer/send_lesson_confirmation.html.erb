@@ -4,7 +4,7 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <p>Hello <%= @lesson.requester.name %>,</p>
+    <p>Hello <%= @lesson.requester.name.split(" ").first %>,</p>
     <p>
       Good news! One of our expert instructors, <%=@lesson.instructor.name %>, has confirmed your lesson request. Please review your instructor's info and the details of your lesson below, and don't be afraid to <a href="mailto:info@snowschoolers.com">reach out to us</a> if you have any questions. You may also reach your instructor directly the day of your lesson using their contact info below.
     </p>
@@ -25,12 +25,34 @@
       <li>Objectives: <%= @lesson.objectives %></li>
     </ul>
     <p>
-      To make changes to your lessons: <%= lesson_url(@lesson) %>
+      If you need to make changes to your lessons, please visit: <%= lesson_url(@lesson) %>
     </p>
-    <% if @lesson.gear == false %>
+    <% if @lesson.gear == nil %>
+      <h4>Rental Equipment</h4>
+      <p>Private lessons at Homewood with Snow Schoolers do not include rentals. However, we're happy to make some recommendations if you are still in need of renting equipment for your upcoming trip.</p>
+      <ul>
+        <li> The cheapest option for rentals is generally in metro areas such as the Bay Area and Sacramento. We are personally big fans of the <a href="https://rentals.sportsbasement.com/rent/ski-rentals/adult-basic-ski-package">Sports Basement</a>, which offers 4-day rentals for $55.</li>
+        <li>The next most affordable option is to rent from a retail shops in the Tahoe area. We recommend <a href="https://rentals.tahoedaves.com/">Taheo Dave's</a>, which has five locations in North Tahoe with beginner packages for $32/day.
+        <li>Lastly, you can always rent from the on-mountain rental shop at Homewood, which located next to the lift ticket counter at the North Lodge. Pricing is typically a bit more expensive, but you get the convenience of not having to fit skis in your car. Please give yourself at least an extra 30 minutes before your lesson if you are planning to rent from the mountain. </li>
+      </ul>
     <% end %>
 
-    <% if @lesson.lift_ticket_status == false %>
+    <% if @lesson.lift_ticket_status == nil %>
+    <h4>Lift Tickets</h4>
+      <p>
+        You will also need to obtain a lift ticket or season pass in advance of your Snow Schoolers lesson. The easiest and most affordable way to purchase your lift ticket is online at <a href="http://cloudstore.skihomewood.com/categories/all-tickets">www.skihomewood.com</a>.
+      </p>
+      <ul>
+        <li> Homewood's online ticket sales are powered by <a href="http://about.liftopia.com/platform/details/">Liftopia</a>, which deploys a dynamic pricing engine that rewards guests with the lowest prices when you purchase tickets in advance, with tickets as low as $49 per day.</li>
+        <li>If your lesson is schedule for the middle of a non-holiday week, the savings may only be minimal (~10%), but if your trip is planned for a weekend or holiday, savings can be upwards of ~30-40%, so we would strongly advise purchasing your tickets in advance.</li>
+      </ul>
     <% end %>
+
+    <p>If you have any questions or if there is anything we can do to help you prepare for your upcoming lesson, please don't be afraid to reach out. Happy Trails!</p>
+    <p>
+      - Brian Bensch <br>
+      Founder, SnowSchoolers.com <br>
+      brian@snowschoolers.com
+    </p>
   </body>
 </html>
