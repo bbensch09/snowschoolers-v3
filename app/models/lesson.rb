@@ -218,6 +218,14 @@ class Lesson < ActiveRecord::Base
     return student_levels.max
   end
 
+  def athlete
+    if self.activity == "Ski"
+      return "skier"
+    else
+      return "snowboarder"
+    end
+  end
+
   def available_instructors
     if self.instructor_id
         if  Lesson.instructors_with_calendar_blocks(self.lesson_time).include?(self.instructor)
@@ -388,7 +396,7 @@ class Lesson < ActiveRecord::Base
         when 'new'
           body = "A lesson booking was begun and not finished. Please contact an admin or email info@snowschoolers.com if you intended to complete the lesson booking."
         when 'booked'
-          body = "#{self.available_instructors.first.first_name}, You have a new lesson request from #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. Are you available? Please visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm."
+          body = "#{self.available_instructors.first.first_name}, You have a new lesson request from #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. They are a level #{self.level.to_s} #{self.athlete}. Are you available? Please visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm."
         when 'seeking replacement instructor'
           body = "We need your help! Another instructor unfortunately had to cancel. Are you available to teach #{self.requester.name} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name} at #{self.product.start_time}? Please visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm."
         when 'pending instructor'
@@ -403,6 +411,7 @@ class Lesson < ActiveRecord::Base
           :body => body
       })
       send_reminder_sms
+      # puts "!!!!Body: #{body}"
       puts "!!!!! - reminder SMS has been scheduled"
   end
 
