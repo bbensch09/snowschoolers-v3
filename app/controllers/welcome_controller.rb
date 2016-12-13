@@ -20,6 +20,9 @@ class WelcomeController < ApplicationController
     # @lesson_time = @lesson.lesson_time
   end
 
+  def about_us
+  end
+
   def admin_users
     @users = User.all.sort {|a,b| a.email <=> b.email}
   end
