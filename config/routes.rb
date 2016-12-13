@@ -52,6 +52,7 @@ Rails.application.routes.draw do
   get 'apply' => 'welcome#apply'
   get 'index' => 'welcome#index'
   get 'about_us' => 'welcome#about_us'
+  get 'launch_announcement' => 'welcome#launch_announcement'
   get 'privacy' => 'welcome#privacy'
   get 'terms_of_service' => 'welcome#terms_of_service'
   get 'new_hire_packet' => 'welcome#new_hire_packet'
