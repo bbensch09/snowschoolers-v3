@@ -103,16 +103,14 @@
         <ul class="new-lesson-ctas-list">
           <li>
             <%= f.actions do %>
-              <%= f.action :submit, as: :input, button_html: { class: 'btn btn-default btn-lg', value: 'Book Lesson' } %>
+              <!-- %= f.action :submit, as: :input, button_html: { class: 'btn btn-default btn-lg', value: 'Book Lesson' } %> -->
+              <%= f.action :submit, :label => "Book Lesson", as: :input, button_html: { class: 'btn btn-default btn-lg' } %>
+                <% if @instructor_requested.nil? %>
+                <li>  OR </li>
+                <li> <button id='browser-instructors-cta' href="/browse" value="Browse Instructors" class="btn btn-default btn-lg">Browse instructors</button></li>
+                <% end %>
             <% end %>
           </li>
-            <% if @instructor_requested.nil? %>
-            <li>  OR </li>
-          <li>
-              <a id='browser-instructors-cta' href="/browse" class="btn btn-default btn-lg">Browse instructors</a>
-              <!-- class="browse-instructors-btn" -->
-          </li>
-            <% end %>
         </ul>
       <% end %>
     </div>
