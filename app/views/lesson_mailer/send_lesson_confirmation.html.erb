@@ -4,7 +4,12 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <p>Hello <%= @lesson.requester.name.split(" ").first %>,</p>
+    <% if @lesson.requester.name %>
+      <p>Hello <%= @lesson.requester.name.split(" ").first %>,</p>
+      <% else %>
+      <p>Hello,</p>
+    <% end %>
+
     <p>
       Good news! One of our expert instructors, <%=@lesson.instructor.name %>, has confirmed your lesson request. Please review your instructor's info and the details of your lesson below, and don't be afraid to <a href="mailto:info@snowschoolers.com">reach out to us</a> if you have any questions. You may also reach your instructor directly the day of your lesson using their contact info below.
     </p>

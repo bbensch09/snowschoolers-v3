@@ -7,7 +7,11 @@
     <h1>Lesson Update Notice</h1>
     <p>Original Lesson:</p>
     <ul>
-      <li>Requester: <%= @original_lesson.requester.name %></li>
+    <% if @lesson.requester.name %>
+      <li>Requester: <%= @lesson.requester.name %></li>
+      <% else %>
+      <li>Requester: <%= @lesson.requester.email %></li>
+    <% end %>
       <li>Students: <%= @original_lesson.students.map(&:name).join(', ') %></li>
       <li>Date: <%= @original_lesson.date %></li>
       <li>Slot: <%= @original_lesson.slot %></li>

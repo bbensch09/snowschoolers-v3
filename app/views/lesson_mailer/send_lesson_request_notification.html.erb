@@ -4,7 +4,12 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <p>Hi <%= @lesson.requester.name.split(" ").first %>,</p>
+    <% if @lesson.requester.name %>
+      <p>Hello <%= @lesson.requester.name.split(" ").first %>,</p>
+      <% else %>
+      <p>Hello,</p>
+    <% end %>
+
     <p>
       Thank you for submitting your private lesson request through Snow Schoolers!
     </p>

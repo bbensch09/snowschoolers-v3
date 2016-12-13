@@ -1,7 +1,7 @@
 <% @blog = Blog.first %>
 <% title @blog.title %>
 <% meta_tag :description, "Snow Schoolers is an online platform for private ski & snowboard lessons. We offer guests the ability to easily book a private lesson online with our fleet of expert, certified instructors. For our instructors, we provide schedule flexibility and modern client communication tools that empower instructors to cultivate a loyal following of clients. Lastly, we collaborate closely with our ski area partners to maximize the financial success of their ski school operation, attracting valuable new customers and increasing their overall revenues." %>
-<div class="container">
+<div class="blog-container">
 <div class="title-author-top">
   <p>
     <h1 class="center navy-text">
@@ -12,7 +12,7 @@
   </p>
 </div>
 
-<div class="content-area col-lg-9 col-sm-6">
+<div class="content-area col-lg-12 col-xs-12">
   <%= image_tag @blog.cover_photo.url(:large), class:"cover-photo" %>
   <%= raw(@blog.content) %>
 

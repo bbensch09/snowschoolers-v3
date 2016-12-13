@@ -43,22 +43,30 @@ class LessonsController < ApplicationController
     @lesson = Lesson.new
     @promo_location = session[:lesson].nil? ? nil : session[:lesson]["requested_location"]
     @activity = session[:lesson].nil? ? nil : session[:lesson]["activity"]
-    @slot = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["slot"]
-    @date = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["date"]
+    @slot = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?) ? nil : session[:lesson]["lesson_time"]["slot"]
+    @date = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?)  ? nil : session[:lesson]["lesson_time"]["date"]
     @lesson_time = @lesson.lesson_time
   end
 
   def new_request
+    puts "!!! processing instructor request; Session variable is: #{session[:lesson]}"
     @lesson = Lesson.new
-    @promo_location = nil
+    @promo_location = session[:lesson].nil? ? nil : session[:lesson]["requested_location"]
+    @activity = session[:lesson].nil? ? nil : session[:lesson]["activity"]
+    @slot = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?) ? nil : session[:lesson]["lesson_time"]["slot"]
+    @date = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?)  ? nil : session[:lesson]["lesson_time"]["date"]
     @instructor_requested = Instructor.find(params[:id]).id
     @lesson_time = @lesson.lesson_time
     render 'new'
   end
 
   def create
-    session[:lesson] = params[:lesson]
-    create_lesson_and_redirect
+    if params["commit"] == "Book Lesson"
+      create_lesson_and_redirect
+    else
+      session[:lesson] = params[:lesson]
+      redirect_to '/browse'
+    end
   end
 
   def complete
@@ -230,19 +238,27 @@ class LessonsController < ApplicationController
   end
 
   def save_lesson_params_and_redirect
-    unless current_user
+    if current_user.nil?
       session[:lesson] = params[:lesson]
       flash[:alert] = 'You need to sign in or sign up before continuing.'
       # flash[:notice] = "The captured params are #{params[:lesson]}"
       redirect_to new_user_registration_path and return
+    elsif params["commit"] != "Book Lesson"
+      session[:lesson] = params[:lesson]
     end
       validate_new_lesson_params
   end
 
   def create_lesson_from_session
     return unless current_user && session[:lesson]
-    params[:lesson] = session[:lesson]
-    create_lesson_and_redirect
+    if params["commit"] == "Book Lesson"
+      create_lesson_and_redirect
+    else
+      # session[:lesson] = params[:lesson]
+      # puts "!!!!! params are: #{params[:lesson]}"
+      # debugger
+      redirect_to '/browse'
+    end
   end
 
   def create_lesson_and_redirect
