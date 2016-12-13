@@ -1,6 +1,23 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_filter :configure_permitted_parameters
 
+  def after_confirmation_path_for(resource_name, resource)
+    root_path
+  end
+
+  def show
+    self.resource = resource_class.confirm_by_token(params[:confirmation_token])
+    yield resource if block_given?
+
+    if resource.errors.empty?
+      sign_in(resource) # <= THIS LINE ADDED
+      flash[:notice] = 'Thank you, your email address has been confirmed. You are now signed in.'
+      respond_with_navigational(resource){ redirect_to after_confirmation_path_for(resource_name, resource) }
+    else
+      respond_with_navigational(resource.errors, :status => :unprocessable_entity){ render :new }
+    end
+  end
+
   private
 
   def configure_permitted_parameters
@@ -17,5 +34,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
       # resource.update_with_password(params)
     end
   end
+
 
 end

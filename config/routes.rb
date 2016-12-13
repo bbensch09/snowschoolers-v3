@@ -73,7 +73,7 @@ Rails.application.routes.draw do
 
   resources :beta_users
   resources :lesson_times
-  devise_for :users, controllers: { registrations: 'users/registrations', omniauth_callbacks: "users/omniauth_callbacks" }
+  devise_for :users, controllers: { registrations: 'users/registrations', confirmations: 'users/registrations', omniauth_callbacks: "users/omniauth_callbacks" }
 
   #snowschoolers admin views
   get 'admin_users' => 'welcome#admin_users'
