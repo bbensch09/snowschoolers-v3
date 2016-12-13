@@ -23,6 +23,9 @@ class WelcomeController < ApplicationController
   def about_us
   end
 
+  def launch_announcement
+  end
+
   def admin_users
     @users = User.all.sort {|a,b| a.email <=> b.email}
   end
