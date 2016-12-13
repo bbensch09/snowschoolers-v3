@@ -44,9 +44,6 @@ Devise.setup do |config|
   # to authenticate or find a user. Default is :email.
   config.case_insensitive_keys = [ :email ]
 
-  #allow user to sign in automatically after confirming from email
-  config.allow_insecure_sign_in_after_confirmation = true
-
 
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
