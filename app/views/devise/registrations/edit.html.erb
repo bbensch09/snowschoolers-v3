@@ -11,6 +11,7 @@
 
       <div class="row">
         <div class="col-md-6">
+
           <h4>Basic <strong>Info</strong></h4>
 
           <div class="row">
@@ -29,7 +30,18 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <p></p>
+            <div class="col-md-6">
+              <%= link_to "Return to previous page", :back, class: 'btn btn-warning pull-right' %>
+            </div>
+            <div class="col-md-6">
+              <%= f.submit "UPDATE", class: 'btn sign-up-btn pull-right' %>
+            </div>
+          </div>
         </div>
+    <% end %>
+    <!-- /UPDATE PROFILE -->
 
 
         <div class="col-md-6">
@@ -48,69 +60,26 @@
               <div class="col-md-3"></div>
             </div>
         </div>
-<!--           % if f.object.password_required? %>
-            <h4>Security <strong>Info</strong></h4>
-
-            <div class="row">
-              <div class="form-group">
-                <div class="col-md-6">
-                  <label>New Password</label>
-                  <%= f.password_field :password, class: 'form-control' %>
-                </div>
-                <div class="col-md-6">
-                  <label>New Password Confirmation</label>
-                  <%= f.password_field :password_confirmation, class: 'form-control' %>
-                </div>
-              </div>
-            </div>
-          % end %>
- -->        </div>
       </div>
+    </div>
 
-<!--       % if f.object.password_required? %>
-        <div class='row'>
-          <div class="col-md-6"></div>
-          <div class="col-md-6">
-            <label class="font300">Enter current password to confirm changes</label>
-            <div class="input-group">
-              <%= f.password_field :current_password, class: 'form-control' %>
-              <span class="input-group-btn">
-                <%= f.submit "UPDATE", class: 'btn sign-up-btn' %>
-              </span>
-            </div>
-          </div>
-        </div>
-      % else %>
-      % end %>
- -->
-        <div class='row'>
-          <div class="col-md-6"></div>
-          <div class="col-md-6"><%= f.submit "UPDATE", class: 'btn sign-up-btn pull-right' %></div>
-        </div>
-      <div class='row'>
-        <div class="col-md-6"></div>
-        <div class="col-md-6"><%= link_to "Return to previous page", :back, class: 'return-link pull-right' %></div>
-      </div>
-    <% end %>
-    <!-- /UPDATE PROFILE -->
-
-    <hr />
+<div class="col-md-12">
+  <hr class="deposit-hr-navy">
+</div>
 
     <!-- CALLOUT -->
-    <div class=" alert-default fade in">
-
       <div class="row">
 
-        <div class="col-md-9 col-sm-8"><!-- left text -->
+        <div class="col-md-12 col-sm-6"><!-- left text -->
           <h4 class="nomargin">Cancel <strong>Your Account</strong></h4>
+            <%= link_to "CANCEL ACCOUNT", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, class: "btn btn-danger" %>
           <p class="nomargin">
             We hope you'll give Snow Schoolers another shot at some point in the future!
           </p>
         </div><!-- /left text -->
 
 
-        <div class="col-md-3 col-sm-4 text-right"><!-- right btn -->
-          <%= link_to "CANCEL ACCOUNT", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, class: "btn btn-warning" %>
+        <div class="col-md-6 col-sm-6 text-left"><!-- right btn -->
         </div><!-- /right btn -->
 
       </div>
