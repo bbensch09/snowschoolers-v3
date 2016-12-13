@@ -205,7 +205,8 @@ margin-right: auto !important;;
   font-weight: 300;
   color: white;
   font-size: 16px;
-  margin-bottom: 50px;
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 @media (min-width: 768px) {
   #header-creative {
@@ -584,9 +585,21 @@ h2 {
   color: #3b5998;
   text-decoration: underline;
 }
+.internal-link{
+  text-decoration: underline;
+}
 .nav-email-noaction:hover, .nav-email-noaction:visited{
   background: #3b5998 !important;
   color: #DADADA;
+}
+.blog-container{
+    width: 100%;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.cover-photo{
+  max-width: 100%;
 }
 
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/
