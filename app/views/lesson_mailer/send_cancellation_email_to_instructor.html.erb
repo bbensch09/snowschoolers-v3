@@ -10,7 +10,11 @@
       Here are the lesson details, for your reference:
     </p>
     <ul>
+    <% if @lesson.requester.name %>
       <li>Requester: <%= @lesson.requester.name %></li>
+      <% else %>
+      <li>Requester: <%= @lesson.requester.email %></li>
+    <% end %>
       <li>Students: <%= @lesson.students.map(&:name).join(', ') %></li>
       <li>Date: <%= @lesson.date %></li>
       <li>Slot: <%= @lesson.slot %></li>
