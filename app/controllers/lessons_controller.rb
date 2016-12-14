@@ -74,6 +74,7 @@ class LessonsController < ApplicationController
     @lesson_time = @lesson.lesson_time
     @state = 'booked'
     flash.now[:notice] = "You're almost there! We just need a few more details."
+    flash[:complete_form] = 'TRUE'
   end
 
   def edit
