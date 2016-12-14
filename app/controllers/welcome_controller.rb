@@ -28,6 +28,12 @@ class WelcomeController < ApplicationController
 
   def admin_users
     @users = User.all.sort {|a,b| a.email <=> b.email}
+    @exported_users = User.all
+    respond_to do |format|
+          format.html
+          format.csv { send_data @exported_users.to_csv, filename: "all_users-#{Date.today}.csv" }
+          format.xls
+    end
   end
 
   def admin_edit
