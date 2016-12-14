@@ -1,3 +1,4 @@
+=begin
 class Ckeditor::AttachmentFile < Ckeditor::Asset
   has_attached_file :data,
                     url: '/ckeditor_assets/attachments/:id/:filename',
@@ -11,3 +12,4 @@ class Ckeditor::AttachmentFile < Ckeditor::Asset
     @url_thumb ||= Ckeditor::Utils.filethumb(filename)
   end
 end
+=end

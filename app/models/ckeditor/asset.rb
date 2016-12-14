@@ -1,3 +1,4 @@
+=begin
 class Ckeditor::Asset < ActiveRecord::Base
   include Ckeditor::Orm::ActiveRecord::AssetBase
   include Ckeditor::Backend::Paperclip
@@ -5,3 +6,4 @@ class Ckeditor::Asset < ActiveRecord::Base
   Rails.application.config.assets.precompile += %w( ckeditor/* )
 
 end
+=end

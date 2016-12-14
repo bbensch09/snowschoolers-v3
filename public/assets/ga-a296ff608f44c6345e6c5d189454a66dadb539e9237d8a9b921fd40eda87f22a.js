@@ -1,0 +1,1 @@
+$(document).ready(function(){ga(function(n){var c=n.get("clientId");$(".ga-client-id").val(c),console.log("GA clientID is "+c)})});
