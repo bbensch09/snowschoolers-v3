@@ -1,1 +1,0 @@
-!function(a){a&&(a.fn.datepair=function(t){var i;return this.each(function(){var e=a(this),n=e.data("datepair"),r="object"==typeof t&&t;n||(n=new Datepair(this,r),e.data("datepair",n)),"string"==typeof t&&(i=n[t]())}),i||this},a("[data-datepair]").each(function(){var t=a(this);t.datepair(t.data())}))}(window.Zepto||window.jQuery);
