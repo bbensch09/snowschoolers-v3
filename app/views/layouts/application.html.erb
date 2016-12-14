@@ -216,8 +216,52 @@
     </div>
   <% end %>
 
+  <% if notice &&   flash[:complete_form] = 'TRUE' %>
+
+      <!-- Google Code for Initiate Lesson Request (advance to /lessons/XX/complete) Conversion Page -->
+          <script type="text/javascript">
+          /* <![CDATA[ */
+          var google_conversion_id = 880357341;
+          var google_conversion_language = "en";
+          var google_conversion_format = "3";
+          var google_conversion_color = "ffffff";
+          var google_conversion_label = "dMkNCLmj22wQ3d_kowM";
+          var google_remarketing_only = false;
+          /* ]]> */
+          </script>
+          <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+          </script>
+          <noscript>
+          <div style="display:inline;">
+          <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/880357341/?label=dMkNCLmj22wQ3d_kowM&amp;guid=ON&amp;script=0"/>
+          </div>
+          </noscript>
+
+      <!-- Facebook Pixel Code -->
+          <script>
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window,document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+           fbq('init', '1111997732228432');
+            fbq('track', 'InitiateCheckout');
+          </script>
+          <noscript>
+           <img height="1" width="1"
+          src="https://www.facebook.com/tr?id=1111997732228432&ev=PageView
+          &noscript=1"/>
+          </noscript>
+      <!-- End Facebook Pixel Code -->
+
+  <% end %>
+
   <% if notice && flash[:conversion] == 'TRUE' %>
-    <!-- <h3> Adwords conversion = <%= flash[:conversion] %> </h3> -->
+
+    <!-- <h3> Adwords conversion = %= flash[:conversion] %> </h3> -->
       <!-- Google Code for Lesson Bookings Conversion Page -->
       <script type="text/javascript">
       /* <![CDATA[ */
@@ -238,6 +282,28 @@
       <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/880357341/?value=30.00&amp;currency_code=USD&amp;label=bMVQCIvNxWwQ3d_kowM&amp;guid=ON&amp;script=0"/>
       </div>
       </noscript>
+
+
+      <!-- Facebook Pixel Code -->
+          <script>
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window,document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+           fbq('init', '1111997732228432');
+            fbq('track', 'Purchase', {value: '40.00', currency: 'USD'});
+          </script>
+          <noscript>
+           <img height="1" width="1"
+          src="https://www.facebook.com/tr?id=1111997732228432&ev=PageView
+          &noscript=1"/>
+          </noscript>
+      <!-- End Facebook Pixel Code -->
+
   <% end %>
 </div>
 
