@@ -19,13 +19,6 @@ Rails.application.configure do
   # For large-scale production use, consider using a caching reverse proxy like nginx, varnish or squid.
   # config.action_dispatch.rack_cache = true
 
-  #set queue adapter for delayed jobs
-  config.active_job.queue_adapter = :delayed_job
-
-  #show additional error messages raised in callbacks
-  config.active_record.raise_in_transactional_callbacks = true
-
-
 
   # Disable serving static files from the `/public` folder by default since
 	  # Apache or NGINX already handles this.
@@ -36,6 +29,7 @@ Rails.application.configure do
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = true
+  config.serve_static_assets = false
 
   # Generate digests for assets URLs.
   config.assets.digest = true
@@ -70,7 +64,8 @@ Rails.application.configure do
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-  # config.assets.precompile += %w( search.js )
+  config.assets.precompile += %w( search.js )
+  config.assets.precompile =  ['*.js', '*.scss']
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

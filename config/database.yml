@@ -15,6 +15,6 @@ test:
 
 production:
   <<: *default
-  database: snowschoolers_production
-  username: snowschoolers
-  password: bb4ss109
+  database: snowschoolers_development
+  # username: snowschoolers
+  # password: bb4ss109

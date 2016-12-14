@@ -1,3 +1,4 @@
+=begin
 class Ckeditor::Picture < Ckeditor::Asset
   has_attached_file :data,
                     url: '/ckeditor_assets/pictures/:id/:style_:basename.:extension',
@@ -12,3 +13,4 @@ class Ckeditor::Picture < Ckeditor::Asset
     url(:content)
   end
 end
+=end
