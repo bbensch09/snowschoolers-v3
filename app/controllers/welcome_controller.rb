@@ -28,6 +28,25 @@ class WelcomeController < ApplicationController
 
   def admin_users
     @users = User.all.sort {|a,b| a.email <=> b.email}
+    @exported_users = User.all
+    respond_to do |format|
+          format.html
+          format.csv { send_data @exported_users.to_csv, filename: "all_users-#{Date.today}.csv" }
+          format.xls
+    end
+=begin
+if current_user.email == "citizen.debate.16@gmail.com"
+      @profiles = Profile.all
+      respond_to do |format|
+          format.html
+          format.csv { send_data @profiles.to_csv, filename: "profiles-#{Date.today}.csv" }
+        end
+    else
+      @profiles = Profile.where(user_id:current_user.id)
+      render 'index'
+    end
+=end
+
   end
 
   def admin_edit

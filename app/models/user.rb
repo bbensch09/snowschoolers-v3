@@ -1,3 +1,5 @@
+require 'csv'
+
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, #:validatable,
@@ -15,6 +17,26 @@ class User < ActiveRecord::Base
   belongs_to :location
   has_many :lesson_times, through: :lessons
   after_create :send_admin_notification
+
+  # def self.to_csv(options = {})
+  #   desired_columns = %w{id email name user_type resort_affiliation created_at}
+  #   CSV.generate(headers: true) do |csv|
+  #     csv << desired_columns
+  #     all.each do |user|
+  #       csv << user.attributes.values_at(*desired_columns)
+  #     end
+  #   end
+  # end
+
+  def self.to_csv(options = {})
+    desired_columns = %w{id email name user_type resort_affiliation created_at}
+    CSV.generate(headers: true) do |csv|
+      csv << desired_columns
+      all.each do |user|
+        csv << user.attributes.values_at(*desired_columns)
+      end
+    end
+  end
 
   def send_admin_notification
       @user = User.last
