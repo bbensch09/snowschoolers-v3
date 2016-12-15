@@ -122,6 +122,8 @@ class LessonsController < ApplicationController
       # flash[:notice] = 'Testing confirmation of AWCT'
       # flash[:conversion] = 'TRUE'
       GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-updated', params[:ga_client_id])
+      @user_email = current_user ? current_user.email : "unknown"
+      LessonMailer.notify_admin_lesson_full_form_updated(@lesson, @user_email).deliver
       send_lesson_update_notice_to_instructor
     else
       determine_update_state
@@ -269,6 +271,8 @@ class LessonsController < ApplicationController
     if @lesson.save
       redirect_to complete_lesson_path(@lesson)
       GoogleAnalyticsApi.new.event('lesson-requests', 'request-initiated', params[:ga_client_id])
+      @user_email = current_user ? current_user.email : "unknown"
+      LessonMailer.notify_admin_lesson_request_begun(@lesson, @user_email).deliver
       else
         @activity = session[:lesson].nil? ? nil : session[:lesson]["activity"]
         @slot = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["slot"]

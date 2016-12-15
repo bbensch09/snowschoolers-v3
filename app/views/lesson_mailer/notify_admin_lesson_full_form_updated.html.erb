@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h4>Lesson full form has been completed, and the user is ready to confirm their deposit.</h4>
+    <p>
+      Lesson Details:
+    </p>
+    <ul>
+      <li>User: <%= @user_email %> </li>
+      <li>Sport: <%= @lesson.activity %> </li>
+      <li>Location: <%= @lesson.location.name %> </li>
+      <li>Date: <%= @lesson.date %> </li>
+      <li>Slot: <%= @lesson.slot %> </li>
+      <li>Phone number: <%= @lesson.phone_number %> </li>
+      <li>State: <%= @lesson.state %> </li>
+      <li>Has gear?: <%= @lesson.gear %> </li>
+      <li>Has lift ticket?: <%= @lesson.lift_ticket_status %> </li>
+      <li>Focus Area: <%= @lesson.focus_area %> </li>
+      <li>Objectives: <%= @lesson.objectives %> </li>
+      <h4>Students</h4>
+      <% @lesson.students.each do |student| %>
+      <li> <b>Name:</b>        <%= student.name %> </li>
+      <li> <b>Age Range:</b> <%= student.age_range %> </li>
+      <li><b>Gender:</b><%= student.gender %></li>
+      <li><b>About the student:</b><%= student.relationship_to_requester %></li>
+      <li><b>Most Recent Experience :</b><%= student.most_recent_experience.to_s %></li>
+      <li><b>Most Recent Level :</b><%= student.most_recent_level.to_s %></li>
+      <li><b>Other Athletic Experience :</b><%= student.other_sports_experience.to_s %></li>
+      <% end %>
+    </ul>
+  </body>
+</html>
