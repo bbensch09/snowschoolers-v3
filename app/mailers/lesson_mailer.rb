@@ -17,6 +17,12 @@ class LessonMailer < ActionMailer::Base
       mail(to: 'brian@snowschoolers.com', subject: "New Lesson Request begun - #{@lesson.date}.")
   end
 
+  def notify_admin_lesson_full_form_updated(lesson,email)
+      @lesson = lesson
+      @user_email = email
+      mail(to: 'brian@snowschoolers.com', subject: "Lesson Request complete, ready for deposit - #{@lesson.date}.")
+  end
+
   def notify_admin_beta_user(beta_user)
       @beta_user = beta_user
       mail(to: 'brian@snowschoolers.com', subject: "New Beta User - #{@beta_user.email}.")
