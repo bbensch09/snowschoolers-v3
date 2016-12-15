@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h4>Lesson Request begun</h4>
+    <p>
+      A new user has just begun to request a lesson. Details thus far:
+    </p>
+    <ul>
+      <li>User: <%= @user_email %> </li>
+      <li>Sport: <%= @lesson.activity %> </li>
+      <li>Location: <%= @lesson.location.name %> </li>
+      <li>Date: <%= @lesson.date %> </li>
+      <li>Slot: <%= @lesson.slot %> </li>
+    </ul>
+  </body>
+</html>
