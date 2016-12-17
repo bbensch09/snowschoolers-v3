@@ -32,8 +32,8 @@ var LESSON = {
     LESSON._actualStartTime.change(LESSON.updateInstructorTimepickers);
   },
 
-  setDatepicker: function() { LESSON._date.datepicker({ minDate: '2016-12-16', dateFormat: 'yy-mm-dd' }); },
-  // setDatepicker: function() { LESSON._date.datepicker({ minDate: 1, dateFormat: 'yy-mm-dd' }); },
+  // setDatepicker: function() { LESSON._date.datepicker({ minDate: '2016-12-16', dateFormat: 'yy-mm-dd' }); },
+  setDatepicker: function() { LESSON._date.datepicker({ minDate: 1, dateFormat: 'yy-mm-dd' }); },
 
   // var TODAYS_DATE = new Date().getDate();
   // var LAUNCH_DATE = new Date('2016','11','16').getDate();
