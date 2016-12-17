@@ -1,7 +1,7 @@
 class LessonsController < ApplicationController
   respond_to :html
-  skip_before_action :authenticate_user!, only: [:new, :create]
-  before_action :save_lesson_params_and_redirect, only: :create
+  skip_before_action :authenticate_user!, only: [:new, :create, :complete, :confirm_reservation, :update, :show, :edit]
+  before_action :save_lesson_params_and_redirect, only: [:create]
   before_action :create_lesson_from_session, only: [:create]
 
   def index
@@ -120,12 +120,19 @@ class LessonsController < ApplicationController
     @original_lesson = @lesson.dup
     @lesson.assign_attributes(lesson_params)
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
+    if @lesson.guest_email && @lesson.requester.nil?
+      User.create!({
+        email: @lesson.guest_email,
+        password: 'homewood_temp_2016',
+        user_type: "Student",
+        name: "#{@lesson.guest_email}"
+        })
+      @lesson.requester_id = User.last.id
+    end
     unless @lesson.deposit_status == 'confirmed'
       @lesson.state = 'ready_to_book'
     end
     if @lesson.save
-      # flash[:notice] = 'Testing confirmation of AWCT'
-      # flash[:conversion] = 'TRUE'
       GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-updated', params[:ga_client_id])
       @user_email = current_user ? current_user.email : "unknown"
       LessonMailer.notify_admin_lesson_full_form_updated(@lesson, @user_email).deliver
@@ -246,14 +253,14 @@ class LessonsController < ApplicationController
   end
 
   def save_lesson_params_and_redirect
-    if current_user.nil?
-      session[:lesson] = params[:lesson]
-      flash[:alert] = 'You need to sign in or sign up before continuing.'
-      # flash[:notice] = "The captured params are #{params[:lesson]}"
-      redirect_to new_user_registration_path and return
-    elsif params["commit"] != "Book Lesson"
-      session[:lesson] = params[:lesson]
-    end
+    # if current_user.nil?
+    #   session[:lesson] = params[:lesson]
+    #   flash[:alert] = 'You need to sign in or sign up before continuing.'
+    #   # flash[:notice] = "The captured params are #{params[:lesson]}"
+    #   redirect_to new_user_registration_path and return
+    # elsif params["commit"] != "Book Lesson"
+    #   session[:lesson] = params[:lesson]
+    # end
       validate_new_lesson_params
   end
 
@@ -308,6 +315,7 @@ class LessonsController < ApplicationController
   end
 
   def check_user_permissions
+    return unless @lesson.guest_email.nil?
     unless current_user && (current_user == @lesson.requester || (current_user.instructor && current_user.instructor.status == "Active") || current_user.user_type == "Ski Area Partner" || current_user.user_type == "Snow Schoolers Employee")
       flash[:alert] = "You do not have access to this page."
       redirect_to root_path
@@ -325,7 +333,7 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id,
+    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id, :guest_email,
       students_attributes: [:id, :name, :age_range, :gender, :relationship_to_requester, :lesson_history, :requester_id, :most_recent_experience, :most_recent_level, :other_sports_experience, :experience, :_destroy])
   end
 

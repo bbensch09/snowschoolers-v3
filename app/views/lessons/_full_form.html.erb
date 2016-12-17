@@ -16,6 +16,15 @@
           </div>
         </div>
       <% end %>
+      <% if current_user.nil? %>
+      <div class='row'>
+        <div class="col-md-6">
+          <h4>Book as a <strong>Guest</strong> | Or <a href="#" class="btn btn-default" data-toggle="modal" data-target="#loginModal">Sign-in to your Account</a></h4>
+              <label>Email</label>
+              <%= f.input :guest_email, as: :string, placeholder: "your_emaiL@example.com", label: false %>
+        </div>
+      </div>
+      <% end %>
       <div class='row'>
         <div class="col-md-6">
           <h4>Basic <strong>Info</strong></h4>
@@ -73,10 +82,10 @@
 
           <h4>Student <strong>Info</strong></h4>
           <!-- <div id="previous_students">
-            <% if current_user.students %>
+            % if current_user.students %>
             <h4>This lesson is for the previously entered student(s) below.</h4>
-              <%= f.select :id, options_from_collection_for_select(current_user.students, :id, :name), {}, {required: false, class: 'form-control'} %>
-            <% end %>
+              %= f.select :id, options_from_collection_for_select(current_user.students, :id, :name), {}, {required: false, class: 'form-control'} %>
+            % end %>
           </div> -->
           <div id='lesson_students_input'>
             <%= f.semantic_fields_for :students do |student| %>

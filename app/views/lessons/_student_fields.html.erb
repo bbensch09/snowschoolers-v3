@@ -42,7 +42,9 @@
             <label>Other sports experience </label>
             <%= f.input :other_sports_experience, placeholder: 'plays recreational soccer, is a varsity tennis player, casual runner, etc.', label: false %>
       </div>
+          <% if current_user %>
           <%= f.input :requester_id, as: :hidden, input_html: { value: current_user.id } %>
+          <% end %>
     </div>
   <% end %>
 </div>
