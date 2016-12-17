@@ -9,7 +9,7 @@
     <%= f.text_field :address, placeholder: 'Physical address', class: 'form-control', required:true %>
     <br>
     <%= f.input :partner_status, as: :select, collection: ['Active','Inactive'] %>
-    <%= f.input :calendar_status, as: :select, collection: ['Regular','Peak','Peak Plus'] %>
+    <%= f.input :calendar_status, as: :select, collection: ['Regular','Peak','Holiday'] %>
     <%= f.label :vertical_feet %>
     <%= f.text_field :vertical_feet, placeholder: 'Vertical Feet', class: 'form-control', required:true %>
     <br>
