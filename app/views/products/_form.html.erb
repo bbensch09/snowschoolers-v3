@@ -22,7 +22,7 @@
 
 
     <%= f.input :location_id, as: :select, collection: Location.all, include_blank: 'Location', label: false , required:true%>
-    <%= f.input :calendar_period, as: :select, collection: ['Regular','Peak','Peak Plus'], selected:'Regular', required:true %>
+    <%= f.input :calendar_period, as: :select, collection: ['Regular','Peak','Holiday'], selected:'Regular', required:true %>
   <% end %>
 
   <%= f.actions do %>
