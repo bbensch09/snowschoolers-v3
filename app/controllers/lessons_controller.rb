@@ -7,12 +7,17 @@ class LessonsController < ApplicationController
   def index
     if current_user.email == "brian@snowschoolers.com"
       @lessons = Lesson.all.sort_by { |lesson| lesson.id}
+      @todays_lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.today }
       elsif current_user.user_type == "Partner"
         @lessons = Lesson.where(requested_location:current_user.location.id.to_s).sort_by { |lesson| lesson.id}
+        @todays_lessons = @lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
       elsif current_user.instructor
         @lessons = Lesson.visible_to_instructor?(current_user.instructor)
+        @todays_lessons = @lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
       else
-        @lessons = Lesson.where(requester_id:current_user.id).sort_by { |lesson| lesson.id}
+        # @lessons = Lesson.where(requester_id:current_user.id).sort_by { |lesson| lesson.id}
+        @lessons = current_user.lessons
+        @todays_lessons = @lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
     end
   end
 
@@ -320,7 +325,7 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area,
+    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id,
       students_attributes: [:id, :name, :age_range, :gender, :relationship_to_requester, :lesson_history, :requester_id, :most_recent_experience, :most_recent_level, :other_sports_experience, :experience, :_destroy])
   end
 

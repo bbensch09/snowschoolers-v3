@@ -1,5 +1,9 @@
 <div class="container">
-<!-- SECTION 0 - AVAILABLE LESSON REQUESTS -->
+<!--
+<h3> Current User ID: <%= current_user.id %> </h3>
+<h3> Current User.email: <%= current_user.email %> </h3>
+ -->
+<!-- SECTION 0 - AVAILABLE LESSON REQUESTS FOR INSTRUCTORS -->
 <% if current_user && current_user.active_instructor? %>
 <h3><a href="#hideLessons" class="btn btn-success" id="toggle-available-lessons">Show (hide) Lesson Requests</a></h3>
 <div id="available-lessons" class="">
@@ -30,7 +34,7 @@
             <td class="lessons-table-cells lesson-date"><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
             <!-- <td class="lessons-table-cells"><%= lesson.state %></td> -->
           </tr>
-        <%end%>
+        <% end %>
     <% end %>
   </tbody>
 </table>
@@ -41,7 +45,7 @@
 <!-- SECTION 1 - PREVIOUS LESSONS -->
 <h3><a href="#hideLessons" class="btn btn-success" id="toggle-completed-lessons">Show (hide) Past Lessons</a></h3>
 <div id="completed-lessons" class="hidden">
-<h1>Previously Completed Lessons</h1>
+<h1>Previous Lessons</h1>
 
 <table class="instructors-table">
   <thead>
@@ -84,6 +88,7 @@
 </div>
 <hr>
 <!-- SECTION 2 - ACTIVE LESSONS -->
+<% if @todays_lessons.count > 0 %>
 <div id="todays-lessons" class="">
 <h1>Today's Lessons </h1>
 
@@ -104,7 +109,7 @@
   </thead>
 
   <tbody>
-    <% @lessons.each do |lesson| %>
+    <% @todays_lessons.each do |lesson| %>
         <% if lesson.active_today? %>
           <tr>
             <% if lesson.instructor %>
@@ -130,12 +135,13 @@
   </tbody>
 </table>
 </div>
+<% end %>
 
 <!-- SECTION 2 - ACTIVE LESSONS -->
 
 <h3><a href="#hideLessons" class="btn btn-success" id="toggle-upcoming-lessons">Show (hide) upcoming Lessons</a></h3>
 <div id="upcoming-lessons" class="">
-<h1>Next Week's Lessons </h1>
+<h1>Upcoming Lessons </h1>
 
 <table class="instructors-table">
   <thead>
@@ -155,7 +161,7 @@
 
   <tbody>
     <% @lessons.each do |lesson| %>
-        <% if lesson.active_next_7_days? %>
+        <% if lesson.upcoming? %>
           <tr>
             <% if lesson.instructor %>
             <td><%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td>
