@@ -30,8 +30,8 @@
             <td class="lessons-table-cells lesson-type"><%= lesson.lesson_time.slot %></td>
             <!-- <td class="lessons-table-cells"><%= lesson.deposit_status %></td> -->
             <td class="lessons-table-cells lesson-student"><%= lesson.requester.name %></td>
-            <% if @lesson.requester.name %>
-              <td class="lessons-table-cells lesson-student">Requester: <%= @lesson.requester.name %></td>
+            <% if @lesson.requester %>
+              <td class="lessons-table-cells lesson-student">Requester: <%= @lesson.guest_email %></td>
               <% else %>
               <td class="lessons-table-cells lesson-student">Requester: <%= @lesson.requester.email %></td>
             <% end %>
@@ -80,8 +80,8 @@
             <% end %>
             <td><%= link_to "#{lesson.lesson_time.slot}", lesson, class: "btn btn-default" %></td>
             <!-- <td><%= lesson.deposit_status %></td> -->
-            <% if @lesson.requester.name %>
-              <td class="lessons-table-cells lesson-student">Requester: <%= @lesson.requester.name %></td>
+            <% if @lesson.requester %>
+              <td class="lessons-table-cells lesson-student">Requester: <%= @lesson.guest_email %></td>
               <% else %>
               <td class="lessons-table-cells lesson-student">Requester: <%= @lesson.requester.email %></td>
             <% end %>            <!-- <td><%= lesson.location.name %></td> -->
@@ -129,8 +129,8 @@
             <% end %>
             <td><%= link_to "#{lesson.lesson_time.slot}", lesson, class: "btn btn-default" %></td>
             <!-- <td><%= lesson.deposit_status %></td> -->
-            <% if @lesson.requester.name %>
-              <td class="lessons-table-cells lesson-student">Requester: <%= @lesson.requester.name %></td>
+            <% if @lesson.requester %>
+              <td class="lessons-table-cells lesson-student">Requester: <%= @lesson.guest_email %></td>
               <% else %>
               <td class="lessons-table-cells lesson-student">Requester: <%= @lesson.requester.email %></td>
             <% end %>            <!-- <td><%= lesson.location.name %></td> -->
@@ -183,8 +183,8 @@
             <% end %>
             <td><%= link_to "#{lesson.lesson_time.slot}", lesson, class: "btn btn-default" %></td>
             <!-- <td><%= lesson.deposit_status %></td> -->
-            <% if @lesson.requester.name %>
-              <td class="lessons-table-cells lesson-student">Requester: <%= @lesson.requester.name %></td>
+            <% if @lesson.requester %>
+              <td class="lessons-table-cells lesson-student">Requester: <%= @lesson.guest_email %></td>
               <% else %>
               <td class="lessons-table-cells lesson-student">Requester: <%= @lesson.requester.email %></td>
             <% end %>            <!-- <td><%= lesson.location.name %></td> -->
