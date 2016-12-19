@@ -7,7 +7,7 @@
     <h1>Lesson Update Notice</h1>
     <p>Original Lesson:</p>
     <ul>
-    <% if @lesson.requester.name %>
+    <% if @lesson.requester %>
       <li>Requester: <%= @lesson.requester.name %></li>
       <% else %>
       <li>Requester: <%= @lesson.requester.email %></li>

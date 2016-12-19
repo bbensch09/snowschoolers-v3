@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161217043753) do
+ActiveRecord::Schema.define(version: 20161219013112) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -160,8 +160,8 @@ ActiveRecord::Schema.define(version: 20161217043753) do
     t.string   "actual_end_time",              limit: 255
     t.float    "actual_duration"
     t.boolean  "terms_accepted"
-    t.string   "public_feedback_for_student",  limit: 255
-    t.string   "private_feedback_for_student", limit: 255
+    t.text     "public_feedback_for_student"
+    t.text     "private_feedback_for_student"
     t.string   "focus_area",                   limit: 255
     t.string   "lift_ticket_status"
     t.string   "guest_email"
