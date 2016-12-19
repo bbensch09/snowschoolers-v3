@@ -4,7 +4,7 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <% if @lesson.requester.name %>
+    <% if @lesson.requester %>
       <p>Hello <%= @lesson.requester.name.split(" ").first %>,</p>
       <% else %>
       <p>Hello,</p>

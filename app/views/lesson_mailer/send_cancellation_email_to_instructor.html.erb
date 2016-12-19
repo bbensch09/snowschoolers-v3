@@ -10,7 +10,7 @@
       Here are the lesson details, for your reference:
     </p>
     <ul>
-    <% if @lesson.requester.name %>
+    <% if @lesson.requester %>
       <li>Requester: <%= @lesson.requester.name %></li>
       <% else %>
       <li>Requester: <%= @lesson.requester.email %></li>

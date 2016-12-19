@@ -4,7 +4,11 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <p>Hello <%= @lesson.requester.name.split(" ").first %>,</p>
+    <% if @lesson.requester %>
+      <p>Hello <%= @lesson.requester.name.split(" ").first %>,</p>
+    <% else %>
+      <p>Hello <%= @lesson.guest_email %>,</p>
+    <% end %>
     <h4>Lesson Change Notice</h4>
     <p>
       Unfortunately, your previously assigned instructor is no longer available for your lesson:
