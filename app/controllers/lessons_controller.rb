@@ -316,7 +316,7 @@ class LessonsController < ApplicationController
 
   def check_user_permissions
     return unless @lesson.guest_email.nil?
-    unless current_user && (current_user == @lesson.requester || (current_user.instructor && current_user.instructor.status == "Active") || current_user.user_type == "Ski Area Partner" || current_user.user_type == "Snow Schoolers Employee")
+    unless current_user && (current_user == @lesson.requester || (current_user.instructor && current_user.instructor.status == "Active") || current_user.user_type == "Ski Area Partner" || current_user.user_type == "Snow Schoolers Employee" || @lesson.requester.email == "brian@snowschoolers.com")
       flash[:alert] = "You do not have access to this page."
       redirect_to root_path
     end
