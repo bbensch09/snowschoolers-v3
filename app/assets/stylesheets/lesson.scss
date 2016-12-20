@@ -128,8 +128,10 @@ h3{
   padding: 0px 5px 0px 5px;
 }
 #footer ul {
-  bottom: -2px;
+  bottom: 3px;
   position: relative;
+  float: none;
+  margin: auto;
 }
 #footer{
   height: 25px;
