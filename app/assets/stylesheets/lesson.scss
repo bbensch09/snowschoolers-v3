@@ -102,9 +102,12 @@
 .slot-details-mobile{
   font-size: 1.2em
 }
+#new_lesson{
+  height:90vh;
+}
 #slider .caption{
-  top: 250px;
-  position: relative;
+  bottom: 0px;
+  position: fixed;
 }
 .instructor-selection{
   max-height: 180px;
@@ -115,5 +118,22 @@
 h3{
     margin-top: 0px;
     margin-bottom: 5px;
+}
+#footer ul li a {
+    display: block;
+    margin: 0px 0 0 6px;
+    font-size: 0.7em;
+}
+#footer {
+  padding: 0px 5px 0px 5px;
+}
+#footer ul {
+  bottom: 3px;
+  position: relative;
+  float: none;
+  margin: auto;
+}
+#footer{
+  height: 25px;
 }
 }
