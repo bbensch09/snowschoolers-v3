@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :sports
   mount ActionCable.server => '/cable'
 
   resources :blogs

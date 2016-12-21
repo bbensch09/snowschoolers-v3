@@ -7,17 +7,21 @@
     </div>
     <hr>
   <% end %>
-
+<div class="row">
 <div class="col-md-7 instructor-core-info">
 
   <h1> <%= @instructor.name %>, <%= @instructor.age %> </h1>
   <h4> Hometown: <%= @instructor.city %> </h4>
-  <h3> <%= @instructor.sport %> <br>
-  Instructor Rating: <%= @instructor.average_rating%> stars </h3>
+  <% if @instructor.sport == "Ski Instructor"%>
+  <h3> Type: <%= @instructor.sport %> <img src= "/assets/skier-icon.ico" class="icons">
+  <% elsif @instructor.sport == "Snowboard Instructor"%>
+  <h3> Type: <%= @instructor.sport %> <img src= "/assets/snowboarder-icon.png" class="icons">
+  <% elsif @instructor.sport == "Ski Instructor"%>
+  <h3> Type: <%= @instructor.sport %> <img src= "/assets/snowboarder-icon.png" class="icons"> <img src= "/assets/snowboarder-icon.png" class="icons">
+  <% end %>
+  <br>
+  Average Rating: <%= @instructor.average_rating%> stars </h3>
   <h4> Certification Status: <%= @instructor.certification %></h4>
-  <h4>
-    <a href="/start_conversation/<%=@instructor.id%>" class="btn btn-success">Send <%= @instructor.first_name %> a message</a>
-  </h4>
   <div class="maps-container col-md-12">
     <iframe
     width="400"
@@ -45,6 +49,9 @@
   <h3 class="center">
     <a href="/new_request/<%=@instructor.to_param%>" class="btn btn-primary btn-xl">Book a lesson with <%= @instructor.first_name %> </a>
   </h3>
+  <h4 class="center">
+    <a href="/start_conversation/<%=@instructor.id%>" class="btn btn-success">Send <%= @instructor.first_name %> a message</a>
+  </h4>
 </div>
 
 <hr>
@@ -56,6 +63,7 @@
 </div>
 <div class="col-md-12">
   <hr class="deposit-hr-navy">
+</div>
 </div>
 <% if @instructor.reviews.count > 0 %>
 <h1 class="center"> <%= @instructor.name %>'s Recent Reviews </h1>

@@ -5,6 +5,7 @@ class Instructor < ActiveRecord::Base
   has_and_belongs_to_many :snowboard_levels
   has_many :lesson_actions
   has_many :lessons
+  has_and_belongs_to_many :sports
   has_many :reviews
   has_many :calendar_blocks
   after_create :send_admin_notification
