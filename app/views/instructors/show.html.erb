@@ -5,27 +5,29 @@
       <p class="text-warning">Questions? Email info@snowschoolers.com.</p>
       <%= link_to 'Edit Your Profile', edit_instructor_path(@instructor), class: 'btn btn-default' %>
     </div>
-    <hr>
   <% end %>
 <div class="row">
 <div class="col-md-7 instructor-core-info">
 
   <h1> <%= @instructor.name %>, <%= @instructor.age %> </h1>
-  <h4> Hometown: <%= @instructor.city %> </h4>
-  <% if @instructor.sport == "Ski Instructor"%>
-  <h3> Type: <%= @instructor.sport %> <img src= "/assets/skier-icon.ico" class="icons">
-  <% elsif @instructor.sport == "Snowboard Instructor"%>
-  <h3> Type: <%= @instructor.sport %> <img src= "/assets/snowboarder-icon.png" class="icons">
-  <% elsif @instructor.sport == "Ski Instructor"%>
-  <h3> Type: <%= @instructor.sport %> <img src= "/assets/snowboarder-icon.png" class="icons"> <img src= "/assets/snowboarder-icon.png" class="icons">
+  <h3>
+  <% if @instructor.ski_instructor? %>
+  Skiing <img src= "/assets/skier-icon.ico" class="icons">
+  <% end %>
+  <% if @instructor.snowboard_instructor? %>
+  Snowboarding <img src= "/assets/snowboarder-icon.png" class="icons">
+  <% end %>
+  <% if @instructor.telemark_instructor? %>
+  Telemark <img src= "/assets/telemark-icon.png" class="tele-icon">
   <% end %>
   <br>
-  Average Rating: <%= @instructor.average_rating%> stars </h3>
+  Average Rating: <%= (@instructor.average_rating*10).round / 10.0 %> stars </h3>
   <h4> Certification Status: <%= @instructor.certification %></h4>
-  <div class="maps-container col-md-12">
+  <h4> Hometown: <%= @instructor.city %> </h4>
+  <div class="maps-container row">
     <iframe
     width="400"
-    height="250"
+    height="180"
     frameborder="0"
     src="https://www.google.com/maps/embed/v1/place?key=<%= ENV["GOOGLE_MAPS_API"] %>
       &q=<%= @instructor.city %>" allowfullscreen>
@@ -43,7 +45,7 @@
 </div>
 
 <div class="col-md-5 instructor-avatar-box">
-  <div class="col-lg-12 col-sm-12 square-image">
+  <div class="row">
       <%= image_tag @instructor.avatar.url(:large), alt:"avatar-img", class:" center img-responsive instructor-profile-photo" %>
     </div>
   <h3 class="center">
@@ -53,8 +55,6 @@
     <a href="/start_conversation/<%=@instructor.id%>" class="btn btn-success">Send <%= @instructor.first_name %> a message</a>
   </h4>
 </div>
-
-<hr>
 <div class= "col-md-12">
 <h1 class="center"> About <%= @instructor.name %> </h1>
 <h4>
@@ -65,13 +65,30 @@
   <hr class="deposit-hr-navy">
 </div>
 </div>
+
+<% if current_user && current_user.email == "brian@snowschoolers.com" %>
+<section class='admin-viewable'>
+  <h4> ADMIN ONLY: Add a new review manually.</h4>
+  <div class="row col-md-12">
+    <% @lesson = Lesson.new({instructor_id:@instructor.id, requester_id:current_user.id}) %>
+    <% @lesson.review = Review.new unless @lesson.review %>
+    <%= render 'reviews/form' %>
+  </div>
+</section>
+<% end %>
+
 <% if @instructor.reviews.count > 0 %>
 <h1 class="center"> <%= @instructor.name %>'s Recent Reviews </h1>
 <div class="row reviews-container">
 <div class="">
   <% @instructor.reviews.each do |review| %>
     <div class="individual-review">
-      <h4> <%= review.rating %> stars - <%= review.review %></h4>
+      <div class="star-rating" data-score= <%= review.rating %> >
+      </div>
+      <p class="stars-text white-text">
+      <%=review.rating %> of 5 stars
+      </p>
+      <h4> <%= review.review %></h4>
       <h5 class="center"> <em> - <%=review.reviewer.display_name %> on <%= review.created_at.strftime("%B %d, %Y") %></em></h5>
     </div>
     <br>
@@ -90,3 +107,12 @@
 </div>
 <div class="buffer"></div>
 </div>
+<script>
+    $('.star-rating').raty({
+      path: '/assets/',
+      readOnly: true,
+      score: function() {
+            return $(this).attr('data-score');
+    }
+  });
+</script>

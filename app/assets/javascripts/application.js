@@ -16,6 +16,7 @@
 //= require jquery-ui/datepicker
 //= require jquery_ujs
 //= require jquery.timepicker.js
+//= require jquery.raty
 //= require cocoon
 //= require_tree .
 //= require tinymce-jquery

@@ -24,6 +24,18 @@ class Instructor < ActiveRecord::Base
     end
   end
 
+  def ski_instructor?
+    return true if self.sports.include?(Sport.where(name:"Ski Instructor").first)
+  end
+
+  def snowboard_instructor?
+    return true if self.sports.include?(Sport.where(name:"Snowboard Instructor").first)
+  end
+
+  def telemark_instructor?
+    return true if self.sports.include?(Sport.where(name:"Telemark Instructor").first)
+  end
+
   def average_rating
     return "4" if reviews.count == 0
     total_stars = 0
