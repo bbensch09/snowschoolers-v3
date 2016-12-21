@@ -6,6 +6,7 @@
   max-width: 1000px;
   margin: auto;
   position: relative;
+  padding: 10px 15px 10px 15px;
 }
 #recruiting-landing-page{
   padding-top:20px;
@@ -165,6 +166,8 @@
   background-color: #55C9B2;
   display: table;
   overflow:auto;
+  width: 100%;
+  padding: 10px 10px 10px 10px;
 }
 .complete-instructor-bio-section{
 }
@@ -181,7 +184,7 @@
     border: 1px solid #3b5998;
 }
 .reviews-container{
-  max-width: 800px;
+  max-width: 100%;
   margin: auto;
   position: relative;
   background-color: #3b5998;
@@ -189,13 +192,24 @@
   padding-left: 30px;
   padding-right: 30px;
   padding-top: 20px;
-  padding-bottom: 20px;
+  margin-bottom: 20px;
 }
 .reviews-container h4, .reviews-container h5{
   color: white;
 }
 .individual-review{
   clear:both;
+}
+.icons{
+  height:50px;
+}
+.tele-icon{
+  height:40px;
+}
+.stars-text{
+  top: -20px;
+  left: 110px;
+  position: relative;
 }
 
 /*DESKTOP ONLY ADJUSTMENTS*/
@@ -265,9 +279,17 @@ label, select{
   margin:0;
   margin-bottom:2px;
 }
-.maps-container iframe{
-  width: 80vw;
+.maps-container iframe {
+  width: 90vw;
   max-height: 50vh;
+  margin-left: 5vw;
+  margin-right: 5vw;
+}
+.instructor-profile-photo{
+  width: 90vw;
+  margin-left: 5vw;
+  margin-right: 5vw;
+  margin-bottom:10px;
 }
 
 }

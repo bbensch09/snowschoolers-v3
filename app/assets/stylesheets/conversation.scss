@@ -4,6 +4,7 @@
 .chat-container, .panel{
   max-height: 90vh;
   min-height: 600px;
+  width: 100%;
 }
 
 #new_message {
@@ -41,11 +42,6 @@
   border-radius: 8px;
 }
 
-.profile-container {
-  padding-left:3px !important;
-  display: inline-block;
-  float: left;
-}
 .link-area {
   width:95%;
   height: 95%;

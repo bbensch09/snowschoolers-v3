@@ -101,7 +101,12 @@
   </div>
   <div class="col-md-6">
   <h4> What sports do you teach? </h4>
-    <%= f.select :sport, ['Ski Instructor', 'Snowboard Instructor','Both Ski & Snowboard'], {}, {class: 'form-control', required:true} %>
+  <%= f.collection_check_boxes :sport_ids, Sport.all, :id, :name do |sport| %>
+      <div class="collection-check-box form-control">
+        <%= sport.check_box %>
+        <%= sport.label %>
+      </div>
+      <% end %>
     <br><br>
   </div>
   <!-- <h4> Preferred Resorts (select up to 4)</h4> -->

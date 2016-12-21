@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161219013112) do
+ActiveRecord::Schema.define(version: 20161221221650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,11 @@ ActiveRecord::Schema.define(version: 20161219013112) do
   create_table "instructors_snowboard_levels", id: false, force: :cascade do |t|
     t.integer "instructor_id",      null: false
     t.integer "snowboard_level_id", null: false
+  end
+
+  create_table "instructors_sports", id: false, force: :cascade do |t|
+    t.integer "instructor_id", null: false
+    t.integer "sport_id",      null: false
   end
 
   create_table "lesson_actions", force: :cascade do |t|
@@ -251,6 +256,12 @@ ActiveRecord::Schema.define(version: 20161219013112) do
     t.integer  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "sports", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "students", force: :cascade do |t|

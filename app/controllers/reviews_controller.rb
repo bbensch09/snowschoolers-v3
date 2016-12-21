@@ -28,10 +28,14 @@ class ReviewsController < ApplicationController
 
     respond_to do |format|
       if @review.save
-        @review.lesson.state = "Lesson Complete"
-        @review.lesson.save
+        if @review.lesson
+          @review.lesson.state = "Lesson Complete"
+          @review.lesson.save
         format.html { redirect_to @review.lesson, notice: 'Thanks for reviewing your instructor! Hope to see you back on the mountain soon.' }
         format.json { render action: 'show', status: :created, location: @review }
+        else
+          format.html { redirect_to @review.instructor, notice: "Admin has successfully created a review." }
+        end
       else
         format.html { render action: 'new' }
         format.json { render json: @review.errors, status: :unprocessable_entity }

@@ -5,6 +5,7 @@ class Instructor < ActiveRecord::Base
   has_and_belongs_to_many :snowboard_levels
   has_many :lesson_actions
   has_many :lessons
+  has_and_belongs_to_many :sports
   has_many :reviews
   has_many :calendar_blocks
   after_create :send_admin_notification
@@ -21,6 +22,18 @@ class Instructor < ActiveRecord::Base
       instructor.save
       end
     end
+  end
+
+  def ski_instructor?
+    return true if self.sports.include?(Sport.where(name:"Ski Instructor").first)
+  end
+
+  def snowboard_instructor?
+    return true if self.sports.include?(Sport.where(name:"Snowboard Instructor").first)
+  end
+
+  def telemark_instructor?
+    return true if self.sports.include?(Sport.where(name:"Telemark Instructor").first)
   end
 
   def average_rating
