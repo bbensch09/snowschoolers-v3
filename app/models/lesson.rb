@@ -236,11 +236,6 @@ class Lesson < ActiveRecord::Base
     else
     resort_instructors = self.location.instructors
     puts "!!!!!!! - Step #1 Filtered for location, found #{resort_instructors.count} instructors."
-    if self.activity == 'Ski'
-        wrong_sport = "Snowboard Instructor"
-      else
-        wrong_sport = "Ski Instructor"
-    end
     active_resort_instructors = resort_instructors.where(status:'Active')
     puts "!!!!!!! - Step #2 Filtered for active status, found #{active_resort_instructors.count} instructors."
     if self.activity == 'Ski' && self.level
@@ -258,7 +253,14 @@ class Lesson < ActiveRecord::Base
       active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| instructor.seniors_eligibility == true }
       puts "!!!!!!! - Step #3c Filtered for seniors specialist, now have #{active_resort_instructors.count} instructors."
     end
-    wrong_sport_instructors = Instructor.where(sport: wrong_sport)
+    if self.activity == 'Ski'
+        active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| instructor.ski_instructor? }
+      elsif self.activity == "Snowboard"
+        active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| instructor.snowboard_instructor? }
+      elsif self.activity == "Telemark"
+        active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| instructor.telemark_instructor? }
+    end
+    puts "!!!!!!! - Step 3d Filtere for correct sport."
     already_booked_instructors = Lesson.booked_instructors(lesson_time)
     busy_instructors = Lesson.instructors_with_calendar_blocks(lesson_time)
     declined_instructors = []
@@ -266,11 +268,10 @@ class Lesson < ActiveRecord::Base
     declined_actions.each do |action|
       declined_instructors << Instructor.find(action.instructor_id)
     end
-    puts "!!!!!!! - Step #4a - eliminating #{wrong_sport_instructors.count} that teach the wrong sport."
     puts "!!!!!!! - Step #4b - eliminating #{already_booked_instructors.count} that are already booked."
     puts "!!!!!!! - Step #4c - eliminating #{declined_instructors.count} that have declined."
     puts "!!!!!!! - Step #4d - eliminating #{busy_instructors.count} that are busy."
-    available_instructors = active_resort_instructors - already_booked_instructors - declined_instructors - wrong_sport_instructors - busy_instructors
+    available_instructors = active_resort_instructors - already_booked_instructors - declined_instructors - busy_instructors
     puts "!!!!!!! - Step #5 after all filters, found #{available_instructors.count} instructors."
     available_instructors = self.rank_instructors(available_instructors)
     return available_instructors

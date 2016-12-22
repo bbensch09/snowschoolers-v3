@@ -8,8 +8,9 @@
         - last_name
         - username
         - locations
-        - preferred_locations
+        - sports
         - sport
+        - preferred_locations
         - status
         - overall_initial_rank
         - kids_initial_rank
