@@ -21,7 +21,8 @@
   Telemark <img src= "/assets/telemark-icon.png" class="tele-icon">
   <% end %>
   <br>
-  Average Rating: <%= (@instructor.average_rating*10).round / 10.0 %> stars </h3>
+  <div class="star-rating" data-score= <%= ((@instructor.average_rating*10).round/10.0) %> >
+  Average Rating: </h3>
   <h4> Certification Status: <%= @instructor.certification %></h4>
   <h4> Hometown: <%= @instructor.city %> </h4>
   <div class="maps-container row">
