@@ -3,14 +3,13 @@
 
 <div class="container">
 
-<h1 class="center navy-text">Browse by Instructor</h1>
+<h1 class="center navy-text">Browse Instructors</h1>
 <div class="col-md-12">
   <hr class="deposit-hr-navy">
 </div>
 <div class="col-md-12">
     <% @instructors.each do |instructor| %>
       <div class="col-md-4 col-lg-4 col-xs-12 instructor-box">
-        <div class="">
         <h2 class="center instructor-name">
           <%= link_to instructor.name, instructor %>
         </h2>
@@ -21,10 +20,33 @@
             <%= image_tag instructor.avatar.url(:large), alt:"avatar-img", class:"img-circle instructor-photo avatar-center" %>
           <%end%>
         </div>
+        <div class="sport-icons center">
+        <% if instructor.ski_instructor? %>
+        <img src= "/assets/skier-icon.ico" class="icons">
+        <% end %>
+        <% if instructor.snowboard_instructor? %>
+        <img src= "/assets/snowboarder-icon.png" class="icons">
+        <% end %>
+        <% if instructor.telemark_instructor? %>
+        <img src= "/assets/telemark-icon.png" class="tele-icon">
+        <% end %>
         </div>
-        <ul>
-          <li><b> Location:</b> <%= instructor.city %></li>
-          <li><b> Sport: </b> <%= instructor.sport %>, <%= instructor.certification %> </li>
+        <ul class="browse-attributes">
+          <li>
+          <% instructor.sports[0...-1].each do |sport| %>
+            <%= sport.name %> &
+            <% end %>
+            <%= instructor.sports.last.name %>
+            </li>
+          <li>
+            <h4>
+              <div class="star-rating" data-score= <%= ((instructor.average_rating*10).round/10.0) %> >
+              <span class="pull-right review-count">(<%=instructor.reviews.count%> reviews)</span>
+            </h4>
+           </li>
+          <li><%= instructor.age %> years old, from <%= instructor.city %>
+          <li><b>Certification(s):</b> <%= instructor.certification %> </li>
+          <li><b> About <%= instructor.first_name %>:</b> <%= instructor.city %></li>
           <% if instructor.bio %>
           <li><%= instructor.bio[0..200].gsub(/\s\w+$/,'...') %> </li>
           <% end %>
@@ -40,3 +62,12 @@
     <% end %>
 
 </div>
+<script>
+    $('.star-rating').raty({
+      path: '/assets/',
+      readOnly: true,
+      score: function() {
+            return $(this).attr('data-score');
+    }
+  });
+</script>

@@ -144,7 +144,7 @@
   position: relative;
 }
 .instructor-box{
-  height:460px;
+  height:600px;
   border-bottom: 1px solid #3b5998;
   margin-bottom: 20px;
 }
@@ -207,9 +207,22 @@
   height:40px;
 }
 .stars-text{
-  top: -20px;
-  left: 110px;
+  top: -25px;
+  left: 150px;
   position: relative;
+}
+.browse-attributes{
+  list-style-type: none;
+  padding-left:0px;
+}
+.review-count{
+  font-size: 0.9em;
+  position: relative;
+  right:65px;
+  top: 4px;
+}
+.star-rating img {
+  height:25px;
 }
 
 /*DESKTOP ONLY ADJUSTMENTS*/
@@ -290,6 +303,9 @@ label, select{
   margin-left: 5vw;
   margin-right: 5vw;
   margin-bottom:10px;
+}
+.review-count{
+  right:0px;
 }
 
 }
