@@ -39,10 +39,12 @@ class Instructor < ActiveRecord::Base
   def average_rating
     return 4 if reviews.count == 0
     total_stars = 0
-    reviews.each do |review|
+    if self.reviews.count > 0
+    self.reviews.each do |review|
       total_stars += review.rating
     end
-    return (total_stars.to_f / reviews.count.to_f)
+    end
+    return (total_stars.to_f / self.reviews.count.to_f)
   end
 
   def completed_lessons
