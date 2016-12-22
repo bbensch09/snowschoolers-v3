@@ -15,6 +15,16 @@ class WelcomeController < ApplicationController
     end
   end
 
+  def recommended_accomodations
+    file = "public/Recommended-Accomodations-Homewood.pdf"
+    if File.exists?(file)
+      send_file file, :type=>"application/pdf", :x_sendfile=>true
+    else
+      flash[:notice] = 'File not found'
+      redirect_to :index
+    end
+  end
+
   def index
     # @lesson = Lesson.new
     # @lesson_time = @lesson.lesson_time
