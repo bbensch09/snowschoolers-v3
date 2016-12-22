@@ -13,7 +13,7 @@
                 <p class="shadow-box-highlight hero-subtext">Say goodbye to ticket windows and the morning hassle. Book a certified instructor in just a few clicks, and we'll meet you on the mountain.</p>
                 <a href="/lessons/new" class="btn btn-primary btn-xl page-scroll">Book a Lesson Today</a>
                 <p class="shadow-box-highlight ">Lessons now available at<b> Homewood!</b> <br>
-                See our <a href="/launch_announcement" class="internal-link">recent launch announcement</a> for more info.</p>
+                <!-- See our <a href="/launch_announcement" class="internal-link">recent launch announcement</a> for more info.</p> -->
             </div>
             <hr>
             <!-- <div class="header-content-inner">
@@ -25,12 +25,76 @@
         </div>
     </section>
 
+    <section id="why-snowschoolers" class="pricing-section">
+        <div class="container">
+            <div class="row about-us">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading how-it-works navy-text">Why Snow Schoolers?</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <h2 id="why-snowschoolers-subheader" class="center navy-text">Booking a ski or snowboard lesson should be <b>fast, easy, </b>and <b>convenient</b>.
+                </h2>
+              <hr class="deposit-hr-navy">
+              <div class="row">
+                <p class="solid-box-highlight why-snowschoolers-text white-text center">
+                We are a team of lifelong skiers and technologists, and we believe that <b>literally anyone </b> can learn how to ski. Whether this will be your first time seeing snow, or whether you're an experienced skier looking to take your skills to the next level, we're here to ensure you have the <b>perfect lesson experience</b>.
+                </p>
+                <p class="solid-box-highlight why-snowschoolers-text white-text">
+                <span class=""> We are currently only accepting <b> private lessons reservations </b> at <a href="https://www.google.com/maps/place/Homewood+Mountain+Resort/@39.0855833,-120.1627278,17z/data=!3m1!4b1!4m5!3m4!1s0x80997fda4762005f:0x73b0c46aa0c1068d!8m2!3d39.0855833!4d-120.1605391" class="green-link">Homewood Mountain Resort</a>, which is located on the west shore of Lake Tahoe, 10 minutes from Tahoe city.</span> A private lesson ensures you receive the <b> dedicated attention you deserve </b> from one of our <a href="/browse" class="green-link">certified instructors</a>. If private lessons are outside your budget, our team of dedicated customer success agents would be happy to talk you through the options around group lessons, which can be booked online at <a href="http://cloudstore.skihomewood.com/product/5484/CA/Homewood-Adult-A.M.-First-Time-Learn-to-Ski-Lesson-Package.htm#12-2016" class="green-link"> www.skihomewood.com</a>. Whether you're booking a private or a group lesson, we are confident that Homewood offers <b>the best value</b> in Tahoe.
+                </p>
+            </div>
+            </div>
+        </div>
+    </section>
+
+<section id="private-group-comparison" class="bg-primary">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1 class="section-heading white-text">Skiing is expensive - is a <b>private lesson</b> worth it?</h1>
+                </div>
+            </div>
+            <div class="row navy-bg">
+                <div class="col-md-6">
+                    <h2 class="padding-top center white-text comparison-header"><b> Garry </b> goes in a group </span></h2>
+                    <img src="/assets/group-photo.jpg" class="comparison-photo" alt="group-lesson">
+                    <h2 class="center white-text comparison-subheading"></h2>
+                    <ul class="ski-expenses comparison-container">
+                        <li>Beginner bundle (lift pass, rental, lesson): $99</li>
+                        <li>Standard group lesson: 2.5 hours</li>
+                        <li>Students per group: 8 students</li>
+                        <li>Lessons needed to ski confidently: 3 </li>
+                    </ul>
+                    <h2 class="white-transparent-bg expenses-total red bold">Total: 3 days, $297 </h2>
+                </div>
+                <div class="hidden-unless-mobile col-md-12">
+                    <hr>
+                </div>
+                <div class="col-md-6">
+                    <h2 class="padding-top center white-text comparison-header"><b> Peter </b> takes a private</h2>
+                    <img src="/assets/private-photo.png" class="comparison-photo" alt="private-lesson">
+                    <h2 class="center white-text comparison-subheading"></h2>
+                    <ul class="ski-expenses comparison-container">
+                        <li>Half-day morning lesson: $489</li>
+                        <li>Lift ticket & rental: $64 </li>
+                        <li>4 hours of dedicated 1:1 instruction </li>
+                        <li>Lessons needed to ski confidently: 1 </li>
+                    </ul>
+                    <h2 class="white-transparent-bg expenses-total green bold">Total: 1 day, $553 </h2>
+                </div>
+            </div>
+        </div>
+ </section>
+
     <section class="pricing-section">
         <div class="pricing-container">
             <table class="col-lg-12 col-xs-12 pricing-table">
               <thead class="">
                 <tr>
-                    <th class="center price-header" colspan="4">Private Lessons Comparison</th>
+                    <th class="center price-header" colspan="4">Private Lesson Rates in Tahoe</th>
 
                 </tr>
                 <tr class="">
@@ -44,7 +108,9 @@
               <tbody>
                 <tr>
                     <td class="pricing-length">1hr</td>
-                    <td class="pricing-snowschoolers">$99</td>
+                    <td class="pricing-snowschoolers">
+                        <%= number_to_currency(Product.where(location_id:8,length:1,calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
+                        </td>
                     <td class="pricing-competitors">N/A</td>
                     <td class="pricing-competitors">N/A</td>
                 </tr>
@@ -56,13 +122,17 @@
                 </tr> -->
                 <tr>
                     <td class="pricing-length">Half-day (3hr)</td>
-                    <td class="pricing-snowschoolers">$469</td>
+                    <td class="pricing-snowschoolers">
+                    <%= number_to_currency(Product.where(location_id:8,length:3,calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
+                    </td>
                     <td class="pricing-competitors">$575</td>
                     <td class="pricing-competitors">$519</td>
                 </tr>
                 <tr>
                     <td class="pricing-length">Full-day (6hr)</td>
-                    <td class="pricing-snowschoolers">$599</td>
+                    <td class="pricing-snowschoolers">
+                    <%= number_to_currency(Product.where(location_id:8,length:6,calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
+                    </td>
                     <td class="pricing-competitors">$810</td>
                     <td class="pricing-competitors">$739</td>
                 </tr>
@@ -90,7 +160,7 @@
                           <% end %>
                           <div class="email-input">
                             <%= f.email_field :email, autofocus: false, class:"black-text form-control beta-sign-up", placeholder:"Enter Email", required: true  %>
-                          <%= f.submit "Sign Up for Updates & Special Offers", class:"btn btn-success btn-xl page-scroll" %>
+                          <%= f.submit "Enter to win Free Lesson", class:"btn btn-success btn-xl page-scroll" %>
                           <!-- <h3 class="offer-limitations">*First 100 sign ups receive 20% off their first lesson.</h3> -->
                           </div>
                         <% end %>
@@ -98,15 +168,18 @@
                     <hr class="light text-center">
                     <!-- <h3 class="text-white">Instructors at Snow Schoolers loving sharing their passion for the mountain, and don't care to see your wallet drained. </h3> -->
                     <div class="col-md-8 col-md-offset-2">
-                     <h3> Beyond convenience, our <b> dynamic matching algorithm</b> ensures an expert Snow Schoolers instructor is always available. Book in advance to lock in early season rates, with one-hour early-bird specials <b>starting at just $89</b>.
+                     <!-- <h3> Beyond convenience, our <b> dynamic matching algorithm</b> ensures an expert Snow Schoolers instructor is always available. Book in advance to lock in early season rates, with one-hour early-bird specials <b>starting at just $89</b>.
+                     </h3> -->
+                     <h3>
+                         Snow Schoolers is working with Santa to provide a free full-day family lesson to a lucky customer. Must enter by 12/24!
                      </h3>
                      <!-- <h3>
                      Booking last minute? Not a problem either. Prices only surge when it's necessary to get more instructors out on the hill.
                      </h3> -->
+                   <hr>
+                     <h4>Already planned your trip and ready to book?</h4>
                      </div>
-
-<!--                     <p> We match students with available instructors completely free of charge, though we do encourage donations as an appreciation of your instructor's time.</p>
- -->                    <a href="/lessons/new" class="btn btn-primary btn-xl page-scroll">Book in Advance to Save</a>
+                    <a href="/lessons/new" class="btn btn-primary btn-xl page-scroll">Book your lesson now</a>
                 </div>
             </div>
         </div>

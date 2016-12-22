@@ -604,6 +604,31 @@ h2 {
 .copyright-text{
   font-size: 0.7em;
 }
+.why-snowschoolers-text{
+  padding: 20px 20px 20px 20px;
+  font-size: 1.5em;
+}
+.green-link {
+    color: #55C9B2;
+    font-style: bold;
+    text-decoration: underline;
+}
+#why-snowschoolers{
+  padding-bottom: 40px;
+}
+.comparison-container{
+  height:150px;
+  font-size: 0.8em;
+}
+.comparison-photo{
+height: 200px;
+margin: auto;
+position: relative;
+display: block;
+}
+.solid-box-highlight{
+  background-color: rgba(59, 89, 152, 1);
+}
 
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/
 @media (max-width: 768px) {
@@ -624,7 +649,7 @@ h2 {
   padding-top:50px;
   padding-bottom: 0px;
   background-color: #fff;
-  max-height: 45vh;
+  max-height: 55vh;
   }
   section.small {
       min-height: 200px;
@@ -643,4 +668,28 @@ h2 {
   padding: 20px 15px 100px;
   width: 100%;
 }
+#why-snowschoolers h2.how-it-works{
+  font-size: 1.7em;
+}
+#why-snowschoolers-subheader{
+    font-size: 1.9em;
+    line-height: 1.2;
+    padding: 5px 5px 5px 5px;
+}
+#why-snowschoolers{
+  max-height: 300vh !important;
+  padding-bottom: 20px;
+}
+#private-group-comparison{
+  clear:both;
+  position: relative;
+  min-height: 100vh;
+}
+.why-snowschoolers-text{
+  padding-left:30px;
+}
+.comparison-photo{
+max-width: 90vw;
+}
+
 }
