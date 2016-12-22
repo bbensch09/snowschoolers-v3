@@ -28,6 +28,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def username_for_admin
+    return self.email[/[^@]+/]
+  end
+
   def send_admin_notification
       @user = User.last
       LessonMailer.new_user_signed_up(@user).deliver
