@@ -91,7 +91,7 @@
       </p>
       <h4> <%= review.review %></h4>
       <% if review.reviewer.email == "brian@snowschoolers.com"%>
-          <% time_stamp = Lesson.find(rand(30)).created_at.strftime("%B %d, %Y") %>
+          <% time_stamp = Lesson.all.to_a[rand(30)].created_at.strftime("%B %d, %Y") %>
         <% else %>
           <% time_stamp = review.created_at.strftime("%B %d, %Y") %>
       <% end %>
