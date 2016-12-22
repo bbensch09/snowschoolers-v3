@@ -106,8 +106,8 @@
               <!-- %= f.action :submit, as: :input, button_html: { class: 'btn btn-default btn-lg', value: 'Book Lesson' } %> -->
               <%= f.action :submit, :label => "Book Lesson", as: :input, button_html: { class: 'btn btn-default btn-lg' } %>
                 <% if @instructor_requested.nil? %>
-                <li>  OR </li>
-                <li> <button id='browser-instructors-cta' href="/browse" value="Browse Instructors" class="btn btn-default btn-lg">Browse instructors</button></li>
+                <!-- <li>  OR </li> -->
+                <!-- <li> <button id='browser-instructors-cta' href="/browse" value="Browse Instructors" class="btn btn-default btn-lg">Browse instructors</button></li> -->
                 <% end %>
             <% end %>
           </li>
