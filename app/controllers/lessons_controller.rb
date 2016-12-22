@@ -9,15 +9,16 @@ class LessonsController < ApplicationController
       @lessons = Lesson.all.sort_by { |lesson| lesson.id}
       @todays_lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.today }
       elsif current_user.user_type == "Partner"
+        lessons = Lesson.where(requested_location:current_user.location.id.to_s).sort_by { |lesson| lesson.id}
+        @todays_lessons = lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
         @lessons = Lesson.where(requested_location:current_user.location.id.to_s).sort_by { |lesson| lesson.id}
-        @todays_lessons = @lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
       elsif current_user.instructor
+        lessons = Lesson.visible_to_instructor?(current_user.instructor)
+        @todays_lessons = lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
         @lessons = Lesson.visible_to_instructor?(current_user.instructor)
-        @todays_lessons = @lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
       else
-        # @lessons = Lesson.where(requester_id:current_user.id).sort_by { |lesson| lesson.id}
         @lessons = current_user.lessons
-        @todays_lessons = @lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
+        @todays_lessons = current_user.lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
     end
   end
 
