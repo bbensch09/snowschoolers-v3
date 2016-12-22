@@ -21,7 +21,8 @@
     <h4>Lesson Details</h4>
     <ul>
       <li>Instructor Name: <%= link_to @lesson.instructor.name, @lesson.instructor %></li>
-      <li>Instructor phone number: <%= @lesson.instructor.phone_number %></li>
+      <li>Instructor phone number: <%= @lesson.instructor.phone_number %>; Feel free to contact your instructor directly the day of your lesson if you have any questions. </li>
+      <li>Your phone number: <%= @lesson.phone_number %>; You will receive SMS notifications only regarding <b> this lesson request </b>; your number will never be used for marketing notifications nor shared with any third parties. </li>
       <li>Students: <%= @lesson.students.map(&:name).join(', ') %></li>
       <li>Date: <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %></li>
       <li>Slot: <%= @lesson.slot %></li>
@@ -31,13 +32,14 @@
     <p>
       If you need to make changes to your lessons, please visit: <%= lesson_url(@lesson) %>
     </p>
-    <% if @lesson.gear == nil %>
+    <% if @lesson.gear == false %>
       <h4>Rental Equipment</h4>
-      <p>Private lessons at Homewood with Snow Schoolers do not include rentals. However, we're happy to make some recommendations if you are still in need of renting equipment for your upcoming trip.</p>
+      <p>Private lessons at Homewood with Snow Schoolers do not include rentals, unless you have chosen to purchase the beginner rental and lift ticket package in addition to your lesson. If you'd like to add that to your reservation, simply email us back at <a href="mailto:support@snowschoolers.com">support@snowschoolers.com and let us know!</p>
+      <p>If you just need rentals, we're happy to make some recommendations:</p>
       <ul>
         <li> The cheapest option for rentals is generally in metro areas such as the Bay Area and Sacramento. We are personally big fans of the <a href="https://rentals.sportsbasement.com/rent/ski-rentals/adult-basic-ski-package">Sports Basement</a>, which offers 4-day rentals for $55.</li>
-        <li>The next most affordable option is to rent from a retail shops in the Tahoe area. We recommend <a href="https://rentals.tahoedaves.com/">Taheo Dave's</a>, which has five locations in North Tahoe with beginner packages for $32/day.
-        <li>Lastly, you can always rent from the on-mountain rental shop at Homewood, which located next to the lift ticket counter at the North Lodge. Pricing is typically a bit more expensive, but you get the convenience of not having to fit skis in your car. Please give yourself at least an extra 30 minutes before your lesson if you are planning to rent from the mountain. </li>
+        <li>The next most affordable option is to rent from a retail shops in the Tahoe area. We recommend <a href="https://rentals.tahoedaves.com/">Taheo Dave's</a>, which has five locations in North Tahoe with beginner packages for $32/day. If you want to reserve your gear online, you can enter our <b>promo code "RACK20"</b> to save 20%, and simply bring your email confirmation with you to the store to get fitted.
+        <li>Lastly, if you forget to plan ahead, you can always rent equipment from Homewood the morning of your lesson. Pricing is typically a bit more expensive, but you get the convenience of not having to fit skis in your car. Please give yourself at least an extra 30 minutes before your lesson if you are planning to rent from the mountain. </li>
       </ul>
     <% end %>
 

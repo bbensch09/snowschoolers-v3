@@ -35,6 +35,11 @@ class LessonMailer < ActionMailer::Base
       mail(to: 'brian@snowschoolers.com', subject: "SMS sent to #{@recipient}")
   end
 
+  def send_admin_notify_invalid_phone_number(lesson)
+      @lesson = lesson
+      mail(to: 'brian@snowschoolers.com', subject: "Alert - Failed to send SMSto #{@lesson.phone_number}")
+  end
+
   def application_begun(email="Unknown user",first_name="John", last_name="Doe")
       @email = email
       @name = first_name + last_name

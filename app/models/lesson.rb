@@ -476,13 +476,18 @@ class Lesson < ActiveRecord::Base
         when 'waiting for payment'
         body = "We hope you had a great lesson today with #{self.instructor.name}! You may now complete your lesson payment and leave a quick review for your instructor by visiting #{ENV['HOST_DOMAIN']}/lessons/#{self.id}. Thanks for using Snow Schoolers!"
       end
-      @client = Twilio::REST::Client.new account_sid, auth_token
-          @client.account.messages.create({
-          :to => recipient,
-          :from => "#{snow_schoolers_twilio_number}",
-          :body => body
-      })
-      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
+      if recipient.length == 10 || recipient.length == 11
+        @client = Twilio::REST::Client.new account_sid, auth_token
+            @client.account.messages.create({
+            :to => recipient,
+            :from => "#{snow_schoolers_twilio_number}",
+            :body => body
+        })
+          LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
+          else
+            puts "!!!! error - could not send SMS via Twilio"
+            LessonMailer.send_admin_notify_invalid_phone_number(self).deliver
+        end
   end
 
   def send_sms_to_admin

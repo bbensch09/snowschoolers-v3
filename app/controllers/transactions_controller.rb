@@ -29,19 +29,19 @@ class TransactionsController < ApplicationController
     amount_to_charge = (@lesson.transactions.last.final_amount - @lesson.price)
     amount_for_stripe = (('%.2f' % amount_to_charge).to_f*100).to_i
     puts "The final amount to be charged is #{@amount}"
+    if amount_to_charge > 0
+      customer = Stripe::Customer.create(
+        :email => params[:stripeEmail],
+        :source  => params[:stripeToken]
+      )
 
-    customer = Stripe::Customer.create(
-      :email => params[:stripeEmail],
-      :source  => params[:stripeToken]
-    )
-
-    charge = Stripe::Charge.create(
-      :customer    => customer.id,
-      :amount      => amount_for_stripe,
-      :description => 'Lesson completion payment',
-      :currency    => 'usd'
-    )
-
+      charge = Stripe::Charge.create(
+        :customer    => customer.id,
+        :amount      => amount_for_stripe,
+        :description => 'Lesson completion payment',
+        :currency    => 'usd'
+      )
+    end
     @transaction.lesson.state = "Payment complete, waiting for review."
     @transaction.lesson.save
     @transaction.lesson.send_sms_to_instructor

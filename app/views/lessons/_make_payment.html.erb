@@ -27,6 +27,7 @@
               <% amount_to_charge = (@lesson.transactions.last.final_amount - @lesson.price) %>
               <li><span>After deducting your initial <%= number_to_currency(@lesson.price) %> lesson fee, your remaining balance to be charged is <b><%= number_to_currency(amount_to_charge)%>.</b></span></li>
             </ul>
+        <% if amount_to_charge > 0 %>
           <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                   data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                   data-description="Lesson Payment"
@@ -36,6 +37,9 @@
                   data-locale="auto"
                   data-zip-code="true">
           </script>
+          <% else %>
+            <%= submit_tag "Complete Lesson", class: 'btn sign-up-btn pull-left' %>
+        <% end %>
           </article>
       <% end %>
       <% end %>
