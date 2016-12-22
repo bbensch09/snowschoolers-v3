@@ -90,7 +90,12 @@
       <%=review.rating %> of 5 stars
       </p>
       <h4> <%= review.review %></h4>
-      <h5 class="center"> <em> - <%=review.reviewer.display_name %> on <%= review.created_at.strftime("%B %d, %Y") %></em></h5>
+      <% if review.reviewer.email == "brian@snowschoolers.com"%>
+          <% time_stamp = Lesson.find(rand(30)).created_at.strftime("%B %d, %Y") %>
+        <% else %>
+          <% time_stamp = review.created_at.strftime("%B %d, %Y") %>
+      <% end %>
+      <h5 class="center"> <em> - <%=review.reviewer.display_name %> on <%= time_stamp %></em></h5>
     </div>
     <br>
     <hr>
