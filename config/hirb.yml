@@ -33,7 +33,7 @@
         - deposit_status
         - lesson_time_id
         - activity
-        - location
+        - requested_location
         - state
         - duration
         - start_time
