@@ -27,6 +27,15 @@ class Lesson < ActiveRecord::Base
     lesson_time.date
   end
 
+  def self.set_all_lessons_to_Homewood
+    Lesson.all.to_a.each do |lesson|
+      if lesson.requested_location != 8
+        lesson.requested_location = 8
+        lesson.save
+      end
+    end
+  end
+
   def slot
     lesson_time.slot
   end
