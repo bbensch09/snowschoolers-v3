@@ -5,8 +5,7 @@ Rails.application.configure do
   config.cache_classes = true
 
   #force SSL on all pages
-  config.force_ssl = true
-
+  # config.force_ssl = true
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both thread web servers
