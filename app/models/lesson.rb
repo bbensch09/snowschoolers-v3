@@ -506,7 +506,7 @@ class Lesson < ActiveRecord::Base
           :from => ENV['TWILIO_NUMBER'],
           :body => "ALERT - no instructors are available to teach #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date} at #{self.location.name}. The last person to decline was #{Instructor.find(LessonAction.last.instructor_id).username}."
       })
-      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
+      LessonMailer.notify_admin_sms_logs(self,body).deliver
   end
 
   def send_sms_to_admin_1to1_request_failed
