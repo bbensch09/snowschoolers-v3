@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
 
   def username_for_admin
     email_text = self.email[/[^@]+/]
-    email_for_sort = email_text + "#{rand(100)}"
+    email_for_sort = "   #{email_text}_#{rand(100)}"
   end
 
   def send_admin_notification
