@@ -6,13 +6,13 @@ class LessonsController < ApplicationController
 
   def index
     if current_user.email == "brian@snowschoolers.com"
-      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable?}
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable?}
       @lessons.sort_by { |lesson| lesson.id}
       @todays_lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.today }
       elsif current_user.user_type == "Ski Area Partner"
         lessons = Lesson.where(requested_location:current_user.location.id.to_s).sort_by { |lesson| lesson.id}
         @todays_lessons = lessons.to_a.keep_if{|lesson| lesson.date == Date.today && lesson.state != 'new' }
-        @lessons = Lesson.where(requested_location:current_user.location.id.to_s).to_a.keep_if{|lesson| lesson.completed? || lesson.completable?}
+        @lessons = Lesson.where(requested_location:current_user.location.id.to_s).to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable?}
         @lessons.sort_by { |lesson| lesson.id}
       elsif current_user.instructor
         lessons = Lesson.visible_to_instructor?(current_user.instructor)
