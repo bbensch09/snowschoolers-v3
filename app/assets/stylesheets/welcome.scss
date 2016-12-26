@@ -629,6 +629,14 @@ display: block;
 .solid-box-highlight{
   background-color: rgba(59, 89, 152, 1);
 }
+.twitter-embed twitterwidget{
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+.twitter-embed{
+}
 
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/
 @media (max-width: 768px) {
