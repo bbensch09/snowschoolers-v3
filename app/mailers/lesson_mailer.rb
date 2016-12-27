@@ -106,7 +106,11 @@ class LessonMailer < ActionMailer::Base
 
   def send_lesson_request_notification(lesson)
     @lesson = lesson
-    mail(to: @lesson.requester.email, cc:'notify@snowschoolers.com', subject: 'Lesson Request Received')
+    if @lesson.guest_email.nil?
+      mail(to: @lesson.requester.email, cc:'notify@snowschoolers.com', subject: 'Lesson Request Received')
+    else
+      mail(to: @lesson.guest_email, cc:'notify@snowschoolers.com', subject: 'Lesson Request Received')
+    end
   end
 
   def send_lesson_update_notice_to_instructor(original_lesson, updated_lesson, changed_attributes)
