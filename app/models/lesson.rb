@@ -185,7 +185,7 @@ class Lesson < ActiveRecord::Base
         return product.price
       end
     else
-      return (self.lesson_price*100).to_s
+      return (self.lesson_price).to_s
     end
   end
 
