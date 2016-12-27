@@ -97,7 +97,11 @@ class LessonMailer < ActionMailer::Base
 
   def send_lesson_confirmation(lesson)
     @lesson = lesson
-    mail(to: @lesson.requester.email, cc:'notify@snowschoolers.com', bcc:@lesson.instructor.user.email, subject: 'Your Snow Schoolers certified instructor has confirmed your reservation!')
+    if @lesson.guest_email.nil?
+      mail(to: @lesson.requester.email, cc:'notify@snowschoolers.com', bcc:@lesson.instructor.user.email, subject: 'Your Snow Schoolers certified instructor has confirmed your reservation!')
+    else
+      mail(to: @lesson.guest_email, cc:'notify@snowschoolers.com', bcc:@lesson.instructor.user.email, subject: 'Your Snow Schoolers certified instructor has confirmed your reservation!')
+    end
   end
 
   def send_lesson_request_notification(lesson)
