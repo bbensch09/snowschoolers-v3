@@ -13,7 +13,7 @@
       <h3>No adjustments necessary</h3>
       <%= f.input :base_amount, :input_html => {value: @lesson.price, class: 'hidden'}, label: false %>
     <% else %>
-      <h3>Lesson extended</h3>
+      <!-- <h3>Lesson extended</h3> -->
       <%= f.input :base_amount, :input_html => {value: @lesson.adjusted_price, class: 'hidden'}, label: false %>
     <% end %>
 <!-- <h3>Hourly rate: <%= number_to_currency(75) %> </h3> -->
