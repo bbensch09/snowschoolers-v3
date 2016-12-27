@@ -423,6 +423,7 @@ fieldset[disabled] .btn-primary.active {
 }
 .btn-xl {
   padding: 15px 30px;
+  font-size: 1.7em;
 }
 ::-moz-selection {
   color: white;
@@ -540,7 +541,6 @@ h2.how-it-works {
   max-width: 100%;
   margin-left: 0%;
   margin-right: 0%;
-  min-height: 70vh;
 }
 .pricing-snowschoolers, .pricing-competitors-names, .pricing-competitors, .pricing-length{
   font-size: 0.9em !important;
@@ -645,6 +645,13 @@ display: block;
 .SandboxRoot{
   /*max-height: 50vh;*/
 }
+.group-vs-private-header{
+  font-size: 2.2em;
+}
+.beta-sign-up-offer{
+  font-size:1.4em;
+  line-height: 1.3;
+}
 
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/
 @media (max-width: 768px) {
@@ -662,10 +669,11 @@ display: block;
   }
   section.pricing-section{
   min-height: 150px !important;
+  display: block;
+  position: relative;
   padding-top:50px;
-  padding-bottom: 0px;
+  padding-bottom: 45px;
   background-color: #fff;
-  max-height: 55vh;
   }
   section.small {
       min-height: 200px;
@@ -703,9 +711,17 @@ display: block;
 }
 .why-snowschoolers-text{
   padding-left:30px;
+  margin-top:20px;
 }
 .comparison-photo{
 max-width: 90vw;
+}
+#homeHeading{
+  font-size: 1.5em;
+}
+.btn-xl {
+  padding: 15px 30px;
+  font-size: 1.2em;
 }
 
 }
