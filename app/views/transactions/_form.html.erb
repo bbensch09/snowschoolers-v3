@@ -20,8 +20,8 @@
 <h3>
   <b>Original Lesson Fee:</b> <%= number_to_currency(@lesson.price) %> <br>
   <b>Final Lesson Fee:</b> <%= number_to_currency(@lesson.adjusted_price) %> <br>
-  <% if (@lesson.adjusted_price - @lesson.price) > 0 %>
-  <b>Amount Due: </b><%= number_to_currency(@lesson.adjusted_price - @lesson.price) %>
+  <% if (@lesson.adjusted_price.to_i)-(@lesson.price.to_i) > 0 %>
+  <b>Amount Due: </b><%= number_to_currency((@lesson.adjusted_price.to_i)-(@lesson.price.to_i)) %>
   <% else %>
   <b>Amount Due: </b><%= number_to_currency(0) %>
   <% end %>
