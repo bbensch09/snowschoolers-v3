@@ -20,7 +20,7 @@
 <h3>
   <b>Original Lesson Fee:</b> <%= number_to_currency(@lesson.price) %> <br>
   <b>Final Lesson Fee:</b> <%= number_to_currency(@lesson.adjusted_price) %> <br>
-  <b>Amount Due: </b><%= number_to_currency(@lesson.adjusted_price - @lesson.price) %>
+  <b>Amount Due: </b><%= number_to_currency((@lesson.adjusted_price - @lesson.price).to_i) %>
 </h3>
     <%= f.input :tip_amount, as: :select, collection: [['10%',0.1],['20%',0.20],['30%',0.30],['No Tip',0]], include_blank: 'Select Tip Amount', label: "Include Instructor Tip (optional)", :input_html => {class:'tip-amount-input', required: true} %>
   <% end %>
