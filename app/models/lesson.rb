@@ -49,6 +49,10 @@ class Lesson < ActiveRecord::Base
     tip_amount = ((tip_amount*100).to_i).to_f/100
   end
 
+  def lift_ticket_status?
+    return true if self.lift_ticket_status == "Yes, I have one."
+  end
+
   def adjusted_price
     return self.price if actual_duration <= self.product.length.to_i
     delta = actual_duration - self.product.length.to_i
@@ -173,11 +177,15 @@ class Lesson < ActiveRecord::Base
   end
 
   def price
-    product = Product.where(location_id:self.location.id,name:self.lesson_time.slot,calendar_period:self.location.calendar_status).first
-    if product.nil?
-      return "Error - lesson price not found" #99 #default lesson price - temporary
+    if self.lesson_price.nil?
+      product = Product.where(location_id:self.location.id,name:self.lesson_time.slot,calendar_period:self.location.calendar_status).first
+      if product.nil?
+        return "Error - lesson price not found" #99 #default lesson price - temporary
+      else
+        return product.price
+      end
     else
-      return product.price
+      return (self.lesson_price*100).to_s
     end
   end
 

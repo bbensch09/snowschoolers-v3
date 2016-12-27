@@ -12,7 +12,17 @@
         <div class="admin-viewable">
           <div class="col-md-12 vertical-padding">
           <h4> ADMIN ONLY: Select user email to assign this lesson to a new requester.</h4>
-            <%= f.select :requester_id, options_from_collection_for_select(User.all.sort {|a,b| a.username_for_admin <=> b.username_for_admin}, :id, :username_for_admin, selected:@lesson.requester_id), include_blank:true %>
+              <div class="col-md-4">
+                <%= f.select :requester_id, options_from_collection_for_select(User.all.sort {|a,b| a.username_for_admin <=> b.username_for_admin}, :id, :username_for_admin, selected:@lesson.requester_id), include_blank:true %>
+              </div>
+              <div class="col-md-4">
+                <label>Number of Days</label>
+                <%= f.input :num_days, as: :string, placeholder: "How many consecutive days?", label: false %>
+              </div>
+              <div class="col-md-4">
+                <label>Lesson Price</label>
+                <%= f.input :lesson_price, as: :string, placeholder: "Enter custom price", label: false %>
+              </div>
           </div>
         </div>
       <% end %>
