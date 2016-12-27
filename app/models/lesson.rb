@@ -49,6 +49,10 @@ class Lesson < ActiveRecord::Base
     tip_amount = ((tip_amount*100).to_i).to_f/100
   end
 
+  def lift_ticket_status?
+    return true if self.lift_ticket_status == "Yes, I have one."
+  end
+
   def adjusted_price
     return self.price if actual_duration <= self.product.length.to_i
     delta = actual_duration - self.product.length.to_i

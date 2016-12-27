@@ -48,7 +48,7 @@
         <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %><br>
         <span> <%= @lesson.slot %></span><br>
         <%= @lesson.gear ? "Already have gear." : "Need to rent." %><br>
-        <%= @lesson.lift_ticket_status ? "Already have one." : "Need lift ticket." %><br>
+        <%= @lesson.lift_ticket_status? ? "Already have one." : "Need lift ticket." %><br>
         <%= number_to_currency(@lesson.price) %>
       </h4>
       </div>
