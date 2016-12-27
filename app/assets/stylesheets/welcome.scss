@@ -636,6 +636,14 @@ display: block;
   display: block;
 }
 .twitter-embed{
+  display: block;
+  clear:both;
+}
+.EmbeddedTweet{
+  overflow: none;
+}
+.SandboxRoot{
+  /*max-height: 50vh;*/
 }
 
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/
