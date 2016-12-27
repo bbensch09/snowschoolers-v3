@@ -52,7 +52,7 @@
         <% if @lesson.lesson_price.nil? %>
           <%= number_to_currency(@lesson.price) %>
         <% else %>
-          <%= number_to_currency(@lesson.lesson_price.to_i*100) %>
+          <%= number_to_currency(@lesson.lesson_price.to_i) %>
         <% end %>
       </h4>
       </div>
