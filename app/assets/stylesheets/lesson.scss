@@ -56,6 +56,11 @@
 .nonrefundable_disclaimer{
   font-size: 0.8em;
 }
+.duration-and-feedback{
+  display:block;
+  position: relative;
+  font-size: 1.2em;
+}
 /*DESKTOP ONLY ADJUSTMENTS*/
 @media (min-width: 768px) {
 .payment-amounts{

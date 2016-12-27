@@ -1,26 +1,28 @@
-  <div class="">
+<div class="duration-and-feedback">
+  <div class="row duration">
       <div class='col-md-12'>
-        <div class="col-md-6">
-          <label>Lesson Start Time:</label>
-          <div class='form-control'><%= @lesson.actual_start_time %></div>
+        <div class="col-md-4">
+          <label>Lesson Start Time:</label> <%= @lesson.actual_start_time %>
         </div>
-        <div class="col-md-6">
-          <label>Lesson End Time:</label>
-          <div class='form-control'><%= @lesson.actual_end_time %></div>
+        <div class="col-md-4">
+          <label>Lesson End Time:</label> <%= @lesson.actual_end_time %>
+        </div>
+        <div class="col-md-4">
+          <label>Lesson Duration:</label> <%= @lesson.actual_duration %>
         </div>
       </div>
   </div>
   <h1> </h1>
   <h1> </h1>
-  <div class="">
+  <div class="row instructor-feedback">
       <div class="col-md-12">
-          <div class="col-md-3">
-            <label>Lesson Duration:</label>
-            <div class='form-control'><%= @lesson.actual_duration %></div>
-          </div>
-          <div class="col-md-9">
+        <div class="col-md-12">
             <label>Instructor Feedback:</label>
-            <div class='form-control'><%= @lesson.public_feedback_for_student %></div>
-          </div>
+            <div class=''><%= @lesson.public_feedback_for_student %></div>
+        </div>
       </div>
   </div>
+</div>
+<div class="col-md-12">
+  <hr class="deposit-hr-navy">
+</div>
