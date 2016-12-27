@@ -49,7 +49,11 @@
         <span> <%= @lesson.slot %></span><br>
         <%= @lesson.gear ? "Already have gear." : "Need to rent." %><br>
         <%= @lesson.lift_ticket_status? ? "Already have one." : "Need lift ticket." %><br>
-        <%= number_to_currency(@lesson.price) %>
+        <% if @lesson.lesson_price.nil? %>
+          <%= number_to_currency(@lesson.price) %>
+        <% else %>
+          <%= number_to_currency(@lesson.lesson_price.to_s) %>
+        <% end %>
       </h4>
       </div>
     </div>
