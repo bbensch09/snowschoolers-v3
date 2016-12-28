@@ -26,7 +26,7 @@ class TransactionsController < ApplicationController
   def charge_lesson
     @lesson = Lesson.find(@transaction.lesson_id)
     # Amount in cents
-    amount_to_charge = (@lesson.transactions.last.final_amount - @lesson.price)
+    amount_to_charge = (@lesson.transactions.last.final_amount - @lesson.price.to_i)
     amount_for_stripe = (('%.2f' % amount_to_charge).to_f*100).to_i
     puts "The final amount to be charged is #{@amount}"
     if amount_to_charge > 0
