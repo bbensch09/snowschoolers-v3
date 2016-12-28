@@ -24,7 +24,7 @@
               <li>Tip amount: <%= number_to_currency(@lesson.transactions.last.tip_amount*@lesson.transactions.last.base_amount)%>
               <%= link_to 'Edit Tip', edit_transaction_path(@lesson.transactions.last), class: 'btn btn-default' %></li>
               <li>Total Lesson Cost: <%=number_to_currency(@lesson.transactions.last.final_amount)%></li>
-              <% amount_to_charge = (@lesson.transactions.last.final_amount - @lesson.price) %>
+              <% amount_to_charge = (@lesson.transactions.last.final_amount - @lesson.price.to_i) %>
               <li><span>After deducting your initial <%= number_to_currency(@lesson.price) %> lesson fee, your remaining balance to be charged is <b><%= number_to_currency(amount_to_charge)%>.</b></span></li>
             </ul>
         <% if amount_to_charge > 0 %>
