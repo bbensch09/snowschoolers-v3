@@ -134,6 +134,10 @@ class LessonMailer < ActionMailer::Base
 
   def send_payment_email_to_requester(lesson)
     @lesson = lesson
-    mail(to: @lesson.requester.email, cc:'notify@snowschoolers.com', subject: 'Please complete your Snow Schoolers online experience!')
+    if @lesson.guest_email.nil?
+      mail(to: @lesson.requester.email, cc:'notify@snowschoolers.com', subject: 'Please complete your Snow Schoolers online experience!')
+    else
+      mail(to: @lesson.guest_email, cc:'notify@snowschoolers.com', subject: 'Please complete your Snow Schoolers online experience!')
+    end
   end
 end

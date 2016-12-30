@@ -6,13 +6,13 @@ class LessonsController < ApplicationController
 
   def index
     if current_user.email == "brian@snowschoolers.com"
-      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable?}
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
       @lessons.sort_by { |lesson| lesson.id}
       @todays_lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.today }
       elsif current_user.user_type == "Ski Area Partner"
         lessons = Lesson.where(requested_location:current_user.location.id.to_s).sort_by { |lesson| lesson.id}
         @todays_lessons = lessons.to_a.keep_if{|lesson| lesson.date == Date.today && lesson.state != 'new' }
-        @lessons = Lesson.where(requested_location:current_user.location.id.to_s).to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable?}
+        @lessons = Lesson.where(requested_location:current_user.location.id.to_s).to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
         @lessons.sort_by { |lesson| lesson.id}
       elsif current_user.instructor
         lessons = Lesson.visible_to_instructor?(current_user.instructor)
@@ -22,6 +22,12 @@ class LessonsController < ApplicationController
         @lessons = current_user.lessons
         @todays_lessons = current_user.lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
     end
+  end
+
+  def send_reminder_sms_to_instructor
+    @lesson = Lesson.find(params[:id])
+    @lesson.send_sms_reminder_to_instructor_complete_lessons
+    redirect_to @lesson
   end
 
   def sugarbowl

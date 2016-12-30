@@ -105,6 +105,11 @@ class Lesson < ActiveRecord::Base
     confirmable_states.include?(state) && self.available_instructors.any?
   end
 
+  def confirmed?
+    confirmed_states = ['confirmed', 'pending instructor', 'pending requester']
+    confirmed_states.include?(state)
+  end
+
   def completable?
     self.state == 'confirmed'
   end
@@ -405,6 +410,22 @@ class Lesson < ActiveRecord::Base
     end
     # puts "After searching through the matching lesson times on this date, the booked lesson count on this day is now: #{booked_lessons.count}"
     return booked_lessons
+  end
+
+    def send_sms_reminder_to_instructor_complete_lessons
+      account_sid = ENV['TWILIO_SID']
+      auth_token = ENV['TWILIO_AUTH']
+      snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
+      recipient = self.instructor.phone_number
+      body = "Hope you had a great Snow Schoolers lesson. Please confirm the start/end times and complete feedback for your student by visiting the lesson page at #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm."
+      @client = Twilio::REST::Client.new account_sid, auth_token
+          @client.account.messages.create({
+          :to => recipient,
+          :from => "#{snow_schoolers_twilio_number}",
+          :body => body
+      })
+      # send_reminder_sms
+      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
   end
 
   def send_sms_to_instructor

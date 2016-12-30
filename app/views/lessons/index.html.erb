@@ -63,12 +63,13 @@
       <th>Date</th>
       <th>Status</th>
       <th>Price</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @lessons.each do |lesson| %>
-        <% if lesson.completed? %>
+        <% if lesson.completed? || lesson.confirmed? %>
           <tr>
             <% if lesson.instructor %>
             <td><%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td>
@@ -87,6 +88,7 @@
             <td><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
             <td><%= lesson.state %></td>
             <td><%= number_to_currency(lesson.price) %></td>
+            <td><%= link_to "Send Instructor SMS", send_reminder_sms_to_instructor_path(lesson), class: "btn btn-default" %></td>
           </tr>
         <%end%>
     <% end %>
