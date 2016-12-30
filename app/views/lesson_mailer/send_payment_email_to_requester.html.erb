@@ -38,7 +38,7 @@
           <li>Final Lesson fee: <%= number_to_currency(@lesson.adjusted_price, precision: 2) %> </li>
       <% end %>
       <li>Objectives: <%= @lesson.objectives %></li>
-      <li>Instructor feedback: <%=@lesson.public_feedback_for_student%></li>
+      <li><b>Instructor feedback:</b> <em><%=@lesson.public_feedback_for_student%></em></li>
     </ul>
     <p>Again, we hope you loved the Snow Schoolers experience, and hope to see you back on the mountain again soon. If you'd like to book a repeat lesson with <%=@lesson.instructor.first_name%>, you can do so online or likewise simply reply with the dates you are interested and one of our concierges will start coordinating schedules.
     </p>
@@ -51,6 +51,6 @@
       Founder, SnowSchoolers.com <br>
       brian@snowschoolers.com
     </p>
-    <img src="https://s3.amazonaws.com/snowschoolers/thanks.gif" alt="thanks" height="400" width="700" />
+    <!-- <img src="https://s3.amazonaws.com/snowschoolers/thanks.gif" alt="thanks" height="400" width="700" /> -->
   </body>
 </html>
