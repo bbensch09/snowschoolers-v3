@@ -138,7 +138,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def completed?
-    active_states = ['waiting for payment','Payment complete, waiting for review.','Lesson Complete']
+    active_states = ['finalizing','waiting for payment','Payment complete, waiting for review.','Lesson Complete']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
     active_states.include?(state)
   end
