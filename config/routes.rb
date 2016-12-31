@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   #twilio testing
   get 'twilio/test_sms' => 'twilio#test_sms'
   #promo pages
+  get 'jackson-hole' => "welcome#jackson_hole"
   get 'sugarbowl' => "welcome#sugarbowl"
   get   'lessons/sugarbowl'               => 'lessons#sugarbowl'
   get 'homewood' => "welcome#homewood"
