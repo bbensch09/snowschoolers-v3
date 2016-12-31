@@ -30,6 +30,9 @@ class WelcomeController < ApplicationController
     # @lesson_time = @lesson.lesson_time
   end
 
+  def jackson_hole
+  end
+
   def about_us
   end
 

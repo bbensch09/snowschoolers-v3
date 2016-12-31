@@ -22,6 +22,8 @@ class Location < ActiveRecord::Base
     lessons.each do |lesson|
       if lesson.price.class == Float
         revenue += lesson.price
+        elsif lesson.lesson_price?
+          revenue += lesson.lesson_price
       end
     end
     return revenue
