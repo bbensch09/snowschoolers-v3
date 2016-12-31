@@ -26,7 +26,14 @@ class LessonsController < ApplicationController
 
   def send_reminder_sms_to_instructor
     @lesson = Lesson.find(params[:id])
-    @lesson.send_sms_reminder_to_instructor_complete_lessons
+    if @lesson.instructor.nil?
+      puts "!!!instructor = nil"
+      instructor = Instructor.find(params[:instructor_id])
+      @lesson.send_manual_sms_request_to_instructor(instructor)
+    elsif @lesson.completable?
+      puts "!!!instructor found, lesson is compeltable"
+      @lesson.send_sms_reminder_to_instructor_complete_lessons
+    end
     redirect_to @lesson
   end
 

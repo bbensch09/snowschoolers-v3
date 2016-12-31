@@ -412,7 +412,7 @@ class Lesson < ActiveRecord::Base
     return booked_lessons
   end
 
-    def send_sms_reminder_to_instructor_complete_lessons
+  def send_sms_reminder_to_instructor_complete_lessons
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
@@ -502,6 +502,21 @@ class Lesson < ActiveRecord::Base
     LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
   end
   # handle_asynchronously :send_sms_to_all_other_instructors, :run_at => Proc.new {5.seconds.from_now }
+
+  def send_manual_sms_request_to_instructor(instructor)
+      account_sid = ENV['TWILIO_SID']
+      auth_token = ENV['TWILIO_AUTH']
+      snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
+      recipient = instructor.phone_number
+      body = "Hi #{instructor.first_name}, we have a customer who is eager to find a #{self.activity} instructor. #{self.requester.name} wants a lesson at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. Are you available? The lesson is now available to the first instructor that claims it by visiting #{ENV['HOST_DOMAIN']}/lessons/#{self.id} and accepting the request."
+      @client = Twilio::REST::Client.new account_sid, auth_token
+          @client.account.messages.create({
+          :to => recipient,
+          :from => "#{snow_schoolers_twilio_number}",
+          :body => body
+      })
+      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
+  end
 
   def send_sms_to_requester
       account_sid = ENV['TWILIO_SID']

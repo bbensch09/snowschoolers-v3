@@ -2,12 +2,13 @@
   <div class="white row">
 
     <% if current_user && current_user.email == "brian@snowschoolers.com"%>
-    <div class="row vertical-padding container">
+    <div class="row vertical-padding container admin-viewable">
     <h4> (ADMIN ONLY) Eligible instructors are:</h4>
       <ul>
         <% if @lesson.available_instructors.any? %>
             <% @lesson.available_instructors.each do |instructor| %>
-            <li> <%= instructor.name  %> - <%= instructor.user_id %> - <%= instructor.phone_number %> </li>
+            <h6> <%= instructor.name  %> - <%= instructor.user_id %> - <%= instructor.phone_number %>
+            <%= link_to "Send Instructor SMS", send_reminder_sms_to_instructor_path(@lesson, :instructor_id => instructor.id), class: "btn btn-warning" %></h6>
             <% end %>
           <% else %>
           <li><p class="alert-danger">No instructors available!</p></li>
