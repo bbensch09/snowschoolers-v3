@@ -13,7 +13,7 @@ class Location < ActiveRecord::Base
   end
 
   def lifetime_lessons
-    Lesson.where(state:"Lesson Complete",requested_location:self.id.to_s)
+    Lesson.where(requested_location:self.id.to_s).to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
   end
 
   def lifetime_revenue
