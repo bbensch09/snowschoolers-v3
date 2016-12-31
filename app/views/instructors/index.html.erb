@@ -13,7 +13,8 @@
 <% if current_user.location %>
 <div class="col-md-6">
     <h4>Lifetime Lessons: <%= Location.find(current_user.location).lifetime_lessons.count %> </h4>
-    <h4>Lifetime Revenue: <%= number_to_currency(Location.find(current_user.location).lifetime_revenue) %> </h4>
+    <h4>Gross Lifetime Revenue: <%= number_to_currency(Location.find(current_user.location).lifetime_revenue) %> </h4>
+    <h4>Post-commission Lifetime Revenue: <%= number_to_currency(Location.find(current_user.location).lifetime_revenue*0.88) %> </h4>
     <h4>Lessons Today: <%= Location.find(current_user.location).today_lessons.count %> </h4>
     <h4>Revenue Today: <%= number_to_currency(Location.find(current_user.location).today_revenue) %> </h4>
 </div>
