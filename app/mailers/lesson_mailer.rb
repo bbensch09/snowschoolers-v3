@@ -28,6 +28,11 @@ class LessonMailer < ActionMailer::Base
       mail(to: 'brian@snowschoolers.com', subject: "New Beta User - #{@beta_user.email}.")
   end
 
+  def notify_jackson_promo_user(beta_user)
+      @beta_user = beta_user
+      mail(to: 'brian@snowschoolers.com', subject: "Jackson Hole interested user - #{@beta_user.email}.")
+  end
+
   def notify_admin_sms_logs(lesson,recipient,body)
       @lesson = lesson
       @recipient = recipient

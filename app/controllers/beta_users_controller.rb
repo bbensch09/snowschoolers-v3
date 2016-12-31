@@ -30,9 +30,15 @@ class BetaUsersController < ApplicationController
 
     respond_to do |format|
       if @beta_user.save
-        LessonMailer.notify_admin_beta_user(@beta_user).deliver
-        format.html { redirect_to root_path, notice: 'Thanks for signing up!' }
-        format.json { render action: 'show', status: :created, location: @beta_user }
+        if @beta_user.user_type == "Jackson_promo"
+          LessonMailer.notify_jackson_promo_user(@beta_user).deliver
+          format.html { redirect_to root_path, notice: 'Thanks for your interest. If it is after January 3rd, but before Jan 6th, please call us at 530-430-SNOW.' }
+          format.json { render action: 'show', status: :created, location: @beta_user }
+          else
+          LessonMailer.notify_admin_beta_user(@beta_user).deliver
+          format.html { redirect_to root_path, notice: 'Thanks for signing up!' }
+          format.json { render action: 'show', status: :created, location: @beta_user }
+        end
       else
         format.html { render action: 'new' }
         format.json { render json: @beta_user.errors, status: :unprocessable_entity }
