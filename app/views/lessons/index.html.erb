@@ -88,7 +88,11 @@
             <td><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
             <td><%= lesson.state %></td>
             <td><%= number_to_currency(lesson.price) %></td>
+            <% if current_user.user_type == "Snow Schoolers Employee" %>
             <td><%= link_to "Send Instructor SMS", send_reminder_sms_to_instructor_path(lesson), class: "btn btn-default" %></td>
+            <% else %>
+              <td></td>
+            <% end %>
           </tr>
         <%end%>
     <% end %>
