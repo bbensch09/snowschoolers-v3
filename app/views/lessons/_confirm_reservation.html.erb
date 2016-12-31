@@ -10,7 +10,7 @@
             <div class="col-md-3">
               <h4>
                 <b>Lesson Date:</b>  <br>
-                <% if @lesson.num_days > 1 %>
+                <% if @lesson.num_days && @lesson.num_days > 1 %>
                   Number of consecutive days:
                 <% end %>
                 <b>Lesson Time:</b>  <br>
