@@ -22,7 +22,7 @@
             <div class="col-md-9">
               <h4>
                 <%= @lesson.lesson_time.date.strftime("%A %b #{@lesson.lesson_time.date.day.ordinalize}, %Y") %> <br>
-                <% if @lesson.num_days > 1 %>
+                <% if @lesson.num_days && @lesson.num_days > 1 %>
                   <%= @lesson.num_days %>
                 <% end %>
                 <%= @lesson.lesson_time.slot %> <br>
