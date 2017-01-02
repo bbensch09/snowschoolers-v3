@@ -1,6 +1,6 @@
 class LessonsController < ApplicationController
   respond_to :html
-  skip_before_action :authenticate_user!, only: [:new, :create, :complete, :confirm_reservation, :update, :show, :edit]
+  skip_before_action :authenticate_user!, only: [:new, :new_request, :create, :complete, :confirm_reservation, :update, :show, :edit]
   before_action :save_lesson_params_and_redirect, only: [:create]
   before_action :create_lesson_from_session, only: [:create]
 
@@ -11,7 +11,7 @@ class LessonsController < ApplicationController
   def index
     if current_user.email == "brian@snowschoolers.com"
       @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
-      @lessons.sort_by { |lesson| lesson.id}
+      @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
       @todays_lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.today }
       elsif current_user.user_type == "Ski Area Partner"
         lessons = Lesson.where(requested_location:current_user.location.id.to_s).sort_by { |lesson| lesson.id}
@@ -142,13 +142,17 @@ class LessonsController < ApplicationController
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
     @lesson.requester = current_user
     if @lesson.guest_email && @lesson.requester.nil?
-      User.create!({
-        email: @lesson.guest_email,
-        password: 'homewood_temp_2016',
-        user_type: "Student",
-        name: "#{@lesson.guest_email}"
-        })
-      @lesson.requester_id = User.last.id
+      if User.where(email:@lesson.guest_email).count >= 1
+        @lesson.requester_id = User.where(email:@lesson.guest_email).first.id
+        else
+        User.create!({
+          email: @lesson.guest_email,
+          password: 'homewood_temp_2016',
+          user_type: "Student",
+          name: "#{@lesson.guest_email}"
+          })
+        @lesson.requester_id = User.last.id
+      end
     end
     unless @lesson.deposit_status == 'confirmed'
       @lesson.state = 'ready_to_book'

@@ -45,8 +45,12 @@ class Lesson < ActiveRecord::Base
   end
 
   def tip
+    if self.transactions.any?
     tip_amount = (self.transactions.last.final_amount - self.transactions.last.base_amount)
     tip_amount = ((tip_amount*100).to_i).to_f/100
+    else
+      return "N/A"
+    end
   end
 
   def lift_ticket_status?
