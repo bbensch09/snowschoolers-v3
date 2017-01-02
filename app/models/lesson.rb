@@ -152,6 +152,29 @@ class Lesson < ActiveRecord::Base
     state == 'Payment complete, waiting for review.' || state == 'Lesson Complete'
   end
 
+  def referral_source
+    case self.how_did_you_hear.to_i
+    when 1
+      return 'From a friend'
+    when 2
+      return 'Facebook'
+    when 3
+      return 'Google'
+    when 4
+      return 'From a postcard'
+    when 5
+      return 'From someone at Homewood'
+    when 6
+      return 'Tahoe Daves'
+    when 7
+      return 'Ski Butlers'
+    when 8
+      return 'Yelp'
+    when 100
+      return 'Other'
+    end
+  end
+
   def instructor_accepted?
     LessonAction.where(action:"Accept", lesson_id: self.id).any?
   end

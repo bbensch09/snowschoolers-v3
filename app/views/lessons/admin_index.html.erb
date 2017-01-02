@@ -1,0 +1,48 @@
+<div class="container">
+<!--
+<h3> Current User ID: <%= current_user.id %> </h3>
+<h3> Current User.email: <%= current_user.email %> </h3>
+ -->
+<!-- SECTION 0 - AVAILABLE LESSON REQUESTS FOR INSTRUCTORS -->
+<div id="all-lessons" class="">
+<h1>Lesson Transactions</h1>
+
+<table class="instructors-table">
+  <thead>
+    <tr>
+      <th class="lessons-table-cells lesson-instructor">Instructor</th>
+      <th class="lessons-table-cells lesson-type">Type</th>
+      <th class="lessons-table-cells lesson-student">Student</th>
+      <th class="lessons-table-cells lesson-date">Date</th>
+      <th class="lessons-table-cells">Status</th>
+      <th class="lessons-table-cells">Price</th>
+      <th class="lessons-table-cells">Referral Source</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lessons.each do |lesson| %>
+          <tr>
+            <% if lesson.instructor %>
+            <td><%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %><br>
+            <%= lesson.instructor.name %></td>
+            <% else %>
+            <td class="lessons-table-cells lesson-instructor"><%= link_to "Review", lesson, class: "btn btn-default" %></td>
+            <% end %>
+            <td class="lessons-table-cells lesson-type"><%= lesson.lesson_time.slot %></td>
+            <% if lesson.requester %>
+              <td class="lessons-table-cells lesson-student">Requester: <%= lesson.requester.name %></td>
+              <% else %>
+              <td class="lessons-table-cells lesson-student">Requester: <%= lesson.guest_email %></td>
+            <% end %>
+            <td class="lessons-table-cells lesson-date"><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
+            <td class="lessons-table-cells"><%= lesson.state %></td>
+            <td class="lessons-table-cells"><%= lesson.price %></td>
+            <td class="lessons-table-cells"><%= lesson.referral_source %></td>
+          </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<hr>
+</div>

@@ -29,7 +29,7 @@
         - id
         - instructor_id
         - requester
-        - ability_level
+        - how_did_you_hear
         - deposit_status
         - lesson_time_id
         - activity

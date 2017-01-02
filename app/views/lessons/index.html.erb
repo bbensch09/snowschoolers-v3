@@ -3,6 +3,12 @@
 <h3> Current User ID: <%= current_user.id %> </h3>
 <h3> Current User.email: <%= current_user.email %> </h3>
  -->
+
+<% if current_user && current_user.email == "brian@snowschoolers.com" %>
+<div class="admin-viewable">
+  <a href='lessons/admin_index' class='btn btn-warning'>View Full Lesson Details</a>
+</div>
+<% end %>
 <!-- SECTION 0 - AVAILABLE LESSON REQUESTS FOR INSTRUCTORS -->
 <% if current_user && current_user.active_instructor? %>
 <h3><a href="#hideLessons" class="btn btn-success" id="toggle-available-lessons">Show (hide) Lesson Requests</a></h3>
