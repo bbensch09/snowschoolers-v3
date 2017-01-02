@@ -207,6 +207,9 @@ class Lesson < ActiveRecord::Base
   end
 
   def price
+    if self.transactions.count >= 1
+      return self.transactions.last.base_amount
+    end
     if self.lesson_price.nil?
       product = Product.where(location_id:self.location.id,name:self.lesson_time.slot,calendar_period:self.location.calendar_status).first
       if product.nil?
