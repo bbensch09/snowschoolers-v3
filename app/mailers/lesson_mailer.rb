@@ -14,7 +14,7 @@ class LessonMailer < ActionMailer::Base
   def notify_admin_lesson_request_begun(lesson,email)
       @lesson = lesson
       @user_email = email
-      mail(to: 'brian@snowschoolers.com', subject: "New Lesson Request begun - #{@lesson.date}.")
+      mail(to: 'brian@snowschoolers.com', subject: "New Lesson Request begun - #{@lesson.date} - #{@lesson.guest_email}.")
   end
 
   def notify_admin_lesson_full_form_updated(lesson,email)
