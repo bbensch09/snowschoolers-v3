@@ -69,6 +69,7 @@ Rails.application.routes.draw do
       end
   end
   get '/admin_index' => 'instructors#admin_index'
+  get 'lessons/admin_index' => 'lessons#admin_index'
   get 'browse' => 'instructors#browse'
   get 'search' => 'products#search'
   get 'search_results' => 'products#search_results', as: :search_results
