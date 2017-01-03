@@ -30,7 +30,7 @@
       <%= render partial: 'confirming_lesson_duration' %>
     <% end %>
 
-    <% if @lesson.waiting_for_payment? && (current_user == @lesson.requester || current_user.user_type == "Snow Schoolers Employee" || (@lesson.guest_email && current_user.instructor.nil?) ) %>
+    <% if @lesson.waiting_for_payment? && (current_user == @lesson.requester || current_user && current_user.user_type == "Snow Schoolers Employee" || (@lesson.guest_email && current_user.instructor.nil?) ) %>
       <%= render partial: 'make_payment' %>
       <% elsif @lesson.waiting_for_payment? && current_user.instructor %>
           <div class="alert alert-success alert-dismissible fade in" role="alert">
