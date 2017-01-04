@@ -171,13 +171,6 @@ class LessonsController < ApplicationController
   def show
     @lesson = Lesson.find(params[:id])
     check_user_permissions
-    # if @lesson.state == "Payment complete, waiting for review."
-    #   puts "creating a new empty lesson review entity"
-    #   @review = Review.new
-    # end
-    # if @lesson.state == "waiting_for_payment"
-    #   @transaction = Transaction.new
-    # end
   end
 
   def destroy
