@@ -1,6 +1,6 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy, :charge_lesson]
-  skip_before_action :authenticate_user!
+  skip_before_action :authenticate_user!, except: [:destroy]
 
 
   # GET /transactions
