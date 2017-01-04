@@ -2,6 +2,7 @@
   <h2>Full Lesson Details</h2>
 </header>
 <p>Requester: <%= @lesson.requester ? @lesson.requester.name : @lesson.guest_email %>
+<br>Contact Email: <%= @lesson.requester ? @lesson.requester.email : @lesson.guest_email %>
 <% if @lesson.instructor %>
   <br> Instructor: <%= @lesson.instructor.name %>
 <% else %>

@@ -142,16 +142,16 @@ class LessonsController < ApplicationController
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
     @lesson.requester = current_user
     if @lesson.guest_email && @lesson.requester.nil?
-      if User.where(email:@lesson.guest_email).count >= 1
-        @lesson.requester_id = User.where(email:@lesson.guest_email).first.id
-        else
-        User.create!({
+      if User.find_by_name(@lesson.guest_email)
+          @lesson.requester_id = User.find_by_name(@lesson.guest_email).id
+      else
+          User.create!({
           email: @lesson.guest_email,
           password: 'homewood_temp_2016',
           user_type: "Student",
           name: "#{@lesson.guest_email}"
           })
-        @lesson.requester_id = User.last.id
+         @lesson.requester_id = User.last.id
       end
     end
     unless @lesson.deposit_status == 'confirmed'
