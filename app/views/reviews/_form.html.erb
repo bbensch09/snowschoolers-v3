@@ -1,4 +1,4 @@
-<% @lesson.review = Review.new unless @lesson.review %>
+<% @lesson.review = Review.new #unless @lesson.review %>
 <%= semantic_form_for @lesson.review do |f| %>
   <%= f.inputs do %>
   <div class="review-id-inputs hidden">
