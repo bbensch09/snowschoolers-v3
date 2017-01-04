@@ -93,13 +93,13 @@ class Lesson < ActiveRecord::Base
   end
 
   def active_today?
-    active_states = ['confirmed','seeking replacement instructor','pending instructor', 'pending requester','Lesson Complete','waiting for payment','waiting for review','finalizing','ready_to_book']
+    active_states = ['confirmed','seeking replacement instructor','pending instructor', 'pending requester','Lesson Complete','finalizing payment & reviews','waiting for review','finalizing','ready_to_book']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
     return true if self.date == Date.today && active_states.include?(state)
   end
 
   def upcoming?
-    active_states = ['new','booked','confirmed','seeking replacement instructor','pending instructor', 'pending requester','Lesson Complete','waiting for payment','waiting for review','finalizing','ready_to_book']
+    active_states = ['new','booked','confirmed','seeking replacement instructor','pending instructor', 'pending requester','Lesson Complete','finalizing payment & reviews','waiting for review','finalizing','ready_to_book']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
     return true if active_states.include?(state) && self.date > Date.today
   end
@@ -139,7 +139,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def waiting_for_payment?
-    state == 'waiting for payment'
+    state == 'finalizing payment & reviews'
   end
 
   def waiting_for_review?
@@ -147,7 +147,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def completed?
-    active_states = ['finalizing','waiting for payment','Payment complete, waiting for review.','Lesson Complete']
+    active_states = ['finalizing','finalizing payment & reviews','Payment complete, waiting for review.','Lesson Complete']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
     active_states.include?(state)
   end
@@ -558,7 +558,7 @@ class Lesson < ActiveRecord::Base
         body = "Congrats! Your Snow Schoolers lesson has been confirmed. #{self.instructor.name} will be your instructor at #{self.location.name} on #{self.lesson_time.date.strftime("%b %d")} at #{self.product.start_time}. Please check your email for more details about meeting location & to review your pre-lesson checklist."
         when 'seeking replacement instructor'
         body = "Bad news! Your instructor has unfortunately had to cancel your lesson. Don't worry, we are finding you a new instructor right now."
-        when 'waiting for payment'
+        when 'finalizing payment & reviews'
         body = "We hope you had a great lesson today with #{self.instructor.name}! You may now complete your lesson payment and leave a quick review for your instructor by visiting #{ENV['HOST_DOMAIN']}/lessons/#{self.id}. Thanks for using Snow Schoolers!"
       end
       if recipient.length == 10 || recipient.length == 11

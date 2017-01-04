@@ -245,8 +245,8 @@ class LessonsController < ApplicationController
   def confirm_lesson_time
     @lesson = Lesson.find(params[:id])
     if valid_duration_params?
-      @lesson.update(lesson_params.merge(state: 'waiting for payment'))
-      @lesson.state = @lesson.valid? ? 'waiting for payment' : 'confirmed'
+      @lesson.update(lesson_params.merge(state: 'finalizing payment & reviews'))
+      @lesson.state = @lesson.valid? ? 'finalizing payment & reviews' : 'confirmed'
       @lesson.send_sms_to_requester
       LessonMailer.send_payment_email_to_requester(@lesson).deliver
     end
