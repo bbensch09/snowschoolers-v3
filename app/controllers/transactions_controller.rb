@@ -1,5 +1,7 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy, :charge_lesson]
+  skip_before_action :authenticate_user!, only: [:new, :create]
+
 
   # GET /transactions
   # GET /transactions.json

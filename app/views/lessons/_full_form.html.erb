@@ -66,25 +66,32 @@
 
               </div>
           <% end %>
-              <div class="col-md-4">
-                <label>Cell Phone</label>
+            <div class="col-md-4">
+              <label>Price</label>
+                <h2> <span id="lesson-price"><%= number_to_currency(@lesson.price) %></span></h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+                <label>Your Name</label>
+                <%= f.input :requester_name, as: :string, value: current_user.name, required: true, label: false %>
+              </div>
+              <div class="col-md-6">
+                <label>Cell Phone</label> <span class="text-smaller">(Shared only with your instructor).</span>
                 <%= f.input :phone_number, as: :string, placeholder: 'xxx-xxx-xxxx', required: true, label: false %>
               </div>
             </div>
 
           <div class='row'>
-            <div class="col-md-4">
+            <div class="col-md-6">
               <label>Do you have equipment?</label>
               <%= f.input :gear, as: :select, collection: [['Yes, I already have my equipment.', true], ['No, I will need to rent equipment.', false]], include_blank: '(Skis,boots,etc.)', label: false, required:true %>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
               <label>Have a lift ticket or pass?</label>
               <%= f.input :lift_ticket_status, as: :select, collection: [['Yes, I have one.', true], ['No, I still need one.', false]], include_blank: 'Choose one', label: false, required:true %>
             </div>
-            <div class="col-md-4">
-              <label>Price</label>
-                <h2> <span id="lesson-price"><%= number_to_currency(@lesson.price) %></span></h2>
-            </div>
+
             <div class="col-md-12">
             <!-- Price ($75 per hour): $<span id="donation-amount"><%= @lesson.price %></span>.00 -->
             </div>
@@ -112,17 +119,13 @@
         <div class="col-md-6">
           <h4>Lesson  <strong> Objectives</strong></h4>
 
-          <!-- <div class='col-md-12'>
-            <label>Skill Level</label>
-             <%= f.input :ability_level, as: :select, collection: ['First-time ever', 'Beginner', 'Intermediate','Advanced'], include_blank: 'Ability Level', input_html: {class: 'width100'}, required: true, label: false %>
-          </div> -->
-          <div class='col-md-12'>
+<!--           <div class='col-md-12'>
             <label>If you had to choose one focus area for this lesson, what would it be?</label>
-            <%= f.input :focus_area, as: :select, collection: ['Basics (for beginners and intermediates)','Advanced Racing Technique', 'Moguls','Terrain Park','Powder Skiing','Big-Mountain Skiing'], include_blank: 'Select a focus area', input_html: {class: 'width100'}, required: true, label: false %>
-          </div>
+            <%= f.input :focus_area, as: :select, collection: ['Basics (for beginners and intermediates)','Advanced Racing Technique', 'Moguls','Terrain Park','Powder Skiing','Big-Mountain Skiing'], include_blank: 'Select a focus area', input_html: {class: 'width100'}, required: false, label: false %>
+          </div> -->
          <div class='col-md-12'>
-            <label>Anything else you want your instructor to know?</label>
-            <%= f.input :objectives, placeholder: 'What do you hope to get out of this lesson?', required: false, label: false %>
+            <label>What is your primary objective for the lesson? <br> Is there anything specific you want your instructor to know?</label>
+            <%= f.input :objectives, placeholder: 'i.e. my child has a fear of heights, my child has special needs, I tore my ACL three years ago, etc.', required: false, label: false %>
           </div>
           <div class="col-md-12">
             <label>How did you first hear about Snow Schoolers?</label>
