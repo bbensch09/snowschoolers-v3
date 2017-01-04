@@ -142,8 +142,8 @@ class LessonsController < ApplicationController
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
     @lesson.requester = current_user
     if @lesson.guest_email && @lesson.requester.nil?
-      if User.find_by_name("bbensch+testJan3@gmail.com")
-          @lesson.requester_id = User.find_by_name("bbensch+testJan3@gmail.com").id
+      if User.find_by_name(@lesson.guest_email)
+          @lesson.requester_id = User.find_by_name(@lesson.guest_email).id
       else
           User.create!({
           email: @lesson.guest_email,
