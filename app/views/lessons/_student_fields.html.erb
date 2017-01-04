@@ -7,8 +7,8 @@
         <%= f.input :name, placeholder: "Full name of student", label: false %>
       </div>
       <div class='col-md-3'>
-        <label>Age Range</label>
-        <%= f.input :age_range, as: :select, collection: ['Under 10','11-17','18-30', '31-40','41-50','51 and up'], include_blank: 'Age Range', label: false %>
+        <label>Age</label>
+        <%= f.input :age_range, as: :string, label: false %>
       </div>
       <div class='col-md-3'>
         <label>Gender</label>
@@ -20,10 +20,10 @@
         <label>About the student</label>
         <%= f.input :relationship_to_requester, as: :select, collection: ['I am the student.', 'Student is a friend.', 'Student is my significant other.','Student is my child.'], selected: 'I am the student.', include_blank: 'How is this student related to you?', label: false %>
       </div>
-      <div class='col-md-12'>
+<!--       <div class='col-md-12'>
             <label>Most recent experience </label>
             <%= f.input :most_recent_experience, as: :select, collection: [["This will be the student's first time."],['Earlier this season.'], ['Last year.'], ['Less than 3 years ago.'],['More than 3 years ago.'],['More than 10 years ago.']], include_blank: 'When did the student last go skiing or snowboarding?', label: false %>
-      </div>
+      </div> -->
       <div class='col-md-12'>
             <label>Ability level </label>
             <%= f.input :most_recent_level, as: :select, collection:
@@ -36,12 +36,12 @@
               "Level 7 - can control speed, rhythm, and shape of turns across variety of intermediate and advanced terrain.",
               "Level 8 - can ski moguls and off-piste terrain in all snow conditions.",
               "Level 9 - can confidently and safely ski expert-only (double-black diamond) terrain."],
-               include_blank: "Approximately what level ability is the student?", label: false %>
+               include_blank: "Approximately what level of ability is the student?", label: false %>
       </div>
-      <div class='col-md-12'>
+      <!-- <div class='col-md-12'>
             <label>Other sports experience </label>
             <%= f.input :other_sports_experience, placeholder: 'plays recreational soccer, is a varsity tennis player, casual runner, etc.', label: false %>
-      </div>
+      </div> -->
           <% if current_user %>
           <%= f.input :requester_id, as: :hidden, input_html: { value: current_user.id } %>
           <% end %>

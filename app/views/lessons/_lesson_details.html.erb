@@ -21,7 +21,7 @@
 <% end %>
 </p>
 <div class='row'>
-  <%if @lesson.state == "waiting for payment" || @lesson.state == "Payment Complete" %>
+  <%if @lesson.state == "finalizing payment & reviews" || @lesson.state == "Payment Complete" %>
       <%= render partial: 'lessons/confirmed_time_and_feedback' %>
   <% end %>
 

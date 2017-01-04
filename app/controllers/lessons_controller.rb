@@ -171,13 +171,6 @@ class LessonsController < ApplicationController
   def show
     @lesson = Lesson.find(params[:id])
     check_user_permissions
-    # if @lesson.state == "Payment complete, waiting for review."
-    #   puts "creating a new empty lesson review entity"
-    #   @review = Review.new
-    # end
-    # if @lesson.state == "waiting_for_payment"
-    #   @transaction = Transaction.new
-    # end
   end
 
   def destroy
@@ -252,8 +245,8 @@ class LessonsController < ApplicationController
   def confirm_lesson_time
     @lesson = Lesson.find(params[:id])
     if valid_duration_params?
-      @lesson.update(lesson_params.merge(state: 'waiting for payment'))
-      @lesson.state = @lesson.valid? ? 'waiting for payment' : 'confirmed'
+      @lesson.update(lesson_params.merge(state: 'finalizing payment & reviews'))
+      @lesson.state = @lesson.valid? ? 'finalizing payment & reviews' : 'confirmed'
       @lesson.send_sms_to_requester
       LessonMailer.send_payment_email_to_requester(@lesson).deliver
     end
@@ -363,7 +356,7 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id, :guest_email, :how_did_you_hear, :num_days, :lesson_price,
+    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id, :guest_email, :how_did_you_hear, :num_days, :lesson_price, :requester_name,
       students_attributes: [:id, :name, :age_range, :gender, :relationship_to_requester, :lesson_history, :requester_id, :most_recent_experience, :most_recent_level, :other_sports_experience, :experience, :_destroy])
   end
 
