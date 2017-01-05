@@ -634,8 +634,9 @@ h2 {
   padding-bottom: 40px;
 }
 .comparison-container{
-  height:150px;
   font-size: 0.8em;
+  padding-top: 20px;
+  height: 150px;
 }
 .comparison-photo{
 height: 200px;
@@ -673,10 +674,17 @@ display: block;
   font-size: 2.3em;
   line-height: 1.4em;
   max-width: 70% !important;
+  margin-bottom: 30px;
 }
 .clear-both{
   clear:both;
 }
+.powder-h2{
+  font-size: 1.0;
+  padding: 0px 0px 0px 0px;
+  margin-bottom: 5px
+}
+
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/
 @media (max-width: 768px) {
   h1 {font-size: 1.8em;}
@@ -746,6 +754,36 @@ max-width: 90vw;
 .btn-xl {
   padding: 15px 30px;
   font-size: 1.2em;
+}
+.powder-title{
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+.powder-spacer{
+  padding-top:10px;
+  padding-bottom: 10px;
+  margin: 0px 0px 0px 0px !important;
+}
+.comparison-header{
+  line-height: 1.2;
+  font-size: 2em;
+}
+.powder-btn{
+  font-size: 1em;
+}
+.disclaimer{
+  padding-left:20px;
+  padding-right: 20px;
+}
+.why-snowschoolers-text{
+  padding: 20px 20px 20px 20px;
+  margin: 20px 20px 20px 20px;
+}
+.powder-objection-handling-title{
+  height: 100px;
+}
+.comparison-container{
+  height:150px;
 }
 
 }
