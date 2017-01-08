@@ -107,12 +107,12 @@
         </div>
     </section>
 
-    <section class="bg-primary" id="whyJackson">
+    <section class="bg-primary" id="emailCollect">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-xs12 text-center">
                     <div class="row powder-objection-handling-title">
-                    <h2 class="section-heading how-it-works white-text">But, I've been skiing my whole life?!?!</h2>
+                    <h2 class="section-heading powder-objections white-text">But, I've been skiing my whole life?!?!</h2>
                     </div>
                     <p class="solid-box-highlight text-left white-text powder-objection-handling">
                         So have we. Almost all of our instructors began skiing before they started 1st grade. Once you start teaching as a professional, you realize there's always more to learn. That's why all of our instructors also take advanced trainings at least once a year to hone their own trade. Whether you've been skiing twice or for two decades, we're certain that a private lesson will help you take you to a new level.
@@ -136,7 +136,7 @@
                           <div class="email-input">
                             <%= f.email_field :email, autofocus: false, class:"black-text form-control beta-sign-up", placeholder:"Enter Email", required: true  %>
                             <div class="hidden">
-                                <%= f.text_field :user_type, :value => "Jackson_promo"  %>
+                                <%= f.text_field :user_type, :value => "powder_promo"  %>
                             </div>
                           <%= f.submit "Enter to win a Free Lesson", class:"btn btn-success btn-xl page-scroll" %>
                           <!-- <h3 class="offer-limitations">*First 100 sign ups receive 20% off their first lesson.</h3> -->
@@ -151,21 +151,68 @@
         </div>
     </section>
 
-    <section id="contact">
+    <section class="pricing-section">
+        <div class="pricing-container">
+            <table class="col-lg-12 col-xs-12 pricing-table">
+              <thead class="">
+                <tr>
+                    <th class="center price-header" colspan="4">Private Lesson Prices</th>
+
+                </tr>
+                <tr class="">
+                  <th class="col-xs-2"> </th>
+                  <th class="pricing-snowschoolers col-xs-2">Snow Schoolers <br> <span class="homewood-pricing">(at Homewood)</span> </th>
+                  <th class="pricing-competitors-names col-xs-2">Northstar</th>
+                  <th class="pricing-competitors-names col-xs-2">Squaw Valley</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                    <td class="pricing-length">1hr (9am)</td>
+                    <td class="pricing-snowschoolers">
+                        <%= number_to_currency(Product.where(location_id:8,length:1,calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
+                        </td>
+                    <td class="pricing-competitors">N/A</td>
+                    <td class="pricing-competitors">N/A</td>
+                </tr>
+                <tr>
+                    <td class="pricing-length">Half-day (3hr)</td>
+                    <td class="pricing-snowschoolers">
+                    <%= number_to_currency(Product.where(location_id:8,length:3,calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
+                    </td>
+                    <td class="pricing-competitors">$575</td>
+                    <td class="pricing-competitors">$519</td>
+                </tr>
+                <tr>
+                    <td class="pricing-length">Full-day (6hr)</td>
+                    <td class="pricing-snowschoolers">
+                    <%= number_to_currency(Product.where(location_id:8,length:6,calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
+                    </td>
+                    <td class="pricing-competitors">$810</td>
+                    <td class="pricing-competitors">$739</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+    </section>
+
+
+    <section id="contact" class="bg-primary">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">Questions - Let us know!</h2>
+                    <h2 class="section-heading white-text">Questions - Let us know!</h2>
                     <hr class="primary">
-                    <p>Give us a call or send us an email and we will get back to you as soon as possible!</p>
+                    <p class="white-text">Give us a call or send us an email and we will get back to you as soon as possible!</p>
                 </div>
                 <div class="col-lg-4 col-lg-offset-2 text-center">
                     <i class="fa fa-phone fa-3x sr-contact"></i>
-                    <p>(530)430-SNOW</p>
+                    <p class="white-text">(530)430-SNOW</p>
                 </div>
                 <div class="col-lg-4 text-center">
                     <i class="fa fa-envelope-o fa-3x sr-contact"></i>
-                    <p><a href="mailto:info@snowschoolers.com" target="_blank">info@snowschoolers.com</a></p>
+                    <p><a href="mailto:info@snowschoolers.com" class="white-text" target="_blank">info@snowschoolers.com</a></p>
                 </div>
             </div>
         </div>

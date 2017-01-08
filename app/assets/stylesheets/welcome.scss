@@ -57,8 +57,13 @@ section {
   display: block;
   min-height: 450px;
 }
-#how-it-works, #contact{
+#how-it-works{
     background-color: #fff;
+}
+#contact{
+    background-color: #3b5998;
+    margin-bottom: 350px;
+    min-height: 300px;
 }
 section.small{
   min-height: 300px ;
@@ -461,6 +466,13 @@ h2.how-it-works {
     font-weight: bold;
     font-size: 3.5em;
     text-transform: uppercase;
+    color: #3b5998;
+  }
+ h2.powder-objections {
+    font-weight: bold;
+    font-size: 3.5em;
+    text-transform: uppercase;
+    color: #fff;
   }
 .highlight{
   font-weight: bold;

@@ -32,7 +32,11 @@ class BetaUsersController < ApplicationController
       if @beta_user.save
         if @beta_user.user_type == "Jackson_promo"
           LessonMailer.notify_jackson_promo_user(@beta_user).deliver
-          format.html { redirect_to root_path, notice: 'Thanks for your interest. If it is after January 3rd, but before Jan 6th, please call us at 530-430-SNOW.' }
+          format.html { redirect_to jackson_hole_path, notice: 'Thanks for your interest. If it is after January 3rd, but before Jan 6th, please call us at 530-430-SNOW.' }
+          format.json { render action: 'show', status: :created, location: @beta_user }
+          elsif @beta_user.user_type == "powder_promo"
+          LessonMailer.notify_jackson_promo_user(@beta_user).deliver
+          format.html { redirect_to powder_path, notice: "Thanks for your interest. We'll get back to you shortly. If you have any other questions feel free to call us at 530-430-SNOW." }
           format.json { render action: 'show', status: :created, location: @beta_user }
           else
           LessonMailer.notify_admin_beta_user(@beta_user).deliver
