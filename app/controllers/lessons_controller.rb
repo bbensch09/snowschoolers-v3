@@ -123,7 +123,11 @@ class LessonsController < ApplicationController
             :currency    => 'usd'
           )
         @lesson.deposit_status = 'confirmed'
-        @lesson.state = 'booked'
+        if @lesson.is_gift_voucher?
+          @lesson.state = 'gift_voucher_reserved'
+        else
+          @lesson.state = 'booked'
+        end
         puts "!!!!!About to save state & deposit status after processing lessons#update"
         @lesson.save
       GoogleAnalyticsApi.new.event('lesson-requests', 'deposit-submitted', params[:ga_client_id])
@@ -147,12 +151,26 @@ class LessonsController < ApplicationController
       else
           User.create!({
           email: @lesson.guest_email,
-          password: 'homewood_temp_2016',
+          password: 'homewood_temp_2017',
           user_type: "Student",
           name: "#{@lesson.guest_email}"
           })
          @lesson.requester_id = User.last.id
       end
+    end
+    if @lesson.is_gift_voucher? && current_user.user_type == "Snow Schoolers Employee"
+      @user = User.new({
+          email: @lesson.gift_recipient_email,
+          password: 'homewood_temp_2017',
+          user_type: "Student",
+          name: "#{@lesson.gift_recipient_name}"
+        })
+      @user.skip_confirmation!
+      @user.save!
+      @lesson.requester_id = User.last.id
+    end
+    if @lesson.state == 'gift_voucher_reserved' && current_user.email == @lesson.gift_voucher_reserved
+      @lesson.state == 'booked'
     end
     unless @lesson.deposit_status == 'confirmed'
       @lesson.state = 'ready_to_book'
@@ -356,7 +374,7 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id, :guest_email, :how_did_you_hear, :num_days, :lesson_price, :requester_name,
+    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id, :guest_email, :how_did_you_hear, :num_days, :lesson_price, :requester_name, :is_gift_voucher, :includes_lift_or_rental_package, :package_info, :gift_recipient_email, :gift_recipient_name,
       students_attributes: [:id, :name, :age_range, :gender, :relationship_to_requester, :lesson_history, :requester_id, :most_recent_experience, :most_recent_level, :other_sports_experience, :experience, :_destroy])
   end
 

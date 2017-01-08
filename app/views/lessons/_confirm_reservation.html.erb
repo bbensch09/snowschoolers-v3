@@ -16,6 +16,9 @@
                 <b>Lesson Time:</b>  <br>
                 <b>Meeting Location:</b> <br>
                 <b>Price:</b> <br>
+                <%if @lesson.includes_lift_or_rental_package? || @lesson.is_gift_voucher? %>
+                <b>Description:</b> <br>
+                <% end %>
               <%= link_to 'Edit Lesson', edit_lesson_path(@lesson), class: "btn btn-default" %>
               </h4>
             </div>
@@ -33,6 +36,9 @@
               <% else %>
                 <%= number_to_currency(@lesson.lesson_price.to_s) %>
                 <% amount = @lesson.lesson_price.to_i*100 %>
+              <% if @lesson.includes_lift_or_rental_package? || @lesson.is_gift_voucher? %>
+                   <br> <%= @lesson.package_info %>
+              <% end %>
               <% end %>
               </h4>
             </div>
