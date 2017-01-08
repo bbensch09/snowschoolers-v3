@@ -24,7 +24,11 @@
             </div>
             <div class="col-md-9">
               <h4>
-                <%= @lesson.lesson_time.date.strftime("%A %b #{@lesson.lesson_time.date.day.ordinalize}, %Y") %> <br>
+                <% if @lesson.is_gift_voucher? %>
+                  TBD <br>
+                  <% else %>
+                  <%= @lesson.lesson_time.date.strftime("%A %b #{@lesson.lesson_time.date.day.ordinalize}, %Y") %> <br>
+                <% end %>
                 <% if @lesson.num_days && @lesson.num_days > 1 %>
                   <%= @lesson.num_days %>
                 <% end %>
