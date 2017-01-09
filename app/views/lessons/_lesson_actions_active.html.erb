@@ -14,7 +14,7 @@
   <% end %>
 
   <% if current_user && current_user == @lesson.requester %>
-    <% if @lesson.is_gift_voucher? && @lesson.state == "gift_voucher_reserved" && current_user.email == @lesson.gift_recipient_email %>
+    <% if @lesson.is_gift_voucher? && @lesson.state == "gift_voucher_reserved" && current_user.email == @lesson.gift_recipient_email.downcase %>
       <%= link_to 'Book Lesson Dates', edit_lesson_path(@lesson), class: "btn btn-default" %>
       <% else %>
       <%= link_to 'Edit Lesson', edit_lesson_path(@lesson) %>

@@ -105,7 +105,7 @@ class LessonsController < ApplicationController
   def edit
     @lesson = Lesson.find(params[:id])
     @lesson_time = @lesson.lesson_time
-    @state = @lesson.instructor ? 'pending instructor' : 'booked'
+    @state = @lesson.instructor ? 'pending instructor' : @lesson.state
   end
 
   def confirm_reservation
@@ -144,7 +144,9 @@ class LessonsController < ApplicationController
     @original_lesson = @lesson.dup
     @lesson.assign_attributes(lesson_params)
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
-    @lesson.requester = current_user
+    unless current_user.user_type == "Snow Schoolers Employee"
+      @lesson.requester = current_user
+    end
     if @lesson.guest_email && @lesson.requester.nil?
       if User.find_by_name(@lesson.guest_email)
           @lesson.requester_id = User.find_by_name(@lesson.guest_email).id
@@ -157,6 +159,7 @@ class LessonsController < ApplicationController
           })
          @lesson.requester_id = User.last.id
       end
+      puts "!!!! user is checking out as guest; create a temp email for them that must be confirmed"
     end
     if @lesson.is_gift_voucher? && current_user.user_type == "Snow Schoolers Employee"
       @user = User.new({
@@ -168,9 +171,11 @@ class LessonsController < ApplicationController
       @user.skip_confirmation!
       @user.save!
       @lesson.requester_id = User.last.id
+      puts "!!!! admin is creating a new user to receive a gift voucher; new user need not be confirmed"
     end
-    if @lesson.state == 'gift_voucher_reserved' && current_user.email == @lesson.gift_voucher_reserved
-      @lesson.state == 'booked'
+    if current_user.email == @lesson.gift_recipient_email.downcase
+      @lesson.state = 'booked'
+      puts "!!!! marking voucher as booked & sending SMS to instructors"
     end
     unless @lesson.deposit_status == 'confirmed'
       @lesson.state = 'ready_to_book'
@@ -180,8 +185,10 @@ class LessonsController < ApplicationController
       @user_email = current_user ? current_user.email : "unknown"
       LessonMailer.notify_admin_lesson_full_form_updated(@lesson, @user_email).deliver
       send_lesson_update_notice_to_instructor
+      puts "!!!! Lesson update saved; update notices sent"
     else
       determine_update_state
+      puts "!!!!!Lesson NOT saved, update notices determined by 'determine update state' method...?"
     end
     respond_with @lesson
   end
@@ -365,9 +372,11 @@ class LessonsController < ApplicationController
 
   def determine_update_state
     @lesson.state = 'new' unless params[:lesson][:terms_accepted] == '1'
-    if @lesson.deposit_status == 'confirmed'
+    if @lesson.deposit_status == 'confirmed' && @lesson.is_gift_voucher == false
       flash.now[:notice] = "Your lesson deposit has been recorded, but your lesson reservation is incomplete. Please fix the fields below and resubmit."
       @lesson.state = 'booked'
+    elsif @lesson.deposit_status == 'confirmed' && @lesson.is_gift_voucher == true
+      flash.now[:notice] = "Lesson voucher information has been updated."
     end
     @lesson.save
     @state = params[:lesson][:state]
