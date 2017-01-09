@@ -91,7 +91,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def active?
-    active_states = ['new', 'booked', 'confirmed','pending instructor', 'pending requester','']
+    active_states = ['new', 'booked', 'confirmed','pending instructor','gift_voucher_reserved','pending requester','']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
     active_states.include?(state)
   end
@@ -104,13 +104,28 @@ class Lesson < ActiveRecord::Base
 
   def upcoming?
     active_states = ['new','booked','confirmed','seeking replacement instructor','pending instructor', 'pending requester','Lesson Complete','finalizing payment & reviews','waiting for review','finalizing','ready_to_book']
-    #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
     return true if active_states.include?(state) && self.date > Date.today
   end
 
   def confirmable?
     confirmable_states = ['booked', 'pending instructor', 'pending requester','seeking replacement instructor']
     confirmable_states.include?(state) && self.available_instructors.any?
+  end
+
+  def is_gift_voucher?
+    if self.is_gift_voucher == true
+      return true
+    else
+      return false
+    end
+  end
+
+  def includes_lift_or_rental_package?
+    if self.includes_lift_or_rental_package == true
+      return true
+    else
+      return false
+    end
   end
 
   def confirmed?

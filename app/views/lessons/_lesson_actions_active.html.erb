@@ -14,8 +14,12 @@
   <% end %>
 
   <% if current_user && current_user == @lesson.requester %>
-    <%= link_to 'Edit Lesson', edit_lesson_path(@lesson) %>
-    <%= link_to 'Cancel Lesson', @lesson, method: :delete, class: "btn btn-warning" %>
+    <% if @lesson.is_gift_voucher? && @lesson.state == "gift_voucher_reserved" && current_user.email == @lesson.gift_recipient_email %>
+      <%= link_to 'Book Lesson Dates', edit_lesson_path(@lesson), class: "btn btn-default" %>
+      <% else %>
+      <%= link_to 'Edit Lesson', edit_lesson_path(@lesson) %>
+      <%= link_to 'Cancel Lesson', @lesson, method: :delete, class: "btn btn-warning" %>
+    <% end %>
     <% if @lesson.instructor %>
     <%= link_to "Mark Lesson Complete", mark_lesson_complete_path, method: :put, class: "btn btn-success" %>
     <% end %>

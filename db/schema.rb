@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170104063303) do
+ActiveRecord::Schema.define(version: 20170108221259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,32 +148,37 @@ ActiveRecord::Schema.define(version: 20170104063303) do
   create_table "lessons", force: :cascade do |t|
     t.integer  "requester_id"
     t.integer  "instructor_id"
-    t.string   "ability_level",                limit: 255
-    t.string   "deposit_status",               limit: 255
+    t.string   "ability_level",                   limit: 255
+    t.string   "deposit_status",                  limit: 255
     t.integer  "lesson_time_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "activity",                     limit: 255
-    t.string   "requested_location",           limit: 255
-    t.string   "phone_number",                 limit: 255
+    t.string   "activity",                        limit: 255
+    t.string   "requested_location",              limit: 255
+    t.string   "phone_number",                    limit: 255
     t.boolean  "gear"
     t.text     "objectives"
-    t.string   "state",                        limit: 255
+    t.string   "state",                           limit: 255
     t.integer  "duration"
-    t.string   "start_time",                   limit: 255
-    t.string   "actual_start_time",            limit: 255
-    t.string   "actual_end_time",              limit: 255
+    t.string   "start_time",                      limit: 255
+    t.string   "actual_start_time",               limit: 255
+    t.string   "actual_end_time",                 limit: 255
     t.float    "actual_duration"
     t.boolean  "terms_accepted"
     t.text     "public_feedback_for_student"
     t.text     "private_feedback_for_student"
-    t.string   "focus_area",                   limit: 255
+    t.string   "focus_area",                      limit: 255
     t.string   "lift_ticket_status"
     t.string   "guest_email"
     t.string   "how_did_you_hear"
     t.integer  "num_days"
     t.decimal  "lesson_price"
     t.string   "requester_name"
+    t.boolean  "is_gift_voucher",                             default: false
+    t.boolean  "includes_lift_or_rental_package",             default: false
+    t.text     "package_info"
+    t.string   "gift_recipient_email"
+    t.string   "gift_recipient_name"
   end
 
   create_table "locations", force: :cascade do |t|

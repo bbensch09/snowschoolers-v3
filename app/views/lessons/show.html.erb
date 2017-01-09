@@ -45,7 +45,7 @@
           <%= link_to "Remind student to submit their review", mark_lesson_complete_path, method: :get, class: "btn btn-success" %>
     <% end %>
 
-    <% if @lesson.confirmable? || @lesson.completable? %>
+    <% if @lesson.confirmable? || @lesson.completable? || @lesson.active? %>
       <%= render partial: 'lesson_actions_active' %>
     <% end %>
 

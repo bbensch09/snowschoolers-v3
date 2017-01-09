@@ -183,7 +183,7 @@
 
   <tbody>
     <% @lessons.each do |lesson| %>
-        <% if lesson.upcoming? %>
+        <% if lesson.upcoming? || lesson.active? %>
           <tr>
             <% if lesson.instructor %>
             <td><%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td>
