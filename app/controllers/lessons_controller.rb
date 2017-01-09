@@ -144,12 +144,13 @@ class LessonsController < ApplicationController
     @original_lesson = @lesson.dup
     @lesson.assign_attributes(lesson_params)
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
-    unless current_user.user_type == "Snow Schoolers Employee"
+    unless current_user && current_user.user_type == "Snow Schoolers Employee"
       @lesson.requester = current_user
     end
     if @lesson.guest_email && @lesson.requester.nil?
-      if User.find_by_name(@lesson.guest_email)
-          @lesson.requester_id = User.find_by_name(@lesson.guest_email).id
+      if User.find_by_email(@lesson.guest_email.downcase)
+          @lesson.requester_id = User.find_by_email(@lesson.guest_email.downcase).id
+          puts "!!!! user is checking out as guest; found matching email from previous entry"
       else
           User.create!({
           email: @lesson.guest_email,
@@ -173,7 +174,7 @@ class LessonsController < ApplicationController
       @lesson.requester_id = User.last.id
       puts "!!!! admin is creating a new user to receive a gift voucher; new user need not be confirmed"
     end
-    if current_user.email == @lesson.gift_recipient_email.downcase
+    if current_user && current_user.email == @lesson.gift_recipient_email.downcase
       @lesson.state = 'booked'
       puts "!!!! marking voucher as booked & sending SMS to instructors"
     end
