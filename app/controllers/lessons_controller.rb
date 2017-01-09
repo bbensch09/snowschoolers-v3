@@ -173,8 +173,8 @@ class LessonsController < ApplicationController
       @lesson.requester_id = User.last.id
       puts "!!!! admin is creating a new user to receive a gift voucher; new user need not be confirmed"
     end
-    if current_user.email == @lesson.gift_recipient_email
-      @lesson.state == 'booked'
+    if current_user.email == @lesson.gift_recipient_email.downcase
+      @lesson.state = 'booked'
       puts "!!!! marking voucher as booked & sending SMS to instructors"
     end
     unless @lesson.deposit_status == 'confirmed'
