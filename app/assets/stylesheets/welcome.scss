@@ -696,6 +696,14 @@ display: block;
   padding: 0px 0px 0px 0px;
   margin-bottom: 5px
 }
+.italic{
+  font-style: italic;
+}
+.price-details{
+  position: normal;
+  float: none;
+
+}
 
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/
 @media (max-width: 768px) {
@@ -803,6 +811,9 @@ h2.powder-objections{
 }
 .about-us{
   margin-bottom: 30px;
+}
+.price-details h4, .price-details h5, .price-details ul li {
+  font-size: 0.9em;
 }
 
 }
