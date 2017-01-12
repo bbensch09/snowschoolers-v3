@@ -41,7 +41,7 @@
           <li>
             <h4>
               <div class="star-rating" data-score= <%= ((instructor.average_rating*10).round/10.0) %> >
-              <span class="pull-right review-count">(<%=instructor.reviews.count%> reviews)</span>
+              <span class="pull-right review-count"><%= link_to "(#{instructor.reviews.count} reviews)", instructor %></span>
             </h4>
            </li>
           <li><%= instructor.age %> years old, from <%= instructor.city %>
