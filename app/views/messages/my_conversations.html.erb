@@ -1,30 +1,5 @@
 <div class="container cont2">
 <h1 class="center">Snow Schoolers Messages</h1>
-<!-- <table class="instructors-table">
-  <thead>
-    <tr>
-      <th>Conversation ID</th>
-      <th>Student</th>
-      <th>Instructor</th>
-      <th>Last Message</th>
-      <th>Unread?</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @conversations.each do |convo| %>
-      <tr>
-        <td><%= convo.id %></td>
-        <td><%= convo.requester.name %></td>
-        <td><%= convo.instructor.name %></td>
-        <td><%= convo.messages.last.content %></td>
-        <td><%= convo %></td>
-        <td><%= link_to 'Show', show_conversation_path(convo) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table> -->
 
 <% @conversations.each do |convo| %>
 <% if current_user.instructor.nil? %>
