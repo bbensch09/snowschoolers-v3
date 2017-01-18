@@ -5,9 +5,9 @@ class Review < ActiveRecord::Base
 
   def display_name
     if self.reviewer.email == "brian@snowschoolers.com" && self.lesson && self.lesson.guest_email
-      return self.lesson.requester_name
+      return self.lesson.requester_name.split(" ").first
     else
-      return self.reviewer.display_name
+      return self.reviewer.display_name.split(" ").first
     end
   end
 
