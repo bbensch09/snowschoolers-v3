@@ -90,8 +90,8 @@
       <%=review.rating %> of 5 stars
       </p>
       <h4> <%= review.review %></h4>
-      <% if review.reviewer.email == "brian@snowschoolers.com"%>
-          <% time_stamp = Lesson.all.to_a[rand(30)].created_at.strftime("%B %d, %Y") %>
+      <% if review.lesson_id.nil? && review.reviewer.email == "brian@snowschoolers.com"%>
+          <% time_stamp = Lesson.where(state:"Lesson Complete").to_a.sample.created_at.strftime("%B %d, %Y") %>
         <% else %>
           <% time_stamp = review.created_at.strftime("%B %d, %Y") %>
       <% end %>
