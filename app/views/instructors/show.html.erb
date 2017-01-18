@@ -95,7 +95,7 @@
         <% else %>
           <% time_stamp = review.created_at.strftime("%B %d, %Y") %>
       <% end %>
-      <h5 class="center"> <em> - <%=review.reviewer.display_name %> on <%= time_stamp %></em></h5>
+      <h5 class="center"> <em> - <%=review.display_name %> on <%= time_stamp %></em></h5>
     </div>
     <br>
     <hr>
