@@ -1,0 +1,171 @@
+    <section id="header-creative" class="top-section">
+        <div id="player" class="video-background"></div>
+
+        <script>
+              // 2. This code loads the IFrame Player API code asynchronously.
+              var tag = document.createElement('script');
+              tag.src = "https://www.youtube.com/iframe_api";
+              var firstScriptTag = document.getElementsByTagName('script')[0];
+              firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+              // 3. This function creates an <iframe> (and YouTube player)
+              //    after the API code downloads.
+              var player;
+              function onYouTubeIframeAPIReady() {
+                player = new YT.Player('player', {
+                  height: '100%',
+                  width: '100%',
+                  videoId: 'ebySUnXKgRw',
+                  events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                  }
+                });
+              }
+              // 4. The API will call this function when the video player is ready.
+              function onPlayerReady(event) {
+                   event.target.setVolume(0);
+               event.target.playVideo();
+              }
+              // 5. The API calls this function when the player's state changes.
+              //    The function indicates that when playing a video (state=1),
+              //    the player should play for six seconds and then stop.
+              var done = false;
+              function onPlayerStateChange(event) {
+                if (event.data == YT.PlayerState.PLAYING && !done) {
+            //      setTimeout(stopVideo, 6000);
+                          // done = true;
+                }
+                event.target.setVolume(0);
+                event.target.playVideo();
+              }
+        </script>
+
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1 id="homeHeading" class="shadow-box-highlight">The Beginner's Guide to Tahoe<br>
+                <span class="smaller-text"></span>
+                </h1>
+                <hr>
+                <div class="shadow-box-highlight hero-subtext">
+                <p class="font-smaller beginner-intro"> So you’ve heard that conditions in Tahoe are <a href="http://abc7news.com/weather/winter-storm-brings-plenty-of-snow-to-tahoe-ski-resorts/1701761/" class="green-link">EPIC</a>...</p>
+                <ul class="beginner-intro-questions">
+                    <li>But what does that actually mean?</li>
+                    <li>Where should I stay? </li>
+                    <li>What are chains? </li>
+                </ul>
+                <p class="font-smaller"> We know that planning a Tahoe vacation is <b>hard work</b>, so we made this guide to help you each step of the way.</p>
+                </div>
+                <hr>
+                <a href="#TOC" class="btn btn-primary btn-lg page-scroll">Get Started</a>
+            </div>
+            <hr>
+            <!-- <div class="header-content-inner">
+                    <h3 id="search-index-header" class="shadow-box-highlight">Easily compare lesson prices before you book.<br><br>
+                    <span class="smaller-text"></span>
+                    %= render partial: 'products/search' %>
+                    </h3>
+            </div> -->
+        </div>
+    </section>
+
+    <section id="TOC" class="pricing-section">
+        <div class="container">
+            <div class="row about-us">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading how-it-works navy-text">Why Snow Schoolers?</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <h2 id="why-snowschoolers-subheader" class="center navy-text">Booking a ski or snowboard lesson should be <b>fast, easy, </b>and <b>convenient</b>.
+                </h2>
+              <hr class="deposit-hr-navy">
+              <div class="row">
+                <p class="solid-box-highlight why-snowschoolers-text white-text">
+                As a team of lifelong skiers and technologists, we believe that <b>literally anyone </b> can learn how to ski. Whether it's your first time seeing snow, or whether you're an experienced skier looking to take your skills to the next level, we're here to ensure you have the <b>perfect lesson experience</b>.
+                </p>
+              </div>
+                <h2 class="section-heading how-it-works navy-text center">Where are lessons offered?</h2>
+                <h3 class="center">
+                    <!-- <a href="#hideLessons" class="btn btn-success" id="toggle-more-info">See current locations</a> -->
+                </h3>
+                <div id="more-info" class="row ">
+                    <p class="solid-box-highlight why-snowschoolers-text white-text">
+                    <span class=""> We are currently only accepting <b> private lessons reservations </b> at <a href="https://www.google.com/maps/place/Homewood+Mountain+Resort/@39.0855833,-120.1627278,17z/data=!3m1!4b1!4m5!3m4!1s0x80997fda4762005f:0x73b0c46aa0c1068d!8m2!3d39.0855833!4d-120.1605391" class="green-link">Homewood Mountain Resort</a>, which is located on the west shore of Lake Tahoe, 10 minutes from Tahoe city.</span> However, we are taking our show on the road for the first week of January, and will be making a few stops in Utah and Wyoming. Follow us on <a href="https://twitter.com/snowschoolers" class="green-link"><i class="fa fa-twitter"></i>Twitter</a> for the latest updates.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary" id="whyJackson">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-xs12 text-center">
+                    <h2 class="section-heading how-it-works white-text">Why Jackson Hole?</h2>
+                    <p class="solid-box-highlight jackson-hole-text white-text">
+                        Honestly, we're coming to Jackson Hole for vacation (yes, ski instructors still go skiing for vacation). As diehard skiers, we love Jackson Hole for the obvious reasons...
+                    </p>
+                    <ol class="jackson-hole-reasons">
+                        <li> 4,000 feet of vertical on a 7-minute tram ride.</li>
+                        <li> Hundreds of acres of tram-accessible side country.</li>
+                        <li> The 21+ feet of snow that’s already fallen this season.</li>
+                        <li> It is the <b> best destination </b> on the <a href="https://mountaincollective.com/" class="green-link">Mountain Collective</a>.</li>
+                    </ol>
+                    <h3 class="beta-sign-up-offer text-left">
+                         Since we're going to be in town anyhow, and since we have a good friend from Jackson who is going to be showing us around for free, we thought we'd offer to let a few lucky folks join us. If you are interested in learning more about Snow Schoolers, or simply want to explore some of the best pow stashes typically reserved for locals, sign up below.
+                    </h3>
+                    <hr class="light text-center">
+                    <div class="col-md-12 beta_user-sign-up">
+                        <%= form_for(@beta_user = BetaUser.new) do |f| %>
+                          <% if @beta_user.errors.any? %>
+                            <div id="error_explanation">
+                              <h2><%= pluralize(@beta_user.errors.count, "error") %> prohibited this beta_user from being saved:</h2>
+                              <ul>
+                              <% @beta_user.errors.full_messages.each do |message| %>
+                                <li><%= message %></li>
+                              <% end %>
+                              </ul>
+                            </div>
+                          <% end %>
+                          <div class="email-input">
+                            <%= f.email_field :email, autofocus: false, class:"black-text form-control beta-sign-up", placeholder:"Enter Email", required: true  %>
+                            <div class="hidden">
+                                <%= f.text_field :user_type, :value => "Jackson_promo"  %>
+                            </div>
+                          <%= f.submit "Sign up to Join Us", class:"btn btn-success btn-xl page-scroll" %>
+                          <!-- <h3 class="offer-limitations">*First 100 sign ups receive 20% off their first lesson.</h3> -->
+                          </div>
+                        <% end %>
+                    </div>
+                    <h3 class="text-white"><b> The fine print:</b>
+                        This is seriously free. There's no catch. While we sell lessons in Tahoe today, and we’re hoping to be able to do so next year at Jackson, we are currently not allowed to conduct commercial activity in the state of Wyoming. So if we tried to charge you any money, we’d be in violation of federal laws, and no one wants that. We’ll be skiing Tuesday, Wednesday and Thursday Jan 3rd - 5th, so if that works for you, simply add your email to the list above and we'd love to ski with you.
+                    </h3>
+                   <hr>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">Questions - Let us know!</h2>
+                    <hr class="primary">
+                    <p>Give us a call or send us an email and we will get back to you as soon as possible!</p>
+                </div>
+                <div class="col-lg-4 col-lg-offset-2 text-center">
+                    <i class="fa fa-phone fa-3x sr-contact"></i>
+                    <p>(530)430-SNOW</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fa fa-envelope-o fa-3x sr-contact"></i>
+                    <p><a href="mailto:info@snowschoolers.com" target="_blank">info@snowschoolers.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<script src="//load.sumome.com/" data-sumo-site-id="a1fbda8d7365cdee08d4a5985659bb680581b2dd4281ce27f0f246ffaa655693" async="async"></script>
