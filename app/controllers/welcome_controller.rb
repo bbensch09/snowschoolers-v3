@@ -33,6 +33,9 @@ class WelcomeController < ApplicationController
   def jackson_hole
   end
 
+  def beginners_guide_to_tahoe
+  end
+
   def about_us
   end
 

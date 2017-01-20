@@ -55,6 +55,9 @@
         <% else %>
           <%= number_to_currency(@lesson.lesson_price.to_i) %>
         <% end %>
+        <% if @lesson.package_info %>
+        <br><span class="italic"> <%= @lesson.package_info %></span>
+        <% end %>
       </h4>
       </div>
     </div>
