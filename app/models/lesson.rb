@@ -230,18 +230,17 @@ class Lesson < ActiveRecord::Base
   end
 
   def price
-    if self.transactions.count >= 1
-      return self.transactions.last.base_amount
-    end
-    if self.lesson_price.nil?
+    if self.lesson_cost
+      return self.lesson_cost.to_s
+    elsif self.lesson_price
+      return self.lesson_price.to_s
+    else
       product = Product.where(location_id:self.location.id,name:self.lesson_time.slot,calendar_period:self.location.calendar_status).first
       if product.nil?
         return "Error - lesson price not found" #99 #default lesson price - temporary
       else
-        return product.price
+        return product.price.to_s
       end
-    else
-      return (self.lesson_price).to_s
     end
   end
 
