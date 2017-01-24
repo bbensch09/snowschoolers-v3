@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   get 'jackson-hole' => "welcome#jackson_hole"
   get 'powder' => "welcome#powder"
   get 'road-conditions' => "welcome#road_conditions"
+  get 'accommodations' => "welcome#accommodations"
   get 'beginners_guide_to_tahoe' => "welcome#beginners_guide_to_tahoe"
   get   'lessons/sugarbowl'               => 'lessons#sugarbowl'
   get 'homewood' => "welcome#homewood"
