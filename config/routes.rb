@@ -46,7 +46,7 @@ Rails.application.routes.draw do
   #promo pages
   get 'jackson-hole' => "welcome#jackson_hole"
   get 'powder' => "welcome#powder"
-  get 'powder' => "welcome#powder"
+  get 'road-conditions' => "welcome#road_conditions"
   get 'beginners_guide_to_tahoe' => "welcome#beginners_guide_to_tahoe"
   get   'lessons/sugarbowl'               => 'lessons#sugarbowl'
   get 'homewood' => "welcome#homewood"
