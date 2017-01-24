@@ -796,7 +796,7 @@ text-align: center;
 }
 #blog{
   height: 100px;
-  min-height: 130px !important;
+  min-height: 160px !important;
 }
 .blog-header{
     font-weight: bold;
@@ -855,7 +855,7 @@ text-align: center;
     padding: 5px 5px 5px 5px;
 }
 #why-snowschoolers{
-  max-height: 300vh !important;
+  /*max-height: 300vh !important;*/
   padding-bottom: 10px;
 }
 #private-group-comparison{
@@ -915,6 +915,14 @@ h2.powder-objections{
 }
 .price-details h4, .price-details h5, .price-details ul li {
   font-size: 0.9em;
+}
+.tahoe-map{
+  max-height: 250px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.insta-embed{
+width:95vw;
 }
 
 }
