@@ -42,7 +42,7 @@
 
         <div class="header-content">
             <div class="header-content-inner">
-                <h1 id="homeHeading" class="shadow-box-highlight">The Beginner's Guide to Tahoe<br>
+                <h1 id="homeHeading" class="shadow-box-highlight">A Beginner's Guide to Tahoe<br>
                 <span class="smaller-text"></span>
                 </h1>
                 <hr>
@@ -59,12 +59,6 @@
                 <a href="#TOC" class="btn btn-primary btn-lg page-scroll">Get Started</a>
             </div>
             <hr>
-            <!-- <div class="header-content-inner">
-                    <h3 id="search-index-header" class="shadow-box-highlight">Easily compare lesson prices before you book.<br><br>
-                    <span class="smaller-text"></span>
-                    %= render partial: 'products/search' %>
-                    </h3>
-            </div> -->
         </div>
     </section>
 
@@ -72,8 +66,43 @@
         <div class="container">
             <div class="row about-us">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading how-it-works navy-text">Why Snow Schoolers?</h2>
+                    <h2 class="section-heading how-it-works navy-text">Tahoe Trip Planning 101</h2>
+                    <ul class="toc-sections">
+                      <li><a class="blue-link" href="#north-vs-south">North Lake vs South Lake?</a></li>
+                      <li><a class="blue-link" href="#directions">How to get here?</a></li>
+                      <li><a class="blue-link" href="#accommodations">Where to stay?</a></li>
+                      <li><a class="blue-link" href="#resorts">Where to ski?</a></li>
+                      <li><a class="blue-link" href="#other-activities">What if I don't ski?</a></li>
+                      <li><a class="blue-link" href="#food">Places to eat</a></li>
+                      <li><a class="blue-link" href="#apres">Après ski, bars and other nightlife</a></li>
+                    </ul>
                 </div>
+            </div>
+            <div class="center navy-text">
+                  <h4 class="italic"> Prefer personalized support from one of our ski vacation concierges? Enter your email & and/or phone number below to be contacted within 24 hours.</h4>
+                  <div class="col-md-12 beta_user-sign-up">
+                        <%= form_for(@beta_user = BetaUser.new) do |f| %>
+                          <% if @beta_user.errors.any? %>
+                            <div id="error_explanation">
+                              <h2><%= pluralize(@beta_user.errors.count, "error") %> prohibited this beta_user from being saved:</h2>
+                              <ul>
+                              <% @beta_user.errors.full_messages.each do |message| %>
+                                <li><%= message %></li>
+                              <% end %>
+                              </ul>
+                            </div>
+                          <% end %>
+                          <div class="email-input">
+                            <%= f.email_field :email, autofocus: false, class:"black-text form-control beta-sign-up", placeholder:"Enter Email (required)", required: true  %>
+                            <%= f.text_field :phone_number, autofocus: false, class:"black-text form-control beta-sign-up", placeholder:"XXX-XXX-XXXX (optional)", required: false  %>
+                            <div class="hidden">
+                                <%= f.text_field :user_type, :value => "beginner_concierge"  %>
+                            </div>
+                          <%= f.submit "Request your Free Concierge", class:"btn btn-success btn-xl page-scroll" %>
+                          <!-- <h3 class="offer-limitations">*First 100 sign ups receive 20% off their first lesson.</h3> -->
+                          </div>
+                        <% end %>
+                    </div>
             </div>
         </div>
         <div class="container">
@@ -117,28 +146,7 @@
                          Since we're going to be in town anyhow, and since we have a good friend from Jackson who is going to be showing us around for free, we thought we'd offer to let a few lucky folks join us. If you are interested in learning more about Snow Schoolers, or simply want to explore some of the best pow stashes typically reserved for locals, sign up below.
                     </h3>
                     <hr class="light text-center">
-                    <div class="col-md-12 beta_user-sign-up">
-                        <%= form_for(@beta_user = BetaUser.new) do |f| %>
-                          <% if @beta_user.errors.any? %>
-                            <div id="error_explanation">
-                              <h2><%= pluralize(@beta_user.errors.count, "error") %> prohibited this beta_user from being saved:</h2>
-                              <ul>
-                              <% @beta_user.errors.full_messages.each do |message| %>
-                                <li><%= message %></li>
-                              <% end %>
-                              </ul>
-                            </div>
-                          <% end %>
-                          <div class="email-input">
-                            <%= f.email_field :email, autofocus: false, class:"black-text form-control beta-sign-up", placeholder:"Enter Email", required: true  %>
-                            <div class="hidden">
-                                <%= f.text_field :user_type, :value => "Jackson_promo"  %>
-                            </div>
-                          <%= f.submit "Sign up to Join Us", class:"btn btn-success btn-xl page-scroll" %>
-                          <!-- <h3 class="offer-limitations">*First 100 sign ups receive 20% off their first lesson.</h3> -->
-                          </div>
-                        <% end %>
-                    </div>
+
                     <h3 class="text-white"><b> The fine print:</b>
                         This is seriously free. There's no catch. While we sell lessons in Tahoe today, and we’re hoping to be able to do so next year at Jackson, we are currently not allowed to conduct commercial activity in the state of Wyoming. So if we tried to charge you any money, we’d be in violation of federal laws, and no one wants that. We’ll be skiing Tuesday, Wednesday and Thursday Jan 3rd - 5th, so if that works for you, simply add your email to the list above and we'd love to ski with you.
                     </h3>

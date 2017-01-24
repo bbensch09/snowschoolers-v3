@@ -10,16 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170120064953) do
+ActiveRecord::Schema.define(version: 20170124190049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "beta_users", force: :cascade do |t|
-    t.string   "email",      limit: 255
-    t.string   "user_type",  limit: 255
+    t.string   "email",        limit: 255
+    t.string   "user_type",    limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "phone_number"
   end
 
   create_table "blogs", force: :cascade do |t|
