@@ -48,6 +48,9 @@ class WelcomeController < ApplicationController
   def accommodations
   end
 
+  def resorts
+  end
+
   def admin_users
     @users = User.all.sort {|a,b| a.email <=> b.email}
     @exported_users = User.all
