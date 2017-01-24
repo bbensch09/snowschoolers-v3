@@ -641,13 +641,16 @@ h2 {
 }
 .green-link {
     color: #55C9B2;
-    font-style: bold;
+    font-weight: bold;
     text-decoration: underline;
 }
 .blue-link {
     color: #3b5998;
-    font-style: bold;
     text-decoration: underline;
+}
+.black-link{
+  color: #000;
+  font-weight: bold;
 }
 #why-snowschoolers{
   padding-bottom: 10px;
@@ -791,6 +794,14 @@ text-align: center;
   font-size: 1.6em;
   color: #000;
 }
+.guide-lists{
+  text-align: left;
+  margin-left: 10vw;
+  font-weight: normal !important;
+  line-height: 1.4;
+  font-size: 1.6em;
+  color: #000;
+}
 .north-vs-south{
   text-align: left;
   margin-left: 10vw;
@@ -829,6 +840,12 @@ text-align: center;
     text-align: center;
     text-transform: uppercase;
     color: #fff;
+}
+.left{text-align: left;}
+.airbnb-logo{
+  float:right;
+  max-height: 100px;
+  border: 1px solid black;
 }
 
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/
