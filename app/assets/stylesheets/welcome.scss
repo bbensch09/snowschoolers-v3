@@ -39,6 +39,9 @@ p {
 .bg-primary {
   background-color: #3b5998;
 }
+.bg-white {
+  background-color: #fff;
+}
 .bg-dark {
   background-color: #222222;
   color: white;
@@ -466,7 +469,6 @@ h2.how-it-works {
     font-weight: bold;
     font-size: 3.5em;
     text-transform: uppercase;
-    color: #3b5998;
   }
  h2.powder-objections {
     font-weight: bold;
@@ -789,6 +791,16 @@ text-align: center;
   font-size: 1.6em;
   color: #000;
 }
+.north-vs-south{
+  text-align: left;
+  margin-left: 10vw;
+  font-size: 1.5em;
+  line-height: 1.2;
+}
+.about-tahoe{
+  text-align: left;
+  font-size: 1.5em;
+}
 .font-smaller{
   font-size: 0.8em !important;
 }
@@ -851,6 +863,9 @@ text-align: center;
     font-weight: bold;
     font-size: 2.5em;
     text-transform: uppercase;
+  }
+  .north-vs-south{
+    color: #fff !important;
   }
   #header-creative .header-content {
   position: relative;
