@@ -67,19 +67,21 @@
             <div class="row about-us">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading how-it-works navy-text">Tahoe Trip Planning 101</h2>
-                    <ul class="toc-sections">
-                      <li><a class="blue-link" href="#about-tahoe">North Lake vs South Lake?</a></li>
-                      <li><a class="blue-link" href="#directions">How to get here?</a></li>
-                      <li><a class="blue-link" href="#accommodations">Where to stay?</a></li>
-                      <li><a class="blue-link" href="#resorts">Where to ski?</a></li>
-                      <li><a class="blue-link" href="#other-activities">What if I don't ski?</a></li>
-                      <li><a class="blue-link" href="#food">Places to eat</a></li>
-                      <li><a class="blue-link" href="#apres">Après ski, bars and other nightlife</a></li>
+                    <ul class="toc-sections navy-text">
+                      <li><a class="navy-link" href="#about-tahoe">North Lake vs South Lake?</a></li>
+                      <li><a class="navy-link" href="#directions">How to get here?</a></li>
+                      <li><a class="navy-link" href="#accommodations">Where to stay?</a></li>
+                      <li><a class="navy-link" href="#resorts">Where to ski?</a></li>
+                      <li><a class="navy-link" href="#other-activities">What if I don't ski?</a></li>
+                      <li><a class="navy-link" href="#food">Places to eat</a></li>
+                      <li><a class="navy-link" href="#apres">Après ski, bars and other nightlife</a></li>
                     </ul>
                 </div>
             </div>
             <div class="center navy-text">
-                  <h4 class="italic"> Prefer personalized support from one of our ski vacation concierges? Enter your email & and/or phone number below to be contacted within 24 hours.</h4>
+                  <h4 class="italic"> Prefer personalized support from one of our ski vacation concierges? 
+                  <br>
+                  Enter your email & and/or phone number below to be contacted within 24 hours.</h4>
                   <div class="col-md-12 beta_user-sign-up">
                         <%= form_for(@beta_user = BetaUser.new) do |f| %>
                           <% if @beta_user.errors.any? %>
@@ -128,6 +130,7 @@
                     <h3 class="beta-sign-up-offer text-left">
                     </h3>
                     <hr class="light text-center">
+                    <h4 class="center"><a href="#TOC" class="btn btn-default">Back to Top</a></h4>
                 </div>
             </div>
         </div>
@@ -163,13 +166,16 @@
                     <br>
                     <br>
                     </li>
-                    <li> Both major highways are subject to <a href="http://www.dot.ca.gov/hq/roadinfo/chcontrl.htm" class="green-link">chain control</a> almost anytime that it snows, and do occasionally close down completely due to unsafe visibility or avalanche risk. When chain control is in effect, there will be a check point operated by CalTrans where you will be forced to put on chains (and buy them if you don't have any) in order to proceed, unless you have a vehicle with 4-wheel drive and snow tires.
+                    <li> Both major highways are subject to <a href="http://www.dot.ca.gov/hq/roadinfo/chcontrl.htm" class="green-link">chain control</a> almost anytime that it snows, and do occasionally close down completely due to unsafe visibility or avalanche risk. </li>
+                    <br>
+                    <li> For those new to winter driving, <b> chains </b> are like metal crampons for your tires, to help with traction on snow and ice. When chain control is in effect, there will be a check point operated by CalTrans where you will be forced to put on chains (and buy them if you don't have any) in order to proceed, unless you have a vehicle with 4-wheel drive and snow tires.
                     <br>
                     <br>
                     </li>
                     <li> It's always best to check <a href="/road-conditions" class="green-link"> road conditions</a> before your trip. You can also <a href="https://twitter.com/snowschoolers" class="btn btn-default twitter">follow us on Twitter</a> to get crucial updates about road conditions.</li>
               </ul>
           </div>
+          <h4 class="center"><a href="#TOC" class="btn btn-default">Back to Top</a></h4>
     </section>
 
      <section class="bg-primary" id="accommodations">
@@ -191,6 +197,7 @@
                     <h2 class="section-heading how-it-works navy-text">Where to Ski</h2>
                     <%= render "welcome/resorts" %>
                     <hr class="light text-center">
+                    <h4 class="center"><a href="#TOC" class="btn btn-default">Back to Top</a></h4>
                 </div>
             </div>
         </div>
@@ -203,6 +210,7 @@
                     <h2 class="section-heading how-it-works white-text">Other Things to Do</h2>
                     <%= render "welcome/things_to_do" %>
                     <hr class="light text-center">
+                    <h4 class="center"><a href="#TOC" class="btn btn-default">Back to Top</a></h4>                    
                 </div>
             </div>
         </div>
@@ -215,6 +223,7 @@
                     <h2 class="section-heading how-it-works navy-text">Places to Eat</h2>
                     <%= render "welcome/places_to_eat" %>
                     <hr class="light text-center">
+                    <h4 class="center"><a href="#TOC" class="btn btn-default">Back to Top</a></h4>
                 </div>
             </div>
         </div>
@@ -227,6 +236,7 @@
                     <h2 class="section-heading how-it-works white-text">Après ski, bars & nightlife</h2>
                     <%= render "welcome/apres" %>
                     <hr class="light text-center">
+                    <h4 class="center"><a href="#TOC" class="btn btn-default">Back to Top</a></h4>
                 </div>
             </div>
         </div>
