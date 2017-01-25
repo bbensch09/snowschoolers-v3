@@ -38,6 +38,10 @@ class BetaUsersController < ApplicationController
           LessonMailer.notify_powder_promo(@beta_user).deliver
           format.html { redirect_to powder_path, notice: "Thanks for your interest. We'll get back to you shortly. If you have any other questions feel free to call us at 530-430-SNOW." }
           format.json { render action: 'show', status: :created, location: @beta_user }
+          elsif @beta_user.user_type == "beginner_concierge"
+          LessonMailer.notify_beginner_concierge(@beta_user).deliver
+          format.html { redirect_to beginners_guide_to_tahoe_path, notice: "Thanks for your interest. We'll get back to you shortly. If you have any other questions feel free to call us at 530-430-SNOW." }
+          format.json { render action: 'show', status: :created, location: @beta_user }
           else
           LessonMailer.notify_admin_beta_user(@beta_user).deliver
           format.html { redirect_to root_path, notice: 'Thanks for signing up!' }
@@ -82,6 +86,6 @@ class BetaUsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def beta_user_params
-      params.require(:beta_user).permit(:email, :user_type)
+      params.require(:beta_user).permit(:email, :user_type, :phone_number)
     end
 end

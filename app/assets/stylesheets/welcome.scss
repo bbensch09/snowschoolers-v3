@@ -39,6 +39,9 @@ p {
 .bg-primary {
   background-color: #3b5998;
 }
+.bg-white {
+  background-color: #fff;
+}
 .bg-dark {
   background-color: #222222;
   color: white;
@@ -194,6 +197,11 @@ aside {
 }
 .shadow-box-highlight{
   background-color: rgba(59, 89, 152, .8);
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.light-shadow-box-highlight{
+  background-color: rgba(59, 89, 152, .3);
   padding-top: 15px;
   padding-bottom: 15px;
 }
@@ -466,7 +474,6 @@ h2.how-it-works {
     font-weight: bold;
     font-size: 3.5em;
     text-transform: uppercase;
-    color: #3b5998;
   }
  h2.powder-objections {
     font-weight: bold;
@@ -639,8 +646,16 @@ h2 {
 }
 .green-link {
     color: #55C9B2;
-    font-style: bold;
+    font-weight: bold;
     text-decoration: underline;
+}
+.navy-link {
+    color: #3b5998;
+    text-decoration: underline;
+}
+.black-link{
+  color: #000;
+  font-weight: bold;
 }
 #why-snowschoolers{
   padding-bottom: 10px;
@@ -776,6 +791,31 @@ text-align: center;
   font-style: italic;
   font-size: 0.6em;
 }
+.toc-sections{
+  text-align: left;
+  margin-left: 25vw;
+  font-weight: normal !important;
+  line-height: 1.4;
+  font-size: 1.6em;
+  color: #000;
+}
+.guide-lists{
+  text-align: left;
+  margin-left: 10vw;
+  font-weight: normal !important;
+  line-height: 1.4;
+  font-size: 1.6em;
+}
+.north-vs-south{
+  text-align: left;
+  margin-left: 10vw;
+  font-size: 1.5em;
+  line-height: 1.2;
+}
+.about-tahoe{
+  text-align: left;
+  font-size: 1.5em;
+}
 .font-smaller{
   font-size: 0.8em !important;
 }
@@ -786,7 +826,8 @@ text-align: center;
   float: right;
   max-height: 400px;
   padding-left: 10px;
-  padding-right: 10px
+  padding-right: 10px;
+  border: 1px solid #3b5998;
 }
 .where-we-teach{
   min-height: 450px;
@@ -804,6 +845,36 @@ text-align: center;
     text-align: center;
     text-transform: uppercase;
     color: #fff;
+}
+.left{text-align: left;}
+.airbnb-logo{
+  float:right;
+  max-height: 100px;
+  border: 1px solid black;
+}
+.resort-photo{
+  height:700px;  
+  width: auto;
+}
+.resort-photo-container{
+  margin-left: auto;
+  display: block;
+  position: relative;
+  width:80vw;
+}
+.sledding-map{
+  width: 300px;
+  border: 1px solid #3b5998;
+  padding-left: 10px;
+  padding-right: 10px;
+  float: right;
+}
+.uber-lyft-logo,{
+  width: 400px;
+  border: 1px solid #3b5998;
+  padding-left: 10px;
+  padding-right: 10px;
+  float: right;
 }
 
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/
@@ -838,6 +909,9 @@ text-align: center;
     font-weight: bold;
     font-size: 2.5em;
     text-transform: uppercase;
+  }
+  .north-vs-south{
+    color: #fff !important;
   }
   #header-creative .header-content {
   position: relative;

@@ -12,7 +12,9 @@
           <h4>If you have not already, click below to register with Facebook.</h4>
 
           <h2 class="center">
-                  <%= link_to "Login or Register with Facebook", user_facebook_omniauth_authorize_path(:facebook), class: "btn-lg sign-up-btn" %><br />
+                  <%= link_to image_tag("fb-login.png", class:"fb-login-btn"), user_facebook_omniauth_authorize_path %>
+                  <br>
+
           </h2>
 
           <p>Once you're registered, you can:</p>
