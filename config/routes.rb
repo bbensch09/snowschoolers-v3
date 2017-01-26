@@ -49,7 +49,7 @@ Rails.application.routes.draw do
   get 'road-conditions' => "welcome#road_conditions"
   get 'accommodations' => "welcome#accommodations"
   get 'resorts' => "welcome#resorts"
-  get 'beginners_guide_to_tahoe' => "welcome#beginners_guide_to_tahoe"
+  get 'beginners-guide-to-tahoe' => "welcome#beginners_guide_to_tahoe"
   get   'lessons/sugarbowl'               => 'lessons#sugarbowl'
   get 'homewood' => "welcome#homewood"
   get 'homewood2' => "welcome#homewood2"
