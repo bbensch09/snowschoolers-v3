@@ -509,6 +509,10 @@ h2.how-it-works {
     padding-top: 10px;
     padding-bottom: 10px;
     line-height: 1.1;
+    width: 0px;
+}
+.indent{
+  margin-left: 100px;
 }
 .pricing-snowschoolers{
       text-align: center;
@@ -853,14 +857,14 @@ text-align: center;
   border: 1px solid black;
 }
 .resort-photo{
-  height:700px;  
-  width: auto;
+    height: auto;
+    max-width: 100%;
 }
 .resort-photo-container{
-  margin-left: auto;
-  display: block;
-  position: relative;
-  width:80vw;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    width: 800px;
 }
 .sledding-map{
   width: 300px;
