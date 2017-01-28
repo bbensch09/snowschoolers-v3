@@ -111,7 +111,7 @@ class LessonsController < ApplicationController
   def confirm_reservation
     @lesson = Lesson.find(params[:id])
     if @lesson.deposit_status != 'confirmed'
-        @amount = @lesson.lesson_price.to_i
+        @amount = @lesson.price.to_i
           customer = Stripe::Customer.create(
             :email => params[:stripeEmail],
             :source  => params[:stripeToken]
