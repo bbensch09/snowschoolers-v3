@@ -230,10 +230,10 @@ class Lesson < ActiveRecord::Base
   end
 
   def price
-    if self.lesson_cost
-      return self.lesson_cost.to_s
-    elsif self.lesson_price
+    if self.lesson_price
       return self.lesson_price.to_s
+    elsif self.lesson_cost
+      return self.lesson_cost.to_s
     else
       product = Product.where(location_id:self.location.id,name:self.lesson_time.slot,calendar_period:self.location.calendar_status).first
       if product.nil?
