@@ -5,7 +5,7 @@
     <%= button_to "Decline Lesson Request", decline_instructor_path, method: :put, class: "btn btn-danger" %>
   <% end %>
 
-  <% if current_user && current_user.instructor && @lesson.instructor_accepted? && @lesson.instructor && current_user == @lesson.instructor.user %>
+  <% if current_user && current_user.instructor && @lesson.instructor_accepted? && @lesson.instructor && (current_user == @lesson.instructor.user || current_user.email == "brian@snowschoolers.com") %>
     <% if @lesson.pending_instructor? %>
       <%= link_to "Confirm Updates", set_instructor_path, method: :put, class: "btn btn-default" %>
     <% end %>
