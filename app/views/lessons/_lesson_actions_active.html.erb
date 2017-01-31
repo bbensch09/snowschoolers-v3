@@ -1,4 +1,9 @@
 <div class='active-actions'>
+  <% if current_user.nil? %>
+    <h3>
+      <a href="#" class="btn btn-default" data-toggle="modal" data-target="#loginModal">Log in to update this lesson.</a>
+    </h3>
+  <% end %>
   <% if current_user && current_user.instructor && @lesson.confirmable? && @lesson.available_instructors.include?(current_user.instructor) %>
     <%= button_to "Accept Lesson Request", set_instructor_path, method: :put, class: "btn btn-success" %>
     <br>
