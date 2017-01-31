@@ -31,8 +31,15 @@
 
 <p>
   <strong>Sport:</strong>
-  <%= @instructor.sport %>
-</p>
+  <% if @instructor.ski_instructor? %>
+  Skiing <img src= "/assets/skier-icon.ico" class="icons">
+  <% end %>
+  <% if @instructor.snowboard_instructor? %>
+  Snowboarding <img src= "/assets/snowboarder-icon.png" class="icons">
+  <% end %>
+  <% if @instructor.telemark_instructor? %>
+  Telemark <img src= "/assets/telemark-icon.png" class="tele-icon">
+  <% end %></p>
 
 <p>
   <strong>Resorts Preferences:</strong>
