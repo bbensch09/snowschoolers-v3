@@ -1,5 +1,7 @@
-    <section id="header-creative" class="top-section">
-        <div id="player" class="video-background"></div>
+<% meta_tag :description, "A complete beginner's guide to Tahoe for groups or families planning a ski or snowboard trip to Lake Tahoe. Recommendations for places to stay, where to eat, how to get there, and most importantly, where to ski." %>
+
+    <section id="header-creative" class="top-section guide-intro">
+        <div id="player" class="video-background hidden-unless-desktop"></div>
 
         <script>
               // 2. This code loads the IFrame Player API code asynchronously.
@@ -47,15 +49,14 @@
                 </h1>
                 <hr>
                 <div class=" hero-subtext">
-                <p class="font-smaller beginner-intro"> So you’ve heard that conditions in Tahoe are <a href="http://abc7news.com/weather/winter-storm-brings-plenty-of-snow-to-tahoe-ski-resorts/1701761/" class="green-link">record-breaking</a>...</p>
+                <p class="font-smaller beginner-intro"> So you’ve heard conditions are <a href="http://abc7news.com/weather/winter-storm-brings-plenty-of-snow-to-tahoe-ski-resorts/1701761/" class="green-link" target="_blank">the best ever</a>...</p>
                 <ul class="beginner-intro-questions">
-                    <li>But what does that actually mean?</li>
+                    <li>But how do I get there?</li>
                     <li>Where should I stay? </li>
                     <li>What are chains? </li>
                 </ul>
                 <p class="font-smaller"> We know that planning a Tahoe vacation can be <b>hard work</b>, so we made this guide to help you each step of the way.</p>
                 </div>
-                <hr>
                 <a href="#TOC" class="btn btn-primary btn-lg page-scroll">Get Started</a>
             </div>
             <hr>
@@ -81,7 +82,8 @@
             <div class="center navy-text">
                   <h4 class="italic"> Prefer personalized support from one of our ski vacation concierges? 
                   <br>
-                  Enter your email & and/or phone number below to be contacted within 24 hours.</h4>
+                  <br>
+                  Enter your email and/or phone number below to be contacted within 24 hours.</h4>
                   <div class="col-md-12 beta_user-sign-up">
                         <%= form_for(@beta_user = BetaUser.new) do |f| %>
                           <% if @beta_user.errors.any? %>
@@ -141,7 +143,7 @@
           <div class="container">
               <div class="col-md-8">
                 <p class="about-tahoe navy-text">
-                Like most places in the year 2017, you can plug in any ski resort or hotel to <a href="maps.google.com">Google Maps</a>, and you won't be disappointed. If you end up taking a lesson with us, all of our lessons for the '16/17 season take place </b> at <a href="https://www.google.com/maps/place/Homewood+Mountain+Resort/@39.0855833,-120.1627278,17z/data=!3m1!4b1!4m5!3m4!1s0x80997fda4762005f:0x73b0c46aa0c1068d!8m2!3d39.0855833!4d-120.1605391" class="green-link">Homewood Mountain Resort</a>, which is located on the west shore of Lake Tahoe, 10 minutes from Tahoe city.
+                Like most places in the year 2017, you can plug in any ski resort or hotel to <a href="maps.google.com">Google Maps</a>, and you won't be disappointed. If you end up taking a lesson with us, all of our lessons for the '16/17 season take place </b> at <a href="https://www.google.com/maps/place/Homewood+Mountain+Resort/@39.0855833,-120.1627278,17z/data=!3m1!4b1!4m5!3m4!1s0x80997fda4762005f:0x73b0c46aa0c1068d!8m2!3d39.0855833!4d-120.1605391" class="green-link" target="_blank">Homewood Mountain Resort</a>, which is located on the west shore of Lake Tahoe, 10 minutes from Tahoe city.
                 </p>
               </div>
               <div class="col-md-4">
@@ -155,28 +157,42 @@
                 </iframe>
                 </div>
               </div>
-           <div class="col-md-12">
+            <div class="col-md-12">
               <hr class="deposit-hr-navy">
             </div>
-              <h3 class="navy-text">
-                  Additionally, here are a few other things worth keeping in mind about traveling to Tahoe:
-              </h3>
+              <h2 class="navy-text center"> Tips for Driving to Lake Tahoe</h2>
                <ul class="north-vs-south navy-text">
-                    <li> There's only two main highways in or out. <b> Interstate 80</b> is the primary route for those visiting North Tahoe, while <b> Highway 50</b> is the road to get into South Lake Tahoe. I-80 is two lanes each direction the whole way, which means it can accommodate a bit more traffic flow, but it is also a major trucking route, so you will have to deal with passing trucks slowly makign the climb. US-50 is one lane each way once you get past the foothills, with occasional passing lanes.
+                    <li> There's only two main highways into or out of Tahoe. <b> Interstate 80</b> is the primary route for those visiting North Tahoe, while <b> Highway 50</b> is the road to get into South Lake Tahoe. I-80 is two lanes each direction the whole way, which means it can accommodate a bit more traffic flow, but it is also a major trucking route, so you will have to deal with passing trucks slowly makign the climb. US-50 is one lane each way once you get past the foothills, with occasional passing lanes.
                     <br>
                     <br>
                     </li>
-                    <li> Both major highways are subject to <a href="http://www.dot.ca.gov/hq/roadinfo/chcontrl.htm" class="green-link">chain control</a> almost anytime that it snows, and do occasionally close down completely due to unsafe visibility or avalanche risk. </li>
+                    <li> Both major highways are subject to <a href="http://www.dot.ca.gov/hq/roadinfo/chcontrl.htm" class="green-link" target="_blank">chain control</a> almost anytime that it snows, and do occasionally close down completely due to unsafe visibility or avalanche risk. </li>
                     <br>
                     <li> For those new to winter driving, <b> chains </b> are like metal crampons for your tires, to help with traction on snow and ice. When chain control is in effect, there will be a check point operated by CalTrans where you will be forced to put on chains (and buy them if you don't have any) in order to proceed, unless you have a vehicle with 4-wheel drive and snow tires.
                     <br>
                     <br>
                     </li>
-                    <li> It's always best to check <a href="/road-conditions" class="green-link"> road conditions</a> before your trip. You can also <a href="https://twitter.com/snowschoolers" class="btn btn-default twitter">follow us on Twitter</a> to get crucial updates about road conditions.
-                    <br>
-                    <br>
+                    <li> It's always best to check <a href="/road-conditions" class="green-link" target="_blank"> road conditions</a> before your trip. You can also <a href="https://twitter.com/snowschoolers" class="btn btn-default twitter">follow us on Twitter</a> to get crucial updates about road conditions.
                     </li>
-                    <li>If you're flying in from afar, the Reno International airport is about an hour from North Tahoe and 1hr 15min to South Lake. Reno is often considered the "the Biggest Little City" destination for gambling, so if that's your thing, worth spending your first night in town. If you're really here to ski, keep in mind that most resorts will offer you a <a href="http://www.skilaketahoe.com/ski-for-free-on-the-same-day-you-arrive/" class="green-link">free or discounted lift ticket on the same day you fly</a>, so hold on to that boarding pass.</li>
+                    <br>
+                    <li>Don't want to drive yourself? There's two carpool-friendly for those without cars:
+                      <ul class="inner-carpool-list">
+                        <li>The <a href="https://www.bayareaskibus.com/?utm_campaign=SnowSchoolers_beginner_guide" class="green-link" target="_blank">Bay Area Ski Bus</a> is exactly what it sounds like. With 10+ pickup locations in San Francisco, the south bay, and the east bay, they'll take you to and from Tahoe on a day trip to various resorts for just $165, which includes your lift ticket and a continental breakfast.</li>
+                        <br>
+                        <li><a href="http://www.snowpals.org/info/tahoe-rideshare/?utm_campaign=SnowSchoolers_beginner_guide" class="green-link" target="_blank">SnowPals.org</a> is one of the oldest online communities of Tahoe skiers & snowboarders living in the Bay Area, and they offer a free rideshare mailing list to coordinate carpools with over 7,800 members. People can post ride offers or request, and passengers are typically expected to chip in for the cost of gas and tolls. </li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <hr class="deposit-hr-navy">
+              <h2 class="navy-text center"> Tips for Flying to Lake Tahoe</h2>
+                 <ul class="north-vs-south navy-text">
+                    <li>A brand new service launched in 2017 called <a href="http://flyblackbird.com/" class="green-link" target="_blank">BlackBird</a>, which offers direct flights from Palo Alto to Truckee for just $125! Offering a "private flight experience at a budget airline price", they'll get you to Tahoe in 45minutes vs. a 3-5 hour drive.</li>
+                    <br>
+                    <li>If you're flying in from afar, the Reno International airport is the closest major airport and is about an hour from North Tahoe and 1hr 15min to South Lake. Reno is often considered the "the Biggest Little City" destination for gambling, so if that's your thing, worth spending your first night in town. 
+                    </li>
+                    <br>
+                    <li>
+                    If you want maximize your days on the mountain within a budget, keep in mind that most resorts will offer you a <a href="http://www.skilaketahoe.com/ski-for-free-on-the-same-day-you-arrive/" class="green-link" target="_blank">free or discounted lift ticket on the same day you fly</a>, so hold on to that boarding pass.</li>
               </ul>
           </div>
           <h4 class="center"><a href="#TOC" class="btn btn-default">Back to Top</a></h4>
@@ -198,7 +214,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-xs12 text-center">
-                    <h2 class="section-heading how-it-works navy-text">Where to Ski</h2>
                     <%= render "welcome/resorts" %>
                     <hr class="light text-center">
                     <h4 class="center"><a href="#TOC" class="btn btn-default">Back to Top</a></h4>
@@ -241,6 +256,26 @@
                     <%= render "welcome/apres" %>
                     <hr class="light text-center">
                     <h4 class="center"><a href="#TOC" class="btn btn-default">Back to Top</a></h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section id="contact" class="bg-primary">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading white-text"><b>Still have questions? Let us know!</b></h2>
+                    <hr class="primary">
+                    <p class="white-text">Give us a call or send us an email and we will get back to you as soon as possible!</p>
+                </div>
+                <div class="col-lg-4 col-lg-offset-2 text-center">
+                    <i class="fa fa-phone fa-3x sr-contact"></i>
+                    <p class="white-text">(530)430-SNOW</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fa fa-envelope-o fa-3x sr-contact"></i>
+                    <p><a href="mailto:info@snowschoolers.com" class="white-text" target="_blank">info@snowschoolers.com</a></p>
                 </div>
             </div>
         </div>

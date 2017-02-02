@@ -33,7 +33,7 @@ h6 {
 }
 p {
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.2;
   margin-bottom: 20px;
 }
 .bg-primary {
@@ -657,6 +657,11 @@ h2 {
     color: #3b5998;
     text-decoration: underline;
 }
+.navy-bold-link {
+    color: #3b5998;
+    font-weight: bold;
+    text-decoration: underline;
+}
 .black-link{
   color: #000;
   font-weight: bold;
@@ -812,7 +817,7 @@ text-align: center;
 }
 .north-vs-south{
   text-align: left;
-  margin-left: 10vw;
+  margin-left: 5vw;
   font-size: 1.5em;
   line-height: 1.2;
 }
@@ -858,6 +863,7 @@ text-align: center;
 }
 .resort-photo{
     height: auto;
+    max-height: 60vh;
     max-width: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -883,6 +889,13 @@ text-align: center;
   padding-right: 10px;
   float: right;
 }
+.inner-carpool-list {
+  font-size:  0.9em;
+  line-height: 1.2;
+  margin-top: 10px;
+}
+
+
 
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/
 @media (max-width: 768px) {
@@ -914,16 +927,16 @@ text-align: center;
   }
   h2.how-it-works {
     font-weight: bold;
-    font-size: 2.5em;
+    font-size: 2.4em;
     text-transform: uppercase;
   }
-  .north-vs-south{
+/*  .north-vs-south{
     color: #fff !important;
-  }
+  }*/
   #header-creative .header-content {
   position: relative;
   text-align: center;
-  padding: 20px 15px 100px;
+  padding: 20px 15px 20px;
   width: 100%;
 }
 #why-snowschoolers h2.how-it-works{
@@ -1004,6 +1017,43 @@ h2.powder-objections{
 }
 .insta-embed{
 width:95vw;
+}
+.resort-photo{
+    height: auto;
+    width: 92vw;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    display: block;
+}
+.guide-intro{
+    background-color: #3b5998;
+}
+.beginner-intro-questions{
+  text-align: left;
+  margin-left: 5vw;
+  font-weight: normal !important;
+  font-style: italic;
+  font-size: 0.6em;
+}
+.toc-sections{
+  margin-left: 5vw;
+}
+.guide-lists{
+  margin-left: 5vw;
+  line-height: 1.2;
+  font-size: 1.3em;
+}
+.sledding-map, .tahoe-map{
+  float:none;
+  width: 90vw;
+  max-height: 90vw;
+  margin-bottom: 20px;
+}
+.uber-lyft-logo{
+  width:75vw;
+  float:none;
 }
 
 }
