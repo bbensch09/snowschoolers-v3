@@ -1,5 +1,7 @@
-    <section id="header-creative" class="top-section">
-        <div id="player" class="video-background"></div>
+<% meta_tag :description, "A complete beginner's guide to Tahoe for groups or families planning a ski or snowboard trip to Lake Tahoe. Recommendations for places to stay, where to eat, how to get there, and most importantly, where to ski." %>
+
+    <section id="header-creative" class="top-section guide-intro">
+        <div id="player" class="video-background hidden-unless-desktop"></div>
 
         <script>
               // 2. This code loads the IFrame Player API code asynchronously.
@@ -47,15 +49,14 @@
                 </h1>
                 <hr>
                 <div class=" hero-subtext">
-                <p class="font-smaller beginner-intro"> So you’ve heard that conditions in Tahoe are <a href="http://abc7news.com/weather/winter-storm-brings-plenty-of-snow-to-tahoe-ski-resorts/1701761/" class="green-link" target="_blank">the best ever</a>...</p>
+                <p class="font-smaller beginner-intro"> So you’ve heard conditions are <a href="http://abc7news.com/weather/winter-storm-brings-plenty-of-snow-to-tahoe-ski-resorts/1701761/" class="green-link" target="_blank">the best ever</a>...</p>
                 <ul class="beginner-intro-questions">
-                    <li>But what does that actually mean?</li>
+                    <li>But how do I get there?</li>
                     <li>Where should I stay? </li>
                     <li>What are chains? </li>
                 </ul>
                 <p class="font-smaller"> We know that planning a Tahoe vacation can be <b>hard work</b>, so we made this guide to help you each step of the way.</p>
                 </div>
-                <hr>
                 <a href="#TOC" class="btn btn-primary btn-lg page-scroll">Get Started</a>
             </div>
             <hr>
@@ -81,7 +82,8 @@
             <div class="center navy-text">
                   <h4 class="italic"> Prefer personalized support from one of our ski vacation concierges? 
                   <br>
-                  Enter your email & and/or phone number below to be contacted within 24 hours.</h4>
+                  <br>
+                  Enter your email and/or phone number below to be contacted within 24 hours.</h4>
                   <div class="col-md-12 beta_user-sign-up">
                         <%= form_for(@beta_user = BetaUser.new) do |f| %>
                           <% if @beta_user.errors.any? %>
