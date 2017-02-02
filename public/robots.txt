@@ -4,4 +4,4 @@
 # User-agent: *
 # Disallow: /
 
-Sitemap: http://www.snowschoolers.com/sitemap.xml.gz
+Sitemap: https://www.snowschoolers.com/sitemap.xml.gz
