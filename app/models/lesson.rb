@@ -244,6 +244,14 @@ class Lesson < ActiveRecord::Base
     end
   end
 
+  def visible_lesson_cost
+    if self.lesson_cost.nil?
+      return self.price
+    else
+      return self.lesson_cost
+    end
+  end
+
   # def price
   #   hourly_base = 75
   #   surge = 1

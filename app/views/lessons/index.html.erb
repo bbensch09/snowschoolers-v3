@@ -53,7 +53,7 @@
 <% end %>
 
 <!-- SECTION 1 - PREVIOUS LESSONS -->
-<h3><a href="#hideLessons" class="btn btn-success" id="toggle-completed-lessons">Show (hide) Past Lessons</a></h3>
+<h3><a href="#hideLessons" class="btn btn-success hidden" id="toggle-completed-lessons">Show (hide) Past Lessons</a></h3>
 <div id="completed-lessons" class="">
 <h1>Previous Lessons</h1>
 
@@ -93,7 +93,7 @@
             <% end %>            <!-- <td><%= lesson.location.name %></td> -->
             <td><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
             <td><%= lesson.state %></td>
-            <td><%= number_to_currency(lesson.price) %></td>
+            <td><%= number_to_currency(lesson.visible_lesson_cost) %></td>
             <% if current_user.user_type == "Snow Schoolers Employee" %>
             <td><%= link_to "Send Instructor SMS", send_reminder_sms_to_instructor_path(lesson), class: "btn btn-default" %></td>
             <% else %>
