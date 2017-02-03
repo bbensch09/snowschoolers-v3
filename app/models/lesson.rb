@@ -54,7 +54,11 @@ class Lesson < ActiveRecord::Base
   end
 
   def post_stripe_tip
-    return (self.tip * 0.971) - 0.30
+    if tip <= 0
+      return 0
+    else
+      return (self.tip * 0.971) - 0.30
+    end
   end
 
   def lift_ticket_status?
