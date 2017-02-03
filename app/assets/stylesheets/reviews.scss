@@ -1,10 +1,73 @@
+.nps-rating {
+    /*overflow: hidden;*/
+    display: inline-block;
+    font-size: 10px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1000px;
+}
+
+.nps-rating-input {
+    float: right;
+    width: 0px;
+    height: 70px;
+    padding: 0;
+    margin: 0 0 0 0px;
+    opacity: 0;
+}
+.nps-instructor-rating:hover .nps-rating-star:hover,
+.nps-instructor-rating:hover .nps-rating-star:hover ~ .nps-rating-star,
+.nps-rating-input:checked ~ .nps-rating-star {
+    background: url('https://s3.amazonaws.com/snowschoolers/green-rectangle.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.nps-rating-star,
+.nps-instructor-rating:hover .nps-rating-star {
+    position: relative;
+    float: right;
+    display: block;
+    width: 92px;
+    height: 70px;
+    background: url('https://s3.amazonaws.com/snowschoolers/light-blue-rectangle.png') 0 0px;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+}
+
+.nps-rating-text,
+.nps-instructor-rating:hover .nps-rating-star .nps-rating-text{
+  font-size: 10px;
+  width:100%;
+  color: gray;
+  position: relative;
+}
+.nps-rating-number{
+    left: 20%;
+    top: 25px;
+    font-size: 50px;
+    width: 100%;
+    position: relative;
+    color: #3b5998;
+}
+.right{text-align: right; padding-right: 100px;}
+.left{text-align: left; padding-left: 40px;}
+.clear{
+  clear:both;
+  width:100%;
+}
+
+
+/*BEGIN INSTRUCTOR RATINGS*/
+
 .instructor-rating {
     /*overflow: hidden;*/
     display: inline-block;
     font-size: 10px;
     position: relative;
-    left:20vw;
-    max-width: 600px;
+    left:25vw;
+    max-width: 700px;
 }
 
 .rating-input {
@@ -86,4 +149,69 @@
 .star-ratings-field h4 {
   max-width: 90vw;
 }
+
+.nps-rating {
+    /*overflow: hidden;*/
+    display: inline-block;
+    font-size: 10px;
+    position: relative;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    height: 50px;
+}
+
+.nps-rating-input {
+    float: right;
+    width: 0px;
+    height: 50px;
+    padding: 0;
+    margin: 0 0 0 0px;
+    opacity: 0;
+}
+.nps-instructor-rating:hover .nps-rating-star:hover,
+.nps-instructor-rating:hover .nps-rating-star:hover ~ .nps-rating-star,
+.nps-rating-input:checked ~ .nps-rating-star {
+    background: url('https://s3.amazonaws.com/snowschoolers/green-rectangle.png');
+    background-size: contain;
+}
+.nps-rating-star,
+.nps-instructor-rating:hover .nps-rating-star {
+    position: relative;
+    float: right;
+    display: block;
+    width: 30px;
+    height: 35px;
+    background: url('https://s3.amazonaws.com/snowschoolers/light-blue-rectangle.png') 0 0px;
+    background-size: contain;
+}
+
+.nps-rating-text,
+.nps-instructor-rating:hover .nps-rating-star .nps-rating-text{
+  font-size: 10px;
+  width:100%;
+  color: gray;
+  position: relative;
+}
+.nps-rating-number{
+    left: 0%;
+    top: 5px;
+    font-size: 25px;
+    width: 100%;
+    position: relative;
+    color: #3b5998;
+}
+.right{text-align: right}
+.left{text-align: left}
+.clear{
+  clear:both;
+  width:100%;
+}
+.nps-question{
+  font-size:1.7em;
+  line-height: 1.4;
+}
+.right{text-align: right; padding-right: 0px;}
+.left{text-align: left; padding-left: 0px;}
+
+
 }
