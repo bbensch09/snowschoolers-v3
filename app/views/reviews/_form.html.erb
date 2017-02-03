@@ -9,8 +9,71 @@
     <!-- %= f.input :rating %> -->
 
 
+<div class="nps-field col-md-12" >
+  <h2 class="nps-question">How likely is it that you would recommend Snow Schoolers to a friend?</h2>
+  <span class="nps-rating col-md-12 col-xs-12">
+    <input type="radio" class="nps-rating-input" id="review_nps_10" name="review[nps]" value="10">
+    <label for="review_nps_10" class="nps-rating-star" data-toggle="tooltip" data-placement="top" title="">
+      <span class="nps-rating-number">10</span>
+    </label>  
+
+    <input type="radio" class="nps-rating-input" id="review_nps_9" name="review[nps]" value="9">
+    <label for="review_nps_9" class="nps-rating-star" data-toggle="tooltip" data-placement="top" title="">
+      <span class="nps-rating-number">9</span>
+    </label>
+
+    <input type="radio" class="nps-rating-input" id="review_nps_8" name="review[nps]" value="8">
+    <label for="review_nps_8" class="nps-rating-star" data-toggle="tooltip" data-placement="top" title="">
+      <span class="nps-rating-number">8</span>
+    </label>
+
+    <input type="radio" class="nps-rating-input" id="review_nps_7" name="review[nps]" value="7">
+    <label for="review_nps_7" class="nps-rating-star" data-toggle="tooltip" data-placement="top" title="">
+      <span class="nps-rating-number">7</span>
+    </label>
+
+    <input type="radio" class="nps-rating-input" id="review_nps_6" name="review[nps]" value="6">
+    <label for="review_nps_6" class="nps-rating-star" data-toggle="tooltip" data-placement="top" title="Not Likely">
+      <span class="nps-rating-number">6</span>
+    </label>
+        <input type="radio" class="nps-rating-input" id="review_nps_5" name="review[nps]" value="5">
+    <label for="review_nps_5" class="nps-rating-star" data-toggle="tooltip" data-placement="top" title="">
+      <span class="nps-rating-number">5</span>
+    </label>  
+
+    <input type="radio" class="nps-rating-input" id="review_nps_4" name="review[nps]" value="4">
+    <label for="review_nps_4" class="nps-rating-star" data-toggle="tooltip" data-placement="top" title="">
+      <span class="nps-rating-number">4</span>
+    </label>
+
+    <input type="radio" class="nps-rating-input" id="review_nps_3" name="review[nps]" value="3">
+    <label for="review_nps_3" class="nps-rating-star" data-toggle="tooltip" data-placement="top" title="">
+      <span class="nps-rating-number">3</span>
+    </label>
+
+    <input type="radio" class="nps-rating-input" id="review_nps_2" name="review[nps]" value="2">
+    <label for="review_nps_2" class="nps-rating-star" data-toggle="tooltip" data-placement="top" title="">
+      <span class="nps-rating-number">2</span>
+    </label>
+
+    <input type="radio" class="nps-rating-input" id="review_nps_1" name="review[nps]" value="1">
+    <label for="review_nps_1" class="nps-rating-star" data-toggle="tooltip" data-placement="top" title="Not Likely">
+      <span class="nps-rating-number">1</span>
+    </label>
+  </span>
+  <div class="col-md-12">
+    <div class="col-md-3 col-xs-7"> <h3 class="left navy-text">Not at all likely</h3></div>
+    <div class="col-md-6 col-xs-0"></div>
+    <div class="col-md-3 col-xs-5"> <h3 class="right navy-text">Very likely</h3></div>
+  </div>
+</div>
+
+<div class="row clear">
+    <hr class="deposit-hr-navy">
+</div>
+
 <div class="star-ratings-field col-md-12" >
-  <h4>Please rate your instructor on the overall quality of the lesson:</h4>
+  <h2 class="nps-question">Please rate your instructor on the overall quality of your instructor:</h2>
   <span class="instructor-rating">
 
     <input type="radio" class="rating-input" id="review_rating_5" name="review[rating]" value="5" >
@@ -41,8 +104,13 @@
 </span>
 </div>
 
+<div class="row clear">
+    <hr class="deposit-hr-navy">
+</div>
+
 <div class="free-response-review">
-    <%= f.input :review %>
+    <label>Additional Feedback (optional)</label>
+    <%= f.input :review, placeholder: 'He or she was full of energy and provided very clear explanations and easy to follow demonstrations of the drills we practiced.', required: false, label: false %>
 </div>
   <% end %>
 
