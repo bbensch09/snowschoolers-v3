@@ -68,14 +68,19 @@
       <!-- <th>Mountain</th> -->
       <th>Date</th>
       <th>Status</th>
+    <% if current_user.user_type == "Snow Schoolers Employee" %>
       <th>Price</th>
       <th></th>
+      <% else %>
+      <th></th>
+      <th></th>
+    <% end %>
     </tr>
   </thead>
 
   <tbody>
     <% @lessons.each do |lesson| %>
-        <% if lesson.completed? || lesson.confirmed? %>
+        <% if lesson.completed? %>
           <tr>
             <% if lesson.instructor %>
             <td><%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td>
@@ -93,10 +98,11 @@
             <% end %>            <!-- <td><%= lesson.location.name %></td> -->
             <td><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
             <td><%= lesson.state %></td>
-            <td><%= number_to_currency(lesson.visible_lesson_cost) %></td>
             <% if current_user.user_type == "Snow Schoolers Employee" %>
+            <td><%= number_to_currency(lesson.visible_lesson_cost) %></td>
             <td><%= link_to "Send Instructor SMS", send_reminder_sms_to_instructor_path(lesson), class: "btn btn-default" %></td>
             <% else %>
+              <td></td>
               <td></td>
             <% end %>
           </tr>
@@ -176,14 +182,19 @@
       <!-- <th>Mountain</th> -->
       <th>Date</th>
       <th>Status</th>
+    <% if current_user.user_type == "Snow Schoolers Employee" %>
+      <th>Price</th>
+      <th></th>
+      <% else %>
       <th></th>
       <th></th>
+    <% end %>
     </tr>
   </thead>
 
   <tbody>
     <% @lessons.each do |lesson| %>
-        <% if lesson.upcoming? || lesson.active? %>
+        <% if lesson.upcoming? || lesson.active? || lesson.confirmed? %>
           <tr>
             <% if lesson.instructor %>
             <td><%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td>
@@ -201,8 +212,13 @@
             <% end %>            <!-- <td><%= lesson.location.name %></td> -->
             <td><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
             <td><%= lesson.state %></td>
-            <td></td>
-            <td></td>
+            <% if current_user.user_type == "Snow Schoolers Employee" %>
+            <td><%= number_to_currency(lesson.visible_lesson_cost) %></td>
+            <td><%= link_to "Send Instructor SMS", send_reminder_sms_to_instructor_path(lesson), class: "btn btn-default" %></td>
+            <% else %>
+              <td></td>
+              <td></td>
+            <% end %>
             <!-- <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td> -->
             <!-- <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
           </tr>
