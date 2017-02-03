@@ -32,7 +32,7 @@ class InstructorsController < ApplicationController
   end
 
   def admin_index
-     @instructors = Instructor.all.sort_by {|instructor| instructor.user ? instructor.name : "z"}
+     @instructors = Instructor.all.sort {|a,b| a.id <=> b.id}
   end
 
   # GET /browse
