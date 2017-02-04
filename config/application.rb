@@ -27,6 +27,10 @@ module SnowSchoolers
   #LOAD all files in library
   config.autoload_paths << Rails.root.join('lib')
 
+  #autoload classes such as GoogleAnalyticsAPI even in production mode.
+  config.enable_dependency_loading = true
+  config.autoload_paths << Rails.root.join('lib')`
+
 
   #LOAD local ENV variables
     config.before_configuration do
