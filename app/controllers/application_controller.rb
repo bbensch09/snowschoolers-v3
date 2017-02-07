@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :set_user
   after_action :store_location
+# HACKY SHIT -- trying to configure Exception Notifications
+  # rescue_from Exception, :with => :server_error
+
 
 def store_location
   # store last url - this is needed for post-login redirect to whatever the user last visited.
@@ -32,5 +35,14 @@ def set_user
       cookies[:userId] = 'guest'
     end
 end
+
+# HACKY SHIT -- trying to configure Exception Notifications
+# def server_error(exception)
+#   # Whatever code that handles the exception
+
+#   ExceptionNotifier.notify_exception(exception,
+#     :env => request.env, :data => {:message => "Snow Schoolers is broken..."})
+# end
+
 
 end
