@@ -373,6 +373,7 @@ class LessonsController < ApplicationController
       # puts "!!!!!!! INSUFFICIENT PERMISSIONS"
       # flash[:alert] = "You do not have access to this page."
       # redirect_to root_path
+      return true
     end
   end
 
