@@ -1,5 +1,7 @@
 <div class="col-md-12">
         <%= form_tag confirm_reservation_path do %>
+
+          <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
           <article>
             <% if flash[:error].present? %>
               <div id="error_explanation">
