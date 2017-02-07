@@ -42,6 +42,9 @@ gem 'paperclip'
 #suggested by DEVEO article re. GA server-side tracking - http://blog.deveo.com/server-side-google-analytics-event-tracking-with-rails/
 gem 'rest-client'
 
+# handle 404 error & other exceptions by sending notifications
+gem 'exception_notification'
+
 group :development, :test do
   gem  'byebug'
   gem 'better_errors'
