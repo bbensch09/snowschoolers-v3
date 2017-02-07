@@ -20,6 +20,7 @@
   <%= csrf_meta_tags %>
 
    <!-- GOOGLE ANALYTICS PRODUCTION TRACKING -  -->
+  <% if ENV['HOST_DOMAIN'] == "www.snowschoolers.com" %>
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -27,14 +28,14 @@
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
     // property ID for www.snowschoolers.com
-    ga('create', 'UA-80641194-2', 'auto');
+    ga('create', 'UA-80641194-1', 'auto');
     ga('send', 'pageview');
 
   </script>
 
 
+  <% elsif ENV['HOST_DOMAIN'] == "localhost:3000" %>
 <!-- GA code for Local Host tracking & QA -->
-  <% if ENV['HOST_DOMAIN'] == "localhost:3000" %>
 
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -43,7 +44,7 @@
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
     // property ID for www.snowschoolers.com
-    ga('create', 'UA-80641194-1', 'auto');
+    ga('create', 'UA-80641194-2', 'auto');
     ga('send', 'pageview');
 
   </script>
@@ -328,7 +329,13 @@
   <% end %>
 </div>
 
+<!--   <% if ENV['HOST_DOMAIN'] == "localhost:3000" %>
+    <h1>GA trackingID = <%= GOOGLE_ANALYTICS_SETTINGS[:tracking_code] %> </h1>
+  <% end %> -->
+
+
 <%= yield %>
+
 
 
 <!-- FOOTER -->
