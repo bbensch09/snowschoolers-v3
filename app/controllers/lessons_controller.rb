@@ -199,6 +199,7 @@ class LessonsController < ApplicationController
 
   def show
     @lesson = Lesson.find(params[:id])
+    GoogleAnalyticsApi.new.event('lesson-requests', 'load-lesson-page')
     check_user_permissions
   end
 
