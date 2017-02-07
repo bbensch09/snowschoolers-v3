@@ -575,7 +575,7 @@ h2.how-it-works {
 }
 
 h2 {
-    font-size: 2.5em;
+    font-size: 2.4em;
     font-weight: 300;
     line-height: 42px;
     margin: 0 0 32px 0;
@@ -873,7 +873,7 @@ text-align: center;
     margin-left: auto;
     margin-right: auto;
     position: relative;
-    width: 800px;
+    max-width: 800px;
 }
 .sledding-map{
   width: 300px;
@@ -899,7 +899,11 @@ text-align: center;
 
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/
 @media (max-width: 768px) {
-  h1 {font-size: 1.8em;}
+  h1 {
+    font-size: 1.8em;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
   #header-creative .header-content .header-content-inner p { font-size: 0.7em; }
   section{
     padding-top: 20px;
@@ -969,7 +973,7 @@ max-width: 90vw;
 }
 .btn-xl {
   padding: 15px 30px;
-  font-size: 1.1em;
+  font-size: 1em;
 }
 .powder-title{
     font-size: 1.1em;
@@ -1018,13 +1022,25 @@ h2.powder-objections{
 .insta-embed{
 width:95vw;
 }
+.resort-photo-container{
+  width: 100vw;
+}
 .resort-photo{
+    width: 100vw;
     height: auto;
-    width: 92vw;
     margin-top: 25px;
     margin-bottom: 10px;
     margin-left: 0px !important;
     margin-right: 0px !important;
+    display: block;
+}
+.hp-photo-margin{
+    width: 96vw;
+    height: auto;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    margin-left: 2vw !important;
+    margin-right: 2vw !important;
     display: block;
 }
 .guide-intro{
@@ -1055,5 +1071,23 @@ width:95vw;
   width:75vw;
   float:none;
 }
-
+.where-we-teach-header{
+  height: 80px;
+}
+.beta-sign-up-offer{
+  font-size:1.4em;
+  line-height: 1.3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.blog-header{
+    font-weight: bold;
+    font-size: 2.4em;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+}
+#blog{
+  min-height: 120px !important;
+}
 }

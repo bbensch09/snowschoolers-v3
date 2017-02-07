@@ -13,8 +13,10 @@
   <meta name="robots" content="noindex">
   <% end %>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet" type="text/css" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
   <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
   <%= javascript_include_tag "bootstrap/modernizr.min.js" %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
@@ -329,9 +331,10 @@
   <% end %>
 </div>
 
-<!--   <% if ENV['HOST_DOMAIN'] == "localhost:3000" %>
-    <h1>GA trackingID = <%= GOOGLE_ANALYTICS_SETTINGS[:tracking_code] %> </h1>
-  <% end %> -->
+  <% if ENV['HOST_DOMAIN'] == "localhost:3000" %>
+    <!-- <h1>GA trackingID = <%= GOOGLE_ANALYTICS_SETTINGS[:tracking_code] %> </h1> -->
+    <!-- <h1>ENV variable is: <%=ENV['HOST_DOMAIN'] %> </h1> -->
+  <% end %>
 
 
 <%= yield %>
