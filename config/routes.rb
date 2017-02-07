@@ -107,7 +107,7 @@ Rails.application.routes.draw do
 
   unless Rails.application.config.consider_all_requests_local
     # having created corresponding controller and action
-    get '*path', to: 'application#houston_we_have_500_routing_problems', via: :all
+    # get '*path', to: 'application#houston_we_have_500_routing_problems', via: :all
   end
 
 end
