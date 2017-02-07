@@ -9,14 +9,35 @@
   font-size: 16px !important;
   font-family: verdana, arial, helvetica, sans-serif !important;
 }
-.content-area p img {
-  padding-left:10px;
-  padding-right: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+
+.content-area p img{
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  width:265px;
+  height: auto;
 }
+.content-area table{
+  max-width: 100%;
+  padding-right: 2px;
+}
+
 #blog-content a, #blog-content a:visited {
     color: #3b5998;
     font-style: bold;
     text-decoration: underline !important;
+}
+@media (min-width:769px) {
+  .content-area p img{
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width:600px;
+  margin-left: auto;
+  margin-right: auto;
+  height: auto;
+}
+
 }
