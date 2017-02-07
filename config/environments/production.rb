@@ -4,8 +4,10 @@ Rails.application.configure do
   # Code is not reloaded between requests.
   config.cache_classes = true
 
-  #force SSL on all pages
-  config.force_ssl = true
+  #force SSL on all pages when not run locally
+  unless ENV['HOST_DOMAIN'] == "localhost:3000"
+    config.force_ssl = true
+  end
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both thread web servers

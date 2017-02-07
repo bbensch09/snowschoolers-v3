@@ -329,9 +329,10 @@
   <% end %>
 </div>
 
-<!--   <% if ENV['HOST_DOMAIN'] == "localhost:3000" %>
-    <h1>GA trackingID = <%= GOOGLE_ANALYTICS_SETTINGS[:tracking_code] %> </h1>
-  <% end %> -->
+  <% if ENV['HOST_DOMAIN'] == "localhost:3000" %>
+    <!-- <h1>GA trackingID = <%= GOOGLE_ANALYTICS_SETTINGS[:tracking_code] %> </h1> -->
+    <!-- <h1>ENV variable is: <%=ENV['HOST_DOMAIN'] %> </h1> -->
+  <% end %>
 
 
 <%= yield %>
