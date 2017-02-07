@@ -3,9 +3,14 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :set_user
   after_action :store_location
-# HACKY SHIT -- trying to configure Exception Notifications
-  # rescue_from Exception, :with => :server_error
 
+#TO REFACTOR LATER - CUSTOMIZED METHODS TO INTERCEPT DEFAULT ERROR HANDLING FOR 404s and 500s
+  rescue_from ActiveRecord::RecordNotFound, :with => :houston_we_have_a_problem
+  unless Rails.application.config.consider_all_requests_local
+    rescue_from ActionController::RoutingError, :with => :houston_we_have_500_routing_problems
+    rescue_from ActionController::UnknownController, :with => :houston_we_have_500_routing_problems
+  end
+  # rescue_from Exception, :with => :houston_we_have_an_exceptional_problem
 
 def store_location
   # store last url - this is needed for post-login redirect to whatever the user last visited.
@@ -36,13 +41,22 @@ def set_user
     end
 end
 
-# HACKY SHIT -- trying to configure Exception Notifications
-# def server_error(exception)
-#   # Whatever code that handles the exception
+def houston_we_have_a_problem
+  render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
+  HOUSTON_WE_HAVE_A_404_PROBLEM
+end
 
-#   ExceptionNotifier.notify_exception(exception,
-#     :env => request.env, :data => {:message => "Snow Schoolers is broken..."})
-# end
+def houston_we_have_500_routing_problems
+  render :file => "#{Rails.root}/public/500.html", :status => 500, :layout => false
+  HOUSTON_WE_HAVE_500_ROUTING_PROBLEMS
+end
+
+def houston_we_have_an_exceptional_problem
+  render :file => "#{Rails.root}/public/422.html", :status => 422, :layout => false
+  HOUSTON_WE_HAVE_EXCEPTIONAL_PROBLEMS
+end
+
+
 
 
 end
