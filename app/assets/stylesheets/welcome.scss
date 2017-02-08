@@ -3,6 +3,9 @@
  * Copyright 2013-2016 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
+
+/*
+ATTEMPTED FIX FOR HORIZONTAL BUMP
 html, body {
   height: 100%;
   overflow: hidden;
@@ -15,6 +18,7 @@ html, body {
     right: 0;
     overflow: auto;
 }
+*/
 body {
   font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
 }
@@ -1009,7 +1013,7 @@ max-width: 90vw;
 }
 .why-snowschoolers-text{
   padding: 20px 20px 20px 20px;
-  margin: 20px 20px 20px 20px;
+  margin: 0px 0px 0px 0px;
 }
 .powder-objection-handling-title{
   height: 100px;
@@ -1032,7 +1036,7 @@ h2.powder-objections{
   padding-right: 0px;
 }
 .insta-embed{
-width:95vw;
+width:100%;
 }
 .resort-photo-container{
   width: 100vw;
@@ -1047,12 +1051,12 @@ width:95vw;
     display: block;
 }
 .hp-photo-margin{
-    width: 96vw;
+    width: 96%;
     height: auto;
     margin-top: 25px;
     margin-bottom: 10px;
-    margin-left: 2vw !important;
-    margin-right: 2vw !important;
+    margin-left: 2% !important;
+    margin-right: 2% !important;
     display: block;
 }
 .guide-intro{
@@ -1084,7 +1088,7 @@ width:95vw;
   float:none;
 }
 .where-we-teach-header{
-  height: 80px;
+  height: 100px;
 }
 .beta-sign-up-offer{
   font-size:1.4em;
