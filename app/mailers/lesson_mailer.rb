@@ -28,6 +28,11 @@ class LessonMailer < ActionMailer::Base
       mail(to: 'brian@snowschoolers.com', subject: "New Beta User - #{@beta_user.email}.")
   end
 
+  def notify_sumo_success(email="Unknown Sumo User")
+      @email = email
+      mail(to: 'brian@snowschoolers.com', subject: "Sumo Success - #{@email} has subscribed.")
+  end
+
   def notify_jackson_promo_user(beta_user)
       @beta_user = beta_user
       mail(to: 'brian@snowschoolers.com', subject: "Jackson Hole interested user - #{@beta_user.email}.")
