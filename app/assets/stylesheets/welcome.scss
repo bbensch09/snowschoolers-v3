@@ -854,6 +854,9 @@ text-align: center;
   padding-right: 10px;
   border: 1px solid #3b5998;
 }
+.navy-border{
+    border: 1px solid #3b5998;
+}
 .where-we-teach{
   min-height: 450px;
 }
@@ -989,7 +992,8 @@ max-width: 90vw;
 }
 .btn-xl {
   padding: 15px 30px;
-  font-size: 1em;
+  font-size: 0.9em;
+  max-width: 100%;
 }
 .powder-title{
     font-size: 1.1em;
@@ -1109,5 +1113,8 @@ width:100%;
 .indent{
   margin-left: 10px;
 }
-
+.things-to-do-header{
+  font-size: 1.8em;
+  line-height: 1.5;
+}
 }

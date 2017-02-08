@@ -103,7 +103,7 @@
                             <div class="hidden">
                                 <%= f.text_field :user_type, :value => "beginner_concierge"  %>
                             </div>
-                          <%= f.submit "Request your Free Concierge", class:"btn btn-success btn-xl page-scroll" %>
+                          <%= f.submit "Request a Free Concierge", class:"btn btn-success btn-xl page-scroll" %>
                           <!-- <h3 class="offer-limitations">*First 100 sign ups receive 20% off their first lesson.</h3> -->
                           </div>
                         <% end %>
@@ -122,7 +122,7 @@
             <div class="row">
                 <div class="col-lg-12 col-xs12 text-center">
                     <h2 class="section-heading how-it-works white-text">About Lake Tahoe</h2>
-                    <img src="https://s3.amazonaws.com/snowschoolers/map-ski-resorts-tahoe.jpg" alt="tahoe-map" class="tahoe-map">
+                    <img src="https://s3.amazonaws.com/snowschoolers/map-ski-resorts-tahoe.jpg" alt="tahoe-map" class="hp-photo-margin">
                     <p class="solid-box-highlight white-text about-tahoe">
                         Lake Tahoe is the largest alpine lake in North America, situated on the border between California and Nevada. At 22 miles long and 12 miles wide, getting from one side to the other is no small feat. So your first decision to make is whether you want to visit <b> North Tahoe</b> or <b> South Lake Tahoe</b>.
                     </p>
@@ -228,14 +228,10 @@
 
      <section class="bg-primary" id="other-activities">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-xs12 text-center">
-                    <h2 class="section-heading how-it-works white-text">Other Things to Do</h2>
-                    <%= render "welcome/things_to_do" %>
-                    <hr class="light text-center">
-                    <h4 class="center"><a href="#TOC" class="btn btn-default">Back to Top</a></h4>                    
-                </div>
-            </div>
+            <h2 class="section-heading how-it-works white-text center">Other Things to Do</h2>
+            <%= render "welcome/things_to_do" %>
+            <hr class="light text-center">
+            <h4 class="center"><a href="#TOC" class="btn btn-default">Back to Top</a></h4>                    
         </div>
     </section>
 
