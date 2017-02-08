@@ -65,6 +65,7 @@ Rails.application.routes.draw do
   get 'recommended_accomodations' => 'welcome#recommended_accomodations'
   get 'thank_you' => 'instructors#thank_you'
   post '/notify_admin' => 'welcome#notify_admin'
+  post 'sumo_success' => 'welcome#sumo_success'
   resources :instructors do
     member do
         post :verify

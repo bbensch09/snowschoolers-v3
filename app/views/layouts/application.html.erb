@@ -241,7 +241,7 @@
     </div>
   <% end %>
 
-  <% if notice &&   flash[:complete_form] = 'TRUE' %>
+  <% if notice &&   flash[:complete_form] == 'TRUE' %>
 
       <!-- Google Code for Initiate Lesson Request (advance to /lessons/XX/complete) Conversion Page -->
           <script type="text/javascript">
@@ -281,6 +281,28 @@
           &noscript=1"/>
           </noscript>
       <!-- End Facebook Pixel Code -->
+
+  <% end %>
+
+  <% if notice && flash[:sumo_success] == 'TRUE' %>
+      <!-- Google Code for Email capture Conversion Page -->
+      <script type="text/javascript">
+      /* <![CDATA[ */
+      var google_conversion_id = 880357341;
+      var google_conversion_language = "en";
+      var google_conversion_format = "3";
+      var google_conversion_color = "ffffff";
+      var google_conversion_label = "MH1ICP-Bpm4Q3d_kowM";
+      var google_remarketing_only = false;
+      /* ]]> */
+      </script>
+      <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+      </script>
+      <noscript>
+      <div style="display:inline;">
+      <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/880357341/?label=MH1ICP-Bpm4Q3d_kowM&amp;guid=ON&amp;script=0"/>
+      </div>
+      </noscript>
 
   <% end %>
 
@@ -335,6 +357,7 @@
   <% if ENV['HOST_DOMAIN'] == "localhost:3000" %>
     <!-- <h1>GA trackingID = <%= GOOGLE_ANALYTICS_SETTINGS[:tracking_code] %> </h1> -->
     <!-- <h1>ENV variable is: <%=ENV['HOST_DOMAIN'] %> </h1> -->
+    <a data-sumome-listbuilder-id="509875a4-c09e-47de-a66c-5c90e058000b" class="btn btn-primary btn-xl">Click Here to force Sumo popup</a>
   <% end %>
 
 

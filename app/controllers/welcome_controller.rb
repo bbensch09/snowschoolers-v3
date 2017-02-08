@@ -3,6 +3,8 @@ class WelcomeController < ApplicationController
     skip_before_action :authenticate_user!
     before_action :confirm_admin_permissions, only: [:admin_users,:admin_edit, :admin_destroy]
     before_action :set_user, only: [:admin_edit, :admin_show_user, :admin_update_user, :admin_destroy]
+    protect_from_forgery :except => [:sumo_success]
+
     include ApplicationHelper
 
   def new_hire_packet
@@ -28,6 +30,14 @@ class WelcomeController < ApplicationController
   def index
     # @lesson = Lesson.new
     # @lesson_time = @lesson.lesson_time
+  end
+
+  def sumo_success
+    email=params[:email]
+    LessonMailer.notify_sumo_success(email).deliver
+    flash[:notice] = 'Thank you for subscribing! You can expect to receive a weekly email from us with useful tips for planning your next ski vacation. If you have any immediate questions, feel free to send a chat message using the widget below, or email us at support@snowschoolers.com.'
+      flash[:sumo_success] = 'TRUE'
+    redirect_to :index
   end
 
   def jackson_hole
