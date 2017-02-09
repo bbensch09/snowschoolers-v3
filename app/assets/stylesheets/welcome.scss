@@ -884,6 +884,10 @@ text-align: center;
   float:right;
   height: 180px;
 }
+.liftopia-logo{
+  float: right;
+  height: 100px;
+}
 .resort-photo{
     height: auto;
     max-height: 60vh;
@@ -918,7 +922,7 @@ text-align: center;
   margin-top: 10px;
 }
 .hp-photo-margin{
-    max-width: 800px;
+    max-width: 100%;
     height: auto;
     max-height: 60vh;
     margin-top: 25px;
@@ -927,7 +931,9 @@ text-align: center;
     margin-right: auto;
     display: block;
 }
-
+#about-tahoe h2.how-it-works{
+  height: 70px;
+}
 
 
 
