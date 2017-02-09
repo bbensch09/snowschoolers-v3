@@ -46,6 +46,24 @@ class WelcomeController < ApplicationController
   def beginners_guide_to_tahoe
   end
 
+  def learn_to_ski_packages
+  end
+
+  def lyftopia_referral
+    LessonMailer.notify_lyftopia_referral.deliver
+    redirect_to "https://www.liftopia.com/region/california-lake-tahoe?utm_campaign=SnowSchoolers_beginner_guide"
+  end
+
+  def skibutlers_referral
+    LessonMailer.notify_skibutlers_referral.deliver
+    redirect_to "https://www.skibutlers.com/portal/Snowschoolers%20Guest?utm_campaign=SnowSchoolers_beginner_guide"
+  end 
+
+  def homewood_learn_to_ski_referral
+    LessonMailer.notify_homewood_learn_to_ski_referral.deliver
+    redirect_to "http://www.skihomewood.com/learn-ski-or-ride-deal?utm_campaign=SnowSchoolers_beginner_guide"
+  end  
+
   def about_us
   end
 

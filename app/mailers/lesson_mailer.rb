@@ -33,6 +33,18 @@ class LessonMailer < ActionMailer::Base
       mail(to: 'brian@snowschoolers.com', subject: "Sumo Success - #{@email} has subscribed.")
   end
 
+  def notify_lyftopia_referral
+      mail(to: 'brian@snowschoolers.com', subject: "Lyftopia referral click-thru")
+  end
+
+  def notify_skibutlers_referral
+      mail(to: 'brian@snowschoolers.com', subject: "Ski Butlers referral click-thru")
+  end
+
+  def notify_homewood_learn_to_ski_referral
+      mail(to: 'brian@snowschoolers.com', subject: "Homewood group lesson LTS referral click-thru")
+  end
+
   def notify_jackson_promo_user(beta_user)
       @beta_user = beta_user
       mail(to: 'brian@snowschoolers.com', subject: "Jackson Hole interested user - #{@beta_user.email}.")
@@ -41,6 +53,11 @@ class LessonMailer < ActionMailer::Base
   def notify_powder_promo(beta_user)
       @beta_user = beta_user
       mail(to: 'brian@snowschoolers.com', subject: "Powder Lesson interested user - #{@beta_user.email}.")
+  end
+
+  def notify_package_promo(beta_user)
+      @beta_user = beta_user
+      mail(to: 'brian@snowschoolers.com', subject: "Learn to Ski Packages request - #{@beta_user.email}.")
   end
 
   def notify_beginner_concierge(beta_user)
