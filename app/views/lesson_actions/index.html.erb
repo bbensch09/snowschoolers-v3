@@ -3,7 +3,7 @@
 <table class="instructors-table">
   <thead>
     <tr>
-      <th>Lesson</th>
+      <th>Lesson URL</th>
       <th>Instructor</th>
       <th>Action</th>
       <th></th>
@@ -15,8 +15,13 @@
   <tbody>
     <% @lesson_actions.each do |lesson_action| %>
       <tr>
-        <td><%= lesson_action.lesson_id %></td>
-        <td><%= lesson_action.instructor_id %></td>
+        <td><%= link_to "Lesson ID: #{lesson_action.lesson_id}", lesson_url(Lesson.find(lesson_action.lesson_id)), class:"btn btn-default" %>          
+        </td>
+         <% if Instructor.find(lesson_action.instructor_id) %>         
+          <td><%= link_to Instructor.find(lesson_action.instructor_id).name, instructor_path(Instructor.find(lesson_action.instructor_id)), class:"btn btn-success" %></td>
+          <% else %>
+          <td>Unknown</td>
+        <% end %>
         <td><%= lesson_action.action %></td>
         <td><%= link_to 'Show', lesson_action %></td>
         <td><%= link_to 'Edit', edit_lesson_action_path(lesson_action) %></td>
