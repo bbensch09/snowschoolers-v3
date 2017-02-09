@@ -74,7 +74,7 @@
     <br>
   </div>
     <% end %>
-    <h4> Your Contact Info </h4>
+    <h4><b>Contact Info</b> </h4>
     <div class="col-md-6 vertical-padding">
       <%= f.text_field :first_name, placeholder: 'First name', class: 'form-control', required:true %>
     </div>
@@ -110,7 +110,7 @@
     <br><br>
   </div>
   <!-- <h4> Preferred Resorts (select up to 4)</h4> -->
-  <h4> <b> Where </b> do you want to teach ski or snowboard lessons?</h4>
+  <h4> <b> Where:</b> All lessons currently take place at Homewood</h4>
   <div class="col-md-12">
     <% if current_user && (current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Partner") %>
       <%= f.collection_check_boxes :location_ids, Location.all, :id, :name do |location_item| %>
@@ -120,21 +120,21 @@
       </div>
       <% end %>
       <% else %>
-      <%= f.text_field :preferred_locations, placeholder: 'Please list any and all ski areas you are interested in teaching at.', class: 'form-control', required:true %>
+      <%= f.text_area :preferred_locations, placeholder: "Are you able to commute Homewood? Are there other resorts you prefer to teach at? Let us know, as we're actively talking to other resort partners in Tahoe." , class: 'form-control', required:true %>
     <% end %>
     <br>
   </div>
-  <h4>Professional certifications (PSIA, AASI) </h4>
+  <h4><b>Professional certifications</b> (PSIA, AASI, etc.) </h4>
   <div class="col-md-12">
     <%= f.text_field :certification, placeholder: 'Do you hold any certifications?', class: 'form-control', required:true %>
     <br>
   </div>
-  <h4>Why are you excited to join Snow Schoolers?</h4>
+  <h4><b>Why</b> are you excited to join Snow Schoolers?</h4>
   <div class="col-md-12">
     <%= f.text_area :intro, rows:5, placeholder: 'Describe your background in a few sentences', class: 'form-control', required:true %>
     <br>
   </div>
-  <h4>How did you first hear about Snow Schoolers?</h4>
+  <h4><b>How</b> did you first hear about Snow Schoolers?</h4>
   <div class="col-md-6">
     <%= f.select :how_did_you_hear, [['From a Friend',1],['Facebook',2],['Google',3],['From a Flyer',4],['Linkedin',5],['Other',100]], {}, {class: 'form-control', required:true, include_blank:false} %>
   </div>
