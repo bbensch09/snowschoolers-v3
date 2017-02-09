@@ -46,6 +46,9 @@ class WelcomeController < ApplicationController
   def beginners_guide_to_tahoe
   end
 
+  def learn_to_ski_packages
+  end
+
   def about_us
   end
 

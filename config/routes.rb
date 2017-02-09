@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   get 'accommodations' => "welcome#accommodations"
   get 'resorts' => "welcome#resorts"
   get 'beginners-guide-to-tahoe' => "welcome#beginners_guide_to_tahoe"
+  get 'learn-to-ski-packages' => "welcome#learn_to_ski_packages"
   get   'lessons/sugarbowl'               => 'lessons#sugarbowl'
   get 'homewood' => "welcome#homewood"
   get 'homewood2' => "welcome#homewood2"

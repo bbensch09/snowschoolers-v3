@@ -42,6 +42,10 @@ class BetaUsersController < ApplicationController
           LessonMailer.notify_beginner_concierge(@beta_user).deliver
           format.html { redirect_to beginners_guide_to_tahoe_path, notice: "Thanks for your interest. We'll get back to you shortly. If you have any other questions feel free to call us at 530-430-SNOW." }
           format.json { render action: 'show', status: :created, location: @beta_user }
+          elsif @beta_user.user_type == "package_promo"
+          LessonMailer.notify_package_promo(@beta_user).deliver
+          format.html { redirect_to root_path, notice: "Thanks for your interest. We'll get back to you shortly. If you have any other questions feel free to call us at 530-430-SNOW." }
+          format.json { render action: 'show', status: :created, location: @beta_user }
           else
           LessonMailer.notify_admin_beta_user(@beta_user).deliver
           format.html { redirect_to root_path, notice: 'Thanks for signing up!' }

@@ -43,6 +43,11 @@ class LessonMailer < ActionMailer::Base
       mail(to: 'brian@snowschoolers.com', subject: "Powder Lesson interested user - #{@beta_user.email}.")
   end
 
+  def notify_package_promo(beta_user)
+      @beta_user = beta_user
+      mail(to: 'brian@snowschoolers.com', subject: "Learn to Ski Packages request - #{@beta_user.email}.")
+  end
+
   def notify_beginner_concierge(beta_user)
       @beta_user = beta_user
       mail(to: 'brian@snowschoolers.com', subject: "Concierge request - #{@beta_user.email}.")
