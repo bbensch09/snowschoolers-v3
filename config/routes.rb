@@ -67,6 +67,11 @@ Rails.application.routes.draw do
   get 'thank_you' => 'instructors#thank_you'
   post '/notify_admin' => 'welcome#notify_admin'
   post 'sumo_success' => 'welcome#sumo_success'
+  get '/lyftopia' => 'welcome#lyftopia_referral'
+  get '/skibutlers' => 'welcome#skibutlers_referral'
+  get '/homewood-learn-to-ski' => 'welcome#homewood_learn_to_ski_referral'
+
+
   resources :instructors do
     member do
         post :verify
