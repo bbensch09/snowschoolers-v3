@@ -11,9 +11,9 @@ class Blog < ApplicationRecord
   end
 
   def time_since_written
-  days_elapsed = ((Time.now - updated_at.to_time) / (60*60*24)).round
-  hours_elapsed = ((Time.now - updated_at.to_time) / (60*60)).round
-  minutes_elapsed = ((Time.now - updated_at.to_time) / (60)).round
+  days_elapsed = ((Time.now - published.to_time) / (60*60*24)).round
+  hours_elapsed = ((Time.now - published.to_time) / (60*60)).round
+  minutes_elapsed = ((Time.now - published.to_time) / (60)).round
     if minutes_elapsed < 60
       return "#{minutes_elapsed} minutes ago."
     elsif hours_elapsed < 24
