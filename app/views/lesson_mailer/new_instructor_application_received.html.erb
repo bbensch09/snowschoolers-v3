@@ -8,6 +8,12 @@
     <p>
       A new user, <%= @instructor.username %> has just applied to become an instructor.
     </p>
-    <p>You can view <%= @instructor.first_name %>'s application at: <%= instructor_url(@instructor) %> </p>
+    <p>You can view <%= @instructor.first_name %>'s publicly visible profile at: <%= instructor_url(@instructor) %> </p>
+    <p>
+      Ideally can view their full application information the linke below.
+      <ul>
+        <li><%= show_candidate_instructor_url(@instructor.id) %></li>
+      </ul>
+    </p>
   </body>
 </html>
