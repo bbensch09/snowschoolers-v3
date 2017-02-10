@@ -88,4 +88,22 @@ class Instructor < ActiveRecord::Base
       puts "an admin notification has been sent."
   end
 
+  def referral_source
+    case self.how_did_you_hear.to_i
+    when 1
+      return 'From a friend'
+    when 2
+      return 'Facebook'
+    when 3
+      return 'Google'
+    when 4
+      return 'From a Flyer'
+    when 5
+      return 'Linkedin'
+    when 100
+      return 'Other'
+    end
+  end
+
+
 end

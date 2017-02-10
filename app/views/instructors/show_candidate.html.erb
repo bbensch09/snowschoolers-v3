@@ -56,8 +56,18 @@
 </p>
 
 <p>
+  <strong>Preferred Resorts:</strong>
+  <%= @instructor.preferred_locations %>
+</p>
+
+<p>
   <strong>Status:</strong>
   <%= @instructor.status %>
+</p>
+
+<p>
+  <strong>Referral Source:</strong>
+  <%= @instructor.referral_source %> 
 </p>
 
 <% if current_user && current_user.email == 'brian@snowschoolers.com' %>
