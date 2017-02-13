@@ -878,6 +878,10 @@ text-align: center;
   max-height: 100px;
   border: 1px solid black;
 }
+.tire-chains-photo{
+  float:right;
+  height: 200px;
+}
 .skibutlers-logo{
   float:right;
   height: 180px;
@@ -934,6 +938,19 @@ text-align: center;
 }
 .pricing-header{
   height: 80px;
+}
+.jump-below{
+  font-size: 0.7em;
+  font-style: italic;
+  color: #3b5998;
+}
+.driving-times{
+  font-size: 0.9em;
+  font-style: italic;
+  color: #fff;
+}
+.skip-to-bottom{
+  margin-bottom: 0px;
 }
 
 
@@ -1096,7 +1113,8 @@ width:100%;
   font-size: 0.6em;
 }
 .toc-sections{
-  margin-left: 5vw;
+  margin-left: 0px;
+  font-size: 1.2em;
 }
 .guide-lists{
   margin-left: 5vw;
@@ -1138,5 +1156,13 @@ width:100%;
 .things-to-do-header{
   font-size: 1.8em;
   line-height: 1.5;
+}
+.tire-chains-photo{
+  clear:both;
+  width:70%;
+  height: auto;
+  float:none;
+  margin-left:15%;
+  margin-right:15%;
 }
 }
