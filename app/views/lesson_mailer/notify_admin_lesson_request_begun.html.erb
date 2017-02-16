@@ -16,6 +16,7 @@
       <li>Location: <%= @lesson.location.name %> </li>
       <li>Date: <%= @lesson.date %> </li>
       <li>Slot: <%= @lesson.slot %> </li>
+      <li>Private Request: <%= @lesson.instructor.nil? ? "Anonymous" : @lesson.instructor.name %> </li>
     </ul>
   </body>
 </html>

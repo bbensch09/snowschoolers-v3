@@ -903,6 +903,7 @@ text-align: center;
     margin-right: auto;
     position: relative;
     max-width: 800px;
+    clear:both;
 }
 .sledding-map{
   width: 300px;
@@ -951,6 +952,9 @@ text-align: center;
 }
 .skip-to-bottom{
   margin-bottom: 0px;
+}
+.resort-photo-header{
+  min-height: 75px;
 }
 
 
