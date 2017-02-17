@@ -104,6 +104,7 @@ Rails.application.routes.draw do
   # get 'new_request' => 'lessons#new_request'
   get 'new_request/:id' => 'lessons#new_request'
   put   'lessons/:id/set_instructor'      => 'lessons#set_instructor',      as: :set_instructor
+  put   'lessons/:id/admin_reconfirm_state'      => 'lessons#admin_reconfirm_state',      as: :admin_reconfirm_state
   put   'lessons/:id/decline_instructor'      => 'lessons#decline_instructor',      as: :decline_instructor
   put   'lessons/:id/remove_instructor'   => 'lessons#remove_instructor',   as: :remove_instructor
   put   'lessons/:id/mark_lesson_complete'   => 'lessons#mark_lesson_complete',   as: :mark_lesson_complete

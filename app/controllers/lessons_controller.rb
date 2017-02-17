@@ -213,6 +213,13 @@ class LessonsController < ApplicationController
     redirect_to root_path
   end
 
+  def admin_reconfirm_state
+    @lesson = Lesson.find(params[:id])
+    @lesson.state = 'confirmed'
+    @lesson.save
+    redirect_to @lesson
+  end
+
   def set_instructor
     @lesson = Lesson.find(params[:id])
     @lesson.instructor_id = current_user.instructor.id
