@@ -135,7 +135,7 @@
 
   <tbody>
     <% @todays_lessons.each do |lesson| %>
-        <% if lesson.active_today? %>
+        <% if lesson.active_today? && lesson.confirmed? %>
           <tr>
             <% if lesson.instructor %>
             <td><%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td>
@@ -194,7 +194,7 @@
 
   <tbody>
     <% @lessons.each do |lesson| %>
-        <% if lesson.upcoming? || lesson.active? || lesson.confirmed? %>
+        <% if lesson.upcoming? %>
           <tr>
             <% if lesson.instructor %>
             <td><%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td>
