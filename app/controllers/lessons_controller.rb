@@ -6,6 +6,7 @@ class LessonsController < ApplicationController
 
   def admin_index
     @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
+    @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
   end
 
   def index
