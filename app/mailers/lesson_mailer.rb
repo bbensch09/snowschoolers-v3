@@ -20,7 +20,7 @@ class LessonMailer < ActionMailer::Base
   def notify_admin_lesson_full_form_updated(lesson,email)
       @lesson = lesson
       @user_email = email
-      mail(to: 'brian@snowschoolers.com', subject: "Lesson Request complete, ready for deposit - #{@lesson.date}.")
+      mail(to: 'brian@snowschoolers.com', subject: "Lesson Request complete, ready for deposit - #{@lesson.date.strftime("%b %-d")}.")
   end
 
   def notify_admin_beta_user(beta_user)
@@ -113,7 +113,7 @@ class LessonMailer < ActionMailer::Base
     instructors_to_email.each do |instructor|
       @available_instructors << instructor.user.email
     end
-    mail(to: 'notify@snowschoolers.com', bcc: @available_instructors, subject: 'New Snow Schoolers lesson request')
+    mail(to: 'notify@snowschoolers.com', bcc: @available_instructors, subject: "You have a new Snow Schoolers lesson request on #{@lesson.date.strftime("%b %-d")}")
   end
 
   def send_lesson_request_to_new_instructors(lesson, excluded_instructor=nil)
@@ -135,18 +135,18 @@ class LessonMailer < ActionMailer::Base
   def send_lesson_confirmation(lesson)
     @lesson = lesson
     if @lesson.guest_email.nil?
-      mail(to: @lesson.requester.email, cc:'notify@snowschoolers.com', bcc:@lesson.instructor.user.email, subject: 'Your Snow Schoolers certified instructor has confirmed your reservation!')
+      mail(to: @lesson.requester.email, cc:'notify@snowschoolers.com', bcc:@lesson.instructor.user.email, subject: "Your Snow Schoolers lesson on #{@lesson.date.strftime("%b %-d")} with #{@lesson.instructor.name} is confirmed!")
     else
-      mail(to: @lesson.guest_email, cc:'notify@snowschoolers.com', bcc:@lesson.instructor.user.email, subject: 'Your Snow Schoolers certified instructor has confirmed your reservation!')
+      mail(to: @lesson.guest_email, cc:'notify@snowschoolers.com', bcc:@lesson.instructor.user.email, subject: "Your Snow Schoolers lesson on #{@lesson.date.strftime("%b %-d")} with #{@lesson.instructor.name} is confirmed!")
     end
   end
 
   def send_lesson_request_notification(lesson)
     @lesson = lesson
-    if @lesson.guest_email.nil?
-      mail(to: @lesson.requester.email, cc:'notify@snowschoolers.com', subject: 'Lesson Request Received')
+    if @lesson.guest_email.nil? || @lesson.guest_email == ""
+      mail(to: @lesson.requester.email, cc:'notify@snowschoolers.com', subject: "Thanks for reserving your SnowSchoolers Lesson for #{@lesson.date.strftime("%b %-d")}")
     else
-      mail(to: @lesson.guest_email, cc:'notify@snowschoolers.com', subject: 'Lesson Request Received')
+      mail(to: @lesson.guest_email, cc:'notify@snowschoolers.com', subject: "Thanks for reserving your SnowSchoolers Lesson for #{@lesson.date.strftime("%b %-d")}")
     end
   end
 
