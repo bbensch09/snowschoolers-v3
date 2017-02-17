@@ -41,6 +41,12 @@ class LessonMailer < ActionMailer::Base
       mail(to: 'brian@snowschoolers.com', subject: "Ski Butlers referral click-thru")
   end
 
+  def notify_resort_referral(resort,user)
+      @resort = resort
+      @user = user
+      mail(to: 'brian@snowschoolers.com', subject: "#{@user} has clicked thru to #{@resort}'s website")
+  end
+
   def notify_homewood_learn_to_ski_referral
       mail(to: 'brian@snowschoolers.com', subject: "Homewood group lesson LTS referral click-thru")
   end

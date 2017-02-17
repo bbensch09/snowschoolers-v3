@@ -64,6 +64,118 @@ class WelcomeController < ApplicationController
     redirect_to "http://www.skihomewood.com/learn-ski-or-ride-deal?utm_campaign=SnowSchoolers_beginner_guide"
   end  
 
+  def homewood_referral
+    resort = "Homewood"
+    user = current_user ? current_user.email : "Unknown User"
+    LessonMailer.notify_resort_referral(resort,user).deliver
+    redirect_to "http://www.skihomewood.com/?utm_campaign=SnowSchoolers_beginner_guide"
+  end
+
+  def kirkwood_referral
+    resort = "Kirkwood"
+    user = current_user ? current_user.email : "Unknown User"
+    LessonMailer.notify_resort_referral(resort,user).deliver
+    redirect_to "https://www.kirkwood.com/?utm_campaign=SnowSchoolers_beginner_guide"
+  end  
+
+  def alpine_referral
+    resort = "Alpine Meadows"
+    user = current_user ? current_user.email : "Unknown User"
+    LessonMailer.notify_resort_referral(resort,user).deliver
+    redirect_to "http://squawalpine.com/?utm_campaign=SnowSchoolers_beginner_guide"
+  end
+
+  def squaw_referral
+    resort = "Squaw Valley"
+    user = current_user ? current_user.email : "Unknown User"
+    LessonMailer.notify_resort_referral(resort,user).deliver
+    redirect_to "http://squawalpine.com/?utm_campaign=SnowSchoolers_beginner_guide"
+  end  
+
+  def sugar_bowl_referral
+    resort = "Sugar Bowl"
+    user = current_user ? current_user.email : "Unknown User"
+    LessonMailer.notify_resort_referral(resort,user).deliver
+    redirect_to "http://www.sugarbowl.com/home?utm_campaign=SnowSchoolers_beginner_guide"
+  end
+
+  def heavenly_referral
+    resort = "Heavenly"
+    user = current_user ? current_user.email : "Unknown User"
+    LessonMailer.notify_resort_referral(resort,user).deliver
+    redirect_to "https://www.skiheavenly.com?utm_campaign=SnowSchoolers_beginner_guide"
+  end
+
+  def northstar_referral
+    resort = "Northstar"
+    user = current_user ? current_user.email : "Unknown User"
+    LessonMailer.notify_resort_referral(resort,user).deliver
+    redirect_to "https://www.northstarcalifornia.com?utm_campaign=SnowSchoolers_beginner_guide"
+  end  
+
+  def mt_rose_referral
+    resort = "Mt. Rose"
+    user = current_user ? current_user.email : "Unknown User"
+    LessonMailer.notify_resort_referral(resort,user).deliver
+    redirect_to "http://skirose.com/?utm_campaign=SnowSchoolers_beginner_guide"
+  end
+
+  def sierra_referral
+    resort = "Sierra at Tahoe"
+    user = current_user ? current_user.email : "Unknown User"
+    LessonMailer.notify_resort_referral(resort,user).deliver
+    redirect_to "https://www.sierraattahoe.com/?utm_campaign=SnowSchoolers_beginner_guide"
+  end
+
+  def boreal_referral
+    resort = "Boreal"
+    user = current_user ? current_user.email : "Unknown User"
+    LessonMailer.notify_resort_referral(resort,user).deliver
+    redirect_to "http://www.rideboreal.com/?utm_campaign=SnowSchoolers_beginner_guide"
+  end  
+
+  def diamond_peak_referral
+    resort = "Diamond Peak"
+    user = current_user ? current_user.email : "Unknown User"
+    LessonMailer.notify_resort_referral(resort,user).deliver
+    redirect_to "http://www.diamondpeak.com/?utm_campaign=SnowSchoolers_beginner_guide"
+  end
+
+  def tahoe_donner_referral
+    resort = "Tahoe Donner"
+    user = current_user ? current_user.email : "Unknown User"
+    LessonMailer.notify_resort_referral(resort,user).deliver
+    redirect_to "http://www.tahoedonner.com/downhill-ski/rates/day-tickets/?utm_campaign=SnowSchoolers_beginner_guide"
+  end
+
+  def donner_ski_ranch_referral
+    resort = "Donner Ski Ranch"
+    user = current_user ? current_user.email : "Unknown User"
+    LessonMailer.notify_resort_referral(resort,user).deliver
+    redirect_to "https://www.donnerskiranch.com/?utm_campaign=SnowSchoolers_beginner_guide"
+  end 
+
+  def soda_springs_referral
+    resort = "Soda Springs"
+    user = current_user ? current_user.email : "Unknown User"
+    LessonMailer.notify_resort_referral(resort,user).deliver
+    redirect_to "http://www.skisodasprings.com/?utm_campaign=SnowSchoolers_beginner_guide"
+  end  
+
+  def granlibakken_referral
+    resort = "Granlibakken"
+    user = current_user ? current_user.email : "Unknown User"
+    LessonMailer.notify_resort_referral(resort,user).deliver
+    redirect_to "http://granlibakken.com/ski-board-sled-hill/?utm_campaign=SnowSchoolers_beginner_guide"
+  end  
+
+  def sky_tavern_referral
+    resort = "Sky Tavern"
+    user = current_user ? current_user.email : "Unknown User"
+    LessonMailer.notify_resort_referral(resort,user).deliver
+    redirect_to "http://skytavern.org/?utm_campaign=SnowSchoolers_beginner_guide"
+  end      
+
   def about_us
   end
 

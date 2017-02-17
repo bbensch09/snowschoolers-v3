@@ -52,7 +52,7 @@ Rails.application.routes.draw do
   get 'beginners-guide-to-tahoe' => "welcome#beginners_guide_to_tahoe"
   get 'learn-to-ski-packages' => "welcome#learn_to_ski_packages"
   get   'lessons/sugarbowl'               => 'lessons#sugarbowl'
-  get 'homewood' => "welcome#homewood"
+  # get 'homewood' => "welcome#homewood"
   get 'homewood2' => "welcome#homewood2"
   get   'lessons/homewood'               => 'lessons#homewood'
   #landing page for prospective instructors
@@ -70,6 +70,24 @@ Rails.application.routes.draw do
   get '/lyftopia' => 'welcome#lyftopia_referral'
   get '/skibutlers' => 'welcome#skibutlers_referral'
   get '/homewood-learn-to-ski' => 'welcome#homewood_learn_to_ski_referral'
+
+  # Begin resort referrals
+  get '/homewood' => 'welcome#homewood_referral'
+  get '/kirkwood' => 'welcome#kirkwood_referral'
+  get '/alpine-meadows' => 'welcome#alpine_referral'
+  get '/squaw' => 'welcome#squaw_referral'
+  get '/sugar-bowl' => 'welcome#sugar_bowl_referral'
+  get '/heavenly' => 'welcome#heavenly_referral'
+  get '/northstar' => 'welcome#northstar_referral'
+  get '/mt-rose' => 'welcome#mt_rose_referral'
+  get '/sierra-at-tahoe' => 'welcome#sierra_referral'
+  get '/boreal' => 'welcome#boreal_referral'
+  get '/diamond-peak' => 'welcome#diamond_peak_referral'
+  get '/tahoe-donner' => 'welcome#tahoe_donner_referral'
+  get '/soda-springs' => 'welcome#soda_springs_referral'
+  get '/donner-ski-ranch' => 'welcome#donner_ski_ranch_referral'
+  get '/granlibakken' => 'welcome#granlibakken_referral'
+  get '/sky-tavern' => 'welcome#sky_tavern_referral'
 
 
   resources :instructors do
