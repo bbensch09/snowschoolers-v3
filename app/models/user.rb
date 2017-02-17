@@ -75,18 +75,31 @@ class User < ActiveRecord::Base
 
   # Facebook OAuth
 
+  # def self.find_email_for_facebook_oauth(auth)
+  #       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+  #         return auth.info.email.
+  #       end
+  # end
+
   def self.find_for_facebook_oauth(auth)
     # where(auth.slice(:provider, :uid)).first_or_create do |user|
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.provider = auth.provider
-      user.uid = auth.uid
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0,20]
-      user.name = auth.info.name
-      user.instructor = false
-      user.image = auth.info.image
-      user.skip_confirmation!
-      user.save!
+    if self.where(email: auth.info.email).exists?
+      return user = self.where(email: auth.info.email).first
+      # user.provider = auth.provider
+      # user.uid = auth.uid
+      # user.save!
+    else
+      where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+        user.provider = auth.provider
+        user.uid = auth.uid
+        user.email = auth.info.email
+        user.password = Devise.friendly_token[0,20]
+        user.name = auth.info.name
+        user.instructor = false
+        user.image = auth.info.image
+        user.skip_confirmation!
+        user.save!
+      end
     end
   end
 
