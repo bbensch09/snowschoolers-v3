@@ -187,7 +187,9 @@ class LessonsController < ApplicationController
     if @lesson.save
       GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-updated', params[:ga_client_id])
       @user_email = current_user ? current_user.email : "unknown"
+      if @lesson.state == "ready_to_book"
       LessonMailer.notify_admin_lesson_full_form_updated(@lesson, @user_email).deliver
+      end
       send_lesson_update_notice_to_instructor
       puts "!!!! Lesson update saved; update notices sent"
     else
@@ -362,6 +364,7 @@ class LessonsController < ApplicationController
     if @lesson.instructor.present?
       changed_attributes = @lesson.get_changed_attributes(@original_lesson)
       return unless changed_attributes.any?
+      return unless current_user.email != "brian@snowschoolers.com"
       LessonMailer.send_lesson_update_notice_to_instructor(@original_lesson, @lesson, changed_attributes).deliver
     end
   end
