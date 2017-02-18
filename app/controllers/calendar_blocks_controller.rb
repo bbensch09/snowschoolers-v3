@@ -49,9 +49,10 @@ class CalendarBlocksController < ApplicationController
     elsif params[:commit] == "Create 10-week recurring block"
       @calendar_block = CalendarBlock.new(calendar_block_params)
       @calendar_block.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
+      @calendar_block.save!
       (1..9).to_a.each do |week|
           puts "!!!!!!params are: #{calendar_block_params}"
-          @lesson_time = LessonTime.create!(date:(LessonTime.last.date+7),slot:LessonTime.last.slot)
+          @lesson_time = LessonTime.create!(date:(CalendarBlock.last.lesson_time.date+7),slot:LessonTime.last.slot)
           @calendar_block = CalendarBlock.new(calendar_block_params)
           @calendar_block.lesson_time = @lesson_time
           @calendar_block.save
