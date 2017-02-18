@@ -84,7 +84,9 @@ class User < ActiveRecord::Base
   def self.find_for_facebook_oauth(auth)
     # where(auth.slice(:provider, :uid)).first_or_create do |user|
     if self.where(email: auth.info.email).exists?
-      return user = self.where(email: auth.info.email).first
+      user = self.where(email: auth.info.email).first
+      user.skip_confirmation!
+      return user
       # user.provider = auth.provider
       # user.uid = auth.uid
       # user.save!

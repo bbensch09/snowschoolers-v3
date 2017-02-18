@@ -1,9 +1,6 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def facebook
-  	# @email = User.find_email_for_facebook_oauth(request.env["omniauth.auth"])
-  	# if User.find_by_email(@email)
-   #    puts "!!!!!!!!email already existis"
-   #  end
+
     @user = User.find_for_facebook_oauth(request.env["omniauth.auth"])
 
     if @user.persisted?
