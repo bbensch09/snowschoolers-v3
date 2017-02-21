@@ -1,0 +1,45 @@
+<section id="" class="pricing-new-lesson">
+    <div class="">
+        <table class="col-lg-12 col-xs-12 pricing-table">
+          <thead class="">
+            <tr>
+                <th class="center price-header" colspan="4">
+                    <h1>PRIVATE LESSON RATES</h1>
+                </th>
+
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+                <td class="pricing-length">Early-bird (9-10am)</td>
+                <td class="pricing-snowschoolers">
+                    <%= number_to_currency(Product.where(location_id:8,length:1,calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
+                    </td>
+            </tr>
+            <tr>
+                <td class="pricing-length">Half-day (10-1pm or 1-4-pm)</td>
+                <td class="pricing-snowschoolers">
+                <%= number_to_currency(Product.where(location_id:8,length:3,calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
+                </td>
+            </tr>
+            <tr>
+                <td class="pricing-length">Full-day (10-4pm)</td>
+                <td class="pricing-snowschoolers">
+                <%= number_to_currency(Product.where(location_id:8,length:6,calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row col-md-12 price-details">
+            <h4 class="italic">
+            *Prices <b> do not include </b> your lift ticket and/or rental equipment. 
+            <br> 
+            **You may include <b>up to 5 people </b> at no additional charge.
+            <br>
+            ***Current prices reflect holiday rates which will be in effect until Saturday 2/25.
+            <br>
+            </h4>            
+        </div>
+    </div>    
+</section>
