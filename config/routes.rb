@@ -91,6 +91,9 @@ Rails.application.routes.draw do
   get '/granlibakken' => 'welcome#granlibakken_referral'
   get '/sky-tavern' => 'welcome#sky_tavern_referral'
 
+  #Avantlink site verification
+  get '/avantlink_confirmation.txt' => 'welcome#avantlink'
+
 
   resources :instructors do
     member do
