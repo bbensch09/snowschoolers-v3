@@ -67,8 +67,10 @@ Rails.application.routes.draw do
   get 'thank_you' => 'instructors#thank_you'
   post '/notify_admin' => 'welcome#notify_admin'
   post 'sumo_success' => 'welcome#sumo_success'
-  get '/lyftopia' => 'welcome#lyftopia_referral'
+  get '/liftopia' => 'welcome#liftopia_referral'
   get '/skibutlers' => 'welcome#skibutlers_referral'
+  get '/sports-basement' => 'welcome#sportsbasement_referral'
+  get '/tahoe-daves' => 'welcome#tahoedaves_referral'
   get '/homewood-learn-to-ski' => 'welcome#homewood_learn_to_ski_referral'
 
   # Begin resort referrals

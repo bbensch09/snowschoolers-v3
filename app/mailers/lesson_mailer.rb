@@ -33,12 +33,20 @@ class LessonMailer < ActionMailer::Base
       mail(to: 'brian@snowschoolers.com', subject: "Sumo Success - #{@email} has subscribed.")
   end
 
-  def notify_lyftopia_referral
-      mail(to: 'brian@snowschoolers.com', subject: "Lyftopia referral click-thru")
+  def notify_liftopia_referral
+      mail(to: 'brian@snowschoolers.com', subject: "liftopia referral click-thru")
   end
 
   def notify_skibutlers_referral
       mail(to: 'brian@snowschoolers.com', subject: "Ski Butlers referral click-thru")
+  end
+  
+  def notify_sportsbasement_referral
+      mail(to: 'brian@snowschoolers.com', subject: "Sports Basement referral click-thru")
+  end
+
+  def notify_tahoedaves_referral
+      mail(to: 'brian@snowschoolers.com', subject: "Tahoe Daves's referral click-thru")
   end
 
   def notify_resort_referral(resort,user)

@@ -49,9 +49,19 @@ class WelcomeController < ApplicationController
   def learn_to_ski_packages
   end
 
-  def lyftopia_referral
-    LessonMailer.notify_lyftopia_referral.deliver
+  def liftopia_referral
+    LessonMailer.notify_liftopia_referral.deliver
     redirect_to "https://www.liftopia.com/region/california-lake-tahoe?utm_campaign=SnowSchoolers_beginner_guide"
+  end
+
+  def sportsbasement_referral
+    LessonMailer.notify_sportsbasement_referral.deliver
+    redirect_to "https://rentals.sportsbasement.com/rent/ski-rentals/adult-basic-ski-package?utm_campaign=SnowSchoolers_beginner_guide"
+  end
+
+  def tahoedaves_referral
+    LessonMailer.notify_tahoedaves_referral.deliver
+    redirect_to "https://rentals.tahoedaves.com/?utm_campaign=SnowSchoolers_beginner_guide"
   end
 
   def skibutlers_referral
