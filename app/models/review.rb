@@ -4,10 +4,13 @@ class Review < ActiveRecord::Base
   belongs_to :lesson
 
   def display_name
-    if self.reviewer.email == "brian@snowschoolers.com" && self.lesson && self.lesson.guest_email
+    if self.reviewer.email == "brian@snowschoolers.com"
+        sample_names = ['Ken','Bryan','Don','Carl','Bob','Aaron','Ashley','Kevin','Robert','Tessa','Gary','Dee','Ryan','Sean']
+        return sample_names[rand(14)]
+    elsif self.lesson && self.lesson.requester_name
       return self.lesson.requester_name.split(" ").first
     else
-      return self.reviewer.display_name.split(" ").first
+      return "Anonymous"
     end
   end
 

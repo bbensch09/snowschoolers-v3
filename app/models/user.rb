@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
 
   def display_name
     if self.name.nil?
-      "Anonymous User"
+      "Anonymous User"  
     elsif
       self.email == "brian@snowschoolers.com"
       sample_names = ['Ken','Bryan','Don','Carl','Bob','Aaron','Ashley','Kevin','Robert','Tessa','Gary','Dee','Ryan','Sean']
