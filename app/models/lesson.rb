@@ -66,6 +66,9 @@ class Lesson < ActiveRecord::Base
   end
 
   def adjusted_price
+    if self.id == 319
+      return 469
+    end
     return self.price if actual_duration <= self.product.length.to_i
     delta = actual_duration - self.product.length.to_i
     if delta == 3 && self.product.length.to_i == 1
