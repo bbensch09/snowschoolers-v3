@@ -20,6 +20,10 @@
   background: #3b5998;
   border-bottom: rgba(255, 255, 255, 0.2) 1px solid;
 }
+.header-homewood, #footer {
+  background: #073765 !important;
+  border-bottom: rgba(255, 255, 255, 0.2) 1px solid;
+}
 
 div.maximage-controls #slider_next:hover {
   background-color:#66B7E2;

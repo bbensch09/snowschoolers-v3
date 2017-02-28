@@ -1,0 +1,2 @@
+json.extract! applicant, :id, :first_name, :last_name, :email, :phone_number, :intro, :status, :city, :age, :preferred_locations, :how_did_you_hear, :work_authorization, :created_at, :updated_at
+json.url applicant_url(applicant, format: :json)
