@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Applicants</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Email</th>
+      <th>Phone number</th>
+      <th>Intro</th>
+      <th>Status</th>
+      <th>City</th>
+      <th>Age</th>
+      <th>Preferred locations</th>
+      <th>How did you hear</th>
+      <th>Work authorization</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @applicants.each do |applicant| %>
+      <tr>
+        <td><%= applicant.first_name %></td>
+        <td><%= applicant.last_name %></td>
+        <td><%= applicant.email %></td>
+        <td><%= applicant.phone_number %></td>
+        <td><%= applicant.intro %></td>
+        <td><%= applicant.status %></td>
+        <td><%= applicant.city %></td>
+        <td><%= applicant.age %></td>
+        <td><%= applicant.preferred_locations %></td>
+        <td><%= applicant.how_did_you_hear %></td>
+        <td><%= applicant.work_authorization %></td>
+        <td><%= link_to 'Show', applicant %></td>
+        <td><%= link_to 'Edit', edit_applicant_path(applicant) %></td>
+        <td><%= link_to 'Destroy', applicant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Applicant', new_applicant_path %>

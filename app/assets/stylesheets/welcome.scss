@@ -1024,7 +1024,19 @@ section.pricing-new-lesson{
 .cta-subtext{
   font-size: 1em;
 }
-
+.homewood-logo{
+  height: 60px;
+  max-width: 200px;
+  margin-top: 4px !important;
+}
+.blue-box-highlight, .btn-apply-homewood{
+    color: white;
+    background-color: #073765;
+}
+.blue-box-highlight{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
 
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/
 @media (max-width: 768px) {

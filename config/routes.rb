@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :applicants
+  get 'apply-to-homewood' => 'applicants#apply'
+
   resources :sports
   mount ActionCable.server => '/cable'
 

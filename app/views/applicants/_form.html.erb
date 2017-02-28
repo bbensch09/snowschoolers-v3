@@ -1,0 +1,77 @@
+
+<!-- REGISTER -->
+<div id="apply" class="navy-text">
+ <div class="apply-container">
+  <%= form_for @applicant do |f| %>
+  <% if @applicant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@applicant.errors.count, "error") %> prohibited this instructor from being saved:</h2>
+
+      <ul>
+      <% @applicant.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <% if current_user && (current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Partner")%>
+      <div class="admin-viewable">
+        <div class="col-md-12 vertical-padding">
+        <h4> ADMIN ONLY: Select user email to link to instructor application.</h4>
+          <%= f.select :user_id, options_from_collection_for_select(User.all.sort {|a,b| a.username_for_admin <=> b.username_for_admin}, :id, :username_for_admin, selected:@applicant_id), include_blank:true %>
+        </div>
+      </div>
+    <% end %>
+
+    <h4><b>Contact Info</b> </h4>
+    <div class="col-md-6 vertical-padding">
+      <%= f.text_field :first_name, placeholder: 'First name', class: 'form-control', required:true %>
+    </div>
+    <div class="col-md-6 vertical-padding">
+      <%= f.text_field :last_name, placeholder: 'Last name', class: 'form-control', required:true %>
+    </div>
+  <div class="">
+    <div class="col-md-6 vertical-padding">
+        <%= f.text_field :email, placeholder: "Email", class: 'form-control', required:true %>
+    </div>
+    <div class="col-md-6 vertical-padding">
+      <%= f.text_field :phone_number, placeholder: 'Phone number', class: 'form-control' %>
+    </div>
+  </div>
+  <div>
+    <div class="col-md-6 vertical-padding">
+      <%= f.text_field :age, placeholder: 'Age', class: 'form-control', required:true %>
+    </div>
+    <div class="col-md-6 vertical-padding">
+      <%= f.text_field :city, placeholder: 'Current city', class: 'form-control', required:true %>    
+    </div>
+  </div>
+  <div class="col-md-12">
+  <h4> <b> Position preferences:</b> <span class="" >We currently can only guarantee lift operations positions, but may soon have other openings (grooming, guest services, kitchen staff, etc.), so let us know if there's anywhere else you would be interested in working.</span></h4>
+      <%= f.text_area :preferred_locations, placeholder: "Tell us briefly about your previous work experiences and interests." , class: 'form-control', required:true %>
+  </div>
+  <div class="col-md-12">
+  <h4><b>Why</b> are you excited to join the team at Homewood?</h4>
+    <%= f.text_area :intro, rows:5, placeholder: 'Describe why you are interested in a sentance or two.', class: 'form-control', required:true %>
+    <br>
+  </div>
+  <div class="col-md-12">
+  <h4><b>How</b> did you first hear about this opportunity?</h4>
+    <%= f.select :how_did_you_hear, [['From a Friend',1],['Facebook',2],['Google',3],['From a Flyer',4],['Linkedin',5],['Other',100]], {}, {class: 'form-control', required:true, include_blank:false} %>
+  </div>
+  <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
+  <div class="row">
+    <div class="col-md-12 vertical-padding">
+      <% if controller.action_name == 'edit' %>
+      <%= f.submit "Update Application", class: "btn btn-primary btn-xl page-scroll pull-right push-bottom" %>
+      <% else %>
+      <%= f.submit "Submit Application", class: "btn btn-primary btn-xl page-scroll pull-right push-bottom" %>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+<div class="spacer">
+</div>
+
+</div>
+</div>
