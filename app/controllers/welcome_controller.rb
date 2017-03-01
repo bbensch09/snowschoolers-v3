@@ -261,6 +261,10 @@ class WelcomeController < ApplicationController
     end
   end
 
+  def march_madness
+    render 'march-madness'
+  end
+
   private
 
     def set_user

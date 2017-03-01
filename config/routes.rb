@@ -75,6 +75,7 @@ Rails.application.routes.draw do
   get '/sports-basement' => 'welcome#sportsbasement_referral'
   get '/tahoe-daves' => 'welcome#tahoedaves_referral'
   get '/homewood-learn-to-ski' => 'welcome#homewood_learn_to_ski_referral'
+  get '/march-madness' => 'welcome#march-madness'
 
   # Begin resort referrals
   get '/homewood' => 'welcome#homewood_referral'

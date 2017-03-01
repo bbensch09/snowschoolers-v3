@@ -46,6 +46,10 @@ class BetaUsersController < ApplicationController
           LessonMailer.notify_package_promo(@beta_user).deliver
           format.html { redirect_to root_path, notice: "Thanks for your interest. We'll get back to you shortly. If you have any other questions feel free to call us at 530-430-SNOW." }
           format.json { render action: 'show', status: :created, location: @beta_user }
+        elsif @beta_user.user_type == "march_madness"
+          LessonMailer.notify_march_madness_signup(@beta_user).deliver
+          format.html { redirect_to root_path, notice: "Thanks for your signing up. You should receive an email shorty with full instructions on how the contest will work." }
+          format.json { render action: 'show', status: :created, location: @beta_user }
           else
           LessonMailer.notify_admin_beta_user(@beta_user).deliver
           format.html { redirect_to root_path, notice: 'Thanks for signing up!' }
