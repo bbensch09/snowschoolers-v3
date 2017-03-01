@@ -148,7 +148,7 @@ class LessonsController < ApplicationController
     unless current_user && current_user.user_type == "Snow Schoolers Employee"
       @lesson.requester = current_user
     end
-    if @lesson.guest_email && @lesson.requester.nil?
+    if @lesson.guest_email
       if User.find_by_email(@lesson.guest_email.downcase)
           @lesson.requester_id = User.find_by_email(@lesson.guest_email.downcase).id
           puts "!!!! user is checking out as guest; found matching email from previous entry"
