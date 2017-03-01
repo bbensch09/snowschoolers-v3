@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Congrats!</h1>
+    <p>
+      A new user, <%= @applicant.name %> has just applied to join Homewood.
+    </p>
+    <p>Their core information is below. You can view <%= @applicant.first_name %>'s complete application at visible profile at: <%= applicant_url(@applicant) %> </p>
+    <p> 
+      <ul>
+        <li>Link: <%= applicant_url(@applicant.id) %></li>
+        <li>Full name: <%= @applicant.name %></li>
+        <li>Email: <%= @applicant.email %></li>
+        <li>Phone: <%= @applicant.phone_number %></li>
+        <li>Age: <%= @applicant.age %></li>
+        <li>City: <%= @applicant.city %></li>
+        <li>Job preferences: <%= @applicant.preferred_locations %></li>
+        <li>Intro: <%= @applicant.intro %></li>
+        <li>Referral Source: <%= @applicant.referral_source %></li>
+      </ul>
+    </p>
+  </body>
+</html>

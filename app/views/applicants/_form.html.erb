@@ -1,6 +1,6 @@
 
 <!-- REGISTER -->
-<div id="apply" class="navy-text">
+<div id="apply" class="hw-blue-text">
  <div class="apply-container">
   <%= form_for @applicant do |f| %>
   <% if @applicant.errors.any? %>
@@ -23,7 +23,9 @@
       </div>
     <% end %>
 
-    <h4><b>Contact Info</b> </h4>
+    <div class="col-md-12">
+      <h4><b>Contact Info</b> </h4>
+    </div>
     <div class="col-md-6 vertical-padding">
       <%= f.text_field :first_name, placeholder: 'First name', class: 'form-control', required:true %>
     </div>
@@ -57,7 +59,7 @@
   </div>
   <div class="col-md-12">
   <h4><b>How</b> did you first hear about this opportunity?</h4>
-    <%= f.select :how_did_you_hear, [['From a Friend',1],['Facebook',2],['Google',3],['From a Flyer',4],['Linkedin',5],['Other',100]], {}, {class: 'form-control', required:true, include_blank:false} %>
+    <%= f.select :how_did_you_hear, [['From a Friend',1],['Facebook',2],['Google',3],['From a Flyer',4],['Linkedin',5],['Indeed',6],['Other',100]], {}, {class: 'form-control', required:true, include_blank:false} %>
   </div>
   <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
   <div class="row">
