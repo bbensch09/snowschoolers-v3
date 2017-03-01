@@ -1037,6 +1037,17 @@ section.pricing-new-lesson{
   padding-top: 10px;
   padding-bottom: 10px;
 }
+.hw-blue-text{
+  color: #073765;
+}
+
+
+
+
+
+
+
+
 
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/
 @media (max-width: 768px) {
@@ -1293,5 +1304,14 @@ section.pricing-new-lesson{
 .cta-subtext{
   font-size: 0.5em;
 }
+ul.recruiting-ctas li {
+  font-size: 0.7em;
+  line-height: 1.4;
+}
+.about-homewood{
+  font-size: 1.3em;
+  line-height: 1.5;
+}
+
 
 }

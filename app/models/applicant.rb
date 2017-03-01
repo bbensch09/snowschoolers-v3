@@ -23,14 +23,16 @@ class Applicant < ApplicationRecord
       return 'From a Flyer'
     when 5
       return 'Linkedin'
+    when 6
+      return 'Indeed'
     when 100
       return 'Other'
     end
   end
 
   def send_admin_notification
-      @instructor = Instructor.last
-      LessonMailer.new_instructor_application_received(@instructor).deliver
+      @applicant = Applicant.last
+      LessonMailer.new_homewood_application_received(@applicant).deliver
       puts "an admin notification has been sent."
   end  
 
