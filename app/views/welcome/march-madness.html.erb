@@ -1,0 +1,82 @@
+<% title "March Madness in Tahoe" %>
+<% meta_tag :description, "Snow Schoolers is an online platform for for booking private ski & snowboard lessons. Our instructors specialize in teaching powder skiing in the deep off-piste snow throughout Tahoe this season. Easily browse profiles & reviews, then book a private ski or snowboard lesson  with our fleet of expert, certified instructors. We collaborate closely with each of our ski area partners to ensure a consistent brand experience while maximizing the financial return of ski school operations to the mountain." %>
+
+    <section id="header-creative" class="top-section">
+        <ul id="slider">
+            <li>
+                <img src="https://s3.amazonaws.com/snowschoolers/madden-feet.jpg" alt="march madness" class="bg-photo" alt="" />
+            </li>
+        </ul>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1 id="powder-heading" class="powder-title shadow-box-highlight">March Madness in Tahoe<br>
+                <span class="smaller-text"></span>
+                </h1>
+                <a href="lessons/new" class="btn btn-primary btn-xl page-scroll">Enter to Win</a>
+            <hr class="powder-spacer">
+                <p class="shadow-box-highlight hero-subtext">Think you can ski <a href="/resorts" class="green-link" target="_blank">all 16 ski areas</a> in Tahoe in the month of March? Register today to enter for free, and post a selfie from each resort that you visit this month.</p>
+                <!-- <hr> -->
+                <!-- <p class="shadow-box-highlight "> The silver lining to Homewood being <a href="http://www.rgj.com/story/news/2016/12/28/fire-closes-homewood-mountain-ski-resort-until-further-notice/95911312/" class="green-link">closed all-day today due to last night's fire:</a> </p> -->
+                <!-- There'll be even more <b> untracked fresh powder </b> still to be found when we re-open tomorrow at 9am! -->
+                <!-- With <b> across 1200+ acres of award-winning views</b>, and terrain for all levels including a top-to-bottom beginner run, Homewood is the perfect destination for the holidays. -->
+                <!-- See our <a href="/launch_announcement" class="internal-link">recent launch announcement</a> for more info.-->
+            </div>
+            <hr>
+            <!-- <div class="header-content-inner">
+                    <h3 id="search-index-header" class="shadow-box-highlight">Easily compare lesson prices before you book.<br><br>
+                    <span class="smaller-text"></span>
+                    %= render partial: 'products/search' %>
+                    </h3>
+            </div> -->
+        </div>
+    </section>
+
+    <section class="bg-primary" id="emailCollect">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-xs12 text-center">
+                    <div class="row powder-objection-handling-title">
+                    <h2 class="section-heading powder-objections white-text">Register Today</h2>
+                    </div>
+                    <p class="solid-box-highlight text-left white-text powder-objection-handling">
+                        The competition will officially start this Saturday morning, March 4th. Simply register your email below go get started.
+                    </p>                   
+                    <hr class="light text-center">
+                    <div class="col-md-12 beta_user-sign-up">
+                        <%= form_for(@beta_user = BetaUser.new) do |f| %>
+                          <% if @beta_user.errors.any? %>
+                            <div id="error_explanation">
+                              <h2><%= pluralize(@beta_user.errors.count, "error") %> prohibited this beta_user from being saved:</h2>
+                              <ul>
+                              <% @beta_user.errors.full_messages.each do |message| %>
+                                <li><%= message %></li>
+                              <% end %>
+                              </ul>
+                            </div>
+                          <% end %>
+                          <div class="email-input">
+                            <%= f.email_field :email, autofocus: false, class:"black-text form-control beta-sign-up", placeholder:"Enter Email", required: true  %>
+                            <div class="hidden">
+                                <%= f.text_field :user_type, :value => "march_madness"  %>
+                            </div>
+                          <%= f.submit "Sign up to Enter", class:"btn btn-success btn-xl page-scroll" %>
+                          <!-- <h3 class="offer-limitations">*First 100 sign ups receive 20% off their first lesson.</h3> -->
+                          </div>
+                        <% end %>
+                    </div>
+                    <!-- <h3 class="text-white"><b> The fine print:</b> -->
+                    </h3>
+                   <hr>
+                </div>
+                <div class="col-md-12">
+                    <hr>
+                    <h3 class="center white-text">Need some coaching before you try to ski 16 resorts in a month?</h3>
+                    <h3 class="center">
+                        <a href="lessons/new" class="btn btn-primary btn-xl page-scroll powder-btn">Book a Private Lesson Today</a>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+<script src="//load.sumome.com/" data-sumo-site-id="a1fbda8d7365cdee08d4a5985659bb680581b2dd4281ce27f0f246ffaa655693" async="async"></script>
