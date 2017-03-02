@@ -1,0 +1,69 @@
+<% title "Team Off-sites in Tahoe" %>
+<% meta_tag :description, "Snow Schoolers is an online platform for for booking private ski & snowboard lessons. Our instructors specialize in teaching powder skiing in the deep off-piste snow throughout Tahoe this season. Easily browse profiles & reviews, then book a private ski or snowboard lesson  with our fleet of expert, certified instructors. We collaborate closely with each of our ski area partners to ensure a consistent brand experience while maximizing the financial return of ski school operations to the mountain." %>
+
+    <section id="header-creative" class="top-section">
+        <ul id="slider">
+            <li>
+                <img src="https://s3.amazonaws.com/snowschoolers/images/group-photo.jpg" alt="group lesson" class="bg-photo" alt="" />
+            </li>
+        </ul>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1 id="powder-heading" class="teams-header shadow-box-highlight">Teams in Tahoe<br></h1>
+                <hr>                
+                <a href="#team-offsites-signup" class="btn btn-primary btn-xl page-scroll">Learn More</a>
+                <hr>                
+                <p class="shadow-box-highlight hero-subtext off-site-subtext">Want to plan the perfect team off-site in Tahoe? Packages start at just $2,000. <br> Contact us today to learn more!</p>
+            </div>
+            <hr>
+            <!-- <div class="header-content-inner">
+                    <h3 id="search-index-header" class="shadow-box-highlight">Easily compare lesson prices before you book.<br><br>
+                    <span class="smaller-text"></span>
+                    %= render partial: 'products/search' %>
+                    </h3>
+            </div> -->
+        </div>
+    </section>
+
+    <section class="bg-primary" id="emailCollect">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-xs12 text-center">
+                    <div class="row powder-objection-handling-title">
+                    <h2 id="team-offsites-signup" class="section-heading powder-objections white-text">Get in Touch</h2>
+                    </div>                 
+                    <hr class="light text-center">
+                    <div class="center white-text">
+                          <h4 class="italic"> Enter your email and/or phone number below to receive more information about our all-inclusive Teams in Tahoe packages. <br> Request a quote now, and your dedicated trip planning concierge will contact you within 2 business days.</h4>
+                          <div class="col-md-12 beta_user-sign-up">
+                                <%= form_for(@beta_user = BetaUser.new) do |f| %>
+                                  <% if @beta_user.errors.any? %>
+                                    <div id="error_explanation">
+                                      <h2><%= pluralize(@beta_user.errors.count, "error") %> prohibited this beta_user from being saved:</h2>
+                                      <ul>
+                                      <% @beta_user.errors.full_messages.each do |message| %>
+                                        <li><%= message %></li>
+                                      <% end %>
+                                      </ul>
+                                    </div>
+                                  <% end %>
+                                  <div class="email-input">
+                                    <%= f.email_field :email, autofocus: false, class:"black-text form-control beta-sign-up", placeholder:"Enter Email (required)", required: true  %>
+                                    <%= f.text_field :phone_number, autofocus: false, class:"black-text form-control beta-sign-up", placeholder:"XXX-XXX-XXXX (optional)", required: false  %>
+                                    <div class="hidden">
+                                        <%= f.text_field :user_type, :value => "team_offsite"  %>
+                                    </div>
+                                  <%= f.submit "Request a Quote", class:"btn btn-success btn-xl page-scroll" %>
+                                  <!-- <h3 class="offer-limitations">*First 100 sign ups receive 20% off their first lesson.</h3> -->
+                                  </div>
+                                <% end %>
+                            </div>
+                    </div>
+                    <!-- <h3 class="text-white"><b> The fine print:</b> -->
+                    </h3>
+                </div>                
+            </div>
+        </div>
+    </section>
+    
+<script src="//load.sumome.com/" data-sumo-site-id="a1fbda8d7365cdee08d4a5985659bb680581b2dd4281ce27f0f246ffaa655693" async="async"></script>

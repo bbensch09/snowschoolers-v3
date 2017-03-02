@@ -265,6 +265,10 @@ class WelcomeController < ApplicationController
     render 'march-madness'
   end
 
+  def team_offsites
+    render 'team-offsites'
+  end
+
   private
 
     def set_user

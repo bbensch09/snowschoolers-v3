@@ -76,6 +76,7 @@ Rails.application.routes.draw do
   get '/tahoe-daves' => 'welcome#tahoedaves_referral'
   get '/homewood-learn-to-ski' => 'welcome#homewood_learn_to_ski_referral'
   get '/march-madness' => 'welcome#march-madness'
+  get '/team-offsites' => 'welcome#team_offsites'
 
   # Begin resort referrals
   get '/homewood' => 'welcome#homewood_referral'
