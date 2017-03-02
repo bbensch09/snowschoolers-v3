@@ -1040,7 +1040,11 @@ section.pricing-new-lesson{
 .hw-blue-text{
   color: #073765;
 }
-
+.teams-header{
+  text-transform: uppercase;
+}
+.off-site-subtext{
+}
 
 
 
@@ -1135,7 +1139,6 @@ max-width: 90vw;
 .powder-spacer{
   padding-top:10px;
   padding-bottom: 10px;
-  margin: 0px 0px 0px 0px !important;
 }
 .comparison-header{
   line-height: 1.2;
@@ -1153,7 +1156,7 @@ max-width: 90vw;
   margin: 0px 0px 0px 0px;
 }
 .powder-objection-handling-title{
-  height: 100px;
+  height: 40px;
 }
 .comparison-container{
   height:150px;

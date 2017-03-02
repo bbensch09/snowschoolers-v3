@@ -9,17 +9,11 @@
         </ul>
         <div class="header-content">
             <div class="header-content-inner">
-                <h1 id="powder-heading" class="powder-title shadow-box-highlight">Teams in Tahoe<br>
-                <span class="smaller-text"></span>
-                </h1>
+                <h1 id="powder-heading" class="teams-header shadow-box-highlight">Teams in Tahoe<br></h1>
+                <hr>                
                 <a href="#team-offsites-signup" class="btn btn-primary btn-xl page-scroll">Learn More</a>
-            <hr class="powder-spacer">
-                <p class="shadow-box-highlight hero-subtext">Want to plan the perfect team off-site in Tahoe? Packages start at just $2,500 for a team of 8. <br> Contact us today to learn more!</p>
-                <!-- <hr> -->
-                <!-- <p class="shadow-box-highlight "> The silver lining to Homewood being <a href="http://www.rgj.com/story/news/2016/12/28/fire-closes-homewood-mountain-ski-resort-until-further-notice/95911312/" class="green-link">closed all-day today due to last night's fire:</a> </p> -->
-                <!-- There'll be even more <b> untracked fresh powder </b> still to be found when we re-open tomorrow at 9am! -->
-                <!-- With <b> across 1200+ acres of award-winning views</b>, and terrain for all levels including a top-to-bottom beginner run, Homewood is the perfect destination for the holidays. -->
-                <!-- See our <a href="/launch_announcement" class="internal-link">recent launch announcement</a> for more info.-->
+                <hr>                
+                <p class="shadow-box-highlight hero-subtext off-site-subtext">Want to plan the perfect team off-site in Tahoe? Packages start at just $2,000. <br> Contact us today to learn more!</p>
             </div>
             <hr>
             <!-- <div class="header-content-inner">
@@ -39,11 +33,8 @@
                     <h2 id="team-offsites-signup" class="section-heading powder-objections white-text">Get in Touch</h2>
                     </div>                 
                     <hr class="light text-center">
-                    <div class="center navy-text">
-                          <h4 class="italic"> Prefer personalized support from one of our ski vacation concierges? 
-                          <br>
-                          <br>
-                          Enter your email and/or phone number below to be contacted within 24 hours.</h4>
+                    <div class="center white-text">
+                          <h4 class="italic"> Enter your email and/or phone number below to receive more information about our all-inclusive Teams in Tahoe packages. <br> Request a quote now, and your dedicated trip planning concierge will contact you within 2 business days.</h4>
                           <div class="col-md-12 beta_user-sign-up">
                                 <%= form_for(@beta_user = BetaUser.new) do |f| %>
                                   <% if @beta_user.errors.any? %>
@@ -60,9 +51,9 @@
                                     <%= f.email_field :email, autofocus: false, class:"black-text form-control beta-sign-up", placeholder:"Enter Email (required)", required: true  %>
                                     <%= f.text_field :phone_number, autofocus: false, class:"black-text form-control beta-sign-up", placeholder:"XXX-XXX-XXXX (optional)", required: false  %>
                                     <div class="hidden">
-                                        <%= f.text_field :user_type, :value => "beginner_concierge"  %>
+                                        <%= f.text_field :user_type, :value => "team_offsite"  %>
                                     </div>
-                                  <%= f.submit "Request a Free Concierge", class:"btn btn-success btn-xl page-scroll" %>
+                                  <%= f.submit "Request a Quote", class:"btn btn-success btn-xl page-scroll" %>
                                   <!-- <h3 class="offer-limitations">*First 100 sign ups receive 20% off their first lesson.</h3> -->
                                   </div>
                                 <% end %>
@@ -70,15 +61,7 @@
                     </div>
                     <!-- <h3 class="text-white"><b> The fine print:</b> -->
                     </h3>
-                   <hr>
-                </div>
-                <div class="col-md-12">
-                    <hr>
-                    <h3 class="center white-text">Need some coaching before you try to ski 16 resorts in a month?</h3>
-                    <h3 class="center">
-                        <a href="lessons/new" class="btn btn-primary btn-xl page-scroll powder-btn">Book a Private Lesson Today</a>
-                    </h3>
-                </div>
+                </div>                
             </div>
         </div>
     </section>
