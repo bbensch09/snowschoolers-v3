@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170228215701) do
+ActiveRecord::Schema.define(version: 20170303015837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,17 @@ ActiveRecord::Schema.define(version: 20170228215701) do
     t.datetime "updated_at",                    null: false
     t.index ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
     t.index ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
+  end
+
+  create_table "contestants", force: :cascade do |t|
+    t.string   "username"
+    t.string   "hometown"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "conversations", force: :cascade do |t|
@@ -272,6 +283,16 @@ ActiveRecord::Schema.define(version: 20170228215701) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "nps"
+  end
+
+  create_table "selfies", force: :cascade do |t|
+    t.string   "link"
+    t.integer  "location_id"
+    t.integer  "contestant_id"
+    t.date     "date"
+    t.string   "social_network"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "ski_levels", force: :cascade do |t|

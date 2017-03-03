@@ -1,0 +1,13 @@
+<%= semantic_form_for @selfy do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :link %>
+    <%= f.input :location_id %>
+    <%= f.input :contestant_id %>
+    <%= f.input :date %>
+    <%= f.input :social_network %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>
