@@ -1,9 +1,15 @@
 <%= semantic_form_for @selfy do |f| %>
   <%= f.inputs do %>
     <%= f.input :link %>
-    <%= f.input :location_id %>
-    <%= f.input :contestant_id %>
-    <%= f.input :date %>
+    <%= f.input :location_id , as: :select, collection: Location.all.sort_by { |location| location.name.downcase} , selected: Location.first.id, include_blank: 'Location', label: false %>
+              
+    <div class="">
+      <%= f.input :contestant_id, as: :string, input_html: {required: true, class:"form-control", value: current_user.contestant.id} %>
+    </div>
+    <div class="col-md-2">
+      <%= f.input :date, as: :string, input_html: { id: 'datepicker', value:@date }, placeholder: 'Date', label: false %>
+      <span class="search-area-icon"></span>
+    </div>
     <%= f.input :social_network %>
   <% end %>
 

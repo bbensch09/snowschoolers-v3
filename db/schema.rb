@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20170303015837) do
   create_table "contestants", force: :cascade do |t|
     t.string   "username"
     t.string   "hometown"
+    t.integer  "user_id"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"

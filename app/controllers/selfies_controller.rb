@@ -69,6 +69,6 @@ class SelfiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def selfy_params
-      params.require(:selfy).permit(:link, :location_id, :contestant_id, :date, :social_network)
+      params.require(:selfie).permit(:link, :location_id, :contestant_id, :date, :social_network)
     end
 end

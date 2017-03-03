@@ -14,14 +14,25 @@
   <%= @contestant.hometown %>
 </p>
 
+<%= link_to 'Post a Selfie', new_selfy_path, class: "btn btn-lg btn-default" %>
+
 <div class="selfies-list">
+
 <% @contestant.selfies.each do |selfie| %>
 <div class="col-md-4">
-<h1>Here is a selfie:</h1>
-<img src="" alt="user generated selfie">
+	<% if selfie.social_network == "Twitter" %>
+		<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">
+			<a href=<%= selfie.link %> ></a>
+		</blockquote>
+		<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>	
+	<% end %>
+</div>
+	
 <% end %>
+
 </div>
 
+
+<div class="buffer"> </div>
 <%= link_to 'Edit', edit_contestant_path(@contestant) %> |
 <%= link_to 'Back', contestants_path %>
-</div>

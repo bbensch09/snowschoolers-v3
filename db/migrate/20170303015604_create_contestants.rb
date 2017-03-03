@@ -3,6 +3,7 @@ class CreateContestants < ActiveRecord::Migration[5.0]
     create_table :contestants do |t|
       t.string :username
       t.string :hometown
+      t.integer :user_id
       t.attachment :avatar
 
       t.timestamps
