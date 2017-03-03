@@ -55,7 +55,8 @@ class WelcomeController < ApplicationController
 
   def liftopia_referral
     LessonMailer.notify_liftopia_referral.deliver
-    redirect_to "https://www.liftopia.com/region/california-lake-tahoe?utm_campaign=SnowSchoolers_beginner_guide"
+    # redirect_to "https://www.liftopia.com/region/california-lake-tahoe?utm_campaign=SnowSchoolers_beginner_guide"
+    redirect_to "http://www.avantlink.com/click.php?tt=cl&amp;mi=10065&amp;pw=209735&amp;url=https%3A%2F%2Fwww.liftopia.com%2Fhomewood"
   end
 
   def sportsbasement_referral
