@@ -1,30 +1,26 @@
 <div class="container">
 <p id="notice"><%= notice %></p>
-<div class="row">
-      <%= image_tag @contestant.avatar.url(:large), alt:"avatar-img", class:" center img-responsive instructor-profile-photo" %>
+
+
+<div class="col-md-3">
+      <%= image_tag @contestant.avatar.url(:large), alt:"avatar-img", class:" center img-responsive instructor-profile-photo img-circle" %>
 </div>
-  
-<p>
-  <strong>Username:</strong>
-  <%= @contestant.username %>
-</p>
-
-<p>
-  <strong>Hometown:</strong>
-  <%= @contestant.hometown %>
-</p>
-
-<%= link_to 'Post a Selfie', new_selfy_path, class: "btn btn-lg btn-default" %>
+<div class="col-md-9 ">
+	<h1><%= @contestant.username %>'s March Madness	</h1>
+	<h3>Hometown: <%= @contestant.hometown %> <%= link_to 'Post a new Selfie', new_selfy_path, class: "btn btn-lg btn-default" %></h3>
+</div>
 
 <div class="selfies-list">
 
 <% @contestant.selfies.each do |selfie| %>
-<div class="col-md-4">
+<div class="col-md-6">
 	<% if selfie.social_network == "Twitter" %>
 		<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">
 			<a href=<%= selfie.link %> ></a>
 		</blockquote>
 		<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>	
+	<% elsif selfie.social_network == "Facebook" %>
+		<iframe src="https://www.facebook.com/plugins/post.php?href=<%=selfie.link %>" width="500" height="367" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
 	<% end %>
 </div>
 	

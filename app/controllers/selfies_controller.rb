@@ -28,7 +28,7 @@ class SelfiesController < ApplicationController
 
     respond_to do |format|
       if @selfy.save
-        format.html { redirect_to @selfy, notice: 'Selfie was successfully created.' }
+        format.html { redirect_to @selfy.contestant, notice: 'Selfie was successfully created.' }
         format.json { render :show, status: :created, location: @selfy }
       else
         format.html { render :new }
