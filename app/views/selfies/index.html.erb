@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Selfies</h1>
+<h1>All Selfies</h1>
 
-<table>
+<table class="instructors-table">
   <thead>
     <tr>
       <th>Link</th>
@@ -32,4 +32,14 @@
 
 <br>
 
-<%= link_to 'New Selfy', new_selfy_path %>
+ <%= link_to 'Post a new Selfie', new_selfy_path, class: "btn btn-lg btn-default" %>
+
+<div class="selfies-list">
+
+<% @selfies.each do |selfie| %>
+
+  <%= render partial: 'selfies/selfies-list', locals: { selfie: selfie} %>
+  
+<% end %>
+
+</div>

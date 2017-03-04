@@ -42,7 +42,7 @@ class SelfiesController < ApplicationController
   def update
     respond_to do |format|
       if @selfy.update(selfy_params)
-        format.html { redirect_to @selfy, notice: 'Selfie was successfully updated.' }
+        format.html { redirect_to @selfy.contestant, notice: 'Selfie was successfully updated.' }
         format.json { render :show, status: :ok, location: @selfy }
       else
         format.html { render :edit }
