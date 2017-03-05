@@ -53,9 +53,12 @@
       <%= f.text_area :preferred_locations, placeholder: "Tell us briefly about your previous work experiences and interests." , class: 'form-control', required:true %>
   </div>
   <div class="col-md-12">
-  <h4><b>Why</b> are you excited to join the team at Homewood?</h4>
-    <%= f.text_area :intro, rows:5, placeholder: 'Describe why you are interested in a sentance or two.', class: 'form-control', required:true %>
-    <br>
+  <h4>What type of hours are you looking for?</h4>
+    <%= f.text_area :intro, rows:5, placeholder: "I'd like to work (Part-time vs full-time), ideally on (weekends, midweek), etc.", class: 'form-control', required:true %>
+  <!-- <h4><b>Why</b> are you excited to join the team at Homewood?</h4>
+    <%= f.text_area :intro, rows:5, placeholder: 'Describe why you are interested in a sentence or two.', class: 'form-control', required:true %>
+   -->  
+   <br>
   </div>
   <div class="col-md-12">
   <h4><b>How</b> did you first hear about this opportunity?</h4>
