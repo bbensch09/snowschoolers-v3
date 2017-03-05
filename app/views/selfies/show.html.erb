@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Link:</strong>
+  <%= @selfy.link %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @selfy.location_id %>
+</p>
+
+<p>
+  <strong>Contestant:</strong>
+  <%= @selfy.contestant_id %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @selfy.date %>
+</p>
+
+<p>
+  <strong>Social network:</strong>
+  <%= @selfy.social_network %>
+</p>
+
+<%= link_to 'Edit', edit_selfy_path(@selfy) %> |
+<%= link_to 'Back', selfies_path %>

@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>All Selfies</h1>
+
+<table class="instructors-table">
+  <thead>
+    <tr>
+      <th>Link</th>
+      <th>Location</th>
+      <th>Contestant</th>
+      <th>Date</th>
+      <th>Social network</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @selfies.each do |selfy| %>
+      <tr>
+        <td><%= selfy.link %></td>
+        <td><%= selfy.location_id %></td>
+        <td><%= selfy.contestant_id %></td>
+        <td><%= selfy.date %></td>
+        <td><%= selfy.social_network %></td>
+        <td><%= link_to 'Show', selfy %></td>
+        <td><%= link_to 'Edit', edit_selfy_path(selfy) %></td>
+        <td><%= link_to 'Destroy', selfy, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+ <%= link_to 'Post a new Selfie', new_selfy_path, class: "btn btn-lg btn-default" %>
+
+<div class="selfies-list">
+
+<% @selfies.each do |selfie| %>
+
+  <%= render partial: 'selfies/selfies-list', locals: { selfie: selfie} %>
+  
+<% end %>
+
+</div>

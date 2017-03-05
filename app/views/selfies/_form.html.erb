@@ -1,0 +1,64 @@
+<%= semantic_form_for @selfy do |f| %>
+  <%= f.inputs do %>
+
+    <div class="hidden">
+      <%= f.input :contestant_id, as: :string, input_html: {required: true, class:"form-control", value: current_user.contestant.id} %>
+    </div>
+    <div class="col-md-6">
+      <h3>Select Resort</h3>
+      <%= f.input :location_id , as: :select, collection: Location.all.sort_by { |location| location.name.downcase} , include_blank: 'Location', label: false %>
+    </div>          
+    <div class="col-md-6">
+      <h3>Date</h3>
+      <%= f.input :date, as: :string, input_html: { id: 'datepicker', value:@date }, placeholder: 'Select Date', label: false %>
+      <span class="search-area-icon"></span>
+    </div>
+    <div class="col-md-6">
+      <%= f.input :social_network, as: :select, collection: ['Facebook', 'Twitter', 'Instagram'], include_blank: 'Type of social media', label: false %>
+    </div>
+    <div class="col-md-12">
+      <%= f.input :link, placeholder: 'Social media link', label: false %>      
+      
+      <h3><a href="#hideLessons" class="btn btn-success" id="toggle-available-lessons">Display link instructions</a></h3>
+      
+      <div id="available-lessons" class="hidden">      
+        <div class="col-md-4 twitter-instructions">
+          <h2>Submit a Tweet <i class="fa fa-twitter"></i></h2>
+          <p>
+            To submit a Tweet, click the drop-down arrow in the top right of your tweet, and choose the option for "Share Tweet via..." Then select the option to "copy the link to Tweet", as below.
+
+            <!-- To submit a Tweet from desktop, click the drop-down arrow in the top right of your tweet and click "Copy link to Tweet." Copy & paste that value into the box below. It should look something like <span class="blue"> https://twitter.com/YOUR_HANDLE/status/1234567890987654321 </span>. -->
+          </p>
+          <div class="row">
+            <img src="https://s3.amazonaws.com/snowschoolers/twitter-share-via.PNG" class="social-media-instructions-photo">
+            <img src="https://s3.amazonaws.com/snowschoolers/twitter-copy-link.PNG" class="social-media-instructions-photo">
+          </div>
+        </div>
+        <div class="col-md-4 facebook-instructions" id="available-lessons">
+          <h2>Submit a Post <i class="fa fa-facebook"></i></h2>
+          <p>
+          To submit a Facebook post, click the share button in the bottom right on the post, and then choose the option to "Copy link." Paste that value into the box below. </span>.
+          </p>
+          <div class="row">
+            <img src="https://s3.amazonaws.com/snowschoolers/facebook-copy-link.PNG" class="social-media-instructions-photo">
+          </div>
+        </div>
+        <div class="col-md-4 instagram-instructions" id="available-lessons">
+          <h2>Submit an Instagram <i class="fa fa-instagram"></i></h2>
+          <p>
+          To submit an Instagram, click three dots in the top right of the photo, and then choose the option to "Copy link." Paste that value into the box below. </span>.
+          </p>
+          <div class="row">
+            <img src="https://s3.amazonaws.com/snowschoolers/insta-copy-link.PNG" class="social-media-instructions-photo">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <% end %>
+<div class="col-md-12">
+  <%= f.actions do %>
+    <%= f.action :submit, :label => "Submit", as: :input, button_html: { class: 'btn btn-default btn-lg' } %>
+  <% end %>
+</div>
+<% end %>

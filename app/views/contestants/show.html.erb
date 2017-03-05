@@ -1,0 +1,26 @@
+<div class="container">
+<p id="notice"><%= notice %></p>
+
+
+<div class="col-md-3">
+      <%= image_tag @contestant.avatar.url(:large), alt:"avatar-img", class:" center img-responsive instructor-profile-photo img-circle" %>
+</div>
+<div class="col-md-9 ">
+	<h1><%= @contestant.username %>'s March Madness	</h1>
+	<h3>Hometown: <%= @contestant.hometown %> <%= link_to 'Post a new Selfie', new_selfy_path, class: "btn btn-lg btn-default" %></h3>
+</div>
+
+<div class="selfies-list">
+
+<% @contestant.selfies.each do |selfie| %>
+
+	<%= render partial: 'selfies/selfies-list', locals: { selfie: selfie} %>
+	
+<% end %>
+
+</div>
+
+
+<div class="buffer"> </div>
+<%= link_to 'Edit', edit_contestant_path(@contestant) %> |
+<%= link_to 'Back', contestants_path %>

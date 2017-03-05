@@ -1,0 +1,25 @@
+<%= semantic_form_for @contestant do |f| %>
+  <%= f.inputs do %>
+  <div class="col-md-4">
+    <%= f.input :username, placeholder: 'Create a username', class: 'form-control', required:true, label: false %>
+  </div>
+  <div class="col-md-4">
+    <%= f.input :hometown, placeholder: 'Where are you from?', class: 'form-control', required:true, label: false %>
+  </div>
+  <div class="hidden">
+    <%= f.input :user_id, as: :string, input_html: {required: true, class:"form-control", value: current_user.id} %>
+  </div>
+  <div class="col-md-8">
+    <h4>Please optionally attach an avatar photo to complete your profile.</h4>
+      <div class="col-md-12 vertical-padding">
+        <%= f.label :avatar %><br>
+        <%= f.file_field :avatar, class: 'form-control' %>
+      </div>
+  </div>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :label => "Register", as: :input, button_html: { class: 'btn btn-default btn-lg' } %>
+
+  <% end %>
+<% end %>
