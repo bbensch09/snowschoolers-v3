@@ -7,6 +7,10 @@ class SelfiesController < ApplicationController
     @selfies = Selfie.all
   end
 
+  def march_madness_challenge
+    @selfies = Selfie.all
+  end
+
   # GET /selfies/1
   # GET /selfies/1.json
   def show
