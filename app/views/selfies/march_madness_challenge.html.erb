@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+<div class="container">
+
+  <h1 class="center">Tahoe March Madness Challenge</h1>
+  <h2 class="center">Our humble attempt to ski all 16 Tahoe resorts in a month.</h2>
+
+  <h4><b>About the challenge</b></h4>
+  <p>
+    Until you’ve tasted every flavor of ice cream, how do you really know which is your favorite? With <a href="resorts" class="green-link">16 resorts in Tahoe</a>, we realized it was crazy that we'd only skied 5 of them this season. As such, the founding team at Snow Schoolers has begun our first ever <b>Tahoe March Madness Challenge</b>. Our goal is to ski all 16 ski resorts in Tahoe during the month of March. We don’t know if this has ever been done before, but we’d welcome any of our fans or followers in joining us in the endeavor. If anyone can manage to ski all 16 resorts <b> before us</b> (with proof via social media), there'll be a few great prizes awaiting you. Contact <a href="mailto:info@snowschoolers.com" class="green-link"> info@snowschoolers.com </a> for more information.
+  </p>
+
+  <hr class="deposit-hr-navy">
+
+  <% if current_user && current_user.email == "brian@snowschoolers.com"%>
+    <%= link_to 'Post a new Selfie', new_selfy_path, class: "btn btn-lg btn-default" %>
+  <% end %>
+
+  <div class="selfies-list">
+
+  <% @selfies.each do |selfie| %>
+
+    <%= render partial: 'selfies/selfies-list', locals: { selfie: selfie} %>
+    
+  <% end %>
+
+  </div>
+
+
+</div>
