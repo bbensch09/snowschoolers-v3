@@ -1,5 +1,6 @@
 class SelfiesController < ApplicationController
   before_action :set_selfy, only: [:show, :edit, :update, :destroy]
+  skip_before_action :authenticate_user!
 
   # GET /selfies
   # GET /selfies.json
