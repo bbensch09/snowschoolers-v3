@@ -7,4 +7,10 @@
 	<% elsif selfie.social_network == "Facebook" %>
 		<iframe src="https://www.facebook.com/plugins/post.php?href=<%=selfie.link %>" width="500" height="367" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
 	<% end %>
+	<p class="bottom-right">
+		<%= selfie.date.strftime("%b %-d") %> @<%= selfie.location.name %>
+	</p>
+	<% if current_user && current_user.email == "brian@snowschoolers.com" %>
+		  <%= link_to 'Edit', edit_selfy_path(selfie), class: 'btn btn-default' %>
+	<% end %>
 </div>

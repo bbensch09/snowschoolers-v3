@@ -1,6 +1,7 @@
 class Location < ActiveRecord::Base
   has_and_belongs_to_many :instructors  #, dependent: :destroy
   has_one :user
+  has_many :selfies
   has_many :products
   has_attached_file :logo, styles: { large: "400x400>", thumb: "80x80>" },  default_url: "https://s3.amazonaws.com/snowschoolers/cd-sillouhete.jpg",
         :storage => :s3,
