@@ -73,6 +73,7 @@ Rails.application.routes.draw do
   post '/notify_admin' => 'welcome#notify_admin'
   post 'sumo_success' => 'welcome#sumo_success'
   get '/liftopia' => 'welcome#liftopia_referral'
+  get '/mountain-collective' => 'welcome#mountain_collective_referral'
   get '/skibutlers' => 'welcome#skibutlers_referral'
   get '/sports-basement' => 'welcome#sportsbasement_referral'
   get '/tahoe-daves' => 'welcome#tahoedaves_referral'

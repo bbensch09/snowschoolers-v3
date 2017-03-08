@@ -12,30 +12,34 @@
   </ul>
 
 <!-- PreSeason Modal -->
-  <% if notice.nil? && alert.nil? && @lesson.errors.count == 0 && session[:pre_season_location_request].nil? && Location.active_partners.count == 0 %>
+  <% if notice.nil? && alert.nil? && @lesson.errors.count == 0 && session[:pre_season_location_request].nil? && Location.active_partners.count == 1 %>
      <a id="preSeasonModalButton" class="hidden" href="#" data-toggle="modal" data-target="#preSeasonModal">New user? First register your Account</a>
   <% end %>
   <div class="modal" id="preSeasonModal" tabindex="1" role="dialog" aria-labelledby="preSeasonModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content preSeasonModal">
+        
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-          </button>
-          <h3 class="modal-title text-warning" id="myModalLabel">Attention - we have not yet begun accepting new reservations for the '16/17 winter. </h3>
-          <h4 class="text-notice">If you have questions about when and where we will be offering lessons, please email us at <a href="mailto:info@snowschoolers.com">info@snowschoolers.com</a>, or enter your favorite resort in the form below.</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h3 class="modal-title navy-text center" id="myModalLabel">Good news - we're growing!</h3>
         </div>
         <div class="modal-body">
-            <h3 class="center">
-              Where do you want to take a lesson this year?
+            <h4 class="text-notice">We're planning to offer private lessons at new resorts next season, and we'd love to hear your input. Please email us at <a href="mailto:info@snowschoolers.com" class="green-link">info@snowschoolers.com</a> or enter your favorite resort in the form below.</h4>
+            <hr class="deposit-hr-navy">
+            <h3 class="center navy-text modal-prompt">
+              Where do you want to take lessons <b>next winter</b>?
             </h3>
           <%= semantic_form_for(PreSeasonLocationRequest.new) do |ps_request| %>
               <div class="field center">
-                <%= ps_request.input :name,  placeholder: "My favorite ski area is...", label:false %>
+                <%= ps_request.input :name,  placeholder: "I would love to take a lesson at...", label:false %>
               </div>
               <br>
               <div class="actions center">
                 <%= ps_request.submit "Submit", class: "btn btn-success" %>
               </div>
+              <p class="modal-close-to-continue">
+                (Close to continue booking for this winter.)
+              </p>
             <% end %>
         </div>
       </div>

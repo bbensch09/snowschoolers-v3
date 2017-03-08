@@ -31,6 +31,7 @@ class ReviewsController < ApplicationController
       if @review.save
         if @review.lesson
           @review.lesson.state = "Lesson Complete"
+          LessonMailer.new_review_submitted(@review).deliver
           @review.lesson.save
         format.html { redirect_to @review.lesson, notice: 'Thanks for reviewing your instructor! Hope to see you back on the mountain soon.' }
         format.json { render action: 'show', status: :created, location: @review }
@@ -50,8 +51,9 @@ class ReviewsController < ApplicationController
     respond_to do |format|
       if @review.update(review_params)
         @review.lesson.state = "Lesson Complete"
+        LessonMailer.new_review_submitted(@review).deliver
         @review.lesson.save
-        format.html { redirect_to @review.lesson, notice: 'Thanks for reviewing your instructor! Hope to see you back on the mountain soon.' }
+        format.html { redirect_to @review.lesson, notice: 'Thanks for updating your review! Hope to see you back on the mountain soon.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

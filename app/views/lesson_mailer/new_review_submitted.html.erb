@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Congrats!</h1>
+    <p>
+      A new instructor review has been submitted, <%= @review.reviewer.name %> has just submit their review (info below).
+    </p>
+    <p> 
+      <ul>
+        <li>Lesson URL: <%= lesson_url(@review.lesson.id) %></li>
+        <li>Full name: <%= @review.reviewer.name %></li>
+        <li>Email: <%= @review.reviewer.email %></li>
+        <li>NPS: <%= @review.nps %></li>
+        <li>Rating: <%= @review.rating %> stars</li>
+        <li>Review: <%= @review.review %></li>
+      </ul>
+    </p>
+  </body>
+</html>
