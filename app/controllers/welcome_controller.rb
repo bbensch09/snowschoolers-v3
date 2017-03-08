@@ -59,6 +59,11 @@ class WelcomeController < ApplicationController
     redirect_to "http://www.avantlink.com/click.php?tt=cl&amp;mi=10065&amp;pw=209735&amp;url=https%3A%2F%2Fwww.liftopia.com%2Fhomewood"
   end
 
+  def mountain_collective_referral
+    LessonMailer.notify_mountain_collective_referral.deliver
+    redirect_to "https://mountaincollective.com/?uest?utm_campaign=SnowSchoolers_beginner_guide"
+  end
+
   def sportsbasement_referral
     LessonMailer.notify_sportsbasement_referral.deliver
     redirect_to "https://rentals.sportsbasement.com/rent/ski-rentals/adult-basic-ski-package?utm_campaign=SnowSchoolers_beginner_guide"
