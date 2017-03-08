@@ -123,7 +123,12 @@ class LessonMailer < ActionMailer::Base
 
   def new_homewood_application_received(applicant)
     @applicant = applicant
-    mail(to: 'brian+marc@snowschoolers.com', cc:'brian@snowschoolers.com', subject: "Submitted Application: #{@applicant.email} has applied to join Snow Schoolers")
+    mail(to: 'brian+marc@snowschoolers.com', cc:'brian@snowschoolers.com', subject: "Submitted Application: #{@applicant.email} has applied to join Homewood")
+  end
+
+  def new_review_submitted(review)
+    @review = review
+    mail(to: 'brian@snowschoolers.com', subject: "Review submitted: #{@review.reviewer.email} has provided their review")
   end
 
   def instructor_status_activated(instructor)
