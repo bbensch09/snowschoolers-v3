@@ -1048,9 +1048,20 @@ section.pricing-new-lesson{
 .lift-tickets-container{
   min-height: 600px;
 }
-
-
-
+#myModalLabel{
+  font-size: 1.6em;
+}
+.text-notice{
+  font-size: 1.1em;
+}
+.modal-prompt{
+  font-size: 1.7em;
+}
+.modal-close-to-continue{
+  font-style: italic;
+  text-align: center;
+  font-size: 0.9em;
+}
 
 
 
@@ -1321,5 +1332,6 @@ ul.recruiting-ctas li {
   height: 280px;
   clear: both;
 }
+
 
 }

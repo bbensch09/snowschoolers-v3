@@ -733,7 +733,7 @@ div.e404 {
 	}
 
 	h4.modal-title{
-		color:#333 !important;
+		color:#3b5998 !important;
 		padding: 10px;
 		font-weight:300;
 	}
@@ -746,7 +746,7 @@ div.e404 {
 	.modal .modal-header button {
 		font-size:40px;
 		padding:8px;
-		color:#999 !important;
+		color:#3b5998 !important;
 		margin-right:8px;
 		font-weight:300;
 	}
