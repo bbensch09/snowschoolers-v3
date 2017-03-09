@@ -1,5 +1,5 @@
 <header class="page-header">
-<h1>Complete Payment</h1>
+<h1>We hope you enjoyed your lesson!</h1>
 </header>
 
 <div class="complete-payment">
@@ -14,6 +14,13 @@
                 <p><%= flash[:error] %></p>
               </div>
             <% end %>
+        <% if @lesson.price == @lesson.adjusted_price && @lesson.final_charge == 0 %>
+              <div class="row">
+                <%= link_to 'Modify Tip', edit_transaction_path(@lesson.transactions.last), class: 'btn btn-warning' %>
+              <span> | </span>
+                <%= submit_tag "Tell us about your lesson experience", class: 'btn btn-primary btn-xl' %>
+              </div>
+          <% else %>
             <ul class="payment-amounts">
               <% if @lesson.price == @lesson.adjusted_price %>
                 <li>Lesson fee: <%= number_to_currency(@lesson.price, precision: 2) %> </li>
@@ -24,21 +31,19 @@
               <li>Tip amount: <%= number_to_currency(@lesson.transactions.last.tip_amount*@lesson.transactions.last.base_amount)%>
               <%= link_to 'Edit Tip', edit_transaction_path(@lesson.transactions.last), class: 'btn btn-default' %></li>
               <li>Total Lesson Cost: <%=number_to_currency(@lesson.transactions.last.final_amount)%></li>
-              <% amount_to_charge = (@lesson.transactions.last.final_amount - @lesson.price.to_i) %>
-              <li><span>After deducting your initial <%= number_to_currency(@lesson.price) %> lesson fee, your remaining balance to be charged is <b><%= number_to_currency(amount_to_charge)%>.</b></span></li>
+              <li><span>After deducting your initial <%= number_to_currency(@lesson.price) %> lesson fee, your remaining balance to be charged is <b><%= number_to_currency(@lesson.final_charge)%>.</b></span></li>
             </ul>
-        <% if amount_to_charge > 0 %>
+        <% if @lesson.final_charge > 0 %>
           <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                   data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                   data-description="Lesson Payment"
                   data-name="Snow Schoolers"
                   data-image="https://s3.amazonaws.com/snowschoolers/SnowSchoolers-favicon.png"
-                  data-amount=<%= (('%.2f' % amount_to_charge).to_f*100).to_i %>
+                  data-amount=<%= (('%.2f' % @lesson.final_charge).to_f*100).to_i %>
                   data-locale="auto"
                   data-zip-code="true">
           </script>
-          <% else %>
-            <%= submit_tag "Complete Lesson", class: 'btn sign-up-btn pull-left' %>
+        <% end %>
         <% end %>
           </article>
       <% end %>

@@ -26,7 +26,7 @@
   <b>Amount Due: </b><%= number_to_currency(0) %>
   <% end %>
 </h3>
-    <%= f.input :tip_amount, as: :select, collection: [['10%',0.1],['20%',0.20],['30%',0.30],['No Tip',0],['Tipped in-person',0]], include_blank: 'Select Tip Amount', label: "Include Instructor Tip (optional)", :input_html => {class:'tip-amount-input', required: true} %>
+    <%= f.input :tip_amount, as: :select, collection: [['10%',0.1],['20%',0.20],['30%',0.30],['No Tip',0],['Tipped in-person',0.0009]], include_blank: 'Select Tip Amount', label: "Include Instructor Tip (optional)", :input_html => {class:'tip-amount-input', required: true} %>
   <% end %>
   <%= f.submit "Confirm Tip Amount", class: 'btn btn-success' %>
   <%= link_to 'Back', @transaction.lesson, class: 'btn btn-default' %>

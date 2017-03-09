@@ -53,6 +53,10 @@ class Lesson < ActiveRecord::Base
     end
   end
 
+  def final_charge
+    self.transactions.last.final_amount - self.price.to_i
+  end
+
   def post_stripe_tip
     if tip <= 0
       return 0
@@ -506,7 +510,13 @@ class Lesson < ActiveRecord::Base
         when 'pending instructor'
           body =  "#{self.available_instructors.first.first_name}, There has been a change in your previously confirmed lesson request. #{self.requester.name} would now like their lesson to be at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. Are you still available? Please visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm."
         when 'Payment complete, waiting for review.'
-          body = "#{self.requester.name} has completed payment for their lesson and you've received a tip of $#{self.post_stripe_tip.round(2)}. Great work!"
+          if self.transactions.last.tip_amount == 0.0009            
+            body = "#{self.requester.name} has completed their lesson review and reported that they gave you a cash tip. Great work!"
+          elsif self.transactions.last.tip_amount == 0
+            body = "Hope you had a great lesson with #{self.requester.name}. They have now completed their lesson review, which you should receive an email notification about shortly."            
+          else
+            body = "#{self.requester.name} has completed payment for their lesson and you've received a tip of $#{self.post_stripe_tip.round(2)}. Great work!"
+          end
       end
       @client = Twilio::REST::Client.new account_sid, auth_token
           @client.account.messages.create({
