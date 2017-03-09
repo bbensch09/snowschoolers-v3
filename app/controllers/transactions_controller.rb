@@ -46,9 +46,14 @@ class TransactionsController < ApplicationController
     end
     @transaction.lesson.state = "Payment complete, waiting for review."
     @transaction.lesson.save
-    @transaction.lesson.send_sms_to_instructor
-    flash[:notice] = 'Thank you! Your card has been charged successfully, please now review your instructor.'
-    redirect_to @transaction.lesson
+    if current_user && current_user.email == "brian@snowschoolers.com"
+      flash[:notice] = 'Thanks! Admin has updated lesson as complete and instructor has not been messaged. You may now email student to remind them to submit a review.'
+      redirect_to @transaction.lesson
+      else
+      @transaction.lesson.send_sms_to_instructor
+      flash[:notice] = 'Thank you! Your card has been charged successfully, please now review your instructor.'
+      redirect_to @transaction.lesson
+    end
 
   rescue Stripe::CardError => e
     flash[:error] = e.message
