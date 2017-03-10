@@ -6,12 +6,12 @@ Rails.application.routes.draw do
   get 'apply-to-homewood' => 'applicants#apply'
 
   resources :sports
-  mount ActionCable.server => '/cable'
 
   resources :blogs
   get 'blog' => 'blogs#index'
   resources :pre_season_location_requests
 
+  mount ActionCable.server => '/cable'
   resources :messages
   get 'start_conversation/:instructor_id' => 'messages#start_conversation'
   get 'conversations/:id' => 'messages#show_conversation', as: :show_conversation

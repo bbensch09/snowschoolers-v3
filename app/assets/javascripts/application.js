@@ -21,3 +21,4 @@
 //= require_tree .
 //= require tinymce-jquery
 //= require_self
+//= require_tree ./channels
