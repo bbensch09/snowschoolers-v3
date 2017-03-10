@@ -33,6 +33,7 @@
 
       <div class="col-md-3 col-xs-3">
       <h4 class="slot-details-mobile">
+        <b>Requester:</b> <br>
         <b>Location:</b> <br>
         <b>Sport:</b> <br>
         <b>Date:</b> <br>
@@ -44,6 +45,7 @@
       </div>
       <div class="col-md-9 col-xs-9">
       <h4 class="slot-details-mobile">
+        <%= @lesson.requester ? @lesson.requester.name : @lesson.requester_name %> <br>
         <%= @lesson.location.name %><br>
         <%= @lesson.activity %><br>
         <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %><br>
