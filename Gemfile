@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 ruby "~> 2.3.0"
 
+#install redis gem for actioncable troubleshooting
+gem 'redis'
+
 #delayed_jobs for sending Twilio SMS messages if instructors are unresponsive
 gem 'delayed_job_active_record'
 
