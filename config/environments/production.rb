@@ -6,7 +6,7 @@ Rails.application.configure do
   # config.web_socket_server_url = "wss://www.snowschoolers.com/cable" 
 
   #allowed request origins
-  config.action_cable.allowed_request_origins = [ 'https://snowchoolers-v2-2016.herokuapp.com', '/http:\/\/snowchoolers-v2-2016.herokuapp.com.*/','https://wwww.snowschoolers.com', 'http://wwww.snowschoolers.com.*/' ]
+  config.action_cable.allowed_request_origins = [ 'http://localhost:3000','https://snowchoolers-v2-2016.herokuapp.com', '/http:\/\/snowchoolers-v2-2016.herokuapp.com.*/','https://wwww.snowschoolers.com', 'http://wwww.snowschoolers.com.*/' ]
 
 
   
