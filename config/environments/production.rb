@@ -2,8 +2,8 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   #set action cable server URI
-  config.web_socket_server_url = "wss://snowschoolers-v2-2016.herokuapp.com/cable" 
-  # config.web_socket_server_url = "wss://www.snowschoolers.com/cable" 
+  # config.web_socket_server_url = "wss://snowschoolers-v2-2016.herokuapp.com/cable" 
+  config.web_socket_server_url = "wss://www.snowschoolers.com/cable" 
 
   #allowed request origins
   config.action_cable.allowed_request_origins = [ 'http://localhost:3000','https://snowchoolers-v2-2016.herokuapp.com', '/http:\/\/snowchoolers-v2-2016.herokuapp.com.*/','https://wwww.snowschoolers.com', 'http://wwww.snowschoolers.com.*/' ]
