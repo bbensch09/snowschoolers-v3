@@ -36,6 +36,8 @@ class MessagesController < ApplicationController
   def my_conversations
     if current_user.instructor.nil?
       @conversations = Conversation.where(requester_id:current_user.id)
+    elsif current_user.email == "brian@snowschoolers.com"
+      @conversations = Conversation.all
     elsif current_user.instructor
       @conversations = Conversation.where(instructor_id: current_user.instructor.id)
     else
