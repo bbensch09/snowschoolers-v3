@@ -7,7 +7,7 @@
   <% matched_user_name = convo.instructor.first_name %>
   <% else %>
   <% matched_user = convo.requester %>
-  <% matched_user_name = convo.requester.name.split(" ").first %>
+  <% matched_user_name = convo.requester.name.nil? ? "New user" : convo.requester.name.split(" ").first  %>
 <% end %>
 <% message = convo.messages.last %>
 
