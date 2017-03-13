@@ -602,7 +602,7 @@ class Lesson < ActiveRecord::Base
         when 'seeking replacement instructor'
         body = "Bad news! Your instructor has unfortunately had to cancel your lesson. Don't worry, we are finding you a new instructor right now."
         when 'finalizing payment & reviews'
-        body = "We hope you had a great lesson today with #{self.instructor.name}! You may now complete the lesson experience online and leave a quick review for #{self.instructor.first_name} by visiting #{ENV['HOST_DOMAIN']}/lessons/#{self.id}. Thanks for using Snow Schoolers!"
+        body = "We hope you had a great lesson with #{self.instructor.name}! You may now complete the lesson experience online and leave a quick review for #{self.instructor.first_name} by visiting #{ENV['HOST_DOMAIN']}/lessons/#{self.id}. Thanks for using Snow Schoolers!"
       end
       if recipient.length == 10 || recipient.length == 11
         @client = Twilio::REST::Client.new account_sid, auth_token
