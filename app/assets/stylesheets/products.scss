@@ -1,5 +1,12 @@
 .search-form{
-  width: 300px;
+  width: 350px;
+  display: inline-block;
+  line-height: 1.5;
+  font-size: 0.7em;
+  height: 50px;
+}
+.pass-search-form{
+  width: 80%;
   display: inline-block;
   line-height: 1.5;
   font-size: 0.7em;
@@ -83,4 +90,7 @@
 #secondary-search-filters div h3 {
   color: #3b5998;
   text-transform: uppercase;
+}
+.section-pass-search-results{
+  color: #000 !important;
 }

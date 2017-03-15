@@ -20,6 +20,7 @@
       <th></th>
       <th>Price</th>
       <th>Product Type</th>
+      <th>Age Type</th>
       <th>Name</th>
       <th>Location</th>
       <th>Length</th>
@@ -48,6 +49,7 @@
         <td><%= link_to 'Edit', edit_product_path(product) %></td>
         <td><%= number_to_currency(product.price) %></td>
         <td><%= product.product_type %></td>
+        <td><%= product.age_type %></td>
         <td><%= link_to product.name, edit_product_path(product) %></td>
         <td><% if product.location.nil? %> "Unknown" <% else %> <%= product.location.name %> <% end %> </td>
         <td><%= product.length %></td>

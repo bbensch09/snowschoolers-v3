@@ -1,0 +1,107 @@
+<section id="header-creative" class="top-section section-pass-search-results">
+      <ul id="slider">
+          <li>
+              <img src="https://s3.amazonaws.com/snowschoolers/calm-before-storm-feb13.JPG" alt="lake tahoe" class="bg-photo-blurred" alt="" />
+          </li>
+      </ul>
+<div class="container">
+<div id="primary-search-bar">
+  <h2 class="center">We found <%= @products.count %> season passes that match your search:</h2>
+  <ul class="primary-search-form">
+      <%= form_tag(pass_search_results_path, :method => "get", id: "search-form") do %>
+      <!-- %= semantic_form_for search_results_path, :html=> {:method => :get} do |f| %> -->
+        <!-- %= f.inputs do %> -->
+      <li>
+        <!-- %= f.input :search, placeholder: "Where do you plan to ski...", input_html: {class:'navy-text form-control search-form'}, label:false %> -->
+        <%= text_field_tag :search, params[:search], placeholder: "Where do you plan to ski...", class:'navy-text form-control search-form-serp' %>
+      </li>
+      <li>
+        <!-- %= f.submit "Refine Search" , class:"btn btn-primary btn-xl page-scroll" %> -->
+          <%= submit_tag "Search Again", class:"btn btn-primary btn-xl page-scroll" %>
+      </li>
+  </ul>
+</div>
+<hr class="full-hr">
+
+<div id="secondary-search-filters">
+  <div id="sort-selector">
+      <h3>
+      Sort results by <br> <%= select_tag :sort_tag, options_for_select(["Recommended","Price Low to High","Price High to Low","Resort A-Z"], params[:sort_tag]), {class: 'navy-text form-control'} %>
+      </h3>
+  </div>
+  <div id="lesson-slot-filter">
+      <h3>Pass Type
+      </h3>
+      <%= select_tag :search_pass_type, options_for_select(["All Passes","Adult","Teenager","Child","College"], params[:search_pass_type]), {class: 'navy-text form-control'} %>
+  </div>
+  <div id="online-booking-filter">
+    <h3 class="filter-heading"> Purchase directly from Snow Schoolers?</h3>
+    <ul class="length-list">
+      <li>
+          <%= check_box_tag :search_status, true, params[:search_status] %>
+          <%= label_tag(:search_status, "Filter results", {class:'navy-text'}) %>
+      </li>
+    </ul>
+  </div>
+<div id="resort-filter">
+    <h3>Compare Resorts</h3>
+    <span class="text-danger"><em>(Recommended to first clear any text-search above.)</em></span>
+    <ul class="">
+        <%= collection_check_boxes :resort_filter, :location_ids, Location.all.reverse, :id, :name do |location_item| %>
+        <li class="navy-text">
+          <%= location_item.check_box %>
+          <%= location_item.label %>
+        </li>
+        <% end %>
+    </ul>
+  </div>  
+</div>
+      <!-- % end %> -->
+    <% end %>
+
+<div id="search-results-section">
+
+  <div class="notice">
+  <% if @products.present? %>
+  <% else %>
+    <p>There are no products containing the term(s) "<%= params[:search] %>".</p>
+    <p>The full set of search parameters are: <%= @search_params %>.</p>
+  <% end %>
+  </div>
+
+<% @products.each do |product| %>
+
+  <% if product.location.partner_status == "Active" %>
+    <div class="row search-results-card">
+    <% else %>
+    <div class="row search-results-card inactive-partner">
+  <% end %>
+    <div class="col-md-3 location-logo-section">
+      <h2 class="location-name center"><%= product.location.name %></h2>
+          <% if product.location.logo.nil? %>
+            <img src="assets/copyright.jpg" class="instructor-photo ">
+          <% else %>
+            <%= image_tag product.location.logo.url(:large), alt:"location-logo", class:"location-logo center " %>
+          <%end%>
+    </div>
+    <div class="col-md-6 location-details">
+      <h1 class="product-name"><%= product.name %></h1>
+      <ul>
+        <li>Starts at: <%= product.start_time %></li>
+        <li>Length: <%= product.length %> hours</li>
+      </ul>
+    </div>
+    <div class="col-md-3 price-details">
+        <h1><%= number_to_currency(product.price) %> <br> <span class="smaller-text center calendar-period"> (<%= product.calendar_period %> rate) </span> </h1>
+        <% if product.location.partner_status == "Active" %>
+        <h2 class="center products-cta"><a href="/lessons/book_product/<%=product.id%>" class="btn btn-primary page-scroll">Book Today</a></h2>
+        <% else %>
+        <h2 class="center products-cta"><a href="mailto:info@snowschoolers.com?subject=How%20do%20I%20make%20a%20lesson%20reservation%20at%20<%=product.location.name%>" target="_blank" class="btn btn-primary page-scroll">Request More Info</a></h2>
+        <% end %>
+    </div>
+  </div>
+
+<% end %>
+
+</div>
+</section>

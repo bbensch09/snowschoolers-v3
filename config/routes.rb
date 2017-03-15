@@ -116,7 +116,9 @@ Rails.application.routes.draw do
   get 'lessons/admin_index' => 'lessons#admin_index'
   get 'browse' => 'instructors#browse'
   get 'search' => 'products#search'
-  get 'search_results' => 'products#search_results', as: :search_results
+  get 'tahoe-season-passes' => 'products#season_pass_search'
+  get 'tahoe-season-passes-search-results' => 'products#pass_search_results', as: :pass_search_results
+  get 'search-results' => 'products#search_results', as: :search_results
   get 'lessons/book_product/:id' => 'lessons#book_product'
   # post 'search_results' => 'products#search_results', as: :refresh_search_results
 
