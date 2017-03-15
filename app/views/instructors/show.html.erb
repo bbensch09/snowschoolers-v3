@@ -82,7 +82,8 @@
 <h1 class="center"> <%= @instructor.name %>'s Recent Reviews </h1>
 <div class="row reviews-container">
 <div class="">
-  <% @instructor.reviews.each do |review| %>
+  <% current_instructor_reviews = @instructor.reviews.sort { |a,b| b.created_at <=> a.created_at } %>
+  <% current_instructor_reviews.each do |review| %>
     <div class="individual-review">
       <div class="star-rating" data-score= <%= review.rating %> >
       </div>
