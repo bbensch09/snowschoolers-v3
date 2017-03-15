@@ -77,7 +77,6 @@
     <div class="row search-results-card inactive-partner">
   <% end %>
     <div class="col-md-3 location-logo-section">
-      <h2 class="location-name center"><%= product.location.name %></h2>
           <% if product.location.logo.nil? %>
             <img src="assets/copyright.jpg" class="instructor-photo ">
           <% else %>
@@ -85,10 +84,9 @@
           <%end%>
     </div>
     <div class="col-md-6 location-details">
-      <h1 class="product-name"><%= product.name %></h1>
+      <h1 class="product-name"><%= product.name %> - <%= product.location.name %></h1>
       <ul>
-        <li>Starts at: <%= product.start_time %></li>
-        <li>Length: <%= product.length %> hours</li>
+        <li><%= product.details %></li>
       </ul>
     </div>
     <div class="col-md-3 price-details">
