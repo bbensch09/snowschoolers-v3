@@ -55,7 +55,9 @@ Rails.application.routes.draw do
   get 'accommodations' => "welcome#accommodations"
   get 'resorts' => "welcome#resorts"
   get 'beginners-guide-to-tahoe' => "welcome#beginners_guide_to_tahoe"
-  get 'learn-to-ski-packages' => "welcome#learn_to_ski_packages"
+  get 'learn-to-ski' => "welcome#learn_to_ski_packages"
+  get 'learn-to-ski-packages' => "products#learn_to_ski_packages_search_results", as: :lts_search_results
+
   get   'lessons/sugarbowl'               => 'lessons#sugarbowl'
   # get 'homewood' => "welcome#homewood"
   get 'homewood2' => "welcome#homewood2"
@@ -72,7 +74,6 @@ Rails.application.routes.draw do
   get 'thank_you' => 'instructors#thank_you'
   post '/notify_admin' => 'welcome#notify_admin'
   post 'sumo_success' => 'welcome#sumo_success'
-  get '/liftopia' => 'welcome#liftopia_referral'
   get '/mountain-collective' => 'welcome#mountain_collective_referral'
   get '/skibutlers' => 'welcome#skibutlers_referral'
   get '/sports-basement' => 'welcome#sportsbasement_referral'
@@ -82,6 +83,8 @@ Rails.application.routes.draw do
   get '/march-madness-challenge' => 'selfies#march_madness_challenge'
   get '/blog/latest' => 'blogs#latest'
   get '/team-offsites' => 'welcome#team_offsites'
+  get '/liftopia' => 'welcome#liftopia_referral'
+  get '/shop/:id' => 'welcome#comparison_shopping_referral'
 
   # Begin resort referrals
   get '/homewood' => 'welcome#homewood_referral'
@@ -116,7 +119,9 @@ Rails.application.routes.draw do
   get 'lessons/admin_index' => 'lessons#admin_index'
   get 'browse' => 'instructors#browse'
   get 'search' => 'products#search'
-  get 'search_results' => 'products#search_results', as: :search_results
+  get 'tahoe-season-passes' => 'products#season_pass_search'
+  get 'tahoe-season-passes-search-results' => 'products#pass_search_results', as: :pass_search_results
+  get 'search-results' => 'products#search_results', as: :search_results
   get 'lessons/book_product/:id' => 'lessons#book_product'
   # post 'search_results' => 'products#search_results', as: :refresh_search_results
 

@@ -24,12 +24,12 @@ class Product < ActiveRecord::Base
       # puts "FIRST!!!!!!!!the current number of search_results is #{search_results.count}"
       search_results
     else
-     search_results = Product.all(:joins => :location)
+     search_results = Product.all #(:joins => :location)
     end
     search_results.to_a.keep_if {|product| product.calendar_period == product.location.calendar_status}
       # puts "SECOND!!!!!!!!the current number of search_results is #{search_results.count}"
     #SEARCH LESSONS BASED ON LENGTH
-    if search_params[:length] != [nil,nil,nil,nil,nil]
+    unless search_params[:length].nil?
       search_results = search_results.to_a.keep_if {|product| search_params[:length].include?(product.length)}
       # puts "THIRD!!!!!!!!the current number of search_results is #{search_results.count}"
     end
@@ -49,6 +49,11 @@ class Product < ActiveRecord::Base
     if search_params[:slot] && search_params[:slot] != "Any Slot"
       search_results = search_results.to_a.keep_if {|product| product.slot == search_params[:slot]}
       # puts "SEVENTH!!!!!!!!! the current number of search_results is #{search_results.count}"
+    end
+    if search_params[:pass_type] && search_params[:pass_type] != "All Passes"
+      search_results = search_results.to_a.keep_if {|product| product.age_type == search_params[:pass_type]}
+      puts "pass type filter: #{search_params[:pass_type]}"
+      puts "EIGHTH!!!!!!!!! the current number of search_results is #{search_results.count}"
     end
     return search_results
   end

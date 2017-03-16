@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Congrats!</h1>
+    <p>
+      A user has clicked through on a link from the comparison shopping tool. Product information below:
+    </p>
+    <p> 
+      <ul>
+        <li>Product URL: <%= @product.url %></li>
+        <li>Product Name: <%= @product.name %></li>
+        <li>Current User (email): <%= @current_user %></li>        
+      </ul>
+    </p>
+  </body>
+</html>

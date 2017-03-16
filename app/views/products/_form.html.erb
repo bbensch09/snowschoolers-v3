@@ -4,6 +4,7 @@
     <%= f.input :price %>
     <%= f.input :product_type %>
     <%= f.input :details %>
+    <%= f.input :url %>
     <%= f.input :name, placeholder: "1hr Early Bird, Half-day Morning, Half-day Afternoon, Full-day Private, etc.", required:true %>
     <!-- %= f.input :name, as: :select, collection: ['1hr Early Bird', 'Half-day Morning', 'Half-day Afternoon', 'Full-day Private'], include_blank: 'Select Product', label: false , required:true %> -->
     <%= f.input :length, as: :select, collection: [['1 hour',1],['3 hours',3],['6 hours',6]], include_blank: 'Length', label: true , required:false %>

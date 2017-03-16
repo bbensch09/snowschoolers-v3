@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-  before_action :confirm_admin_permissions
+  # before_action :confirm_admin_permissions
+  skip_before_action :authenticate_user!, except: [:import, :delete_all, :index, :create, :destroy, :edit]
+
 
 
   def import
@@ -36,6 +38,50 @@ class ProductsController < ApplicationController
         @products.sort! {|a,b| a.location.name <=> b.location.name}
       else
         @products.sort! {|a,b| a.price <=> b.price}
+    end
+  end
+
+  def pass_search_results
+    if params[:search]
+      @search_params = {search_text: params[:search],status: params[:search_status],pass_type: params[:search_pass_type],resort_filter: params[:resort_filter]}
+      puts "!!!!! the search_params are: #{@search_params}"
+      @products = Product.search(@search_params)
+      @products = @products.to_a.keep_if {|product| product.product_type == "season_pass"}
+    else
+      @products = Product.all.order("price ASC")
+    end
+    case params[:sort_tag]
+      when "Price Low to High"
+        @products.sort {|a,b| a.price <=> b.price}
+      when "Price High to Low"
+        @products.sort {|a,b| b.price <=> a.price}
+      when "Resort A-Z"
+        @products.sort {|a,b| a.location.name <=> b.location.name}
+      else
+        @products.sort {|a,b| a.price <=> b.price}
+    end
+  end
+
+  def learn_to_ski_packages_search_results
+    if params[:resort_filter]
+      @search_params = {search_text: params[:search],status: params[:search_status],pass_type: params[:search_pass_type],resort_filter: params[:resort_filter]}
+      puts "!!!!! the search_params are: #{@search_params}"
+      @products = Product.search(@search_params)
+      @products = @products.to_a.keep_if {|product| product.product_type == "learn_to_ski"}
+    else
+      puts "!!!!no search params detected"
+      @products = Product.all.order("price ASC")
+      @products = @products.to_a.keep_if {|product| product.product_type == "learn_to_ski"}
+    end
+    case params[:sort_tag]
+      when "Price Low to High"
+        @products.sort {|a,b| a.price <=> b.price}
+      when "Price High to Low"
+        @products.sort {|a,b| b.price <=> a.price}
+      when "Resort A-Z"
+        @products.sort {|a,b| a.location.name <=> b.location.name}
+      else
+        @products.sort {|a,b| a.price <=> b.price}
     end
   end
 
@@ -101,7 +147,7 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:name, :price, :location_id, :calendar_period, :search, :length, :slot, :start_time, :search_length, :search_status, :search_slot, :search_cert, :search_sport, :search_location, :sort_tag, :product_type, :is_lesson, :is_private_lesson, :is_group_lesson, :is_lift_ticket, :is_rental, :is_lift_rental_package, :is_lift_lesson_package, :is_lift_less_rental_package, :is_multi_day, :age_type, :details)
+      params.require(:product).permit(:name, :price, :location_id, :calendar_period, :search, :length, :slot, :start_time, :search_length, :search_status, :search_slot, :search_cert, :search_sport, :search_location, :sort_tag, :search_pass_type, :product_type, :is_lesson, :is_private_lesson, :is_group_lesson, :is_lift_ticket, :is_rental, :is_lift_rental_package, :is_lift_lesson_package, :is_lift_less_rental_package, :is_multi_day, :age_type, :details, :url)
     end
 
     def confirm_admin_permissions
