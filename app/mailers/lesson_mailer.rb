@@ -33,6 +33,12 @@ class LessonMailer < ActionMailer::Base
       mail(to: 'brian@snowschoolers.com', subject: "Sumo Success - #{@email} has subscribed.")
   end
 
+  def notify_comparison_shopping_referral(product, current_user)
+      @product = product
+      @current_user = current_user
+      mail(to: 'brian@snowschoolers.com', subject: "comparison shopping click-thru")
+  end
+
   def notify_liftopia_referral
       mail(to: 'brian@snowschoolers.com', subject: "liftopia referral click-thru")
   end

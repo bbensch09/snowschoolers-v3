@@ -9,6 +9,8 @@
 #   # url: redis://localhost:6379/1
 #   url: redis://redistogo:8358ca0a0034d5c1632c6e1cdc35bf7c@koi.redistogo.com:10720/
 
+# EXAMPLE CODE ABOVE
+
 production: &production
   adapter: redis
   url: ENV['REDIS_URL']

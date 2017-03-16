@@ -6,16 +6,22 @@
         </ul>
         <div class="header-content">
             <div class="header-content-inner">
-                    <h1 id="homeHeading" class="shadow-box-highlight">Now is the time to lock in great savings on the '17/18 season!<br>
-                    <span class="smaller-text"></span>
-                    </h1>
-                    <hr>
-                <div id="search-widget">
-                    <%= form_tag(pass_search_results_path, :method => "get", class: "pass-search-form") do %>
-                    <%= text_field_tag :search, params[:search], placeholder: "Shop season passes from your favorite resort", class:'navy-text form-control search-form' %>
-                    <%= submit_tag "Search Spring Deals", class:"btn btn-primary btn-xl page-scroll" %>
-                    <% end %>
+                <h1 id="homeHeading" class="shadow-box-highlight">Now is the perfect time to lock in great savings on the '17/18 season!<br>
+                </h1>
+                <hr>
+                <div>
+                    <a href="tahoe-season-passes-search-results" class="btn btn-primary btn-xl page-scroll">Shop Spring Deals</a>
                 </div>
+                <hr>
+                <div class="shadow-box-highlight season-pass-subheader"> 
+                    <p>
+                        After the snowiest winter in living memory, almost all of the <a href="resorts" class="green-link">16 ski areas</a> in Tahoe are now offering great deals if you buy next year's season pass today. 
+                    <br>
+                    <br>
+                        Buy today not only to lock in a low price, but you'll also enjoy the rest of this year's spring skiing for free!
+                    </p>
+                </div>
+
 
             </div>
         </div>

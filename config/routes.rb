@@ -72,7 +72,6 @@ Rails.application.routes.draw do
   get 'thank_you' => 'instructors#thank_you'
   post '/notify_admin' => 'welcome#notify_admin'
   post 'sumo_success' => 'welcome#sumo_success'
-  get '/liftopia' => 'welcome#liftopia_referral'
   get '/mountain-collective' => 'welcome#mountain_collective_referral'
   get '/skibutlers' => 'welcome#skibutlers_referral'
   get '/sports-basement' => 'welcome#sportsbasement_referral'
@@ -82,6 +81,8 @@ Rails.application.routes.draw do
   get '/march-madness-challenge' => 'selfies#march_madness_challenge'
   get '/blog/latest' => 'blogs#latest'
   get '/team-offsites' => 'welcome#team_offsites'
+  get '/liftopia' => 'welcome#liftopia_referral'
+  get '/shop/:id' => 'welcome#comparison_shopping_referral'
 
   # Begin resort referrals
   get '/homewood' => 'welcome#homewood_referral'

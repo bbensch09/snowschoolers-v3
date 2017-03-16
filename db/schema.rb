@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170303015837) do
+ActiveRecord::Schema.define(version: 20170315222125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -273,6 +273,7 @@ ActiveRecord::Schema.define(version: 20170303015837) do
     t.boolean  "is_multi_day",                              default: false
     t.string   "age_type",                      limit: 255
     t.text     "details"
+    t.string   "url"
   end
 
   create_table "reviews", force: :cascade do |t|

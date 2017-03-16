@@ -2,7 +2,7 @@
   width: 350px;
   display: inline-block;
   line-height: 1.5;
-  font-size: 0.7em;
+  /*font-size: 0.7em;*/
   height: 50px;
 }
 .pass-search-form{
@@ -19,11 +19,10 @@
 #primary-search-bar h2{
   margin-bottom: 0px;
 }
-.primary-search-form li{
-  display: inline-block;
+.primary-search-form {
   margin: auto;
   position: relative;
-  left: 20vw;
+  width: 30%;
 }
 .full-hr{
   max-width:90vw !important;
@@ -31,14 +30,19 @@
 }
 #secondary-search-filters{
   float:left;
-  width:250px;
+  width: 20%;
+  max-width:250px;
   min-height: 70vh;
-  border-right: solid 1px #3b5998;
+  border: solid 1px #3b5998;
+  background-color: #fff;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 #search-results-section{
   float:left;
   padding-left: 30px;
-  width: 870px;
+  width: 80%;
+  max-width: 870px;
 }
 .search-results-card{
   background-color:#d9e9f7;
@@ -46,6 +50,7 @@
   padding: 10px 10px 10px 10px;
   margin-top: 20px;
   margin-bottom: 20px;
+  height: 160px;
 }
 .inactive-partner{
   background-color: #bfb7b7;
@@ -54,7 +59,7 @@
   font-style: italic;
 }
 .product-name{
-    font-size: 2.7em;
+    font-size: 2.0em;
 }
 .location-name{
     margin-bottom: 0px;
@@ -65,15 +70,30 @@
   height:50px;
 }
 .location-logo{
-  max-height: 100px;
+  max-height: 150px;
   width: auto;
-  max-width: 150px;
+  max-width: 95%;
+  vertical-align: middle;
+}
+.location-logo-section{
+  height: 130px;
+}
+.price-offset{
+  position: relative;
+  left: -15px;
+}
+.helper{
+  display: inline-block;;
+  height: 100%;
+  vertical-align: middle;
 }
 .products-cta{
   margin-bottom: 0px;
 }
 #lesson-length-filter ul, #online-booking-filter ul, .location-details ul, #resort-filter ul{
   list-style-type: none;
+  text-align: left;
+
 }
 .location-details ul li {
     font-size: 1.4em;
@@ -85,7 +105,7 @@
   padding-right: 5px;
 }
 #sort_tag, #search_slot{
-  width:90%;
+  
 }
 #secondary-search-filters div h3 {
   color: #3b5998;
@@ -93,4 +113,47 @@
 }
 .section-pass-search-results{
   color: #000 !important;
+}
+.product-price{
+  font-size: 2.0em;
+}
+.season-pass-subheader p {
+  font-size: 0.8em !important;
+}
+
+
+
+/*BEGIN MOBILE STYLE ADJUSTMENTS*/
+@media (max-width: 768px) {
+.search-results-card{
+  height:20%;
+}
+.search-form{
+  width:90%;
+  margin-bottom: 10px;
+}
+#primary-search-bar h2{
+  font-size: 1.7em;
+  line-height: 1.4;
+}
+#search-results-section{
+  width: 100%;
+  padding-left: 0px;
+}
+.location-logo-section{
+  height:70px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.location-logo{
+  max-height: 95%;
+  max-width: 55%;
+  float: left;
+}
+.mobile-price{
+  display: inline-block;
+  float: right;
+}
+
+
 }
