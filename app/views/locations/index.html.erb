@@ -1,5 +1,14 @@
 <h1>Listing locations</h1>
 
+<hr class="deposit-hr-navy">
+<%= form_tag import_locations_path, multipart: true do %>
+<h2>
+  <%= file_field_tag :file, class: 'form-control' %> <%= submit_tag "Import Locations from CSV", class: 'btn btn-default' %>
+<% end %> | 
+  <%= link_to "Export CSV", locations_path(format: "csv"), class: 'btn btn-primary' %> 
+</h2>
+
+
 <table class="instructors-table">
   <thead>
     <tr>

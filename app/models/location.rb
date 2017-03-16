@@ -1,3 +1,5 @@
+require 'csv'
+
 class Location < ActiveRecord::Base
   has_and_belongs_to_many :instructors  #, dependent: :destroy
   has_one :user
@@ -11,6 +13,17 @@ class Location < ActiveRecord::Base
 
   def self.active_partners
     Location.where(partner_status:'Active')
+  end
+
+  def self.to_csv(options = {})
+    desired_columns = %w{ id name partner_status calendar_status region state vertical_feet base_elevation peak_elevation skiable_acres average_snowfall lift_count address
+    }
+    CSV.generate(headers: true) do |csv|
+      csv << desired_columns
+      all.each do |location|
+        csv << location.attributes.values_at(*desired_columns)
+      end
+    end
   end
 
   def lifetime_lessons
