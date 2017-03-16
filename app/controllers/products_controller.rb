@@ -19,6 +19,12 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     @products = Product.all
+    respond_to do |format|
+          format.html
+          format.csv { send_data @products.to_csv, filename: "products-PROD-#{Date.today}.csv" }
+          format.xls
+    end
+
   end
 
   def search_results

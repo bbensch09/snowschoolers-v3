@@ -1,18 +1,18 @@
 <div class="container">
-<h1>Listing products</h1>
+<h1>All products</h1>
 
 <% if @products.present? %>
 <% else %>
   <p>There are no products containing the term(s) "<%= params[:search] %>".</p>
 <% end %>
 
+<hr class="deposit-hr-navy">
 <%= form_tag import_products_path, multipart: true do %>
-  <%= file_field_tag :file, class: 'form-control' %>
-  <%= submit_tag "Import Products from CSV", class: 'btn btn-default' %>
-<% end %>
-<hr>
-  <%= link_to 'Delete Products Database', delete_all_products_path, method: :delete_all, data: { confirm: 'Are you sure?' },  class: 'btn btn-danger' %>
-
+<h2>
+  <%= file_field_tag :file, class: 'form-control' %> <%= submit_tag "Import Products from CSV", class: 'btn btn-default' %>
+<% end %> | 
+  <%= link_to "Export CSV", products_path(format: "csv"), class: 'btn btn-primary' %> |  <%= link_to 'Delete Products Database', delete_all_products_path, method: :delete_all, data: { confirm: 'Are you sure?' },  class: 'btn btn-danger' %>
+</h2>
 
 <table class="instructors-table">
   <thead>
