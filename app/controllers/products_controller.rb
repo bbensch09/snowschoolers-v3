@@ -48,7 +48,7 @@ class ProductsController < ApplicationController
       @products = Product.search(@search_params)
     else
       @products = Product.all.order("price ASC")
-      @products = @products.to_a.keep_if {|product| product.product_type == "season_pass"}
+      @products = @products.to_a.keep_if {|product| product.product_type == "season_pass" && product.age_type == "Adult"}
     end
     case params[:sort_tag]
       when "Price Low to High"
