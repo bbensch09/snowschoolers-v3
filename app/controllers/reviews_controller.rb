@@ -6,6 +6,7 @@ class ReviewsController < ApplicationController
   # GET /reviews.json
   def index
     @reviews = Review.all
+    @reviews = @reviews.to_a.keep_if { |review| review.lesson_id != nil}
   end
 
   # GET /reviews/1
