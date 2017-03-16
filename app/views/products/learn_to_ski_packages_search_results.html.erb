@@ -1,0 +1,97 @@
+<section id="header-creative" class="top-section section-pass-search-results">
+      <ul id="slider">
+          <li>
+              <img src="https://s3.amazonaws.com/snowschoolers/calm-before-storm-feb13.JPG" alt="lake tahoe" class="bg-photo-blurred" alt="" />
+          </li>
+      </ul>
+<div class="container">
+<div>
+  <h1 class="cnter shadow-box-highlight text-white">Compare Tahoe's Best Learn to Ski or Ride Packages</h1>  
+</div>
+<hr class="full-hr">
+
+<h3><a href="#filterOptions" class="btn btn-success hidden-unless-mobile" id="toggle-filter-options">Show Filter Options</a></h3>
+
+<div id="secondary-search-filters" class="hidden-unless-desktop">
+  <%= form_tag(lts_search_results_path, :method => "get", class: "pass-search-form") do %>  
+  <div id="sort-selector">
+      <h3>Sort Results By: </h3>
+      <%= select_tag :sort_tag, options_for_select(["Price Low to High","Price High to Low","Resorts A-Z"], params[:sort_tag]), {class: 'navy-text form-control'} %>
+      </h3>
+  </div>
+  <div id="search-widget hidden">
+      <%= text_field_tag :search, params[:search], placeholder: "Where do you love to ski...?", class:'navy-text form-control search-form hidden' %>
+  </div>
+  <div id="resort-filter">
+    <h3>Filter Resorts</h3>
+    <span class="text-danger"><em>(Please first clear any text-search above.)</em></span>
+    <ul class="resort-filter">
+        <%= collection_check_boxes :resort_filter, :location_ids, Location.all.reverse, :id, :name do |location_item| %>
+        <li class="navy-text">
+          <%= location_item.check_box %>
+          <%= location_item.label %>
+        </li>
+        <% end %>
+    </ul>
+  </div>  
+  <div class="update-filter-cta">
+      <%= submit_tag "Update Filters", class:"btn btn-primary btn-xl page-scroll" %>
+  </div>
+</div>
+      <!-- % end %> -->
+    <% end %>
+
+<div id="search-results-section">
+
+  <div class="notice">
+  <% if @products.present? %>
+  <% else %>
+    <p class="warning">Unfortunately there are no products matching your search.</p>
+    <% if current_user && current_user.email == "brian@snowschoolers.com" %>
+      <p class="warning admin-viewable">The full set of search parameters are: <%= @search_params %>.</p>
+    <% end %>
+  <% end %>
+  </div>
+
+<% @products.each do |product| %>
+
+  <% if product.location.partner_status == "Active" %>
+    <div class="row search-results-card">
+    <% else %>
+    <div class="row search-results-card">
+  <% end %>
+    <div class="col-md-3 col-sm-3 col-xs-12 location-logo-section">
+          <span class="helper"></span>
+          <% if product.location.logo.nil? %>
+            <img src="assets/copyright.jpg" class="instructor-photo ">
+          <% else %>
+            <%= image_tag product.location.logo.url(:large), alt:"location-logo", class:"location-logo center " %>
+          <%end%>
+          <div class="mobile-price hidden-unless-mobile">
+          <% if product.url %>
+            <h2 class="center products-cta">
+              <a href="/shop/<%=product.id%>" class="btn btn-primary btn-lg page-scroll" target="_blank"><%= number_to_currency(product.price) %><span>&nbsp; &nbsp; &nbsp;<i class="fa fa-chevron-right button__icon button__icon--right"></i></span></a>
+              </h2>
+          <% end %>
+          </div>
+    </div>
+    <div class="col-md-7 col-sm-7 location-details">
+      <h1 class="product-name"><%= product.name %> @<%= product.location.name %></h1>
+      <ul>
+        <li><%= product.details %></li>
+      </ul>
+    </div>
+    <div class="col-md-2 col-sm-2 price-offset hidden-unless-desktop">
+        <h1 class="product-price"><%= number_to_currency(product.price) %> </h1>
+        <% if product.url %>
+        <h2 class="center products-cta"><a href="/shop/<%=product.id%>" class="btn btn-primary btn-lg page-scroll" target="_blank">Buy Now</a></h2>
+        <% else %>
+        <h2 class="center products-cta"><a href="mailto:info@snowschoolers.com?subject=How%20do%20I%20make%20a%20lesson%20reservation%20at%20<%=product.location.name%>" target="_blank" class="btn btn-primary page-scroll">Request Info</a></h2>
+        <% end %>
+    </div>
+  </div>
+
+<% end %>
+
+</div>
+</section>

@@ -46,9 +46,32 @@ class ProductsController < ApplicationController
       @search_params = {search_text: params[:search],status: params[:search_status],pass_type: params[:search_pass_type],resort_filter: params[:resort_filter]}
       puts "!!!!! the search_params are: #{@search_params}"
       @products = Product.search(@search_params)
+      @products = @products.to_a.keep_if {|product| product.product_type == "season_pass"}
     else
       @products = Product.all.order("price ASC")
-      @products = @products.to_a.keep_if {|product| product.product_type == "season_pass" && product.age_type == "Adult"}
+    end
+    case params[:sort_tag]
+      when "Price Low to High"
+        @products.sort {|a,b| a.price <=> b.price}
+      when "Price High to Low"
+        @products.sort {|a,b| b.price <=> a.price}
+      when "Resort A-Z"
+        @products.sort {|a,b| a.location.name <=> b.location.name}
+      else
+        @products.sort {|a,b| a.price <=> b.price}
+    end
+  end
+
+  def learn_to_ski_packages_search_results
+    if params[:resort_filter]
+      @search_params = {search_text: params[:search],status: params[:search_status],pass_type: params[:search_pass_type],resort_filter: params[:resort_filter]}
+      puts "!!!!! the search_params are: #{@search_params}"
+      @products = Product.search(@search_params)
+      @products = @products.to_a.keep_if {|product| product.product_type == "learn_to_ski"}
+    else
+      puts "!!!!no search params detected"
+      @products = Product.all.order("price ASC")
+      @products = @products.to_a.keep_if {|product| product.product_type == "learn_to_ski"}
     end
     case params[:sort_tag]
       when "Price Low to High"
