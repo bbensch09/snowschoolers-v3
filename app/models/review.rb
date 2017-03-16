@@ -17,7 +17,7 @@ class Review < ActiveRecord::Base
   end
 
   def self.average_rating
-    @reviews = Review.all.to_a.keep_if { |review| review.lesson_id != nil}
+    @reviews = Review.all.to_a.keep_if { |review| review.rating != nil && review.lesson_id != nil }
     cumulative_review_score = 0
     @reviews.each do |review|
       cumulative_review_score += review.rating
