@@ -15,6 +15,15 @@ class Location < ActiveRecord::Base
     Location.where(partner_status:'Active')
   end
 
+  def self.import(file)
+    CSV.foreach(file.path, headers:true) do |row|
+      if Location.where(id:row.id).length == 0
+        Location.create!(row.to_hash)
+        puts "new product created with name: #{Product.last.name}"
+      end
+    end
+  end
+
   def self.to_csv(options = {})
     desired_columns = %w{ id name partner_status calendar_status region state vertical_feet base_elevation peak_elevation skiable_acres average_snowfall lift_count address
     }

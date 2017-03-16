@@ -11,7 +11,11 @@ class LocationsController < ApplicationController
           format.csv { send_data @locations_to_csv.to_csv, filename: "locations-#{Date.today}.csv" }
           format.xls
     end
+  end
 
+  def import
+   Location.import(params[:file])
+   redirect_to products_path, notice: "New products data successfully imported."
   end
 
   # GET /locations/1
