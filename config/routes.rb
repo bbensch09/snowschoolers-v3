@@ -40,7 +40,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :locations
+  resources :locations do 
+        collection {post :import}
+  end
   resources :charges
 
   # root to: "lessons#new"

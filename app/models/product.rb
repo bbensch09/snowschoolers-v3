@@ -10,7 +10,6 @@ class Product < ActiveRecord::Base
   end
 
   def self.to_csv(options = {})
-    desired_columns = %w{id email name user_type resort_affiliation created_at}
     desired_columns = %w{
       name  location_id details calendar_period price length  slot  start_time  product_type  age_type  url is_multi_day  is_lesson is_private_lesson is_group_lesson is_lift_ticket  is_rental is_lift_rental_package  is_lift_lesson_package
     }
