@@ -77,7 +77,7 @@
 
 <% @products.each do |product| %>
 
-  <% if product.location.partner_status == "Active" %>
+  <% if product.location %>
     <div class="row search-results-card">
     <% else %>
     <div class="row search-results-card">
