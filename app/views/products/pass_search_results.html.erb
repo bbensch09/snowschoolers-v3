@@ -78,13 +78,11 @@
 <% @products.each do |product| %>
 
   <% if product.location %>
-    <div class="row search-results-card">
-    <% else %>
-    <div class="row search-results-card">
-  <% end %>
+  <div class="row search-results-card">    
+  
     <div class="col-md-3 col-sm-3 col-xs-12 location-logo-section">
           <span class="helper"></span>
-          <% if product.location.logo.nil? %>
+          <% if product.location.nil? || product.location.logo.nil? %>
             <img src="assets/copyright.jpg" class="instructor-photo ">
           <% else %>
             <%= image_tag product.location.logo.url(:large), alt:"location-logo", class:"location-logo center " %>
@@ -112,6 +110,7 @@
         <% end %>
     </div>
   </div>
+  <% end %>
 
 <% end %>
     <p class="shadow-box-highlight white-text">Are we missing something? Or have prices changed? Let us know by emailing <a href="mailto:info@snowschoolers.com" class="green-link" target="_blank">info@snowschoolers.com</a></p>
