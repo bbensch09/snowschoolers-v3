@@ -14,6 +14,10 @@
       <%= submit_tag "Search", class:"btn btn-primary btn-lg" %>
   </div>
   <h3 class="center hidden-unless-desktop shadow-box-highlight text-white">There are <%= @products.count %> season passes that match your current search criteria:</h3>
+  <div class="other-search-verticals">
+    <!-- <a href="learn_to_ski_packages_search_results" class="btn btn-primary btn-lg"> Shop Lesson Packages</a> -->
+    <!-- <a href="lift_tickets_search_results" class="btn btn-primary btn-lg"> Shop Lift Ticket Prices</a> -->
+  </div>
 </div>
 <hr class="full-hr">
 
@@ -27,7 +31,7 @@
   </div>
   <div id="lesson-slot-filter">
       <h3>Pass Type</h3>
-      <%= select_tag :search_pass_type, options_for_select(["All Passes","Adult","Teenager","Child","College"], params[:search_pass_type]), {class: 'navy-text form-control'} %>
+      <%= select_tag :search_pass_type, options_for_select(["All Passes","Adult","Child","College"], params[:search_pass_type]), {class: 'navy-text form-control'} %>
   </div>  
   <div id="resort-filter">
     <h3>Filter Resorts</h3>
@@ -89,7 +93,7 @@
     <div class="col-md-2 col-sm-2 price-offset hidden-unless-desktop">
         <h1 class="product-price"><%= number_to_currency(product.price) %> </h1>
         <% if product.url %>
-        <h2 class="center products-cta"><a href="/shop/<%=product.id%>" class="btn btn-primary btn-lg page-scroll" target="_blank">Book Now</a></h2>
+        <h2 class="center products-cta"><a href="/shop/<%=product.id%>" class="btn btn-primary btn-lg page-scroll" target="_blank">Buy Now</a></h2>
         <% else %>
         <h2 class="center products-cta"><a href="mailto:info@snowschoolers.com?subject=How%20do%20I%20make%20a%20lesson%20reservation%20at%20<%=product.location.name%>" target="_blank" class="btn btn-primary page-scroll">Request Info</a></h2>
         <% end %>
