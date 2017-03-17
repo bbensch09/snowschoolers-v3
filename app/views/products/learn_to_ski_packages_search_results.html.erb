@@ -56,10 +56,8 @@
 <% @products.each do |product| %>
 
   <% if product.location %>
-    <div class="row search-results-card">
-    <% else %>
-    <div class="row search-results-card">
-  <% end %>
+  <div class="row search-results-card">    
+  
     <div class="col-md-3 col-sm-3 col-xs-12 location-logo-section">
           <span class="helper"></span>
           <% if product.location.logo.nil? %>
@@ -90,6 +88,7 @@
         <% end %>
     </div>
   </div>
+ <% end %>  
 
 <% end %>
 
