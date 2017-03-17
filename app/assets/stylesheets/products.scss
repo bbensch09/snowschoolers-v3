@@ -35,8 +35,8 @@
   min-height: 70vh;
   border: solid 1px #3b5998;
   background-color: #fff;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 5px;
+  padding-right: 5px;
   padding-bottom: 10px;
 }
 #search-results-section{
@@ -94,6 +94,7 @@
 #lesson-length-filter ul, #online-booking-filter ul, .location-details ul, #resort-filter ul{
   list-style-type: none;
   text-align: left;
+  padding-left: 5px;
 
 }
 .location-details ul li {
