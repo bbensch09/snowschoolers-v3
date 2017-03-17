@@ -50,7 +50,7 @@
     <h3>Filter Resorts</h3>
     <!-- <span class="text-danger"><em>(Please first clear any text-search above.)</em></span> -->
     <ul class="resort-filter">
-        <%= collection_check_boxes :resort_filter, :location_ids, Location.all.reverse, :id, :name do |location_item| %>
+        <%= collection_check_boxes :resort_filter, :location_ids, Location.tahoe_locations.sort_by { |location| location.name.downcase}, :id, :name do |location_item| %>
         <li class="navy-text">
           <%= location_item.check_box %>
           <%= location_item.label %>

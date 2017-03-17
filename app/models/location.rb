@@ -11,6 +11,10 @@ class Location < ActiveRecord::Base
   validates_attachment_content_type :logo, content_type: /\Aimage\/.*\Z/
 
 
+  def self.tahoe_locations
+    Location.all.to_a.keep_if {|location| location.region == "North Tahoe" || location.region == "Sout Tahoe"}
+  end
+
   def self.active_partners
     Location.where(partner_status:'Active')
   end
