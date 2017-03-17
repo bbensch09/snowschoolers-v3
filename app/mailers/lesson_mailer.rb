@@ -39,6 +39,10 @@ class LessonMailer < ActionMailer::Base
       mail(to: 'brian@snowschoolers.com', subject: "comparison shopping click-thru")
   end
 
+  def notify_homewood_pass_referral
+      mail(to: 'brian@snowschoolers.com', subject: "homewood pass referral click-thru")
+  end
+
   def notify_liftopia_referral
       mail(to: 'brian@snowschoolers.com', subject: "liftopia referral click-thru")
   end

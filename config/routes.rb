@@ -86,6 +86,7 @@ Rails.application.routes.draw do
   get '/blog/latest' => 'blogs#latest'
   get '/team-offsites' => 'welcome#team_offsites'
   get '/liftopia' => 'welcome#liftopia_referral'
+  get '/homewood-season-pass' => 'welcome#homewood_pass_referral'
   get '/shop/:id' => 'welcome#comparison_shopping_referral'
 
   # Begin resort referrals
@@ -121,7 +122,7 @@ Rails.application.routes.draw do
   get 'lessons/admin_index' => 'lessons#admin_index'
   get 'browse' => 'instructors#browse'
   get 'search' => 'products#search'
-  get 'tahoe-season-passes' => 'products#season_pass_search'
+  get 'tahoe-season-passes' => 'products#pass_search_results'
   get 'tahoe-season-passes-search-results' => 'products#pass_search_results', as: :pass_search_results
   get 'search-results' => 'products#search_results', as: :search_results
   get 'lessons/book_product/:id' => 'lessons#book_product'

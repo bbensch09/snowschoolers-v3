@@ -53,8 +53,10 @@ class ProductsController < ApplicationController
       puts "!!!!! the search_params are: #{@search_params}"
       @products = Product.search(@search_params)
       @products = @products.to_a.keep_if {|product| product.product_type == "season_pass"}
+      @products = @products.sort! {|a,b| a.price <=> b.price }
     else
-      @products = Product.all.order("price ASC")
+      @products = Product.all.to_a.keep_if {|product| product.product_type == "season_pass"}
+      @products = @products.sort! {|a,b| a.price <=> b.price }
     end
     case params[:sort_tag]
       when "Price Low to High"

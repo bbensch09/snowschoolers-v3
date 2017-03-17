@@ -60,7 +60,12 @@ class WelcomeController < ApplicationController
     redirect_to @product.url
   end
 
-  def liftopia_referral
+  def homewood_pass_referral
+    LessonMailer.notify_homewood_pass_referral.deliver
+    redirect_to "http://www.skihomewood.com/ski-tickets/season-passes"
+  end
+
+def liftopia_referral
     LessonMailer.notify_liftopia_referral.deliver
     redirect_to "http://www.avantlink.com/click.php?tt=cl&amp;mi=10065&amp;pw=209735&amp;url=https%3A%2F%2Fwww.liftopia.com%2Fhomewood"
   end
