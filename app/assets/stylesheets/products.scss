@@ -74,6 +74,8 @@
   max-height: 140px;
   width: auto;
   max-width: 95%;
+  left: -10%;
+  position: relative;
   vertical-align: middle;
 }
 .location-logo-section{
@@ -162,11 +164,18 @@
   max-height: 95%;
   max-width: 55%;
   float: left;
+  left: 0px;
 }
 .mobile-price{
   display: inline-block;
   float: right;
 }
-
-
+.location-details ul li {
+    font-size: 1.1em;
+    left: 0px;
+}
+.product-name{
+  font-size: 1.3em;
+  font-weight: bold;
+}
 }
