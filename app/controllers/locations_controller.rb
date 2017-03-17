@@ -15,7 +15,7 @@ class LocationsController < ApplicationController
 
   def import
    Location.import(params[:file])
-   redirect_to products_path, notice: "New products data successfully imported."
+   redirect_to locations_path, notice: "New locations data successfully imported."
   end
 
   # GET /locations/1

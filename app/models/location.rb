@@ -17,10 +17,7 @@ class Location < ActiveRecord::Base
 
   def self.import(file)
     CSV.foreach(file.path, headers:true) do |row|
-      if Location.where(id:row.id).length == 0
         Location.create!(row.to_hash)
-        puts "new product created with name: #{Product.last.name}"
-      end
     end
   end
 
