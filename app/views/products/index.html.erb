@@ -23,7 +23,7 @@
       <th>Age Type</th>
       <th>Name</th>
       <th>Location</th>
-      <th>URL</th>
+      <!-- <th>URL</th> -->
       <th>Length</th>
       <th>Slot</th>
       <th>Start time</th>
@@ -53,7 +53,7 @@
         <td><%= product.age_type %></td>
         <td><%= link_to product.name, edit_product_path(product) %></td>
         <td><% if product.location.nil? %> "Unknown" <% else %> <%= product.location.name %> <% end %> </td>
-        <td><%= product.url %></td>
+        <!-- <td><%= product.url %></td> -->
         <td><%= product.length %></td>
         <td><%= product.slot %></td>
         <td><%= product.start_time %></td>
