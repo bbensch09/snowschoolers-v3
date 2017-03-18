@@ -258,6 +258,11 @@ var toggleElementListener = function(){
     $('#available-lessons').toggleClass('hidden');
     console.log("lessons revealed, buttons switched.");
   });
+    $('#toggle-filter-options').click(function(e){
+    e.preventDefault();
+    $('#secondary-search-filters').toggleClass('hidden-unless-desktop');
+    console.log("filters revealed.");
+  });
     $('#toggle-more-info').click(function(e){
     e.preventDefault();
     $('#more-info').toggleClass('hidden');

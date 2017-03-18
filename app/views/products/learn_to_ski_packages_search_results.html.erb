@@ -24,7 +24,7 @@
   </div>
   <div id="resort-filter">
     <h3>Filter Resorts</h3>
-    <span class="text-danger"><em>(Please first clear any text-search above.)</em></span>
+    <!-- <span class="text-danger"><em>(Please first clear any text-search above.)</em></span> -->
     <ul class="resort-filter">
         <%= collection_check_boxes :resort_filter, :location_ids, Location.tahoe_locations.sort_by { |location| location.name.downcase}, :id, :name do |location_item| %>
         <li class="navy-text">
@@ -35,7 +35,7 @@
     </ul>
   </div>  
   <div class="update-filter-cta">
-      <%= submit_tag "Update Filters", class:"btn btn-primary btn-xl page-scroll" %>
+      <%= submit_tag "Update Filters", class:"btn btn-primary btn-xl mobile-btn-text" %>
   </div>
 </div>
       <!-- % end %> -->
