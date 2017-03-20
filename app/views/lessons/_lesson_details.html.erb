@@ -22,7 +22,7 @@
 <% end %>
 </p>
 <div class='row'>
-  <%if @lesson.state == "finalizing payment & reviews" || @lesson.state == "Payment Complete" %>
+  <%if @lesson.public_feedback_for_student %>
       <%= render partial: 'lessons/confirmed_time_and_feedback' %>
   <% end %>
 
