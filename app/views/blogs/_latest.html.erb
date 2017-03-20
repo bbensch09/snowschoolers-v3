@@ -1,7 +1,7 @@
 <% meta_tag :description, "Snow Schoolers is an online platform for private ski & snowboard lessons. Easily browse profiles & reviews, then book a private ski or snowboard lesson  with our fleet of expert, certified instructors. We collaborate closely with each of our ski area partners to ensure a consistent brand experience while maximizing the financial return of ski school operations to the mountain." %>
 
 <% @blog = Blog.last %>
-<div class="profile-container">
+<div class="blog-container">
 
 <div class="content-area blog-bg col-lg-12 col-xs-12">
 <div class="title-author-top">
@@ -15,12 +15,12 @@
       <strong>By: <%= @blog.author %> </strong> |  <em>Published:  <%= @blog.time_since_written %> </em>
     </p>
   </p>
-  <hr>
+  <hr class="deposit-hr-navy">
 </div>
 <div id="blog-content">
   <%= raw(@blog.content) %>
 </div>
-  <hr>
+  <hr class="deposit-hr-navy">
 
 <div id="disqus_thread"></div>
 <script>
@@ -52,6 +52,5 @@ s.setAttribute('data-timestamp', +new Date());
 <%= link_to 'Back to Blog', blogs_path, class:"btn btn-default" %>
 </div>
 </div>
-<hr>
 <div class="buffer"></div>
 </div>
