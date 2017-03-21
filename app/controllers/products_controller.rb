@@ -116,11 +116,11 @@ class ProductsController < ApplicationController
       @search_params = {search_text: params[:search],status: params[:search_status],pass_type: params[:search_pass_type],resort_filter: params[:resort_filter],sort_tag: params[:sort_tag]}
       puts "!!!!! the search_params are: #{@search_params}"
       @products = Product.search(@search_params)
-      @products = @products.to_a.keep_if {|product| product.product_type == "private_lesson"}
+      @products = @products.to_a.keep_if {|product| product.product_type == "private_lesson" && product.calendar_period == product.location.calendar_status}
     else
       puts "!!!!no search params detected"
       @products = Product.all.order("price ASC")
-      @products = @products.to_a.keep_if {|product| product.product_type == "private_lesson"}
+      @products = @products.to_a.keep_if {|product| product.product_type == "private_lesson" && product.calendar_period == product.location.calendar_status}
     end
     case params[:sort_tag]
       when "Price Low to High"
