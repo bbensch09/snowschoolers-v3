@@ -21,7 +21,8 @@ class Location < ActiveRecord::Base
 
   def self.import(file)
     CSV.foreach(file.path, headers:true) do |row|
-        Location.create!(row.to_hash)
+        location = Location.find_or_create_by(id: row['id'])
+        location.update_attributes(row.to_hash)      
     end
   end
 
