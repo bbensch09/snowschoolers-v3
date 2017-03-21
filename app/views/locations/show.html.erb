@@ -20,6 +20,14 @@
   <strong>State:</strong>
   <%= @location.state %>
 </p>
+<p>
+  <strong>city:</strong>
+  <%= @location.city %>
+</p>
+<p>
+  <strong>state_abbreviation:</strong>
+  <%= @location.state_abbreviation %>
+</p>
 
 <%= link_to 'Edit', edit_location_path(@location) %> |
 <%= link_to 'Back', locations_path %>

@@ -1,0 +1,40 @@
+<% if product.location %>
+  <div class="row search-results-card">    
+  
+    <div class="col-md-3 col-sm-3 col-xs-12 location-logo-section">
+          <span class="helper"></span>
+          <% if product.location.nil? || product.location.logo.nil? %>
+            <img src="assets/copyright.jpg" class="instructor-photo ">
+          <% else %>
+            <%= image_tag product.location.logo.url(:large), alt:"location-logo", class:"location-logo center " %>
+          <p class="resort-location-serp hidden-unless-desktop">
+            <%= product.location.region %> in <%= product.location.city %>, <%= product.location.state_abbreviation %> (<a href="https://www.google.com/maps/search/<%= product.location.address %>" class="navy-link" target="_blank">map</a>)
+          </p>
+          <%end%>
+          <div class="mobile-price hidden-unless-mobile">
+          <% if product.url %>
+            <h2 class="center products-cta">
+              <a href="/shop/<%=product.id%>" class="btn btn-primary btn-lg page-scroll" target="_blank"><%= number_to_currency(product.price) %><span>&nbsp; &nbsp; &nbsp;<i class="fa fa-chevron-right button__icon button__icon--right"></i></span></a>
+              </h2>
+          <% end %>
+          </div>
+    </div>
+    <div class="col-md-7 col-sm-7 location-details">
+      <h1 class="product-name"><%= product.name %> @<%= product.location.name %></h1>
+      <p class="resort-location-serp hidden-unless-mobile">
+            <%= product.location.region %> in <%= product.location.city %>, <%= product.location.state_abbreviation %> (<a href="https://www.google.com/maps/search/<%= product.location.address %>" class="navy-link" target="_blank">map</a>)
+          </p>
+      <ul>
+        <li><%= product.details %></li>
+      </ul>
+    </div>
+    <div class="col-md-2 col-sm-2 price-offset hidden-unless-desktop">
+        <h1 class="product-price"><%= number_to_currency(product.price) %> </h1>
+        <% if product.url %>
+        <h2 class="center products-cta"><a href="/shop/<%=product.id%>" class="btn btn-primary btn-lg page-scroll" target="_blank">Buy Now</a></h2>
+        <% else %>
+        <h2 class="center products-cta"><a href="mailto:info@snowschoolers.com?subject=How%20do%20I%20make%20a%20lesson%20reservation%20at%20<%=product.location.name%>" target="_blank" class="btn btn-primary page-scroll">Request Info</a></h2>
+        <% end %>
+    </div>
+  </div>
+  <% end %>
