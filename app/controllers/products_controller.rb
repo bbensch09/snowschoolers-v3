@@ -40,6 +40,12 @@ class ProductsController < ApplicationController
         @products.sort! {|a,b| a.price <=> b.price}
       when "Price High to Low"
         @products.sort! {|a,b| b.price <=> a.price}
+      when "South Tahoe Only"
+        @products.keep_if {|product| product.location.region == "South Lake Tahoe"}
+        @products.sort! {|a,b| a.price <=> b.price}
+      when "North Tahoe Only"
+        @products.keep_if {|product| product.location.region == "North Tahoe"}
+        @products.sort! {|a,b| a.price <=> b.price}
       when "Resort A-Z"
         @products.sort! {|a,b| a.location.name <=> b.location.name}
       else
@@ -49,7 +55,7 @@ class ProductsController < ApplicationController
 
   def pass_search_results
     if params[:search]
-      @search_params = {search_text: params[:search],status: params[:search_status],pass_type: params[:search_pass_type],resort_filter: params[:resort_filter]}
+      @search_params = {search_text: params[:search],status: params[:search_status],pass_type: params[:search_pass_type],resort_filter: params[:resort_filter],sort_tag: params[:sort_tag]}
       puts "!!!!! the search_params are: #{@search_params}"
       @products = Product.search(@search_params)
       @products = @products.to_a.keep_if {|product| product.product_type == "season_pass"}
@@ -63,6 +69,12 @@ class ProductsController < ApplicationController
         @products.sort {|a,b| a.price <=> b.price}
       when "Price High to Low"
         @products.sort {|a,b| b.price <=> a.price}
+      when "South Tahoe Only"
+        @products.keep_if {|product| product.location.region == "South Lake Tahoe"}
+        @products.sort! {|a,b| a.price <=> b.price}
+      when "North Tahoe Only"
+        @products.keep_if {|product| product.location.region == "North Tahoe"}
+        @products.sort! {|a,b| a.price <=> b.price}
       when "Resort A-Z"
         @products.sort {|a,b| a.location.name <=> b.location.name}
       else
@@ -72,7 +84,7 @@ class ProductsController < ApplicationController
 
   def learn_to_ski_packages_search_results
     if params[:resort_filter]
-      @search_params = {search_text: params[:search],status: params[:search_status],pass_type: params[:search_pass_type],resort_filter: params[:resort_filter]}
+      @search_params = {search_text: params[:search],status: params[:search_status],pass_type: params[:search_pass_type],resort_filter: params[:resort_filter],sort_tag: params[:sort_tag]}
       puts "!!!!! the search_params are: #{@search_params}"
       @products = Product.search(@search_params)
       @products = @products.to_a.keep_if {|product| product.product_type == "learn_to_ski"}
@@ -83,16 +95,79 @@ class ProductsController < ApplicationController
     end
     case params[:sort_tag]
       when "Price Low to High"
-        @products.sort {|a,b| a.price <=> b.price}
+        @products.sort! {|a,b| a.price <=> b.price}
       when "Price High to Low"
-        @products.sort {|a,b| b.price <=> a.price}
-      when "Resort A-Z"
-        @products.sort {|a,b| a.location.name <=> b.location.name}
+        @products.sort! {|a,b| b.price <=> a.price}
+      when "South Tahoe Only"
+        @products.keep_if {|product| product.location.region == "South Lake Tahoe"}
+        @products.sort! {|a,b| a.price <=> b.price}
+      when "North Tahoe Only"
+        @products.keep_if {|product| product.location.region == "North Tahoe"}
+        @products.sort! {|a,b| a.price <=> b.price}
+      when "Resorts A-Z"
+        @products.sort! {|a,b| a.location.name <=> b.location.name}
       else
-        @products.sort {|a,b| a.price <=> b.price}
+        @products.sort! {|a,b| a.price <=> b.price}
     end
   end
 
+  def private_lessons_search_results
+    if params[:resort_filter]
+      @search_params = {search_text: params[:search],status: params[:search_status],pass_type: params[:search_pass_type],resort_filter: params[:resort_filter],sort_tag: params[:sort_tag]}
+      puts "!!!!! the search_params are: #{@search_params}"
+      @products = Product.search(@search_params)
+      @products = @products.to_a.keep_if {|product| product.product_type == "private_lesson"}
+    else
+      puts "!!!!no search params detected"
+      @products = Product.all.order("price ASC")
+      @products = @products.to_a.keep_if {|product| product.product_type == "private_lesson"}
+    end
+    case params[:sort_tag]
+      when "Price Low to High"
+        @products.sort! {|a,b| a.price <=> b.price}
+      when "South Tahoe Only"
+        @products.keep_if {|product| product.location.region == "South Lake Tahoe"}
+        @products.sort! {|a,b| a.price <=> b.price}
+      when "North Tahoe Only"
+        @products.keep_if {|product| product.location.region == "North Tahoe"}
+        @products.sort! {|a,b| a.price <=> b.price}
+      when "Price High to Low"
+        @products.sort! {|a,b| b.price <=> a.price}
+      when "Resorts A-Z"
+        @products.sort! {|a,b| a.location.name <=> b.location.name}
+      else
+        @products.sort! {|a,b| a.price <=> b.price}
+    end
+  end
+
+  def lift_tickets_search_results
+    if params[:resort_filter]
+      @search_params = {search_text: params[:search],status: params[:search_status],pass_type: params[:search_pass_type],resort_filter: params[:resort_filter],sort_tag: params[:sort_tag]}
+      puts "!!!!! the search_params are: #{@search_params}"
+      @products = Product.search(@search_params)
+      @products = @products.to_a.keep_if {|product| product.product_type == "lift_ticket"}
+    else
+      puts "!!!!no search params detected"
+      @products = Product.all.order("price ASC")
+      @products = @products.to_a.keep_if {|product| product.product_type == "lift_ticket"}
+    end
+    case params[:sort_tag]
+      when "Price Low to High"
+        @products.sort! {|a,b| a.price <=> b.price}
+      when "South Tahoe Only"
+        @products.keep_if {|product| product.location.region == "South Lake Tahoe"}
+        @products.sort! {|a,b| a.price <=> b.price}
+      when "North Tahoe Only"
+        @products.keep_if {|product| product.location.region == "North Tahoe"}
+        @products.sort! {|a,b| a.price <=> b.price}
+      when "Price High to Low"
+        @products.sort! {|a,b| b.price <=> a.price}
+      when "Resorts A-Z"
+        @products.sort! {|a,b| a.location.name <=> b.location.name}
+      else
+        @products.sort! {|a,b| a.price <=> b.price}
+    end
+  end
   # GET /products/1
   # GET /products/1.json
   def show

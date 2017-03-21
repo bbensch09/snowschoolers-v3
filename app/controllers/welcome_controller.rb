@@ -56,7 +56,8 @@ class WelcomeController < ApplicationController
   def comparison_shopping_referral
     @product = Product.find(params[:id])
     @current_user = current_user ? current_user.email : "Unknown"
-    LessonMailer.notify_comparison_shopping_referral(@product,@current_user).deliver
+    @unique_id = request.remote_ip
+    LessonMailer.notify_comparison_shopping_referral(@product,@current_user,@unique_id).deliver
     redirect_to @product.url
   end
 

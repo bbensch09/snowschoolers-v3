@@ -59,6 +59,12 @@ Rails.application.routes.draw do
   get 'beginners-guide-to-tahoe' => "welcome#beginners_guide_to_tahoe"
   get 'learn-to-ski' => "welcome#learn_to_ski_packages"
   get 'learn-to-ski-packages' => "products#learn_to_ski_packages_search_results", as: :lts_search_results
+  get 'private-lessons' => "products#private_lessons_search_results", as: :private_lessons_search_results
+  get 'lift-tickets' => "products#lift_tickets_search_results", as: :lift_tickets_search_results
+  get 'search' => 'products#search'
+  get 'tahoe-season-passes' => 'products#pass_search_results'
+  get 'tahoe-season-passes-search-results' => 'products#pass_search_results', as: :pass_search_results
+  get 'search-results' => 'products#search_results', as: :search_results 
 
   get   'lessons/sugarbowl'               => 'lessons#sugarbowl'
   # get 'homewood' => "welcome#homewood"
@@ -121,10 +127,6 @@ Rails.application.routes.draw do
   get '/admin_index' => 'instructors#admin_index'
   get 'lessons/admin_index' => 'lessons#admin_index'
   get 'browse' => 'instructors#browse'
-  get 'search' => 'products#search'
-  get 'tahoe-season-passes' => 'products#pass_search_results'
-  get 'tahoe-season-passes-search-results' => 'products#pass_search_results', as: :pass_search_results
-  get 'search-results' => 'products#search_results', as: :search_results
   get 'lessons/book_product/:id' => 'lessons#book_product'
   # post 'search_results' => 'products#search_results', as: :refresh_search_results
 

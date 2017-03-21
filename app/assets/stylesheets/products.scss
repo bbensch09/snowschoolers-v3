@@ -71,7 +71,7 @@
   height:50px;
 }
 .location-logo{
-  max-height: 140px;
+  max-height: 110px;
   width: auto;
   max-width: 95%;
   left: -10%;
@@ -79,7 +79,7 @@
   vertical-align: middle;
 }
 .location-logo-section{
-  height: 130px;
+  height: 120px;
 }
 .price-offset{
   position: relative;
@@ -100,7 +100,7 @@
 
 }
 .location-details ul li {
-    font-size: 1.4em;
+    font-size: 1.3em;
     padding-bottom: 15px;
     left: -40px;
     position: relative;
@@ -135,6 +135,12 @@
 }
 .update-filter-cta{
   margin-top: 10px;
+}
+.resort-location-serp{
+  color: #000;
+  max-width: 80%;
+  font-size: 0.8em;
+  font-style: italic;
 }
 
 
@@ -188,6 +194,12 @@
   font-size: 1.7em !important;
 }
 .update-filter-cta{
+}
+.resort-location-serp{
+  max-width: 100%;
+  font-size: 0.9em;
+  font-style: italic;
+  margin-bottom: 10px;
 }
 
 }
