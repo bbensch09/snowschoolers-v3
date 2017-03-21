@@ -12,40 +12,29 @@
           After the snowiest winter in decades, most of Tahoe's <a href="resorts" class="green-link">16 ski areas</a> are now offering great deals on next year's season passes. When you buy today, you not only lock in the lowest price, you'll also enjoy the rest of this year's spring skiing for free!
       </p>
   </div>
-  
-<!--   <div class="other-search-verticals">
-    <a href="learn_to_ski_packages_search_results" class="btn btn-primary btn-lg"> Shop Lesson Packages</a>
-    <a href="lift_tickets_search_results" class="btn btn-primary btn-lg"> Shop Lift Ticket Prices</a>
+  <div class="other-search-verticals">
+    <a href="private-lessons" class="btn btn-primary btn-lg"> Shop Private Lessons</a>
+    <a href="learn-to-ski-packages" class="btn btn-primary btn-lg"> Shop Lesson Packages</a>
+    <!-- <a href="tahoe-season-passes" class="btn btn-primary btn-lg"> Shop Season Passes</a> -->
+    <a href="lift-tickets" class="btn btn-primary btn-lg"> Shop Lift Tickets</a>
   </div>
- -->
+  
  </div>
 <hr class="full-hr">
-  <div>
-    <%= form_tag(pass_search_results_path, :method => "get", class: "pass-search-form") do %>
-    <div id="search-widget" class="hidden">
-      <%= text_field_tag :search, params[:search], value: "", placeholder: "Where do you love to ski...?", class:'navy-text form-control search-form' %>
-      <%= submit_tag "Search", class:"btn btn-primary btn-lg" %>
-    </div>
-    <% if params[:search] %>
-    <h4 class="center hidden-unless-desktop shadow-box-highlight text-white">There are <%= @products.count %> season passes that match your current search criteria:</h4>
-    <% end %>
-  </div>  
-
+ 
 <h3><a href="#filterOptions" class="btn btn-success hidden-unless-mobile" id="toggle-filter-options">Show Filter Options</a></h3>
 
 <div id="secondary-search-filters" class="hidden-unless-desktop">
-  <div class="update-filter-cta">
-      <%= submit_tag "Update Filters", class:"btn btn-primary btn-xl page-scroll" %>
-  </div>
-  <div id="sort-selector">
+  <%= form_tag(pass_search_results_path, :method => "get", class: "pass-search-form") do %>  
+  <div id="sort-selector"
       <h3>Sort Results By: </h3>
-      <%= select_tag :sort_tag, options_for_select(["Price Low to High","Price High to Low","Resorts A-Z"], params[:sort_tag]), {class: 'navy-text form-control'} %>
+      <%= select_tag :sort_tag, options_for_select(["Price Low to High","Price High to Low","North Tahoe Only","South Tahoe Only","Resorts A-Z"], params[:sort_tag]), {class: 'navy-text form-control'} %>
       </h3>
   </div>
-  <div id="lesson-slot-filter">
-      <h3>Pass Type</h3>
-      <%= select_tag :search_pass_type, options_for_select(["All Passes","Adult","Child","College"], params[:search_pass_type]), {class: 'navy-text form-control'} %>
-  </div>  
+  <div id="search-widget hidden">
+      <%= text_field_tag :search, params[:search], placeholder: "Where do you love to ski...?", class:'navy-text form-control search-form hidden' %>
+  </div>
+
   <div id="resort-filter">
     <h3>Filter Resorts</h3>
     <!-- <span class="text-danger"><em>(Please first clear any text-search above.)</em></span> -->
@@ -77,10 +66,11 @@
 
 <% @products.each do |product| %>
 
-  <%= render partial: "product_card" %>
+  <%= render partial: "product_card", locals: {product: product} %>
 
 <% end %>
-    <p class="shadow-box-highlight white-text">Are we missing something? Or have prices changed? Let us know by emailing <a href="mailto:info@snowschoolers.com" class="green-link" target="_blank">info@snowschoolers.com</a></p>
+
+  <p class="shadow-box-highlight white-text">Are we missing something? Or have prices changed? Let us know by emailing <a href="mailto:info@snowschoolers.com" class="green-link" target="_blank">info@snowschoolers.com</a></p>
 
 </div>
 </section>

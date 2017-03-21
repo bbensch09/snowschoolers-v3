@@ -10,9 +10,12 @@
     </p>
     <p> 
       <ul>
-        <li>Product URL: <%= @product.url %></li>
+        <li>Redirected product URL: <%= @product.url %></li>
+        <li>Referring URL: <%= product_url(@product) %></li>
+        <li>Category: <%= @product.product_type %></li>
         <li>Product Name: <%= @product.name %></li>
         <li>Current User (email): <%= @current_user %></li>        
+        <li>IP Address: <%= @unique_id %></li>        
       </ul>
     </p>
   </body>
