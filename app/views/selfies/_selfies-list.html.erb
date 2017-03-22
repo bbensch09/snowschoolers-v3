@@ -1,4 +1,4 @@
-<div class="col-md-6 selfie-post">
+<div class="col-md-6 col-xs-12 selfie-post">
 	<% if selfie.social_network == "Twitter" %>
 		<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">
 			<a href=<%= selfie.link %> ></a>
@@ -15,4 +15,5 @@
 		  <%= link_to 'Edit', edit_selfy_path(selfie), class: 'btn btn-default' %>
 		<% end %>
 	</p>
+	<hr class="deposit-hr-navy hidden-unless-mobile">
 </div>

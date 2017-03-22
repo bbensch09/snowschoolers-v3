@@ -16,9 +16,17 @@
 	border-bottom: dashed 2px #3b5998;
 }
 
-@media (min-width: 768px) {
-.selfies-post{
-	height: 80%;
+
+@media (max-width: 768px) {
+
+.selfie-post{
+	max-width: 100%;
+	margin-right: 0px;
+	height: auto;
+	border: none;
+	padding-top: 0px;
+	padding-bottom: 0px;
+
 }
 
 
