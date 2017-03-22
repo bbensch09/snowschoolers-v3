@@ -35,6 +35,11 @@
       <%= text_field_tag :search, params[:search], placeholder: "Where do you love to ski...?", class:'navy-text form-control search-form hidden' %>
   </div>
 
+<div id="pass-type-filter">
+  <h3>Pass Type</h3>
+  <%= select_tag :search_pass_type, options_for_select(["All Passes","Adult","Child","College"], params[:search_pass_type]), {class: 'navy-text form-control'} %>
+</div>
+
   <div id="resort-filter">
     <h3>Filter Resorts</h3>
     <!-- <span class="text-danger"><em>(Please first clear any text-search above.)</em></span> -->

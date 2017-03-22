@@ -61,7 +61,7 @@ class ProductsController < ApplicationController
       @products = @products.to_a.keep_if {|product| product.product_type == "season_pass"}
       @products = @products.sort! {|a,b| a.price <=> b.price }
     else
-      @products = Product.all.to_a.keep_if {|product| product.product_type == "season_pass"}
+      @products = Product.all.to_a.keep_if {|product| product.product_type == "season_pass" && product.age_type == "Adult" }
       @products = @products.sort! {|a,b| a.price <=> b.price }
     end
     case params[:sort_tag]
