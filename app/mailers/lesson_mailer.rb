@@ -40,8 +40,10 @@ class LessonMailer < ActionMailer::Base
       mail(to: 'brian@snowschoolers.com', subject: "tracked referral - #{@product.name} @ #{@product.location.name}")
   end
 
-  def notify_homewood_pass_referral
-      mail(to: 'brian@snowschoolers.com', subject: "homewood pass referral click-thru")
+  def notify_homewood_pass_referral(current_user,unique_id)
+      @current_user = current_user
+      @unique_id = unique_id
+      mail(to: 'brian@snowschoolers.com', subject: "homewood season pass tracked referral")
   end
 
   def notify_liftopia_referral

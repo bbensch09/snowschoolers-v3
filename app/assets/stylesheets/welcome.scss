@@ -235,7 +235,7 @@ margin-right: auto !important;;
   color: white;
   font-size: 16px;
   margin-top: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 @media (min-width: 768px) {
   #header-creative {
@@ -1096,6 +1096,10 @@ section.pricing-new-lesson{
   margin: auto;
   position: relative;
   padding: 10px 15px 10px 15px;
+}
+.subheader-divider{
+  margin-bottom: 10px !important;
+  margin-top: 10px !important;
 }
 
 

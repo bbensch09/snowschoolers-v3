@@ -62,7 +62,9 @@ class WelcomeController < ApplicationController
   end
 
   def homewood_pass_referral
-    LessonMailer.notify_homewood_pass_referral.deliver
+    @current_user = current_user ? current_user.email : "Unknown"
+    @unique_id = request.remote_ip
+    LessonMailer.notify_homewood_pass_referral(@current_user,@unique_id).deliver
     redirect_to "http://www.skihomewood.com/ski-tickets/season-passes"
   end
 
