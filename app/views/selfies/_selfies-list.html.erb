@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-md-6 selfie-post">
 	<% if selfie.social_network == "Twitter" %>
 		<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">
 			<a href=<%= selfie.link %> ></a>
@@ -7,12 +7,12 @@
 	<% elsif selfie.social_network == "Facebook" %>
 		<iframe src="https://www.facebook.com/plugins/post.php?href=<%=selfie.link %>" width="500" height="367" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
 	<% end %>
-	<p class="bottom-right">
+	<p class="bottom-right navy-text">
 		<% if selfie.date %>
 			<%= selfie.date.strftime("%b %-d") %> @<%= selfie.location.name %>
 		<% end %>
-	</p>
-	<% if current_user && current_user.email == "brian@snowschoolers.com" %>
+		<% if current_user && current_user.email == "brian@snowschoolers.com" %>
 		  <%= link_to 'Edit', edit_selfy_path(selfie), class: 'btn btn-default' %>
-	<% end %>
+		<% end %>
+	</p>
 </div>
