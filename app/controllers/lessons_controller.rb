@@ -72,6 +72,7 @@ class LessonsController < ApplicationController
     @slot = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?) ? nil : session[:lesson]["lesson_time"]["slot"]
     @date = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?)  ? nil : session[:lesson]["lesson_time"]["date"]
     @lesson_time = @lesson.lesson_time
+    GoogleAnalyticsApi.new.event('lesson-requests', 'load-lessons-new')
   end
 
   def new_request
@@ -83,6 +84,7 @@ class LessonsController < ApplicationController
     @date = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?)  ? nil : session[:lesson]["lesson_time"]["date"]
     @instructor_requested = Instructor.find(params[:id]).id
     @lesson_time = @lesson.lesson_time
+    GoogleAnalyticsApi.new.event('lesson-requests', 'load-lessons-new-private-request')
     render 'new'
   end
 
@@ -99,6 +101,7 @@ class LessonsController < ApplicationController
     @lesson = Lesson.find(params[:id])
     @lesson_time = @lesson.lesson_time
     @state = 'booked'
+    GoogleAnalyticsApi.new.event('lesson-requests', 'load-full-form')
     flash.now[:notice] = "You're almost there! We just need a few more details."
     flash[:complete_form] = 'TRUE'
   end
@@ -202,7 +205,9 @@ class LessonsController < ApplicationController
 
   def show
     @lesson = Lesson.find(params[:id])
-    GoogleAnalyticsApi.new.event('lesson-requests', 'load-lesson-page')
+    if @lesson.state == "ready_to_book"
+      GoogleAnalyticsApi.new.event('lesson-requests', 'ready-for-deposit')
+    end
     check_user_permissions
   end
 
