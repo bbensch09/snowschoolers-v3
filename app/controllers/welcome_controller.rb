@@ -57,6 +57,8 @@ class WelcomeController < ApplicationController
     @product = Product.find(params[:id])
     @current_user = current_user ? current_user.email : "Unknown"
     @unique_id = request.remote_ip
+    puts "!!!! PREPARE TO SEND GA EVENT"
+    GoogleAnalyticsApi.new.event('tracked-referrals', "#{@product.product_type} - #{@product.name} - #{@product.location.name}")
     LessonMailer.notify_comparison_shopping_referral(@product,@current_user,@unique_id).deliver
     redirect_to @product.url
   end
