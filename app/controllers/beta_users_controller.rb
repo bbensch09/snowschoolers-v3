@@ -6,7 +6,7 @@ class BetaUsersController < ApplicationController
   # GET /beta_users
   # GET /beta_users.json
   def index
-    @beta_users = BetaUser.all
+    @beta_users = BetaUser.all.sort {|a,b| a.id <=> b.id}
   end
 
   # GET /beta_users/1

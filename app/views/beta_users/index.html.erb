@@ -3,6 +3,7 @@
 <table class="instructors-table">
   <thead>
     <tr>
+      <th>ID</th>
       <th>Email</th>
       <th>User type</th>
       <th></th>
@@ -14,6 +15,7 @@
   <tbody>
     <% @beta_users.each do |beta_user| %>
       <tr>
+        <td><%= beta_user.id %></td>
         <td><%= beta_user.email %></td>
         <td><%= beta_user.user_type %></td>
         <td><%= link_to 'Show', beta_user %></td>
