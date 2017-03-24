@@ -228,7 +228,7 @@ def liftopia_referral
   end
 
   def admin_users
-    @users = User.all.sort {|a,b| a.email <=> b.email}
+    @users = User.all.sort {|a,b| a.id <=> b.id}
     @exported_users = User.all
     respond_to do |format|
           format.html
