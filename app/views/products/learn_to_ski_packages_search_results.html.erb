@@ -23,7 +23,7 @@
   <%= form_tag(lts_search_results_path, :method => "get", class: "pass-search-form") do %>  
   <div id="sort-selector"
       <h3>Sort Results By: </h3>
-      <%= select_tag :sort_tag, options_for_select(["Price Low to High","Price High to Low","Resorts A-Z"], params[:sort_tag]), {class: 'navy-text form-control'} %>
+      <%= select_tag :sort_tag, options_for_select(["Price Low to High","Price High to Low","North Tahoe Only","South Tahoe Only","Resorts A-Z"], params[:sort_tag]), {class: 'navy-text form-control'} %>
       </h3>
   </div>
   <div id="search-widget hidden">
