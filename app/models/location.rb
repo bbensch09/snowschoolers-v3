@@ -12,7 +12,7 @@ class Location < ActiveRecord::Base
 
 
   def self.tahoe_locations
-    Location.all.to_a.keep_if {|location| location.region == "North Tahoe" || location.region == "Sout Tahoe"}
+    Location.all.to_a.keep_if {|location| location.region == "North Tahoe" || location.region == "South Lake Tahoe"}
   end
 
   def self.active_partners
