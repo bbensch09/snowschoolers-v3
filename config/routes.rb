@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :product_calendars
   resources :selfies
   resources :contestants
   resources :applicants

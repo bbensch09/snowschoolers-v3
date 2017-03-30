@@ -1,6 +1,16 @@
 class Product < ActiveRecord::Base
   require 'csv'
   belongs_to :location
+  has_many :product_calendars
+
+  def current_price
+    matched_prices = ProductCalendar.where(product_id:self.id,date:Date.today)
+    if matched_prices.count > 0
+      return matched_prices.first.price
+    else
+      return self.price
+    end
+  end
 
   def self.import(file)
     CSV.foreach(file.path, headers:true) do |row|

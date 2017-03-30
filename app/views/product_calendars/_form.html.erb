@@ -1,0 +1,25 @@
+<div class="container">
+<%= semantic_form_for @product_calendar do |f| %>
+  <%= f.inputs do %>
+  	<% if @product %>
+    	<%= f.input :product_id, :input_html => { :value => @product.id } %>
+    <% else %>
+    	<%= f.input :product_id %>
+    <% end %>
+    <%= f.input :price %>
+
+      <div class='row'>
+            <label>Date</label>
+            <%= f.input :date, as: :string, input_html: { id: 'datepicker' }, placeholder: 'Pick a date', label: false, required:true %>
+            <span class="search-area-icon"></span>
+      </div>
+
+
+    <%= f.input :status %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>
+</div>
