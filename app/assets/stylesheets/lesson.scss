@@ -64,6 +64,20 @@
 .text-smaller{
   font-size: 0.9em;
 }
+
+.time-slot-input{
+  width: 11%;
+  float: left;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+.guest-email-input{
+  width: 23%;
+  float: left;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
 /*DESKTOP ONLY ADJUSTMENTS*/
 @media (min-width: 768px) {
 .payment-amounts{
