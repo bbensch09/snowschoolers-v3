@@ -143,6 +143,10 @@ Rails.application.routes.draw do
   patch 'users/:id' => 'welcome#admin_update_user'
   delete 'users/:id' => 'welcome#admin_destroy', as: :admin_destroy
 
+  #Snowschoolers as a Service scheduling views
+  get 'schedule' => 'lessons#schedule'  
+  get 'schedule-filtered' => 'lessons#lesson_schedule_results', as: :lesson_schedule_results
+
 
   resources :lessons
   # get 'new_request' => 'lessons#new_request'

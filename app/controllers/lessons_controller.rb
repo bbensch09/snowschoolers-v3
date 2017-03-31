@@ -9,6 +9,24 @@ class LessonsController < ApplicationController
     @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
   end
 
+  def schedule
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
+      @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
+      # @lessons.sort! { |a,b| a.product.name <=> b.product.name }
+      render 'schedule'
+  end
+
+  def lesson_schedule_results
+    if params[:search_date] == ""
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
+      @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
+    else
+      @date = params[:search_date]  
+      @lessons = Lesson.all.to_a.keep_if{ |lesson| lesson.lesson_time.date.strftime("%m/%d/%Y") == @date }
+    end
+    render 'schedule'
+  end
+
   def index
     if current_user.email == "brian@snowschoolers.com"
       @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
