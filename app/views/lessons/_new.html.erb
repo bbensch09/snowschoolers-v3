@@ -92,12 +92,12 @@
                 <span class="search-area-icon"></span>
               </div>
 
-              <div class="col-md-3">
+              <div class="time-slot-input">
                 <!-- <%= lt_f.input :slot, as: :select, collection: ['Morning', 'Afternoon', 'Full Day'], include_blank: 'Time', label: false %> -->
                 <%= lt_f.input :slot, as: :select, collection: ['Early Bird (9-10am)', 'Half-day Morning (10am-1pm)', 'Half-day Afternoon (1pm-4pm)', 'Full-day (10am-4pm)'], selected: @slot, include_blank: 'Time', label: false %>
               </div>
               <% if current_user.nil? %>
-              <div class="col-md-3">
+              <div class="guest-email-input">
                 <%= f.input :guest_email, as: :string, placeholder: "your_email@example.com", label: false %>
               </div>
               <% end %>
