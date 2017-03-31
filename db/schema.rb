@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170330054701) do
+ActiveRecord::Schema.define(version: 20170331050942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -211,6 +211,7 @@ ActiveRecord::Schema.define(version: 20170330054701) do
     t.string   "gift_recipient_name"
     t.decimal  "lesson_cost"
     t.decimal  "non_lesson_cost"
+    t.integer  "product_id"
   end
 
   create_table "locations", force: :cascade do |t|

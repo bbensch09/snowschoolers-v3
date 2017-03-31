@@ -6,6 +6,7 @@ class Lesson < ActiveRecord::Base
   has_one :review
   has_many :transactions
   has_many :lesson_actions
+  belongs_to :product #, class_name: 'Product', foreign_key: 'product_id'
   accepts_nested_attributes_for :students, reject_if: :all_blank, allow_destroy: true
 
   validates :requested_location, :lesson_time, presence: true
@@ -22,6 +23,33 @@ class Lesson < ActiveRecord::Base
   validate :instructors_must_be_available, unless: :no_instructors_post_instructor_drop?, on: :create
   after_save :send_lesson_request_to_instructors
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
+
+  
+  def self.seed_lessons
+    20.times do 
+      puts "!!! - first creating new student user"
+      User.create!({
+          email: Faker::Internet.email,
+          password: 'homewood_temp_2017',
+          user_type: "Student",
+          name: Faker::Name.name
+          })
+      Lesson.create!({
+          requester_id: User.last.id,
+          deposit_status: "confirmed",
+          lesson_time_id: LessonTime.last.id,
+          activity: ["Ski","Snowboard"].sample,
+          requested_location: "8",
+          phone_number: "530-430-7669",
+          gear: [true,false].sample,
+          lift_ticket_status: [true,false].sample,
+          objectives: "I want to learn how to become the best skier on the mountain!",
+          state: "booked",
+          product_id: [1,4,10,14,14,14,14,15,15,15,15].sample
+        })
+    end
+  end
+
 
   def date
     lesson_time.date
@@ -41,7 +69,11 @@ class Lesson < ActiveRecord::Base
   end
 
   def product
-    Product.where(location_id:self.location.id, name:self.lesson_time.slot,calendar_period:self.location.calendar_status).first
+    if self.product_id.nil?
+      Product.where(location_id:self.location.id, name:self.lesson_time.slot,calendar_period:self.location.calendar_status).first
+    else
+      Product.where(id:self.product_id).first
+    end
   end
 
   def tip
@@ -241,6 +273,9 @@ class Lesson < ActiveRecord::Base
   end
 
   def price
+    if self.product
+      return self.product.price
+    end
     if self.lesson_price
       return self.lesson_price.to_s
     elsif self.lesson_cost

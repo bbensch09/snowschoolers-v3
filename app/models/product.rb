@@ -2,6 +2,7 @@ class Product < ActiveRecord::Base
   require 'csv'
   belongs_to :location
   has_many :product_calendars
+  has_many :lessons
 
   def current_price
     matched_prices = ProductCalendar.where(product_id:self.id,date:Date.today)

@@ -203,7 +203,7 @@
             <td></td>
             <td>TBD</td>
             <% end %>
-            <td><%= link_to "#{lesson.lesson_time.slot}", lesson, class: "btn btn-default" %></td>
+            <td><%= link_to "#{lesson.product.name} - #{lesson.product.age_type}", lesson, class: "btn btn-default" %></td>
             <!-- <td><%= lesson.deposit_status %></td> -->
             <% if lesson.requester %>
               <td class="lessons-table-cells lesson-student">Requester: <%= lesson.requester.email %></td>
