@@ -1,8 +1,15 @@
 <div class="container">
-<!--
-<h3> Current User ID: <%= current_user.id %> </h3>
-<h3> Current User.email: <%= current_user.email %> </h3>
- -->
+
+<% if current_user && current_user.email == "brian@snowschoolers.com" %>
+<div class="admin-viewable">
+  <a href='lessons/admin_index' class='btn btn-warning'>View Full Lesson Details</a>
+<p>
+  Params are: <br>
+  Date: <%= @date %> <br>
+  Last Lesson Date: <%= Lesson.last.lesson_time.date.strftime("%m/%d/%Y") %>
+</p>
+</div>
+<% end %>
 
 <div id="schedule-filters" class="hidden-unless-desktop">
   <%= form_tag(lesson_schedule_results_path, :method => "get", class: "pass-search-form") do %>  
@@ -28,20 +35,30 @@
       <!-- % end %> -->
     <% end %>
 
+<section class="sections-view">
+  <% @sections.each do |section| %>
+    <div class="col-md-3 calendar-day-block">
+      <h4 class="center"> 
+        <b><%=section.name %></b>
+      </h4>
+      <p>
+        Date: <%= section.date.strftime("%B %-d") %> <br>
+        Instructor: <%= section.instructor.name %> <br>
+        Number of students:  <%= section.student_count %> <br>
+        Capacity Remaining:  <%= section.remaining_capacity %>
+      </p>
+      <p class="calendar-block-description">
+        <%= section.status %>
+      </p>
+    </div>    
+  <% end %>
+</section>
+  <hr class="deposit-hr-navy">
 
-<% if current_user && current_user.email == "brian@snowschoolers.com" %>
-<div class="admin-viewable">
-  <a href='lessons/admin_index' class='btn btn-warning'>View Full Lesson Details</a>
-<p>
-  Params are: <br>
-  Date: <%= @date %> <br>
-  Last Lesson Date: <%= Lesson.last.lesson_time.date.strftime("%m/%d/%Y") %>
-</p>
-</div>
-<% end %>
+
 
 <div id="upcoming-lessons" class="">
-<h1>Lesson Schedule </h1>
+<h1 class="center">All Lessons to Schedule </h1>
 
 <table class="instructors-table">
   <thead>

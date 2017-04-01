@@ -7,6 +7,7 @@ class Lesson < ActiveRecord::Base
   has_many :transactions
   has_many :lesson_actions
   belongs_to :product #, class_name: 'Product', foreign_key: 'product_id'
+  belongs_to :section
   accepts_nested_attributes_for :students, reject_if: :all_blank, allow_destroy: true
 
   validates :requested_location, :lesson_time, presence: true

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  age_group: MyString
+  instructor_id: MyString
+  status: MyString
+  level: MyString
+  sport_id: 1
+  capacity: 1
+
+two:
+  age_group: MyString
+  instructor_id: MyString
+  status: MyString
+  level: MyString
+  sport_id: 1
+  capacity: 1
