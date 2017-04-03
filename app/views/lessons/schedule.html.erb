@@ -73,6 +73,7 @@
       <th>Status</th>
     <% if current_user.user_type == "Snow Schoolers Employee" %>
       <th>Price</th>
+      <th>Section ID</th>
       <th></th>
       <% else %>
       <th></th>
@@ -103,7 +104,8 @@
             <td><%= lesson.state %></td>
             <% if current_user.user_type == "Snow Schoolers Employee" %>
             <td><%= number_to_currency(lesson.visible_lesson_cost) %></td>
-            <td><%= link_to "Send Instructor SMS", send_reminder_sms_to_instructor_path(lesson), class: "btn btn-default" %></td>
+            <td><%= lesson.section_id %></td>
+            <td><%= link_to "Assign to section 1", assign_section_path(lesson.id, @sections.first.id), method: :put, class: "btn btn-default" %></td>
             <% else %>
               <td></td>
               <td></td>

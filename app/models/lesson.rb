@@ -26,6 +26,14 @@ class Lesson < ActiveRecord::Base
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
 
   
+  def section_assignment_status
+    if self.section_id.nil?
+      return "Unassigned"
+    else
+      return "Assigned"
+    end
+  end
+
   def self.seed_lessons
     20.times do 
       puts "!!! - first creating new student user"
@@ -46,7 +54,16 @@ class Lesson < ActiveRecord::Base
           lift_ticket_status: [true,false].sample,
           objectives: "I want to learn how to become the best skier on the mountain!",
           state: "booked",
-          product_id: [1,4,10,14,14,14,14,15,15,15,15].sample
+          product_id: [1,4,10,14,14,14,14,15,15,15,15].sample,
+          terms_accepted: true
+        })
+      Student.create!({
+          lesson_id: Lesson.last.id,
+          name: "Student Jon",
+          age_range: "29",
+          gender: "Male",
+          relationship_to_requester: "I am the student",
+          most_recent_level: "Level 2 - can safely stop on beginner green circle terrain.",
         })
     end
   end

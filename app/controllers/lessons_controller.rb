@@ -4,6 +4,15 @@ class LessonsController < ApplicationController
   before_action :save_lesson_params_and_redirect, only: [:create]
   before_action :create_lesson_from_session, only: [:create]
 
+  def assign_to_section
+    puts "the params are {#{params}"
+    @lesson = Lesson.find(params[:id])
+    @section = Section.find(params[:section_id])
+    @lesson.section_id = @section.id
+    @lesson.save!
+    redirect_to 'schedule'
+  end
+
   def admin_index
     @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
     @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
@@ -11,7 +20,8 @@ class LessonsController < ApplicationController
 
   def schedule
       @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
-      @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
+      @lessons.sort! { |a,b| a.id <=> b.id }
+      # @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
       # @lessons.sort! { |a,b| a.product.name <=> b.product.name }
       @sections = Section.all
       render 'schedule'
@@ -20,11 +30,12 @@ class LessonsController < ApplicationController
   def lesson_schedule_results
     if params[:search_date] == ""
       @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
-      @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
+      @lessons.sort! { |a,b| a.id <=> b.id }
     else
       @date = params[:search_date]  
       @lessons = Lesson.all.to_a.keep_if{ |lesson| lesson.lesson_time.date.strftime("%m/%d/%Y") == @date }
       @sections = Section.all.to_a.keep_if{ |section| section.date.strftime("%m/%d/%Y") == @date }
+      @lessons.sort! { |a,b| a.id <=> b.id }
     end
     render 'schedule'
   end
