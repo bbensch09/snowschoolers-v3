@@ -147,7 +147,9 @@ Rails.application.routes.draw do
   #Snowschoolers as a Service scheduling views
   get 'schedule' => 'lessons#schedule'  
   get 'schedule-filtered' => 'lessons#lesson_schedule_results', as: :lesson_schedule_results
-  put 'lessons/:id/assign-to-section/:section_id' => 'lessons#assign_to_section', as: :assign_section
+  # put 'lessons/:id/assign-to-section/:section_id' => 'lessons#assign_to_section', as: :assign_section
+  put 'lessons/assign-to-section' => 'lessons#assign_to_section', as: :assign_section
+
 
 
   resources :lessons

@@ -35,6 +35,12 @@ class Lesson < ActiveRecord::Base
   end
 
   def self.seed_lessons
+    4.times do 
+      LessonTime.create!({
+        date: Date.today + (-5..5).to_a.sample,
+        slot: ['Early Bird (9-10am)', 'Half-day Morning (10am-1pm)', 'Half-day Afternoon (1pm-4pm)','Full-day (10am-4pm)', 'Mountain Rangers All-day', 'Snow Rangers All-day'].sample
+        })
+    end
     20.times do 
       puts "!!! - first creating new student user"
       User.create!({
@@ -46,9 +52,10 @@ class Lesson < ActiveRecord::Base
       Lesson.create!({
           requester_id: User.last.id,
           deposit_status: "confirmed",
-          lesson_time_id: LessonTime.last.id,
+          lesson_time_id: LessonTime.all.sample.id,
           activity: ["Ski","Snowboard"].sample,
           requested_location: "8",
+          requester_name: User.last.name,
           phone_number: "530-430-7669",
           gear: [true,false].sample,
           lift_ticket_status: [true,false].sample,
@@ -60,7 +67,7 @@ class Lesson < ActiveRecord::Base
       Student.create!({
           lesson_id: Lesson.last.id,
           name: "Student Jon",
-          age_range: "29",
+          age_range: (5..40).to_a.sample,
           gender: "Male",
           relationship_to_requester: "I am the student",
           most_recent_level: "Level 2 - can safely stop on beginner green circle terrain.",
