@@ -24,6 +24,31 @@ class Instructor < ActiveRecord::Base
     end
   end
 
+  def self.seed_temp_instructors
+    10.times do 
+      Instructor.create!({
+        first_name: ['Jim','Garry','Steven','Adam','Kelly','Natalie','Anita','Connie'].sample,
+        last_name: "Smith",
+        username: "test_user",
+        certification: ['Level 1', 'Level 2', 'Level 3', 'HTA'].sample,
+        phone_number: "408-315-2900",
+        bio: Faker::Hipster.paragraph,
+        intro: Faker::StarWars.quote,
+        status: "Active",
+        adults_initial_rank: (1..10).to_a.sample,
+        kids_initial_rank: (1..10).to_a.sample,
+        overall_initial_rank: (1..10).to_a.sample,
+        city: "Tahoe City",
+        confirmed_certification: "True",
+        kids_eligibility: true,
+        seniors_eligibility: true,
+        adults_eligibility: true,        
+        age: (18..50).to_a.sample,
+        dob: nil
+        })
+    end
+  end
+
   def ski_instructor?
     return true if self.sports.include?(Sport.where(name:"Ski Instructor").first)
   end

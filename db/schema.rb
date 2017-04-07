@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170320230733) do
+ActiveRecord::Schema.define(version: 20170401045457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -211,6 +211,8 @@ ActiveRecord::Schema.define(version: 20170320230733) do
     t.string   "gift_recipient_name"
     t.decimal  "lesson_cost"
     t.decimal  "non_lesson_cost"
+    t.integer  "product_id"
+    t.string   "section_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -253,6 +255,15 @@ ActiveRecord::Schema.define(version: 20170320230733) do
     t.datetime "updated_at"
   end
 
+  create_table "product_calendars", force: :cascade do |t|
+    t.integer  "product_id"
+    t.integer  "price"
+    t.date     "date"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.string   "name",                          limit: 255
     t.float    "price"
@@ -287,6 +298,19 @@ ActiveRecord::Schema.define(version: 20170320230733) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "nps"
+  end
+
+  create_table "sections", force: :cascade do |t|
+    t.string   "age_group"
+    t.string   "lesson_type"
+    t.integer  "sport_id"
+    t.string   "instructor_id"
+    t.string   "status"
+    t.string   "level"
+    t.integer  "capacity"
+    t.date     "date"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "selfies", force: :cascade do |t|

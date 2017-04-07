@@ -1,0 +1,121 @@
+<div class="container">
+
+<% if current_user && current_user.email == "brian@snowschoolers.com" %>
+<div class="admin-viewable">
+  <a href='lessons/admin_index' class='btn btn-warning'>View Full Lesson Details</a>
+<p>
+  Params are: <br>
+  Date: <%= @date %> <br>
+  Last Lesson Date: <%= Lesson.last.lesson_time.date.strftime("%m/%d/%Y") %>
+</p>
+</div>
+<% end %>
+
+<div id="schedule-filters" class="hidden-unless-desktop">
+  <%= form_tag(lesson_schedule_results_path, :method => "get", class: "pass-search-form") do %>  
+  <div id="sort-selector"
+      <div class='row'>
+        <h3>Select Date </h3>
+        <%= text_field_tag :search_date, params[:search_date], input_html: { id: 'datepicker', class: 'form-control hasDatePicker'}, placeholder: 'Pick a date', label: false, required:false %>
+      </div>
+
+  </div>
+  <div id="search-widget hidden">
+      <%= text_field_tag :search, params[:search], placeholder: "Where do you love to ski...?", class:'navy-text form-control search-form hidden' %>
+  </div>
+
+  <div id="resort-filter">
+    <h3>Adult School vs. Kids School</h3>
+      <%= select_tag :age_type, options_for_select(["Adult Ski School","Kids Ski School"], params[:age_type]), {class: 'navy-text form-control'} %>
+  </div>  
+  <div class="update-filter-cta">
+      <%= submit_tag "Update Filters", class:"btn btn-primary btn-xl page-scroll" %>      
+  </div>
+</div>
+      <!-- % end %> -->
+    <% end %>
+
+<section class="sections-view">
+  <% @sections.each do |section| %>
+    <div class="col-md-3 calendar-day-block">
+      <h4 class="center"> 
+        <b><%=section.name %></b>
+      </h4>
+      <p>
+        Date: <%= section.date.strftime("%B %-d") %> <br>
+        Instructor: <%= section.instructor.name %> <br>
+        Number of students:  <%= section.student_count %> <br>
+        Capacity Remaining:  <%= section.remaining_capacity %>
+      </p>
+      <p class="calendar-block-description">
+        <%= section.status %>
+      </p>
+    </div>    
+  <% end %>
+</section>
+  <hr class="deposit-hr-navy">
+
+
+
+<div id="upcoming-lessons" class="">
+<h1 class="center">All Lessons to Schedule </h1>
+
+<table class="instructors-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Instructor</th>
+      <th>Type</th>
+      <!-- <th>Deposit?</th> -->
+      <th>Student</th>
+      <!-- <th>Mountain</th> -->
+      <th>Date</th>
+      <th>Status</th>
+    <% if current_user.user_type == "Snow Schoolers Employee" %>
+      <th>Price</th>
+      <th>Section ID</th>
+      <th></th>
+      <% else %>
+      <th></th>
+      <th></th>
+    <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lessons.each do |lesson| %>
+          <tr>
+            <% if lesson.instructor %>
+            <td><%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td>
+            <td><%= lesson.instructor.name %></td>
+            <% else %>
+            <td></td>
+            <td>TBD</td>
+            <% end %>
+            <% if lesson.product %>
+            <td><%= link_to "#{lesson.product.name} - #{lesson.product.age_type}", lesson, class: "btn btn-default" %></td>
+            <% end %>
+            <% if lesson.requester %>
+              <td class="lessons-table-cells lesson-student">Requester: <%= lesson.requester.email %></td>
+              <% else %>
+              <td class="lessons-table-cells lesson-student">Requester: <%= lesson.guest_email %></td>
+            <% end %>            <!-- <td><%= lesson.location.name %></td> -->
+            <td><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
+            <td><%= lesson.state %></td>
+            <% if current_user.user_type == "Snow Schoolers Employee" %>
+            <td><%= number_to_currency(lesson.visible_lesson_cost) %></td>
+            <td><%= lesson.section_id %></td>
+            <td><%= link_to "Assign to section 1", assign_section_path(lesson.id, @sections.first.id), method: :put, class: "btn btn-default" %></td>
+            <% else %>
+              <td></td>
+              <td></td>
+            <% end %>
+            <!-- <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td> -->
+            <!-- <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+          </tr>
+        <%end%>
+  </tbody>
+</table>
+</div>
+
+</div>

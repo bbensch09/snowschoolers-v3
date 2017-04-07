@@ -6,6 +6,8 @@ class Lesson < ActiveRecord::Base
   has_one :review
   has_many :transactions
   has_many :lesson_actions
+  belongs_to :product #, class_name: 'Product', foreign_key: 'product_id'
+  belongs_to :section
   accepts_nested_attributes_for :students, reject_if: :all_blank, allow_destroy: true
 
   validates :requested_location, :lesson_time, presence: true
@@ -22,6 +24,50 @@ class Lesson < ActiveRecord::Base
   validate :instructors_must_be_available, unless: :no_instructors_post_instructor_drop?, on: :create
   after_save :send_lesson_request_to_instructors
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
+
+  
+  def section_assignment_status
+    if self.section_id.nil?
+      return "Unassigned"
+    else
+      return "Assigned"
+    end
+  end
+
+  def self.seed_lessons
+    20.times do 
+      puts "!!! - first creating new student user"
+      User.create!({
+          email: Faker::Internet.email,
+          password: 'homewood_temp_2017',
+          user_type: "Student",
+          name: Faker::Name.name
+          })
+      Lesson.create!({
+          requester_id: User.last.id,
+          deposit_status: "confirmed",
+          lesson_time_id: LessonTime.last.id,
+          activity: ["Ski","Snowboard"].sample,
+          requested_location: "8",
+          phone_number: "530-430-7669",
+          gear: [true,false].sample,
+          lift_ticket_status: [true,false].sample,
+          objectives: "I want to learn how to become the best skier on the mountain!",
+          state: "booked",
+          product_id: [1,4,10,14,14,14,14,15,15,15,15].sample,
+          terms_accepted: true
+        })
+      Student.create!({
+          lesson_id: Lesson.last.id,
+          name: "Student Jon",
+          age_range: "29",
+          gender: "Male",
+          relationship_to_requester: "I am the student",
+          most_recent_level: "Level 2 - can safely stop on beginner green circle terrain.",
+        })
+    end
+  end
+
 
   def date
     lesson_time.date
@@ -41,7 +87,11 @@ class Lesson < ActiveRecord::Base
   end
 
   def product
-    Product.where(location_id:self.location.id, name:self.lesson_time.slot,calendar_period:self.location.calendar_status).first
+    if self.product_id.nil?
+      Product.where(location_id:self.location.id, name:self.lesson_time.slot,calendar_period:self.location.calendar_status).first
+    else
+      Product.where(id:self.product_id).first
+    end
   end
 
   def tip
@@ -241,6 +291,9 @@ class Lesson < ActiveRecord::Base
   end
 
   def price
+    if self.product
+      return self.product.price
+    end
     if self.lesson_price
       return self.lesson_price.to_s
     elsif self.lesson_cost
@@ -480,6 +533,8 @@ class Lesson < ActiveRecord::Base
   end
 
   def send_sms_reminder_to_instructor_complete_lessons
+      # ENV variable to toggle Twilio on/off during development
+      return if ENV['twilio_status'] == "inactive"
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
@@ -496,6 +551,8 @@ class Lesson < ActiveRecord::Base
   end
 
   def send_sms_to_instructor
+      # ENV variable to toggle Twilio on/off during development
+      return if ENV['twilio_status'] == "inactive"
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
@@ -531,6 +588,8 @@ class Lesson < ActiveRecord::Base
   end
 
   def send_reminder_sms
+    # ENV variable to toggle Twilio on/off during development
+    return if ENV['twilio_status'] == "inactive"    
     return if self.state == 'confirmed' || (Time.now - LessonAction.last.created_at) < 20
     account_sid = ENV['TWILIO_SID']
     auth_token = ENV['TWILIO_AUTH']
@@ -550,6 +609,8 @@ class Lesson < ActiveRecord::Base
   handle_asynchronously :send_reminder_sms, :run_at => Proc.new {300.seconds.from_now }
 
   def send_sms_to_all_other_instructors
+    # ENV variable to toggle Twilio on/off during development
+    return if ENV['twilio_status'] == "inactive"    
     recipients = self.available_instructors
     if recipients.count < 2
       @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
@@ -577,6 +638,8 @@ class Lesson < ActiveRecord::Base
   # handle_asynchronously :send_sms_to_all_other_instructors, :run_at => Proc.new {5.seconds.from_now }
 
   def send_manual_sms_request_to_instructor(instructor)
+      # ENV variable to toggle Twilio on/off during development
+      return if ENV['twilio_status'] == "inactive"
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
@@ -592,6 +655,8 @@ class Lesson < ActiveRecord::Base
   end
 
   def send_sms_to_requester
+      # ENV variable to toggle Twilio on/off during development
+      return if ENV['twilio_status'] == "inactive"    
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']

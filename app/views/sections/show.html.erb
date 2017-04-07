@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Age group:</strong>
+  <%= @section.age_group %>
+</p>
+
+<p>
+  <strong>Instructor:</strong>
+  <%= @section.instructor_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @section.status %>
+</p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @section.level %>
+</p>
+
+<p>
+  <strong>Sport:</strong>
+  <%= @section.sport_id %>
+</p>
+
+<p>
+  <strong>Capacity:</strong>
+  <%= @section.capacity %>
+</p>
+
+<%= link_to 'Edit', edit_section_path(@section) %> |
+<%= link_to 'Back', sections_path %>
