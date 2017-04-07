@@ -533,6 +533,8 @@ class Lesson < ActiveRecord::Base
   end
 
   def send_sms_reminder_to_instructor_complete_lessons
+      # ENV variable to toggle Twilio on/off during development
+      return if ENV['twilio_status'] == "inactive"
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
@@ -549,6 +551,8 @@ class Lesson < ActiveRecord::Base
   end
 
   def send_sms_to_instructor
+      # ENV variable to toggle Twilio on/off during development
+      return if ENV['twilio_status'] == "inactive"
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
@@ -584,6 +588,8 @@ class Lesson < ActiveRecord::Base
   end
 
   def send_reminder_sms
+    # ENV variable to toggle Twilio on/off during development
+    return if ENV['twilio_status'] == "inactive"    
     return if self.state == 'confirmed' || (Time.now - LessonAction.last.created_at) < 20
     account_sid = ENV['TWILIO_SID']
     auth_token = ENV['TWILIO_AUTH']
@@ -603,6 +609,8 @@ class Lesson < ActiveRecord::Base
   handle_asynchronously :send_reminder_sms, :run_at => Proc.new {300.seconds.from_now }
 
   def send_sms_to_all_other_instructors
+    # ENV variable to toggle Twilio on/off during development
+    return if ENV['twilio_status'] == "inactive"    
     recipients = self.available_instructors
     if recipients.count < 2
       @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
@@ -630,6 +638,8 @@ class Lesson < ActiveRecord::Base
   # handle_asynchronously :send_sms_to_all_other_instructors, :run_at => Proc.new {5.seconds.from_now }
 
   def send_manual_sms_request_to_instructor(instructor)
+      # ENV variable to toggle Twilio on/off during development
+      return if ENV['twilio_status'] == "inactive"
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
@@ -645,6 +655,8 @@ class Lesson < ActiveRecord::Base
   end
 
   def send_sms_to_requester
+      # ENV variable to toggle Twilio on/off during development
+      return if ENV['twilio_status'] == "inactive"    
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
