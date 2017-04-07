@@ -52,7 +52,8 @@ class Lesson < ActiveRecord::Base
       Lesson.create!({
           requester_id: User.last.id,
           deposit_status: "confirmed",
-          lesson_time_id: LessonTime.all.sample.id,
+          # lesson_time_id: LessonTime.all.sample.id,
+          lesson_time_id: LessonTime.last.id,
           activity: ["Ski","Snowboard"].sample,
           requested_location: "8",
           requester_name: User.last.name,

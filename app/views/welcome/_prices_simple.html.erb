@@ -1,6 +1,39 @@
 <section id="" class="pricing-new-lesson">
     <div class="">
-        <table class="col-lg-12 col-xs-12 pricing-table">
+        <table class="col-lg-6 col-xs-6 pricing-table">
+          <thead class="">
+            <tr>
+                <th class="center price-header" colspan="4">
+                    <h1>GROUP LESSON RATES</h1>
+                </th>
+
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+                <td class="pricing-length">Kids Ski School (10am-3:30pm)</td>
+                <td class="pricing-snowschoolers price-kids-group">
+                    <%= number_to_currency(Product.where(location_id:8, product_type:"learn_to_ski",age_type:"Child",calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
+                </td>
+            </tr>
+            <tr>
+                <td class="pricing-length">Adult AM Learn to Ski or Ride (10-12:30pm) </td>
+                <td class="pricing-snowschoolers price-adults-group">
+                    <%= number_to_currency(Product.where(location_id:8, product_type:"learn_to_ski",age_type:"Adult",calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
+                    </td>
+            </tr>
+            <tr>
+                <td class="pricing-length">Adult AM Learn to Ski or Ride (10-12:30pm) </td>
+                <td class="pricing-snowschoolers price-adults-group">
+                    <%= number_to_currency(Product.where(location_id:8, product_type:"learn_to_ski",age_type:"Adult",calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
+                    </td>
+            </tr>
+           
+          </tbody>
+        </table>
+
+        <table class="col-lg-6 col-xs-6 pricing-table">
           <thead class="">
             <tr>
                 <th class="center price-header" colspan="4">
