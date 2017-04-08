@@ -37,7 +37,7 @@
           <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                   data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                   data-description="Lesson Payment"
-                  data-name="Snow Schoolers"
+                  data-name="Tahoe Ski Lessons"
                   data-image="https://s3.amazonaws.com/snowschoolers/SnowSchoolers-favicon.png"
                   data-amount=<%= (('%.2f' % @lesson.final_charge).to_f*100).to_i %>
                   data-locale="auto"

@@ -42,13 +42,14 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :locations do 
+  resources :locations do
         collection {post :import}
   end
   resources :charges
 
   # root to: "lessons#new"
   root to: "welcome#index"
+  # root to: "lessons#new"
 
   #twilio testing
   get 'twilio/test_sms' => 'twilio#test_sms'
@@ -66,7 +67,7 @@ Rails.application.routes.draw do
   get 'search' => 'products#search'
   get 'tahoe-season-passes' => 'products#pass_search_results'
   get 'tahoe-season-passes-search-results' => 'products#pass_search_results', as: :pass_search_results
-  get 'search-results' => 'products#search_results', as: :search_results 
+  get 'search-results' => 'products#search_results', as: :search_results
 
   get   'lessons/sugarbowl'               => 'lessons#sugarbowl'
   # get 'homewood' => "welcome#homewood"
@@ -145,7 +146,7 @@ Rails.application.routes.draw do
   delete 'users/:id' => 'welcome#admin_destroy', as: :admin_destroy
 
   #Snowschoolers as a Service scheduling views
-  get 'schedule' => 'lessons#schedule'  
+  get 'schedule' => 'lessons#schedule'
   get 'schedule-filtered' => 'lessons#lesson_schedule_results', as: :lesson_schedule_results
   # put 'lessons/:id/assign-to-section/:section_id' => 'lessons#assign_to_section', as: :assign_section
   put 'lessons/assign-to-section' => 'lessons#assign_to_section', as: :assign_section

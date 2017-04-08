@@ -4,7 +4,7 @@
   <title><%= title %></title>
   <%= action_cable_meta_tag %>
   <meta name='description'
-      content='<%= yield_meta_tag(:description, 'Snow Schoolers is an online platform for private ski & snowboard lessons. We offer guests the ability to easily book a private ski or snowboard lesson online with our fleet of expert, certified instructors. We collaborate closely with our ski area partners to help them attract valuable new visitors.') %>' />
+      content='<%= yield_meta_tag(:description, 'Tahoe Ski Lessons is an online platform for private ski & snowboard lessons. We offer guests the ability to easily book a private ski or snowboard lesson online with our fleet of expert, certified instructors. We collaborate closely with our ski area partners to help them attract valuable new visitors.') %>' />
   <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
   <link rel="icon" type="image/png" href="https://s3.amazonaws.com/snowschoolers/SnowSchoolers-favicon.png">
   <meta name="google-site-verification" content="W1jQsfy52H6ubJcGDNxflQmKuSNdLuId5JvlfBaLBF4" />
@@ -62,7 +62,7 @@
     ga('send', 'pageview');
 
   </script>
-  
+
   <% elsif ENV['HOST_DOMAIN'] == "demo.snowschoolers.com" %>
   <!-- GA code for Local Host tracking & QA -->
     <script>
@@ -78,7 +78,7 @@
 
     </script>
 
-  <% end %> 
+  <% end %>
 
 <!-- Facebook Pixel Code -->
     <script>
@@ -99,11 +99,11 @@
 <body>
 <!-- <div id="masterContainer"> -->
 
-<!-- ORIGINAL SNOW SCHOOLERS HEADER -->
+<!-- ORIGINAL Tahoe Ski Lessons HEADER -->
 <header id="header">
   <div class="container">
   <h2>
-    <%= link_to raw("<strong>SNOW</strong><span class='schoolers'>SCHOOLERS</span>"), root_path, class: 'logo' %>
+    <%= link_to raw("<strong>TAHOE</strong><span class='schoolers'>SKI LESSONS</span>"), root_path, class: 'logo' %>
 
   <!-- <%= link_to image_tag("AdventureOut-logo-whiteBG.jpg"), root_path, class: 'logo' %> -->
 
@@ -119,7 +119,7 @@
     <div class="navbar-collapse nav-main-collapse collapse pull-right">
       <nav class="nav-main">
         <ul class="nav nav-pills nav-main scroll-menu" id="topMain">
-          <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner") %>
+          <% if current_user && (current_user.user_type == "Tahoe Ski Lessons Employee" || current_user.user_type == "Ski Area Partner") %>
            <!-- <li>  <a href="/"> <span class="glyphicon glyphicon glyphicon-home" aria-hidden="true"></span> </a></li> -->
            <!-- <li> <a href="/search" class="btn-success"> Search</a></li> -->
            <li> <a href="/instructors" class="btn-success"> Admin</a></li>
@@ -414,7 +414,7 @@
     <li><a href="mailto:info@snowschoolers.com" target="_blank">CONTACT</a></li>
     <li><a href="#" data-toggle="modal" data-target="#socialInlineModal">FOLLOW US</a></li>
   </ul>
-  <span class="hidden-xs copyright-text pull-left">&copy; Snow Schoolers, Inc. 2017</span>
+  <span class="hidden-xs copyright-text pull-left">&copy; Tahoe Ski Lessons, Inc. 2017</span>
   </h4>
   <!-- /right menu -->
 

@@ -22,9 +22,9 @@ end
 
 def title(title = nil)
     if title.present?
-      content_for :title, title + ' | Snow Schoolers '
+      content_for :title, title + ' | Tahoe Ski Lessons '
     else
-      content_for?(:title) ? content_for(:title) : 'Snow Schoolers'
+      content_for?(:title) ? content_for(:title) : 'Tahoe Ski Lessons'
     end
 end
 

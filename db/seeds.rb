@@ -56,7 +56,7 @@ Instructor.create!({
   city: ['Tahoe City, CA', 'Truckee, CA','South Lake Tahoe, CA','Reno, NV','Tahoma, CA','San Francisco, CA','Berkeley, CA'].sample,
   sport: ["Ski Instructor","Snowboard Instructor"].sample,
   certification: ['PSIA Level 1','PSIA Level 2','PSIA Level 3','AASI Level 1','AASI Level 2','AASI Level 3'].sample,
-  intro: "I want to teach for Snow Schoolers!!!!",
+  intro: "I want to teach for Tahoe Ski Lessons!!!!",
   bio: "John hails from New York where he learned to ski as a kid and first began teaching children's ski lessons in high school at the local resort. He later coached the traveling freestyle ski team, and eventually moved to Crested Butte to live the ski bum dream for awhile, which included competing in the U.S. Freeskiing Championships. He recently moved to Tahoe 5 years ago. With nearly three decades of instructor experience across all skill levels, he will happily share his local secrets and ensure you have a wonderful experience on the mountain..",
   location_ids: [8], #location_id for homewood
   # location_ids: [1,2,3,4,5,6,7,8,9,10,11,12],
@@ -90,7 +90,7 @@ Instructor.create!({
   city: ['Tahoe City, CA', 'Truckee, CA','South Lake Tahoe, CA','Reno, NV','Tahoma, CA','San Francisco, CA','Berkeley, CA'].sample,
   sport: ["Ski Instructor","Snowboard Instructor"].sample,
   certification: ['PSIA Level 1','PSIA Level 2','PSIA Level 3','AASI Level 1','AASI Level 2','AASI Level 3'].sample,
-  intro: "I want to teach for Snow Schoolers!!!!",
+  intro: "I want to teach for Tahoe Ski Lessons!!!!",
   bio: "At the age of two, Sam began her life by chasing her ski nut parents through the steeps, trees and chutes of Alpine Meadows, Lake Tahoe. Their passion for the sport, love for their community, and strong ambition have rubbed off on Sam and pushed her to become the family/community oriented skier she is today - always willing and wanting to share the ski love. Sam traveled to UC Boulder to pursue an undergraduate degree in skiing with minors in Latin American and Native American Studies, before returning to Tahoe in 2014. You can find her on hill, with a permanent smile and trails of laughter...and never without candy in her pockets.",
   location_ids: [16], #location_id for homewood
   # location_ids: [1,2,3,4,5,6,7,8,9,10,11,12],
