@@ -43,7 +43,7 @@ end
 
 def houston_we_have_a_problem
   render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
-  HOUSTON_WE_HAVE_A_404_PROBLEM
+  # HOUSTON_WE_HAVE_A_404_PROBLEM
 end
 
 def houston_we_have_500_routing_problems
