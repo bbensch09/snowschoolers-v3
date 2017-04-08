@@ -25,7 +25,7 @@ class Instructor < ActiveRecord::Base
   end
 
   def self.seed_temp_instructors
-    10.times do 
+    2.times do 
       Instructor.create!({
         first_name: ['Jim','Garry','Steven','Adam','Kelly','Natalie','Anita','Connie'].sample,
         last_name: "Smith",
@@ -46,6 +46,10 @@ class Instructor < ActiveRecord::Base
         age: (18..50).to_a.sample,
         dob: nil
         })
+    end
+    Instructor.all.each do |instructor|
+        instructor.sport_ids =  [[1,3],[1],[3]].sample
+        instructor.save!        
     end
   end
 

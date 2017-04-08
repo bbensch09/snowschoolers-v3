@@ -5,12 +5,12 @@ class LessonsController < ApplicationController
   before_action :create_lesson_from_session, only: [:create]
 
   def assign_to_section
-    puts "the params are {#{params}"
-    @lesson = Lesson.find(params[:id])
+    puts "the params are #{params}"
+    @lesson = Lesson.find(params[:lesson_id])
     @section = Section.find(params[:section_id])
     @lesson.section_id = @section.id
     @lesson.save!
-    redirect_to 'schedule'
+    redirect_to '/schedule'
   end
 
   def admin_index
