@@ -10,7 +10,7 @@ class LessonsController < ApplicationController
     @section = Section.find(params[:section_id])
     @lesson.section_id = @section.id
     @lesson.save!
-    redirect_to '/schedule'
+    redirect_to "/schedule-filtered?utf8=✓&search_date=#{@section.date.to_s}"
   end
 
   def admin_index
@@ -28,15 +28,10 @@ class LessonsController < ApplicationController
   end
 
   def lesson_schedule_results
-    if params[:search_date] == ""
-      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
-      @lessons.sort! { |a,b| a.id <=> b.id }
-    else
       @date = params[:search_date]  
       @lessons = Lesson.all.to_a.keep_if{ |lesson| lesson.lesson_time.date.strftime("%m/%d/%Y") == @date }
       @sections = Section.all.to_a.keep_if{ |section| section.date.strftime("%m/%d/%Y") == @date }
       @lessons.sort! { |a,b| a.id <=> b.id }
-    end
     render 'schedule'
   end
 

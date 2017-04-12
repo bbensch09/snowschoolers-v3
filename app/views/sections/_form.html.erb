@@ -5,7 +5,7 @@
     <%= f.input :lesson_type, as: :select, collection: ['Private Lesson', 'Group Lesson'], include_blank: 'Private or Group?', label: false %>
     <%= f.input :age_group, as: :select, collection: ['Adults', 'Kids'], include_blank: 'Kids or Adults?', label: false %>
     <%= f.input :sport_id, as: :select, collection: [['Ski',1],['Snowboard',3]], include_blank: 'Select Sport', label: false %>
-    <%= f.select :instructor_id, options_from_collection_for_select(Instructor.all.to_a.keep_if {|a| a.status =="Active" }, :id, :name), {include_blank:"Select an Instructor"}, {class: 'form-control form-group', required:false}  %>
+    <%= f.select :instructor_id, options_from_collection_for_select(Instructor.all.to_a.keep_if {|a| a.status =="Active" }, :id, :name, selected:@section.instructor_id), {include_blank:"Select an Instructor"}, {class: 'form-control form-group', required:false}  %>
 
     <%= f.input :status, as: :select, collection: ['Open','Fully booked','In-progress','Completed'], include_blank: 'Lesson status', label: false %>
     <%= f.input :level, as: :select, collection:

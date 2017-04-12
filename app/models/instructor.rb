@@ -15,6 +15,16 @@ class Instructor < ActiveRecord::Base
         :bucket => 'snowschoolers'
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
+  def self.scheduled_for_date(date)
+    eligible_shifts = Shift.all.to_a.keep_if {|shift| shift.start_time.to_date == date}
+    eligible_shifts = eligible_shifts.keep_if { |shift| shift.status == "Scheduled"}
+    instructors = []
+    eligible_shifts.each do |shift|
+      instructors << Instructor.find(shift.instructor_id)
+    end
+    return instructors
+  end
+
   def self.create_default_bios
     Instructor.all.each do |instructor|
       if instructor.bio.nil?

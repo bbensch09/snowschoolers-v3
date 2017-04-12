@@ -20,14 +20,7 @@
       </div>
 
   </div>
-  <div id="search-widget hidden">
-      <%= text_field_tag :search, params[:search], placeholder: "Where do you love to ski...?", class:'navy-text form-control search-form hidden' %>
-  </div>
 
-  <div id="resort-filter">
-    <h3>Adult School vs. Kids School</h3>
-      <%= select_tag :age_type, options_for_select(["Adult Ski School","Kids Ski School"], params[:age_type]), {class: 'navy-text form-control'} %>
-  </div>  
   <div class="update-filter-cta">
       <%= submit_tag "Update Filters", class:"btn btn-primary btn-xl page-scroll" %>      
   </div>
@@ -38,11 +31,11 @@
   <% if @sections.nil? %>
     <h3 class="text-warning"> Please select a valid date to see results.</h3>
   <% else %>
-  <% @sections.each do |section| %>
+  <% @sections.to_a.keep_if {|section| section.age_group == "Kids"}.each do |section| %>
     <div class="col-md-4 calendar-day-block">
       <h4 class="center"> 
         Lesson #<%=section.id %> - <%= section.status %> <br> 
-        <%= section.instructor.name %> <br>
+        <%= section.instructor_name_for_section %> <br>
         <b><%=section.name %></b>
       </h4>
       <div class="row">
@@ -55,7 +48,9 @@
         </p>
       </div>
       <div class="col-md-4">
-        <%= image_tag(section.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %>
+        <% if section.instructor %> 
+          <%= image_tag(section.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %>
+        <% end %>
       </div>
       </div>
       <ul>
@@ -116,7 +111,7 @@
             <%= form_tag(assign_section_path, :method => "put", class: "form-control") do %>  
             <% if lesson.section.nil? %>
               <td>
-                <%= select_tag :section_id, options_from_collection_for_select(Section.all.sort {|a,b| a.id <=> b.id}, :id, :instructor_name_for_section,  params[:section_id]), include_blank:"Select instructor" %>
+                <%= select_tag :section_id, options_from_collection_for_select(Section.all.sort {|a,b| a.id <=> b.id}, :id, :name,  params[:section_id]), include_blank:"Select instructor" %>
                 <div class="hidden">              
                   <%= text_field_tag :lesson_id, params[:lesson_id], value: lesson.id %>
                 </div>

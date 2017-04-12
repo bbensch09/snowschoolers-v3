@@ -75,6 +75,7 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '5.0.5'
 gem 'jquery-timepicker-rails'
+#added to try to replace bootstrap datetimepicker(?)
 gem 'rails-assets-datetimepicker', source: 'https://rails-assets.org'
 
 #new datetimepicker gem for shifts

@@ -34,13 +34,11 @@ class Lesson < ActiveRecord::Base
     end
   end
 
-  def self.seed_lessons
-    4.times do 
-      LessonTime.create!({
-        date: Date.today + (-5..5).to_a.sample,
+  def self.seed_lessons(date)    
+    LessonTime.create!({
+        date: date,
         slot: ['Early Bird (9-10am)', 'Half-day Morning (10am-1pm)', 'Half-day Afternoon (1pm-4pm)','Full-day (10am-4pm)', 'Mountain Rangers All-day', 'Snow Rangers All-day'].sample
         })
-    end
     20.times do 
       puts "!!! - first creating new student user"
       User.create!({
