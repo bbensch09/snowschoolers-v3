@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :shifts
   resources :sections
   resources :product_calendars
   resources :selfies

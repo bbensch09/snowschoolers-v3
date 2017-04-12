@@ -17,6 +17,8 @@
 //= require jquery_ujs
 //= require jquery.timepicker.js
 //= require jquery.raty
+//= require moment
+// = require bootstrap-datetimepicker
 //= require cocoon
 //= require_tree .
 //= require tinymce-jquery

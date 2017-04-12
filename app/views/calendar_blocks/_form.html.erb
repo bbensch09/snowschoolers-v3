@@ -35,7 +35,7 @@
           </div>
         </div>
       <% end %>
-      <%= f.input :status, as: :select, collection: ['Block this time slot','Mark this time slot available'], selected:'Block this time slot', include_blank: false, label: false, required:true %>
+      <%= f.input :status, as: :select, collection: ['Available','Unavailable','Scheduled'], selected:'Block this time slot', include_blank: false, label: false, required:true %>
   <% end %>
 
   <%= f.actions do %>

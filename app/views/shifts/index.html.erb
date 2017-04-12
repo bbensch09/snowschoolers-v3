@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<h1>View all Shifts</h1>
+
+<div class="calendar-container">
+  <%= week_calendar(events: @shifts) do |date, shifts| %>
+    <div class="day-within-week">
+      <h2 class="daily-summary">Scheduled: <%= shifts.count { |shift| shift.status == "Scheduled"} %></h2>
+      <h2 class="daily-summary">Unavailable: <%= shifts.count { |shift| shift.status == "Unavailable"} %></h2>
+      <h2 class="daily-summary">TBD: <%= shifts.count { |shift| shift.status == "TBD"} %></h2>
+    <% shifts.sort_by{| shift | shift.status }.to_a.each do | shift | %>
+      <div class="<%= shift.shift_status_color %> instructor-shift">
+        <%= shift.instructor.name %> - <span class="smaller-text"><%= shift.status %></span>
+      </div>
+    <% end %>
+    </div>
+  <% end %>
+
+</div>
+
+<hr>
+
+<table class="hidden">
+  <thead>
+    <tr>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Name</th>
+      <th>Status</th>
+      <th>Instructor</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @shifts.each do |shift| %>
+      <tr>
+        <td><%= shift.start_time.strftime("%m/%d") %></td>
+        <td><%= shift.end_time.strftime("%m/%d") %></td>
+        <td><%= shift.name %></td>
+        <td><%= shift.status %></td>
+        <td><%= shift.instructor.name %></td>
+        <td><%= link_to 'Show', shift %></td>
+        <td><%= link_to 'Edit', edit_shift_path(shift) %></td>
+        <td><%= link_to 'Destroy', shift, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Shift', new_shift_path %>

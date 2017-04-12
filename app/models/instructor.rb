@@ -25,7 +25,7 @@ class Instructor < ActiveRecord::Base
   end
 
   def self.seed_temp_instructors
-    2.times do 
+    10.times do 
       Instructor.create!({
         first_name: ['Jim','Garry','Steven','Adam','Kelly','Natalie','Anita','Connie'].sample,
         last_name: "Smith",

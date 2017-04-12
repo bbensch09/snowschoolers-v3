@@ -11,6 +11,11 @@
  *= require_tree .
  */
 
+/*@import 'jquery-ui';*/
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+/*@import 'bootstrap-datetimepicker';*/
+
 // *= require formtastic-bootstrap
 // *= require jquery-ui/datepicker
 // *= require jquery.timepicker.css
