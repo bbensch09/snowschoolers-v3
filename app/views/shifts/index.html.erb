@@ -1,6 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <h1>View all Shifts</h1>
+<%= link_to 'New Shift', new_shift_path %>
+
 
 <div class="calendar-container">
   <%= week_calendar(events: @shifts) do |date, shifts| %>
@@ -50,4 +52,3 @@
 
 <br>
 
-<%= link_to 'New Shift', new_shift_path %>

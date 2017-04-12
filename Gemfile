@@ -75,6 +75,8 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '5.0.5'
 gem 'jquery-timepicker-rails'
+gem 'rails-assets-datetimepicker', source: 'https://rails-assets.org'
+
 #new datetimepicker gem for shifts
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
