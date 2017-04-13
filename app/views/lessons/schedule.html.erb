@@ -91,7 +91,7 @@
             <td><%= link_to "#{lesson.product.name} - #{lesson.product.age_type}", lesson, class: "btn btn-default" %></td>
             <% end %>
             <td class="lessons-table-cells lesson-student"><%= lesson.requester.name %></td>
-            <td><%= lesson.students.first.age_range %></td>
+            <td><%= lesson.students.first ? lesson.students.first.age_range : "N/A" %></td>
             <td class="hidden"><%= lesson.section_id %></td>
             <td><%= lesson.level %></td>
             <td><%= lesson.activity %></td>
