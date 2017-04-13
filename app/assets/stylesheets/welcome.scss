@@ -1115,10 +1115,23 @@ section.pricing-new-lesson{
 .hr-white{
   color: #fff;
 }
-
-
-
-
+#homepage-background{
+  width:auto;
+  height:100%;
+  max-height:95vh;
+  top:-50px;
+  position: absolute;
+  z-index: -10;
+}
+#lesson-flow-background img{
+  min-width:100vw;  
+  height:105vh;
+  width: auto;
+  top:-60px;
+  position: absolute;
+  left:-60px;
+  z-index: -10;
+}
 
 @media (min-width: 768px) {
 .hidden-unless-mobile{

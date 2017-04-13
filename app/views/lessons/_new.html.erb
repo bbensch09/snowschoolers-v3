@@ -4,12 +4,14 @@
 
 <div class="new-lesson-container">
   
-  <ul id="slider">
+  <div id="lesson-flow-background">
+          <img src="https://s3.amazonaws.com/snowschoolers/images/private-photo.png" class="bg-photo" alt="" />
+  </div>
+<!--   <ul id="slider">
       <li>
-          <!-- <img src="https://s3.amazonaws.com/snowschoolers/images/demo/slider/thredbo1.jpg" class="bg-photo" alt="" /> -->
           <img src="https://s3.amazonaws.com/snowschoolers/images/private-photo.png" class="bg-photo" alt="" />
       </li>
-  </ul>
+  </ul> -->
 
 <!-- PreSeason Modal -->
   <% if notice.nil? && alert.nil? && @lesson.errors.count == 0 && session[:pre_season_location_request].nil? && Location.active_partners.count > 1 %>
