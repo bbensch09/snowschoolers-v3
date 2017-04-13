@@ -1,0 +1,38 @@
+<div class="section-blocks">
+  <h4 class="center"> 
+    <b><%=section.name %> <span class="hidden"> - <%= section.id %></span></b>
+  </h4>
+  <h4 class="center">
+    <%= form_tag(assign_instructor_to_section_path, :method => "put", class: "form-control") do %>              
+            <%= select_tag :instructor_id, options_from_collection_for_select(Instructor.scheduled_for_date(section.date), :id, :name, selected:section.instructor_id), include_blank:"Select instructor" %>
+            <div class="hidden">              
+              <%= text_field_tag :section_id, params[:section_id], value: section.id %>
+            </div>
+            <%= submit_tag "ASSIGN", class:"btn btn-default btn-xs page-scroll" %>
+        <%= link_to 'Edit', edit_section_path(section), class: "btn btn-warning btn-xs" %>
+        <%= link_to 'Remove', section, method: :delete, data: {confirm: 'Are you sure you want to delete this split?'}, class: "btn btn-danger btn-xs" %>
+
+    <% end %>
+  </h4>
+  <div class="row">
+  <div class="col-md-8">
+    <p>
+      Date: <%= section.date.strftime("%B %-d") %> <br>
+      Ability: <%= section.level %> <br>
+      Number of students:  <%= section.student_count %> <br>
+      Capacity Remaining:  <%= section.remaining_capacity %>
+    </p>
+  </div>
+  <div class="col-md-4">
+    <% if section.instructor %> 
+      <%= image_tag(section.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %>
+    <% end %>
+  </div>
+  </div>
+  <ul>
+  <span><b>Students:</b></span>
+    <% section.lessons.each do |lesson| %>
+    <li><%= lesson.requester_name%>, age <%= lesson.students.first.age_range %> </li>
+    <% end %>
+  </ul>
+</div>   

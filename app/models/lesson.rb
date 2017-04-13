@@ -21,8 +21,9 @@ class Lesson < ActiveRecord::Base
   validate :lesson_time_must_be_valid
   validate :student_exists, on: :update
 
-  validate :instructors_must_be_available, unless: :no_instructors_post_instructor_drop?, on: :create
-  after_save :send_lesson_request_to_instructors
+  #Check to ensure an instructor is available before booking
+  # validate :instructors_must_be_available, unless: :no_instructors_post_instructor_drop?, on: :create
+  # after_save :send_lesson_request_to_instructors
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
 
   
@@ -34,14 +35,12 @@ class Lesson < ActiveRecord::Base
     end
   end
 
-  def self.seed_lessons
-    4.times do 
-      LessonTime.create!({
-        date: Date.today + (-5..5).to_a.sample,
+  def self.seed_lessons(date,number)    
+    LessonTime.create!({
+        date: date,
         slot: ['Early Bird (9-10am)', 'Half-day Morning (10am-1pm)', 'Half-day Afternoon (1pm-4pm)','Full-day (10am-4pm)', 'Mountain Rangers All-day', 'Snow Rangers All-day'].sample
         })
-    end
-    20.times do 
+    number.times do 
       puts "!!! - first creating new student user"
       User.create!({
           email: Faker::Internet.email,
@@ -49,6 +48,7 @@ class Lesson < ActiveRecord::Base
           user_type: "Student",
           name: Faker::Name.name
           })
+      puts "!!! - user created; begin creating lesson"
       Lesson.create!({
           requester_id: User.last.id,
           deposit_status: "confirmed",
@@ -65,17 +65,34 @@ class Lesson < ActiveRecord::Base
           product_id: [1,4,10,14,14,14,14,15,15,15,15].sample,
           terms_accepted: true
         })
+      puts "!!! - lesson created, creating students for lesson"
+      last_lesson_product_age_type = Lesson.last.product.age_type      
+      if last_lesson_product_age_type == "Child"
+        sample_age = (4..12).to_a.sample
+      elsif last_lesson_product_age_type == "Adult"
+        sample_age = (12..50).to_a.sample
+      else
+        sample_age = (4..50).to_a.sample        
+      end
       Student.create!({
           lesson_id: Lesson.last.id,
           name: "Student Jon",
-          age_range: (5..40).to_a.sample,
+          age_range: sample_age,
           gender: "Male",
           relationship_to_requester: "I am the student",
-          most_recent_level: "Level 2 - can safely stop on beginner green circle terrain.",
+          most_recent_level: ["Level 1 - first-time ever, no previous experience.",
+              "Level 2 - can safely stop on beginner green circle terrain.",
+              "Level 3 - can makes wedge turns (heel-side turns for snowboarding) in both directions on beginner terrain.",
+              "Level 4 - can link turns with moderate speed on all beginner terrain."].sample
         })
+      puts "!!! - seed lesson created"
     end
   end
 
+  def self.bookings_for_date(date)
+    lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == date}
+    return lessons.count
+  end
 
   def date
     lesson_time.date

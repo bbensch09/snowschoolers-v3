@@ -10,7 +10,7 @@ class LessonsController < ApplicationController
     @section = Section.find(params[:section_id])
     @lesson.section_id = @section.id
     @lesson.save!
-    redirect_to '/schedule'
+    redirect_to "/schedule-filtered?utf8=✓&search_date=#{@section.parametized_date}&age_type=#{@section.age_group}"    
   end
 
   def admin_index
@@ -19,24 +19,21 @@ class LessonsController < ApplicationController
   end
 
   def schedule
-      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
-      @lessons.sort! { |a,b| a.id <=> b.id }
-      # @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
-      # @lessons.sort! { |a,b| a.product.name <=> b.product.name }
-      @sections = Section.all
+      # @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
+      @lessons = Lesson.all.sort { |a,b| a.id <=> b.id }
+      @ski_sections = Section.all.to_a.keep_if {|section| section.sport_id == 1}
+      @sb_sections = Section.all.to_a.keep_if {|section| section.sport_id == 3}
+
       render 'schedule'
   end
 
   def lesson_schedule_results
-    if params[:search_date] == ""
-      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
+      @date = params[:search_date]
+      @age_type = params[:age_type]  
+      @lessons = Lesson.all.to_a.keep_if{ |lesson| lesson.lesson_time.date.strftime("%m/%d/%Y") == @date && lesson.product.age_group == @age_type }
+      @ski_sections = Section.all.to_a.keep_if {|section| section.date.strftime("%m/%d/%Y") == @date && section.age_group == @age_type && section.sport_id == 1}
+      @sb_sections = Section.all.to_a.keep_if {|section| section.date.strftime("%m/%d/%Y") == @date && section.age_group == @age_type && section.sport_id == 3}
       @lessons.sort! { |a,b| a.id <=> b.id }
-    else
-      @date = params[:search_date]  
-      @lessons = Lesson.all.to_a.keep_if{ |lesson| lesson.lesson_time.date.strftime("%m/%d/%Y") == @date }
-      @sections = Section.all.to_a.keep_if{ |section| section.date.strftime("%m/%d/%Y") == @date }
-      @lessons.sort! { |a,b| a.id <=> b.id }
-    end
     render 'schedule'
   end
 
