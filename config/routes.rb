@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
   resources :shifts
-  resources :sections
   resources :product_calendars
   resources :selfies
   resources :contestants
@@ -150,9 +149,11 @@ Rails.application.routes.draw do
   get 'schedule-filtered' => 'lessons#lesson_schedule_results', as: :lesson_schedule_results
   # put 'lessons/:id/assign-to-section/:section_id' => 'lessons#assign_to_section', as: :assign_section
   put 'lessons/assign-to-section' => 'lessons#assign_to_section', as: :assign_section
+  put 'sections/assign-instructor-to-section' => 'sections#assign_instructor_to_section', as: :assign_instructor_to_section
 
 
 
+  resources :sections
   resources :lessons
   # get 'new_request' => 'lessons#new_request'
   get 'new_request/:id' => 'lessons#new_request'

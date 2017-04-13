@@ -1,3 +1,26 @@
-// Place all the styles related to the Sections controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.section-blocks{
+	border: 1px solid gray;
+	min-height: 350px;
+	width: 30%;
+  	background-color: rgba(59, 89, 152, .8);
+	margin: 5px 5px 5px 5px;
+	float: left;
+}
+.section-blocks h2, .section-blocks h4, .section-blocks p, .section-blocks ul {
+	color: #fff;
+}
+
+.section-blocks .form-control{
+	background-color: rgba(59, 89, 152, 0);
+	border: none;
+}
+.splits-container{
+	display:block;
+	max-width: 1200px;
+	margin-bottom: 30px;
+	padding-top: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	min-height: 400px;
+	clear:both;
+}

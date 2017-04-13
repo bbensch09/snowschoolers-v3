@@ -10,7 +10,7 @@ class LessonsController < ApplicationController
     @section = Section.find(params[:section_id])
     @lesson.section_id = @section.id
     @lesson.save!
-    redirect_to "/schedule-filtered?utf8=✓&search_date=#{@section.date.to_s}"
+    redirect_to "/schedule-filtered?utf8=✓&search_date=#{@section.parametized_date}&age_type=#{@section.age_group}"    
   end
 
   def admin_index
@@ -21,16 +21,17 @@ class LessonsController < ApplicationController
   def schedule
       @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
       @lessons.sort! { |a,b| a.id <=> b.id }
-      # @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
-      # @lessons.sort! { |a,b| a.product.name <=> b.product.name }
-      @sections = Section.all
+      @ski_sections = Section.all.to_a.keep_if {|section| section.sport_id == 1}
+      @sb_sections = Section.all.to_a.keep_if {|section| section.sport_id == 3}
+
       render 'schedule'
   end
 
   def lesson_schedule_results
       @date = params[:search_date]  
       @lessons = Lesson.all.to_a.keep_if{ |lesson| lesson.lesson_time.date.strftime("%m/%d/%Y") == @date }
-      @sections = Section.all.to_a.keep_if{ |section| section.date.strftime("%m/%d/%Y") == @date }
+      @ski_sections = Section.all.to_a.keep_if {|section| section.date.strftime("%m/%d/%Y") == @date && section.age_group == params[:age_type] && section.sport_id == 1}
+      @sb_sections = Section.all.to_a.keep_if {|section| section.date.strftime("%m/%d/%Y") == @date && section.age_group == params[:age_type] && section.sport_id == 3}
       @lessons.sort! { |a,b| a.id <=> b.id }
     render 'schedule'
   end

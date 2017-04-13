@@ -8,6 +8,7 @@ class Instructor < ActiveRecord::Base
   has_and_belongs_to_many :sports
   has_many :reviews
   has_many :calendar_blocks
+  has_many :sections
   after_create :send_admin_notification
   validates :username, :first_name, :last_name, :certification, :intro, presence: true
   has_attached_file :avatar, styles: { large: "400x400>", thumb: "80x80>" },  default_url: "https://s3.amazonaws.com/snowschoolers/cd-sillouhete.jpg",
@@ -38,7 +39,7 @@ class Instructor < ActiveRecord::Base
     10.times do 
       Instructor.create!({
         first_name: ['Jim','Garry','Steven','Adam','Kelly','Natalie','Anita','Connie'].sample,
-        last_name: "Smith",
+        last_name: ['Kinney','Cox','Church','Garon','Larson','Barros','Hill','Wang'].sample,
         username: "test_user",
         certification: ['Level 1', 'Level 2', 'Level 3', 'HTA'].sample,
         phone_number: "408-315-2900",
@@ -54,7 +55,10 @@ class Instructor < ActiveRecord::Base
         seniors_eligibility: true,
         adults_eligibility: true,        
         age: (18..50).to_a.sample,
-        dob: nil
+        dob: nil,
+        ski_level_ids: [[1,2,3,4],[1,2,3,4,5,6,7],[1,2,3,4,5,6,7,8,9]].sample,
+        snowboard_level_ids: [[1,2,3,4],[1,2,3,4,5,6,7],[1,2,3,4,5,6,7,8,9]].sample,
+        location_ids: 8
         })
     end
     Instructor.all.each do |instructor|

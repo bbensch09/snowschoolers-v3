@@ -1,18 +1,23 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Scheduled Instructor Shifts</h1>
-<%= link_to 'New Shift', new_shift_path %>
+<h1 class="center">Scheduled Instructor Shifts</h1>
 
+<h4 class="center">
+  <%= link_to 'New Shift', new_shift_path, class: 'btn btn-success' %>
+</h4>
 
 <div class="calendar-container">
   <%= week_calendar(events: @shifts) do |date, shifts| %>
     <div class="day-within-week">
-      <h2 class="daily-summary">Scheduled: <%= shifts.count { |shift| shift.status == "Scheduled"} %></h2>
-      <h2 class="daily-summary">Unavailable: <%= shifts.count { |shift| shift.status == "Unavailable"} %></h2>
-      <h2 class="daily-summary">TBD: <%= shifts.count { |shift| shift.status == "TBD"} %></h2>
+      <div class="daily-summary">
+        <h2 class="">Total students: <%= Lesson.bookings_for_date(date) %></h2>
+        <h2 class="">Scheduled: <%= shifts.count { |shift| shift.status == "Scheduled"} %></h2>
+        <h2 class="">TBD: <%= shifts.count { |shift| shift.status == "TBD"} %></h2>
+        <h2 class=" <%= Shift.capacity_status_color(date) %>">Est.Capacity: <%= number_to_percentage(Shift.capacity(date), precision:0) %></h2>
+      </div>
     <% shifts.sort_by{| shift | shift.status }.to_a.each do | shift | %>
       <div class="<%= shift.shift_status_color %> instructor-shift">
-        <%= shift.instructor.name %> - <span class="smaller-text"><%= shift.status %></span>
+        <%= link_to shift.instructor.name, edit_shift_path(shift) %> - <span class="smaller-text"><%= shift.status %></span>
       </div>
     <% end %>
     </div>
