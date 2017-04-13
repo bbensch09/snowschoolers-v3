@@ -6,7 +6,7 @@ class ShiftsController < ApplicationController
   # GET /shifts.json
   def index
     if params[:start_date]
-      @shifts = Shift.all.to_a.keep_if{|shift| (shift.start_time.to_date - params[:start_date]) <=6 }
+      @shifts = Shift.all.to_a.keep_if{|shift| (shift.start_time.to_date - params[:start_date].to_date) <=6 }
     else
       @shifts = Shift.all.to_a.keep_if{|shift| (shift.start_time.to_date - Date.today) <=6 }
     end
