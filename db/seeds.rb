@@ -333,13 +333,13 @@ puts "Ski and snowboard level 1-9 created.
 =end
 
 #BEGIN seed file to setup for Demo
-# Instructor.seed_temp_instructors
+Instructor.seed_temp_instructors
 
 (0...5).to_a.each do |day_num|
     puts "!!! - beginning to create lessons, shifts, sections for day_num: #{day_num}"
-    num_lessons = (10..30).to_a.sample
+    num_lessons = (15..35).to_a.sample
     Shift.create_instructor_shifts(Date.today+day_num)
     Section.seed_sections(Date.today+day_num)
-    Lesson.seed_lessons(Date.today,num_lessons)
+    Lesson.seed_lessons(Date.today+day_num,num_lessons)
   end
     puts "!!!! completed seeding for 5 days"

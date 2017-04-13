@@ -13,6 +13,15 @@ class Product < ActiveRecord::Base
     end
   end
 
+  def age_group
+    case self.age_type 
+      when "Child"
+        return "Kids"
+      when "Adult"
+        return "Adults"
+      end
+  end
+
   def self.import(file)
     CSV.foreach(file.path, headers:true) do |row|
       product = Product.find_or_create_by(id: row['id'])

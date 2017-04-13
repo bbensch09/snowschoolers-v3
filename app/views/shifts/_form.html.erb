@@ -1,18 +1,27 @@
-
+<div class="container">
 <%= semantic_form_for @shift do |f| %>
   <%= f.inputs do %>
-    <div class="col-md-3">
+    <div class="col-md-4">
       <%= f.input :start_time, as: :string, input_html: { class:'input-group date datetimepicker1' }, value:@shift.start_time , placeholder: 'Pick a date and time', label: true, required:true %>
     </div>
-  <div class="col-md-3">
+    <div class="col-md-4">
       <%= f.input :end_time, as: :string, input_html: { class:'input-group date datetimepicker1' }, placeholder: 'Pick a date and time', label: true, required:true %>
     </div>    
+    <div class="col-md-4">
     <%= f.input :name,  as: :select, collection: ['Snow Rangers - Ski', 'Snow Rangers - Snowboard','Mountain Rangers - Ski', 'Mountain Rangers - Snowboard','Adult Groups - Ski','Adult Groups - Snowboard','Private - Ski','Private - Snowboard'], include_blank: 'Shift Name', required:true  %>
+    </div>
+    <div class="col-md-4">
     <%= f.input :status, as: :select, collection: ['TBD', 'Scheduled','Unavailable'], include_blank: 'Status'  %>
-    <%= f.input :instructor_id, as: :select, collection: Instructor.all.sort_by{ |instructor| instructor.name}, selected:@instructor, selected:@shift.instructor_id, label: false %>
+    </div>
+    <div class="col-md-4">
+    <%= f.input :instructor_id, as: :select, collection: Instructor.all.sort_by{ |instructor| instructor.name}, selected:@instructor, selected:@shift.instructor_id, label: true %>
+    </div>
   <% end %>
 
   <%= f.actions do %>
-    <%= f.action :submit, :as => :input %>
+    <div class="col-md-4">
+      <%= f.action :submit, :as => :input %>
+    </div>
   <% end %>
 <% end %>
+</div>

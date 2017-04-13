@@ -18,7 +18,7 @@ class Instructor < ActiveRecord::Base
 
   def self.scheduled_for_date(date)
     eligible_shifts = Shift.all.to_a.keep_if {|shift| shift.start_time.to_date == date}
-    eligible_shifts = eligible_shifts.keep_if { |shift| shift.status == "Scheduled"}
+    eligible_shifts = eligible_shifts.keep_if { |shift| shift.status == "Scheduled" || shift.status == "Assigned"}
     instructors = []
     eligible_shifts.each do |shift|
       instructors << Instructor.find(shift.instructor_id)
@@ -36,10 +36,12 @@ class Instructor < ActiveRecord::Base
   end
 
   def self.seed_temp_instructors
-    10.times do 
+    first_names = ['Jim','Garry','Steven','Adam','Kelly','Natalie','Anita','Connie','Brian','Chris','Christian','Andrew','Ryan','Seth','Justin','Michael','Cameron','Cindy','Ryan','Jerry']
+    last_names =  ['Kinney','Cox','Church','Garon','Larson','Barros','Hill','Wang','Bensch','Prattis','Herlihy','Eells','Hoben','Evanhoe','Palmer','Beler','Ulhriy','Palfy','Walker','Jones']
+    (0..19).to_a.each do |number|
       Instructor.create!({
-        first_name: ['Jim','Garry','Steven','Adam','Kelly','Natalie','Anita','Connie'].sample,
-        last_name: ['Kinney','Cox','Church','Garon','Larson','Barros','Hill','Wang'].sample,
+        first_name: first_names[number],
+        last_name: last_names[number],
         username: "test_user",
         certification: ['Level 1', 'Level 2', 'Level 3', 'HTA'].sample,
         phone_number: "408-315-2900",

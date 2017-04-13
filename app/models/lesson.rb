@@ -66,13 +66,24 @@ class Lesson < ActiveRecord::Base
           terms_accepted: true
         })
       puts "!!! - lesson created, creating students for lesson"
+      last_lesson_product_age_type = Lesson.last.product.age_type      
+      if last_lesson_product_age_type == "Child"
+        sample_age = (4..12).to_a.sample
+      elsif last_lesson_product_age_type == "Adult"
+        sample_age = (12..50).to_a.sample
+      else
+        sample_age = (4..50).to_a.sample        
+      end
       Student.create!({
           lesson_id: Lesson.last.id,
           name: "Student Jon",
-          age_range: (5..40).to_a.sample,
+          age_range: sample_age,
           gender: "Male",
           relationship_to_requester: "I am the student",
-          most_recent_level: "Level 2 - can safely stop on beginner green circle terrain.",
+          most_recent_level: ["Level 1 - first-time ever, no previous experience.",
+              "Level 2 - can safely stop on beginner green circle terrain.",
+              "Level 3 - can makes wedge turns (heel-side turns for snowboarding) in both directions on beginner terrain.",
+              "Level 4 - can link turns with moderate speed on all beginner terrain."].sample
         })
       puts "!!! - seed lesson created"
     end

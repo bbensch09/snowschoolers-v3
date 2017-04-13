@@ -3,6 +3,7 @@ class Section < ApplicationRecord
 	belongs_to :sport
 	belongs_to :instructor
 	belongs_to :shift
+	# validate :no_double_booking_instructors, on: :update
 
 	# def name
 	# 	return "#{self.age_group} #{self.lesson_type} - #{self.sport.activity_name}"
@@ -14,6 +15,10 @@ class Section < ApplicationRecord
 		else
 			return "Not yet assigned"
 		end
+	end
+
+	def self.available_section_splits(date, age_type)
+		Section.where(date:date,age_group:age_type)
 	end
 
 	def parametized_date
@@ -120,6 +125,11 @@ class Section < ApplicationRecord
 
 	def remaining_capacity
 		self.capacity - self.student_count
+	end
+
+	def no_double_booking_instructors
+		#TBD - tricky due to nature of AM & PM sections	
+	    # errors.add(:section, "cannot double book an instructor") unless Instructor.count == 0
 	end
 
 end
