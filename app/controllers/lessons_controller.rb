@@ -20,17 +20,13 @@ class LessonsController < ApplicationController
 
   def schedule
       # @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
-      @lessons = Lesson.all.sort { |a,b| a.id <=> b.id }
-      @ski_sections = Section.all.to_a.keep_if {|section| section.sport_id == 1}
-      @sb_sections = Section.all.to_a.keep_if {|section| section.sport_id == 3}
-
-      render 'schedule'
+      render 'schedule_new'
   end
 
   def lesson_schedule_results
       @date = params[:search_date]
-      @age_type = params[:age_type] ? params[:age_type] : ["Kids","Adults"]
-      @lessons = Lesson.all.to_a.keep_if{ |lesson| lesson.lesson_time.date.strftime("%m/%d/%Y") == @date && lesson.product.age_group == @age_type }
+      @age_type = params[:age_type] ? params[:age_type] : ["Kids","Adults","Any"]
+      @lessons = Lesson.all.to_a.keep_if{ |lesson| lesson.lesson_time.date.to_date.strftime("%m/%d/%Y") == @date }
       @ski_sections = Section.all.to_a.keep_if {|section| section.date.strftime("%m/%d/%Y") == @date && @age_type.include?(section.age_group) && section.sport_id == 1}
       @sb_sections = Section.all.to_a.keep_if {|section| section.date.strftime("%m/%d/%Y") == @date && @age_type.include?(section.age_group) && section.sport_id == 3}
       @lessons.sort! { |a,b| a.id <=> b.id }
