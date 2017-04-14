@@ -460,6 +460,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def available_instructors?
+    return true
     available_instructors.any?
   end
 

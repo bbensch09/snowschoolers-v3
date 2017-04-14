@@ -29,10 +29,10 @@ class LessonsController < ApplicationController
 
   def lesson_schedule_results
       @date = params[:search_date]
-      @age_type = params[:age_type]  
+      @age_type = params[:age_type] ? params[:age_type] : ["Kids","Adults"]
       @lessons = Lesson.all.to_a.keep_if{ |lesson| lesson.lesson_time.date.strftime("%m/%d/%Y") == @date && lesson.product.age_group == @age_type }
-      @ski_sections = Section.all.to_a.keep_if {|section| section.date.strftime("%m/%d/%Y") == @date && section.age_group == @age_type && section.sport_id == 1}
-      @sb_sections = Section.all.to_a.keep_if {|section| section.date.strftime("%m/%d/%Y") == @date && section.age_group == @age_type && section.sport_id == 3}
+      @ski_sections = Section.all.to_a.keep_if {|section| section.date.strftime("%m/%d/%Y") == @date && @age_type.include?(section.age_group) && section.sport_id == 1}
+      @sb_sections = Section.all.to_a.keep_if {|section| section.date.strftime("%m/%d/%Y") == @date && @age_type.include?(section.age_group) && section.sport_id == 3}
       @lessons.sort! { |a,b| a.id <=> b.id }
     render 'schedule'
   end

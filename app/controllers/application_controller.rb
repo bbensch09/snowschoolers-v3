@@ -5,11 +5,11 @@ class ApplicationController < ActionController::Base
   after_action :store_location
 
 #TO REFACTOR LATER - CUSTOMIZED METHODS TO INTERCEPT DEFAULT ERROR HANDLING FOR 404s and 500s
-  rescue_from ActiveRecord::RecordNotFound, :with => :houston_we_have_a_problem
-  unless Rails.application.config.consider_all_requests_local
-    rescue_from ActionController::RoutingError, :with => :houston_we_have_500_routing_problems
-    rescue_from ActionController::UnknownController, :with => :houston_we_have_500_routing_problems
-  end
+  # rescue_from ActiveRecord::RecordNotFound, :with => :houston_we_have_a_problem
+  # unless Rails.application.config.consider_all_requests_local
+  #   rescue_from ActionController::RoutingError, :with => :houston_we_have_500_routing_problems
+  #   rescue_from ActionController::UnknownController, :with => :houston_we_have_500_routing_problems
+  # end
   # rescue_from Exception, :with => :houston_we_have_an_exceptional_problem
 
 def store_location
