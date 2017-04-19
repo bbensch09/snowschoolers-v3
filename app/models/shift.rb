@@ -14,6 +14,12 @@ class Shift < ApplicationRecord
   	end
   end
 
+  def self.parametized_date(date)
+    return [date.strftime('%m'),date.strftime('%d'),date.year].join('%2F') 
+    # "#{date.strftime("%m")}%2F#{date.strftime("%d")}%2F#{date.strftime("%Y")}"
+    # "04%2F13%2F2017"
+  end
+
   def self.capacity_status_color(date)
   	case 
   		when self.capacity(date) > 75

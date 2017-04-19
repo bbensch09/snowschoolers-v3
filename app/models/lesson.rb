@@ -195,7 +195,7 @@ class Lesson < ActiveRecord::Base
 
   def confirmable?
     confirmable_states = ['booked', 'pending instructor', 'pending requester','seeking replacement instructor']
-    confirmable_states.include?(state) && self.available_instructors.any?
+    confirmable_states.include?(state) #&& self.available_instructors.any?
   end
 
   def is_gift_voucher?
@@ -460,6 +460,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def available_instructors?
+    return true
     available_instructors.any?
   end
 

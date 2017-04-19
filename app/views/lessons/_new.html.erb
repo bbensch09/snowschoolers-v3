@@ -1,16 +1,18 @@
 <% title 'Book a Private Ski or Snowboard Lesson' %>
 <% meta_tag :description, "Easily book a private ski or snowboard lesson with our fleet of expert, certified instructors. Snow Schoolers is an online platform for private lessons. You can easily browse profiles & reviews, then book a private ski or snowboard lesson  with our fleet of expert, certified instructors. We collaborate closely with each of our ski area partners to ensure a consistent brand experience while maximizing the financial return of ski school operations to the mountain." %>
 
+<div id="lesson-flow-background">
+        <img src="https://s3.amazonaws.com/snowschoolers/images/private-photo.png" class="bg-photo" alt="" />
+</div>
 
 <div class="new-lesson-container">
   
-  <ul id="slider">
+<!--   <ul id="slider">
       <li>
-          <!-- <img src="https://s3.amazonaws.com/snowschoolers/images/demo/slider/thredbo1.jpg" class="bg-photo" alt="" /> -->
           <img src="https://s3.amazonaws.com/snowschoolers/images/private-photo.png" class="bg-photo" alt="" />
       </li>
   </ul>
-
+ -->
 <!-- PreSeason Modal -->
   <% if notice.nil? && alert.nil? && @lesson.errors.count == 0 && session[:pre_season_location_request].nil? && Location.active_partners.count >= 1 %>
      <a id="preSeasonModalButton" class="hidden" href="#" data-toggle="modal" data-target="#preSeasonModal">New user? First register your Account</a>

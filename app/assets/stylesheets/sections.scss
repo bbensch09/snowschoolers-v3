@@ -24,3 +24,35 @@
 	min-height: 400px;
 	clear:both;
 }
+#sections-view{
+  width: 60vw;
+  float: left;
+  margin-right: 0px;
+}
+#lessons-list{
+  width: 25vw;
+  float: left;
+}
+.schedule-container{
+  max-width: 1240px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.section-instructor-info{
+  height:45px;
+}
+.section-details{
+  font-size: 0.9em;
+}
+.lesson-splits-table{
+  border: 1px solid gray;
+  max-width: 35vw;
+}
+.lesson-splits-table thead{
+  background-color: rgba(59, 89, 152, 0.8);
+  color:white;
+}
+.lesson-splits-table tbody tr td{
+  padding-left: 10px;
+  font-size: 0.8em;
+}

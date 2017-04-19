@@ -23,12 +23,11 @@ class InstructorsController < ApplicationController
   # GET /instructors
   # GET /instructors.json
   def index
-    if current_user.user_type == "Partner"
-      @instructors = Location.find(current_user.location_id).instructors.sort {|a,b| b.overall_initial_rank <=> a.overall_initial_rank}
-      else
-      @instructors = Instructor.all.sort {|a,b| b.id <=> a.id}
-      @instructors = @instructors.sort {|a,b| a.status <=> b.status}
-    end
+    # if current_user.user_type == "Partner"
+    #   @instructors = Location.find(current_user.location_id).instructors.sort {|a,b| b.overall_initial_rank <=> a.overall_initial_rank}
+    #   else
+      @instructors = Instructor.all.sort {|a,b| b.status <=> a.status}
+    # end
   end
 
   def admin_index

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="schedule-container">
 
 <% if current_user && current_user.email == "brian@snowschoolers.com" %>
 <!-- <div class="admin-viewable">
@@ -10,29 +10,9 @@
 </div> -->
 <% end %>
 
-<div id="schedule-filters" class="hidden-unless-desktop">
-  <%= form_tag(lesson_schedule_results_path, :method => "get", class: "pass-search-form") do %>  
-  <div id="sort-selector"
-      <div class='row'>
-        <div class="col-md-4">
-          <h3 class="pull-right">
-            <%= text_field_tag :search_date, params[:search_date], class: 'navy-text form-control hasDatePicker', placeholder: 'Pick a date', label: true, required:false %>   
-          </h3>     
-        </div>
-        <div class="col-md-4">
-          <h3>
-            <%= select_tag :age_type, options_for_select(["Adults","Kids"], params[:age_type]), {class: 'navy-text form-control'} %>
-          </h3>
-        </div>      
-        <div class="col-md-4">
-            <h3> <%= submit_tag "Search Schedule", class:"btn btn-primary page-scroll" %> </h3>
-        </div>
-      </div>  
+<%= render partial: 'schedule_search' %>
 
-  <% end %>
-</div>
-
-<section class="sections-view">
+<div id="sections-view">
   <% if @ski_sections.nil? %>
     <h3 class="text-warning"> Please select a valid date to see results.</h3>
   <% else %>
@@ -55,31 +35,29 @@
     <%= link_to 'New Section', new_section_path, class: "btn btn-success" %>
   </div>
   <% end %>
-
-
-</section>
-<div class="row">
-  <hr class="deposit-hr-navy">
 </div>
+<!-- <div class="row">
+  <hr class="deposit-hr-navy">
+</div> -->
 
 
-<div id="upcoming-lessons" class="">
-<h1 class="center">All Lessons to Schedule </h1>
+<div id="lessons-list" class="">
+<h1 class="center navy-text"> Bookings </h1>
 
-<table class="instructors-table">
+<table class="lesson-splits-table">
   <thead>
     <tr>
       <th>Date</th>
-      <th>Product</th>
       <!-- <th>Deposit?</th> -->
-      <th>Customer</th>
+      <th>Name</th>
       <th>Age</th>
       <!-- <th>Mountain</th> -->
       <th class="hidden">Section ID</th>
       <th>Level</th>
-      <th>Sport</th>
+      <th></th>
       <th>Class Assignment</th>
       <th></th>
+      <th>Product</th>
     </tr>
   </thead>
 
@@ -87,14 +65,17 @@
     <% @lessons.each do |lesson| %>
           <tr>
             <td><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
-            <% if lesson.product %>
-            <td><%= link_to "#{lesson.product.name} - #{lesson.product.age_type}", lesson, class: "btn btn-default" %></td>
-            <% end %>
-            <td class="lessons-table-cells lesson-student"><%= lesson.requester.name %></td>
-            <td><%= lesson.students.first.age_range %></td>
+            <td class="lessons-table-cells lesson-student"><%= lesson.requester.name.split(' ').first %></td>
+            <td><%= lesson.students.first ? lesson.students.first.age_range : "N/A" %></td>
             <td class="hidden"><%= lesson.section_id %></td>
             <td><%= lesson.level %></td>
-            <td><%= lesson.activity %></td>
+            <td>
+              <% if lesson.activity == "Ski"%>
+                <img src= "/assets/skier-icon.ico" class="icons-small">
+              <% else %>
+                <img src= "/assets/snowboarder-icon.png" class="icons-small">
+              <% end %>
+            </td>
             <%= form_tag(assign_section_path, :method => "put", class: "form-control") do %>  
             <% if lesson.section.nil? %>
               <td>
@@ -103,7 +84,7 @@
                   <%= text_field_tag :lesson_id, params[:lesson_id], value: lesson.id %>
                 </div>
               </td>
-              <td> <%= submit_tag "Assign", class:"btn btn-primary btn page-scroll" %></td>
+              <td> <%= submit_tag "Assign", class:"btn btn-primary btn-xs" %></td>
             <% else %>
               <td>
                 <%= select_tag :section_id, options_from_collection_for_select(Section.available_section_splits(@date,@age_type).sort {|a,b| a.id <=> b.id}, :id, :instructor_name_for_section, selected:lesson.section.id), include_blank:"Change instructor" %>
@@ -111,8 +92,12 @@
                   <%= text_field_tag :lesson_id, params[:lesson_id], value: lesson.id %>
                 </div>
               </td>
-              <td> <%= submit_tag "Re-assign", class:"btn btn-warning btn page-scroll" %></td>
+              <td> <%= submit_tag "Re-assign", class:"btn btn-warning btn-xs" %></td>
             <% end %>
+            <% if lesson.product %>
+              <td><%= link_to "#{lesson.product.product_type}", lesson, class: "" %></td>
+            <% end %>
+
             <% end %>
             <!-- <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td> -->
             <!-- <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
