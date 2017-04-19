@@ -8,6 +8,7 @@ class Instructor < ActiveRecord::Base
   has_and_belongs_to_many :sports
   has_many :reviews
   has_many :calendar_blocks
+  has_many :sections
   after_create :send_admin_notification
   validates :username, :first_name, :last_name, :certification, :intro, presence: true
   has_attached_file :avatar, styles: { large: "400x400>", thumb: "80x80>" },  default_url: "https://s3.amazonaws.com/snowschoolers/cd-sillouhete.jpg",
@@ -15,12 +16,56 @@ class Instructor < ActiveRecord::Base
         :bucket => 'snowschoolers'
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
+  def self.scheduled_for_date(date)
+    eligible_shifts = Shift.all.to_a.keep_if {|shift| shift.start_time.to_date == date}
+    eligible_shifts = eligible_shifts.keep_if { |shift| shift.status == "Scheduled" || shift.status == "Assigned"}
+    instructors = []
+    eligible_shifts.each do |shift|
+      instructors << Instructor.find(shift.instructor_id)
+    end
+    return instructors
+  end
+
   def self.create_default_bios
     Instructor.all.each do |instructor|
       if instructor.bio.nil?
       instructor.bio = "TBD - PSIA Level 1 certified instructor."
       instructor.save
       end
+    end
+  end
+
+  def self.seed_temp_instructors
+    first_names = ['Jim','Garry','Steven','Adam','Kelly','Natalie','Anita','Connie','Brian','Chris','Christian','Andrew','Ryan','Seth','Justin','Michael','Cameron','Cindy','Ryan','Jerry']
+    last_names =  ['Kinney','Cox','Church','Garon','Larson','Barros','Hill','Wang','Bensch','Prattis','Herlihy','Eells','Hoben','Evanhoe','Palmer','Beler','Ulhriy','Palfy','Walker','Jones']
+    (0..19).to_a.each do |number|
+      Instructor.create!({
+        first_name: first_names[number],
+        last_name: last_names[number],
+        username: "test_user",
+        certification: ['Level 1', 'Level 2', 'Level 3', 'HTA'].sample,
+        phone_number: "408-315-2900",
+        bio: Faker::Hipster.paragraph,
+        intro: Faker::StarWars.quote,
+        status: "Active",
+        adults_initial_rank: (1..10).to_a.sample,
+        kids_initial_rank: (1..10).to_a.sample,
+        overall_initial_rank: (1..10).to_a.sample,
+        city: "Tahoe City",
+        confirmed_certification: "True",
+        kids_eligibility: true,
+        seniors_eligibility: true,
+        adults_eligibility: true,        
+        age: (18..50).to_a.sample,
+        dob: nil,
+        ski_level_ids: [[1,2,3,4],[1,2,3,4,5,6,7],[1,2,3,4,5,6,7,8,9]].sample,
+        snowboard_level_ids: [[1,2,3,4],[1,2,3,4,5,6,7],[1,2,3,4,5,6,7,8,9]].sample,
+        location_ids: 8
+        })
+    end
+    Instructor.all.each do |instructor|
+        instructor.sport_ids =  [[1,3],[1],[3]].sample
+        instructor.save!        
     end
   end
 

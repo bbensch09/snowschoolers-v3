@@ -1,0 +1,58 @@
+.section-blocks{
+	border: 1px solid gray;
+	min-height: 350px;
+	width: 30%;
+  	background-color: rgba(59, 89, 152, .8);
+	margin: 5px 5px 5px 5px;
+	float: left;
+}
+.section-blocks h2, .section-blocks h4, .section-blocks p, .section-blocks ul {
+	color: #fff;
+}
+
+.section-blocks .form-control{
+	background-color: rgba(59, 89, 152, 0);
+	border: none;
+}
+.splits-container{
+	display:block;
+	max-width: 1200px;
+	margin-bottom: 30px;
+	padding-top: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	min-height: 400px;
+	clear:both;
+}
+#sections-view{
+  width: 60vw;
+  float: left;
+  margin-right: 0px;
+}
+#lessons-list{
+  width: 25vw;
+  float: left;
+}
+.schedule-container{
+  max-width: 1240px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.section-instructor-info{
+  height:45px;
+}
+.section-details{
+  font-size: 0.9em;
+}
+.lesson-splits-table{
+  border: 1px solid gray;
+  max-width: 35vw;
+}
+.lesson-splits-table thead{
+  background-color: rgba(59, 89, 152, 0.8);
+  color:white;
+}
+.lesson-splits-table tbody tr td{
+  padding-left: 10px;
+  font-size: 0.8em;
+}

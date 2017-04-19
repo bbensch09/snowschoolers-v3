@@ -21,6 +21,14 @@
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 
+  <!-- Google Optimize snippet to minimize flickering (optional?) -->
+  <style>.async-hide { opacity: 0 !important} </style>
+  <script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+  h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+  (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+  })(window,document.documentElement,'async-hide','dataLayer',4000,
+  {'GTM-PKBC5NX':true});</script>
+
   <% if ENV['HOST_DOMAIN'] == "www.snowschoolers.com" %>
    <!-- GOOGLE ANALYTICS PRODUCTION TRACKING -  -->
   <script>
@@ -31,6 +39,7 @@
 
     // property ID for www.snowschoolers.com
     ga('create', 'UA-80641194-1', 'auto');
+    ga('require', 'GTM-PKBC5NX');
     ga('send', 'pageview');
 
   </script>
@@ -49,6 +58,7 @@
 
     // property ID for localhost:3000
     ga('create', 'UA-80641194-2', {'cookieDomain': 'none'});
+    ga('require', 'GTM-PKBC5NX');
     ga('send', 'pageview');
 
   </script>
@@ -63,6 +73,7 @@
 
     // property ID for demo.snowschoolers.com
       ga('create', 'UA-80641194-3', 'auto');
+      ga('require', 'GTM-PKBC5NX');
       ga('send', 'pageview');
 
     </script>

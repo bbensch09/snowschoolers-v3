@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 ruby "~> 2.3.0"
 
+#calendar views
+gem "simple_calendar", "~> 2.0"
+
 #install redis gem for actioncable troubleshooting
 gem 'redis'
 
@@ -72,6 +75,12 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '5.0.5'
 gem 'jquery-timepicker-rails'
+#added to try to replace bootstrap datetimepicker(?)
+gem 'rails-assets-datetimepicker', source: 'https://rails-assets.org'
+
+#new datetimepicker gem for shifts
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'

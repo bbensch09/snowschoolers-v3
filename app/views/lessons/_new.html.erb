@@ -1,12 +1,12 @@
 <% title 'Book a Private Ski or Snowboard Lesson' %>
 <% meta_tag :description, "Easily book a private ski or snowboard lesson with our fleet of expert, certified instructors. Snow Schoolers is an online platform for private lessons. You can easily browse profiles & reviews, then book a private ski or snowboard lesson  with our fleet of expert, certified instructors. We collaborate closely with each of our ski area partners to ensure a consistent brand experience while maximizing the financial return of ski school operations to the mountain." %>
 
+<div id="lesson-flow-background">
+        <img src="https://s3.amazonaws.com/snowschoolers/images/private-photo.png" class="bg-photo" alt="" />
+</div>
 
 <div class="new-lesson-container">
   
-    <div id="homepage-background">
-          <img src="https://s3.amazonaws.com/snowschoolers/images/private-photo.png" class="bg-photo" alt="" />
-    </div>
 <!--   <ul id="slider">
       <li>
           <img src="https://s3.amazonaws.com/snowschoolers/images/private-photo.png" class="bg-photo" alt="" />
@@ -94,12 +94,12 @@
                 <span class="search-area-icon"></span>
               </div>
 
-              <div class="col-md-3">
+              <div class="time-slot-input">
                 <!-- <%= lt_f.input :slot, as: :select, collection: ['Morning', 'Afternoon', 'Full Day'], include_blank: 'Time', label: false %> -->
                 <%= lt_f.input :slot, as: :select, collection: ['Early Bird (9-10am)', 'Half-day Morning (10am-1pm)', 'Half-day Afternoon (1pm-4pm)', 'Full-day (10am-4pm)'], selected: @slot, include_blank: 'Time', label: false %>
               </div>
               <% if current_user.nil? %>
-              <div class="col-md-3">
+              <div class="guest-email-input">
                 <%= f.input :guest_email, as: :string, placeholder: "your_email@example.com", label: false %>
               </div>
               <% end %>

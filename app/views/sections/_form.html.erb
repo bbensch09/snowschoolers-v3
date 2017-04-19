@@ -1,0 +1,34 @@
+<div class="container">
+<%= semantic_form_for @section do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :name,  as: :select, collection: ['Snow Rangers - Ski', 'Snow Rangers - Snowboard','Mountain Rangers - Ski', 'Mountain Rangers - Snowboard','Adult Groups - Ski','Adult Groups - Snowboard','Private - Ski','Private - Snowboard'], include_blank: 'Section Name', required:true  %>
+    <%= f.input :date, as: :string, input_html: { id: 'datepicker', value:@section.date }, placeholder: 'Date', label: false %>
+    <%= f.input :lesson_type, as: :select, collection: ['Private Lesson', 'Group Lesson'], include_blank: 'Private or Group?', label: false %>
+    <%= f.input :age_group, as: :select, collection: ['Adults', 'Kids'], include_blank: 'Kids or Adults?', label: false %>
+    <%= f.input :sport_id, as: :select, collection: [['Ski',1],['Snowboard',3]], include_blank: 'Select Sport', label: false %>
+    <% if @section.date %>
+      <%= f.select :instructor_id, options_from_collection_for_select(Instructor.scheduled_for_date(@section.date), :id, :name, selected:@section.instructor_id), {include_blank:"Select an Instructor"}, {class: 'form-control form-group', required:false}  %>
+    <% else %>
+      <%= f.select :instructor_id, options_from_collection_for_select(Instructor.all, :id, :name, selected:@section.instructor_id), {include_blank:"Select an Instructor"}, {class: 'form-control form-group', required:false}  %>
+    <% end %>
+
+    <%= f.input :status, as: :select, collection: ['Open','Fully booked','In-progress','Completed'], include_blank: 'Lesson status', label: false %>
+    <%= f.input :level, as: :select, collection:
+              ["First-timer",
+              "Level 2",
+              "Level 3",
+              "Level 4",
+              "Level 5",
+              "Level 6",
+              "Level 7",
+              "Level 8",
+              "Level 9"],
+              include_blank: "What level is the class?", label: false %>
+    <%= f.input :capacity, label:"Max capacity" %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>
+</div>

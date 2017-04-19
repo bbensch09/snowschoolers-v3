@@ -1,26 +1,32 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
+<div class="container">
+<h1>
+  <strong>Product Name:</strong>
   <%= @product.name %>
-</p>
+</h1>
 
 <p>
   <strong>Details:</strong>
   <%= @product.details %>
 </p>
 
-<p>
+<!-- <p>
   <strong>URL:</strong>
   <%= @product.url %>
 </p>
-
+ -->
 <p>
-  <strong>Price:</strong>
-  <%= @product.price %>
+  <strong>Default Price:</strong>
+  <%= number_to_currency(@product.price) %>
 </p>
 
 <p>
+  <strong>Current Price:</strong>
+  <%= number_to_currency(@product.current_price) %>
+</p>
+
+<!-- <p>
   <strong>Location:</strong>
   <%= @product.location_id %>
 </p>
@@ -41,6 +47,36 @@
   <strong>Calendar period:</strong>
   <%= @product.calendar_period %>
 </p>
-
+ -->
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>
+<hr class="deposit-hr-navy">
+
+</div>
+
+<div class="container">
+  <h2>Dynamic Pricing Calendar fo this product:</h2>
+  <% if @product.product_calendars %>
+    <% @product.product_calendars.each do |day| %>
+    <div class="col-md-2 calendar-day-block-products">
+      <h4 class="center"> 
+        <b><%= day.date.strftime("%B %-d") %></b>
+      </h4>
+      <h4>Price:  <%= number_to_currency(day.price) %></h4>
+      <p class="calendar-block-description">
+        <%= day.status %>
+      </p>
+    </div>
+    <% end %>
+  <% else %>
+    <p>N/A - product remains at default price.</p>
+  <% end %>
+</div>
+
+<div class="container">
+
+<h1>Add new dynamic price for this product</h1>
+  
+    <%= render 'product_calendars/form', product_calendar: @product_calendar = ProductCalendar.new %>
+</div>
+

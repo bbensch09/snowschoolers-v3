@@ -269,3 +269,7 @@ var toggleElementListener = function(){
     console.log("info revealed.");
   });
 }
+
+$(function(){
+  $("#search_date").datepicker();
+})

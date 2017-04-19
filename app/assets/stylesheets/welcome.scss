@@ -477,7 +477,7 @@ body {
 }
 
 .smaller-text{
-  font-size: 0.6em;
+  font-size: 0.7em;
 }
 .price-comparison{
   display:block;
@@ -528,7 +528,7 @@ h2.how-it-works {
   margin-left: 100px;
 }
 .pricing-length{
-  width: 35%;
+  /*width: 35%;*/
 }
 .pricing-snowschoolers{
       text-align: center;
@@ -1130,13 +1130,8 @@ section.pricing-new-lesson{
   width: auto;
   top:-60px;
   position: absolute;
-  left:-60px;
   z-index: -10;
 }
-
-
-
-
 
 @media (min-width: 768px) {
 .hidden-unless-mobile{
