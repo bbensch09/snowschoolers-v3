@@ -1,8 +1,11 @@
 <div class="container">
 <%= semantic_form_for @location do |f| %>
   <%= f.inputs do %>
+    <%= f.action :submit, :as => :input %>
+    
     <%= f.input :name %>
     <%= f.input :logo %>
+    <%= f.input :closing_date, as: :string, input_html: { id: 'datepicker', value:@location.closing_date }, placeholder: 'Closing Date', label: false %>
     <%= f.input :region, as: :select, collection: ['North Tahoe','South Lake Tahoe','Central CA','Southern CA','Northern California','Utah','Colorado','Wyoming','Idaho','Oregon','Washington','New Mexico'] %>
     <%= f.input :state, as: :select, collection: ['California','Nevada','Utah','Colorado','Wyoming','Idaho','Oregon','Washington','New Mexico'] %>
     <%= f.label :city %>
