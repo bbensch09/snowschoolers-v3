@@ -20,7 +20,7 @@
           </div>
     </div>
     <div class="col-md-7 col-sm-7 location-details">
-    <% if product.location.closing_date < Date.today %>
+    <% if product.location.closing_date < Date.today && product.product_type != "season_pass" %>
       <div class="closed-for-season">
         <h4 class="text-danger">This resort is now closed for the season.</h4>
     <% else %>
