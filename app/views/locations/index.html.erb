@@ -15,6 +15,7 @@
       <th>ID</th>
       <th>Ski Area Name</th>
       <th>Logo</th>
+      <th>Closing Date</th>
       <th>Region</th>
       <th>State</th>
       <th>Partner Status</th>
@@ -38,6 +39,7 @@
         <td>
         <%= image_tag location.logo.url(:large), alt:"avatar-img", class:"location-logo-index avatar-center" %>
         </td>
+        <td><%= location.closing_date %></td>
         <td><%= location.region %></td>
         <td><%= location.state %></td>
         <td><%= location.partner_status %></td>
