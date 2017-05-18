@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 ruby "~> 2.3.0"
 
+#install sift science gem to make Sift API calls
+gem 'sift'
 #calendar views
 gem "simple_calendar", "~> 2.0"
 

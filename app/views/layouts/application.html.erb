@@ -104,6 +104,43 @@
 </head>
 <body>
 <!-- <div id="masterContainer"> -->
+<!-- SIFT SCIENCE Snippet -->
+<% if current_user %>
+<% _user_id = current_user.id %>
+<% else %>
+<% _user_id = "" %>
+<% end %>
+<% _session_id = request.session_options[:id] %>
+
+<h1 class="admin-viewable ">
+  UserID: <%= _user_id %>
+  <br>
+  Session ID: <%= _session_id %>
+</h1>
+
+<script type="text/javascript">
+  var _user_id = 'al_capone'; // Set to the user's ID, username, or email address, or '' if not yet known.
+  var _session_id = 'unique_session_id'; // Set to a unique session ID for the visitor's current browsing session.
+
+  var _sift = window._sift = window._sift || [];
+  _sift.push(['_setAccount', 'b95449cbe8']);
+  _sift.push(['_setUserId', <%= _user_id %> ]);
+  _sift.push(['_setSessionId', <%= _session_id %> ]);
+  _sift.push(['_trackPageview']);
+
+ (function() {
+   function ls() {
+     var e = document.createElement('script');
+     e.src = 'https://cdn.siftscience.com/s.js';
+     document.body.appendChild(e);
+   }
+   if (window.attachEvent) {
+     window.attachEvent('onload', ls);
+   } else {
+     window.addEventListener('load', ls, false);
+   }
+ })();
+</script>
 
 <!-- ORIGINAL SNOW SCHOOLERS HEADER -->
 <header id="header">

@@ -1,3 +1,5 @@
+require "sift"
+
 class LessonsController < ApplicationController
   respond_to :html
   skip_before_action :authenticate_user!, only: [:new, :new_request, :create, :complete, :confirm_reservation, :update, :show, :edit]
@@ -217,6 +219,7 @@ class LessonsController < ApplicationController
       @user_email = current_user ? current_user.email : "unknown"
       if @lesson.state == "ready_to_book"
       LessonMailer.notify_admin_lesson_full_form_updated(@lesson, @user_email).deliver
+      send_create_order_event_to_sift
       end
       send_lesson_update_notice_to_instructor
       puts "!!!! Lesson update saved; update notices sent"
@@ -373,6 +376,7 @@ class LessonsController < ApplicationController
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
     if @lesson.save
       redirect_to complete_lesson_path(@lesson)
+      send_create_account_event_to_sift
       GoogleAnalyticsApi.new.event('lesson-requests', 'request-initiated', params[:ga_client_id])
       @user_email = current_user ? current_user.email : "unknown"
       LessonMailer.notify_admin_lesson_request_begun(@lesson, @user_email).deliver
@@ -382,6 +386,53 @@ class LessonsController < ApplicationController
         @date = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["date"]
         render 'new'
     end
+  end
+
+  def send_create_account_event_to_sift
+      client = Sift::Client.new(:api_key => "7dfd35d0f05935b5")
+      properties = {
+        # Required Fields
+        "$user_id"    => @lesson.requester.id,
+        # Supported Fields
+        "$session_id"       => request.session_options[:id],
+        "$user_email"       => @lesson.requester.email,
+        "$name"             => @lesson.requester.name,
+        "$phone"            => @lesson.phone_number,
+        "activity"         => @lesson.activity,        
+      }
+      response = client.track("$create_account", properties)
+  end
+
+  def send_create_order_event_to_sift
+    client = Sift::Client.new(:api_key => "7dfd35d0f05935b5")
+    properties = {
+      # Required Fields
+     "$user_id"    => @lesson.requester.id,
+      # Supported Fields
+      "$session_id"       => request.session_options[:id],
+      "$user_email"       => @lesson.requester.email,
+      "$billing_address"  => {
+        "$name"             => @lesson.requester.name,
+        "$phone"            => @lesson.phone_number,        
+      },
+      "activity"         => @lesson.activity,     
+      "$order_id"         => @lesson.id,
+      "$amount"           => @lesson.price,
+      "$currency_code"    => "USD",
+      "$payment_methods"  => [
+        {
+          "$payment_type"    => "$credit_card",
+          "$payment_gateway" => "$stripe",
+          "$card_bin"        => "",
+          "$card_last4"      => ""
+        }
+      ],
+      "student_name"        => @lesson.students.first.name,
+      "student_age"         => @lesson.students.first.age_range,
+      "gender"              => @lesson.students.first.gender,
+      "most_recent_level"   => @lesson.students.first.most_recent_level         
+    }
+    response = client.track("$create_order", properties)
   end
 
   def send_cancellation_email_to_instructor
