@@ -1,3 +1,4 @@
+require 'sift'
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   # before_action :confirm_admin_permissions
@@ -80,6 +81,7 @@ class ProductsController < ApplicationController
       else
         @products.sort {|a,b| a.price <=> b.price}
     end
+    send_label_to_sift
   end
 
   def learn_to_ski_packages_search_results
@@ -109,6 +111,7 @@ class ProductsController < ApplicationController
       else
         @products.sort! {|a,b| a.price <=> b.price}
     end
+    send_label_to_sift
   end
 
   def private_lessons_search_results
@@ -138,6 +141,7 @@ class ProductsController < ApplicationController
       else
         @products.sort! {|a,b| a.price <=> b.price}
     end
+    send_label_to_sift
   end
 
   def lift_tickets_search_results
@@ -168,6 +172,19 @@ class ProductsController < ApplicationController
         @products.sort! {|a,b| a.price <=> b.price}
     end
   end
+
+  def send_label_to_sift
+      client = Sift::Client.new(:api_key => "7dfd35d0f05935b5")
+      properties = {
+        "$is_bad"      => rand(0..1).even?, # ... or false; Required 
+        "$abuse_type"  => "payment_abuse", # Required
+        "$description" => "The user was testing cards repeatedly for a valid card", # Optional
+        "$source"      => "manual review", # Optional 
+        "$analyst"     => "brian@snowschoolers.com" # Optional 
+      }
+      response = client.label(current_user.id.to_s, properties)
+  end  
+
   # GET /products/1
   # GET /products/1.json
   def show

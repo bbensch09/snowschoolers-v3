@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
+
+<!-- AMP-specific header data 
+  <script async src="https://cdn.ampproject.org/v0.js"></script>  
+  <link rel="canonical" href="<%= url_for(format: :html, only_path: false) %>" >
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+<! end AMP specific header data -->
+
   <title><%= title %></title>
-  <%= action_cable_meta_tag %>
-  <meta name='description'
-      content='<%= yield_meta_tag(:description, 'Snow Schoolers is an online platform for private ski & snowboard lessons. We offer guests the ability to easily book a private ski or snowboard lesson online with our fleet of expert, certified instructors. We collaborate closely with our ski area partners to help them attract valuable new visitors.') %>' />
-  <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+  <meta name='description' content='<%= yield_meta_tag(:description, 'Snow Schoolers is an online platform for private ski & snowboard lessons. We offer guests the ability to easily book a private ski or snowboard lesson online with our fleet of expert, certified instructors. We collaborate closely with our ski area partners to help them attract valuable new visitors.') %>' />
+  <%= action_cable_meta_tag %>  
   <link rel="icon" type="image/png" href="https://s3.amazonaws.com/snowschoolers/SnowSchoolers-favicon.png">
+
   <meta name="google-site-verification" content="W1jQsfy52H6ubJcGDNxflQmKuSNdLuId5JvlfBaLBF4" />
+  <!-- Meta verification for Bing webmaster tools -->
+  <meta name="msvalidate.01" content="4E8F207E8EA0C5FD7DA648D737405F6D" />
+
+  <!-- Robots noindex tag in place on demo.snowschoolers.com site -->
   <% if ENV['HOST_DOMAIN'] == "demo.snowschoolers.com" %>
-    <!-- Robots noindex tag in place on demo.snowschoolers.com site -->
-  <meta name="robots" content="noindex">
+    <meta name="robots" content="noindex">
   <% end %>
+  
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet" type="text/css" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
   <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
@@ -43,9 +55,6 @@
     ga('send', 'pageview');
 
   </script>
-
-  <!-- Meta verification for Bing webmaster tools -->
-  <meta name="msvalidate.01" content="4E8F207E8EA0C5FD7DA648D737405F6D" />
 
   <% elsif ENV['HOST_DOMAIN'] == "localhost:3000" %>
 <!-- GA code for Local Host tracking & QA -->
@@ -104,6 +113,43 @@
 </head>
 <body>
 <!-- <div id="masterContainer"> -->
+<!-- SIFT SCIENCE Snippet -->
+<% if current_user %>
+<% _user_id = current_user.id %>
+<% else %>
+<% _user_id = "" %>
+<% end %>
+<% _session_id = request.session_options[:id] %>
+
+<h1 class="admin-viewable hidden">
+  UserID: <%= _user_id %>
+  <br>
+  Session ID: <%= _session_id %>
+</h1>
+
+<script type="text/javascript">
+  var _user_id = 'al_capone'; // Set to the user's ID, username, or email address, or '' if not yet known.
+  var _session_id = 'unique_session_id'; // Set to a unique session ID for the visitor's current browsing session.
+
+  var _sift = window._sift = window._sift || [];
+  _sift.push(['_setAccount', 'b95449cbe8']);
+  _sift.push(['_setSessionId', '<%= _session_id %>' ]);
+  _sift.push(['_setUserId', '<%= _user_id %>' ]);
+  _sift.push(['_trackPageview']);
+
+ (function() {
+   function ls() {
+     var e = document.createElement('script');
+     e.src = 'https://cdn.siftscience.com/s.js';
+     document.body.appendChild(e);
+   }
+   if (window.attachEvent) {
+     window.attachEvent('onload', ls);
+   } else {
+     window.addEventListener('load', ls, false);
+   }
+ })();
+</script>
 
 <!-- ORIGINAL SNOW SCHOOLERS HEADER -->
 <header id="header">

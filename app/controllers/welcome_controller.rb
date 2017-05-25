@@ -1,4 +1,3 @@
-
 class WelcomeController < ApplicationController
     skip_before_action :authenticate_user!
     before_action :confirm_admin_permissions, only: [:admin_users,:admin_edit, :admin_destroy]
