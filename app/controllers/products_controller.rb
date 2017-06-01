@@ -27,11 +27,16 @@ class ProductsController < ApplicationController
 
   end
 
+  def sort_by_open_status(results)
+      @products = results.sort! {|a,b| b.still_open? <=> a.still_open?}
+  end
+
   def search_results
     if params[:search]
       @search_params = {search_text: params[:search], length: [params[:search_length_1],params[:search_length_2],params[:search_length_3],params[:search_length_6],params[:search_length_7]],status: params[:search_status],slot: params[:search_slot],resort_filter: params[:resort_filter]}
       puts "!!!!! the search_params are: #{@search_params}"
       @products = Product.search(@search_params)
+      @products = @products.to_a.keep_if {|product| product.is_lesson == true}
     else
       @products = Product.all.order("price ASC")
     end
@@ -50,6 +55,7 @@ class ProductsController < ApplicationController
         @products.sort! {|a,b| a.location.name <=> b.location.name}
       else
         @products.sort! {|a,b| a.price <=> b.price}
+        sort_by_open_status(@products)
     end
   end
 
@@ -108,6 +114,7 @@ class ProductsController < ApplicationController
         @products.sort! {|a,b| a.location.name <=> b.location.name}
       else
         @products.sort! {|a,b| a.price <=> b.price}
+        sort_by_open_status(@products)
     end
   end
 
@@ -137,6 +144,7 @@ class ProductsController < ApplicationController
         @products.sort! {|a,b| a.location.name <=> b.location.name}
       else
         @products.sort! {|a,b| a.price <=> b.price}
+        sort_by_open_status(@products)        
     end
   end
 
@@ -166,6 +174,7 @@ class ProductsController < ApplicationController
         @products.sort! {|a,b| a.location.name <=> b.location.name}
       else
         @products.sort! {|a,b| a.price <=> b.price}
+        sort_by_open_status(@products)        
     end
   end
   # GET /products/1

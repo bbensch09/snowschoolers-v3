@@ -22,6 +22,11 @@ class Product < ActiveRecord::Base
       end
   end
 
+  def still_open?
+        # <% if product.location.closing_date < Date.today && product.product_type != "season_pass" %>
+      self.location.closing_date < Date.today ? 0 : 1
+  end
+
   def self.import(file)
     CSV.foreach(file.path, headers:true) do |row|
       product = Product.find_or_create_by(id: row['id'])
@@ -55,34 +60,34 @@ class Product < ActiveRecord::Base
       matched_locations.each do |location|
       search_results += location.products.where(calendar_period:location.calendar_status)
       end
-      # puts "FIRST!!!!!!!!the current number of search_results is #{search_results.count}"
+      puts "FIRST!!!!!!!!the current number of search_results is #{search_results.count}"
       search_results
     else
      search_results = Product.all #(:joins => :location)
     end
     search_results.to_a.keep_if {|product| product.location && product.calendar_period == product.location.calendar_status}
-      # puts "SECOND!!!!!!!!the current number of search_results is #{search_results.count}"
+      puts "SECOND!!!!!!!!the current number of search_results is #{search_results.count}"
     #SEARCH LESSONS BASED ON LENGTH
-    unless search_params[:length].nil?
+    unless search_params[:length] == [nil,nil,nil,nil,nil]
       search_results = search_results.to_a.keep_if {|product| search_params[:length].include?(product.length)}
-      # puts "THIRD!!!!!!!!the current number of search_results is #{search_results.count}"
+      puts "THIRD!!!!!!!!the current number of search_results is #{search_results.count}"
     end
     #FILTER FOR ONLY ACTIVE PARTNERS
     if search_params[:status] == "true"
       search_results = search_results.to_a.keep_if { |product| product.location && product.location.partner_status == "Active" }
-      # puts "FOURTH!!!!!!!!the current number of search_results is #{search_results.count}"
+      puts "FOURTH!!!!!!!!the current number of search_results is #{search_results.count}"
     end
-      # puts "FIFTH!!!!!!!!! the current number of search_results is #{search_results.count}"
+      puts "FIFTH!!!!!!!!! the current number of search_results is #{search_results.count}"
     if search_params[:resort_filter].nil? || search_params[:resort_filter][:location_ids] == [""]
       search_results
     else
       location_ids = search_params[:resort_filter][:location_ids]
       search_results = search_results.to_a.keep_if {|product| location_ids.include?(product.location_id.to_s)}
-      # puts "SIXTH!!!!!!!!! the current number of search_results is #{search_results.count}"
+      puts "SIXTH!!!!!!!!! the current number of search_results is #{search_results.count}"
     end
     if search_params[:slot] && search_params[:slot] != "Any Slot"
       search_results = search_results.to_a.keep_if {|product| product.slot == search_params[:slot]}
-      # puts "SEVENTH!!!!!!!!! the current number of search_results is #{search_results.count}"
+      puts "SEVENTH!!!!!!!!! the current number of search_results is #{search_results.count}"
     end
     if search_params[:pass_type] && search_params[:pass_type] != "All Passes"
       search_results = search_results.to_a.keep_if {|product| product.age_type == search_params[:pass_type]}

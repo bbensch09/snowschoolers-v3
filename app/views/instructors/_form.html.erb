@@ -110,7 +110,7 @@
     <br><br>
   </div>
   <!-- <h4> Preferred Resorts (select up to 4)</h4> -->
-  <h4> <b> Where:</b> All lessons currently take place at Homewood</h4>
+  <h4> <b> Where:</b> We are currently recruiting for all ski areas in Northern California.</h4>
   <div class="col-md-12">
     <% if current_user && (current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Partner") %>
       <%= f.collection_check_boxes :location_ids, Location.all, :id, :name do |location_item| %>
@@ -120,7 +120,7 @@
       </div>
       <% end %>
       <% else %>
-      <%= f.text_area :preferred_locations, placeholder: "Are you able to commute Homewood? Are there other resorts you prefer to teach at? Let us know, as we're actively talking to other resort partners in Tahoe." , class: 'form-control', required:true %>
+      <%= f.text_area :preferred_locations, placeholder: "Where are you most interested in teaching? Are there other resorts you would also consider? Let us know, and we'll be sure to match you with the best opportunity." , class: 'form-control', required:true %>
     <% end %>
     <br>
   </div>
