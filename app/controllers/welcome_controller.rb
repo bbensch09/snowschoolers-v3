@@ -36,6 +36,9 @@ class WelcomeController < ApplicationController
     # @lesson_time = @lesson.lesson_time
   end
 
+  def index_backup_may2017
+  end
+
   def sumo_success
     email=params[:email]
     LessonMailer.notify_sumo_success(email).deliver

@@ -50,6 +50,9 @@ Rails.application.routes.draw do
   # root to: "lessons#new"
   root to: "welcome#index"
 
+  #backup index
+  get 'winter' => 'welcome#index_backup_may2017'
+
   #twilio testing
   get 'twilio/test_sms' => 'twilio#test_sms'
   #promo pages
