@@ -34,6 +34,14 @@ class User < ActiveRecord::Base
     uuid = "#{self.id}-#{self.created_at.to_i}-#{self.email}"
   end
 
+  def heap_random_ltv
+    if rand(2) == 1
+      ltv = [89,198, 449, 559, 1000].sample
+    else
+      ltv = 0
+    end
+  end
+
   def username_for_admin
     email_text = self.email[/[^@]+/]
     email_for_sort = "   #{email_text}_#{rand(100)}"

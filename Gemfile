@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 ruby "~> 2.3.0"
 
+#gem for server-side API calls for from Heap
+gem 'heap', '~> 1.0'
 #calendar views
 gem "simple_calendar", "~> 2.0"
 
