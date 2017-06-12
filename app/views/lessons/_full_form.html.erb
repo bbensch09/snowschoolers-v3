@@ -9,6 +9,10 @@
       <h1>Update Your Lesson</h1>
     </header>
 
+    <div id="autofill-container" class="admin-viewable">
+      <a href="#fill" id="autofill_complete_form" class="btn btn-primary">Autofill Form</a>
+    </div>
+
     <%= semantic_form_for @lesson do |f| %>
       <%= f.semantic_errors :instructor %>
       <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>

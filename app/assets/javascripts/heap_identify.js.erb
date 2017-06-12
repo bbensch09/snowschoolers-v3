@@ -1,0 +1,24 @@
+$(document).ready(function(){
+	
+	// set vars based on Global vars set in app/layout file
+
+	if (SS_USER_ID) {
+		heap.identify(HEAP_UUID)
+
+		heap.addUserProperties({ss_user_id: SS_USER_ID});
+		heap.addUserProperties({user_type: USER_TYPE});
+		heap.addUserProperties({user_state: USER_STATE});
+		heap.addUserProperties({plan: "Free Tier"});
+		console.log("User is signed-in. heap_uuid has been identified as: "+HEAP_UUID+ ", and user_type is "+USER_TYPE);
+	} else {
+		heap.addUserProperties({user_state: USER_STATE});
+		console.log("User not signed in: heap user_state recorded as: "+USER_STATE);
+	};
+
+	// Alternative integration --> add UUID to DOM as a hidden element, then create var based on element
+	// var current_user = $('#user_email')[0].innerHTML;
+	// heap.identify(current_user);
+	// console.log("heap user has been identified as: "+current_user);
+
+	
+});

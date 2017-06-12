@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def heap_uuid
+    uuid = "#{self.id}-#{self.created_at.to_i}-#{self.email}"
+  end
+
   def username_for_admin
     email_text = self.email[/[^@]+/]
     email_for_sort = "   #{email_text}_#{rand(100)}"

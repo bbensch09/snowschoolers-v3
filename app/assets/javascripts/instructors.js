@@ -1,7 +1,7 @@
 $(document).ready(function(){
     applyFormListener();
     selectAllLevelsListener();
-    console.log("listening for form changes");
+    // console.log("listening for form changes");
 });
 
 var applyFormListener = function() {

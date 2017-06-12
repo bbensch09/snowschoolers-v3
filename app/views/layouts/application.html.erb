@@ -41,7 +41,12 @@
     ga('create', 'UA-80641194-1', 'auto');
     ga('require', 'GTM-PKBC5NX');
     ga('send', 'pageview');
+  </script>
 
+  <!-- Heap analytics snippet - PRODUCTION ENV - Main -->
+  <script type="text/javascript">
+      window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+        heap.load("429358529");
   </script>
 
   <!-- Meta verification for Bing webmaster tools -->
@@ -51,17 +56,22 @@
 <!-- GA code for Local Host tracking & QA -->
 
     <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    // property ID for localhost:3000
-    ga('create', 'UA-80641194-2', {'cookieDomain': 'none'});
-    ga('require', 'GTM-PKBC5NX');
-    ga('send', 'pageview');
+      // property ID for localhost:3000
+      ga('create', 'UA-80641194-2', {'cookieDomain': 'none'});
+      ga('require', 'GTM-PKBC5NX');
+      ga('send', 'pageview');
+    </script>
 
-  </script>
+      <!-- Heap analytics snippet - DEV ENV - Main -->
+      <script type="text/javascript">
+          window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+            heap.load("654668111");
+      </script>
   
   <% elsif ENV['HOST_DOMAIN'] == "demo.snowschoolers.com" %>
   <!-- GA code for Local Host tracking & QA -->
@@ -75,7 +85,6 @@
       ga('create', 'UA-80641194-3', 'auto');
       ga('require', 'GTM-PKBC5NX');
       ga('send', 'pageview');
-
     </script>
 
   <% end %> 
@@ -95,15 +104,32 @@
     /></noscript>
 <!-- End Facebook Pixel Code -->
 
-<!-- Heap analytics snippet -->
-<script type="text/javascript">
-    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
-      heap.load("429358529");
-</script>
-
 </head>
 <body>
-<!-- <div id="masterContainer"> -->
+<% if current_user %>  
+
+  <h3 id="current_user_info" class="hidden admin-viewable">
+    <span> User Type: <%= current_user.user_type %> </span>
+    <br>
+    <span id="user_email">UUID: <%=current_user.heap_uuid %></span> 
+  </h3>
+
+  <script type="text/javascript">
+    // creating a global variable for the heap_id
+    var SS_USER_ID = '<%= current_user.id %>';
+    var HEAP_UUID = '<%= current_user.heap_uuid %>';
+    var USER_TYPE = '<%= current_user.user_type %>';
+    var USER_STATE = 'signed-in';
+  </script>
+
+<% else %>
+  
+  <script type="text/javascript">
+    var SS_USER_ID = null;
+    var USER_STATE = 'not signed-in';
+  </script>
+
+<% end %>
 
 <!-- ORIGINAL SNOW SCHOOLERS HEADER -->
 <header id="header">
@@ -295,24 +321,10 @@
           </div>
           </noscript>
 
-      <!-- Facebook Pixel Code -->
+      <!-- Facebook Pixel Code for IniatiateCheckout -->
           <script>
-          !function(f,b,e,v,n,t,s)
-          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-          n.queue=[];t=b.createElement(e);t.async=!0;
-          t.src=v;s=b.getElementsByTagName(e)[0];
-          s.parentNode.insertBefore(t,s)}(window,document,'script',
-          'https://connect.facebook.net/en_US/fbevents.js');
-           fbq('init', '1111997732228432');
             fbq('track', 'InitiateCheckout');
-          </script>
-          <noscript>
-           <img height="1" width="1"
-          src="https://www.facebook.com/tr?id=1111997732228432&ev=PageView
-          &noscript=1"/>
-          </noscript>
+          </script>          
       <!-- End Facebook Pixel Code -->
 
   <% end %>
@@ -364,24 +376,10 @@
       </noscript>
 
 
-      <!-- Facebook Pixel Code -->
+      <!-- Facebook Pixel Code for Purchase completed-->
           <script>
-          !function(f,b,e,v,n,t,s)
-          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-          n.queue=[];t=b.createElement(e);t.async=!0;
-          t.src=v;s=b.getElementsByTagName(e)[0];
-          s.parentNode.insertBefore(t,s)}(window,document,'script',
-          'https://connect.facebook.net/en_US/fbevents.js');
-           fbq('init', '1111997732228432');
             fbq('track', 'Purchase', {value: '40.00', currency: 'USD'});
           </script>
-          <noscript>
-           <img height="1" width="1"
-          src="https://www.facebook.com/tr?id=1111997732228432&ev=PageView
-          &noscript=1"/>
-          </noscript>
       <!-- End Facebook Pixel Code -->
 
   <% end %>
@@ -396,12 +394,13 @@
 
 <%= yield %>
 
-<!-- Avantlink Affiliate code -->
-<script type="text/javascript" src="http://classic.avantlink.com/affiliate_app_confirm.php?mode=js&authResponse=06120309f10e5c8a15d74ad27a012f96dec561bb"></script>
+<!-- Avantlink Affiliate code; no longer need active -->
+<!-- <script type="text/javascript" src="http://classic.avantlink.com/affiliate_app_confirm.php?mode=js&authResponse=06120309f10e5c8a15d74ad27a012f96dec561bb"></script> -->
 
 <!-- FOOTER -->
 
 <footer id="footer">
+<!-- JS snippet for Crisp chat client -->
 <% if controller.controller_name == "welcome" || controller.controller_name == "lessons" || controller.controller_name == "instructors" %>
 <!-- <script type="text/javascript">CRISP_WEBSITE_ID = "0ae9bf60-bc66-4da4-b4d3-716ab557898c";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.im/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script> -->
 <% end %>
