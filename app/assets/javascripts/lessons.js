@@ -186,7 +186,7 @@ $(window).bind('page:change', function() { LESSON.init(); });
 $(document).ready(function(){
   if($('.remove-student').length <=1){
     $('#add-student-button').click();
-    console.log("loaded first student.");
+    // console.log("loaded first student.");
   };
   if($('#preSeasonModalButton').length > 0){
     $('#preSeasonModalButton').click();

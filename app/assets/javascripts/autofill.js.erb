@@ -1,0 +1,26 @@
+console.log("Autofill JS loaded");
+
+$(document).ready(function(){
+
+	$('#autofill_complete_form').click(function(e){
+	    e.preventDefault();	 
+		// Requester info
+		$('#lesson_requester_name').val("John Doe");
+		$('#lesson_phone_number').val("408-315-2900");
+		$('#lesson_gear').val("true");
+		$('#lesson_lift_ticket_status').val("true");
+		// Student info
+		$('.student-box input')[1].value = "Sample Student";
+		$('.student-box input')[2].value = 29;
+		$('.gender').val("Male");
+		$('.relationship-student').val("I am the student.");
+		$('.ability-level').val("Level 1 - first-time ever, no previous experience.");
+		var current_time_stamp = Date($.now());
+		$('#lesson_objectives').val("Test lesson created at "+current_time_stamp);
+		$('#lesson_how_did_you_hear').val("100");
+		$('#rememberme')[0].checked = true;
+		console.log("successfully autofilled form")
+	});
+
+
+});

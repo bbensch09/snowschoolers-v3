@@ -159,6 +159,8 @@ class LessonsController < ApplicationController
         puts "!!!!!About to save state & deposit status after processing lessons#update"
         @lesson.save
       GoogleAnalyticsApi.new.event('lesson-requests', 'deposit-submitted', params[:ga_client_id])
+      #HEAP TESTING - send server-side vent for lesson purchase: this would be redundant...
+      Heap.track 'lesson-purchase-completed', "#{@lesson.requester.heap_uuid}"
       LessonMailer.send_lesson_request_notification(@lesson).deliver
       flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when your instructor confirmed your request. If it has been more than an hour since your request, please email support@snowschoolers.com.'
       flash[:conversion] = 'TRUE'
@@ -214,6 +216,8 @@ class LessonsController < ApplicationController
     end
     if @lesson.save
       GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-updated', params[:ga_client_id])
+      #HEAP TESTING - send server-side vent for lesson ready for deposit: this would be redundant...
+      Heap.track 'lesson-ready-for-deposit', "#{@lesson.requester.heap_uuid}"
       @user_email = current_user ? current_user.email : "unknown"
       if @lesson.state == "ready_to_book"
       LessonMailer.notify_admin_lesson_full_form_updated(@lesson, @user_email).deliver

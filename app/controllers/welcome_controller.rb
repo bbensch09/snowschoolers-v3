@@ -37,6 +37,11 @@ class WelcomeController < ApplicationController
   end
 
   def index_backup_may2017
+    if current_user
+      #HEAP TESTING - send a random LTV value to users via server-side API call.
+      Heap.add_user_properties("#{current_user.heap_uuid}", ltv: "#{current_user.heap_random_ltv}")
+      flash[:notice] = 'Thanks for signing in!'
+    end
   end
 
   def sumo_success
