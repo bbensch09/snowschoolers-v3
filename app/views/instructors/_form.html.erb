@@ -1,6 +1,6 @@
 
 <!-- REGISTER -->
-<div id="apply" class="navy-text">
+<div id="apply" class="black-text">
  <div class="apply-container">
   <%= form_for @instructor do |f| %>
   <% if @instructor.errors.any? %>
@@ -87,7 +87,7 @@
       <% if current_user %>
       <%= f.text_field :username, value: current_user.email, class: 'form-control', required:true %>
         <% else %>
-              <%= f.text_field :username, placeholder: "email@example.com", class: 'form-control', required:true %>
+              <%= f.text_field :username, placeholder: "your_email@gmail.com", class: 'form-control', required:true %>
       <% end %>
     </div>
     <div class="col-md-6 vertical-padding">
@@ -96,11 +96,11 @@
   </div>
   <div class="col-md-6">
   <h4> In what city are you based? </h4>
-    <%= f.text_field :city, placeholder: 'i.e. Tahoe City, CA', class: 'form-control', required:true %>
+    <%= f.text_field :city, placeholder: 'i.e. Truckee, CA', class: 'form-control', required:true %>
     <br><br>
   </div>
   <div class="col-md-6">
-  <h4> What sports do you teach? </h4>
+  <h4> What discplines do you teach? </h4>
   <%= f.collection_check_boxes :sport_ids, Sport.all, :id, :name do |sport| %>
       <div class="collection-check-box form-control">
         <%= sport.check_box %>
@@ -110,7 +110,7 @@
     <br><br>
   </div>
   <!-- <h4> Preferred Resorts (select up to 4)</h4> -->
-  <h4> <b> Where:</b> All lessons currently take place at Homewood</h4>
+  <h4> <b> Location preferences:</b> where do you want to teach?</h4>
   <div class="col-md-12">
     <% if current_user && (current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Partner") %>
       <%= f.collection_check_boxes :location_ids, Location.all, :id, :name do |location_item| %>
@@ -120,21 +120,22 @@
       </div>
       <% end %>
       <% else %>
-      <%= f.text_area :preferred_locations, placeholder: "Are you able to commute Homewood? Are there other resorts you prefer to teach at? Let us know, as we're actively talking to other resort partners in Tahoe." , class: 'form-control', required:true %>
+      <%= f.text_area :preferred_locations, placeholder: "Do you have a home mountain that you already (or used to) teach at? Where else do you hope to teach and ski this winter?" , class: 'form-control', required:true %>
     <% end %>
     <br>
   </div>
-  <h4><b>Professional certifications</b> (PSIA, AASI, etc.) </h4>
+  <h4><b>Professional certifications</b> (PSIA, AASI, CSIA, etc.) </h4>
+  <p class="italic">Note: minimum 1yr previous experience is required.</p>
   <div class="col-md-12">
-    <%= f.text_field :certification, placeholder: 'Do you hold any certifications?', class: 'form-control', required:true %>
+    <%= f.text_field :certification, placeholder: "Alpine Level 2, AASI Level 1, etc.", class: 'form-control', required:true %>
     <br>
   </div>
-  <h4><b>Why</b> are you excited to join Snow Schoolers?</h4>
+  <h4><b></b> Describe your previous teaching experience.</h4>
   <div class="col-md-12">
-    <%= f.text_area :intro, rows:5, placeholder: 'Describe your background in a few sentences', class: 'form-control', required:true %>
+    <%= f.text_area :intro, rows:5, placeholder: 'Tell us about your background in a sentence or two.', class: 'form-control', required:true %>
     <br>
   </div>
-  <h4><b>How</b> did you first hear about Snow Schoolers?</h4>
+  <h4><b>How</b> did you first hear about us?</h4>
   <div class="col-md-6">
     <%= f.select :how_did_you_hear, [['From a Friend',1],['Facebook',2],['Google',3],['From a Flyer',4],['Linkedin',5],['Other',100]], {}, {class: 'form-control', required:true, include_blank:false} %>
   </div>

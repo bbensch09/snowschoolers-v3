@@ -54,6 +54,7 @@ p {
 }
 .bg-primary {
   background-color: #3b5998;
+  /*background-color: #EE7E43;*/
 }
 .bg-white {
   background-color: #fff;
@@ -397,7 +398,7 @@ fieldset[disabled] .btn-default.active {
 }
 .btn-primary, .btn-primary:visited {
   color: white;
-  background-color: #55C9B2;
+  background-color: #EE7E43;
   /*border-color: #3b5998;*/
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
@@ -598,13 +599,13 @@ h2.how-it-works {
 }
 
 h2 {
-    font-size: 2.4em;
+    font-size: 1.6em;
     font-weight: 300;
-    line-height: 42px;
+    line-height: 24px;
     margin: 0 0 32px 0;
     margin-top: 0px;
     margin-right: 0px;
-    margin-bottom: 32px;
+    margin-bottom: 10px;
     margin-left: 0px;
 }
 .how-it-works-images{
@@ -1156,7 +1157,7 @@ section.pricing-new-lesson{
   }
 
   h1 {
-    font-size: 1.8em;
+    font-size: 1.6em;
     padding-left: 5px;
     padding-right: 5px;
   }

@@ -22,9 +22,9 @@ end
 
 def title(title = nil)
     if title.present?
-      content_for :title, title + ' | Snow Schoolers '
+      content_for :title, title + ' | Snow Sports Jobs '
     else
-      content_for?(:title) ? content_for(:title) : 'Snow Schoolers'
+      content_for?(:title) ? content_for(:title) : 'Snow Sports Jobs'
     end
 end
 
@@ -32,7 +32,7 @@ end
     content_for :"meta_#{tag}", text
   end
 
-  def yield_meta_tag(tag, default_text='Browse instructors, compare prices, and book lessons at your favorite resort.')
+  def yield_meta_tag(tag, default_text='Find the perfect ski or snowboard instructor job, anywhere in the world.')
     content_for?(:"meta_#{tag}") ? content_for(:"meta_#{tag}") : default_text
   end
 

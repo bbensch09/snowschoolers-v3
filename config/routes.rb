@@ -48,7 +48,7 @@ Rails.application.routes.draw do
   resources :charges
 
   # root to: "lessons#new"
-  root to: "welcome#index"
+  root to: "welcome#apply"
 
   #twilio testing
   get 'twilio/test_sms' => 'twilio#test_sms'

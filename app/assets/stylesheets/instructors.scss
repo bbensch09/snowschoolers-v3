@@ -2,6 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 */
+.bold{
+  font-weight: bold;
+}
+#header .logo {
+    display:block;
+    height:60px;
+    font-size: 1.5em;
+  }
+.form-container{
+  min-height: 1050px;
+}
 .profile-container{
   max-width: 1000px;
   margin: auto;
@@ -19,9 +30,10 @@
 .white-transparent-bg{
   background: rgba(255, 255, 255, 0.8);
   border-radius: 0.5rem;
+  padding: 15px 15px 15px 15px;
 }
 .black-transparent-bg{
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.5);
   border-radius: 0.5rem;
 }
 .why-ss{
@@ -35,6 +47,9 @@
 }
 .navy-text{
   color: #3b5998;
+}
+.black-text{
+  color: #000;
 }
 .white-text{ color: #fff; }
 .padding-top{
@@ -229,6 +244,12 @@
 /*MOBILE ADJUSTMENTS*/
 @media (max-width: 768px) {
 
+.buffer{
+  min-height: 10px;
+}
+#header .logo{
+  font-size: 1.7em;
+}
 .hidden-unless-desktop{
   display: none;
 }
@@ -252,7 +273,7 @@ h2 {
   max-width: 80%;
 }
 #recruiting-Carousel{
-  height: 15vh;
+  height: 10vh;
 }
 .how-it-works{
   font-size: 0.8em;
@@ -292,6 +313,9 @@ label, select{
 }
 .review-count{
   right:0px;
+}
+.form-container{
+  min-height: 100vh;
 }
 
 }

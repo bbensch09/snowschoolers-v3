@@ -131,7 +131,7 @@ class LessonMailer < ActionMailer::Base
 
   def new_instructor_application_received(instructor)
     @instructor = instructor
-    mail(to: 'brian@snowschoolers.com', subject: "Submitted Application: #{@instructor.username} has applied to join Snow Schoolers")
+    mail(to: 'brian@snowschoolers.com', subject: "SnowSportsJobs Application: #{@instructor.username} has applied!")
   end
 
   def new_homewood_application_received(applicant)
