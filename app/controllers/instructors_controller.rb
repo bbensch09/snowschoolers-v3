@@ -55,8 +55,6 @@ class InstructorsController < ApplicationController
   def new
       @instructor = Instructor.new
       @instructor_id = nil
-    end
-
   end
 
   # GET /instructors/1/edit
