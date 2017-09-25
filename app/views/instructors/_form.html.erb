@@ -14,51 +14,7 @@
       </ul>
     </div>
   <% end %>
-    <% if current_user && (current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Partner")%>
-  <section class="admin-viewable">
-    <div class="col-md-12 vertical-padding">
-    <h4> ADMIN ONLY: Select user email to link to instructor application.</h4>
-      <%= f.select :user_id, options_from_collection_for_select(User.all.sort {|a,b| a.username_for_admin <=> b.username_for_admin}, :id, :username_for_admin, selected:@instructor_id), include_blank:true %>
-    <h4>Initial Adults Rank</h4>
-      <%= f.select :adults_initial_rank, [1,2,3,4,5,6,7,8,9,10], include_blank:false %>
-    <h4>Initial Kids Rank</h4>
-      <%= f.select :kids_initial_rank, [1,2,3,4,5,6,7,8,9,10], include_blank:false %>
-    <h4>Initial Overral Rank</h4>
-      <%= f.select :overall_initial_rank, [1,2,3,4,5,6,7,8,9,10], include_blank:false %>
-    </div>
-    <div class="col-md-12 vertical-padding">
-    <h4> Select eligibility for kids, seniors, and regular adults.</h4>
-    <label>Can teach kids?</label>
-      <%= f.select :kids_eligibility, [['Eligible',true],['Not Approved',false]], required:true %>
-    <label>Can teach seniors?</label>
-      <%= f.select :seniors_eligibility, [['Eligible',true],['Not Approved',false]], required:true %>
-    <label>Can teach regular adults?</label>
-      <%= f.select :adults_eligibility, [['Eligible',true],['Not Approved',false]], required:true %>
-    </div>
-  <div class="col-md-12">
-    <h4>Now select which ski levels the instructor is approved for:</h4>
-    <input type="checkbox" id="selectAllSkiLevels" value="selectAll"> Select / De-select All<br/><br/>
-    <%= f.collection_check_boxes :ski_level_ids, SkiLevel.all, :id, :name do |level| %>
-    <div class="collection-check-box">
-      <%= level.check_box(class: 'ski-checkbox') %>
-      <%= level.label %>
-    </div>
-    <% end %>
-    <br>
-  </div>
-  <div class="col-md-12">
-    <h4>Now select which snowboard levels the instructor is approved for:</h4>
-    <input type="checkbox" id="selectAllSnowboardLevels" value="selectAll"> Select / De-select All<br/><br/>
-    <%= f.collection_check_boxes :snowboard_level_ids, SnowboardLevel.all, :id, :name do |level| %>
-    <div class="collection-check-box">
-      <%= level.check_box(class: 'snowboard-checkbox') %>
-      <%= level.label %>
-    </div>
-    <% end %>
-    <br>
-  </div>
-</section>
-    <% end %>
+  
   <div class="complete-instructor-bio-section">
     <% if current_user %>
   <h4>Please attach a profile photo to complete your instructor profile.</h4>
