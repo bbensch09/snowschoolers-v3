@@ -7,6 +7,11 @@ Devise.setup do |config|
   config.omniauth :facebook, ENV['FB_APP_ID'], ENV['FB_APP_SECRET'],
       scope: "email,user_location,public_profile,user_birthday", image_size: "large", info_fields: 'id,first_name,last_name,about,birthday,age_range,gender,email,location'
 
+  config.router_name = :main_app
+  # Source:
+  # https://stackoverflow.com/questions/31496744/nomethoderror-in-deviseregistrationsnew-on-sign-up-with-devise-and-refinery-c 
+
+
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
