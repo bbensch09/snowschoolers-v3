@@ -91,6 +91,14 @@
     <%= f.text_area :intro, rows:5, placeholder: 'Tell us about your background in a sentence or two.', class: 'form-control', required:true %>
     <br>
   </div>
+  <div class="col-md-12">
+  <h4> What bests describes your current plans for the 17/18? </h4>
+      <p> <%= f.check_box :bio, required: false  %> I plan to work full-time as an instructor at a ski resort. </p>
+      <p> <%= f.check_box :bio, required: false  %> I plan to work part-time as an instructor.</p>
+      <p> <%= f.check_box :bio, required: false  %> I plan to work at a resort in a non-instructor role.</p>
+      <p> <%= f.check_box :bio, required: false  %> I am not planning to work at a ski resort this winter.</p>
+      <p> <%= f.check_box :bio, required: false  %> I have never worked for a ski resort before.</p>
+  </div>
   <h4><b>How</b> did you first hear about us?</h4>
   <div class="col-md-6">
     <%= f.select :how_did_you_hear, [['From a Friend',1],['Facebook',2],['Google',3],['From a Flyer',4],['Linkedin',5],['Other',100]], {}, {class: 'form-control', required:true, include_blank:false} %>

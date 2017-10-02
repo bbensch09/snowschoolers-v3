@@ -80,6 +80,7 @@ class InstructorsController < ApplicationController
         # ga_test_cid = params[:ga_client_id]
         # puts "The GA ga_client_id is #{ga_test_cid}."
         session[:instructor_id] = @instructor.id
+        flash[:conversion] == 'TRUE'
         GoogleAnalyticsApi.new.event('instructor-recruitment', 'new-application-submitted', params[:ga_client_id])
         format.html { render 'thank_you', notice: 'Your instructor application was successfully submitted, you will be contacted shortly. You may also reach out with questions to info@snowsportsjobs.com' }
         format.json { render action: 'show', status: :created, location: @instructor }
