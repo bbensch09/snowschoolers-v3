@@ -93,11 +93,11 @@
   </div>
   <div class="col-md-12">
   <h4> What bests describes your current plans for the 17/18? </h4>
-      <p> <%= f.check_box :bio, required: false  %> I plan to work full-time as an instructor at a ski resort. </p>
-      <p> <%= f.check_box :bio, required: false  %> I plan to work part-time as an instructor.</p>
-      <p> <%= f.check_box :bio, required: false  %> I plan to work at a resort in a non-instructor role.</p>
-      <p> <%= f.check_box :bio, required: false  %> I am not planning to work at a ski resort this winter.</p>
-      <p> <%= f.check_box :bio, required: false  %> I have never worked for a ski resort before.</p>
+    <div class="row">
+      <div class="col-md-12 vertical-padding">
+        <%= f.select :bio, [[' I plan to work full-time as an instructor at a ski resort.',1],['I plan to work part-time as an instructor.',2],['I plan to work at a resort in a non-instructor role.',3],['I am not planning to work at a ski resort this winter.',4],['I have never worked for a ski resort before.',5],['Other',100]], {}, {class: 'form-control', required:true, include_blank:false} %>
+      </div>
+    </div>
   </div>
   <h4><b>How</b> did you first hear about us?</h4>
   <div class="col-md-6">

@@ -16,6 +16,24 @@ class Instructor < ActiveRecord::Base
         :bucket => 'snowschoolers'
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
+
+  def winter_plans
+    case self.bio.to_i
+    when 1
+      return 'I plan to work full-time as an instructor at a ski resort.'
+    when 2
+      return   'I plan to work part-time as an instructor.'
+    when 3
+      return   'I plan to work at a resort in a non-instructor role.'
+    when 4
+      return   'I am not planning to work at a ski resort this winter.'
+    when 5
+      return   'I have never worked for a ski resort before.'
+    when 100
+      return 'Other'
+    end
+  end
+
   def self.scheduled_for_date(date)
     eligible_shifts = Shift.all.to_a.keep_if {|shift| shift.start_time.to_date == date}
     eligible_shifts = eligible_shifts.keep_if { |shift| shift.status == "Scheduled" || shift.status == "Assigned"}
