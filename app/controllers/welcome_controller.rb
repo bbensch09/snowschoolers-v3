@@ -292,6 +292,11 @@ def liftopia_referral
     # end
   end
 
+  def naasi
+    @instructor = Instructor.new
+    GoogleAnalyticsApi.new.event('instructor-recruitment', 'load-application-page')
+  end
+
   def notify_admin
     if request.xhr?
       first_name = params[:first_name]

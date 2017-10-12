@@ -49,7 +49,8 @@ Rails.application.routes.draw do
 
   # root to: "lessons#new"
   root to: "welcome#apply"
-  get '/north-american-association-of-snowsports-instructors' => 'welcome#apply'
+  get '/jobs' => 'welcome#apply'
+  get '/north-american-association-of-snowsports-instructors' => 'welcome#naasi'
 
   #twilio testing
   get 'twilio/test_sms' => 'twilio#test_sms'

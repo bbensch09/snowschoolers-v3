@@ -50,14 +50,13 @@
       <%= f.text_field :phone_number, placeholder: 'Phone number', class: 'form-control' %>
     </div>
   </div>
-  <div class="col-md-12">
+  <div class="col-md-6">
   <h4> In what city are you based? </h4>
     <%= f.text_field :city, placeholder: 'i.e. Truckee, CA', class: 'form-control', required:true %>
     <br><br>
   </div>
   <div class="col-md-6">
-  <h4> <b> Role preference:</b> <br> What types of jobs are you interested in? </h4>
-  <p class="italic">(Select all that apply)</p>
+  <h4> What discplines do you teach? </h4>
   <%= f.collection_check_boxes :sport_ids, Sport.all, :id, :name do |sport| %>
       <div class="collection-check-box form-control">
         <%= sport.check_box %>
@@ -67,23 +66,27 @@
     <br><br>
   </div>
   <!-- <h4> Preferred Resorts (select up to 4)</h4> -->
-  <div class="col-md-6">    
-  <h4> <b> Location preference:</b> <br> What resorts are you interested in?</h4>
+  <h4> <b> Location preferences:</b> where do you want to teach?</h4>
+  <div class="col-md-12">
+    <% if current_user && (current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Partner") %>
       <%= f.collection_check_boxes :location_ids, Location.all, :id, :name do |location_item| %>
       <div class="collection-check-box">
         <%= location_item.check_box %>
         <%= location_item.label %>
       </div>
-      <% end %> 
+      <% end %>
+      <% else %>
+      <%= f.text_area :preferred_locations, placeholder: "Do you have a home mountain that you already (or used to) teach at? Where else do you hope to teach and ski this winter?" , class: 'form-control', required:true %>
+    <% end %>
     <br>
   </div>
   <h4><b>Professional certifications</b> (PSIA, AASI, CSIA, etc.) </h4>
-  <p class="italic">Do you have any relevant certifications?</p>
+  <p class="italic">Note: minimum 1yr previous experience is required.</p>
   <div class="col-md-12">
     <%= f.text_field :certification, placeholder: "Alpine Level 2, AASI Level 1, etc.", class: 'form-control', required:true %>
     <br>
   </div>
-  <h4><b></b> Describe your previous work experience.</h4>
+  <h4><b></b> Describe your previous teaching experience.</h4>
   <div class="col-md-12">
     <%= f.text_area :intro, rows:5, placeholder: 'Tell us about your background in a sentence or two.', class: 'form-control', required:true %>
     <br>
@@ -95,11 +98,6 @@
         <%= f.select :bio, [[' I plan to work full-time as an instructor at a ski resort.',1],['I plan to work part-time as an instructor.',2],['I plan to work at a resort in a non-instructor role.',3],['I am not planning to work at a ski resort this winter.',4],['I have never worked for a ski resort before.',5],['Other',100]], {}, {class: 'form-control', required:true, include_blank:false} %>
       </div>
     </div>
-  </div>
-  <h4><b>Linkedin Profile</b> <span class="italic">(optional)</span> </h4>
-  <div class="col-md-12">
-    <%= f.text_field :username, placeholder: "https://www.linkedin.com/in/your_name", class: 'form-control', required:true %>
-    <br>
   </div>
   <h4><b>How</b> did you first hear about us?</h4>
   <div class="col-md-6">
