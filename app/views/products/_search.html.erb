@@ -1,6 +1,6 @@
 <div id="search-widget">
     <%= form_tag(search_results_path, :method => "get", id: "search-form") do %>
-    <%= text_field_tag :search, params[:search], placeholder: "Where do you want to go?", class:'navy-text form-control search-form' %>
-    <%= submit_tag "Search", class:"btn btn-primary btn-xl page-scroll" %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search by city, state or resort name", class:'navy-text form-control search-form' %>
+    <%= submit_tag "Search Locations", class:"btn btn-primary btn-lg page-scroll" %>
     <% end %>
 </div>
