@@ -14,9 +14,8 @@
   </ul>
  -->
 <!-- PreSeason Modal -->
-  <% if notice.nil? && alert.nil? && @lesson.errors.count == 0 && session[:pre_season_location_request].nil? && Location.active_partners.count >= 1 %>
+  <% if notice.nil? && alert.nil? && @lesson.errors.count == 0 && session[:pre_season_location_request].nil? && Location.active_partners.count >= 20 %>
      <a id="preSeasonModalButton" class="hidden" href="#" data-toggle="modal" data-target="#preSeasonModal">New user? First register your Account</a>
-  <% end %>
   <div class="modal" id="preSeasonModal" tabindex="1" role="dialog" aria-labelledby="preSeasonModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content preSeasonModal">
@@ -47,6 +46,7 @@
       </div>
     </div>
   </div>
+  <% end %>
 <!-- /PreSeason Modal -->
 
     
