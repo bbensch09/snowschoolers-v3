@@ -83,7 +83,7 @@ Rails.application.routes.draw do
   get 'terms_of_service' => 'welcome#terms_of_service'
   get 'new_hire_packet' => 'welcome#new_hire_packet'
   get 'recommended_accomodations' => 'welcome#recommended_accomodations'
-  get 'thank_you' => 'instructors#thank_you'
+  get '/thanks-for-applying' => 'instructors#thank_you'
   post '/notify_admin' => 'welcome#notify_admin'
   post 'sumo_success' => 'welcome#sumo_success'
   get '/mountain-collective' => 'welcome#mountain_collective_referral'

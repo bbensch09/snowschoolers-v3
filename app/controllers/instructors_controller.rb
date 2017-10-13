@@ -82,7 +82,7 @@ class InstructorsController < ApplicationController
         session[:instructor_id] = @instructor.id
         flash[:conversion] == 'TRUE'
         GoogleAnalyticsApi.new.event('instructor-recruitment', 'new-application-submitted', params[:ga_client_id])
-        format.html { render 'thank_you', notice: 'Your instructor application was successfully submitted, you will be contacted shortly. You may also reach out with questions to info@snowsportsjobs.com' }
+        format.html { redirect_to '/thanks-for-applying', notice: 'Thanks! Your application was successfully submitted, and we look forward to contacting you shortly. You may also reach out with questions to info@snowsportsjobs.com' }
         format.json { render action: 'show', status: :created, location: @instructor }
       else
         format.html { render action: 'new' }
