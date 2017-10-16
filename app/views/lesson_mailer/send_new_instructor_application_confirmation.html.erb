@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>
+      Hi <%= @instructor.first_name %>,
+    </p>
+    <p>
+      Thanks for submitting your application to join <a href="www.snowschoolers.com">Snow Schoolers</a>. We would love to find time to tell you more about our program and likewise to hear a bit more about previous experience. 
+    </p>
+    <p>
+      Can you please reply to this email and confirm a few times within the next couple days that you are free for a phone interview? We have your phone number from your application as <%=@instructor.phone_number %>. If there is a better number to reach you, please likewise let us know.
+    </p>
+
+<p>
+  Best, <br>
+  Brian <br>
+Founder, SnowSchoolers.com
+</p>
+  </body>
+</html>

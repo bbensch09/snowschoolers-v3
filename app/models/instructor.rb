@@ -130,6 +130,7 @@ class Instructor < ActiveRecord::Base
   def send_admin_notification
       @instructor = Instructor.last
       LessonMailer.new_instructor_application_received(@instructor).deliver
+      LessonMailer.send_new_instructor_application_confirmation(@instructor).deliver
       puts "an admin notification has been sent."
   end
 
