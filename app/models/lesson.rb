@@ -316,9 +316,6 @@ class Lesson < ActiveRecord::Base
   end
 
   def price
-    if self.product
-      return self.product.price
-    end
     if self.lesson_price
       return self.lesson_price.to_s
     elsif self.lesson_cost
