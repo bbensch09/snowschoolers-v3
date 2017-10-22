@@ -1,5 +1,5 @@
 <section id="" class="pricing-new-lesson">
-    <div class="">
+    <div class="">        
         <table class="col-lg-12 col-xs-12 pricing-table">
           <thead class="">
             <tr>
@@ -15,6 +15,11 @@
               <th class="pricing-competitors-names col-xs-2">Squaw Valley</th>
             </tr>
           </thead>
+
+          <% if (Product.where(location_id:8,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(8).calendar_status).first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil) %>
+          <h1 class='text-danger center'> Pricing Not Yet Available </h1>
+
+          <% else %> 
 
           <tbody>
             <tr>
@@ -51,6 +56,7 @@
                 <td class="pricing-competitors">$739</td>
             </tr>
           </tbody>
+          <% end %>
         </table>
         <div class="row col-md-12 price-details">
             <h4 class="italic">
