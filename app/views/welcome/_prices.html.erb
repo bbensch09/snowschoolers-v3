@@ -1,53 +1,15 @@
 <section id="pricing" class="pricing-section">
     <div class="pricing-container">
-        <table class="col-lg-12 col-xs-12 pricing-table">
-          <thead class="">
-            <tr>
-                <th class="center price-header" colspan="4">
-                    <h1>PRIVATE LESSON RATES</h1>
-                </th>
-            </tr>
-            <tr class="">
-              <th class="col-xs-2"> </th>
-              <th class="pricing-snowschoolers col-xs-2">Snow Schoolers <br> <span class="homewood-pricing">(at Homewood)</span> </th>
-              <th class="pricing-competitors-names col-xs-2">Northstar</th>
-              <th class="pricing-competitors-names col-xs-2">Squaw Valley</th>
-            </tr>
-          </thead>
 
-          <tbody>
-            <tr>
-                <td class="pricing-length">Early-bird (9-10am)</td>
-                <td class="pricing-snowschoolers">
-                    <%= number_to_currency(Product.where(location_id:8,length:"1.00",calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
-                    </td>
-                <td class="pricing-competitors">N/A</td>
-                <td class="pricing-competitors">N/A</td>
-            </tr>
-            <tr>
-                <td class="pricing-length">Half-day (10-1pm or 1-4-pm)</td>
-                <td class="pricing-snowschoolers">
-                <%= number_to_currency(Product.where(location_id:8,length:"3.00",calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
-                </td>
-                <td class="pricing-competitors">$595</td>
-                <td class="pricing-competitors">$519</td>
-            </tr>
-            <tr>
-                <td class="pricing-length">Full-day (10-4pm)</td>
-                <td class="pricing-snowschoolers">
-                <%= number_to_currency(Product.where(location_id:8,length:"6.00",calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
-                </td>
-                <td class="pricing-competitors">$810</td>
-                <td class="pricing-competitors">$739</td>
-            </tr>
-          </tbody>
-        </table>
+        <%= render partial: "welcome/prices_simple" %>
+
         <div class="row col-md-12 price-details">
             <h4 class="italic">
-            Prices above <b> do not include </b> your lift ticket and/or rental equipment (more info below), and are subject to change during the holiday periods as described below. Note that all private lessons you can include <b>up to 5 friends or family members </b> at no additional charge, letting you get even more bang for your buck!
+            Prices above <b> typically do not include </b> your lift ticket and/or rental equipment (more info below), and are subject to change during the holiday periods as described below. <a href="#holiday-pricing">Click here for full holiday pricing.</a> All private lessons you can include <b>up to 5 friends or family members </b> at no additional charge, letting you get even more bang for your buck!
             <br>
             </h4>
-            <h5 class="indent"><b>Non-holiday:</b> $89 (early bird), $449 (half-day), $559 (full-day)</h5>
+            
+<!--             <h5 class="indent"><b>Non-holiday:</b> $89 (early bird), $449 (half-day), $559 (full-day)</h5>
             <h5 class="indent"><b>Peak:</b> $99 (early bird), $469 (half-day), $599 (full-day)</h5>
             <h5 class="indent"><b>Holiday:</b> $99 (early bird), $489 (half-day), $599 (full-day)</h5>
             <ul>
@@ -58,7 +20,7 @@
                     Holiday dates include Dec. 24, 2016; Dec. 26 - Dec. 31, 2017; Jan. 14 & Jan 15, 2017; Feb. 4, 2017; Feb. 18 & 19, 2017; Feb. 25, 2017</li>
                 </li>
             </ul>
-        </div>
+ -->        </div>
     </div>
 </section>
 
