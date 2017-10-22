@@ -320,13 +320,26 @@ class Lesson < ActiveRecord::Base
       return self.lesson_price.to_s
     elsif self.lesson_cost
       return self.lesson_cost.to_s
-    else
-      product = Product.where(location_id:self.location.id,name:self.lesson_time.slot,calendar_period:self.location.calendar_status).first
-      if product.nil?
-        return "Error - lesson price not found" #99 #default lesson price - temporary
-      else
-        return product.price.to_s
+    elsif self.location.id == 8
+      # puts "!!!!!! lesson location is #{self.location.id}"      
+      product = Product.where(location_id:self.location.id,name:self.lesson_time.slot,calendar_period:self.location.calendar_status).first      
+    elsif self.location.id == 24
+    puts "!!!!!! lesson location is #{self.location.id}"      
+      if self.slot == 'Early Bird (9-10am)'
+        product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:"Regular",product_type:"private_lesson").first
+      elsif self.slot == 'Half-day Morning (10am-1pm)'
+        product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:"Regular",product_type:"private_lesson").first
+      elsif self.slot == 'Half-day Afternoon (1pm-4pm)'
+        product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:"Regular",product_type:"private_lesson").first
+      elsif self.slot == 'Full-day (10am-4pm)'
+        product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:"Regular",product_type:"private_lesson").first
       end
+    end
+    puts "!!!!!!!! lesson.product is #{product}"
+    if product.nil?
+      return "Error - lesson price not found" #99 #default lesson price - temporary
+    else
+      return product.price.to_s
     end
   end
 
