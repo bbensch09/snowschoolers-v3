@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>New HTA application received!</h1>
+    <p>
+      A new user, <%= @instructor.username %> has just applied to the HTA course.
+    </p>
+    <p>You can view <%= @instructor.first_name %>'s publicly visible profile at: <%= instructor_url(@instructor) %> </p>
+    <p>
+      You can view their full application information via the URL below, in addition to the summary info below.
+      <ul>
+        <li><strong>Email:</strong> <%= @instructor.username %></li>
+        <li><strong>Name:</strong> <%= @instructor.name %></li>
+        <li>
+          Disc<strong>iplines:</strong>
+            <% if @instructor.ski_instructor? %>
+            Skiing
+            <% end %>
+            <% if @instructor.snowboard_instructor? %>
+            Snowboarding
+            <% end %>
+            <% if @instructor.telemark_instructor? %>
+            Telemark
+            <% end %>
+        </li>
+        <li><strong>City:</strong> <%= @instructor.city %></li>
+        <li><strong>Certifications:</strong> <%= @instructor.certification %></li>
+        <li><strong>Phone:</strong> <%= @instructor.phone_number %></li>
+        <li><strong>Location preferences:</strong> <%= @instructor.preferred_locations %> </li>
+        <li><strong>Why interested:</strong> <%= @instructor.intro %></li>
+        <li><strong>Lead source:</strong> <%= @instructor.referral_source %></li>
+        <li><strong>URL:</strong> <%= show_candidate_instructor_url(@instructor.id) %></li>
+      </ul>
+    </p>
+  </body>
+</html>

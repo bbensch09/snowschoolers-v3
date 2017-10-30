@@ -139,6 +139,16 @@ class LessonMailer < ActionMailer::Base
     mail(to: @instructor.username, cc: 'brian@snowschoolers.com', subject: "Thanks for applying to Snow Schoolers -- please schedule your interview!")
   end
 
+  def new_hta_application_received(instructor)
+    @instructor = instructor
+    mail(to: 'brian@snowschoolers.com', subject: "Submitted Application: #{@instructor.username} has applied to join Snow Schoolers")
+  end
+
+  def send_hta_application_confirmation(instructor)
+    @instructor = instructor
+    mail(to: @instructor.username, cc: 'brian@snowschoolers.com', subject: "Thanks for applying to our upcoming Accelerated Instructor Certification Program -- we'll be in touch!")
+  end
+
   def new_homewood_application_received(applicant)
     @applicant = applicant
     mail(to: 'brian+marc@snowschoolers.com', cc:'brian@snowschoolers.com', subject: "Submitted Application: #{@applicant.email} has applied to join Homewood")

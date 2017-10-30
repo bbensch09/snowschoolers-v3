@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>
+      Hi <%= @instructor.first_name %>,
+    </p>
+    <p>
+      Thanks for submitting your application to enroll in this season's accelerated instructor certification program for new instructors. In order to fully process your enrollment, we need to setup a short call to confirm a few basic details.
+    </p>
+    <p>
+      Can you please reply to this email and confirm a few times within the next couple days that you are free for a 10 minute call? We have your phone number from your application as <%=@instructor.phone_number %>. If there is a better number to reach you, please likewise let us know.
+    </p>
+
+<p>
+  Best, <br>
+  Brian <br>
+Founder, SnowSchoolers.com
+</p>
+  </body>
+</html>
