@@ -300,6 +300,11 @@ def liftopia_referral
     # end
   end
 
+  def become_a_certified_ski_instructor
+    @instructor = Instructor.new
+    GoogleAnalyticsApi.new.event('instructor-recruitment', 'load-application-page')
+  end
+
   def notify_admin
     if request.xhr?
       first_name = params[:first_name]

@@ -77,6 +77,7 @@ Rails.application.routes.draw do
   get   'lessons/homewood'               => 'lessons#homewood'
   #landing page for prospective instructors
   get 'apply' => 'welcome#apply'
+  get 'become-a-certified-ski-instructor' => 'welcome#become_a_certified_ski_instructor'
   get 'index' => 'welcome#index'
   get 'about_us' => 'welcome#about_us'
   get 'launch_announcement' => 'welcome#launch_announcement'
