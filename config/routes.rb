@@ -117,6 +117,7 @@ Rails.application.routes.draw do
   get '/soda-springs' => 'welcome#soda_springs_referral'
   get '/donner-ski-ranch' => 'welcome#donner_ski_ranch_referral'
   get '/granlibakken' => 'welcome#granlibakken_referral'
+  get '/granlibakken-lessons' => 'welcome#granlibakken_lesssons_referral'
   get '/sky-tavern' => 'welcome#sky_tavern_referral'
 
   #Avantlink site verification
