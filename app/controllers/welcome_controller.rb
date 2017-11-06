@@ -235,6 +235,14 @@ def liftopia_referral
     redirect_to "http://granlibakken.com/ski-board-sled-hill/?utm_campaign=SnowSchoolers_beginner_guide"
   end  
 
+  def granlibakken_lesssons_referral
+    resort = "Granlibakken Software Services"
+    user = current_user ? current_user.email : "Unknown User"
+    GoogleAnalyticsApi.new.event('tracked-referrals', "resort_guide-granlibakken")
+    LessonMailer.notify_resort_referral(resort,user).deliver
+    redirect_to "http://granlibakken.snowschoolers.com/"
+  end
+
   def sky_tavern_referral
     resort = "Sky Tavern"
     user = current_user ? current_user.email : "Unknown User"
