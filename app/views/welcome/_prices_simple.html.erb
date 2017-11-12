@@ -1,10 +1,11 @@
 <section id="" class="pricing-new-lesson">
     <div class="">        
+        <h1 class="center navy-text">Book Early and Save over 50%</h1>
         <table class="col-lg-12 col-xs-12 pricing-table">
           <thead class="">
             <tr>
                 <th class="center price-header" colspan="5">
-                    <h1>PRIVATE LESSON RATES</h1>
+                    <h1>2017/18 PRIVATE LESSON RATES</h1>
                 </th>
             </tr>
             <tr class="">
@@ -34,7 +35,7 @@
                 <td class="pricing-competitors">N/A</td>
             </tr>
             <tr>
-                <td class="pricing-length">Half-day (10-1pm or 1-4-pm)</td>
+                <td class="pricing-length">Half-day (10-1pm; 1-4-pm)</td>
                 <td class="pricing-snowschoolers">
                 <%= number_to_currency(Product.where(location_id:8,length:"3.00",product_type:'private_lesson',calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
                 </td>
@@ -60,9 +61,9 @@
         </table>
         <div class="row col-md-12 price-details">
             <h4 class="italic">
-            *Prices <b> typically do not include </b> your lift ticket and/or rental equipment. 
+            *Prices <b>at Homewood do not include </b> your lift ticket and/or rental equipment. Please ask about available packages.
             <br> 
-            **You may include <b>up to 5 people </b> at no additional charge.
+            **You may include <b>up to 5 people in any private lesson</b> at no additional charge.
             <br>
             </h4>            
         </div>
