@@ -35,7 +35,7 @@
                   <%= @lesson.num_days %>
                 <% end %>
                 <%= @lesson.lesson_time.slot %> <br>
-                Homewood North Lodge  (<a href="https://www.google.com/maps/place/Homewood+Mountain+Resort/@39.086085,-120.1627817,17z/data=!4m12!1m6!3m5!1s0x809bd57fbf0e6771:0x6cdf8953d18f267f!2sSR+89+Homewood+(Homewood+Mountain+Resort)!8m2!3d39.086085!4d-120.160593!3m4!1s0x0:0x73b0c46aa0c1068d!8m2!3d39.0855831!4d-120.1605392" >5145 W Lake Blvd, Homewood, CA 96141</a>) <br>
+                <%= @lesson.location.name %>  (<a href="https://www.google.com/maps/place/<%=@lesson.location.address%>" ><%=@lesson.location.address%></a>) <br>
               <% if @lesson.lesson_price.nil? %>
                 <% amount = @lesson.price.to_i*100 %>
                 <%= number_to_currency(@lesson.price) %>
