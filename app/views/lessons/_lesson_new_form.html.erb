@@ -1,0 +1,101 @@
+<%= semantic_form_for @lesson do |f| %>
+  <div class="lesson-form-container">
+ 
+      <div class="new-lesson-pricing-container">
+
+        <%= render partial: "welcome/prices_simple" %>
+      </div>
+
+      <div class="new-lesson-caption">
+
+        <div class="block">
+          <h1 class="center mobile-book-cta">BOOK YOUR LESSON TODAY</h1>
+        </div>
+
+        <div class="block">
+        </div>
+        <h1 class="warning">        
+          <%= f.semantic_errors :lesson %>
+        </h1>
+        <div class="block inputs">
+            <div class="col-md-2">
+              <%= f.input :activity, as: :select, collection: ['Ski', 'Snowboard'], selected:@activity, include_blank: 'Lesson Type', label: false %>
+            </div>            
+
+            <div class="col-md-3">
+              <%= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase} , selected: Location.active_partners.first.id, include_blank: 'Location', label: false %>
+              <!-- %= f.input :requested_location , as: :select, collection: [['North Tahoe',1],['South Lake Tahoe',2],['Southern CA',3],['Utah',4],['Colorado',5],['Wyoming',6],['Idaho',7],['New Mexico',8]], selected: @promo_location, include_blank: 'Location', label: false %> -->
+            </div>
+            <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
+              <div class="col-md-2">
+                <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker', value:@date }, placeholder: 'Date', label: false %>
+                <span class="search-area-icon"></span>
+              </div>
+
+              <div class="col-md-3 time-slot-input">
+                <!-- <%= lt_f.input :slot, as: :select, collection: ['Morning', 'Afternoon', 'Full Day'], include_blank: 'Time', label: false %> -->
+                <%= lt_f.input :slot, as: :select, collection: ['Early Bird (9-10am)', 'Half-day Morning (10am-1pm)', 'Half-day Afternoon (1pm-4pm)', 'Full-day (10am-4pm)'], selected: @slot, include_blank: 'Time', label: false %>
+              </div>
+              <% if current_user.nil? %>
+              <div class="col-md-2 guest-email-input">
+                <%= f.input :guest_email, as: :string, placeholder: "your_email@example.com", label: false %>
+              </div>
+              <% end %>
+            <% end %>
+          </p>
+        </div>
+
+        <%= f.input :state, as: :hidden, input_html: { value: 'new' } %>
+        <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
+    <div class="row clear-both">
+        <h1 class="new-lesson-ctas-list center">
+              <!-- %= f.action :submit, as: :input, button_html: { class: 'btn btn-default btn-lg', value: 'Book Lesson' } %> -->
+              <%= f.action :submit, :label => "GET STARTED", as: :input, button_html: { class: 'btn btn-default btn-lg' } %>
+                <% if @instructor_requested.nil? %>
+                <!-- <li>  OR </li> -->
+                <!-- <li> <button id='browser-instructors-cta' href="/browse" value="Browse Instructors" class="btn btn-default btn-lg">Browse instructors</button></li> -->
+                <% end %>
+            <!-- <a href='/lessons-availability' class= 'btn btn-success btn-lg'> SEE AVAILABLE TIMES </a> -->
+    </div>
+
+
+      </div>
+          
+<!--       <% if @instructor_requested %>
+        <div class="selected-instructor-container">
+            <p>
+              <div class="col-md-12">
+                <h4 class="hidden-unless-desktop">Instructor Requested:</h4>
+                  <h3 class="center">
+                    <%= link_to Instructor.find(@instructor_requested).name, Instructor.find(@instructor_requested) %>
+                  </h3>
+                  <div class="hidden">
+                    <%= f.input :instructor_id, as: :select, collection: Instructor.all.sort_by{ |instructor| instructor.name}, selected:@instructor_requested, include_blank: 'Instructor', label: false %>
+                  </div>
+                <div class="square-image">
+                  <% if Instructor.find(@instructor_requested).avatar? %>
+                    <%= image_tag Instructor.find(@instructor_requested).avatar.url(:large), alt:"avatar-img", class:"img-circle instructor-photo avatar-center" %>
+                  <% end %>
+                </div>
+              </div>
+            </p>
+        </div>
+      <% else %>
+        <div class="selected-instructor-container hidden-unless-desktop">
+            <p>
+              <div class="col-md-12">
+                <h4 class=""></h4>
+                  <h3 class="center">
+                   </h3>
+                  <div class="hidden">
+                  </div>
+                <div class="square-image">
+                </div>
+              </div>
+            </p>
+        </div>
+    <% end %>    --> 
+
+  </div>
+
+<% end %>
