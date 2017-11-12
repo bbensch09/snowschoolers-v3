@@ -192,7 +192,7 @@ class LessonsController < ApplicationController
       end
       puts "!!!! user is checking out as guest; create a temp email for them that must be confirmed"
     end
-    if @lesson.is_gift_voucher? && current_user.user_type == "Snow Schoolers Employee"
+    if @lesson.is_gift_voucher? && current_user.user_type == "Snow Schoolers Employee" && @lesson.requester_id.nil?
       @user = User.new({
           email: @lesson.gift_recipient_email,
           password: 'homewood_temp_2017',
