@@ -6,6 +6,15 @@
         <%= render partial: "welcome/prices_simple" %>
       </div>
 
+      <% if alert %>
+        <div id="alert2" class="alert alert-danger alert-dismissible fade in" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+         <p> <%= alert %> <%= notice %> </p>
+        </div>
+      <% end %>
+
       <div class="new-lesson-caption">
 
         <div class="block">
