@@ -363,12 +363,8 @@ class LessonsController < ApplicationController
   end
 
   def create_lesson_from_session
-    return unless current_user && session[:lesson]
-    if params["commit"] == "Book Lesson"
+    return unless current_user && session[:lesson]    
       create_lesson_and_redirect
-    else
-      redirect_to '#book-a-lesson'
-    end
   end
 
   def create_lesson_and_redirect

@@ -7,7 +7,7 @@ gem 'heap', '~> 1.0'
 gem "simple_calendar", "~> 2.0"
 
 #install redis gem for actioncable troubleshooting
-gem 'redis'
+# gem 'redis'
 
 #delayed_jobs for sending Twilio SMS messages if instructors are unresponsive
 gem 'delayed_job_active_record'
