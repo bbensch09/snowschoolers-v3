@@ -18,7 +18,7 @@
     <%= semantic_form_for @lesson do |f| %>
       <%= f.semantic_errors :instructor %>
       <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
-      <% if current_user && (current_user.email == "brian@snowschoolers.com")%>
+    <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.email == "bbensch@gmail.com") %>
         <div class="admin-viewable">
           <div class="col-md-12 vertical-padding">
           <h4> ADMIN ONLY: Select user email to assign this lesson to a new requester.</h4>
