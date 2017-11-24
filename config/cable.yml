@@ -11,12 +11,12 @@
 
 # EXAMPLE CODE ABOVE
 
-production: &production
-  adapter: redis
-  url: ENV['REDIS_URL']
+# production: &production
+#   adapter: redis
+#   url: ENV['REDIS_URL']
 
-development: &development
-  adapter: redis
-  url: redis://localhost:6379
+# development: &development
+#   adapter: redis
+#   url: redis://localhost:6379
 
-test: *development
+# test: *development

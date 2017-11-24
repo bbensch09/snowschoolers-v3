@@ -758,8 +758,11 @@ display: block;
 .price-details {
   float: none;
 }
-.price-details h4{
-  font-size: 1.1em;
+.price-details h3{
+  font-size: 1.3em;
+  text-align: left;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 * { box-sizing: border-box; }

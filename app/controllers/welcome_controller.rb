@@ -33,7 +33,11 @@ class WelcomeController < ApplicationController
 
   def index
     @lesson = Lesson.new
-    # @lesson_time = @lesson.lesson_time
+    @activity = session[:lesson].nil? ? nil : session[:lesson]["activity"]
+    @location = session[:lesson].nil? ? nil : session[:lesson]["location"]
+    @slot = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?) ? nil : session[:lesson]["lesson_time"]["slot"]
+    @date = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?)  ? nil : session[:lesson]["lesson_time"]["date"]
+    
   end
 
   def index_backup_may2017

@@ -113,11 +113,14 @@ class LessonsController < ApplicationController
   end
 
   def create
-    if params["commit"] == "Book Lesson"
+    if params["commit"] == "Book Lesson" || params["commit"] == "GET STARTED"
+      puts "!!!! lesson successfully intiated"
       create_lesson_and_redirect
     else
-      session[:lesson] = params[:lesson]
-      redirect_to '/browse'
+      puts "!!!parms not set expected"
+      session[:lesson] = params[:lesson] 
+      flash.now[:alert] = "In order to book a lesson, please select a specific date, time, sport, and location."   
+      redirect_to '#book-a-lesson'
     end
   end
 
@@ -340,8 +343,8 @@ class LessonsController < ApplicationController
 
   def validate_new_lesson_params
     if params[:lesson].nil? || params[:lesson][:requested_location].to_i < 1 || params[:lesson][:lesson_time][:date].length < 10
-      flash[:alert] = "Please first select a location and date."
-      redirect_to new_lesson_path
+      flash[:alert] = "Please be sure to select a sport, location, date and time."
+      redirect_to '#book-a-lesson'
     else
       session[:lesson] = params[:lesson]
     end
@@ -360,15 +363,8 @@ class LessonsController < ApplicationController
   end
 
   def create_lesson_from_session
-    return unless current_user && session[:lesson]
-    if params["commit"] == "Book Lesson"
+    return unless current_user && session[:lesson]    
       create_lesson_and_redirect
-    else
-      # session[:lesson] = params[:lesson]
-      # puts "!!!!! params are: #{params[:lesson]}"
-      # debugger
-      redirect_to '/browse'
-    end
   end
 
   def create_lesson_and_redirect
@@ -379,12 +375,12 @@ class LessonsController < ApplicationController
       redirect_to complete_lesson_path(@lesson)
       GoogleAnalyticsApi.new.event('lesson-requests', 'request-initiated', params[:ga_client_id])
       @user_email = current_user ? current_user.email : "unknown"
-      LessonMailer.notify_admin_lesson_request_begun(@lesson, @user_email).deliver
+      # LessonMailer.notify_admin_lesson_request_begun(@lesson, @user_email).deliver
       else
         @activity = session[:lesson].nil? ? nil : session[:lesson]["activity"]
         @slot = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["slot"]
         @date = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["date"]
-        render 'new'
+        redirect_to '#book-a-lesson'
     end
   end
 
