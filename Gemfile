@@ -108,7 +108,7 @@ end
 gem 'devise'
 gem 'formtastic', '~> 3.0'
 gem 'formtastic-bootstrap'
-gem 'omniauth-facebook'
+gem 'omniauth-facebook', '~> 4.0.0'
 gem 'cocoon', '>= 1.2.0'
 
 gem 'faker'
