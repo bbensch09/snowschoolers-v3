@@ -1,6 +1,6 @@
 class LessonsController < ApplicationController
   respond_to :html
-  skip_before_action :authenticate_user!, only: [:new, :new_request, :create, :complete, :confirm_reservation, :update, :show, :edit]
+  skip_before_action :authenticate_user!, only: [:new, :granlibakken, :new_request, :create, :complete, :confirm_reservation, :update, :show, :edit]
   before_action :save_lesson_params_and_redirect, only: [:create]
   before_action :create_lesson_from_session, only: [:create]
 
@@ -76,6 +76,13 @@ class LessonsController < ApplicationController
   def homewood
     @lesson = Lesson.new
     @promo_location = 6
+    @lesson_time = @lesson.lesson_time
+    render 'new'
+  end
+
+  def granlibakken
+    @lesson = Lesson.new
+    @promo_location = 24
     @lesson_time = @lesson.lesson_time
     render 'new'
   end
