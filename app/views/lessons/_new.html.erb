@@ -84,7 +84,7 @@
             </div>
 
             <div class="col-md-2">
-              <%= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase} , selected: Location.active_partners.first.id, include_blank: 'Location', label: false %>
+              <%= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase} , selected: @promo_location, include_blank: 'Location', label: false %>
               <!-- %= f.input :requested_location , as: :select, collection: [['North Tahoe',1],['South Lake Tahoe',2],['Southern CA',3],['Utah',4],['Colorado',5],['Wyoming',6],['Idaho',7],['New Mexico',8]], selected: @promo_location, include_blank: 'Location', label: false %> -->
             </div>
 

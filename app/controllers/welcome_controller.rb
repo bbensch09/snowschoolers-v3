@@ -244,7 +244,7 @@ def liftopia_referral
     user = current_user ? current_user.email : "Unknown User"
     GoogleAnalyticsApi.new.event('tracked-referrals', "resort_guide-granlibakken")
     LessonMailer.notify_resort_referral(resort,user).deliver
-    redirect_to "http://granlibakken.snowschoolers.com/"
+    redirect_to "http://lessons.granlibakken.com/"
   end
 
   def sky_tavern_referral
