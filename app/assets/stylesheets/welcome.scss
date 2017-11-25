@@ -1196,7 +1196,7 @@ section.pricing-new-lesson{
     max-width: 95vw;
   }
   section.pricing-section{
-  min-height: 150px !important;
+  min-height: 950px !important;
   display: block;
   position: relative;
   padding-top:50px;
@@ -1270,7 +1270,7 @@ max-width: 90vw;
   font-size: 2em;
 }
 .powder-btn{
-  font-size: 1em;
+  font-size: 0.85em;
 }
 .disclaimer{
   padding-left:20px;
@@ -1465,5 +1465,7 @@ ul.recruiting-ctas li {
   font-size: 1.5em;
   text-decoration: underline;
 }
-
+#search-index-header{
+  font-size: 1.1em;
+}
 }
