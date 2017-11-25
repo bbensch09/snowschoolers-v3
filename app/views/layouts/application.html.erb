@@ -149,16 +149,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- <%= link_to image_tag("https://s3.amazonaws.com/snowschoolers/SNOW+SCHOOLERS-logo-2017.jpeg", class:"ss-logo"), root_path, class: 'logo' %> -->
 
-    <ul id="topOptions">
+  <ul id="topOptions">
       <li>
-        <button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
+        <button class="btn btn-mobile hidden-unless-mobile" data-toggle="collapse" data-target=".nav-collapse">
           <i class="fa fa-bars"></i>
         </button>
       </li>
     </ul>
   </h2>
 
-    <div class="navbar-collapse nav-main-collapse collapse pull-right">
+    <div class="nav-collapse hidden-unless-desktop nav-main-collapse pull-right">
       <nav class="nav-main">
         <ul class="nav nav-pills nav-main scroll-menu" id="topMain">
           <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner") %>
