@@ -1,4 +1,4 @@
-console.log("lessons.js loaded");
+// console.log("lessons.js loaded");
 
 var LESSON = {
   init: function(){

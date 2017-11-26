@@ -19,6 +19,20 @@ class CalendarBlock < ActiveRecord::Base
 		end	
 	end
 
+	def self.open_all_weekends(instructor_id)		
+		dates = self.remaining_dates_in_season
+		dates.each do |date|
+			if date.wday == 0 || date.wday == 6
+				c = CalendarBlock.find_or_create_by!({
+				date: date,
+				instructor_id: instructor_id,
+				})
+				c.state = 'Available'
+				c.save!
+			end
+		end	
+	end
+
 	def self.block_all_days(instructor_id)		
 		dates = self.remaining_dates_in_season
 		dates.each do |date|
@@ -35,7 +49,7 @@ class CalendarBlock < ActiveRecord::Base
 		if self.state == "Available"
 			return "Mark as Not Available"
 		elsif self.state == "Not Available"
-			return "Mark Available"
+			return "Mark as Available"
 		else
 			return self.state	
 		end		
@@ -56,13 +70,12 @@ class CalendarBlock < ActiveRecord::Base
 		elsif self.state == "Not Available"
 			self.state = "Available"	
 		end		
-		self.save
 	end
 
 	def self.remaining_dates_in_season
 		dates = []
 		date = Date.today
-		while date.to_s < '2018-01-15'
+		while date.to_s < '2018-04-15'
 			dates << date
 			date = date +1
 		end

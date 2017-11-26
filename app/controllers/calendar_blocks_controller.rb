@@ -13,6 +13,7 @@ class CalendarBlocksController < ApplicationController
 
   def availability
       @calendar_blocks = CalendarBlock.where(instructor_id:current_user.instructor.id)
+      @available_days = CalendarBlock.where(instructor_id:current_user.instructor.id,state:'Available')
   end
 
   def set_all_days_available
@@ -27,12 +28,26 @@ class CalendarBlocksController < ApplicationController
     redirect_to '/my-availability'
   end
 
+  def set_all_weekends_available
+    instructor_id = current_user.instructor.id
+    CalendarBlock.open_all_weekends(instructor_id)
+    redirect_to '/my-availability'
+  end
+
   
   def toggle_availability
-    @calendar_block = @calendar_block.toggle_availability
-    if @calendar_block.save
-      format.html {redirect_to '/my-availability', notice: 'availability has been updated.'}
-      format.json {render action: 'availability' }
+    @calendar_blocks = CalendarBlock.where(instructor_id:current_user.instructor.id)
+    @available_days = CalendarBlock.where(instructor_id:current_user.instructor.id,state:'Available')
+    puts "!!! calendar block id is #{@calendar_block.id}"
+    @calendar_block.toggle_availability
+    respond_to do |format|
+      if @calendar_block.save
+        format.html {render 'availability', notice: 'availability has been updated.'}
+        format.json {render json: @calendar_block, callback: "changeText" }
+      else
+          format.html { render action: 'availability' }
+          format.json { render json: @calendar_block.errors, status: :unprocessable_entity }
+      end
     end
   end
 

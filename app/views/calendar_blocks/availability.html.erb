@@ -3,9 +3,17 @@
 <section id="desktop-view" class="">
 
 <h2 id='instructor-availability' class='center'>MANAGE MY CALENDAR </h2>
+<div>
+  <ul>
+    <li>Total Days available: <%= @available_days.count %> (minimum required: 10)</li>
+    <li>Total Days worked to-date: </li>
+    <li>Total Earnings to-date: </li>
+  </ul>
+</div>
 <div class="row center">
 <%= link_to 'Set all days as available', set_all_days_available_path, method: :post, class: "btn btn-success" %>
-<%= link_to 'Block all days', block_all_days_path, method: :post, class: "btn btn-success" %>
+<%= link_to 'Set all weekends available', set_all_weekends_available_path, method: :post, class: "btn btn-warning" %>
+<%= link_to 'Block all days', block_all_days_path, method: :post, class: "btn btn-danger" %>
 <div class="buffer"></div>
 </div>
 
@@ -15,8 +23,10 @@
     <div class=<%=blocks.first.availability_formatting %> >
     <%= date.strftime('%-d') %>
     <h2 class="center block-text">
-      <%= link_to block.toggle_display, toggle_availability_path(block.id), method: :post, id: block.id, class: 'toggle-availability', remote: true%>
+      <!-- %= link_to block.toggle_display, toggle_availability_path(block.id), method: :post, id: block.id, class: 'toggle-availability', remote: true%> -->
+      <%= link_to block.toggle_display, toggle_availability_path(block.id), method: :put, id: block.id, class: 'toggle-availability', remote:true %>
     </h2>
+    <!-- <button class='toggle-availability' id='<%=block.id%>'>Click me</button> -->
           
 
     <% end %>

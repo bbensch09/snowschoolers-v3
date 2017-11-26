@@ -16,11 +16,18 @@
 	border: 10px;	
 	height: 100%;
 }
+.toggle-availability, .toggle-availability:hover, .toggle-availability:visited, .toggle-availability:focus{
+	color: #fff;
+	text-decoration: none;
+}
+/*.toggle-availability:visited {
+	color: #fff;
+}*/
 .block-text{
 	vertical-align: middle;
 	font-size: 2em;
 	margin: 0px 0px 0px 0px;
 }
 .simple-calendar .day{
-	padding: 0 0 0 0px;
+	padding: 0 2 0 0px;
 }
