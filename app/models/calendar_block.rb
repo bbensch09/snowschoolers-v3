@@ -67,7 +67,7 @@ class CalendarBlock < ActiveRecord::Base
 	def toggle_availability
 		if self.state == "Available"
 			self.state = "Not Available"
-		elsif self.state == "Not Available"
+		else
 			self.state = "Available"	
 		end		
 	end

@@ -20,6 +20,11 @@ class InstructorsController < ApplicationController
     redirect_to instructors_path, notice: "Instructor privileges have been revoked"
   end
 
+  def profile
+    @instructor = current_user.instructor
+    render 'show'
+  end
+
   # GET /instructors
   # GET /instructors.json
   def index
