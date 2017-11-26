@@ -1,20 +1,39 @@
 <div class="container"></div>
 
-<section id="desktop-view" class="">
-
-<h2 id='instructor-availability' class='center'>MANAGE MY CALENDAR </h2>
-<div>
+<h2 id='instructor-availability' class='center'>MANAGE CALENDAR </h2>
+<div class='col-md-6'>
+  <h2 class="calendar-subheader center bold">Instructions</h2>
   <ul>
-    <li>Total Days available: <%= @available_days.count %> (minimum required: 10)</li>
-    <li>Total Days worked to-date: </li>
-    <li>Total Earnings to-date: </li>
+    <li>To set availability, simply click on a day below to change from available to unavailble.</li>
+    <li>Alternatively, you may make bulk changes to all weekends, etc.</li>
+    <li>To confirm your total days of availability, reload the page, or click the "Refresh" button.</li>
   </ul>
+  <div class='row center'>
+    <div class='example-date availability-open'> Green represent days you are available</div>
+    <div class='example-date availability-booked'> Blue represent days you are already booked.</div>
+    <div class='example-date availability-blocked'> Red represent days you are not available.</div>
+  </div>
+</div>
+<div class='col-md-6'>
+  <h2 class="calendar-subheader center bold">Summary</h2>
+  <div class="col-md-6">
+    <h5>Days available:</h5>
+    <h5>Weekend + Holidays available:</h5>
+    <h5>Total lessons to-date: </h5>
+    <h5>Total earnings to-date: </h5>
+  </div>
+  <div class="col-md-6">
+    <h5><%= current_user.instructor.total_days %></h5>
+    <h5><%= current_user.instructor.total_prime_days %> (minimum: 10)</h5>
+    <h5><%= current_user.instructor.completed_lessons_count %> </h5>
+    <h5><%= number_to_currency(current_user.instructor.total_earnings) %> </h5>
+  </div>
 </div>
 <div class="row center">
-<%= link_to 'Set all days as available', set_all_days_available_path, method: :post, class: "btn btn-success" %>
-<%= link_to 'Set all weekends available', set_all_weekends_available_path, method: :post, class: "btn btn-warning" %>
+<%= link_to 'Refresh', refresh_calendar_path, method: :get, class: "btn btn-default", remote: true %>
+<%= link_to 'Mark all days available', set_all_days_available_path, method: :post, class: "btn btn-success" %>
+<%= link_to 'Mark weekends available', set_all_weekends_available_path, method: :post, class: "btn btn-warning" %>
 <%= link_to 'Block all days', block_all_days_path, method: :post, class: "btn btn-danger" %>
-<div class="buffer"></div>
 </div>
 
 <div class="calendar-container">
@@ -24,7 +43,12 @@
     <%= date.strftime('%-d') %>
     <h2 class="center block-text">
       <!-- %= link_to block.toggle_display, toggle_availability_path(block.id), method: :post, id: block.id, class: 'toggle-availability', remote: true%> -->
+      <% if block.state == "Booked" %>
+        <%= link_to 'See Lesson Details', lesson_path(Lesson.where(instructor_id:block.instructor_id,lesson_time_id:block.lesson_time_id).first), method: :get, class: "" %>
+        <% else %>
       <%= link_to block.toggle_display, toggle_availability_path(block.id), method: :put, id: block.id, class: 'toggle-availability', remote:true %>
+      <% end %>
+
     </h2>
     <!-- <button class='toggle-availability' id='<%=block.id%>'>Click me</button> -->
           
@@ -34,8 +58,6 @@
   <% end %>
 </div>
 <div class="buffer"></div>
-
-</section>
 
 <section id="mobile-view" class="hidden-unless-mobile">
 

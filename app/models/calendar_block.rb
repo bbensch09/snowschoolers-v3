@@ -1,21 +1,34 @@
 class CalendarBlock < ActiveRecord::Base
   belongs_to :instructor
   belongs_to :lesson_time
+  before_save :set_prime_day
   # validates :lesson_time, presence: true
+		#eligible state values:
+		#[Available, Not Available, Booked]
 
 	def start_time
 		self.date
 	end
 
+	def set_prime_day
+		if HOLIDAYS.include?(self.date.to_s)
+			self.prime_day = true
+		else
+			self.prime_day = false
+		end
+		return true
+	end
+
 	def self.open_all_days(instructor_id)		
 		dates = self.remaining_dates_in_season
-		dates.each do |date|
+		dates.each do |date|			
 			c = CalendarBlock.find_or_create_by!({
 				date: date,
 				instructor_id: instructor_id,
 				})
+			return if c.state == 'Booked'
 			c.state = 'Available'
-			c.save!
+			c.save
 		end	
 	end
 
@@ -27,8 +40,9 @@ class CalendarBlock < ActiveRecord::Base
 				date: date,
 				instructor_id: instructor_id,
 				})
+				return if c.state == 'Booked'
 				c.state = 'Available'
-				c.save!
+				c.save
 			end
 		end	
 	end
@@ -40,8 +54,9 @@ class CalendarBlock < ActiveRecord::Base
 				date: date,
 				instructor_id: instructor_id,
 				})
+			return if c.state == 'Booked'
 			c.state = 'Not Available'
-			c.save!
+			c.save
 		end	
 	end
 
@@ -60,16 +75,22 @@ class CalendarBlock < ActiveRecord::Base
 			value = 'availability-open'
 		elsif self.state == "Not Available"
 			value = 'availability-blocked'
+		elsif self.state == "Booked"
+			value = 'availability-booked'
 		end		
 		return value
 	end
 
 	def toggle_availability
-		if self.state == "Available"
-			self.state = "Not Available"
-		else
-			self.state = "Available"	
-		end		
+		case self.state
+			when 'Booked'
+				return true
+			when 'Available'
+				self.state = 'Not Available'
+			when 'Not Available'
+				self.state = 'Available'
+		end
+		self.save
 	end
 
 	def self.remaining_dates_in_season

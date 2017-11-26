@@ -16,6 +16,46 @@ class Instructor < ActiveRecord::Base
         :bucket => 'snowschoolers'
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
+  def days_available
+    CalendarBlock.where(instructor_id:self.id,state:'Available').count
+  end
+
+  def days_booked
+    CalendarBlock.where(instructor_id:self.id,state:'Booked').count
+  end
+
+  def prime_days_available
+    CalendarBlock.where(instructor_id:self.id,prime_day:true,state:'Available').count
+  end
+
+  def prime_days_booked
+    CalendarBlock.where(instructor_id:self.id,prime_day:true,state:'Booked').count
+  end
+
+  def total_days
+    self.days_available + self.days_booked
+  end
+
+  def total_prime_days
+    self.prime_days_available + self.prime_days_booked
+  end
+
+  def completed_lessons_count
+    Lesson.where(state:'Lesson Complete',instructor_id:self.id).count
+  end
+
+  def total_earnings
+    lessons = Lesson.where(state:'Lesson Complete',instructor_id:self.id)
+    earnings = 0
+    lessons.each do |lesson|
+      lesson.transactions.each do |transaction|
+        earnings += transaction.final_amount
+      end
+    end
+    return earnings
+  end
+
+
   def self.scheduled_for_date(date)
     eligible_shifts = Shift.all.to_a.keep_if {|shift| shift.start_time.to_date == date}
     eligible_shifts = eligible_shifts.keep_if { |shift| shift.status == "Scheduled" || shift.status == "Assigned"}

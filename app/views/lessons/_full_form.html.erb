@@ -105,7 +105,7 @@
 
               <div class="col-md-4">
                 <label>Slot</label>
-                <%= lt_f.input :slot, as: :select, collection: ['Early Bird (9-10am)', 'Half-day Morning (10am-1pm)', 'Half-day Afternoon (1pm-4pm)','Full-day (10am-4pm)'], include_blank: 'Time', label: false %>
+                <%= lt_f.input :slot, as: :select, collection: SLOTS, include_blank: 'Time', label: false %>
 
               </div>
           <% end %>

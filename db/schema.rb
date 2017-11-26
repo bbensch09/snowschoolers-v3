@@ -56,7 +56,6 @@ ActiveRecord::Schema.define(version: 20171126051122) do
   create_table "calendar_blocks", force: :cascade do |t|
     t.integer  "instructor_id"
     t.integer  "lesson_time_id"
-    t.string   "status",         limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "date"

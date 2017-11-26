@@ -22,8 +22,8 @@ class Lesson < ActiveRecord::Base
   validate :student_exists, on: :update
 
   #Check to ensure an instructor is available before booking
-  # validate :instructors_must_be_available, unless: :no_instructors_post_instructor_drop?, on: :create
-  # after_save :send_lesson_request_to_instructors
+  validate :instructors_must_be_available, on: :create
+  after_save :send_lesson_request_to_instructors
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
 
   
@@ -111,9 +111,27 @@ class Lesson < ActiveRecord::Base
     lesson_time.slot
   end
 
+  def length
+    case self.lesson_time.slot
+      when SLOTS.first
+        return "1.00"
+      when SLOTS.second
+        return "3.00"
+      when SLOTS.third
+        return "3.00"
+      when SLOTS.fourth
+        return "6.00"
+      end
+  end
+
   def product
     if self.product_id.nil?
-      Product.where(location_id:self.location.id, name:self.lesson_time.slot,calendar_period:self.location.calendar_status).first
+      if self.requested_location == "8"
+        Product.where(location_id:self.location.id, name:self.lesson_time.slot,calendar_period:self.location.calendar_status).first
+      elsif self.requested_location == "24"
+        Product.where(location_id:self.location.id, length:self.length,calendar_period:self.location.calendar_status).first
+      end        
+          
     else
       Product.where(id:self.product_id).first
     end
@@ -459,13 +477,14 @@ class Lesson < ActiveRecord::Base
 
   def rank_instructors(available_instructors)
     puts "!!!!!!!ranking instructors now"
-    if kids_lesson?
-      available_instructors.sort! {|a,b| b.kids_score <=> a.kids_score }
-      elsif seniors_lesson?
-      available_instructors.sort! {|a,b| b.seniors_score <=> a.seniors_score }
-      else
-      available_instructors.sort! {|a,b| b.overall_score <=> a.overall_score }
-    end
+    available_instructors.sort! {|a,b| b.overall_score <=> a.overall_score }
+    # if kids_lesson?
+    #   available_instructors.sort! {|a,b| b.kids_score <=> a.kids_score }
+    #   elsif seniors_lesson?
+    #   available_instructors.sort! {|a,b| b.seniors_score <=> a.seniors_score }
+    #   else
+    #   available_instructors.sort! {|a,b| b.overall_score <=> a.overall_score }
+    # end
     return available_instructors
   end
 
@@ -492,20 +511,13 @@ class Lesson < ActiveRecord::Base
   end
 
   def self.find_calendar_blocks(lesson_time)
-    same_slot_blocks = CalendarBlock.where(lesson_time_id:lesson_time.id, status:'Block this time slot')
+    same_slot_blocks = CalendarBlock.where(date:lesson_time.date, state:'Not Available')
     overlapping_full_day_blocks = self.find_full_day_blocks(lesson_time)
     return same_slot_blocks + overlapping_full_day_blocks
   end
 
   def self.find_full_day_blocks(lesson_time)
-    full_day_block_time = LessonTime.find_by_date_and_slot(lesson_time.date,'Full-day (10am-4pm)')
-    return [] if full_day_block_time.nil?
-    full_day_blocks = []
-    blocks_on_same_day = CalendarBlock.where(lesson_time_id:full_day_block_time.id, status:'Block this time slot')
-      blocks_on_same_day.each do |block|
-        full_day_blocks << block
-      end
-    return full_day_blocks
+    blocks = CalendarBlock.where(date:lesson_time.date, state:'Not Available')
   end
 
   def self.find_all_calendar_blocks_in_day(lesson_time)
@@ -577,7 +589,7 @@ class Lesson < ActiveRecord::Base
       recipient = self.instructor.phone_number
       body = "Hope you had a great Snow Schoolers lesson. Please confirm the start/end times and complete feedback for your student by visiting the lesson page at #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm."
       @client = Twilio::REST::Client.new account_sid, auth_token
-          @client.account.messages.create({
+          @client.api.account.messages.create({
           :to => recipient,
           :from => "#{snow_schoolers_twilio_number}",
           :body => body
@@ -612,7 +624,7 @@ class Lesson < ActiveRecord::Base
           end
       end
       @client = Twilio::REST::Client.new account_sid, auth_token
-          @client.account.messages.create({
+          @client.api.account.messages.create({
           :to => recipient,
           :from => "#{snow_schoolers_twilio_number}",
           :body => body
@@ -633,7 +645,7 @@ class Lesson < ActiveRecord::Base
     recipient = self.available_instructors.any? ? self.available_instructors.first.phone_number : "4083152900"
     body = "#{self.available_instructors.first.first_name}, it has been over 5 minutes and you have not accepted or declined this request. We are now making this lesson available to other instructors. You may still visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm the lesson."
     @client = Twilio::REST::Client.new account_sid, auth_token
-          @client.account.messages.create({
+          @client.api.account.messages.create({
           :to => recipient,
           :from => "#{snow_schoolers_twilio_number}",
           :body => body
@@ -650,7 +662,7 @@ class Lesson < ActiveRecord::Base
     recipients = self.available_instructors
     if recipients.count < 2
       @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
-          @client.account.messages.create({
+          @client.api.account.messages.create({
           :to => "408-315-2900",
           :from => ENV['TWILIO_NUMBER'],
           :body => "ALERT - #{self.available_instructors.first.name} is the only instructor available and they have not responded after 10 minutes. No other instructors are available to teach #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date} at #{self.location.name}."
@@ -663,7 +675,7 @@ class Lesson < ActiveRecord::Base
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
       body = "#{instructor.first_name}, we have a customer who is eager to find an instructor. #{self.requester.name} wants a lesson at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. Are you available? The lesson is now available to the first instructor that claims it by visiting #{ENV['HOST_DOMAIN']}/lessons/#{self.id} and accepting the request."
       @client = Twilio::REST::Client.new account_sid, auth_token
-            @client.account.messages.create({
+            @client.api.account.messages.create({
             :to => instructor.phone_number,
             :from => "#{snow_schoolers_twilio_number}",
             :body => body
@@ -682,7 +694,7 @@ class Lesson < ActiveRecord::Base
       recipient = instructor.phone_number
       body = "Hi #{instructor.first_name}, we have a customer who is eager to find a #{self.activity} instructor. #{self.requester.name} wants a lesson at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. Are you available? The lesson is now available to the first instructor that claims it by visiting #{ENV['HOST_DOMAIN']}/lessons/#{self.id} and accepting the request."
       @client = Twilio::REST::Client.new account_sid, auth_token
-          @client.account.messages.create({
+          @client.api.account.messages.create({
           :to => recipient,
           :from => "#{snow_schoolers_twilio_number}",
           :body => body
@@ -707,7 +719,7 @@ class Lesson < ActiveRecord::Base
       end
       if recipient.length == 10 || recipient.length == 11
         @client = Twilio::REST::Client.new account_sid, auth_token
-            @client.account.messages.create({
+            @client.api.account.messages.create({
             :to => recipient,
             :from => "#{snow_schoolers_twilio_number}",
             :body => body
@@ -720,18 +732,20 @@ class Lesson < ActiveRecord::Base
   end
 
   def send_sms_to_admin
+      recipient = "408-315-2900"
+      body = "ALERT - no instructors are available to teach #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date} at #{self.location.name}. The last person to decline was #{Instructor.find(LessonAction.last.instructor_id).username}."
       @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
-          @client.account.messages.create({
-          :to => "408-315-2900",
+          @client.api.account.messages.create({
+          :to => recipient,
           :from => ENV['TWILIO_NUMBER'],
-          :body => "ALERT - no instructors are available to teach #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date} at #{self.location.name}. The last person to decline was #{Instructor.find(LessonAction.last.instructor_id).username}."
+          :body => body
       })
-      LessonMailer.notify_admin_sms_logs(self,body).deliver
+      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
   end
 
   def send_sms_to_admin_1to1_request_failed
       @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
-          @client.account.messages.create({
+          @client.api.account.messages.create({
           :to => "408-315-2900",
           :from => ENV['TWILIO_NUMBER'],
           :body => "ALERT - A private 1:1 request was made and declined. #{self.requester.name} had requested #{self.instructor.name} but they are unavailable at #{self.product.start_time} on #{self.lesson_time.date} at #{self.location.name}."
@@ -742,7 +756,10 @@ class Lesson < ActiveRecord::Base
   private
 
   def instructors_must_be_available
-    errors.add(:instructor, " unfortunately not available at that time. Please email info@snowschoolers.com to be notified if we have any instructors that become available.") unless available_instructors.any?
+    unless available_instructors.any?
+      errors.add(:lesson, " unfortunately not available at that time. Please email info@snowschoolers.com to be notified if we have any instructors that become available.")
+      return false
+    end
   end
 
   def requester_must_not_be_instructor

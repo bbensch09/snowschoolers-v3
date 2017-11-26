@@ -11,7 +11,17 @@ class CalendarBlocksController < ApplicationController
     end
   end
 
+  def refresh_calendar
+    respond_to do |format|
+    format.js {render inline: "location.reload();" }
+    end
+  end
+
   def availability
+      if CalendarBlock.where(instructor_id:current_user.instructor.id).count == 0
+          CalendarBlock.open_all_weekends(current_user.instructor.id)
+          flash[:notice] = "Please set your availability below. We've temporarily marked all weekend days as available."
+      end
       @calendar_blocks = CalendarBlock.where(instructor_id:current_user.instructor.id)
       @available_days = CalendarBlock.where(instructor_id:current_user.instructor.id,state:'Available')
   end
@@ -36,6 +46,9 @@ class CalendarBlocksController < ApplicationController
 
   
   def toggle_availability
+    if @calendar_block.state == "Booked"
+      return false 
+    end
     @calendar_blocks = CalendarBlock.where(instructor_id:current_user.instructor.id)
     @available_days = CalendarBlock.where(instructor_id:current_user.instructor.id,state:'Available')
     puts "!!! calendar block id is #{@calendar_block.id}"
@@ -45,8 +58,8 @@ class CalendarBlocksController < ApplicationController
         format.html {render 'availability', notice: 'availability has been updated.'}
         format.json {render json: @calendar_block, callback: "changeText" }
       else
-          format.html { render action: 'availability' }
-          format.json { render json: @calendar_block.errors, status: :unprocessable_entity }
+        format.html { render action: 'availability' }
+        format.json { render json: @calendar_block.errors, status: :unprocessable_entity }
       end
     end
   end

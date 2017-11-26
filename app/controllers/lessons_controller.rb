@@ -169,8 +169,6 @@ class LessonsController < ApplicationController
         puts "!!!!!About to save state & deposit status after processing lessons#update"
         @lesson.save
       GoogleAnalyticsApi.new.event('lesson-requests', 'deposit-submitted', params[:ga_client_id])
-      #HEAP TESTING - send server-side vent for lesson purchase: this would be redundant...
-      Heap.track 'lesson-purchase-completed', "#{@lesson.requester.heap_uuid}"
       LessonMailer.send_lesson_request_notification(@lesson).deliver
       flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when your instructor confirmed your request. If it has been more than an hour since your request, please email support@snowschoolers.com.'
       flash[:conversion] = 'TRUE'
@@ -269,11 +267,19 @@ class LessonsController < ApplicationController
     @lesson.instructor_id = current_user.instructor.id
     @lesson.state = 'confirmed'
     if @lesson.save
-    LessonAction.create!({
+    l = LessonAction.find_or_create_by!({
       lesson_id: @lesson.id,
       instructor_id: current_user.instructor.id,
-      action: "Accept"
       })
+    l.action = "Accept"
+    l.save
+    c = CalendarBlock.find_or_create_by!({
+        date: @lesson.lesson_time.date,
+        instructor_id: current_user.instructor.id,
+        })
+      c.state = 'Booked'
+      c.lesson_time_id = @lesson.lesson_time_id
+      c.save
     LessonMailer.send_lesson_confirmation(@lesson).deliver
     @lesson.send_sms_to_requester
     redirect_to @lesson
@@ -303,8 +309,15 @@ class LessonsController < ApplicationController
   end
 
   def remove_instructor
-    puts "the params are {#{params}"
     @lesson = Lesson.find(params[:id])
+    @canceling_instructor = @lesson.instructor.user.email
+    puts "!!!!!!the canceling instructor is #{@canceling_instructor}"
+    c = CalendarBlock.find_or_create_by!({
+        date: @lesson.lesson_time.date,
+        instructor_id: current_user.instructor.id,
+        })
+    c.state = 'Not Available'
+    c.save
     @lesson.instructor = nil
     @lesson.update(state: 'seeking replacement instructor')
     @lesson.send_sms_to_requester
@@ -370,7 +383,6 @@ class LessonsController < ApplicationController
   end
 
   def create_lesson_from_session
-    return unless current_user && session[:lesson]    
       create_lesson_and_redirect
   end
 
@@ -378,6 +390,7 @@ class LessonsController < ApplicationController
     @lesson = Lesson.new(lesson_params)
     @lesson.requester = current_user
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
+    # @lesson.product_id = Product.where(name:params[:product_name]).first
     if @lesson.save
       redirect_to complete_lesson_path(@lesson)
       GoogleAnalyticsApi.new.event('lesson-requests', 'request-initiated', params[:ga_client_id])
@@ -385,9 +398,10 @@ class LessonsController < ApplicationController
       # LessonMailer.notify_admin_lesson_request_begun(@lesson, @user_email).deliver
       else
         @activity = session[:lesson].nil? ? nil : session[:lesson]["activity"]
+        @promo_location = session[:lesson].nil? ? nil : session[:lesson]["requested_location"]
         @slot = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["slot"]
         @date = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["date"]
-        redirect_to '#book-a-lesson'
+        render 'new'
     end
   end
 
@@ -398,9 +412,9 @@ class LessonsController < ApplicationController
   end
 
   def send_instructor_cancellation_emails
+    LessonMailer.send_cancellation_confirmation(@canceling_instructor,@lesson).deliver
     LessonMailer.send_lesson_request_to_new_instructors(@lesson, @lesson.instructor).deliver if @lesson.available_instructors?
     LessonMailer.inform_requester_of_instructor_cancellation(@lesson, @lesson.available_instructors?).deliver
-    LessonMailer.send_cancellation_confirmation(@lesson).deliver
   end
 
   def send_lesson_update_notice_to_instructor

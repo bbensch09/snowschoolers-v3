@@ -1,17 +1,8 @@
-// $(".toggle_availability").click(e){
-//     e.preventDefault()
-// 	console.log('block has been toggled');
-// 	if (this.val() == "Not Available"){
-// 		console.log('need to change color.')
-// 	};	
-// }
- console.log("listing for clicks");
-
 $(document).ready(function(){
-  exampleListener();
+  availabilityListener();
 });
 
-var exampleListener = function() {
+var availabilityListener = function() {
   $('.toggle-availability').click(function(e){
     e.preventDefault();
   	console.log('click detected.');
@@ -42,67 +33,3 @@ var exampleListener = function() {
   	});
   });  
 }
-
-
-// $('#236').click(function(e){  
-//   e.preventDefault();  
-  // var path = $('#update_bio').attr('action')
-  // var text = $('textarea').val()
-  // console.log(text)
-  // console.log(path)
-  // var request = $.ajax({
-  //                 url: path,
-  //                 type: "PUT",
-  //                 data: {bio: text}
-  //                 });
-
-  // request.done(function(data) {
-  //     console.log(data);
-  //     console.log("bio successfully updated via ajax");
-  //     $('#omniModal').modal('hide')
-  //     location.reload();
-  // });
-
-// });
-
-
-// $('selector').click(function(e){
-//   e.preventDefault();
-//   $.ajax({
-//        url: "<where to post>",
-//        type: "POST",//type of posting the data
-//        data: "data",
-//        success: function (data) {
-//          //what to do in success
-//        },
-//        error: function(xhr, ajaxOptions, thrownError){
-//           //what to do in error
-//        },
-//        timeout : 15000//timeout of the ajax call
-//   });
-
-// });
-
-
-// $(document).on('submit', '#update_bio',function(e) {
-//   e.preventDefault();
-
-//   var path = $('#update_bio').attr('action')
-//   var text = $('textarea').val()
-//   console.log(text)
-//   console.log(path)
-//   var request = $.ajax({
-//                   url: path,
-//                   type: "PUT",
-//                   data: {bio: text}
-//                   });
-
-//   request.done(function(data) {
-//       console.log(data);
-//       console.log("bio successfully updated via ajax");
-//       $('#omniModal').modal('hide')
-//       location.reload();
-//   });
-
-// })
-
