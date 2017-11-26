@@ -14,8 +14,9 @@
       <th>Instructor</th>
       <th>Lesson time ID</th> -->
       <th>Instructor</th>
-      <th>Date blocked</th>
-      <th>Slot blocked</th>
+      <th>Date </th>
+      <th>Time Slot Date</th>
+      <th>Time Slot Time</th>
       <th>Status</th>
       <th></th>
       <th></th>
@@ -30,6 +31,7 @@
         <td><%= calendar_block.instructor_id %></td>
         <td><%= calendar_block.lesson_time_id %></td> -->
         <td><%= calendar_block.instructor ? calendar_block.instructor.name : "N/A" %></td>
+        <td><%= calendar_block.date.strftime("%a, %b %d") %></td>
         <td><%= calendar_block.lesson_time.date.strftime("%a, %b %d") %></td>
         <td><%= calendar_block.lesson_time.slot %></td>
         <td><%= calendar_block.status %></td>

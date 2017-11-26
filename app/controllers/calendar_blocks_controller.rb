@@ -1,5 +1,5 @@
 class CalendarBlocksController < ApplicationController
-  before_action :set_calendar_block, only: [:show, :edit, :update, :destroy]
+  before_action :set_calendar_block, only: [:show, :edit, :update, :destroy, :toggle_availability]
 
   # GET /calendar_blocks
   # GET /calendar_blocks.json
@@ -8,6 +8,59 @@ class CalendarBlocksController < ApplicationController
       @calendar_blocks = CalendarBlock.all.sort{ |a,b| a.lesson_time.date <=> b.lesson_time.date}
       else
       @calendar_blocks = CalendarBlock.where(instructor_id:current_user.instructor.id).sort{ |a,b| a.lesson_time.date <=> b.lesson_time.date}
+    end
+  end
+
+  def refresh_calendar
+    respond_to do |format|
+    format.js {render inline: "location.reload();" }
+    end
+  end
+
+  def availability
+      if CalendarBlock.where(instructor_id:current_user.instructor.id).count == 0
+          CalendarBlock.open_all_weekends(current_user.instructor.id)
+          flash[:notice] = "Please set your availability below. We've temporarily marked all weekend days as available."
+      end
+      @calendar_blocks = CalendarBlock.where(instructor_id:current_user.instructor.id)
+      @available_days = CalendarBlock.where(instructor_id:current_user.instructor.id,state:'Available')
+  end
+
+  def set_all_days_available
+    instructor_id = current_user.instructor.id
+    CalendarBlock.open_all_days(instructor_id)
+    redirect_to '/my-availability'
+  end
+
+  def block_all_days
+    instructor_id = current_user.instructor.id
+    CalendarBlock.block_all_days(instructor_id)
+    redirect_to '/my-availability'
+  end
+
+  def set_all_weekends_available
+    instructor_id = current_user.instructor.id
+    CalendarBlock.open_all_weekends(instructor_id)
+    redirect_to '/my-availability'
+  end
+
+  
+  def toggle_availability
+    if @calendar_block.state == "Booked"
+      return false 
+    end
+    @calendar_blocks = CalendarBlock.where(instructor_id:current_user.instructor.id)
+    @available_days = CalendarBlock.where(instructor_id:current_user.instructor.id,state:'Available')
+    puts "!!! calendar block id is #{@calendar_block.id}"
+    @calendar_block.toggle_availability
+    respond_to do |format|
+      if @calendar_block.save
+        format.html {render 'availability', notice: 'availability has been updated.'}
+        format.json {render json: @calendar_block, callback: "changeText" }
+      else
+        format.html { render action: 'availability' }
+        format.json { render json: @calendar_block.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -96,7 +149,7 @@ class CalendarBlocksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def calendar_block_params
-      params.require(:calendar_block).permit(:instructor_id, :lesson_time_id, :status)
+      params.require(:calendar_block).permit(:instructor_id, :lesson_time_id, :status, :date, :state, :prime_day)
     end
 
     def lesson_time_params

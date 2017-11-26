@@ -21,11 +21,12 @@
         <%= f.input :instructor_id, as: :select, collection: Instructor.all.sort_by{ |instructor| instructor.name}, selected:@instructor, include_blank: 'Instructor', label: false %>
       </div>
       <%end%>
+      <%= f.input :date, as: :string, input_html: { id: 'datepicker' }, placeholder: 'Date', label: false %>
       <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
         <div class='row'>
           <div class="col-md-6">
             <label>Date</label>
-            <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker' }, placeholder: 'Pick a date', label: false, required:true %>
+            <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker2' }, placeholder: 'Pick a date', label: false, required:true %>
             <span class="search-area-icon"></span>
           </div>
 
@@ -35,7 +36,7 @@
           </div>
         </div>
       <% end %>
-      <%= f.input :status, as: :select, collection: ['Available','Unavailable','Scheduled'], selected:'Block this time slot', include_blank: false, label: false, required:true %>
+      <%= f.input :state, as: :select, collection: ['Available','Not Available','Scheduled'], selected:'Block this time slot', include_blank: false, label: false, required:true %>
   <% end %>
 
   <%= f.actions do %>

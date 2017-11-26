@@ -1,0 +1,59 @@
+#instructor-availability {
+	font-size: 3.5em;
+	margin-bottom: 0px;
+}
+.calendar-title{
+	font-size: 2.8em;
+	margin-top: 20px;
+}
+.calendar-chevrons{
+	font-size: 2em;
+	background-color: #fff !important;
+}
+.availability-open{
+	background-color: rgba(40, 167, 69, .7);
+	border-color: rgba(40, 167, 69, .7); 	
+	border: 10px;
+	height: 100%;
+}
+.availability-blocked{
+	background-color: rgba(220, 53, 69, .4);
+	border-color: rgba(220, 53, 69, .4);
+	border: 10px;	
+	height: 100%;
+}
+.availability-booked{
+	background-color: rgba(59, 89, 152, .7);
+	border-color: rgba(59, 89, 152, .7);
+	border: 10px;	
+	height: 100%;
+}
+.toggle-availability, .toggle-availability:hover, .toggle-availability:visited, .toggle-availability:focus{
+	color: #fff;
+	text-decoration: none;
+}
+/*.toggle-availability:visited {
+	color: #fff;
+}*/
+.block-text{
+	vertical-align: middle;
+	font-size: 1.2em;
+	margin: 0px 0px 0px 0px;
+}
+.simple-calendar .day{
+	padding: 0 2 0 0px;
+}
+.example-date{
+	height: 80px;
+	width: 160px;
+	display: inline-block;
+	margin: 10px 10px 10px 10px;
+	padding: 10px 10px 10px 10px;
+	font-size: 1.2em;
+	text-align: center;
+	vertical-align: middle;
+}
+.calendar-subheader{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}

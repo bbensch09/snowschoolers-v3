@@ -177,7 +177,9 @@ class LessonMailer < ActionMailer::Base
     instructors_to_email = available_instructors[0...1]
     #load email addresses for instructors to email
     instructors_to_email.each do |instructor|
-      @available_instructors << instructor.user.email
+      if instructor.user 
+        @available_instructors << instructor.user.email
+      end
     end
     mail(to: 'notify@snowschoolers.com', bcc: @available_instructors, subject: "You have a new Snow Schoolers lesson request on #{@lesson.date.strftime("%b %-d")}")
   end
@@ -187,15 +189,18 @@ class LessonMailer < ActionMailer::Base
     available_instructors = (lesson.available_instructors - [excluded_instructor])
     @available_instructors = []
     available_instructors.each do |instructor|
-      @available_instructors << instructor.user.email
+      if instructor.user 
+        @available_instructors << instructor.user.email
+      end
     end
     mail(to: 'notify@snowschoolers.com', bcc: @available_instructors, subject: 'A previous instructor canceled - can you help with this lesson request?')
   end
 
   # notification when instructor cancels
-  def send_cancellation_confirmation(lesson)
+  def send_cancellation_confirmation(canceling_instructor,lesson)
     @lesson = lesson
-    mail(to: @lesson.instructor.user.email, cc:'notify@snowschoolers.com', subject: 'You have canceled your Snow Schoolers lesson')
+    @canceling_instructor = canceling_instructor
+    mail(to: @canceling_instructor, cc:'notify@snowschoolers.com', subject: 'You have canceled your Snow Schoolers lesson')
   end
 
   def send_lesson_confirmation(lesson)

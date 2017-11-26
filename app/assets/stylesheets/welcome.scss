@@ -30,6 +30,9 @@ hr {
 hr.light {
   border-color: white;
 }
+.bold{
+  font-weight: bold;
+}
 a {
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
@@ -448,7 +451,7 @@ fieldset[disabled] .btn-primary.active {
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
   border: none;
   border-radius: 300px;
-  font-weight: 700;
+  /*font-weight: 700;*/
   text-transform: uppercase;
 }
 .btn-xl {

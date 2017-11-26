@@ -25,6 +25,7 @@
         </div>
         <h1 class="warning">        
           <%= f.semantic_errors :lesson %>
+          <%= f.semantic_errors :instructor %>
         </h1>
         <div class="block inputs">
             <div class="col-md-2">
@@ -32,7 +33,7 @@
             </div>            
 
             <div class="col-md-3">
-              <%= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase} , selected: Location.active_partners.first.id, include_blank: 'Location', label: false %>
+              <%= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase},  include_blank: 'Location', label: false %>
               <!-- %= f.input :requested_location , as: :select, collection: [['North Tahoe',1],['South Lake Tahoe',2],['Southern CA',3],['Utah',4],['Colorado',5],['Wyoming',6],['Idaho',7],['New Mexico',8]], selected: @promo_location, include_blank: 'Location', label: false %> -->
             </div>
             <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
