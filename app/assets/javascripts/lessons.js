@@ -1,7 +1,10 @@
+console.log("lessons.js loaded");
+
 var LESSON = {
   init: function(){
     // important objects
     LESSON._date = $('#datepicker');
+    LESSON._date2 = $('#datepicker2');
     LESSON._slot = $('#lesson_lesson_time_slot');
     LESSON._duration = $('#lesson_duration');
     LESSON._durations = {

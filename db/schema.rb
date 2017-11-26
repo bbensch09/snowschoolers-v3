@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171014044958) do
+ActiveRecord::Schema.define(version: 20171126051122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,9 @@ ActiveRecord::Schema.define(version: 20171014044958) do
     t.string   "status",         limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "date"
+    t.string   "state"
+    t.boolean  "prime_day"
   end
 
   create_table "ckeditor_assets", force: :cascade do |t|

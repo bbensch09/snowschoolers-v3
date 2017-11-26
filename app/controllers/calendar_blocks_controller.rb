@@ -1,5 +1,5 @@
 class CalendarBlocksController < ApplicationController
-  before_action :set_calendar_block, only: [:show, :edit, :update, :destroy]
+  before_action :set_calendar_block, only: [:show, :edit, :update, :destroy, :toggle_availability]
 
   # GET /calendar_blocks
   # GET /calendar_blocks.json
@@ -8,6 +8,31 @@ class CalendarBlocksController < ApplicationController
       @calendar_blocks = CalendarBlock.all.sort{ |a,b| a.lesson_time.date <=> b.lesson_time.date}
       else
       @calendar_blocks = CalendarBlock.where(instructor_id:current_user.instructor.id).sort{ |a,b| a.lesson_time.date <=> b.lesson_time.date}
+    end
+  end
+
+  def availability
+      @calendar_blocks = CalendarBlock.where(instructor_id:current_user.instructor.id)
+  end
+
+  def set_all_days_available
+    instructor_id = current_user.instructor.id
+    CalendarBlock.open_all_days(instructor_id)
+    redirect_to '/my-availability'
+  end
+
+  def block_all_days
+    instructor_id = current_user.instructor.id
+    CalendarBlock.block_all_days(instructor_id)
+    redirect_to '/my-availability'
+  end
+
+  
+  def toggle_availability
+    @calendar_block = @calendar_block.toggle_availability
+    if @calendar_block.save
+      format.html {redirect_to '/my-availability', notice: 'availability has been updated.'}
+      format.json {render action: 'availability' }
     end
   end
 
@@ -96,7 +121,7 @@ class CalendarBlocksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def calendar_block_params
-      params.require(:calendar_block).permit(:instructor_id, :lesson_time_id, :status)
+      params.require(:calendar_block).permit(:instructor_id, :lesson_time_id, :status, :date, :state, :prime_day)
     end
 
     def lesson_time_params

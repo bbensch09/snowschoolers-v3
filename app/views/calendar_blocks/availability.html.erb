@@ -1,0 +1,34 @@
+<div class="container"></div>
+
+<section id="desktop-view" class="">
+
+<h2 id='instructor-availability' class='center'>MANAGE MY CALENDAR </h2>
+<div class="row center">
+<%= link_to 'Set all days as available', set_all_days_available_path, method: :post, class: "btn btn-success" %>
+<%= link_to 'Block all days', block_all_days_path, method: :post, class: "btn btn-success" %>
+<div class="buffer"></div>
+</div>
+
+<div class="calendar-container">
+  <%= month_calendar(calendar_blocks: :date, events:@calendar_blocks) do |date, blocks| %>
+    <% blocks.each do | block | %>        
+    <div class=<%=blocks.first.availability_formatting %> >
+    <%= date.strftime('%-d') %>
+    <h2 class="center block-text">
+      <%= link_to block.toggle_display, toggle_availability_path(block.id), method: :post, id: block.id, class: 'toggle-availability', remote: true%>
+    </h2>
+          
+
+    <% end %>
+    </div>
+  <% end %>
+</div>
+<div class="buffer"></div>
+
+</section>
+
+<section id="mobile-view" class="hidden-unless-mobile">
+
+<div id="calendar"></div>
+
+</section>

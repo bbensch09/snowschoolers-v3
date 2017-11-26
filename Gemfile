@@ -3,8 +3,22 @@ ruby "~> 2.3.0"
 
 #gem for server-side API calls for from Heap
 gem 'heap', '~> 1.0'
-#calendar views
+
+#Gems for new mobile-friendly calendar w/ gCal support
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
 gem "simple_calendar", "~> 2.0"
+
+
+# Use jquery as the JavaScript library
+gem 'jquery-rails'
+gem 'jquery-ui-rails', '5.0.5'
+gem 'jquery-timepicker-rails'
+#added to try to replace bootstrap datetimepicker(?)
+gem 'bootstrap-datepicker-rails'
+gem 'bootstrap3-datetimepicker-rails'#, '~> 4.17.47'
+gem 'rails-assets-datetimepicker', source: 'https://rails-assets.org'
+
 
 #install redis gem for actioncable troubleshooting
 # gem 'redis'
@@ -72,17 +86,6 @@ gem 'coffee-rails'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
-gem 'jquery-ui-rails', '5.0.5'
-gem 'jquery-timepicker-rails'
-#added to try to replace bootstrap datetimepicker(?)
-gem 'rails-assets-datetimepicker', source: 'https://rails-assets.org'
-
-#new datetimepicker gem for shifts
-gem 'momentjs-rails', '>= 2.9.0'
-gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
