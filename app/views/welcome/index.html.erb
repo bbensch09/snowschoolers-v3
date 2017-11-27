@@ -3,41 +3,43 @@
 
 <section id="header-creative" class="top-section">
     <ul id="slider" class="mc-cycle" style="display: block; height: 100%; width: 100%;">
-        <div class="mc-image bg-photo" title="background photo" style="background-image: url('https://s3.amazonaws.com/snowschoolers/homewood-xmas-morning.jpg'); height: 100%; width: 100%;" data-href=""
-    </div>
-</ul>
+        <div class="mc-image bg-photo" title="background photo" style="background-image: url('https://s3.amazonaws.com/snowschoolers/homewood-xmas-morning.jpg'); height: 100%; width: 100%;" data-href=""></div>
+    </ul>
 <!--         <div id="homepage-background">
                 <img src="https://s3.amazonaws.com/snowschoolers/images/demo/slider/snow-less.jpg" alt="background photo" class="bg-photo" alt="" />
         </div>
     -->
     <div class="header-content">
         <div class="header-content-inner">
-            <h1 id="homeHeading" class="shadow-box-highlight home-header"><b>SKI</b> SCHOOL MADE <b>SIMPLE</b><br>
+            <h1 id="homeHeading" class="home-header">SKI SCHOOL MADE SIMPLE<br>
                 <span class="smaller-text">Lowest Prices. <span class="hidden-unless-mobile"><br></span> Best instructors. <span class="hidden-unless-mobile"><br></span> No morning hassle.</span>
                 <!-- <span class="smaller-text">Affordable ski and snowboard lessons without the hassle.</span> -->
             </h1>
+            <a href="#book-a-lesson" class="btn btn-primary btn-lg page-scroll powder-btn">Book a Lesson Today</a>
             <h4>
                 <!-- <a href="/lessons/new" class="btn btn-primary btn-xl page-scroll">Book a Private Lesson</a> -->
             </h4>
-            <!-- <p class="shadow-box-highlight hero-subtext">Say goodbye to the morning hassle. Book a certified instructor online, and we'll meet you on the mountain!</p>             -->
-            <div class="shadow-box-highlight">
-                <p class="welcome-subheader"> Winter is back. Compare prices and packages across Tahoe's <a href="/beginners-guide-to-tahoe" class="green-link">16 ski areas</a> in just a few clicks. Book early to save!
-                </p>
-                <span class="welome-ctas">
-                </span>
-                <!-- <a href="/tahoe-season-passes" class="btn btn-secondary btn-lg page-scroll">Shop Season Passes</a> -->
-                <a href="/learn-to-ski-packages" class="btn btn-secondary btn-lg page-scroll">Compare Lesson Prices</a>
-                <a href="#book-a-lesson" class="btn btn-primary btn-lg page-scroll powder-btn">Book a Lesson Today</a>
-                <a href="tahoe-season-passes" class="btn btn-secondary btn-lg page-scroll">Shop Season Passes</a>
-                <!-- <a href="/beginners-guide-to-tahoe" class="btn btn-primary btn-lg page-scroll">Complete Guide to Tahoe</a> -->
-            </div>
-            <hr class="subheader-divider">
+            <!-- <p class=" hero-subtext">Say goodbye to the morning hassle. Book a certified instructor online, and we'll meet you on the mountain!</p>             -->
+    </section>
+
+    <section class="bg-primary">
+        <div class="">
+            <p class="welcome-subheader"> Winter is back. Compare prices and packages across Tahoe's <a href="/beginners-guide-to-tahoe" class="green-link">16 ski areas</a> in just a few clicks. Book early to save!
+            </p>
+            <span class="welome-ctas">
+            </span>
+            <!-- <a href="/tahoe-season-passes" class="btn btn-secondary btn-lg page-scroll">Shop Season Passes</a> -->
+            <a href="/learn-to-ski-packages" class="btn btn-secondary btn-lg page-scroll">Compare Lesson Prices</a>
+            <a href="tahoe-season-passes" class="btn btn-secondary btn-lg page-scroll">Shop Season Passes</a>
+            <!-- <a href="/beginners-guide-to-tahoe" class="btn btn-primary btn-lg page-scroll">Complete Guide to Tahoe</a> -->
+        </div>
+        <hr class="subheader-divider">
         </div>
         <div class="header-content-inner">
-            <h3 id="search-index-header" class="shadow-box-highlight">Already have a favorite mountain? See current deals on lessons, lift tickets, and more.<br><br>
+            <h3 id="search-index-header" class="">Already have a favorite mountain? See current deals on lessons, lift tickets, and more.<br><br>
                 <span class="smaller-text"></span>
                 <%= render partial: 'products/search' %>
-                <h3 id="search-index-header" class="shadow-box-highlight">Interested in becoming an instructor? <br>
+                <h3 id="search-index-header" class="">Interested in becoming an instructor? <br>
                     <a href="/apply" class="btn btn-lg btn-primary"> Apply Today </a>
                 </h3>
             </div>
@@ -45,11 +47,11 @@
     </section>
 
     <section id="book-a-lesson" class="pricing-section">
-        
+
         <div id="lesson-flow-background">
 
             <div class="homepage-lesson-container center">
-                <%= render partial: "lessons/lesson_new_form" %>    
+                <%= render partial: "lessons/lesson_new_form" %>
             </div>
         </div>
     </section>
@@ -79,8 +81,8 @@
                   </div>
             </div>
         </div>
-    </section>  
-              
+    </section>
+
   <section class="bg-primary">
     <div class="container">
             <h2 class="section-heading how-it-works where-we-teach-header white-text center">Where do we teach?</h2>
@@ -90,7 +92,7 @@
                     <span class=""> Snow Schoolers lessons take place at either <a href="https://www.google.com/maps/place/Homewood+Mountain+Resort/@39.0855833,-120.1627278,17z/data=!3m1!4b1!4m5!3m4!1s0x80997fda4762005f:0x73b0c46aa0c1068d!8m2!3d39.0855833!4d-120.1605391" class="green-link">Homewood</a> or <a href="https://www.google.com/maps/place/Granlibakken+Ski+%26+Sledding+Hill/@39.1561996,-120.1543405,15z/data=!4m12!1m6!3m5!1s0x0:0xbe2330dfc1e3324e!2sGranlibakken+Tahoe!8m2!3d39.1561996!4d-120.1543405!3m4!1s0x80997d88a3630ec7:0x30c3373b77f6c7b4!8m2!3d39.1540167!4d-120.1547885" class="green-link">Granlibakken</a>, both of which are located on the west shore of Lake Tahoe, near Tahoe city.</span>
                     <br>
                     <br>
-                    Have questions about what ski area is best for your upcoming vacation? Feel free to <a href="/resorts" class="green-link">browse our resort guide</a>, or simply <a href="#chat" class="green-link">chat</a> with one of our dedicated customer success representative today. 
+                    Have questions about what ski area is best for your upcoming vacation? Feel free to <a href="/resorts" class="green-link">browse our resort guide</a>, or simply <a href="#chat" class="green-link">chat</a> with one of our dedicated customer success representative today.
                     <br>
                     </p>
                     <div class="insta-embed">
