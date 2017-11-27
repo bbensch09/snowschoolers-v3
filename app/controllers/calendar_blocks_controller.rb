@@ -1,5 +1,7 @@
 class CalendarBlocksController < ApplicationController
   before_action :set_calendar_block, only: [:show, :edit, :update, :destroy, :toggle_availability]
+  before_action :confirm_admin_permissions, only: [:admin_availability]
+
 
   # GET /calendar_blocks
   # GET /calendar_blocks.json
@@ -23,34 +25,40 @@ class CalendarBlocksController < ApplicationController
           flash[:notice] = "Please set your availability below. We've temporarily marked all weekend days as available."
       end
       @calendar_blocks = CalendarBlock.where(instructor_id:current_user.instructor.id)
-      @available_days = CalendarBlock.where(instructor_id:current_user.instructor.id,state:'Available')
+      # @available_days = CalendarBlock.where(instructor_id:current_user.instructor.id,state:'Available')
       @instructor = current_user.instructor
+      params[:id] = current_user.instructor.id
   end
 
   def individual_availability
       instructor_id = params[:id]
       @calendar_blocks = CalendarBlock.where(instructor_id:instructor_id)
-      @available_days = CalendarBlock.where(instructor_id:instructor_id,state:'Available')
+      # @available_days = CalendarBlock.where(instructor_id:instructor_id,state:'Available')
       @instructor = Instructor.find(instructor_id)
       render 'availability'
   end
 
+  def admin_calendar
+    @calendar_blocks = CalendarBlock.where(state:'Available') + CalendarBlock.where(state:'Booked')
+    render 'admin_availability'
+  end
+
   def set_all_days_available
-    instructor_id = current_user.instructor.id
+    instructor_id = params[:id]
     CalendarBlock.open_all_days(instructor_id)
-    redirect_to '/my-availability'
+    redirect_to individual_availability_path(instructor_id)
   end
 
   def block_all_days
-    instructor_id = current_user.instructor.id
+    instructor_id = params[:id]
     CalendarBlock.block_all_days(instructor_id)
-    redirect_to '/my-availability'
+    redirect_to individual_availability_path(instructor_id)
   end
 
   def set_all_weekends_available
-    instructor_id = current_user.instructor.id
+    instructor_id = params[:id]
     CalendarBlock.open_all_weekends(instructor_id)
-    redirect_to '/my-availability'
+    redirect_to individual_availability_path(instructor_id)
   end
 
   

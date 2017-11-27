@@ -28,6 +28,13 @@
 	border: 10px;	
 	height: 100%;
 }
+.admin-calendar-day{
+	background-color: rgba(59, 89, 152, .7);
+	max-height:50px;	
+}
+.admin-calendar-day a {
+	color: #fff;
+}
 .toggle-availability, .toggle-availability:hover, .toggle-availability:visited, .toggle-availability:focus{
 	color: #fff;
 	text-decoration: none;

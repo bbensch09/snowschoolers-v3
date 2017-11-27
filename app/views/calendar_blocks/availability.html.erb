@@ -1,6 +1,11 @@
 <div class="container"></div>
-
-<h2 id='instructor-availability' class='center'>MANAGE CALENDAR </h2>
+<% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner")  %>
+  <h2 id='instructor-availability' class='center'>
+      CALENDAR for <%= @instructor.name %> <%= link_to 'Admin Calendar', admin_calendar_path, method: :get, class: "btn btn-default"%>
+  </h2>
+  <% else %>
+  <h2 id='instructor-availability' class='center'>MANAGE CALENDAR </h2>
+<% end %>
 <div class='col-md-6'>
   <h2 class="calendar-subheader center bold">Instructions</h2>
   <ul>
@@ -33,9 +38,9 @@
 </div>
 <div class="row center">
 <%= link_to 'Refresh', refresh_calendar_path, method: :get, class: "btn btn-default", remote: true %>
-<%= link_to 'Mark all days available', set_all_days_available_path, method: :post, class: "btn btn-success" %>
-<%= link_to 'Mark weekends available', set_all_weekends_available_path, method: :post, class: "btn btn-warning" %>
-<%= link_to 'Block all days', block_all_days_path, method: :post, class: "btn btn-danger" %>
+<%= link_to 'Mark all days available', set_all_days_available_path(@instructor), method: :post, class: "btn btn-success" %>
+<%= link_to 'Mark weekends available', set_all_weekends_available_path(@instructor), method: :post, class: "btn btn-warning" %>
+<%= link_to 'Block all days', block_all_days_path(@instructor), method: :post, class: "btn btn-danger" %>
 </div>
 
 <div class="calendar-container">

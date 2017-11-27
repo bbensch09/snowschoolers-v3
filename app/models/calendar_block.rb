@@ -26,9 +26,10 @@ class CalendarBlock < ActiveRecord::Base
 				date: date,
 				instructor_id: instructor_id,
 				})
-			return if c.state == 'Booked'
+			unless c.state == 'Booked'
 			c.state = 'Available'
 			c.save
+			end
 		end	
 	end
 
@@ -40,9 +41,10 @@ class CalendarBlock < ActiveRecord::Base
 				date: date,
 				instructor_id: instructor_id,
 				})
-				return if c.state == 'Booked'
+				unless c.state == 'Booked' 
 				c.state = 'Available'
 				c.save
+				end
 			end
 		end	
 	end
@@ -54,9 +56,10 @@ class CalendarBlock < ActiveRecord::Base
 				date: date,
 				instructor_id: instructor_id,
 				})
-			return if c.state == 'Booked'
+			unless c.state == 'Booked'
 			c.state = 'Not Available'
 			c.save
+			end
 		end	
 	end
 
@@ -91,6 +94,10 @@ class CalendarBlock < ActiveRecord::Base
 				self.state = 'Available'
 		end
 		self.save
+	end
+
+	def self.instructors_available(date)
+		CalendarBlock.where(state:'Available',date:date)
 	end
 
 	def self.remaining_dates_in_season

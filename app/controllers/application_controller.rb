@@ -12,6 +12,11 @@ class ApplicationController < ActionController::Base
   # end
   # rescue_from Exception, :with => :houston_we_have_an_exceptional_problem
 
+def confirm_admin_permissions
+  return if current_user.email == 'brian@snowschoolers.com' || current_user.user_type == 'Ski Area Partner' || current_user.user_type == "Snow Schoolers Employee"
+  redirect_to root_path, notice: 'You do not have permission to view that page.'
+end
+
 def store_location
   # store last url - this is needed for post-login redirect to whatever the user last visited.
   return unless request.get?

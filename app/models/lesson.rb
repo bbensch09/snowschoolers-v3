@@ -163,6 +163,43 @@ class Lesson < ActiveRecord::Base
     wages = self.product.length.to_i * instructor.wage_rate
   end
 
+  def self.total_prime_days
+    total = 0
+    Instructor.active_instructors.each do |instructor|
+      total += instructor.prime_days_available
+      total += instructor.prime_days_booked
+    end
+    return total
+  end
+
+  def self.completed_lessons_count
+    Lesson.where(state:'Lesson Complete').count 
+  end
+
+  def self.total_wages
+    total = 0
+    Instructor.active_instructors.each do |instructor|
+      total += instructor.total_wages
+    end
+    return total
+  end
+
+  def self.total_tips
+    total = 0
+    Instructor.active_instructors.each do |instructor|
+      total += instructor.total_tips
+    end
+    return total
+  end
+
+  def self.total_earnings
+    total = 0
+    Instructor.active_instructors.each do |instructor|
+      total += instructor.total_earnings
+    end
+    return total
+  end
+
   def lift_ticket_status?
     return true if self.lift_ticket_status == "Yes, I have one."
   end
