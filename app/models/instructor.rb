@@ -61,7 +61,7 @@ class Instructor < ActiveRecord::Base
     lessons = Lesson.where(state:'Lesson Complete',instructor_id:self.id)
     tips = 0
     lessons.each do |lesson|
-        tips += lesson.tip
+        tips += lesson.tip.to_f
     end
     return tips
   end
