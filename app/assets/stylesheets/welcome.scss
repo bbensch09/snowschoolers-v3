@@ -56,6 +56,13 @@ p {
   line-height: 1.2;
   margin-bottom: 20px;
 }
+
+
+.bg-photo {
+  filter: brightness(50%);
+  opacity: 0.8;
+}
+
 .bg-primary {
   background-color: #3b5998;
 }
