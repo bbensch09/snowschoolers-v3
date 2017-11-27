@@ -24,6 +24,15 @@ class CalendarBlocksController < ApplicationController
       end
       @calendar_blocks = CalendarBlock.where(instructor_id:current_user.instructor.id)
       @available_days = CalendarBlock.where(instructor_id:current_user.instructor.id,state:'Available')
+      @instructor = current_user.instructor
+  end
+
+  def individual_availability
+      instructor_id = params[:id]
+      @calendar_blocks = CalendarBlock.where(instructor_id:instructor_id)
+      @available_days = CalendarBlock.where(instructor_id:instructor_id,state:'Available')
+      @instructor = Instructor.find(instructor_id)
+      render 'availability'
   end
 
   def set_all_days_available
@@ -51,6 +60,7 @@ class CalendarBlocksController < ApplicationController
     end
     @calendar_blocks = CalendarBlock.where(instructor_id:current_user.instructor.id)
     @available_days = CalendarBlock.where(instructor_id:current_user.instructor.id,state:'Available')
+    @instructor = current_user.instructor
     puts "!!! calendar block id is #{@calendar_block.id}"
     @calendar_block.toggle_availability
     respond_to do |format|

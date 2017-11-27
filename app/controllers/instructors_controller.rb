@@ -1,6 +1,6 @@
 class InstructorsController < ApplicationController
   before_action :set_instructor, only: [:show, :edit, :update, :destroy, :show_candidate]
-  before_action :confirm_admin_permissions, except: [:create, :update, :new, :edit, :show, :thank_you, :browse, :show, :show_candidate]
+  before_action :confirm_admin_permissions, except: [:create, :profile, :update, :new, :edit, :show, :thank_you, :browse, :show, :show_candidate]
   # before_action :confirm_user_permissions, only: [:edit, :update]
   skip_before_action :authenticate_user!, only: [:new, :create, :thank_you, :browse, :show, :show_candidate]
 

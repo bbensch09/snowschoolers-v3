@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   resources :calendar_blocks
   post 'calendar_blocks/create_10_week_recurring_block' => 'calendar_blocks#create_10_week_recurring_block', as: :create_10_week_recurring_block
   get 'my-availability' => 'calendar_blocks#availability', as: :manage_availability
+  get 'availability/:id' => 'calendar_blocks#individual_availability', as: :individual_availability
   get 'refresh-calendar' => 'calendar_blocks#refresh_calendar', as: :refresh_calendar
   post 'set-all-days-available' => 'calendar_blocks#set_all_days_available', as: :set_all_days_available
   post 'set-all-weekends-available' => 'calendar_blocks#set_all_weekends_available', as: :set_all_weekends_available
