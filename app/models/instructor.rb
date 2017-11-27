@@ -44,15 +44,30 @@ class Instructor < ActiveRecord::Base
     Lesson.where(state:'Lesson Complete',instructor_id:self.id).count
   end
 
-  def total_earnings
+  def wage_rate
+    self.base_rate ? self.base_rate : 16
+  end
+
+  def total_wages
     lessons = Lesson.where(state:'Lesson Complete',instructor_id:self.id)
-    earnings = 0
+    wages = 0
     lessons.each do |lesson|
-      lesson.transactions.each do |transaction|
-        earnings += transaction.final_amount
-      end
+        wages += lesson.wages
     end
-    return earnings
+    return wages
+  end
+
+  def total_tips
+    lessons = Lesson.where(state:'Lesson Complete',instructor_id:self.id)
+    tips = 0
+    lessons.each do |lesson|
+        tips += lesson.tip
+    end
+    return tips
+  end
+
+  def total_earnings
+    self.total_wages + self.total_tips
   end
 
 

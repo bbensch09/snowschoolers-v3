@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171126051122) do
+ActiveRecord::Schema.define(version: 20171127005352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,6 +142,7 @@ ActiveRecord::Schema.define(version: 20171126051122) do
     t.boolean  "adults_eligibility"
     t.integer  "age"
     t.date     "dob"
+    t.float    "base_rate"
   end
 
   create_table "instructors_locations", id: false, force: :cascade do |t|

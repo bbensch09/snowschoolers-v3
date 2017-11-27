@@ -17,15 +17,17 @@
 <div class='col-md-6'>
   <h2 class="calendar-subheader center bold">Summary</h2>
   <div class="col-md-6">
-    <h5>Days available:</h5>
+    <!-- <h5>Days available:</h5> -->
     <h5>Weekend + Holidays available:</h5>
     <h5>Total lessons to-date: </h5>
-    <h5>Total earnings to-date: </h5>
+    <h5>Total wages (tips) to-date: </h5>
+    <h5>Total earnings: </h5>
   </div>
   <div class="col-md-6">
-    <h5><%= current_user.instructor.total_days %></h5>
+    <!-- <h5><%= current_user.instructor.total_days %></h5> -->
     <h5><%= current_user.instructor.total_prime_days %> (minimum: 10)</h5>
     <h5><%= current_user.instructor.completed_lessons_count %> </h5>
+    <h5><%= number_to_currency(current_user.instructor.total_wages) %> (<%= number_to_currency(current_user.instructor.total_tips) %>) </h5>
     <h5><%= number_to_currency(current_user.instructor.total_earnings) %> </h5>
   </div>
 </div>
