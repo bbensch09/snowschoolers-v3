@@ -32,12 +32,13 @@ Rails.application.routes.draw do
 
   resources :calendar_blocks
   post 'calendar_blocks/create_10_week_recurring_block' => 'calendar_blocks#create_10_week_recurring_block', as: :create_10_week_recurring_block
-  get 'my-availability' => 'calendar_blocks#availability', as: :manage_availability
+  get 'admin-calendar' => 'calendar_blocks#admin_calendar', as: :admin_calendar
+  get 'calendar' => 'calendar_blocks#availability', as: :manage_availability
   get 'availability/:id' => 'calendar_blocks#individual_availability', as: :individual_availability
   get 'refresh-calendar' => 'calendar_blocks#refresh_calendar', as: :refresh_calendar
-  post 'set-all-days-available' => 'calendar_blocks#set_all_days_available', as: :set_all_days_available
-  post 'set-all-weekends-available' => 'calendar_blocks#set_all_weekends_available', as: :set_all_weekends_available
-  post 'block-all-days' => 'calendar_blocks#block_all_days', as: :block_all_days
+  post 'set-all-days-available/:id' => 'calendar_blocks#set_all_days_available', as: :set_all_days_available
+  post 'set-all-weekends-available/:id' => 'calendar_blocks#set_all_weekends_available', as: :set_all_weekends_available
+  post 'block-all-days/:id' => 'calendar_blocks#block_all_days', as: :block_all_days
   put 'toggle-availability/:id' => 'calendar_blocks#toggle_availability', as: :toggle_availability
 
   # mount Ckeditor::Engine => '/ckeditor'

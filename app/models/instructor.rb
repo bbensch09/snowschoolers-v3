@@ -90,6 +90,10 @@ class Instructor < ActiveRecord::Base
     end
   end
 
+  def self.active_instructors
+    Instructor.where(status:'Active')
+  end
+
   def self.seed_temp_instructors
     first_names = ['Jim','Garry','Steven','Adam','Kelly','Natalie','Anita','Connie','Brian','Chris','Christian','Andrew','Ryan','Seth','Justin','Michael','Cameron','Cindy','Ryan','Jerry']
     last_names =  ['Kinney','Cox','Church','Garon','Larson','Barros','Hill','Wang','Bensch','Prattis','Herlihy','Eells','Hoben','Evanhoe','Palmer','Beler','Ulhriy','Palfy','Walker','Jones']

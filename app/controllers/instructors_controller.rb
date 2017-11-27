@@ -133,10 +133,6 @@ class InstructorsController < ApplicationController
       redirect_to @instructor, notice: 'You do not have permission to edit this page.'
     end
 
-    def confirm_admin_permissions
-      return if current_user.email == 'brian@snowschoolers.com' || current_user.user_type == 'Ski Area Partner' || current_user.user_type == "Partner"
-      redirect_to root_path, notice: 'You do not have permission to view that page.'
-    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_instructor

@@ -1,0 +1,45 @@
+<div class="container"></div>
+<div class='col-md-6'>
+  <h2 class="calendar-subheader center bold">Summary</h2>
+  <div class="col-md-6">
+    <!-- <h5>Days available:</h5> -->
+    <h5>Prime instructor-days available:</h5>
+    <h5>Total lessons completed: </h5>
+    <h5>Total wages (tips) to-date: </h5>
+    <h5>Total earnings: </h5>
+  </div>
+  <div class="col-md-6">
+    <h5><%= Lesson.total_prime_days %></h5>
+    <h5><%= Lesson.completed_lessons_count %> </h5>
+    <h5><%= number_to_currency(Lesson.total_wages) %> (<%= number_to_currency(Lesson.total_tips) %>) </h5>
+    <h5><%= number_to_currency(Lesson.total_earnings) %> </h5>
+  </div>
+</div>
+<div class="row center">
+</div>
+
+<div class="calendar-container">
+  <%= month_calendar(calendar_blocks: :date, events:@calendar_blocks) do |date, blocks| %>
+    <%= date.strftime('%-d') %>  
+    <div class='pull-right'>
+      #available: <%= CalendarBlock.instructors_available(date).count %> 
+    </div>
+    <% blocks.sort{|a,b| b.state <=> a.state}.each do | block | %>        
+    <div class='admin-calendar-day' >
+      <% if block.state == "Booked" %>
+        <%= link_to 'See Lesson Details', lesson_path(Lesson.where(instructor_id:block.instructor_id,lesson_time_id:block.lesson_time_id).first), method: :get, class: "btn btn-xs btn-default" %>
+        <% else %>
+      <%= link_to block.instructor.name, individual_availability_path(block.instructor.id), method: :get, id: block.id  %>
+      <% end %>
+
+    <% end %>
+    </div>
+  <% end %>
+</div>
+<div class="buffer"></div>
+
+<section id="mobile-view" class="hidden-unless-mobile">
+
+<div id="calendar"></div>
+
+</section>
