@@ -158,6 +158,11 @@ class Lesson < ActiveRecord::Base
     end
   end
 
+  def wages
+    instructor = self.instructor
+    wages = self.product.length.to_i * instructor.wage_rate
+  end
+
   def lift_ticket_status?
     return true if self.lift_ticket_status == "Yes, I have one."
   end

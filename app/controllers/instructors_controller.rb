@@ -31,7 +31,7 @@ class InstructorsController < ApplicationController
     # if current_user.user_type == "Partner"
     #   @instructors = Location.find(current_user.location_id).instructors.sort {|a,b| b.overall_initial_rank <=> a.overall_initial_rank}
     #   else
-      @instructors = Instructor.all.sort {|a,b| b.status <=> a.status}
+      @instructors = Instructor.all.sort {|a,b| a.status <=> b.status}
     # end
   end
 
@@ -145,6 +145,6 @@ class InstructorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def instructor_params
-      params.require(:instructor).permit(:first_name, :last_name, :username, :preferred_locations, :certification, :phone_number, :sport, :bio, :intro, :status, :city, :user_id, :avatar, :how_did_you_hear, :confirmed_certification, :kids_eligibility, :seniors_eligibility, :adults_eligibility, :kids_initial_rank, :adults_initial_rank, :overall_initial_rank, :age, :dob, sport_ids:[], location_ids:[], ski_level_ids:[], snowboard_level_ids:[])
+      params.require(:instructor).permit(:first_name, :last_name, :username, :preferred_locations, :certification, :phone_number, :sport, :bio, :intro, :status, :city, :user_id, :avatar, :how_did_you_hear, :confirmed_certification, :kids_eligibility, :base_rate, :seniors_eligibility, :adults_eligibility, :kids_initial_rank, :adults_initial_rank, :overall_initial_rank, :age, :dob, sport_ids:[], location_ids:[], ski_level_ids:[], snowboard_level_ids:[])
     end
 end
