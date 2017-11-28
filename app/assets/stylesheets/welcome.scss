@@ -55,16 +55,16 @@ p {
   font-size: 16px;
   line-height: 1.2;
   margin-bottom: 20px;
+  text-align: center;
 }
-
-
 .bg-photo {
   filter: brightness(50%);
   opacity: 0.8;
 }
 
 .bg-primary {
-  background-color: #3b5998;
+  color: #36454f;
+  background-color: white;
 }
 .bg-white {
   background-color: #fff;
@@ -355,6 +355,7 @@ margin-right: auto !important;;
   padding-right: 0;
   padding-left: 0;
 }
+
 .btn-default {
     color: #fff;
     background-color: #55C9B2;
@@ -623,6 +624,24 @@ h2 {
 }
 #search-index-header{
   padding-bottom: 20px;
+  padding-top: 20px;
+}
+.link-container{
+  width: 60%;
+  margin: auto;
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+.section-box-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.section-box{
+  border: 1px solid #36454f;
+  padding: 20px;
+  width: 40%;
 }
 .beta-sign-up{
   display: inline-block;
@@ -683,9 +702,13 @@ h2 {
   position: relative;
 }
 .green-link {
-    color: #55C9B2;
-    font-weight: bold;
-    text-decoration: underline;
+  color: #55C9B2;
+  font-weight: bold;
+  text-decoration: none;
+}
+.green-link:hover {
+  color: #4bb49f;
+  text-decoration: none;
 }
 .navy-link {
     color: #3b5998;
@@ -1093,10 +1116,16 @@ section.pricing-new-lesson{
   max-width: 90% !important;
 }
 .btn-secondary{
-  color: white !important;
-  background-color: #DF5DDF;
+  color: #36454f !important;
   margin-top: 4px;
   margin-bottom: 4px;
+}
+.btn-box {
+  width: 45%;
+  height: 200px;
+  background-color: white;
+  border-radius: 0;
+  border: 1px solid #36454f;
 }
 .btn-primary{
   margin-top: 4px;
@@ -1463,6 +1492,7 @@ ul.recruiting-ctas li {
   text-align: left;
   padding-left: 10px;
   padding-right: 10px;
+  color: #36454f !important;
 }
 .welcome-ctas{
   text-align: center;
@@ -1478,9 +1508,4 @@ ul.recruiting-ctas li {
 #search-index-header{
   font-size: 1.1em;
 }
-}
-
-.footer-list {
-  display: flex;
-  justify-content: center;
 }

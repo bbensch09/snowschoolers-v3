@@ -24,27 +24,34 @@
     </div>
 </section>
 
-    <section class="bg-primary">
+<section class="bg-primary">
+    <div>
+        <p class="welcome-subheader"> Winter is back. Compare prices and packages across Tahoe's <a href="/beginners-guide-to-tahoe" class="green-link">16 ski areas</a> in just a few clicks. Book early to save!
+        </p>
+        <span class="welome-ctas">
+        </span>
+        <!-- <a href="/tahoe-season-passes" class="btn btn-secondary btn-lg page-scroll">Shop Season Passes</a> -->
+        <div class="link-container">
+            <a href="/learn-to-ski-packages" class="green-link">COMPARE LESSON PRICES</a>
+            <a href="tahoe-season-passes" class="green-link">SHOP SEASON PASSES</a>
+        </div>
+        <!-- <a href="/beginners-guide-to-tahoe" class="btn btn-primary btn-lg page-scroll">Complete Guide to Tahoe</a> -->
+    </div>
+    <hr>
+    <div class="section-box-container">
         <div class="section-box">
-            <p class="welcome-subheader"> Winter is back. Compare prices and packages across Tahoe's <a href="/beginners-guide-to-tahoe" class="green-link">16 ski areas</a> in just a few clicks. Book early to save!
+            <p id="search-index-header" class="welcome-subheader">Already have a favorite mountain? See current deals on lessons, lift tickets, and more.<br>
+            <span class="smaller-text"></span>
+            <%= render partial: 'products/search' %>
             </p>
-            <span class="welome-ctas">
-            </span>
-            <!-- <a href="/tahoe-season-passes" class="btn btn-secondary btn-lg page-scroll">Shop Season Passes</a> -->
-            <a href="/learn-to-ski-packages" class="btn btn-secondary btn-lg page-scroll">Compare Lesson Prices</a>
-            <a href="tahoe-season-passes" class="btn btn-secondary btn-lg page-scroll">Shop Season Passes</a>
-            <!-- <a href="/beginners-guide-to-tahoe" class="btn btn-primary btn-lg page-scroll">Complete Guide to Tahoe</a> -->
         </div>
         <div class="section-box">
-            <h3 id="search-index-header" class="">Already have a favorite mountain? See current deals on lessons, lift tickets, and more.<br><br>
-                <span class="smaller-text"></span>
-                <%= render partial: 'products/search' %>
-                <h3 id="search-index-header" class="">Interested in becoming an instructor? <br>
-                    <a href="/apply" class="btn btn-lg btn-primary"> Apply Today </a>
-                </h3>
-            </div>
+            <p id="search-index-header" class="welcome-subheader">Interested in becoming an instructor? <br>
+            <a href="/apply" class="btn btn-lg btn-primary"> Apply Today </a>
+            </p>
         </div>
-    </section>
+    </div>
+</section>
 
     <section id="book-a-lesson" class="pricing-section">
 
