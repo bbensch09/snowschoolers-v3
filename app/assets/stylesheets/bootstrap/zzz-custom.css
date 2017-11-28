@@ -24,6 +24,9 @@
 #footer {
   background: #424e6f;
 }
+form{
+  text-align: center;
+}
 .header-homewood, #footer {
   background: #424e6f !important;
   border-top: none;

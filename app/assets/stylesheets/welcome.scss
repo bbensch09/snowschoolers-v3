@@ -355,7 +355,6 @@ margin-right: auto !important;;
   padding-right: 0;
   padding-left: 0;
 }
-
 .btn-default {
     color: #fff;
     background-color: #55C9B2;
@@ -626,6 +625,9 @@ h2 {
   padding-bottom: 20px;
   padding-top: 20px;
 }
+#apply-btn{
+  margin-top: 40px;
+}
 .link-container{
   width: 60%;
   margin: auto;
@@ -642,6 +644,16 @@ h2 {
   border: 1px solid #36454f;
   padding: 20px;
   width: 40%;
+}
+.apply-today{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.search-widget{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .beta-sign-up{
   display: inline-block;
@@ -1255,6 +1267,7 @@ section.pricing-new-lesson{
     font-size: 1.9em;
     text-transform: uppercase;
     margin-bottom: 10px;
+    color: #3b5998;
   }
 /*  .north-vs-south{
     color: #fff !important;
@@ -1511,3 +1524,4 @@ ul.recruiting-ctas li {
   font-size: 1.1em;
 }
 }
+
