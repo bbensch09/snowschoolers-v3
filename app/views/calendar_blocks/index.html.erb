@@ -37,9 +37,9 @@
         <td><%= calendar_block.instructor_id %></td>
         <td><%= calendar_block.lesson_time_id %></td> -->
         <td><%= calendar_block.instructor ? calendar_block.instructor.name : "N/A" %></td>
-        <td><%= calendar_block.date.strftime("%a, %b %d") %></td>
+        <td><%= calendar_block.date %></td>
         <% if calendar_block.lesson_time %>
-        <td><%= calendar_block.lesson_time.date.strftime("%a, %b %d") %></td>
+        <td><%= calendar_block.lesson_time.date %></td>
         <td><%= calendar_block.lesson_time.slot %></td>
         <% end %>
         <td><%= calendar_block.state %></td>
