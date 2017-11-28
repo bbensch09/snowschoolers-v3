@@ -79,7 +79,17 @@
         <%end%>
         <td><%= instructor.overall_initial_rank %></td>
         <td><%= instructor.certification %></td>
-        <td><%= instructor.sport %></td>
+        <td>
+          <% if instructor.ski_instructor? %>
+          Skiing 
+          <% end %>
+          <% if instructor.snowboard_instructor? %>
+          Snowboarding 
+          <% end %>
+          <% if instructor.telemark_instructor? %>
+          Telemark 
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
