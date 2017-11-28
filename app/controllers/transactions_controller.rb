@@ -46,7 +46,7 @@ class TransactionsController < ApplicationController
     end
     @transaction.lesson.state = "Payment complete, waiting for review."
     @transaction.lesson.save
-    if current_user && current_user.email == "brian@snowschoolers.com"
+    if current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee"
       flash[:notice] = 'Thanks! Admin has updated lesson as complete and instructor has not been messaged. You may now email student to remind them to submit a review.'
       redirect_to @transaction.lesson
       else

@@ -4,7 +4,7 @@
 <h3> Current User.email: <%= current_user.email %> </h3>
  -->
 
-<% if current_user && current_user.email == "brian@snowschoolers.com" %>
+<% if current_user && current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" %>
 <div class="admin-viewable">
   <a href='lessons/admin_index' class='btn btn-warning'>View Full Lesson Details</a>
 </div>

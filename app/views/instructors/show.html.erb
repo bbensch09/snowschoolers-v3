@@ -70,7 +70,7 @@
 </div>
 </div>
 
-<% if current_user && current_user.email == "brian@snowschoolers.com" %>
+<% if current_user && current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee"%>
 <section class='admin-viewable'>
   <h4> ADMIN ONLY: Add a new review manually.</h4>
   <div class="row col-md-12">

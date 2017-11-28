@@ -70,12 +70,12 @@
           </div>
         </div>
       <% end %>
-      <% if current_user.nil? || current_user.email == "brian@snowschoolers.com" %>
+      <% if current_user.nil? || current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" %>
       <div class='row'>
         <div class="col-md-6">
           <h4>Book as a <strong>Guest</strong> | Or <a href="#" class="btn btn-default" data-toggle="modal" data-target="#loginModal">Sign-in to your Account</a></h4>
               <label>Email</label>
-              <%= f.input :guest_email, as: :string, placeholder: "email@example.com", label: false %>
+              <%= f.email_field :guest_email, placeholder: "email@example.com", class: "form-control", type: 'email', required:true, label: false %>
         </div>
       </div>
       <% end %>
