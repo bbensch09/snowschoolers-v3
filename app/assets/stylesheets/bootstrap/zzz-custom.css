@@ -16,7 +16,12 @@
   font-weight: 100;
 }
 
-#header, #footer {
+#header {
+  background: none;
+  border-bottom: none;
+}
+
+#footer {
   background: #3b5998;
   border-bottom: rgba(255, 255, 255, 0.2) 1px solid;
 }
@@ -41,24 +46,22 @@ div.maximage-controls #slider_prev:hover {
 }
 
 #header ul.nav li a.sign-up-btn {
-  color: #fff;
-  background-color: #55C9B2;
-  border-radius: 4px;
+  padding: 5px;
+  color: #eee;
+  font-family: 'Palanquin', sans-serif;
 }
 
 #header ul.nav li a.sign-up-btn:hover {
-  background-color: #DF5DDF;
+  background-color: transparent;
   color: #fff;
 }
 
 .sign-up-btn {
-  color: #fff;
-  background-color: #55C9B2;
+  color: #eee;
 }
 
 .sign-up-btn:hover {
   color: #fff;
-  background-color: #DF5DDF;
 }
 
 .btn-info:hover {
@@ -66,6 +69,7 @@ div.maximage-controls #slider_prev:hover {
 }
 
 #header ul.nav li:hover>a {
+  background-color: transparent;
   color: #fff;
 }
 

@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
   <link rel="icon" type="image/png" href="https://s3.amazonaws.com/snowschoolers/SnowSchoolers-favicon.png">
   <meta name="google-site-verification" content="W1jQsfy52H6ubJcGDNxflQmKuSNdLuId5JvlfBaLBF4" />
-  
+
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -16,8 +16,9 @@
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-MPD8RJQ');</script>
   <!-- End Google Tag Manager -->
-  
+
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Palanquin" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
   <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -32,7 +33,7 @@
   (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
   })(window,document.documentElement,'async-hide','dataLayer',4000,
   {'GTM-PKBC5NX':true});</script>
- 
+
   <!-- Meta verification for Bing webmaster tools -->
   <meta name="msvalidate.01" content="4E8F207E8EA0C5FD7DA648D737405F6D" />
 
@@ -56,7 +57,7 @@
           window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
             heap.load("654668111");
       </script>
-  
+
   <% elsif ENV['HOST_DOMAIN'] == "demo.snowschoolers.com" %>
         <meta name="robots" content="noindex">
   <!-- GA code for Local Host tracking & QA -->
@@ -72,7 +73,7 @@
       ga('send', 'pageview');
     </script>
 
-  <% end %> 
+  <% end %>
 
  <!-- Heap analytics snippet - PRODUCTION ENV NOW IN GTM - Main -->
 <!--   <script type="text/javascript">
@@ -92,7 +93,7 @@
     ga('require', 'GTM-PKBC5NX');
     ga('send', 'pageview');
   </script> -->
- 
+
 
 <!-- Facebook Pixel Code NOW LIVES IN GTM -->
     <!-- <script>
@@ -117,12 +118,12 @@
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<% if current_user %>  
+<% if current_user %>
 
   <h3 id="current_user_info" class="hidden admin-viewable">
     <span> User Type: <%= current_user.user_type %> </span>
     <br>
-    <span id="user_email">UUID: <%=current_user.heap_uuid %></span> 
+    <span id="user_email">UUID: <%=current_user.heap_uuid %></span>
   </h3>
 
   <script type="text/javascript">
@@ -134,7 +135,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </script>
 
 <% else %>
-  
+
   <script type="text/javascript">
     var SS_USER_ID = null;
     var USER_STATE = 'not signed-in';
@@ -204,12 +205,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <%= link_to 'Sign Up', new_user_registration_path(date: params[:date], slot: params[:slot]), class: 'sign-up-btn' %>
               </li>
             <% else %>
-              <li><a href="/blog" target="_blank" class="sign-up-btn">Blog</a></li>
+              <li><a href="/blog" target="_blank" class="sign-up-btn">BLOG</a></li>
               <!-- <li><a href="/tahoe-season-passes" class="sign-up-btn">Shop Deals</a></li> -->
-              <li><a href="/browse" class="sign-up-btn">Instructors</a></li>
-              <li> <%= link_to 'Teach with Us', '/apply', class: 'sign-up-btn' %></li>
-              <li><a href="#" class="sign-up-btn" data-toggle="modal" data-target="#registerModal">Register</a></li>
-              <li><a href="#" class="sign-up-btn" data-toggle="modal" data-target="#loginModal">Log In</a></li>
+              <li><a href="/browse" class="sign-up-btn">INSTRUCTORS</a></li>
+              <li> <%= link_to 'TEACH WITH US', '/apply', class: 'sign-up-btn' %></li>
+              <li><a href="#" class="sign-up-btn" data-toggle="modal" data-target="#registerModal">REGISTER</a></li>
+              <li><a href="#" class="sign-up-btn" data-toggle="modal" data-target="#loginModal">LOG IN</a></li>
 <!--               <li>
                 <%= link_to 'Join the Beta - First hour free!', "/beta_users/new", class: 'btn btn-default' %>
               </li> -->
@@ -337,7 +338,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- Facebook Pixel Code for IniatiateCheckout -->
           <script>
             fbq('track', 'InitiateCheckout');
-          </script>          
+          </script>
       <!-- End Facebook Pixel Code -->
 
   <% end %>
@@ -384,7 +385,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
       <!-- Facebook lead conversion event -->
-      <script>  
+      <script>
         fbq('init', '1111997732228432');
         fbq('track', 'Lead');
       </script>
