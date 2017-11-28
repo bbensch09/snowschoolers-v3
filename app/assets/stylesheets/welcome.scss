@@ -421,7 +421,7 @@ fieldset[disabled] .btn-default.active {
 .btn-primary.active,
 .open > .dropdown-toggle.btn-primary {
   color: white !important;
-  background-color: #DF5DDF;
+  background-color: #4bb49f;
   /*padding: 15px 30px;*/
 }
 .btn-primary:active,
@@ -1478,4 +1478,9 @@ ul.recruiting-ctas li {
 #search-index-header{
   font-size: 1.1em;
 }
+}
+
+.footer-list {
+  display: flex;
+  justify-content: center;
 }
