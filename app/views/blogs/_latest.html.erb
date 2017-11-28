@@ -44,7 +44,7 @@ s.setAttribute('data-timestamp', +new Date());
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
 
-<% if user_signed_in? && (current_user.email == "brian@snowschoolers.com" || current_user.email == "abensch66@gmail.com") %>
+<% if user_signed_in? && (current_user.email == "brian@snowschoolers.com" || current_user.email == "abensch66@gmail.com" || current_user.user_type == "Snow Schoolers Employee" ) %>
     <%= link_to edit_blog_path(@blog), class:"btn btn-default" do %>
     <i class="glyphicon glyphicon-pencil">Edit</i>
       <%end%>

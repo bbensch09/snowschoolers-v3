@@ -1,4 +1,10 @@
 <div class="container">
+  <div class='alert-danger'>
+    <h2 class='center'>
+    This page has been deprecated. <br>
+    To manager your calendar availability, please visit the <%= link_to "Calendar Page", manage_availability_path %>.
+  </h2>
+</div>
 <% if current_user && current_user.instructor %>  
 
 <h1 class="center"><%= current_user.instructor.first_name %>'s Calendar Blocks</h1>
@@ -17,7 +23,7 @@
       <th>Date </th>
       <th>Time Slot Date</th>
       <th>Time Slot Time</th>
-      <th>Status</th>
+      <th>state</th>
       <th></th>
       <th></th>
       <th></th>
@@ -32,9 +38,11 @@
         <td><%= calendar_block.lesson_time_id %></td> -->
         <td><%= calendar_block.instructor ? calendar_block.instructor.name : "N/A" %></td>
         <td><%= calendar_block.date.strftime("%a, %b %d") %></td>
+        <% if calendar_block.lesson_time %>
         <td><%= calendar_block.lesson_time.date.strftime("%a, %b %d") %></td>
         <td><%= calendar_block.lesson_time.slot %></td>
-        <td><%= calendar_block.status %></td>
+        <% end %>
+        <td><%= calendar_block.state %></td>
         <td><%= link_to 'Show', calendar_block %></td>
         <td><%= link_to 'Edit', edit_calendar_block_path(calendar_block) %></td>
         <td><%= link_to 'Destroy', calendar_block, method: :delete, data: { confirm: 'Are you sure?' } %></td>

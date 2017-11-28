@@ -11,7 +11,7 @@
 		<% if selfie.date %>
 			<%= selfie.date.strftime("%b %-d") %> @<%= selfie.location.name %>
 		<% end %>
-		<% if current_user && current_user.email == "brian@snowschoolers.com" %>
+		<% if current_user && current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" %>
 		  <%= link_to 'Edit', edit_selfy_path(selfie), class: 'btn btn-default' %>
 		<% end %>
 	</p>

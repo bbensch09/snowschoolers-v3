@@ -4,7 +4,7 @@
 <h3> Current User.email: <%= current_user.email %> </h3>
  -->
 
-<% if current_user && current_user.email == "brian@snowschoolers.com" %>
+<% if current_user && current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" %>
 <div class="admin-viewable">
   <a href='lessons/admin_index' class='btn btn-warning'>View Full Lesson Details</a>
 </div>
@@ -36,9 +36,9 @@
             <td class="lessons-table-cells lesson-type"><%= lesson.lesson_time.slot %></td>
             <!-- <td class="lessons-table-cells"><%= lesson.deposit_status %></td> -->
             <% if lesson.requester %>
-              <td class="lessons-table-cells lesson-student">Requester: <%= lesson.requester.name %></td>
+              <td class="lessons-table-cells lesson-student">Contact: <%= lesson.requester_name %>, <%= lesson.requester.email %></td>
               <% else %>
-              <td class="lessons-table-cells lesson-student">Requester: <%= lesson.guest_email %></td>
+              <td class="lessons-table-cells lesson-student">Contact: <%= lesson.guest_email %></td>
             <% end %>
             <!-- <td class="lessons-table-cells"><%= lesson.location.name %></td> -->
             <td class="lessons-table-cells lesson-date"><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
