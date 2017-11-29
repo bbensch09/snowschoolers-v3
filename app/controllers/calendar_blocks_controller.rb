@@ -28,6 +28,7 @@ class CalendarBlocksController < ApplicationController
       # @available_days = CalendarBlock.where(instructor_id:current_user.instructor.id,state:'Available')
       @instructor = current_user.instructor
       params[:id] = current_user.instructor.id
+      params[:start_date] = '2017-12-03'
   end
 
   def individual_availability
