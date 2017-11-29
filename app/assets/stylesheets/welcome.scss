@@ -104,6 +104,30 @@ section.pricing-section{
   padding-bottom: 1px;
   background-color: #fff;
 }
+#more-info{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.info-box{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: 1px solid #3b5998;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 65%;
+}
+.why-snowschoolers-text{
+  padding: 20px 50px 20px 50px;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-bottom: 0px;
+  font-size: 1.6em;
+}
+section.bg-primary{
+  padding-top: 0;
+  padding-bottom: 0;
+}
 aside {
   padding: 50px 0;
 }
@@ -522,11 +546,14 @@ h2.how-it-works {
 .price-header{
   padding-top: 10px;
   padding-bottom: 10px;
+  border-bottom: 1px solid #3b5998;
 }
 .pricing-table{
   padding: 5px 5px 5px 5px;
-  border: 1px solid #3b5998;
   margin-bottom: 5px;
+}
+.price-schools{
+  border-bottom: 1px solid #3b5998;
 }
 .pricing-table tbody tr td, .pricing-table thead tr th {
     padding-left: 20px;
@@ -543,7 +570,7 @@ h2.how-it-works {
 }
 .pricing-snowschoolers{
       text-align: center;
-      color: #38761d;
+      color: #4bb49f;
       font-size: 1.4em !important;
 }
 .pricing-competitors-names{
@@ -566,8 +593,7 @@ h2.how-it-works {
   text-align: center;
 }
 .price-header{
-  color: white;
-  background-color: #3b5998;
+  color: #3b5998;
 }
 .price-header h1{
   margin-top:2px;
@@ -609,8 +635,8 @@ h2.how-it-works {
 }
 
 h2 {
-    font-size: 2.4em;
-    font-weight: 300;
+    font-size: 2em;
+    font-weight: 200;
     line-height: 42px;
     margin: 0 0 32px 0;
     margin-top: 0px;
@@ -639,6 +665,7 @@ h2 {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  padding-bottom: 0;
 }
 .section-box{
   border: 1px solid #36454f;
@@ -680,6 +707,9 @@ h2 {
   background: #3b5998 !important;
   color: #DADADA;
 }
+.email-input{
+  padding-bottom: 10px;
+}
 .blog-container{
     width: 100%;
     max-width: 900px;
@@ -691,12 +721,6 @@ h2 {
 }
 .copyright-text{
   font-size: 0.7em;
-}
-.why-snowschoolers-text{
-  padding: 20px 100px 20px 100px;
-  margin-left: 40px;
-  margin-right: 40px;
-  font-size: 1.3em;
 }
 .powder-objection-handling{
   padding-left: 5%;
@@ -750,9 +774,6 @@ height: 200px;
 margin: auto;
 position: relative;
 display: block;
-}
-.solid-box-highlight{
-  background-color: rgba(59, 89, 152, 1);
 }
 .twitter-embed twitterwidget{
   position: relative;
@@ -988,8 +1009,6 @@ text-align: center;
     max-width: 100%;
     height: auto;
     max-height: 60vh;
-    margin-top: 25px;
-    margin-bottom: 10px;
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -1148,6 +1167,12 @@ section.pricing-new-lesson{
 .btn-secondary:hover{
   background-color: #55C9B2;
 }
+#get-started-form-button{
+  padding-top: 0;
+}
+.row{
+  padding-top: 20px;
+}
 .blog-container{
   max-width: 1100px;
   margin: auto;
@@ -1289,7 +1314,7 @@ section.pricing-new-lesson{
 }
 #why-snowschoolers{
   /*max-height: 300vh !important;*/
-  padding-bottom: 10px;
+  padding-bottom: 30px;
 }
 #private-group-comparison{
   clear:both;

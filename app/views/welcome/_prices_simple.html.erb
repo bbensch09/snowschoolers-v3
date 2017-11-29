@@ -1,6 +1,6 @@
 <section id="prices_simple" class="pricing-new-lesson">
     <div class="">
-        <h1 class="center navy-text">Book Early and Save over 50%</h1>
+        <h3 class="center navy-text">Book Early and Save over 50%</h3>
         <table class="col-lg-12 col-xs-12 pricing-table">
           <thead class="">
             <tr>
@@ -8,7 +8,7 @@
                     <h1>2017/18 PRIVATE LESSON RATES</h1>
                 </th>
             </tr>
-            <tr class="">
+            <tr class="price-schools">
               <th class="col-xs-2"> </th>
               <th class="pricing-snowschoolers col-xs-2">Homewood* <br> <span class="homewood-pricing">(Snow Schoolers)</span> </th>
               <th class="pricing-snowschoolers col-xs-2">Granlibakken** <br> <span class="homewood-pricing">(Snow Schoolers)</span> </th>
@@ -18,7 +18,7 @@
           </thead>
 
           <% if (Product.where(location_id:8,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(8).calendar_status).first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil) %>
-          <h1 class='text-danger center'> Pricing Not Yet Available </h1>
+          <h3 class='text-danger center'> Pricing Not Yet Available </h3>
 
           <% else %>
 
