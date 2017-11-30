@@ -24,11 +24,13 @@ class CalendarBlocksController < ApplicationController
           CalendarBlock.open_all_weekends(current_user.instructor.id)
           flash[:notice] = "Please set your availability below. We've temporarily marked all weekend days as available."
       end
-      @calendar_blocks = CalendarBlock.where(instructor_id:current_user.instructor.id)
-      # @available_days = CalendarBlock.where(instructor_id:current_user.instructor.id,state:'Available')
-      @instructor = current_user.instructor
-      params[:id] = current_user.instructor.id
-      params[:start_date] = '2017-12-03'
+      if current_user.instructor
+        @calendar_blocks = CalendarBlock.where(instructor_id:current_user.instructor.id)
+        # @available_days = CalendarBlock.where(instructor_id:current_user.instructor.id,state:'Available')
+        @instructor = current_user.instructor
+        params[:id] = current_user.instructor.id
+        params[:start_date] = '2017-12-03'
+      end
   end
 
   def individual_availability
