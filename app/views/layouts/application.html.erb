@@ -179,9 +179,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <% name = current_user.email.present? ? current_user.email : 'Edit Profile' %>
             <% if current_user.instructor.nil? %>
                 <li><%= link_to name, "#", class: "nav-email-noaction" %></li>
-                <li><a href="/lessons" class="sign-up-btn"> Lessons</a></li>
-                <li><%= link_to 'Calendar', '/calendar', class: 'sign-up-btn' %></li>
-                <li><%= link_to 'Profile', '/profile', class: 'sign-up-btn' %></li>
+                <li><a href="/lessons" class="sign-up-btn"> My Lessons</a></li>
+                <!-- <li><%= link_to 'Calendar', '/calendar', class: 'sign-up-btn' %></li> -->
               <li><a href="/blog" target="_blank" class="sign-up-btn">Blog</a></li>
                 <li><a href="/browse" class="sign-up-btn">Instructors</a></li>
                 <li><%= link_to 'Teach with Us', '/apply', class: 'sign-up-btn' %></li>
