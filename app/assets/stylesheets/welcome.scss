@@ -109,7 +109,7 @@ section.small{
 section.pricing-section{
   min-height: 250px !important;
   padding-top:20px !important;
-  padding-bottom: 50px;
+  padding-bottom: 70px;
   background-color: #fff;
 }
 #more-info{
@@ -313,6 +313,7 @@ margin-right: auto !important;;
 .process-step {
   border: 1px solid #3b5998;
   padding: 5px;
+  margin: 5px;
 }
 .process-step:hover + .process-info{
   display: block;
@@ -1257,6 +1258,12 @@ section.pricing-new-lesson{
   text-decoration: line-through;
   color: red;
 }
+#about{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-top: 0;
+}
 
 .homepage-lesson-container {
     margin-top: 50px;
@@ -1330,240 +1337,240 @@ section.pricing-new-lesson{
   text-align: center;
   padding: 20px 15px 20px;
   width: 100%;
-}
-#why-snowschoolers h2.how-it-works{
-  font-size: 2.5em;
-  margin-bottom: -15px;
-}
-#why-snowschoolers-subheader{
-    font-size: 1.9em;
+  }
+  #why-snowschoolers h2.how-it-works{
+    font-size: 2.5em;
+    margin-bottom: -15px;
+  }
+  #why-snowschoolers-subheader{
+      font-size: 1.9em;
+      line-height: 1.2;
+      padding: 5px 5px 5px 5px;
+  }
+  #why-snowschoolers{
+    /*max-height: 300vh !important;*/
+    padding-bottom: 30px;
+  }
+  #private-group-comparison{
+    clear:both;
+    position: relative;
+    min-height: 100vh;
+  }
+  .why-snowschoolers-text{
+    padding-left:30px;
+    margin-top:20px;
+  }
+  .comparison-photo{
+  max-width: 90vw;
+  }
+  #homeHeading{
+    font-size: 1.5em;
+  }
+  .btn-xl {
+    padding: 15px 30px;
+    font-size: 1.3em;
+    max-width: 100%;
+  }
+  .powder-title{
+      font-size: 1.1em;
+      margin-bottom: 30px;
+  }
+  .powder-spacer{
+    padding-top:10px;
+    padding-bottom: 10px;
+  }
+  .comparison-header{
     line-height: 1.2;
-    padding: 5px 5px 5px 5px;
-}
-#why-snowschoolers{
-  /*max-height: 300vh !important;*/
-  padding-bottom: 30px;
-}
-#private-group-comparison{
-  clear:both;
-  position: relative;
-  min-height: 100vh;
-}
-.why-snowschoolers-text{
-  padding-left:30px;
-  margin-top:20px;
-}
-.comparison-photo{
-max-width: 90vw;
-}
-#homeHeading{
-  font-size: 1.5em;
-}
-.btn-xl {
-  padding: 15px 30px;
-  font-size: 1.3em;
-  max-width: 100%;
-}
-.powder-title{
-    font-size: 1.1em;
-    margin-bottom: 30px;
-}
-.powder-spacer{
-  padding-top:10px;
-  padding-bottom: 10px;
-}
-.comparison-header{
-  line-height: 1.2;
-  font-size: 2em;
-}
-.powder-btn{
-  font-size: 0.85em;
-}
-.disclaimer{
-  padding-left:20px;
-  padding-right: 20px;
-}
-.why-snowschoolers-text{
-  padding: 20px 20px 20px 20px;
-  margin: 0px 0px 0px 0px;
-}
-.powder-objection-handling-title{
-  height: 40px;
-}
-.comparison-container{
-  height:150px;
-}
-h2.powder-objections{
-  font-size: 2.0em;
-}
-.about-us{
-  margin-bottom: 0px;
-}
-.weather-subheader{
-  font-size: 1.7em;
-  line-height: 1.3;
-}
-.price-details h4, .price-details h5, .price-details ul li {
-  font-size: 0.9em;
-}
-.tahoe-map{
-  max-height: 250px;
-  padding-left: 0px;
-  padding-right: 0px;
-}
-.insta-embed{
-width:100%;
-}
-.resort-photo-container{
-  width: 100vw;
-}
-.resort-photo{
+    font-size: 2em;
+  }
+  .powder-btn{
+    font-size: 0.85em;
+  }
+  .disclaimer{
+    padding-left:20px;
+    padding-right: 20px;
+  }
+  .why-snowschoolers-text{
+    padding: 20px 20px 20px 20px;
+    margin: 0px 0px 0px 0px;
+  }
+  .powder-objection-handling-title{
+    height: 40px;
+  }
+  .comparison-container{
+    height:150px;
+  }
+  h2.powder-objections{
+    font-size: 2.0em;
+  }
+  .about-us{
+    margin-bottom: 0px;
+  }
+  .weather-subheader{
+    font-size: 1.7em;
+    line-height: 1.3;
+  }
+  .price-details h4, .price-details h5, .price-details ul li {
+    font-size: 0.9em;
+  }
+  .tahoe-map{
+    max-height: 250px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .insta-embed{
+  width:100%;
+  }
+  .resort-photo-container{
     width: 100vw;
-    height: auto;
-    margin-top: 25px;
-    margin-bottom: 10px;
-    margin-left: 0px !important;
-    margin-right: 0px !important;
-    display: block;
-}
-.hp-photo-margin{
-    width: 96%;
-    height: auto;
-    margin-top: 25px;
-    margin-bottom: 10px;
-    margin-left: 2% !important;
-    margin-right: 2% !important;
-    display: block;
-}
-.guide-intro{
-    background-color: #3b5998;
-}
-.beginner-intro-questions{
-  text-align: left;
-  margin-left: 5vw;
-  font-weight: normal !important;
-  font-style: italic;
-  font-size: 0.6em;
-}
-.toc-sections{
-  margin-left: 0px;
-  font-size: 1.2em;
-}
-.guide-lists{
-  margin-left: 5vw;
-  line-height: 1.2;
-  font-size: 1.3em;
-}
-.sledding-map, .tahoe-map{
-  float:none;
-  width: 90vw;
-  max-height: 90vw;
-  margin-bottom: 20px;
-}
-.uber-lyft-logo{
-  width:75vw;
-  float:none;
-}
-.where-we-teach-header{
-  height: 100px;
-}
-.beta-sign-up-offer{
-  font-size:1.4em;
-  line-height: 1.3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-.blog-header{
+  }
+  .resort-photo{
+      width: 100vw;
+      height: auto;
+      margin-top: 25px;
+      margin-bottom: 10px;
+      margin-left: 0px !important;
+      margin-right: 0px !important;
+      display: block;
+  }
+  .hp-photo-margin{
+      width: 96%;
+      height: auto;
+      margin-top: 25px;
+      margin-bottom: 10px;
+      margin-left: 2% !important;
+      margin-right: 2% !important;
+      display: block;
+  }
+  .guide-intro{
+      background-color: #3b5998;
+  }
+  .beginner-intro-questions{
+    text-align: left;
+    margin-left: 5vw;
+    font-weight: normal !important;
+    font-style: italic;
+    font-size: 0.6em;
+  }
+  .toc-sections{
+    margin-left: 0px;
+    font-size: 1.2em;
+  }
+  .guide-lists{
+    margin-left: 5vw;
+    line-height: 1.2;
+    font-size: 1.3em;
+  }
+  .sledding-map, .tahoe-map{
+    float:none;
+    width: 90vw;
+    max-height: 90vw;
+    margin-bottom: 20px;
+  }
+  .uber-lyft-logo{
+    width:75vw;
+    float:none;
+  }
+  .where-we-teach-header{
+    height: 100px;
+  }
+  .beta-sign-up-offer{
+    font-size:1.4em;
+    line-height: 1.3;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .blog-header{
     font-weight: bold;
     font-size: 2.4em;
     text-align: center;
     text-transform: uppercase;
     color: #fff;
-}
-#blog{
-  min-height: 300px !important;
-}
-.indent{
-  margin-left: 10px;
-}
-.things-to-do-header{
-  font-size: 1.8em;
-  line-height: 1.5;
-}
-.tire-chains-photo{
-  clear:both;
-  width:70%;
-  height: auto;
-  float:none;
-  margin-left:15%;
-  margin-right:15%;
-}
-.fb-login-btn{
-  max-width: 100%;
-}
-.new-lesson-container{
-  margin-top: 0px;
-}
+  }
+  #blog{
+    min-height: 300px !important;
+  }
+  .indent{
+    margin-left: 10px;
+  }
+  .things-to-do-header{
+    font-size: 1.8em;
+    line-height: 1.5;
+  }
+  .tire-chains-photo{
+    clear:both;
+    width:70%;
+    height: auto;
+    float:none;
+    margin-left:15%;
+    margin-right:15%;
+  }
+  .fb-login-btn{
+    max-width: 100%;
+  }
+  .new-lesson-container{
+    margin-top: 0px;
+  }
 
-.lesson-form-container{
-  max-width: 100vw;
-}
-.new-lesson-pricing-container{
-  width:100%;
-}
-section.pricing-new-lesson{
-  min-height: 180px;
-}
-.hidden-unless-mobile{
-  float:none;
-}
-.selected-instructor-container{
-  width: 100%;
-  float: none;
-}
-.new-lesson-call-cta{
-  float:none;
-  clear: both;
-  position: relative;
-  width: 100vw;
-  padding-top: 30px;
-}
-.mobile-call-cta{
-  margin-top: 300px;
-  min-height: 50px;
-}
-.mobile-book-cta{
-  font-size: 1.1em;
-}
-.price-details h4{
-  line-height: 1.3;
-}
-.cta-subtext{
-  font-size: 0.5em;
-}
-ul.recruiting-ctas li {
-  font-size: 0.7em;
-  line-height: 1.4;
-}
-.about-homewood{
-  font-size: 1.3em;
-  line-height: 1.5;
-}
-.liftopia-mobile{
-  height: 280px;
-  clear: both;
-}
-.welcome-subheader{
-  text-align: left;
-  padding-left: 10px;
-  padding-right: 10px;
-  color: #36454f !important;
-}
-.welcome-ctas{
-  text-align: center;
-}
-#search-index-header{
-  font-size: 1.1em;
-}
+  .lesson-form-container{
+    max-width: 100vw;
+  }
+  .new-lesson-pricing-container{
+    width:100%;
+  }
+  section.pricing-new-lesson{
+    min-height: 180px;
+  }
+  .hidden-unless-mobile{
+    float:none;
+  }
+  .selected-instructor-container{
+    width: 100%;
+    float: none;
+  }
+  .new-lesson-call-cta{
+    float:none;
+    clear: both;
+    position: relative;
+    width: 100vw;
+    padding-top: 30px;
+  }
+  .mobile-call-cta{
+    margin-top: 300px;
+    min-height: 50px;
+  }
+  .mobile-book-cta{
+    font-size: 1.1em;
+  }
+  .price-details h4{
+    line-height: 1.3;
+  }
+  .cta-subtext{
+    font-size: 0.5em;
+  }
+  ul.recruiting-ctas li {
+    font-size: 0.7em;
+    line-height: 1.4;
+  }
+  .about-homewood{
+    font-size: 1.3em;
+    line-height: 1.5;
+  }
+  .liftopia-mobile{
+    height: 280px;
+    clear: both;
+  }
+  .welcome-subheader{
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #36454f !important;
+  }
+  .welcome-ctas{
+    text-align: center;
+  }
+  #search-index-header{
+    font-size: 1.1em;
+  }
 }
 
