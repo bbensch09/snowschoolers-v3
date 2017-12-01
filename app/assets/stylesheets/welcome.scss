@@ -66,6 +66,14 @@ p {
   color: #36454f;
   background-color: white;
 }
+.bg-grey {
+  background-color: rgb(246, 246, 246);
+}
+.center-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .bg-white {
   background-color: #fff;
 }
@@ -101,7 +109,7 @@ section.small{
 section.pricing-section{
   min-height: 250px !important;
   padding-top:20px !important;
-  padding-bottom: 1px;
+  padding-bottom: 50px;
   background-color: #fff;
 }
 #more-info{
@@ -369,9 +377,6 @@ margin-right: auto !important;;
     font-size: 22px;
   }
 }
-.call-to-action h2 {
-  margin: 0 auto 20px;
-}
 .text-primary {
   color: #F05F40;
 }
@@ -551,9 +556,10 @@ h2.how-it-works {
 .pricing-table{
   padding: 5px 5px 5px 5px;
   margin-bottom: 5px;
-}
-.price-schools{
   border-bottom: 1px solid #3b5998;
+}
+.pricing-table tbody tr {
+  padding: 5px;
 }
 .pricing-table tbody tr td, .pricing-table thead tr th {
     padding-left: 20px;
@@ -651,9 +657,6 @@ h2 {
   padding-bottom: 20px;
   padding-top: 20px;
 }
-#apply-btn{
-  margin-top: 40px;
-}
 .link-container{
   width: 60%;
   margin: auto;
@@ -666,11 +669,6 @@ h2 {
   flex-direction: row;
   justify-content: space-around;
   padding-bottom: 0;
-}
-.section-box{
-  border: 1px solid #36454f;
-  padding: 20px;
-  width: 40%;
 }
 .apply-today{
   display: flex;
@@ -762,7 +760,19 @@ h2 {
   font-weight: bold;
 }
 #why-snowschoolers{
-  padding-bottom: 10px;
+  padding-bottom: 30px;
+}
+.vertical-divider{
+  display: flex;
+  justify-content: space-around;
+  align-content: flex-start;
+  text-align: center;
+}
+.vertical-divider div {
+  flex-grow: 1;
+}
+.call-to-action h2 {
+  margin: 0 auto 20px;
 }
 .comparison-container{
   font-size: 0.8em;
