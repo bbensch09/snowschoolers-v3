@@ -184,16 +184,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <li><a href="/blog" target="_blank" class="sign-up-btn">Blog</a></li>
                 <li><a href="/browse" class="sign-up-btn">Instructors</a></li>
                 <li><%= link_to 'Teach with Us', '/apply', class: 'sign-up-btn' %></li>
-              <% elsif current_user.active_instructor? %>
+              <% elsif current_user.instructor %>
                 <li><%= link_to name, instructor_path(current_user.instructor) %></li>
                 <li><a href="/lessons" class="sign-up-btn"> Lessons </a></li>
+                <li><a href="/browse" class="sign-up-btn">Browse Instructors</a></li>
                 <li><%= link_to 'Calendar', '/calendar', class: 'sign-up-btn' %></li>
                 <li><%= link_to 'Profile', '/profile', class: 'sign-up-btn' %></li>
-                <li><a href="/browse" class="sign-up-btn">Instructors</a></li>
-                <li><a href="/calendar_blocks" class="sign-up-btn"> Manage Availability </a></li>
               <% else %>
                 <li><%= link_to name, "#", class: "nav-email-noaction" %></li>
-                <li><%= link_to 'Check Instructor Status', instructor_path(current_user.instructor), class: 'sign-up-btn' %></li>
             <% end %>
             </li>
             <li> <%= link_to 'Logout', destroy_user_session_path %> </li>
