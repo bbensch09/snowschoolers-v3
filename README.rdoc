@@ -3,14 +3,14 @@
 This application is currently under development. For questions or inquiries, please email brian@snowschoolers.com
 
 ## Basic rails setup
-rails db:create
-rails db:migrate
+* rails db:create
+* rails db:migrate
 
 ## Import CSV's with Location info (prior to seeding DB)
-lauch server > navigate to http://localhost:3000/locations > import file 'locations.csv'
+* lauch server > navigate to http://localhost:3000/locations > import file 'locations.csv'
 
 ## Import CSV's with Product info 
-lauch server > navigate to http://localhost:3000/products > import file 'products.csv'
+* lauch server > navigate to http://localhost:3000/products > import file 'products.csv'
 
 ## Seed rest of database
-rails db:seed
+* rails db:seed
