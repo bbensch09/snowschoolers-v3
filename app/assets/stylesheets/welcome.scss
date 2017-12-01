@@ -1070,10 +1070,11 @@ section.pricing-new-lesson{
   padding-top: 0px;
   padding-bottom: 0px;
   margin-top: 10px;
+  border: 1px solid rgba(59, 89, 152, 1);
 }
 .new-lesson-caption{
   color:#fff !important;
-  width: 80%;
+  width: 100%;
   min-height: 230px;
   font-size:2em;
   line-height:70px;
@@ -1492,9 +1493,6 @@ width:100%;
 }
 .new-lesson-pricing-container{
   width:100%;
-}
-.new-lesson-caption{
-  width: 100%;
 }
 section.pricing-new-lesson{
   min-height: 180px;

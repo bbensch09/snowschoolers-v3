@@ -38,17 +38,21 @@
                     <iframe src="https://www.youtube.com/embed/CDfe0YY5zOE?rel=0?ecver=2" class="iframe-youtube" allowfullscreen></iframe>
                 </div>
             </div>
-            <div class="container text-center">
+            <div class="container vertical-divider">
                 <div class="call-to-action">
                     <h2 class="navy-text">Sign up for free and book your first lesson today!</h2>
-                        <a href="/lessons/new" class="btn btn-primary btn-xl page-scroll">Get Started</a>
+                    <h4><a href="/lessons/new" class="green-link">GET STARTED</a></h4>
+                </div>
+                <div class="call-to-action">
+                    <h2 class="navy-text">Interested in becoming an instructor?</h2>
+                    <h4><a href="/apply" class="green-link">APPLY TODAY</a></h4>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="bg-primary">
+<section class="bg-primary bg-grey center-content">
     <div>
         <p class="welcome-subheader navy-text"> Winter is back. Compare prices and packages across Tahoe's <a href="/beginners-guide-to-tahoe" class="green-link">16 ski areas</a> in just a few clicks. Book early to save!
         </p>
@@ -62,20 +66,12 @@
         <!-- <a href="/beginners-guide-to-tahoe" class="btn btn-primary btn-lg page-scroll">Complete Guide to Tahoe</a> -->
     </div>
     <div class="section-box-container">
-        <div class="section-box">
+        <div>
             <p id="search-index-header" class="welcome-subheader navy-text">Already have a favorite mountain? See current deals on lessons, lift tickets, and more.<br>
             <span class="smaller-text"></span>
             <%= render partial: 'products/search' %>
             </p>
         </div>
-        <div class="section-box apply-today">
-            <p id="search-index-header" class="welcome-subheader navy-text">Interested in becoming an instructor? <br>
-                <a href="/apply" id="apply-btn" class="btn btn-lg btn-primary"> Apply Today </a>
-            </p>
-        </div>
-    </div>
-    <div class="row">
-        <hr class="deposit-hr-navy">
     </div>
 </section>
 
@@ -85,12 +81,9 @@
             <%= render partial: "lessons/lesson_new_form" %>
         </div>
     </div>
-    <div class="row">
-        <hr class="deposit-hr-navy">
-    </div>
 </section>
 
-<section class="bg-primary">
+<section class="bg-grey">
     <div class="container">
         <h2 class="section-heading how-it-works where-we-teach-header center navy-text">Where do we teach?</h2>
             <div id="more-info" class="row">
@@ -109,7 +102,6 @@
 -->                    </div>
                 </div>
             </div>
-            <hr class="deposit-hr-navy">
         </div>
 </section>
 
