@@ -1,51 +1,19 @@
-=begin
-resorts = [
-      "Alpine Meadows",
-      "Alta",
-      "Aspen",
-      "Bear Valley",
-      "Diamond Peak",
-      "Dodge Ridge",
-      "Donner Ski Ranch",
-      "Homewood",
-      "Jackson Hole",
-      "Mt. Rose",
-      "Soda Springs",
-      "Snowbasin",
-      "Snowbird",
-      "Squaw Valley",
-      "Sun Valley",
-      "Sugar Bowl",
-      "Tahoe Donner",
-      "Taos"
-      ]
-resorts.each do |resort|
-  Location.create!({
-  name: resort
-  })
-end
-
-
 hw_seed_accounts = [
   "brian+hw_instructor_1@snowschoolers.com",
   "brian+hw_instructor_2@snowschoolers.com",
   "brian+hw_director@snowschoolers.com",
   "brian+hw_gm@snowschoolers.com"
 ]
-sb_seed_accounts = [
-  "brian+sb_instructor_1@snowschoolers.com",
-  "brian+sb_instructor_2@snowschoolers.com",
-  "brian+sb_director@snowschoolers.com",
-  "brian+sb_gm@snowschoolers.com"
-]
 
 hw_seed_accounts.each do |email|
+
 User.create!({
   email: email,
   password: "password",
   user_type: "Partner",
   location_id: 8
   })
+
 
 puts "User created: #{User.last.email}."
 
@@ -72,40 +40,12 @@ puts "Instructor created: #{Instructor.last.first_name}."
 
 end
 
-
-sb_seed_accounts.each do |email|
 User.create!({
-  email: email,
+  email:   "brian@snowschoolers.com",
   password: "password",
   user_type: "Partner",
-  location_id: 16
+  location_id: 8
   })
-
-puts "User created: #{User.last.email}."
-
-Instructor.create!({
-  first_name: ['John','Jim','Eric','Rob','Jeff','Sarah','Kim','Katie'].sample,
-  last_name: 'Smith',
-  username: email,
-  phone_number: "408-315-2900",
-  city: ['Tahoe City, CA', 'Truckee, CA','South Lake Tahoe, CA','Reno, NV','Tahoma, CA','San Francisco, CA','Berkeley, CA'].sample,
-  sport: ["Ski Instructor","Snowboard Instructor"].sample,
-  certification: ['PSIA Level 1','PSIA Level 2','PSIA Level 3','AASI Level 1','AASI Level 2','AASI Level 3'].sample,
-  intro: "I want to teach for Snow Schoolers!!!!",
-  bio: "At the age of two, Sam began her life by chasing her ski nut parents through the steeps, trees and chutes of Alpine Meadows, Lake Tahoe. Their passion for the sport, love for their community, and strong ambition have rubbed off on Sam and pushed her to become the family/community oriented skier she is today - always willing and wanting to share the ski love. Sam traveled to UC Boulder to pursue an undergraduate degree in skiing with minors in Latin American and Native American Studies, before returning to Tahoe in 2014. You can find her on hill, with a permanent smile and trails of laughter...and never without candy in her pockets.",
-  location_ids: [16], #location_id for homewood
-  # location_ids: [1,2,3,4,5,6,7,8,9,10,11,12],
-  adults_initial_rank: rand(1..10),
-  kids_initial_rank: rand(1..10),
-  overall_initial_rank: rand(1..10),
-  status: 'Active',
-  user_id: User.last.id
-  })
-
-puts "Instructor created: #{Instructor.last.first_name}."
-
-end
-
 
 Instructor.create!({
   first_name: "Shane",
@@ -117,14 +57,12 @@ Instructor.create!({
   certification: "Level 1 PSIA",
   intro: "I am the founder.",
   bio: "I am the best instructor on the mountain. period.",
-  # location_ids: [1,2], #just Alta & Bear Valley
-  location_ids: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],
+  location_ids: [8,24],
   adults_initial_rank: 10,
   kids_initial_rank: 10,
   overall_initial_rank: 10,
   status: 'Active',
-  user_id: 9
-
+  user_id: User.last.id
   })
 
 User.confirm_all_users
@@ -329,17 +267,19 @@ ski_levels.each do |level|
   value: SnowboardLevel.count + 1
   })
 end
-puts "Ski and snowboard level 1-9 created.
-=end
+puts "Ski and snowboard level 1-9 created."
+
+Sport.create({name:'Ski Instructor'})
+Sport.create({name:'Snowboard Instructor'})
 
 #BEGIN seed file to setup for Demo
 Instructor.seed_temp_instructors
 
-(0...5).to_a.each do |day_num|
-    puts "!!! - beginning to create lessons, shifts, sections for day_num: #{day_num}"
-    num_lessons = (15..55).to_a.sample
-    Shift.create_instructor_shifts(Date.today+day_num)
-    Section.seed_sections(Date.today+day_num)
-    Lesson.seed_lessons(Date.today+day_num,num_lessons)
-  end
-    puts "!!!! completed seeding for 5 days"
+# (0...5).to_a.each do |day_num|
+#     puts "!!! - beginning to create lessons, shifts, sections for day_num: #{day_num}"
+#     num_lessons = (15..55).to_a.sample
+#     Shift.create_instructor_shifts(Date.today+day_num)
+#     Section.seed_sections(Date.today+day_num)
+#     Lesson.seed_lessons(Date.today+day_num,num_lessons)
+#   end
+#     puts "!!!! completed seeding for 5 days"

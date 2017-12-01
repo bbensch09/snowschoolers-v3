@@ -17,7 +17,7 @@
             </tr>
           </thead>
 
-          <% if (Product.where(location_id:8,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(8).calendar_status).first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil) %>
+          <% if (Product.where(location_id:8,length:"1.00",product_type:'private_lesson').first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson').first == nil) %>
           <h3 class='text-danger center'> Pricing Not Yet Available </h3>
 
           <% else %>

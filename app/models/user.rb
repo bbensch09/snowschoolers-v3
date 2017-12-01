@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
 
   def self.confirm_all_users
     User.all.each do |user|
-      user.confirm!
+      user.confirm
     end
   end
 

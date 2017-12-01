@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   # before_action :confirm_admin_permissions
-  skip_before_action :authenticate_user!, except: [:import, :delete_all, :index, :create, :destroy, :edit]
+  skip_before_action :authenticate_user!, except: [:delete_all, :create, :destroy, :edit]
 
 
 
