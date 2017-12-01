@@ -114,16 +114,15 @@ section.pricing-section{
 }
 #more-info{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-around;
 }
 .info-box{
   padding-top: 20px;
   padding-bottom: 20px;
-  border: 1px solid #3b5998;
   margin-left: 20px;
   margin-right: 20px;
-  width: 65%;
+  width: 100%;
 }
 .why-snowschoolers-text{
   padding: 20px 50px 20px 50px;
@@ -311,6 +310,16 @@ margin-right: auto !important;;
 .section-heading {
   margin-top: 0;
 }
+.process-step {
+  border: 1px solid #3b5998;
+  padding: 5px;
+}
+.process-step:hover + .process-info{
+  display: block;
+}
+.process-info {
+  display: none;
+}
 .service-box {
   max-width: 400px;
   margin: 50px auto 0;
@@ -322,6 +331,14 @@ margin-right: auto !important;;
 }
 .service-box p {
   margin-bottom: 0;
+}
+.service-box {
+  max-width: 100%;
+  margin: 30px auto 0;
+}
+.service-box h3{
+  font-size: 1.5em;
+  text-decoration: underline;
 }
 .portfolio-box {
   position: relative;
@@ -1544,14 +1561,6 @@ ul.recruiting-ctas li {
 }
 .welcome-ctas{
   text-align: center;
-}
-.service-box {
-  max-width: 100%;
-  margin: 30px auto 0;
-}
-.service-box h3{
-  font-size: 1.5em;
-  text-decoration: underline;
 }
 #search-index-header{
   font-size: 1.1em;
