@@ -9,7 +9,7 @@
       <h1>Update Your Lesson</h1>
     </header>
 
-    <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.email == "bbensch@gmail.com") %>
+    <%  if ENV['HOST_DOMAIN'] == "localhost:3000" || current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.email == "bbensch@gmail.com") %>
     <div id="autofill-container" class="admin-viewable">
       <a href="#fill" id="autofill_complete_form" class="btn btn-primary">Autofill Form</a>
     </div>
