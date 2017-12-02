@@ -6,10 +6,10 @@ class CalendarBlocksController < ApplicationController
   # GET /calendar_blocks
   # GET /calendar_blocks.json
   def index
-    if current_user.email == "brian@snowschoolers.com"
-      @calendar_blocks = CalendarBlock.all.sort{ |a,b| a.lesson_time.date <=> b.lesson_time.date}
+    if current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee"
+      @calendar_blocks = CalendarBlock.all.sort{ |a,b| a.created_at <=> b.created_at}
       else
-      @calendar_blocks = CalendarBlock.where(instructor_id:current_user.instructor.id).sort{ |a,b| a.lesson_time.date <=> b.lesson_time.date}
+      @calendar_blocks = CalendarBlock.where(instructor_id:current_user.instructor.id).sort{ |a,b| a.created_at <=> b.created_at}
     end
   end
 
@@ -20,14 +20,17 @@ class CalendarBlocksController < ApplicationController
   end
 
   def availability
-      if CalendarBlock.where(instructor_id:current_user.instructor.id).count == 0
+      if current_user.instructor && CalendarBlock.where(instructor_id:current_user.instructor.id).count == 0
           CalendarBlock.open_all_weekends(current_user.instructor.id)
           flash[:notice] = "Please set your availability below. We've temporarily marked all weekend days as available."
       end
-      @calendar_blocks = CalendarBlock.where(instructor_id:current_user.instructor.id)
-      # @available_days = CalendarBlock.where(instructor_id:current_user.instructor.id,state:'Available')
-      @instructor = current_user.instructor
-      params[:id] = current_user.instructor.id
+      if current_user.instructor
+        @calendar_blocks = CalendarBlock.where(instructor_id:current_user.instructor.id)
+        # @available_days = CalendarBlock.where(instructor_id:current_user.instructor.id,state:'Available')
+        @instructor = current_user.instructor
+        params[:id] = current_user.instructor.id
+        params[:start_date] = '2017-12-03'
+      end
   end
 
   def individual_availability

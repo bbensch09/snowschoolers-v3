@@ -9,7 +9,7 @@
       <h1>Update Your Lesson</h1>
     </header>
 
-    <% if ENV['HOST_DOMAIN'] == "localhost:3000" ||current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.email == "bbensch@gmail.com") %>
+    <%  if ENV['HOST_DOMAIN'] == "localhost:3000" || current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.email == "bbensch@gmail.com") %>
     <div id="autofill-container" class="admin-viewable">
       <a href="#fill" id="autofill_complete_form" class="btn btn-primary">Autofill Form</a>
     </div>
@@ -25,6 +25,7 @@
               <div class="col-md-4">
                 <label> Assign to User: </label> <br>
                 <%= f.select :requester_id, options_from_collection_for_select(User.all.sort {|a,b| a.username_for_admin <=> b.username_for_admin}, :id, :username_for_admin, selected:@lesson.requester_id), include_blank:true %>
+
               </div>
               <div class="col-md-4">
                 <label>Number of Days</label>
@@ -69,12 +70,12 @@
           </div>
         </div>
       <% end %>
-      <% if current_user.nil? || current_user.email == "brian@snowschoolers.com" %>
+      <% if current_user.nil? || current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" %>
       <div class='row'>
         <div class="col-md-6">
           <h4>Book as a <strong>Guest</strong> | Or <a href="#" class="btn btn-default" data-toggle="modal" data-target="#loginModal">Sign-in to your Account</a></h4>
               <label>Email</label>
-              <%= f.input :guest_email, as: :string, placeholder: "email@example.com", label: false %>
+              <%= f.email_field :guest_email, placeholder: "email@example.com", class: "form-control", type: 'email', required:true, label: false %>
         </div>
       </div>
       <% end %>
@@ -86,14 +87,13 @@
 
             <div class="col-md-6">
               <label>Lesson Type</label>
-              <%= f.input :activity, as: :select, collection: ['Ski', 'Snowboard','Telemark'], include_blank: 'Lesson Type', label: false %>
+              <%= f.input :activity, as: :select, collection: ['Ski', 'Snowboard','Telemark'], include_blank: 'Lesson Type', required: true, label: false %>
             </div>
 
             <div class="col-md-6">
               <label>Location</label>
-                <%= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase} , selected: @lesson.location.id, include_blank: 'Location', label: false %>
+                <%= f.collection_select :requested_location, Location.active_partners.sort_by { |location| location.name.downcase}, :id, :name, {}, {class:'form-control', include_blank: 'Location', required: true, label: false} %>
             </div>
-
           </div>
           <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
             <div class='row'>
@@ -117,11 +117,11 @@
           <div class="row">
             <div class="col-md-6">
                 <label>Your Name</label>
-                <%= f.input :requester_name, as: :string, value: current_user ? current_user.name : "", required: true, label: false %>
+                <%= f.text_field :requester_name, value: current_user ? current_user.name : "", class: "form-control", required: true, label: false %>
               </div>
               <div class="col-md-6">
                 <label>Cell Phone</label> <span class="text-smaller">(Shared only with your instructor).</span>
-                <%= f.input :phone_number, as: :string, placeholder: 'xxx-xxx-xxxx', required: true, label: false %>
+                <%= f.text_field :phone_number, placeholder: 'xxx-xxx-xxxx', class: 'form-control', required:true, include_blank:false %>
               </div>
             </div>
 

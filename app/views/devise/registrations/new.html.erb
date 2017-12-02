@@ -17,7 +17,7 @@
               <div class="form-group">
                 <div class="col-md-12">
                   <%= f.label :email %><br />
-                  <%= f.email_field :email, :autofocus => true, class: 'form-control' %>
+                  <%= f.email_field :email, :autofocus => true, class: "form-control", type: 'email', required:true, label: false %>
                 </div>
               </div>
             </div>
@@ -25,11 +25,11 @@
               <div class="form-group">
                 <div class="col-md-6">
                   <%= f.label :password %><br />
-                  <%= f.password_field :password, class: 'form-control' %>
+                  <%= f.password_field :password, class: "form-control", type: 'password', required:true, label: false %>
                 </div>
                 <div class="col-md-6">
                   <%= f.label :password_confirmation %><br />
-                  <%= f.password_field :password_confirmation, class: 'form-control' %>
+                  <%= f.password_field :password_confirmation, class: "form-control", type: 'password', required:true, label: false %>
                   <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
                 </div>
               </div>

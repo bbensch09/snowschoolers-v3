@@ -180,22 +180,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <% name = current_user.email.present? ? current_user.email : 'Edit Profile' %>
             <% if current_user.instructor.nil? %>
                 <li><%= link_to name, "#", class: "nav-email-noaction" %></li>
-                <li><a href="/lessons" class="sign-up-btn"> Lessons</a></li>
-                <li><%= link_to 'Calendar', '/calendar', class: 'sign-up-btn' %></li>
-                <li><%= link_to 'Profile', '/profile', class: 'sign-up-btn' %></li>
+                <li><a href="/lessons" class="sign-up-btn"> My Lessons</a></li>
+                <!-- <li><%= link_to 'Calendar', '/calendar', class: 'sign-up-btn' %></li> -->
               <li><a href="/blog" target="_blank" class="sign-up-btn">Blog</a></li>
                 <li><a href="/browse" class="sign-up-btn">Instructors</a></li>
                 <li><%= link_to 'Teach with Us', '/apply', class: 'sign-up-btn' %></li>
-              <% elsif current_user.active_instructor? %>
+              <% elsif current_user.instructor %>
                 <li><%= link_to name, instructor_path(current_user.instructor) %></li>
                 <li><a href="/lessons" class="sign-up-btn"> Lessons </a></li>
+                <li><a href="/browse" class="sign-up-btn">Browse Instructors</a></li>
                 <li><%= link_to 'Calendar', '/calendar', class: 'sign-up-btn' %></li>
                 <li><%= link_to 'Profile', '/profile', class: 'sign-up-btn' %></li>
-                <li><a href="/browse" class="sign-up-btn">Instructors</a></li>
-                <li><a href="/calendar_blocks" class="sign-up-btn"> Manage Availability </a></li>
               <% else %>
                 <li><%= link_to name, "#", class: "nav-email-noaction" %></li>
-                <li><%= link_to 'Check Instructor Status', instructor_path(current_user.instructor), class: 'sign-up-btn' %></li>
             <% end %>
             </li>
             <li> <%= link_to 'Logout', destroy_user_session_path %> </li>
@@ -239,16 +236,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
             <%= devise_error_messages! %>
             <div class="field center">
-              <%= f.email_field :email, placeholder: "Email", autofocus: true %>
+              <%= f.email_field :email, placeholder: "Email", autofocus: true, class: "form-control", type: 'email', required:true, label: false %>
             </div>
             <div class="field center">
               <% if @minimum_password_length %>
               <em>(<%= @minimum_password_length %> characters minimum)</em>
               <% end %>
-              <%= f.password_field :password, placeholder: "password", autocomplete: "off" %>
+              <%= f.password_field :password, placeholder: "password", autocomplete: "off", class: "form-control", type: 'password', required:true, label: false %>
             </div>
             <div class="field center">
-              <%= f.password_field :password_confirmation,  placeholder: "confirm password", autocomplete: "off" %>
+              <%= f.password_field :password_confirmation,  placeholder: "confirm password", autocomplete: "off", class: "form-control", type: 'password', required:true, label: false %>
             </div>
             <br>
             <div class="actions center">
@@ -405,7 +402,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <footer id="footer">
 <!-- JS snippet for Crisp chat client -->
 <% if controller.controller_name == "welcome" || controller.controller_name == "lessons" || controller.controller_name == "instructors" %>
-<!-- <script type="text/javascript">CRISP_WEBSITE_ID = "0ae9bf60-bc66-4da4-b4d3-716ab557898c";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.im/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script> -->
+<script type="text/javascript">CRISP_WEBSITE_ID = "0ae9bf60-bc66-4da4-b4d3-716ab557898c";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.im/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
 <% end %>
   <span id="slideTimer"><!-- fs-slideshow timer line --></span>
 
