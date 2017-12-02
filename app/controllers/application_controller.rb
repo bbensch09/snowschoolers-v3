@@ -51,10 +51,12 @@ end
 
 def merge_current_user_with_instructor_application
   puts "!!!checking to merge instructor"
-  if current_user 
+  if current_user
     i = Instructor.where(username:current_user.email).first    
-      i.user_id = current_user.id unless i.nil?
-      i.save!
+      unless i.nil?
+        i.user_id = current_user.id unless i.nil?
+        i.save!
+      end
   end
 end
 

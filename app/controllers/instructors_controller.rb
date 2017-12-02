@@ -8,6 +8,7 @@ class InstructorsController < ApplicationController
   def verify
     instructor = Instructor.find(params[:id])
     instructor.status = 'Active'
+    instructor.mark_eligible_for_beginners
     instructor.save
     LessonMailer.instructor_status_activated(instructor).deliver
     redirect_to instructors_path, notice: "Instructor has been verified"
