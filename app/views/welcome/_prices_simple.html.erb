@@ -4,7 +4,7 @@
           <thead class="">
             <tr>
                 <th class="center price-header" colspan="5">
-                    <h1>2017/18 PRIVATE LESSON RATES</h1>
+                    <h1 class="navy-text">2017/18 PRIVATE LESSON RATES</h1>
                     <h3 class="center navy-text">Book Early and Save over 50%</h3>
                 </th>
             </tr>
@@ -24,37 +24,37 @@
 
           <tbody>
             <tr>
-                <td class="pricing-length">Early-bird (9-10am)</td>
-                <td class="pricing-snowschoolers">
+                <td class="grey-side-borders pricing-length pricing-grey-background">Early-bird (9-10am)</td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background">
                     <%= number_to_currency(Product.where(location_id:8,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
                 </td>
-                <td class="pricing-snowschoolers">
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background">
                     <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
                 </td>
-                <td class="pricing-competitors">N/A</td>
-                <td class="pricing-competitors">N/A</td>
+                <td class="grey-side-borders pricing-competitors pricing-grey-background">N/A</td>
+                <td class="grey-side-borders pricing-competitors pricing-grey-background">N/A</td>
             </tr>
             <tr>
-                <td class="pricing-length">Half-day (10-1pm; 1-4-pm)</td>
-                <td class="pricing-snowschoolers">
+                <td class="grey-side-borders pricing-length">Half-day (10-1pm; 1-4-pm)</td>
+                <td class="grey-side-borders pricing-snowschoolers">
                 <%= number_to_currency(Product.where(location_id:8,length:"3.00",product_type:'private_lesson',calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
                 </td>
-                <td class="pricing-snowschoolers">
+                <td class="grey-side-borders pricing-snowschoolers">
                 <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
                 </td>
-                <td class="pricing-competitors">$595</td>
-                <td class="pricing-competitors">$519</td>
+                <td class="grey-side-borders pricing-competitors">$595</td>
+                <td class="grey-side-borders pricing-competitors">$519</td>
             </tr>
             <tr>
-                <td class="pricing-length">Full-day (10-4pm)</td>
-                <td class="pricing-snowschoolers">
+                <td class="grey-side-borders pricing-length pricing-grey-background">Full-day (10-4pm)</td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background">
                 <%= number_to_currency(Product.where(location_id:8,length:"6.00",product_type:'private_lesson',calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
                 </td>
-                <td class="pricing-snowschoolers">
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background">
                 <%= number_to_currency(Product.where(location_id:24,length:"6.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
                 </td>
-                <td class="pricing-competitors">$810</td>
-                <td class="pricing-competitors">$739</td>
+                <td class="grey-side-borders pricing-competitors pricing-grey-background">$810</td>
+                <td class="grey-side-borders pricing-competitors pricing-grey-background">$739</td>
             </tr>
           </tbody>
           <% end %>

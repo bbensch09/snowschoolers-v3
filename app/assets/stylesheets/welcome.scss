@@ -96,9 +96,6 @@ section {
   display: block;
   min-height: 450px;
 }
-#how-it-works{
-    background-color: #fff;
-}
 #contact{
     background-color: #3b5998;
     margin-bottom: 350px;
@@ -117,13 +114,6 @@ section.pricing-section{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-}
-.info-box{
-  padding-top: 20px;
-  padding-bottom: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
-  width: 100%;
 }
 .why-snowschoolers-text{
   padding: 20px 50px 20px 50px;
@@ -312,9 +302,11 @@ margin-right: auto !important;;
   margin-top: 0;
 }
 .process-step {
-  border: 1px solid #3b5998;
+  box-shadow: 2px 2px 2px 2px #ccc;
   padding: 5px;
   margin: 5px;
+  height: 550px;
+  background-color: white;
 }
 .process-info{
   font-size: 16px;
@@ -542,6 +534,13 @@ body {
 .top-section{
   top:-10px;
 }
+#where-do-we-teach {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+#how-it-works{
+  background-color: white;
+}
 h2.how-it-works {
     font-weight: bold;
     font-size: 3.5em;
@@ -557,7 +556,13 @@ h2.how-it-works {
   font-weight: bold;
   color: #3b5998;
   }
-
+.pricing-grey-background{
+  background-color: rgb(246, 246, 246);
+}
+.grey-side-borders{
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+}
 .pricing-container{
   min-height: inherit;
   max-width: 1000px;
@@ -567,12 +572,11 @@ h2.how-it-works {
 .price-header{
   padding-top: 10px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #3b5998;
+  border-bottom: 1px solid rgb(246, 246, 246)
 }
 .pricing-table{
   padding: 5px 5px 5px 5px;
   margin-bottom: 5px;
-  border-bottom: 1px solid #3b5998;
 }
 .pricing-table tbody tr {
   padding: 5px;
@@ -622,7 +626,7 @@ h2.how-it-works {
   margin-bottom: 2px;
 }
 .full-form-focus{
-  border: 1px solid #3b5998;;
+  border: 1px solid #3b5998;
 }
 .control-label{
   font-weight: bold;
@@ -1039,6 +1043,15 @@ text-align: center;
     margin-right: auto;
     display: block;
 }
+.info-box{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
 #about-tahoe h2.how-it-works{
   height: 70px;
 }
@@ -1086,7 +1099,6 @@ section.pricing-new-lesson{
   padding-top: 0px;
   padding-bottom: 0px;
   margin-top: 10px;
-  border: 1px solid rgba(59, 89, 152, 1);
 }
 .new-lesson-caption{
   color:#fff !important;
@@ -1264,12 +1276,12 @@ section.pricing-new-lesson{
 }
 
 .homepage-lesson-container {
-    margin-top: 50px;
-    width: 1150px;
-    position: relative;
-    margin-right: auto;
-    margin-left: auto;
-    background-color: white;
+  margin-top: 50px;
+  width: 1150px;
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: white;
 }
 
 
