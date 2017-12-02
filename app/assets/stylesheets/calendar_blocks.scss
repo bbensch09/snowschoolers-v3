@@ -7,7 +7,9 @@
 	margin-top: 20px;
 }
 .calendar-chevrons{
-	font-size: 2em;
+	font-size: 2.5em;
+	vertical-align: top;
+	font-weight: bold;
 	background-color: #fff !important;
 }
 .availability-open{
@@ -63,4 +65,21 @@
 .calendar-subheader{
 	margin-top: 5px;
 	margin-bottom: 5px;
+}
+.glyphicon {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.glyphicon-chevron-right:before {
+    content: "\e080";
+}
+.glyphicon-chevron-left:before {
+    content: "\e079";
 }

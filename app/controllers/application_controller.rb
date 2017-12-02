@@ -35,7 +35,29 @@ def store_location
 end
 
 def after_sign_in_path_for(resource)
+  merge_current_user_with_instructor_application
   session[:previous_url] || root_path
+end
+
+def after_sign_up_path_for(resource)
+  merge_current_user_with_instructor_application
+  session[:previous_url] || root_path
+end
+
+def after_confirmation_path_for(resource)
+  merge_current_user_with_instructor_application
+  session[:previous_url] || root_path
+end
+
+def merge_current_user_with_instructor_application
+  puts "!!!checking to merge instructor"
+  if current_user
+    i = Instructor.where(username:current_user.email).first    
+      unless i.nil?
+        i.user_id = current_user.id unless i.nil?
+        i.save!
+      end
+  end
 end
 
 def set_user

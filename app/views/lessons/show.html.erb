@@ -1,21 +1,20 @@
 <div id="middle" class="container">
   <div class="white row">
 
-    <% if current_user && current_user.email == "brian@snowschoolers.com"%>
+    <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.email == "bbensch@gmail.com") %>
     <div class="row vertical-padding container admin-viewable">
     <h4> (ADMIN ONLY) Eligible instructors are:</h4>
       <ul>
         <% if @lesson.available_instructors.any? %>
-            <% @lesson.available_instructors.each do |instructor| %>
-            <h6> <%= instructor.name  %> - <%= instructor.user_id %> - <%= instructor.phone_number %>
-            <%= link_to "Send Instructor SMS", send_reminder_sms_to_instructor_path(@lesson, :instructor_id => instructor.id), class: "btn btn-warning" %></h6>
-            <% end %>
+        <% @lesson.available_instructors.each do |instructor| %>
+        <h6> <%= instructor.name  %> - <%= instructor.user_id %> - <%= instructor.phone_number %>
+          <%= link_to "Send Instructor SMS", send_reminder_sms_to_instructor_path(@lesson, :instructor_id => instructor.id), class: "btn btn-warning" %></h6>
+          <% end %>
           <% else %>
           <li><p class="alert-danger">No instructors available!</p></li>
           <% end %>
           <li>Client phone number: <%= @lesson.phone_number %> </li>
-      </ul>
-        <%= link_to 'Edit Lesson', edit_lesson_path(@lesson), class: "btn btn-default" %>
+        </ul>        <%= link_to 'Edit Lesson', edit_lesson_path(@lesson), class: "btn btn-default" %>
         <%= link_to "Reconfirm state", admin_reconfirm_state_path, method: :put, class: "btn btn-default" %>
     </div>
     <% end %>

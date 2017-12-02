@@ -14,7 +14,7 @@
       </ul>
     </div>
   <% end %>
-    <% if current_user && (current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Partner")%>
+    <% if current_user && (current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Partner" || current_user.user_type == "Snow Schoolers Employee")%>
   <section class="admin-viewable">
     <div class="col-md-12 vertical-padding">
     <h4>Connect to user_id:
@@ -115,7 +115,7 @@
   <!-- <h4> Preferred Resorts (select up to 4)</h4> -->
   <h4> <b> Where:</b> We are currently recruiting for all ski areas in Northern California.</h4>
   <div class="col-md-12">
-    <% if current_user && (current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Partner") %>
+    <% if current_user && (current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Partner" || current_user.user_type == "Snow Schoolers Employee") %>
       <%= f.collection_check_boxes :location_ids, Location.all, :id, :name do |location_item| %>
       <div class="collection-check-box">
         <%= location_item.check_box %>

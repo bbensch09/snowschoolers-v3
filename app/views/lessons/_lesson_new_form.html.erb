@@ -33,8 +33,8 @@
             </div>
 
             <div class="col-md-3">
-              <%= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase},  include_blank: 'Location', label: false %>
-              <!-- %= f.input :requested_location , as: :select, collection: [['North Tahoe',1],['South Lake Tahoe',2],['Southern CA',3],['Utah',4],['Colorado',5],['Wyoming',6],['Idaho',7],['New Mexico',8]], selected: @promo_location, include_blank: 'Location', label: false %> -->
+              <!-- %= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase},  include_blank: 'Location', label: false %> -->
+              <%= f.collection_select :requested_location, Location.active_partners.sort_by { |location| location.name.downcase}, :id, :name, {prompt:'Location'}, {class:'form-control', include_blank: 'Location', required: true, label: false} %>
             </div>
             <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
               <div class="col-md-2">

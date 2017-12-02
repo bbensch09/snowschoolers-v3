@@ -57,7 +57,7 @@
   <% if @products.present? %>
   <% else %>
     <p class="warning">Unfortunately there are no products matching your search.</p>
-    <% if current_user && current_user.email == "brian@snowschoolers.com" %>
+    <% if current_user && current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" %>
       <p class="warning admin-viewable">The full set of search parameters are: <%= @search_params %>.</p>
     <% end %>
   <% end %>
