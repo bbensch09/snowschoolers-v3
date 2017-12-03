@@ -99,6 +99,7 @@ class LessonsController < ApplicationController
   def new
     @lesson = Lesson.new
     @promo_location = session[:lesson].nil? ? nil : session[:lesson]["requested_location"]
+    @product_name = session[:lesson].nil? ? nil : session[:lesson]["product_name"]
     @activity = session[:lesson].nil? ? nil : session[:lesson]["activity"]
     @slot = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?) ? nil : session[:lesson]["lesson_time"]["slot"]
     @date = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?)  ? nil : session[:lesson]["lesson_time"]["date"]
@@ -134,6 +135,7 @@ class LessonsController < ApplicationController
   def complete
     @lesson = Lesson.find(params[:id])
     @lesson_time = @lesson.lesson_time
+    @product_name = @lesson.product_name
     @state = 'booked'
     GoogleAnalyticsApi.new.event('lesson-requests', 'load-full-form')
     flash.now[:notice] = "You're almost there! We just need a few more details."
@@ -182,6 +184,7 @@ class LessonsController < ApplicationController
     @original_lesson = @lesson.dup
     @lesson.assign_attributes(lesson_params)
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
+    @lesson.product_name = @lesson.slot
     unless current_user && current_user.user_type == "Snow Schoolers Employee"
       @lesson.requester = current_user
     end
@@ -352,7 +355,7 @@ class LessonsController < ApplicationController
   private
 
   def valid_duration_params?
-     if params[:lesson][:actual_start_time].length == 0  || params[:lesson][:actual_end_time].length == 0
+    if params[:lesson].nil? ||  params[:lesson] == "" || params[:lesson][:product_name].nil? || params[:lesson][:product_name] == "" || params[:lesson][:activity].nil? ||  params[:lesson][:lesson_time][:date].length < 10
       flash[:alert] = "Please confirm start & end time, as well as lesson duration."
       return false
     else
@@ -371,15 +374,13 @@ class LessonsController < ApplicationController
   end
 
   def save_lesson_params_and_redirect
-    # if current_user.nil?
-    #   session[:lesson] = params[:lesson]
-    #   flash[:alert] = 'You need to sign in or sign up before continuing.'
-    #   # flash[:notice] = "The captured params are #{params[:lesson]}"
-    #   redirect_to new_user_registration_path and return
-    # elsif params["commit"] != "Book Lesson"
-    #   session[:lesson] = params[:lesson]
-    # end
-      validate_new_lesson_params
+    puts "!!!!! params are below: #{params}"
+    puts params[:lesson][:activity]
+    puts params[:lesson][:product_name]
+    puts params[:lesson][:lesson_time][:date]
+    puts params[:lesson][:lesson_time][:slot]
+    puts "!!!!!!! end params"
+    validate_new_lesson_params
   end
 
   def create_lesson_from_session
@@ -450,7 +451,7 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id, :guest_email, :how_did_you_hear, :num_days, :lesson_price, :requester_name, :is_gift_voucher, :includes_lift_or_rental_package, :package_info, :gift_recipient_email, :gift_recipient_name, :lesson_cost, :non_lesson_cost, :product_id, :section_id,
+    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id, :guest_email, :how_did_you_hear, :num_days, :lesson_price, :requester_name, :is_gift_voucher, :includes_lift_or_rental_package, :package_info, :gift_recipient_email, :gift_recipient_name, :lesson_cost, :non_lesson_cost, :product_id, :section_id, :product_name,
       students_attributes: [:id, :name, :age_range, :gender, :relationship_to_requester, :lesson_history, :requester_id, :most_recent_experience, :most_recent_level, :other_sports_experience, :experience, :_destroy])
   end
 

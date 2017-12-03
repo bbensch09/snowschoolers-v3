@@ -375,33 +375,83 @@ class Lesson < ActiveRecord::Base
     waiting_for_payment?
   end
 
-  def price
-    if self.lesson_price
-      return self.lesson_price.to_s
-    elsif self.lesson_cost
-      return self.lesson_cost.to_s
-    elsif self.location.id == 8
-      # puts "!!!!!! lesson location is #{self.location.id}"      
-      product = Product.where(location_id:self.location.id,name:self.lesson_time.slot,calendar_period:self.location.calendar_status).first      
-    elsif self.location.id == 24
-    puts "!!!!!! lesson location is #{self.location.id}"      
-      if self.slot == 'Early Bird (9-10am)'
-        product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:"Regular",product_type:"private_lesson").first
-      elsif self.slot == 'Half-day Morning (10am-1pm)'
-        product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:"Regular",product_type:"private_lesson").first
-      elsif self.slot == 'Half-day Afternoon (1pm-4pm)'
-        product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:"Regular",product_type:"private_lesson").first
-      elsif self.slot == 'Full-day (10am-4pm)'
-        product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:"Regular",product_type:"private_lesson").first
-      end
+  def lookup_calendar_period(date,location_id)
+    date = date.to_s
+    case location_id
+      when 8
+        if HW_HOLIDAYS.include?(date)
+          return 'Holiday'
+        elsif HW_PEAK.include?(date)
+          return 'Peak'
+        else
+          return 'Regular'
+        end
+      when 24
+        if GB_HOLIDAYS.include?(date)
+          return 'Holiday'
+        else
+          return 'Regular'
+        end
     end
-    puts "!!!!!!!! lesson.product is #{product}"
+  end
+
+  def price
+    puts "!!!! calculating price"
+    if self.lesson_price
+      puts "!!!custom price found"
+      return self.lesson_price.to_s
+    # elsif self.lesson_cost && self.lesson_cost > 0
+      # return self.lesson_cost.to_s
+    elsif self.product_name #&& self.location.id == 24
+      puts "!!!calculating price based on product name, location, and date"
+      calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
+      puts "!!!!lookup calendar period status, it is: #{calendar_period}"
+      if self.slot == 'Early Bird (9-10am)'
+        product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson").first
+      elsif self.slot == 'Half-day Morning (10am-1pm)'
+        product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson").first
+      elsif self.slot == 'Half-day Afternoon (1pm-4pm)'
+        product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson").first
+      elsif self.slot == 'Full-day (10am-4pm)'
+        product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson").first
+      end
+      puts "!!!product found, its price is #{product.price}"
+    end
     if product.nil?
       return "Error - lesson price not found" #99 #default lesson price - temporary
     else
-      return product.price.to_s
+      price = product.price * [1,self.students.count].max
     end
+    return price.to_s
   end
+
+  # def price
+  #   if self.lesson_price
+  #     return self.lesson_price.to_s
+  #   elsif self.lesson_cost
+  #     return self.lesson_cost.to_s
+  #   elsif self.location.id == 8
+  #     # puts "!!!!!! lesson location is #{self.location.id}"      
+  #     product = Product.where(location_id:self.location.id,name:self.lesson_time.slot,calendar_period:self.location.calendar_status).first      
+  #   elsif self.location.id == 24
+  #   puts "!!!!!! lesson location is #{self.location.id}"      
+  #     if self.slot == 'Early Bird (9-10am)'
+  #       product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:"Regular",product_type:"private_lesson").first
+  #     elsif self.slot == 'Half-day Morning (10am-1pm)'
+  #       product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:"Regular",product_type:"private_lesson").first
+  #     elsif self.slot == 'Half-day Afternoon (1pm-4pm)'
+  #       product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:"Regular",product_type:"private_lesson").first
+  #     elsif self.slot == 'Full-day (10am-4pm)'
+  #       product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:"Regular",product_type:"private_lesson").first
+  #     end
+  #   end
+  #   puts "!!!!!!!! lesson.product is #{product}"
+  #   if product.nil?
+  #     return "Error - lesson price not found" #99 #default lesson price - temporary
+  #   else
+  #     return product.price.to_s
+  #   end
+  # end
 
   def visible_lesson_cost
     if self.lesson_cost.nil?
@@ -410,21 +460,6 @@ class Lesson < ActiveRecord::Base
       return self.lesson_cost
     end
   end
-
-  # def price
-  #   hourly_base = 75
-  #   surge = 1
-  #   hourly_price = hourly_base*surge
-  #   if self.actual_duration.nil?
-  #     if self.duration.nil?
-  #         price = hourly_price * 2
-  #       else
-  #         price = self.duration * hourly_price
-  #     end
-  #   else
-  #     price = self.actual_duration * hourly_price
-  #   end
-  # end
 
   def get_changed_attributes(original_lesson)
     lesson_changes = self.previous_changes
