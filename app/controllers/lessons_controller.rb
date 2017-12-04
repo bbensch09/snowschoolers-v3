@@ -148,6 +148,21 @@ class LessonsController < ApplicationController
     @state = @lesson.instructor ? 'pending instructor' : @lesson.state
   end
 
+  def reissue_invoice
+    @lesson = Lesson.find(params[:id])
+    @lesson_time = @lesson.lesson_time
+    @lesson.state == "ready_to_book"
+    @lesson.deposit_status = nil
+    @lesson.save
+    render 'edit'
+  end
+
+  def issue_refund
+    @lesson = Lesson.find(params[:id])
+    @lesson_time = @lesson.lesson_time
+    render 'edit'
+  end
+
   def confirm_reservation
     @lesson = Lesson.find(params[:id])
     if @lesson.deposit_status != 'confirmed'
