@@ -9,8 +9,8 @@
   <a href='lessons/admin_index' class='btn btn-warning'>View Full Lesson Details</a>
   <ul>
     <li>Total Lesson Requests: <%=Lesson.open_lesson_requests.count %></li>
-    <li>Total Revenue Booked: <%=Lesson.open_booked_revenue %></li>
-    <li>Total Instructor Wages Available: <%=Lesson.open_wages_available %></li>
+    <li>Total Revenue Booked: <%= number_to_currency(Lesson.open_booked_revenue) %></li>
+    <li>Total Instructor Wages Available: <%= number_to_currency(Lesson.open_wages_available) %></li>
   </ul>
 </div>
 <% end %>
@@ -29,6 +29,7 @@
       <th class="lessons-table-cells lesson-type">Type</th>
       <th class="lessons-table-cells lesson-student">Student</th>
       <th class="lessons-table-cells">Lesson Price</th>
+      <th class="lessons-table-cells">Minimum Pay ($16/hr)</th>
       <th class="lessons-table-cells">Location</th>
       <!-- <th class="lessons-table-cells">Status</th> -->
     </tr>
@@ -48,7 +49,12 @@
               <% else %>
               <td class="lessons-table-cells lesson-student">Contact: <%= lesson.guest_email %></td>
             <% end %>
-            <td class="lessons-table-cells lesson-type"><%= lesson.price %></td>            
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.price) %></td>
+            <% if current_user && current_user.instructor %>              
+              <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.length.to_i * @wage_rate) %></td>
+              <% else %>
+              <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.wages) %></td>
+            <% end %>
             <td class="lessons-table-cells lesson-type"><%= lesson.location.name %></td>            
             <!-- <td class="lessons-table-cells"><%= lesson.location.name %></td> -->
             <!-- <td class="lessons-table-cells"><%= lesson.state %></td> -->

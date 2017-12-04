@@ -160,7 +160,11 @@ class Lesson < ActiveRecord::Base
 
   def wages
     instructor = self.instructor
-    wages = self.product.length.to_i * instructor.wage_rate
+    if instructor
+      wages = self.product.length.to_i * instructor.wage_rate
+    else
+      wages = self.product.length.to_i * 16
+    end
   end
 
   def self.total_prime_days
