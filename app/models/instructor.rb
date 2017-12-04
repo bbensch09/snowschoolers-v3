@@ -146,7 +146,7 @@ class Instructor < ActiveRecord::Base
   end
 
   def average_rating
-    return 4 if reviews.count == 0
+    return 5 if reviews.count == 0
     total_stars = 0
     if self.reviews.count > 0
     self.reviews.each do |review|
