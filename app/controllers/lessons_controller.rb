@@ -38,6 +38,7 @@ class LessonsController < ApplicationController
       @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
       @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
       @todays_lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.today }
+      @wage_rate = current_user.instructor.wage_rate
       elsif current_user.user_type == "Ski Area Partner"
         lessons = Lesson.where(requested_location:current_user.location.id.to_s).sort_by { |lesson| lesson.id}
         @todays_lessons = lessons.to_a.keep_if{|lesson| lesson.date == Date.today && lesson.state != 'new' }
@@ -47,6 +48,7 @@ class LessonsController < ApplicationController
         lessons = Lesson.visible_to_instructor?(current_user.instructor)
         @todays_lessons = lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
         @lessons = Lesson.visible_to_instructor?(current_user.instructor)
+        @wage_rate = current_user.instructor.wage_rate
       else
         @lessons = current_user.lessons
         @todays_lessons = current_user.lessons.to_a.keep_if{|lesson| lesson.date == Date.today }

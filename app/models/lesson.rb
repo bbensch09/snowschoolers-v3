@@ -160,7 +160,11 @@ class Lesson < ActiveRecord::Base
 
   def wages
     instructor = self.instructor
-    wages = self.product.length.to_i * instructor.wage_rate
+    if instructor
+      wages = self.product.length.to_i * instructor.wage_rate
+    else
+      wages = self.product.length.to_i * 16
+    end
   end
 
   def self.total_prime_days
@@ -174,6 +178,28 @@ class Lesson < ActiveRecord::Base
 
   def self.completed_lessons_count
     Lesson.where(state:'Lesson Complete').count 
+  end
+
+  def self.open_lesson_requests
+    Lesson.where(state:'booked',instructor_id:nil) 
+  end
+
+  def self.open_booked_revenue
+    lessons = Lesson.open_lesson_requests
+    total = 0
+    lessons.each do |lesson|
+      total += lesson.price.to_i
+    end
+    return total
+  end
+
+  def self.open_wages_available
+    lessons = Lesson.open_lesson_requests
+    total = 0
+    lessons.each do |lesson|
+      total += (lesson.length.to_i * 16)
+    end
+    return total
   end
 
   def self.total_wages
