@@ -300,7 +300,11 @@ class LessonsController < ApplicationController
       c.state = 'Booked'
       c.lesson_time_id = @lesson.lesson_time_id
       c.save
-    LessonMailer.send_lesson_confirmation(@lesson).deliver
+    if @lesson.location.id == 8
+      LessonMailer.send_lesson_hw_confirmation(@lesson).deliver
+    elsif @lesson.location.id == 24
+      LessonMailer.send_lesson_gb_confirmation(@lesson).deliver
+    end
     @lesson.send_sms_to_requester
     redirect_to @lesson
     else
