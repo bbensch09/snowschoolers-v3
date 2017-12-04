@@ -176,6 +176,28 @@ class Lesson < ActiveRecord::Base
     Lesson.where(state:'Lesson Complete').count 
   end
 
+  def self.open_lesson_requests
+    Lesson.where(state:'booked',instructor_id:nil) 
+  end
+
+  def self.open_booked_revenue
+    lessons = Lesson.open_lesson_requests
+    total = 0
+    lessons.each do |lesson|
+      total += lesson.price.to_i
+    end
+    return total
+  end
+
+  def self.open_wages_available
+    lessons = Lesson.open_lesson_requests
+    total = 0
+    lessons.each do |lesson|
+      total += (lesson.length.to_i * 16)
+    end
+    return total
+  end
+
   def self.total_wages
     total = 0
     Instructor.active_instructors.each do |instructor|

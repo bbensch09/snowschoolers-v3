@@ -11,7 +11,7 @@ class CalendarBlock < ActiveRecord::Base
 	end
 
 	def set_prime_day
-		if HOLIDAYS.include?(self.date.to_s)
+		if HW_HOLIDAYS.include?(self.date.to_s)
 			self.prime_day = true
 		else
 			self.prime_day = false
