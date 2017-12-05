@@ -397,7 +397,7 @@ class Lesson < ActiveRecord::Base
     end
     puts "!!!!!!!! lesson.product is #{product}"
     if product.nil?
-      return "Please confirm date & time to see price." #99 #default lesson price - temporary
+      return "Error - lesson price not found" #99 #default lesson price - temporary
     else
       return product.price.to_s
     end
