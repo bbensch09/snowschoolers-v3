@@ -444,7 +444,7 @@ class Lesson < ActiveRecord::Base
       puts "!!!product found, its price is #{product.price}"
     end
     if product.nil?
-      return "Error - lesson price not found" #99 #default lesson price - temporary
+      return "Please confirm date & time to see price." #99 #default lesson price - temporary
     else
       price = product.price * [1,self.students.count].max
     end
