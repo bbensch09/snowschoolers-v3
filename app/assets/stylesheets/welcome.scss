@@ -865,7 +865,10 @@ display: block;
   margin-bottom: 10px;
   margin-top: 10px;
 }
-
+.form-inputs{
+  display: flex;
+  justify-content: space-around;
+}
 * { box-sizing: border-box; }
 .video-background {
   background: #000;

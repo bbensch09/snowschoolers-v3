@@ -27,7 +27,7 @@
           <%= f.semantic_errors :lesson %>
           <%= f.semantic_errors :instructor %>
         </h1>
-        <div class="block inputs">
+        <div class="block inputs form-inputs">
             <div class="col-md-2">
               <%= f.input :activity, as: :select, collection: ['Ski', 'Snowboard'], selected:@activity, include_blank: 'Lesson Type', label: false %>
             </div>
