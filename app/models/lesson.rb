@@ -451,8 +451,8 @@ class Lesson < ActiveRecord::Base
   def package_cost
     package_price = 0
     puts "!!!calculating package cost"
-    p1 = self.additional_students_with_gear * self.cost_per_additional_student_with_gear
-    p2 = self.additional_students_without_gear * self.cost_per_additional_student_without_gear
+    p1 = [self.additional_students_with_gear * self.cost_per_additional_student_with_gear,0].max
+    p2 = [self.additional_students_without_gear * self.cost_per_additional_student_without_gear,0].max
     return p1 + p2    
     return package_price
   end
