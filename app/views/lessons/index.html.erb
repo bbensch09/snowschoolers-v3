@@ -219,13 +219,13 @@
             <td>TBD</td>
             <% end %>
             <% if lesson.product %>
-              <td><%= link_to "#{lesson.product.name} - #{lesson.product.age_type}", lesson, class: "btn btn-default" %></td>
+              <td><%= link_to "#{lesson.product.name}", lesson, class: "btn btn-default" %></td>
             <% end %>
             <!-- <td><%= lesson.deposit_status %></td> -->
             <% if lesson.requester %>
-              <td class="lessons-table-cells lesson-student">Requester: <%= lesson.requester.email %></td>
+              <td class="lessons-table-cells lesson-student"><%= lesson.requester.email %></td>
               <% else %>
-              <td class="lessons-table-cells lesson-student">Requester: <%= lesson.guest_email %></td>
+              <td class="lessons-table-cells lesson-student"><%= lesson.guest_email %></td>
             <% end %>            <!-- <td><%= lesson.location.name %></td> -->
             <td><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
             <td><%= lesson.state %></td>
