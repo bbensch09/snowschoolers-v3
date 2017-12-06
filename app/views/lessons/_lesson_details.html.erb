@@ -63,24 +63,6 @@
       </div>
     </div>
 
-    <!--
-    <div class='row'>
-       <div class="col-md-4">
-        <label>Duration:</label>
-        <div class=''><%= "#{@lesson.duration} hours" if @lesson.duration %></div>
-      </div>
-
-      <div class="col-md-4">
-        <label>Start Time:</label>
-        <div class=''><%= @lesson.start_time %></div>
-      </div>
-
-      <div class="col-md-4">
-        <label>Do you have gear?</label>
-        <div class=''><%= @lesson.gear? ? 'Yes, already have gear' : 'No, need gear.' %></div>
-      </div>
-    </div>
-     -->
   </div>
 
   <div class="col-md-6">
@@ -95,6 +77,9 @@
       <h4><b>Objectives:</b></h4>
       <div class=''><%= @lesson.objectives %></div>
     </div>
+  </div>
+  <div class="col-md-7 col-xs-12">
+    <%= render partial: 'price_details' %>
   </div>
 
   <div class='col-md-12 student-box'>
