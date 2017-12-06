@@ -14,7 +14,7 @@ class Lesson < ActiveRecord::Base
   validates :phone_number, :lift_ticket_status,
             presence: true, on: :update
   # validates :duration, :start_time, presence: true, on: :update
-  validates :gear, inclusion: { in: [true, false] }, on: :update
+  # validates :gear, inclusion: { in: [true, false] }, on: :update #gear now moved to student section
   validates :terms_accepted, inclusion: { in: [true], message: 'must accept terms' }, on: :update
   validates :actual_start_time, :actual_end_time, presence: true, if: :just_finalized?
   # validate :requester_must_not_be_instructor, on: :create
@@ -126,12 +126,12 @@ class Lesson < ActiveRecord::Base
 
   def product
     if self.product_id.nil?
+      calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
       if self.requested_location == "8"
-        Product.where(location_id:self.location.id, name:self.lesson_time.slot,calendar_period:self.location.calendar_status).first
+        Product.where(location_id:self.location.id, name:self.lesson_time.slot,is_private_lesson:true,calendar_period:calendar_period).first
       elsif self.requested_location == "24"
-        Product.where(location_id:self.location.id, length:self.length,calendar_period:self.location.calendar_status).first
-      end        
-          
+        Product.where(location_id:self.location.id, length:self.length,is_private_lesson:true,calendar_period:calendar_period).first
+      end                  
     else
       Product.where(id:self.product_id).first
     end
@@ -426,9 +426,7 @@ class Lesson < ActiveRecord::Base
     if self.lesson_price
       puts "!!!custom price found"
       return self.lesson_price.to_s
-    # elsif self.lesson_cost && self.lesson_cost > 0
-      # return self.lesson_cost.to_s
-    elsif self.product_name #&& self.location.id == 24
+    elsif self.product_name
       puts "!!!calculating price based on product name, location, and date"
       calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
       puts "!!!!lookup calendar period status, it is: #{calendar_period}"
@@ -444,40 +442,58 @@ class Lesson < ActiveRecord::Base
       puts "!!!product found, its price is #{product.price}"
     end
     if product.nil?
-      return "Please confirm date & time to see price." #99 #default lesson price - temporary
-    else
-      price = product.price * [1,self.students.count].max
+      return "Please confirm date & time to see price."
     end
+    price = product.price.to_f + self.package_cost
     return price.to_s
   end
 
-  # def price
-  #   if self.lesson_price
-  #     return self.lesson_price.to_s
-  #   elsif self.lesson_cost
-  #     return self.lesson_cost.to_s
-  #   elsif self.location.id == 8
-  #     # puts "!!!!!! lesson location is #{self.location.id}"      
-  #     product = Product.where(location_id:self.location.id,name:self.lesson_time.slot,calendar_period:self.location.calendar_status).first      
-  #   elsif self.location.id == 24
-  #   puts "!!!!!! lesson location is #{self.location.id}"      
-  #     if self.slot == 'Early Bird (9-10am)'
-  #       product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:"Regular",product_type:"private_lesson").first
-  #     elsif self.slot == 'Half-day Morning (10am-1pm)'
-  #       product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:"Regular",product_type:"private_lesson").first
-  #     elsif self.slot == 'Half-day Afternoon (1pm-4pm)'
-  #       product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:"Regular",product_type:"private_lesson").first
-  #     elsif self.slot == 'Full-day (10am-4pm)'
-  #       product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:"Regular",product_type:"private_lesson").first
-  #     end
-  #   end
-  #   puts "!!!!!!!! lesson.product is #{product}"
-  #   if product.nil?
-  #     return "Error - lesson price not found" #99 #default lesson price - temporary
-  #   else
-  #     return product.price.to_s
-  #   end
-  # end
+  def package_cost
+    package_price = 0
+    puts "!!!calculating package cost"
+    p1 = self.additional_students_with_gear * self.cost_per_additional_student_with_gear
+    p2 = self.additional_students_without_gear * self.cost_per_additional_student_without_gear
+    return p1 + p2    
+    return package_price
+  end
+
+  def cost_per_additional_student_with_gear
+    case self.location.id
+      when 24
+        return 65
+      when 8
+        return 70
+    end
+  end
+
+  def cost_per_additional_student_without_gear
+    case self.location.id
+      when 24
+        return 40
+      when 8
+        return 0
+    end
+  end
+
+  def additional_students_with_gear
+      self.location.id == 24 ? count = -1 : count = 0
+      self.students.each do |student|
+        if student.needs_rental 
+          count += 1
+        end
+      end
+      count
+  end
+
+  def additional_students_without_gear
+      self.location.id == 24 ? count = -1 : count = 0
+      self.students.each do |student|
+        unless student.needs_rental 
+          count += 1
+        end
+      end
+      return [count,0].max
+  end
 
   def visible_lesson_cost
     if self.lesson_cost.nil?
