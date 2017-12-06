@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171203222225) do
+ActiveRecord::Schema.define(version: 20171206074959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -373,6 +373,7 @@ ActiveRecord::Schema.define(version: 20171203222225) do
     t.string  "most_recent_experience"
     t.string  "most_recent_level"
     t.text    "other_sports_experience"
+    t.boolean "needs_rental"
   end
 
   create_table "transactions", force: :cascade do |t|

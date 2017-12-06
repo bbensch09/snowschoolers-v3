@@ -4,15 +4,15 @@
       <div class='col-md-6'>
         <label>Student Name</label>
         <span class='remove-student'>(<%= link_to_remove_association "Remove Student", f, class: 'remove-student' %>)</span>
-        <%= f.input :name, placeholder: "Full name of student", label: false %>
+        <%= f.text_field :name, placeholder: "Full name of student", class: "form-control", label: false, required:true %>                      
       </div>
       <div class='col-md-3'>
         <label>Age</label>
-        <%= f.input :age_range, as: :string, label: false %>
+        <%= f.text_field :age_range, class: "form-control", label: false, required:true %>
       </div>
       <div class='col-md-3'>
         <label>Gender</label>
-        <%= f.input :gender, as: :select, collection: ['Male', 'Female'], include_blank: 'Gender', :input_html => { :class => 'gender'}, label: false %>
+        <%= f.select :gender, ['Male', 'Female'], {}, {class: 'gender form-control', required:true, include_blank: 'Gender'} %>
       </div>
     </div>
     <div class='row'>
@@ -21,8 +21,12 @@
         <%= f.input :relationship_to_requester, as: :select, collection: ['I am the student.', 'Student is a friend.', 'Student is my significant other.','Student is my child.'], selected: 'I am the student.', include_blank: 'How is this student related to you?', :input_html => { :class => 'relationship-student'}, label: false %>
       </div>
       <div class='col-md-12'>
+        <label>Include rental equipment?</label>        
+        <%= f.select :needs_rental, [['Yes, student needs to rent equipment.', true],['No, student already has equipment.', false]], {}, {class: 'form-control needs-rental', required:true, include_blank:'(Skis,boots,etc.)'} %>
+      </div>
+      <div class='col-md-12'>
             <label>Ability level </label>
-            <%= f.input :most_recent_level, as: :select, collection:
+            <%= f.select :most_recent_level,
               ["Level 1 - first-time ever, no previous experience.",
               "Level 2 - can safely stop on beginner green circle terrain.",
               "Level 3 - can makes wedge turns (heel-side turns for snowboarding) in both directions on beginner terrain.",
@@ -31,8 +35,8 @@
               "Level 6 - can confidently link parallel turns across all intermediate terrain.",
               "Level 7 - can control speed, rhythm, and shape of turns across variety of intermediate and advanced terrain.",
               "Level 8 - can ski moguls and off-piste terrain in all snow conditions.",
-              "Level 9 - can confidently and safely ski expert-only (double-black diamond) terrain."],
-               include_blank: "Approximately what level of ability is the student?", :input_html => { :class => 'ability-level'}, label: false %>
+              "Level 9 - can confidently and safely ski expert-only (double-black diamond) terrain."], {}, {class: 'form-control ability-level', required:true,
+               include_blank: "Approximately what level of ability is the student?", label: false} %>              
       </div>
       <!-- <div class='col-md-12'>
             <label>Other sports experience </label>
