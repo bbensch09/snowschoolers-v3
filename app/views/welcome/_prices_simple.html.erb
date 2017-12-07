@@ -42,8 +42,8 @@
                 <td class="pricing-snowschoolers">
                 <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
                 </td>
-                <td class="pricing-competitors">$595</td>
-                <td class="pricing-competitors">$519</td>
+                <td class="pricing-competitors">$620</td>
+                <td class="pricing-competitors">$539</td>
             </tr>
             <tr>
                 <td class="pricing-length">Full-day (10-4pm)</td>
@@ -53,8 +53,8 @@
                 <td class="pricing-snowschoolers">
                 <%= number_to_currency(Product.where(location_id:24,length:"6.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
                 </td>
-                <td class="pricing-competitors">$810</td>
-                <td class="pricing-competitors">$739</td>
+                <td class="pricing-competitors">$900</td>
+                <td class="pricing-competitors">$759</td>
             </tr>
           </tbody>
           <% end %>
