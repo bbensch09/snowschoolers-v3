@@ -57,7 +57,9 @@ div.maximage-controls #slider_prev:hover {
   background-color: transparent;
   color: #fff;
 }
-
+.continue-to-payment-btn{
+  background-color: #F25F5C;
+}
 .sign-up-btn, #email-btn {
   color: #eee;
 }

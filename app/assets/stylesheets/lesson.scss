@@ -35,6 +35,10 @@
   display: inline-block;
   list-style-type: none;
 }
+.update-lesson-form{
+  display: flex;
+  align-items: flex-end;
+}
 #browser-instructors-cta, #lesson_submit_action{
   position: relative !important;
 }
