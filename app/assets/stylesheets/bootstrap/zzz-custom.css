@@ -45,29 +45,40 @@ div.maximage-controls #slider_prev:hover {
   height:35px; line-height:35px;
   margin-top: 12px;
   font-weight: 100;
+  font-size: 1.1em;
 }
 
-#header ul.nav li a.sign-up-btn {
-  padding: 5px;
+#header ul.nav li a.sign-up-btn, #email-btn {
   color: #eee;
   font-family: 'Palanquin', sans-serif;
 }
 
-#header ul.nav li a.sign-up-btn:hover {
+#header ul.nav li a.sign-up-btn:hover, #email-btn:hover {
   background-color: transparent;
   color: #fff;
 }
 
-.sign-up-btn {
+.sign-up-btn, #email-btn {
   color: #eee;
 }
 
-.sign-up-btn:hover {
+.sign-up-btn:hover, #email-btn:hover {
   color: #fff;
 }
 
 .btn-info:hover {
   background-color: #65CFEE;
+}
+
+#new_user{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#new_user input{
+  width: 100%;
+  padding: 10px;
 }
 
 #header ul.nav li:hover>a {

@@ -1286,6 +1286,14 @@ section.pricing-new-lesson{
   justify-content: space-around;
   padding-top: 0;
 }
+.fb-login-btn{
+  max-width: 100%;
+  width: 50%;
+}
+#user_email, #user_password{
+  width: 40%;
+  padding: 10px;
+}
 
 .homepage-lesson-container {
   margin-top: 50px;
@@ -1529,6 +1537,7 @@ section.pricing-new-lesson{
   }
   .fb-login-btn{
     max-width: 100%;
+    width: 50%;
   }
   .new-lesson-container{
     margin-top: 0px;
