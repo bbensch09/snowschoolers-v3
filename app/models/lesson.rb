@@ -192,6 +192,10 @@ class Lesson < ActiveRecord::Base
     Lesson.where(state:'booked',instructor_id:nil) 
   end
 
+  def self.confirmed_lessons
+    lessons = Lesson.select{|lesson| !lesson.instructor_id.nil? }
+  end
+
   def self.open_lesson_requests_on_day(date)
     lessons = Lesson.where(state:'booked',instructor_id:nil) 
     lesson = lessons.select{|lesson| lesson.date == date}
@@ -199,6 +203,15 @@ class Lesson < ActiveRecord::Base
 
   def self.open_booked_revenue
     lessons = Lesson.open_lesson_requests
+    total = 0
+    lessons.each do |lesson|
+      total += lesson.price.to_i
+    end
+    return total
+  end
+
+  def self.closed_booked_revenue
+    lessons = Lesson.confirmed_lessons
     total = 0
     lessons.each do |lesson|
       total += lesson.price.to_i

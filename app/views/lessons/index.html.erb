@@ -8,9 +8,11 @@
 <div class="admin-viewable">
   <a href='lessons/admin_index' class='btn btn-warning'>View Full Lesson Details</a>
   <ul>
-    <li>Total Lesson Requests: <%=Lesson.open_lesson_requests.count %></li>
-    <li>Total Revenue Booked: <%= number_to_currency(Lesson.open_booked_revenue) %></li>
-    <li>Total Instructor Wages Available: <%= number_to_currency(Lesson.open_wages_available) %></li>
+    <li>Outstanding Requests: <%=Lesson.open_lesson_requests.count %></li>
+    <li>Revenue from Outstanding: <%= number_to_currency(Lesson.open_booked_revenue) %></li>
+    <li>Total Revenue Confirmed: <%= number_to_currency(Lesson.closed_booked_revenue) %></li>
+    <li>Total Revenue: <%= number_to_currency(Lesson.closed_booked_revenue + Lesson.open_booked_revenue) %></li>
+    <!-- <li>Total Instructor Wages Available: <%= number_to_currency(Lesson.open_wages_available) %></li> -->
   </ul>
 </div>
 <% end %>
