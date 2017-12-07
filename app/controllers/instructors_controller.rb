@@ -72,7 +72,8 @@ class InstructorsController < ApplicationController
 
   # GET /instructors/1/edit
   def edit
-          @instructor_id = Instructor.find(params[:id]).user_id
+        # @instructor_id = Instructor.find(params[:id]).user_id
+        @instructor_id = @instructor.user_id
   end
 
   def thank_you
