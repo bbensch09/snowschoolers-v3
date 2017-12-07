@@ -47,8 +47,12 @@
 	color: #3b5998;
 	font-weight: bold;
 }
-.simple-calendar .day{
+.simple-calendar th{
+	width: 14.1% !important;
+}
+.simple-calendar .day {
 	height: 100px;
+    width: 14vw !important;
 }
 .toggle-availability, .toggle-availability:hover, .toggle-availability:visited, .toggle-availability:focus{
 	color: #fff;
