@@ -65,23 +65,28 @@ class CalendarBlocksController < ApplicationController
 
   
   def toggle_availability
-    if @calendar_block.state == "Booked"
-      return false 
+    @calendar_block = CalendarBlock.find(params[:id])
+    # if @calendar_block.state == "Booked"
+    #   return false 
+    # end
+    # @calendar_blocks = CalendarBlock.where(instructor_id:current_user.instructor.id)
+    # @available_days = CalendarBlock.where(instructor_id:current_user.instructor.id,state:'Available')
+    # @instructor = current_user.instructor
+    puts "!!! prepare to toggle available state of calendar block id: #{@calendar_block.id}"
+    new_state = @calendar_block.toggle_availability
+    puts "!!! calendar_block has been set to #{new_state}"
+    if request.xhr?
+      render json: @calendar_block
     end
-    @calendar_blocks = CalendarBlock.where(instructor_id:current_user.instructor.id)
-    @available_days = CalendarBlock.where(instructor_id:current_user.instructor.id,state:'Available')
-    @instructor = current_user.instructor
-    puts "!!! calendar block id is #{@calendar_block.id}"
-    @calendar_block.toggle_availability
-    respond_to do |format|
-      if @calendar_block.save
-        format.html {render 'availability', notice: 'availability has been updated.'}
-        format.json {render json: @calendar_block, callback: "changeText" }
-      else
-        format.html { render action: 'availability' }
-        format.json { render json: @calendar_block.errors, status: :unprocessable_entity }
-      end
-    end
+    # respond_to do |format|
+      # if @calendar_block.save
+        # format.html {redirect_to 'availability', notice: 'availability has been updated.'}
+        # format.json {render json: @calendar_block, callback: "success" }
+      # else
+      #   format.html { render action: 'availability' }
+      #   format.json { render json: @calendar_block.errors, status: :unprocessable_entity }
+      # end
+    # end
   end
 
   # GET /calendar_blocks/1
