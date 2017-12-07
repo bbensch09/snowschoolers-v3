@@ -188,7 +188,12 @@ class Instructor < ActiveRecord::Base
   end
 
   def to_param
-        [id, name.parameterize].join("-")
+        # [name.parameterize,id].join("-")
+      name.parameterize
+  end
+
+  def self.from_param(param)
+    find_by!(param)
   end
 
   def send_admin_notification
