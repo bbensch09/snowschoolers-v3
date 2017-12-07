@@ -192,6 +192,7 @@ class Instructor < ActiveRecord::Base
       name.parameterize
   end
 
+  # Hacky flag -- may want to remove this
   def self.from_param(param)
     find_by!(param)
   end
