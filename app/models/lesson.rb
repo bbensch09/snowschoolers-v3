@@ -35,6 +35,14 @@ class Lesson < ActiveRecord::Base
     end
   end
 
+  def short_title
+    if self.instructor && self.product
+      title = "#{self.instructor.first_name} @ #{self.location.name}"
+    elsif self.instructor.nil?
+      title = "#{self.requester_name} @ #{self.location.name}"
+    end
+  end
+
   def self.seed_lessons(date,number)    
     LessonTime.create!({
         date: date,
@@ -182,6 +190,11 @@ class Lesson < ActiveRecord::Base
 
   def self.open_lesson_requests
     Lesson.where(state:'booked',instructor_id:nil) 
+  end
+
+  def self.open_lesson_requests_on_day(date)
+    lessons = Lesson.where(state:'booked',instructor_id:nil) 
+    lesson = lessons.select{|lesson| lesson.date == date}
   end
 
   def self.open_booked_revenue

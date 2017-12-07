@@ -10,6 +10,10 @@ class CalendarBlock < ActiveRecord::Base
 		self.date
 	end
 
+	def lesson
+		Lesson.where(instructor_id:self.instructor_id,lesson_time_id:self.lesson_time_id).first
+	end
+
 	def set_prime_day
 		if HW_HOLIDAYS.include?(self.date.to_s)
 			self.prime_day = true
