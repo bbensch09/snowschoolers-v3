@@ -20,22 +20,32 @@
 
 <div class="calendar-container">
   <%= month_calendar(calendar_blocks: :date, events:@calendar_blocks) do |date, blocks| %>
-    <%= date.strftime('%-d') %>  
-    <div class='pull-right'>
-      #available: <%= CalendarBlock.instructors_available(date).count %> 
+    <div class='day-summary'>
+        <div class='pull-left date-number'>
+          <%= date.strftime('%-d') %>  
+        </div>
+        <div class='pull-right'>
+          <em> Instructors Available:</em> <%= CalendarBlock.instructors_available(date).count %> <br>
+          <em> Outsanding Requests:</em> <%= Lesson.open_lesson_requests_on_day(date).count %>
+        </div>
     </div>
-    <% blocks.sort{|a,b| b.state <=> a.state}.each do | block | %>        
-    <div class='admin-calendar-day' >
-      <% if block.state == "Booked" %>
-        <%= link_to 'See Lesson Details', lesson_path(Lesson.where(instructor_id:block.instructor_id,lesson_time_id:block.lesson_time_id).first), method: :get, class: "btn btn-xs btn-default" %>
-        <% else %>
-      <%= link_to block.instructor.name, individual_availability_path(block.instructor.id), method: :get, id: block.id  %>
-      <% end %>
-
+    <div class="row">
+    <% blocks.sort!{|a,b| a.state <=> b.state}.each do | block | %>        
+          <% if block.state == "Booked" %>
+              <%= link_to block.lesson.short_title, lesson_path(block.lesson.id).first, method: :get, class: "btn btn-xs btn-success" %>
+            <% else %>
+              <div class='admin-calendar-day' >
+                <%= link_to block.instructor.first_name, individual_availability_path(block.instructor.id), method: :get, id: block.id, class: "btn btn-xs btn-primary"  %>
+              </div>
+          <% end %>
+    <% end %>
+    <% Lesson.open_lesson_requests_on_day(date).each do |lesson| %>
+        <%= link_to lesson.short_title, lesson_path(lesson.id), method: :get, class: "btn btn-xs btn-warning" %>    
     <% end %>
     </div>
   <% end %>
 </div>
+
 <div class="buffer"></div>
 
 <section id="mobile-view" class="hidden-unless-mobile">

@@ -10,6 +10,10 @@ class CalendarBlock < ActiveRecord::Base
 		self.date
 	end
 
+	def lesson
+		Lesson.where(instructor_id:self.instructor_id,lesson_time_id:self.lesson_time_id).first
+	end
+
 	def set_prime_day
 		if HW_HOLIDAYS.include?(self.date.to_s)
 			self.prime_day = true
@@ -85,15 +89,14 @@ class CalendarBlock < ActiveRecord::Base
 	end
 
 	def toggle_availability
-		case self.state
-			when 'Booked'
-				return true
-			when 'Available'
-				self.state = 'Not Available'
-			when 'Not Available'
-				self.state = 'Available'
+		if self.state == "Available"
+			self.state = "Not Available"
+			self.save
+		elsif self.state == "Not Available"
+			self.state = "Available"
+			self.save
 		end
-		self.save
+		self.state
 	end
 
 	def self.instructors_available(date)
