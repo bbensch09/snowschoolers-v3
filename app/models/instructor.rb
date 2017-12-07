@@ -188,8 +188,8 @@ class Instructor < ActiveRecord::Base
   end
 
   def to_param
-        # [name.parameterize,id].join("-")
-      name.parameterize
+      [id,name.parameterize].join("-")
+      # name.parameterize
   end
 
   # Hacky flag -- may want to remove this
