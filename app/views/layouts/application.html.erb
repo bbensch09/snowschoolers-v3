@@ -145,19 +145,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <header id="header">
   <div class="container">
-  <h2>
-    <%= link_to raw("<strong>SNOW</strong><span class='schoolers'>SCHOOLERS</span>"), root_path, class: 'logo' %>
+    <h2>
+      <%= link_to raw("<strong>SNOW</strong><span class='schoolers'>SCHOOLERS</span>"), root_path, class: 'logo' %>
 
-  <!-- <%= link_to image_tag("https://s3.amazonaws.com/snowschoolers/SNOW+SCHOOLERS-logo-2017.jpeg", class:"ss-logo"), root_path, class: 'logo' %> -->
+    <!-- <%= link_to image_tag("https://s3.amazonaws.com/snowschoolers/SNOW+SCHOOLERS-logo-2017.jpeg", class:"ss-logo"), root_path, class: 'logo' %> -->
 
-  <ul id="topOptions">
-      <li>
-        <button class="btn btn-mobile hidden-unless-mobile" data-toggle="collapse" data-target=".nav-collapse">
-          <i class="fa fa-bars"></i>
-        </button>
-      </li>
-    </ul>
-  </h2>
+      <ul id="topOptions">
+        <li>
+          <button class="btn btn-mobile hidden-unless-mobile" data-toggle="collapse" data-target=".nav-collapse">
+            <i class="fa fa-bars"></i>
+          </button>
+        </li>
+      </ul>
+    </h2>
 
     <div class="nav-collapse hidden-unless-desktop nav-main-collapse pull-right">
       <nav class="nav-main">
@@ -179,7 +179,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <% elsif current_user %>
             <% name = current_user.email.present? ? current_user.email : 'Edit Profile' %>
             <% if current_user.instructor.nil? %>
-                <li><%= link_to name, "#", class: "sign-up-btn" %></li>
+                <li><%= link_to name, "#", id: "email-btn" %></li>
                 <li><a href="/lessons" class="sign-up-btn"> My Lessons</a></li>
                 <!-- <li><%= link_to 'Calendar', '/calendar', class: 'sign-up-btn' %></li> -->
               <li><a href="/blog" target="_blank" class="sign-up-btn">Blog</a></li>
@@ -195,7 +195,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <li><%= link_to name, "#", class: "nav-email-noaction" %></li>
             <% end %>
             </li>
-            <li> <%= link_to 'Logout', destroy_user_session_path, class: "sign-up-btn" %> </li>
+            <li> <%= link_to 'Logout', destroy_user_session_path, class: "email-btn" %> </li>
           <% else %>
             <% if params[:date] && params[:slot] %>
               <li>
@@ -256,6 +256,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 </div>
+
 <!-- Login Modal -->
 <div class="modal" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel">
   <div class="modal-dialog" role="document">

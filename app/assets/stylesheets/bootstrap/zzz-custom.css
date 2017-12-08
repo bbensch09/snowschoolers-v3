@@ -59,6 +59,10 @@ div.maximage-controls #slider_prev:hover {
 }
 .continue-to-payment-btn{
   background-color: #F25F5C;
+  color: white !important;
+}
+.continue-to-payment-btn:hover{
+  background-color: rgb(223, 86, 86);
 }
 .sign-up-btn, #email-btn {
   color: #eee;
@@ -213,7 +217,18 @@ div.maximage-controls #slider_prev:hover {
 
 .remove-student {
   color: rgb(141, 18, 18);
-  font-size: 10px;
+  font-size: 12px;
+}
+#rememberme{
+  float: none;
+  margin-right: 5px;
+}
+.term-checkbox{
+  display: flex;
+  justify-content: left;
+}
+.remove-student:hover {
+  color: rgb(192, 24, 24);
 }
 
 #lesson_objectives {

@@ -1,27 +1,27 @@
 <div class='nested-fields student-box'>
   <%= f.inputs do %>
     <div class='row'>
+      <div class='remove-student'>(<%= link_to_remove_association "Remove Student", f, class: 'remove-student' %>)</div>
       <div class='col-md-6'>
-        <label>Student Name</label>
-        <span class='remove-student'>(<%= link_to_remove_association "Remove Student", f, class: 'remove-student' %>)</span>
+        <label class="lesson-label">Student Name</label>
         <%= f.input :name, placeholder: "Full name of student", label: false %>
       </div>
       <div class='col-md-3'>
-        <label>Age</label>
+        <label class="lesson-label">Age</label>
         <%= f.input :age_range, as: :string, label: false %>
       </div>
       <div class='col-md-3'>
-        <label>Gender</label>
+        <label class="lesson-label">Gender</label>
         <%= f.input :gender, as: :select, collection: ['Male', 'Female'], include_blank: 'Gender', :input_html => { :class => 'gender'}, label: false %>
       </div>
     </div>
     <div class='row'>
       <div class='col-md-12'>
-        <label>About the student</label>
+        <label class="lesson-label">About the student</label>
         <%= f.input :relationship_to_requester, as: :select, collection: ['I am the student.', 'Student is a friend.', 'Student is my significant other.','Student is my child.'], selected: 'I am the student.', include_blank: 'How is this student related to you?', :input_html => { :class => 'relationship-student'}, label: false %>
       </div>
       <div class='col-md-12'>
-            <label>Ability level </label>
+            <label class="lesson-label">Ability level </label>
             <%= f.input :most_recent_level, as: :select, collection:
               ["Level 1 - first-time ever, no previous experience.",
               "Level 2 - can safely stop on beginner green circle terrain.",
