@@ -683,6 +683,7 @@ div.mc-image {
 	display:block;
 	position:relative;
 	background-color:#fff;
+	margin-top: 15px;
 	padding:15px;
 }
 #middle .page-header {

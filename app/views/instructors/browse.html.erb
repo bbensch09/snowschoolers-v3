@@ -1,56 +1,59 @@
 <% title 'Browse Ski Instructor Profiles' %>
 <% meta_tag :description, "Browse instructor profiles, read reviews, and book a lesson instantly with an instructor you can trust." %>
 
-<div class="container">
+<div id="middle" class="container">
+  <div class="white">
+    
+    <div id="" class="container">
 
-<h1 class="center navy-text">Browse Instructors</h1>
-<div class="col-md-12">
-  <hr class="deposit-hr-navy">
-</div>
-<div class="col-md-12">
-    <% @instructors.each do |instructor| %>
-      <div class="col-md-4 col-lg-4 col-xs-12 instructor-box">
-        <h2 class="center instructor-name">
-          <%= link_to instructor.name, instructor %>
-        </h2>
-        <div class="square-image">
-          <% if instructor.avatar.nil? %>
+      <div class="col-md-12">
+        <hr class="deposit-hr-navy">
+      </div>
+      <h1 class="center navy-text">Browse Instructors</h1>
+      <div class="col-md-12">
+        <% @instructors.each do |instructor| %>
+        <div class="col-md-4 col-lg-4 col-xs-12 instructor-box">
+          <h2 class="center instructor-name">
+            <%= link_to instructor.name, instructor %>
+          </h2>
+          <div class="square-image">
+            <% if instructor.avatar.nil? %>
             <img src="assets/cd-sillouhete.jpg" class="instructor-photo img-circle">
-          <% else %>
+            <% else %>
             <%= image_tag instructor.avatar.url(:large), alt:"avatar-img", class:"img-circle instructor-photo avatar-center" %>
-          <%end%>
-        </div>
-        <div class="sport-icons center">
-        <% if instructor.ski_instructor? %>
-        <img src= "/assets/skier-icon.ico" class="icons">
-        <% end %>
-        <% if instructor.snowboard_instructor? %>
-        <img src= "/assets/snowboarder-icon.png" class="icons">
-        <% end %>
-        <% if instructor.telemark_instructor? %>
-        <img src= "/assets/telemark-icon.png" class="tele-icon">
-        <% end %>
-        </div>
-        <ul class="browse-attributes">
-          <li>
-          <% instructor.sports[0...-1].each do |sport| %>
-            <%= sport.name %> &
+            <%end%>
+          </div>
+          <div class="sport-icons center">
+            <% if instructor.ski_instructor? %>
+            <img src= "/assets/skier-icon.ico" class="icons">
             <% end %>
-            <%= instructor.sports.last.name %>
+            <% if instructor.snowboard_instructor? %>
+            <img src= "/assets/snowboarder-icon.png" class="icons">
+            <% end %>
+            <% if instructor.telemark_instructor? %>
+            <img src= "/assets/telemark-icon.png" class="tele-icon">
+            <% end %>
+          </div>
+          <ul class="browse-attributes">
+            <li>
+              <% instructor.sports[0...-1].each do |sport| %>
+              <%= sport.name %> &
+              <% end %>
+              <%= instructor.sports.last.name %>
             </li>
-          <li>
-            <h4>
-              <div class="star-rating" data-score= <%= ((instructor.average_rating*10).round/10.0) %> >
-              <span class="pull-right review-count"><%= link_to "(#{instructor.reviews.count} reviews)", instructor %></span>
-            </h4>
-           </li>
-          <li><%= instructor.age %> years old, from <%= instructor.city %>
-          <li><b>Certification(s):</b> <%= instructor.certification %> </li>
-          <li><b> About <%= instructor.first_name %>:</b> <%= instructor.city %></li>
-          <% if instructor.bio %>
-          <li><%= instructor.bio[0..200].gsub(/\s\w+$/,'...') %> </li>
-          <% end %>
-        </ul>
+            <li>
+              <h4>
+                <div class="star-rating" data-score= <%= ((instructor.average_rating*10).round/10.0) %> >
+                  <span class="pull-right review-count"><%= link_to "(#{instructor.reviews.count} reviews)", instructor %></span>
+                </h4>
+              </li>
+              <li><%= instructor.age %> years old, from <%= instructor.city %></li>
+              <li><b>Certification(s):</b> <%= instructor.certification %> </li>
+              <li><b> About <%= instructor.first_name %>:</b> <%= instructor.city %></li>
+              <% if instructor.bio %>
+              <li><%= instructor.bio[0..200].gsub(/\s\w+$/,'...') %> </li>
+              <% end %>
+            </ul>
        <!--  <ul class="instructor-resorts">
           <% instructor.locations[0..3].each do |location| %>
             <li><%= location.name %></li>
@@ -59,15 +62,20 @@
         <h3 class="center"><a href="/new_request/<%=instructor.to_param%>" class="btn sign-up-btn">Book a lesson with <%=instructor.first_name %> </a></h3>
         <!-- <h3 class="center"><a href="/start_conversation/<%=instructor.id%>" class="btn btn-chat">Chat with <%=instructor.first_name %> </a></h3> -->
       </div>
-    <% end %>
+      <% end %>
+    </div>
 
+  </div>
 </div>
 <script>
-    $('.star-rating').raty({
-      path: '/assets/',
-      readOnly: true,
-      score: function() {
-            return $(this).attr('data-score');
+  $('.star-rating').raty({
+    path: '/assets/',
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
     }
   });
 </script>
+
+</div>
+</div>
