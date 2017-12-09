@@ -179,7 +179,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <% elsif current_user %>
             <% name = current_user.email.present? ? current_user.email : 'EDIT PROFILE' %>
             <% if current_user.instructor.nil? %>
-                <li><%= link_to name.uppercase, "#", id: "email-btn" %></li>
+                <li><%= link_to name, "#", id: "email-btn" %></li>
                 <li><a href="/lessons" class="sign-up-btn"> LESSONS</a></li>
                 <!-- <li><%= link_to 'Calendar', '/calendar', class: 'sign-up-btn' %></li> -->
               <li><a href="/blog" target="_blank" class="sign-up-btn">BLOG</a></li>
@@ -192,7 +192,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <li><%= link_to 'CALENDAR', '/calendar', class: 'sign-up-btn' %></li>
                 <li><%= link_to 'PROFILE', '/profile', class: 'sign-up-btn' %></li>
               <% else %>
-                <li><%= link_to name.uppercase, "#", class: "nav-email-noaction" %></li>
+                <li><%= link_to name, "#", class: "nav-email-noaction" %></li>
             <% end %>
             </li>
             <li> <%= link_to 'Logout', destroy_user_session_path, class: "email-btn" %> </li>
