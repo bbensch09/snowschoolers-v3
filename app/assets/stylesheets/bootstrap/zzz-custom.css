@@ -1,7 +1,7 @@
 
 .logo, .logo:visited {
   color: #fff;
-  font-size: 25px;
+  font-size: 35px;
   margin-top: 17px;
   height: 30px;
 }
@@ -45,29 +45,46 @@ div.maximage-controls #slider_prev:hover {
   height:35px; line-height:35px;
   margin-top: 12px;
   font-weight: 100;
+  font-size: 1.1em;
 }
 
-#header ul.nav li a.sign-up-btn {
-  padding: 5px;
+#header ul.nav li a.sign-up-btn, #email-btn {
   color: #eee;
   font-family: 'Palanquin', sans-serif;
 }
 
-#header ul.nav li a.sign-up-btn:hover {
+#header ul.nav li a.sign-up-btn:hover, #email-btn:hover {
   background-color: transparent;
   color: #fff;
 }
-
-.sign-up-btn {
+.continue-to-payment-btn{
+  background-color: #F25F5C;
+  color: white !important;
+}
+.continue-to-payment-btn:hover{
+  background-color: rgb(223, 86, 86);
+}
+.sign-up-btn, #email-btn {
   color: #eee;
 }
 
-.sign-up-btn:hover {
+.sign-up-btn:hover, #email-btn:hover {
   color: #fff;
 }
 
 .btn-info:hover {
   background-color: #65CFEE;
+}
+
+#new_user{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#new_user input{
+  width: 100%;
+  padding: 10px;
 }
 
 #header ul.nav li:hover>a {
@@ -192,15 +209,20 @@ div.maximage-controls #slider_prev:hover {
   margin-top: 20px;
 }
 
-.student-box {
-  border: 1px solid rgb(216, 216, 216);
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
 .remove-student {
   color: rgb(141, 18, 18);
-  font-size: 10px;
+  font-size: 12px;
+}
+#rememberme{
+  float: none;
+  margin-right: 5px;
+}
+.term-checkbox{
+  display: flex;
+  justify-content: left;
+}
+.remove-student:hover {
+  color: rgb(192, 24, 24);
 }
 
 #lesson_objectives {
