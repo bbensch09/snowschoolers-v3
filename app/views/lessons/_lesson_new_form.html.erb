@@ -1,10 +1,12 @@
 <%= semantic_form_for @lesson do |f| %>
   <div class="lesson-form-container">
- 
+
       <div class="new-lesson-pricing-container">
 
         <%= render partial: "welcome/prices_simple" %>
       </div>
+
+      <hr class="deposit-hr-navy hidden-unless-mobile">
 
       <% if alert %>
         <div id="alert2" class="alert alert-danger alert-dismissible fade in" role="alert">
@@ -18,23 +20,22 @@
       <div class="new-lesson-caption">
 
         <div class="block">
-          <h1 class="center mobile-book-cta">BOOK YOUR LESSON TODAY</h1>
+          <h3 class="center mobile-book-cta">BOOK YOUR LESSON TODAY</h3>
         </div>
 
         <div class="block">
         </div>
-        <h1 class="warning">        
+        <h1 class="warning">
           <%= f.semantic_errors :lesson %>
           <%= f.semantic_errors :instructor %>
         </h1>
-        <div class="block inputs">
+        <div class="block inputs form-inputs">
             <div class="col-md-2">
               <%= f.input :activity, as: :select, collection: ['Ski', 'Snowboard'], selected:@activity, include_blank: 'Lesson Type', label: false %>
-            </div>            
+            </div>
 
             <div class="col-md-3">
-              <!-- %= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase},  include_blank: 'Location', label: false %> -->
-              <%= f.collection_select :requested_location, Location.active_partners.sort_by { |location| location.name.downcase}, :id, :name, {prompt:'Location'}, {class:'form-control', include_blank: 'Location', required: true, label: false} %>
+              <%= f.collection_select :requested_location, Location.active_partners.sort_by { |location| location.name.downcase}, :id, :name, {prompt:'Location'}, {class:'form-control form-group', include_blank: 'Location', required: true, label: false} %>
             </div>
             <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
               <div class="col-md-2">
@@ -43,7 +44,6 @@
               </div>
 
               <div class="col-md-3 time-slot-input">
-                <!-- <%= lt_f.input :slot, as: :select, collection: ['Morning', 'Afternoon', 'Full Day'], include_blank: 'Time', label: false %> -->
                 <%= lt_f.input :slot, as: :select, collection: ['Early Bird (9-10am)', 'Half-day Morning (10am-1pm)', 'Half-day Afternoon (1pm-4pm)', 'Full-day (10am-4pm)'], selected: @slot, include_blank: 'Time', label: false %>
               </div>
               <% if current_user.nil? %>
@@ -57,10 +57,10 @@
 
         <%= f.input :state, as: :hidden, input_html: { value: 'new' } %>
         <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
-    <div class="row clear-both">
+    <div id="get-started-form-button" class="row clear-both">
         <h1 class="new-lesson-ctas-list center">
               <!-- %= f.action :submit, as: :input, button_html: { class: 'btn btn-default btn-lg', value: 'Book Lesson' } %> -->
-              <%= f.action :submit, :label => "GET STARTED", as: :input, button_html: { class: 'btn btn-default btn-lg' } %>
+              <%= f.action :submit, :label => "GET STARTED", as: :input, button_html: { class: 'btn btn-lg btn-primary' } %>
                 <% if @instructor_requested.nil? %>
                 <!-- <li>  OR </li> -->
                 <!-- <li> <button id='browser-instructors-cta' href="/browse" value="Browse Instructors" class="btn btn-default btn-lg">Browse instructors</button></li> -->
@@ -70,7 +70,7 @@
 
 
       </div>
-          
+
 <!--       <% if @instructor_requested %>
         <div class="selected-instructor-container">
             <p>
@@ -104,7 +104,7 @@
               </div>
             </p>
         </div>
-    <% end %>    --> 
+    <% end %>    -->
 
   </div>
 

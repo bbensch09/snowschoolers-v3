@@ -19,6 +19,7 @@
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #3b5998;
 }
 /* makes the font 33% larger relative to the icon container */
 .fa-lg {
@@ -31,6 +32,7 @@
 }
 .fa-3x {
   font-size: 3em;
+  color: #3b5998;
 }
 .fa-4x {
   font-size: 4em;

@@ -1,7 +1,7 @@
 <header class="page-header">
-  <h2>Full Lesson Details</h2>
+  <h2 id="lesson-details-header">Full Lesson Details</h2>
 </header>
-<p>Requester: <%= @lesson.requester ? @lesson.requester.name : @lesson.guest_email %>
+<p class="lesson-summary-info">Requester: <%= @lesson.requester ? @lesson.requester.name : @lesson.guest_email %>
 <br>Contact Email: <%= @lesson.requester ? @lesson.requester.email : @lesson.guest_email %>
 <% if @lesson.instructor %>
   <br> Instructor: <%= @lesson.instructor.name %>
@@ -21,13 +21,13 @@
 <br> Tip Amount: <%= number_to_currency(@lesson.tip) %>
 <% end %>
 </p>
-<div class='row'>
+<div id='full-details-container'>
   <%if @lesson.public_feedback_for_student %>
       <%= render partial: 'lessons/confirmed_time_and_feedback' %>
   <% end %>
 
-  <div class="col-md-6">
-    <h3>Basic <strong>Info</strong></h3>
+  <div>
+    <h3>Basic Info</h3>
 
     <div class='row'>
 
@@ -65,8 +65,8 @@
 
   </div>
 
-  <div class="col-md-6">
-    <h3>Objectives <strong> and Experience</strong></h3>
+  <div>
+    <h3>Objectives and Experience</h3>
 
     <div class='col-md-12'>
       <h4><b>Focus Area:</b></h4>
@@ -101,10 +101,7 @@
        <br>
         </h4>
       </div>
-    </div>
-    <hr>
-  <% end %>
-</div>
-
-
+      <hr>
+    <% end %>
+  </div>
 </div>

@@ -128,7 +128,7 @@ class Instructor < ActiveRecord::Base
         })
     end
     Instructor.all.each do |instructor|
-        instructor.sport_ids =  [[1,3],[1],[3]].sample
+        instructor.sport_ids =  [[1,2],[1],[2]].sample
         instructor.save!        
     end
   end

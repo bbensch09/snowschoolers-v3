@@ -23,63 +23,63 @@
           <div class="col-md-12 vertical-padding">
           <h4> ADMIN ONLY: Select user email to assign this lesson to a new requester.</h4>
               <div class="col-md-4">
-                <label> Assign to User: </label> <br>
+                <label class="lesson-label"> Assign to User: </label> <br>
                 <%= f.select :requester_id, options_from_collection_for_select(User.all.sort {|a,b| a.username_for_admin <=> b.username_for_admin}, :id, :username_for_admin, selected:@lesson.requester_id), include_blank:true %>
 
               </div>
               <div class="col-md-4">
-                <label>Number of Days</label>
+                <label class="lesson-label">Number of Days</label>
                 <%= f.input :num_days, as: :string, placeholder: "How many consecutive days?", label: false %>
               </div>
             <div class="col-md-4">
-                <label>Includes a lift ticket and/or rental package?</label>
+                <label class="lesson-label">Includes a lift ticket and/or rental package?</label>
                 <%= f.input :includes_lift_or_rental_package, as: :radio, :collection=> [true, false], label: false %>
             </div>
           </div>
           <div class="row">
             <div class="col-md-4">
-                <label>Is gift voucher?</label>
+                <label class="lesson-label">Is gift voucher?</label>
                 <%= f.input :is_gift_voucher, as: :radio, :collection=> [true, false], label: false %>
             </div>
             <div class="col-md-4">
-                <label>Gift Recipient Name</label>
+                <label class="lesson-label">Gift Recipient Name</label>
                 <%= f.input :gift_recipient_name, as: :string, placeholder: "Full Name", label: false %>
             </div>
             <div class="col-md-4">
-                <label>Gift Recipient Email</label>
+                <label class="lesson-label">Gift Recipient Email</label>
                 <%= f.input :gift_recipient_email, as: :string, placeholder: "Email", label: false %>
             </div>
           </div>
           <div class="row">
             <div class="col-md-6">
-                <label>Package info</label>
+                <label class="lesson-label">Package info</label>
                 <%= f.input :package_info, as: :text, placeholder: "Includes one adult lift ticket for $64", label: false %>
             </div>
             <div class="col-md-2">
-              <label>Direct Lesson Cost</label>
+              <label class="lesson-label">Direct Lesson Cost</label>
               <%= f.input :lesson_cost, as: :string, placeholder: "Enter custom price", label: false %>
             </div>
             <div class="col-md-2">
-              <label>Non-Lesson Cost</label>
+              <label class="lesson-label">Non-Lesson Cost</label>
               <%= f.input :non_lesson_cost, as: :string, placeholder: "Enter custom price", label: false %>
             </div>
             <div class="col-md-2">
-              <label>Total Price</label>
+              <label class="lesson-label">Total Price</label>
               <%= f.input :lesson_price, as: :string, placeholder: "Enter custom price", label: false %>
             </div>
           </div>
         </div>
-      <% end %>
-      <% if current_user.nil? || current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" %>
+    <% end %>
+    <% if current_user.nil? || current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" %>
       <div class='row'>
         <div class="col-md-6">
-          <h4>Book as a <strong>Guest</strong> | Or <a href="#" class="btn btn-default" data-toggle="modal" data-target="#loginModal">Sign-in to your Account</a></h4>
-              <label>Email</label>
+          <h4>Book as a <strong>Guest</strong> | Or <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Sign-in to your Account</a></h4>
+              <label class="lesson-label">Email</label>
               <%= f.email_field :guest_email, placeholder: "email@example.com", class: "form-control", type: 'email', required:true, label: false %>
         </div>
       </div>
       <% end %>
-      <div class='row'>
+      <div class='row update-lesson-form'>
         <div class="col-md-6">
           <h4>Basic <strong>Info</strong></h4>
 
@@ -91,20 +91,20 @@
             </div>
 
             <div class="col-md-6">
-              <label>Location</label>
+              <label class="lesson-label">Location</label>
                 <%= f.collection_select :requested_location, Location.active_partners.sort_by { |location| location.name.downcase}, :id, :name, {}, {class:'form-control', include_blank: 'Location', required: true, label: false} %>
             </div>
           </div>
           <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
             <div class='row'>
               <div class="col-md-4">
-                <label>Date</label>
+                <label class="lesson-label">Date</label>
                 <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker' }, placeholder: 'Pick a date', label: false %>
                 <span class="search-area-icon"></span>
               </div>
 
               <div class="col-md-4">
-                <label>Slot</label>
+                <label class="lesson-label">Slot</label>
                 <%= lt_f.input :slot, as: :select, collection: SLOTS, include_blank: 'Time', label: false %>
 
               </div>
@@ -120,18 +120,19 @@
                 <%= f.text_field :requester_name, value: @lesson.requester_name, class: "form-control", required: true, label: false %>
               </div>
               <div class="col-md-6">
-                <label>Cell Phone</label> <span class="text-smaller">(Shared only with your instructor).</span>
+                <label class="lesson-label">Cell Phone<span class="lesson-label-small"> (Shared only with your instructor)</span></label>
                 <%= f.text_field :phone_number, placeholder: 'xxx-xxx-xxxx', class: 'form-control', required:true, include_blank:false %>
               </div>
             </div>
 
           <div class='row'>
             <div class="col-md-6">
+
 <!--               <label>Do you have equipment?</label>
-              <%= f.input :gear, as: :select, collection: [['Yes, I already have my equipment.', true], ['No, I will need to rent equipment.', false]], include_blank: '(Skis,boots,etc.)', label: false, required:true %>
- -->            </div>
+              <%= f.input :gear, as: :select, collection: [['Yes, I already have my equipment.', true], ['No, I will need to rent equipment.', false]], include_blank: '(Skis,boots,etc.)', label: false, required:true %>  -->
+             </div>
             <div class="col-md-6">
-              <label>Have a lift ticket or pass?</label>
+              <label class="lesson-label">Have a lift ticket or pass?</label>
               <%= f.input :lift_ticket_status, as: :select, collection: [['Yes, I have one.', true], ['No, I still need one.', false]], include_blank: 'Choose one', label: false, required:true %>
             </div>
 
@@ -182,20 +183,20 @@
           <h4>Lesson  <strong> Objectives</strong></h4>
 
 <!--           <div class='col-md-12'>
-            <label>If you had to choose one focus area for this lesson, what would it be?</label>
+            <label class="lesson-label">If you had to choose one focus area for this lesson, what would it be?</label>
             <%= f.input :focus_area, as: :select, collection: ['Basics (for beginners and intermediates)','Advanced Racing Technique', 'Moguls','Terrain Park','Powder Skiing','Big-Mountain Skiing'], include_blank: 'Select a focus area', input_html: {class: 'width100'}, required: false, label: false %>
           </div> -->
          <div class='col-md-12'>
-            <label>What is your primary objective for the lesson? <br> Is there anything specific you want your instructor to know?</label>
+            <label class="lesson-label">What is your primary objective for the lesson? <br> Is there anything specific you want your instructor to know?</label>
             <%= f.input :objectives, placeholder: 'i.e. my child has a fear of heights, my child has special needs, I tore my ACL three years ago, etc.', required: false, label: false %>
           </div>
           <div class="col-md-12">
-            <label>How did you first hear about Snow Schoolers?</label>
+            <label class="lesson-label">How did you first hear about Snow Schoolers?</label>
             <%= f.select :how_did_you_hear, [['From a friend',1],['Facebook',2],['Google',3],['I took a previous lesson',10],['From a postcard',4],['From someone at Homewood',5],['Tahoe Daves',6],['Ski Butlers',7],['Yelp',8],['Snowglers',9],['Other',100]], {}, {class: 'form-control', required:true, include_blank:false} %>
           </div>
-          <div class="col-md-12">
+          <div class="col-md-12 term-checkbox">
             <span class="remember-box checkbox ">
-              <label for="rememberme">
+              <label for="rememberme" class="lesson-label">
                   <%= f.check_box :terms_accepted, id: "rememberme", required: true  %>I agree to the <span><a href="/terms_of_service" target="_blank">Terms and Conditions</a></span>
               </label>
             </span>
@@ -212,7 +213,7 @@
           </div>
           <div class="col-md-3">
             <%= f.input :state, as: :hidden, input_html: { value: @state } %>
-            <%= f.submit button_text, class: 'btn sign-up-btn pull-right' %>
+            <%= f.submit button_text, class: 'btn sign-up-btn pull-right continue-to-payment-btn' %>
           </div>
 
         </div>
@@ -240,6 +241,6 @@
 </div> -->
 
 <ul id="slider" class="mc-cycle" style="display: block; height: 100%; width: 100%;">
-    <div class="mc-image bg-photo" title="background photo" style="background-image: url('https://s3.amazonaws.com/snowschoolers/images/demo/slider/thredbo-village-resort-hero.jpg'); height: 100%; width: 100%;" data-href=""    
+    <div class="mc-image bg-photo" title="background photo" style="background-image: url('https://s3.amazonaws.com/snowschoolers/images/demo/slider/thredbo-village-resort-hero.jpg'); height: 100%; width: 100%;" data-href=""
     </div>
 </ul>

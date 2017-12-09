@@ -1,3 +1,7 @@
+.lesson-summary-info{
+  text-align: left;
+  margin-left: 50px;
+}
 .medium-text p{
   font-size: 1.5em;
 }
@@ -35,6 +39,19 @@
   display: inline-block;
   list-style-type: none;
 }
+.update-lesson-form{
+  display: flex;
+  align-items: flex-end;
+}
+.lesson-label{
+  padding-left: 3px;
+  width: 100%;
+  text-align: left;
+}
+.lesson-label-small{
+  font-size: 10px;
+  font-weight: lighter;
+}
 #browser-instructors-cta, #lesson_submit_action{
   position: relative !important;
 }
@@ -55,6 +72,53 @@
 }
 .nonrefundable_disclaimer{
   font-size: 0.8em;
+}
+#booking-details-container{
+  display: flex;
+  justify-content: center;
+}
+.booking-details-labels{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  border-bottom: 2px solid black;
+  padding: 20px;
+}
+.booking-details-labels p{
+  font-size: 15px;
+  margin-bottom: 5px;
+  line-height: 0;
+}
+.booking-details{
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-top: 2px solid black;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  padding: 20px;
+  margin-left: 0;
+}
+.booking-details p{
+  font-size: 15px;
+  margin-bottom: 5px;
+  line-height: 0;
+}
+.info-container{
+  display: flex;
+
+}
+#lesson-details-header{
+  text-align: center;
+}
+#full-details-container{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 40px;
 }
 .duration-and-feedback{
   display:block;
@@ -92,6 +156,26 @@
 
 /*MOBILE ADJUSTMENTS*/
 @media (max-width: 768px) {
+
+.lesson-summary-info{
+  word-wrap: break-word;
+  font-size: 1.3em;
+  margin-left: 10px;
+}
+.booking-details-labels {
+  align-items: center;
+}
+.booking-details-labels p {
+    font-size: 14px;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+.booking-details p {
+    font-size: 14px;
+    margin-bottom: 5px;
+    line-height: 1;
+}
+
 .instructors-table{
   padding: 2 2 2 2px;
   border: 1px solid gray;
