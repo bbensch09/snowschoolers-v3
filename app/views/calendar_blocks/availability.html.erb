@@ -1,4 +1,5 @@
-<div class="container"></div>
+<div id="middle" class="container calendar-container">
+  <div class="white">
 <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner")  %>
   <h2 id='instructor-availability' class='center'>
       CALENDAR for <%= @instructor.name %> <%= link_to 'Admin Calendar', admin_calendar_path, method: :get, class: "btn btn-default"%>
@@ -67,3 +68,5 @@
 <div id="calendar"></div>
 
 </section>
+</div>
+</div>

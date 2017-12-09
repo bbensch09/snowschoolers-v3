@@ -1,4 +1,6 @@
-<div class="container">
+<div id="middle" class="container">
+  <div class="white">
+
 <h1>Admin View: All Users & Access Types</h1>
 <h4>Total user count: <%= User.count %> </h4>
 <h4>Resort Partners: <%= User.where(user_type:"Partner").count %> </h4>
@@ -34,4 +36,5 @@
 </table>
 
 
+</div>
 </div>
