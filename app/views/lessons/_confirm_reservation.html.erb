@@ -9,12 +9,26 @@
               </div>
             <% end %>
             <h1>Authorize Payment to Secure your Reservation</h1>
-            <div class="row confirm-reservation">
-              <div class='col-md-3 col-xs-12'>
-                  <h4><b>Lesson Date:</b></h4>
-              </div>
-              <div class='colm-md-9 col-xs-9'>
-                <h4>
+            <div id="booking-details-container">
+              <h4 class="booking-details-labels">
+                <p><b>Lesson Date:</b></p>
+                <br>
+                <% if @lesson.num_days && @lesson.num_days > 1 %>
+                  Number of consecutive days:
+                <% end %>
+                <p><b>Lesson Time:</b></p>
+                <br>
+                <p><b>Meeting Location:</b></p>
+                <br>
+                <p><b>Price:</b></p>
+                <br>
+                <%if @lesson.includes_lift_or_rental_package? || @lesson.is_gift_voucher? %>
+                <p><b>Description:</b></p>
+                <br>
+                <% end %>
+              <%= link_to 'Edit Lesson', edit_lesson_path(@lesson), class: "btn btn-primary" %>
+              </h4>
+              <h4 class="booking-details">
                 <% if @lesson.is_gift_voucher? %>
                   <p>TBD</p>
                   <br>
@@ -23,48 +37,34 @@
                   <br>
                 <% end %>
                 <% if @lesson.num_days && @lesson.num_days > 1 %>
-                  <em>(<%= @lesson.num_days %> consecutive days)</em>
+                  <p><%= @lesson.num_days %></p>
                 <% end %>
-                </h4>
-              </div>
-              <div class='col-md-3 col-xs-12'>
-                  <h4><b>Lesson Time:</b></h4>
-              </div>
-              <div class='colm-md-9 col-xs-9'>
-                <h4><%= @lesson.lesson_time.slot %></h4>
-              </div>
-              <div class='col-md-3 col-xs-12'>
-                  <h4><b>Meeting Location:</b></h4>
-              </div>
-              <div class='colm-md-9 col-xs-9'>
-                <h4><%= @lesson.location.name %>  (<a href="https://www.google.com/maps/place/<%=@lesson.location.address%>" ><%=@lesson.location.address%></a>)</h4>
-              </div>
-              <div class='col-md-3 col-xs-12'>
-                  <h4><b>Total Price:</b></h4>
-              </div>
-              <div class='colm-md-9 col-xs-9'>
-                <h4>
-                  <% if @lesson.lesson_price.nil? %>
-                    <% amount = @lesson.price.to_i*100 %>
+                  <p><%= @lesson.lesson_time.slot %></p>
+                  <br>
+                  <p><%= @lesson.location.name %>  (<a href="https://www.google.com/maps/place/<%=@lesson.location.address%>" ><%=@lesson.location.address%></a>)</p>
+                  <br>
+              <% if @lesson.lesson_price.nil? %>
+                  <% amount = @lesson.price.to_i*100 %>
+                  <p>
                     <%= number_to_currency(@lesson.price) %>
-                  <% else %>
-                    <%= number_to_currency(@lesson.lesson_price.to_s) %>
-                    <% amount = @lesson.lesson_price.to_i*100 %>
-                  <% end %>
-                </h4>
-              </div>
-              <%= render partial: 'price_details' %>
-              <% if @lesson.package_info %>
-              <div class='col-md-3 col-xs-12'>
-                  <h4><b>Description:</b></h4>
-              </div>
-              <div class='colm-md-9 col-xs-9'>
-                <h4><%= @lesson.package_info %></h4>
-              </div>
+                      <span class="italic text-smaller">
+                      <% if @lesson.additional_students_with_gear > 0 %>
+                        <%= @lesson.additional_students_with_gear %> additional student(s) with rentals for <%= number_to_currency(@lesson.cost_per_additional_student_with_gear) %> each;
+                      <% end %>
+                      <% if @lesson.additional_students_without_gear > 0 %>
+                        <%= @lesson.additional_students_without_gear %> additional student(s) without equipment for <%= number_to_currency(@lesson.cost_per_additional_student_without_gear) %> each;
+                      <% end %>
+                      </span>
+                  </p>
+              <% else %>
+                <p><%= number_to_currency(@lesson.lesson_price.to_s) %></p>
+                <% amount = @lesson.lesson_price.to_i*100 %>
+              <% if @lesson.includes_lift_or_rental_package? || @lesson.is_gift_voucher? %>
+                  <br>
+                  <p><%= @lesson.package_info %></p>
               <% end %>
-            </div>
-            <div class="col-md-12">
-                <%= link_to 'Edit Lesson', edit_lesson_path(@lesson), class: "btn btn-default" %>
+              <% end %>                  
+              </h4>
             </div>
             <div class="col-md-12"
               <label class="amount">
@@ -86,6 +86,7 @@
         </article>
 
         <% end %>
+
 <div class="col-md-12">
   <hr class="deposit-hr-navy">
 </div>
