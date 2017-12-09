@@ -9,41 +9,49 @@
               </div>
             <% end %>
             <h1>Authorize Payment to Secure your Reservation</h1>
-            <div class="col-md-3">
-              <h4>
-                <b>Lesson Date:</b>  <br>
+            <div id="booking-details-container">
+              <h4 class="booking-details-labels">
+                <p><b>Lesson Date:</b></p>
+                <br>
                 <% if @lesson.num_days && @lesson.num_days > 1 %>
                   Number of consecutive days:
                 <% end %>
-                <b>Lesson Time:</b>  <br>
-                <b>Meeting Location:</b> <br>
-                <b>Price:</b> <br>
+                <p><b>Lesson Time:</b></p>
+                <br>
+                <p><b>Meeting Location:</b></p>
+                <br>
+                <p><b>Price:</b></p>
+                <br>
                 <%if @lesson.includes_lift_or_rental_package? || @lesson.is_gift_voucher? %>
-                <b>Description:</b> <br>
+                <p><b>Description:</b></p>
+                <br>
                 <% end %>
-              <%= link_to 'Edit Lesson', edit_lesson_path(@lesson), class: "btn btn-default" %>
+              <%= link_to 'Edit Lesson', edit_lesson_path(@lesson), class: "btn btn-primary" %>
               </h4>
-            </div>
-            <div class="col-md-9">
-              <h4>
+              <h4 class="booking-details">
                 <% if @lesson.is_gift_voucher? %>
-                  TBD <br>
-                  <% else %>
-                  <%= @lesson.lesson_time.date.strftime("%A %b #{@lesson.lesson_time.date.day.ordinalize}, %Y") %> <br>
+                  <p>TBD</p>
+                  <br>
+                <% else %>
+                  <p><%= @lesson.lesson_time.date.strftime("%A %b #{@lesson.lesson_time.date.day.ordinalize}, %Y") %></p>
+                  <br>
                 <% end %>
                 <% if @lesson.num_days && @lesson.num_days > 1 %>
-                  <%= @lesson.num_days %>
+                  <p><%= @lesson.num_days %></p>
                 <% end %>
-                <%= @lesson.lesson_time.slot %> <br>
-                <%= @lesson.location.name %>  (<a href="https://www.google.com/maps/place/<%=@lesson.location.address%>" ><%=@lesson.location.address%></a>) <br>
+                  <p><%= @lesson.lesson_time.slot %></p>
+                  <br>
+                  <p><%= @lesson.location.name %>  (<a href="https://www.google.com/maps/place/<%=@lesson.location.address%>" ><%=@lesson.location.address%></a>)</p>
+                  <br>
               <% if @lesson.lesson_price.nil? %>
-                <% amount = @lesson.price.to_i*100 %>
-                <%= number_to_currency(@lesson.price) %>
+                  <% amount = @lesson.price.to_i*100 %>
+                  <p><%= number_to_currency(@lesson.price) %></p>
               <% else %>
-                <%= number_to_currency(@lesson.lesson_price.to_s) %>
+                <p><%= number_to_currency(@lesson.lesson_price.to_s) %></p>
                 <% amount = @lesson.lesson_price.to_i*100 %>
               <% if @lesson.includes_lift_or_rental_package? || @lesson.is_gift_voucher? %>
-                   <br> <%= @lesson.package_info %>
+                  <br>
+                  <p><%= @lesson.package_info %></p>
               <% end %>
               <% end %>
               </h4>

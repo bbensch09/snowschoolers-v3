@@ -209,12 +209,6 @@ div.maximage-controls #slider_prev:hover {
   margin-top: 20px;
 }
 
-.student-box {
-  border: 1px solid rgb(216, 216, 216);
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
 .remove-student {
   color: rgb(141, 18, 18);
   font-size: 12px;
