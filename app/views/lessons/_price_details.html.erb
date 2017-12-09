@@ -1,0 +1,15 @@
+  <div class='col-md-3 col-xs-12'>
+      <h4><b>Price Details:</b></h4>
+  </div>
+  <div class='colm-md-9 col-xs-9'>
+      <ul>
+        <% if @lesson.additional_students_with_gear > 0 %>
+            <li>Additional students with  equipment: <%= @lesson.additional_students_with_gear %> (<%= number_to_currency(@lesson.cost_per_additional_student_with_gear) %> each)</li>
+        <% end %>
+        <% if @lesson.additional_students_without_gear > 0 %>
+            <li>Additional students without equipment: <%= @lesson.additional_students_without_gear %> (<%= number_to_currency(@lesson.cost_per_additional_student_without_gear) %> each)</li>
+        <% end %>
+        <li>Lift & Rental packages subtotal: <%= number_to_currency(@lesson.package_cost) %></li>
+        <li>Direct lesson cost: <%= number_to_currency(@lesson.product.price) %></li>
+      </ul>
+  </div>

@@ -31,11 +31,28 @@
 	height: 100%;
 }
 .admin-calendar-day{
-	background-color: rgba(59, 89, 152, .7);
+	/*background-color: rgba(59, 89, 152, .7);*/
 	max-height:50px;	
+	display: inline;
+    margin-right: 5px;
 }
 .admin-calendar-day a {
-	color: #fff;
+	color: #fff;	
+}
+.day-summary{
+	width:100%;
+	display: block;
+}
+.date-number{
+	color: #3b5998;
+	font-weight: bold;
+}
+.simple-calendar th{
+	width: 14.1% !important;
+}
+.simple-calendar .day {
+	height: 100px;
+    width: 14vw !important;
 }
 .toggle-availability, .toggle-availability:hover, .toggle-availability:visited, .toggle-availability:focus{
 	color: #fff;

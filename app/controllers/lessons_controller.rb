@@ -38,6 +38,7 @@ class LessonsController < ApplicationController
       @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
       @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
       @todays_lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.today }
+      @wage_rate = current_user.instructor.wage_rate
       elsif current_user.user_type == "Ski Area Partner"
         lessons = Lesson.where(requested_location:current_user.location.id.to_s).sort_by { |lesson| lesson.id}
         @todays_lessons = lessons.to_a.keep_if{|lesson| lesson.date == Date.today && lesson.state != 'new' }
@@ -47,6 +48,7 @@ class LessonsController < ApplicationController
         lessons = Lesson.visible_to_instructor?(current_user.instructor)
         @todays_lessons = lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
         @lessons = Lesson.visible_to_instructor?(current_user.instructor)
+        @wage_rate = current_user.instructor.wage_rate
       else
         @lessons = current_user.lessons
         @todays_lessons = current_user.lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
@@ -99,6 +101,7 @@ class LessonsController < ApplicationController
   def new
     @lesson = Lesson.new
     @promo_location = session[:lesson].nil? ? nil : session[:lesson]["requested_location"]
+    @product_name = session[:lesson].nil? ? nil : session[:lesson]["product_name"]
     @activity = session[:lesson].nil? ? nil : session[:lesson]["activity"]
     @slot = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?) ? nil : session[:lesson]["lesson_time"]["slot"]
     @date = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?)  ? nil : session[:lesson]["lesson_time"]["date"]
@@ -134,6 +137,7 @@ class LessonsController < ApplicationController
   def complete
     @lesson = Lesson.find(params[:id])
     @lesson_time = @lesson.lesson_time
+    @product_name = @lesson.product_name
     @state = 'booked'
     GoogleAnalyticsApi.new.event('lesson-requests', 'load-full-form')
     flash.now[:notice] = "You're almost there! We just need a few more details."
@@ -144,6 +148,21 @@ class LessonsController < ApplicationController
     @lesson = Lesson.find(params[:id])
     @lesson_time = @lesson.lesson_time
     @state = @lesson.instructor ? 'pending instructor' : @lesson.state
+  end
+
+  def reissue_invoice
+    @lesson = Lesson.find(params[:id])
+    @lesson_time = @lesson.lesson_time
+    @lesson.state == "ready_to_book"
+    @lesson.deposit_status = nil
+    @lesson.save
+    render 'edit'
+  end
+
+  def issue_refund
+    @lesson = Lesson.find(params[:id])
+    @lesson_time = @lesson.lesson_time
+    render 'edit'
   end
 
   def confirm_reservation
@@ -182,6 +201,7 @@ class LessonsController < ApplicationController
     @original_lesson = @lesson.dup
     @lesson.assign_attributes(lesson_params)
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
+    @lesson.product_name = @lesson.slot
     unless current_user && current_user.user_type == "Snow Schoolers Employee"
       @lesson.requester = current_user
     end
@@ -280,7 +300,11 @@ class LessonsController < ApplicationController
       c.state = 'Booked'
       c.lesson_time_id = @lesson.lesson_time_id
       c.save
-    LessonMailer.send_lesson_confirmation(@lesson).deliver
+    if @lesson.location.id == 8
+      LessonMailer.send_lesson_hw_confirmation(@lesson).deliver
+    elsif @lesson.location.id == 24
+      LessonMailer.send_lesson_gb_confirmation(@lesson).deliver
+    end
     @lesson.send_sms_to_requester
     redirect_to @lesson
     else
@@ -352,7 +376,7 @@ class LessonsController < ApplicationController
   private
 
   def valid_duration_params?
-     if params[:lesson][:actual_start_time].length == 0  || params[:lesson][:actual_end_time].length == 0
+    if params[:lesson].nil? ||  params[:lesson] == "" || params[:lesson][:product_name].nil? || params[:lesson][:product_name] == "" || params[:lesson][:activity].nil? ||  params[:lesson][:lesson_time][:date].length < 10
       flash[:alert] = "Please confirm start & end time, as well as lesson duration."
       return false
     else
@@ -371,15 +395,13 @@ class LessonsController < ApplicationController
   end
 
   def save_lesson_params_and_redirect
-    # if current_user.nil?
-    #   session[:lesson] = params[:lesson]
-    #   flash[:alert] = 'You need to sign in or sign up before continuing.'
-    #   # flash[:notice] = "The captured params are #{params[:lesson]}"
-    #   redirect_to new_user_registration_path and return
-    # elsif params["commit"] != "Book Lesson"
-    #   session[:lesson] = params[:lesson]
-    # end
-      validate_new_lesson_params
+    puts "!!!!! params are below: #{params}"
+    puts params[:lesson][:activity]
+    puts params[:lesson][:product_name]
+    puts params[:lesson][:lesson_time][:date]
+    puts params[:lesson][:lesson_time][:slot]
+    puts "!!!!!!! end params"
+    validate_new_lesson_params
   end
 
   def create_lesson_from_session
@@ -390,7 +412,7 @@ class LessonsController < ApplicationController
     @lesson = Lesson.new(lesson_params)
     @lesson.requester = current_user
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
-    # @lesson.product_id = Product.where(name:params[:product_name]).first
+    @lesson.product_name = @lesson.lesson_time.slot
     if @lesson.save
       redirect_to complete_lesson_path(@lesson)
       GoogleAnalyticsApi.new.event('lesson-requests', 'request-initiated', params[:ga_client_id])
@@ -450,8 +472,8 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id, :guest_email, :how_did_you_hear, :num_days, :lesson_price, :requester_name, :is_gift_voucher, :includes_lift_or_rental_package, :package_info, :gift_recipient_email, :gift_recipient_name, :lesson_cost, :non_lesson_cost, :product_id, :section_id,
-      students_attributes: [:id, :name, :age_range, :gender, :relationship_to_requester, :lesson_history, :requester_id, :most_recent_experience, :most_recent_level, :other_sports_experience, :experience, :_destroy])
+    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id, :guest_email, :how_did_you_hear, :num_days, :lesson_price, :requester_name, :is_gift_voucher, :includes_lift_or_rental_package, :package_info, :gift_recipient_email, :gift_recipient_name, :lesson_cost, :non_lesson_cost, :product_id, :section_id, :product_name,
+      students_attributes: [:id, :name, :age_range, :gender, :relationship_to_requester, :lesson_history, :requester_id, :most_recent_experience, :most_recent_level, :other_sports_experience, :experience, :_destroy, :needs_rental])
   end
 
   def lesson_time_params

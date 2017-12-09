@@ -72,7 +72,8 @@ class InstructorsController < ApplicationController
 
   # GET /instructors/1/edit
   def edit
-          @instructor_id = Instructor.find(params[:id]).user_id
+        # @instructor_id = Instructor.find(params[:id]).user_id
+        @instructor_id = @instructor.user_id
   end
 
   def thank_you
@@ -138,6 +139,10 @@ class InstructorsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_instructor
       @instructor = Instructor.find(params[:id])
+      # names = params[:id].split("-")
+      # first_name = names.first.titleize
+      # last_name = names.last.titleize
+      # @instructor = Instructor.where(first_name:first_name,last_name:last_name).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

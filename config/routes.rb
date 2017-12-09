@@ -39,7 +39,7 @@ Rails.application.routes.draw do
   post 'set-all-days-available/:id' => 'calendar_blocks#set_all_days_available', as: :set_all_days_available
   post 'set-all-weekends-available/:id' => 'calendar_blocks#set_all_weekends_available', as: :set_all_weekends_available
   post 'block-all-days/:id' => 'calendar_blocks#block_all_days', as: :block_all_days
-  put 'toggle-availability/:id' => 'calendar_blocks#toggle_availability', as: :toggle_availability
+  post 'toggle-availability/:id' => 'calendar_blocks#toggle_availability', as: :toggle_availability
 
   # mount Ckeditor::Engine => '/ckeditor'
   resources :lesson_actions
@@ -180,6 +180,9 @@ Rails.application.routes.draw do
   get   'lessons/:id/complete'            => 'lessons#complete',            as: :complete_lesson
   get   'lessons/:id/send_reminder_sms_to_instructor' => 'lessons#send_reminder_sms_to_instructor',  as: :send_reminder_sms_to_instructor
   post 'lessons/:id/confirm_reservation'              => 'lessons#confirm_reservation', as: :confirm_reservation
+  put 'lessons/:id/issue_refund'              => 'lessons#issue_refund', as: :issue_refund
+  put 'lessons/:id/reissue_invoice'              => 'lessons#reissue_invoice', as: :reissue_invoice
+
 
   unless Rails.application.config.consider_all_requests_local
     # having created corresponding controller and action

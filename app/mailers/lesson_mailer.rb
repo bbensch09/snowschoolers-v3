@@ -203,7 +203,17 @@ class LessonMailer < ActionMailer::Base
     mail(to: @canceling_instructor, cc:'notify@snowschoolers.com, adam@snowschoolers.com', subject: 'You have canceled your Snow Schoolers lesson')
   end
 
-  def send_lesson_confirmation(lesson) #this gets sent after the instructor has accepted the lesson request.
+  def send_lesson_hw_confirmation(lesson) #this gets sent after the instructor has accepted the lesson request.
+    @lesson = lesson
+    if @lesson.guest_email.nil?
+      recipient = @lesson.requester.email
+    else
+      recipient = @lesson.guest_email
+    end
+      mail(to: recipient, cc:'notify@snowschoolers.com', bcc:@lesson.instructor.user.email, subject: "Your Snow Schoolers lesson on #{@lesson.date.strftime("%b %-d")} with #{@lesson.instructor.name} is confirmed!")
+  end
+
+  def send_lesson_gb_confirmation(lesson) #this gets sent after the instructor has accepted the lesson request.
     @lesson = lesson
     if @lesson.guest_email.nil?
       recipient = @lesson.requester.email

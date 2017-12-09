@@ -146,7 +146,7 @@ class Instructor < ActiveRecord::Base
   end
 
   def average_rating
-    return 4 if reviews.count == 0
+    return 5 if reviews.count == 0
     total_stars = 0
     if self.reviews.count > 0
     self.reviews.each do |review|
@@ -188,7 +188,13 @@ class Instructor < ActiveRecord::Base
   end
 
   def to_param
-        [id, name.parameterize].join("-")
+      [id,name.parameterize].join("-")
+      # name.parameterize
+  end
+
+  # Hacky flag -- may want to remove this
+  def self.from_param(param)
+    find_by!(param)
   end
 
   def send_admin_notification

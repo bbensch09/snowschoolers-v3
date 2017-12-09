@@ -14,7 +14,7 @@ class Lesson < ActiveRecord::Base
   validates :phone_number, :lift_ticket_status,
             presence: true, on: :update
   # validates :duration, :start_time, presence: true, on: :update
-  validates :gear, inclusion: { in: [true, false] }, on: :update
+  # validates :gear, inclusion: { in: [true, false] }, on: :update #gear now moved to student section
   validates :terms_accepted, inclusion: { in: [true], message: 'must accept terms' }, on: :update
   validates :actual_start_time, :actual_end_time, presence: true, if: :just_finalized?
   # validate :requester_must_not_be_instructor, on: :create
@@ -32,6 +32,14 @@ class Lesson < ActiveRecord::Base
       return "Unassigned"
     else
       return "Assigned"
+    end
+  end
+
+  def short_title
+    if self.instructor && self.product
+      title = "#{self.instructor.first_name} @ #{self.location.name}"
+    elsif self.instructor.nil?
+      title = "#{self.requester_name} @ #{self.location.name}"
     end
   end
 
@@ -126,12 +134,12 @@ class Lesson < ActiveRecord::Base
 
   def product
     if self.product_id.nil?
+      calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
       if self.requested_location == "8"
-        Product.where(location_id:self.location.id, name:self.lesson_time.slot,calendar_period:self.location.calendar_status).first
+        Product.where(location_id:self.location.id, name:self.lesson_time.slot,is_private_lesson:true,calendar_period:calendar_period).first
       elsif self.requested_location == "24"
-        Product.where(location_id:self.location.id, length:self.length,calendar_period:self.location.calendar_status).first
-      end        
-          
+        Product.where(location_id:self.location.id, length:self.length,is_private_lesson:true,calendar_period:calendar_period).first
+      end                  
     else
       Product.where(id:self.product_id).first
     end
@@ -160,7 +168,11 @@ class Lesson < ActiveRecord::Base
 
   def wages
     instructor = self.instructor
-    wages = self.product.length.to_i * instructor.wage_rate
+    if instructor
+      wages = self.product.length.to_i * instructor.wage_rate
+    else
+      wages = self.product.length.to_i * 16
+    end
   end
 
   def self.total_prime_days
@@ -174,6 +186,46 @@ class Lesson < ActiveRecord::Base
 
   def self.completed_lessons_count
     Lesson.where(state:'Lesson Complete').count 
+  end
+
+  def self.open_lesson_requests
+    Lesson.where(state:'booked',instructor_id:nil) 
+  end
+
+  def self.confirmed_lessons
+    lessons = Lesson.select{|lesson| !lesson.instructor_id.nil? }
+  end
+
+  def self.open_lesson_requests_on_day(date)
+    lessons = Lesson.where(state:'booked',instructor_id:nil) 
+    lesson = lessons.select{|lesson| lesson.date == date}
+  end
+
+  def self.open_booked_revenue
+    lessons = Lesson.open_lesson_requests
+    total = 0
+    lessons.each do |lesson|
+      total += lesson.price.to_i
+    end
+    return total
+  end
+
+  def self.closed_booked_revenue
+    lessons = Lesson.confirmed_lessons
+    total = 0
+    lessons.each do |lesson|
+      total += lesson.price.to_i
+    end
+    return total
+  end
+
+  def self.open_wages_available
+    lessons = Lesson.open_lesson_requests
+    total = 0
+    lessons.each do |lesson|
+      total += (lesson.length.to_i * 16)
+    end
+    return total
   end
 
   def self.total_wages
@@ -375,32 +427,98 @@ class Lesson < ActiveRecord::Base
     waiting_for_payment?
   end
 
+  def lookup_calendar_period(date,location_id)
+    date = date.to_s
+    case location_id
+      when 8
+        if HW_HOLIDAYS.include?(date)
+          return 'Holiday'
+        elsif HW_PEAK.include?(date)
+          return 'Peak'
+        else
+          return 'Regular'
+        end
+      when 24
+        if GB_HOLIDAYS.include?(date)
+          return 'Holiday'
+        else
+          return 'Regular'
+        end
+    end
+  end
+
   def price
+    puts "!!!! calculating price"
     if self.lesson_price
+      puts "!!!custom price found"
       return self.lesson_price.to_s
-    elsif self.lesson_cost
-      return self.lesson_cost.to_s
-    elsif self.location.id == 8
-      # puts "!!!!!! lesson location is #{self.location.id}"      
-      product = Product.where(location_id:self.location.id,name:self.lesson_time.slot,calendar_period:self.location.calendar_status).first      
-    elsif self.location.id == 24
-    puts "!!!!!! lesson location is #{self.location.id}"      
+    elsif self.product_name
+      puts "!!!calculating price based on product name, location, and date"
+      calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
+      puts "!!!!lookup calendar period status, it is: #{calendar_period}"
       if self.slot == 'Early Bird (9-10am)'
-        product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:"Regular",product_type:"private_lesson").first
+        product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson").first
       elsif self.slot == 'Half-day Morning (10am-1pm)'
-        product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:"Regular",product_type:"private_lesson").first
+        product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson").first
       elsif self.slot == 'Half-day Afternoon (1pm-4pm)'
-        product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:"Regular",product_type:"private_lesson").first
+        product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson").first
       elsif self.slot == 'Full-day (10am-4pm)'
-        product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:"Regular",product_type:"private_lesson").first
+        product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson").first
       end
+      puts "!!!product found, its price is #{product.price}"
     end
-    puts "!!!!!!!! lesson.product is #{product}"
     if product.nil?
-      return "Error - lesson price not found" #99 #default lesson price - temporary
-    else
-      return product.price.to_s
+      return "Please confirm date & time to see price."
     end
+    price = product.price.to_f + self.package_cost
+    return price.to_s
+  end
+
+  def package_cost
+    package_price = 0
+    puts "!!!calculating package cost"
+    p1 = [self.additional_students_with_gear * self.cost_per_additional_student_with_gear,0].max
+    p2 = [self.additional_students_without_gear * self.cost_per_additional_student_without_gear,0].max
+    return p1 + p2    
+    return package_price
+  end
+
+  def cost_per_additional_student_with_gear
+    case self.location.id
+      when 24
+        return 65
+      when 8
+        return 70
+    end
+  end
+
+  def cost_per_additional_student_without_gear
+    case self.location.id
+      when 24
+        return 40
+      when 8
+        return 0
+    end
+  end
+
+  def additional_students_with_gear
+      self.location.id == 24 ? count = -1 : count = 0
+      self.students.each do |student|
+        if student.needs_rental 
+          count += 1
+        end
+      end
+      count
+  end
+
+  def additional_students_without_gear
+      self.location.id == 24 ? count = -1 : count = 0
+      self.students.each do |student|
+        unless student.needs_rental 
+          count += 1
+        end
+      end
+      return [count,0].max
   end
 
   def visible_lesson_cost
@@ -410,21 +528,6 @@ class Lesson < ActiveRecord::Base
       return self.lesson_cost
     end
   end
-
-  # def price
-  #   hourly_base = 75
-  #   surge = 1
-  #   hourly_price = hourly_base*surge
-  #   if self.actual_duration.nil?
-  #     if self.duration.nil?
-  #         price = hourly_price * 2
-  #       else
-  #         price = self.duration * hourly_price
-  #     end
-  #   else
-  #     price = self.actual_duration * hourly_price
-  #   end
-  # end
 
   def get_changed_attributes(original_lesson)
     lesson_changes = self.previous_changes
@@ -817,9 +920,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def send_lesson_request_to_instructors
-    #currently testing just to see whether lesson is active and deposit has gone through successfully.
-    #need to replace with logic that tests whether lesson is newly complete, vs. already booked, etc.
-    if self.active? && self.confirmable? && self.deposit_status == 'confirmed' && self.state != "pending instructor" #&& self.deposit_status == 'verified'
+    if self.active? && self.confirmable? && self.deposit_status == 'confirmed' && self.state != "pending instructor" && self.available_instructors.any? #&& self.deposit_status == 'verified'
       LessonMailer.send_lesson_request_to_instructors(self).deliver
       self.send_sms_to_instructor
     elsif self.available_instructors.any? == false

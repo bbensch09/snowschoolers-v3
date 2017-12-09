@@ -9,7 +9,7 @@
                 </th>
             </tr>
             <tr class="price-schools">
-              <th class="col-xs-2"> </th>
+              <th class="col-xs-2 text-warning center">STATUS: <%=Location.find(8).calendar_status %> pricing </th>
               <th class="pricing-snowschoolers col-xs-2">Homewood* <br> <span class="homewood-pricing">(Snow Schoolers)</span> </th>
               <th class="pricing-snowschoolers col-xs-2">Granlibakken** <br> <span class="homewood-pricing">(Snow Schoolers)</span> </th>
               <th class="pricing-competitors-names col-xs-2">Northstar</th>
@@ -42,8 +42,8 @@
                 <td class="grey-side-borders pricing-snowschoolers">
                 <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
                 </td>
-                <td class="grey-side-borders pricing-competitors">$595</td>
-                <td class="grey-side-borders pricing-competitors">$519</td>
+                <td class="pricing-competitors">$620</td>
+                <td class="pricing-competitors">$539</td>
             </tr>
             <tr>
                 <td class="grey-side-borders pricing-length pricing-grey-background">Full-day (10-4pm)</td>
@@ -53,8 +53,8 @@
                 <td class="grey-side-borders pricing-snowschoolers pricing-grey-background">
                 <%= number_to_currency(Product.where(location_id:24,length:"6.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
                 </td>
-                <td class="grey-side-borders pricing-competitors pricing-grey-background">$810</td>
-                <td class="grey-side-borders pricing-competitors pricing-grey-background">$739</td>
+                <td class="pricing-competitors">$900</td>
+                <td class="pricing-competitors">$759</td>
             </tr>
           </tbody>
           <% end %>
@@ -64,11 +64,14 @@
                 *Prices <b>at Homewood DO NOT include </b> your lift ticket and/or rental equipment. Ticket & rental packages can be booked with your lesson for an additional $70 per person.
             </h3>
             <h3>
-                **Prices <b>at Granlibakken DO include</b> a lift ticket and rental equipment for <b>one person</b>. If booking a private lesson for more than one student, there as an additional fee of $40 per person.
-            </h3>
+                **The lesson package <b>at Granlibakken INCLUDES lift ticket & rental for one person</b>. If booking a private lesson for more than one student, there as an additional fee of $40 per person without equipment, or $65 per person with equipment.
+            </h3> 
             <h3>
-                ***For all lessons, we allow a maximum of <b>up to 6 people in any private lesson</b>.
-            </h3>
+                ***To see full calendar breakdown of holiday vs. regular pricing, <a href=#full-pricing class="btn btn-primary">Jump to Below</a>.
+            </h3> 
+            <h3>
+                For all lessons, we allow a maximum of <b>up to 5 people in any private lesson</b>.
+            </h3>            
         </div>
     </div>
 </section>

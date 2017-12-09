@@ -10,26 +10,26 @@ var availabilityListener = function() {
   	var id = $(this).attr('id'); 
   	var path = "/toggle-availability/"+id
   	var this_var = $(this).parent().parent();
-  	// console.log(this_var);
+  	console.log('text is: '+text);
   	// console.log(id);
   	// console.log(path);
-  	var request = $.ajax({
+  	$.ajax({
   		url: path,
-  		type: "PUT",
-	    // dataType: "json",
-  		data: text
+  		type: "POST",
+	    dataType: "JSON",
+  		data: text,
+      success: function() {
+        console.log('received a successfully ajax response.');
+          // console.log(data);
+        $("#"+id).parent().parent().toggleClass('availability-blocked');
+        $("#"+id).parent().parent().toggleClass('availability-open');
+        console.log($("#"+id).html());
+        if ($("#"+id).html() == "Mark as Available"){
+          $("#"+id).html("Mark as Not Available");
+        } else {
+          $("#"+id).html("Mark as Available");
+        }
+      }
   	});
-  	request.done(function(data){
-  		console.log('received a successfully ajax response.');
-  		// console.log(data);
-		$("#"+id).parent().parent().toggleClass('availability-blocked');
-		$("#"+id).parent().parent().toggleClass('availability-open');
-		console.log($("#"+id).html());
-		if ($("#"+id).html() == "Mark as Available"){
-			$("#"+id).html("Mark as Not Available");
-		} else {
-			$("#"+id).html("Mark as Available");
-		}
-  	});
-  });  
+  	});  
 }

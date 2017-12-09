@@ -199,7 +199,21 @@ $(document).ready(function(){
   // calculateTotalListener();
   toggleElementListener();
   abilityLevelWarningListener();
+  maxStudentsListener();
+
 });
+
+var maxStudentsListener = function(){
+  $('#add-student-button').click(function(e){
+    var studentCount = $('.nested-fields').length    
+    console.log('student count is '+studentCount);
+    if (studentCount >= 4){
+      $('#add-student-button').addClass('hidden');
+      $('#max-students-warning').removeClass('hidden');
+      console.log('hide button to add more students.');      
+    }
+  });
+}
 
 var abilityLevelWarningListener = function(){
   $('#add-student-button').click(function(e){

@@ -49,17 +49,13 @@
     <div class=<%=blocks.first.availability_formatting %> >
     <%= date.strftime('%-d') %>
     <h2 class="center block-text">
-      <!-- %= link_to block.toggle_display, toggle_availability_path(block.id), method: :post, id: block.id, class: 'toggle-availability', remote: true%> -->
       <% if block.state == "Booked" %>
         <%= link_to 'See Lesson Details', lesson_path(Lesson.where(instructor_id:block.instructor_id,lesson_time_id:block.lesson_time_id).first), method: :get, class: "" %>
         <% else %>
       <%= link_to block.toggle_display, toggle_availability_path(block.id), method: :put, id: block.id, class: 'toggle-availability', remote:true %>
       <% end %>
 
-    </h2>
-    <!-- <button class='toggle-availability' id='<%=block.id%>'>Click me</button> -->
-          
-
+    </h2>          
     <% end %>
     </div>
   <% end %>
