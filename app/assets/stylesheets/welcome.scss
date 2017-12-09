@@ -1338,13 +1338,10 @@ h2.blog-cta{
   .hidden-unless-desktop{
     display: none;
   }
-  .form-inputs{
+  .form-inputs, .update-lesson-form, .vertical-divider, .info-box{
     display: block;
   }
 
-  .vertical-divider{
-    display: block;
-  }
   .call-to-action h2{
     font-size: 1.8em;
     font-weight: 200;
@@ -1362,9 +1359,6 @@ h2.blog-cta{
   .iframe-youtube{
   width: 100%;
   height: 300px;
-  }
-  .info-box{
-    display: block;
   }
   .process-step{
     margin-bottom: 20px;
