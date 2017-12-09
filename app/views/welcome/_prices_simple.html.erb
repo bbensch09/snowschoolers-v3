@@ -8,6 +8,7 @@
                     <h3 class="center navy-text">Book Early and Save over 50%</h3>
                 </th>
             </tr>
+          <% if (Product.where(location_id:8,length:"1.00",product_type:'private_lesson').first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson').first == nil) %>
             <tr class="price-schools">
               <th class="col-xs-2 text-warning center">*<%=Location.find(8).calendar_status %> pricing* </th>
               <th class="pricing-snowschoolers col-xs-2">Homewood* <br> <span class="homewood-pricing">(Snow Schoolers)</span> </th>
@@ -17,7 +18,6 @@
             </tr>
           </thead>
 
-          <% if (Product.where(location_id:8,length:"1.00",product_type:'private_lesson').first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson').first == nil) %>
           <h3 class='text-danger center'> Pricing Not Yet Available </h3>
 
           <% else %>
