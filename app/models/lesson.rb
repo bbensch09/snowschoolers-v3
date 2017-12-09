@@ -272,16 +272,17 @@ class Lesson < ActiveRecord::Base
       puts "!!!!!!ERROR"
     end
     puts "!!!!!! length of lesson extension = #{delta}"
-    case upsell_type
-    when "extend_early_bird_to_half"
-      return Product.where(length:3,calendar_period:self.location.calendar_status).first.price
-    when "extend_half_day_to_full"
-      return Product.where(length:6,calendar_period:self.location.calendar_status).first.price
-    when "extend_early_bird_to_full"
-      return Product.where(length:6,calendar_period:self.location.calendar_status).first.price
-    else
-      return self.price
-    end
+    return self.price
+    # case upsell_type
+    # when "extend_early_bird_to_half"
+    #   return Product.where(length:3,calendar_period:self.location.calendar_status).first.price
+    # when "extend_half_day_to_full"
+    #   return Product.where(length:6,calendar_period:self.location.calendar_status).first.price
+    # when "extend_early_bird_to_full"
+    #   return Product.where(length:6,calendar_period:self.location.calendar_status).first.price
+    # else
+    #   return self.price
+    # end
   end
 
   def location
