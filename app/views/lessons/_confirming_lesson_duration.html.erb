@@ -2,10 +2,10 @@
 <% if current_user && (current_user == @lesson.instructor.user || current_user.user_type == "Snow Schoolers Employee") %>
   <%= semantic_form_for @lesson, url: confirm_lesson_time_path do |f| %>
   <div class="col-md-4">
-    <%= f.input :actual_start_time, as: :string, input_html: { id: 'start-timepicker' }, class: "end-times" %>
+    <%= f.input :actual_start_time, as: :string, input_html: { id: 'start-timepicker' }, class: "end-times", required:true %>
   </div>
   <div class="col-md-4">
-    <%= f.input :actual_end_time, as: :string, input_html: { id: 'end-timepicker' }, class: "end-times" %>
+    <%= f.input :actual_end_time, as: :string, input_html: { id: 'end-timepicker' }, class: "end-times", required:true%>
   </div>
   <div class="col-md-12">
     <label><b> Lesson Notes & Feedback</b></label>

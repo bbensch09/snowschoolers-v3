@@ -369,6 +369,8 @@ class LessonsController < ApplicationController
       @lesson.state = @lesson.valid? ? 'finalizing payment & reviews' : 'confirmed'
       @lesson.send_sms_to_requester
       LessonMailer.send_payment_email_to_requester(@lesson).deliver
+    else
+      puts "!!!!error on entering valid duration params"
     end
     respond_with @lesson, action: :show
   end
@@ -376,7 +378,7 @@ class LessonsController < ApplicationController
   private
 
   def valid_duration_params?
-    if params[:lesson].nil? ||  params[:lesson] == "" || params[:lesson][:product_name].nil? || params[:lesson][:product_name] == "" || params[:lesson][:activity].nil? ||  params[:lesson][:lesson_time][:date].length < 10
+    if params[:lesson].nil? #params[:lesson][:actual_start_time].nil? || params[:lesson][:actual_end_time].nil?  || params[:lesson][:public_feedback_for_student].nil?
       flash[:alert] = "Please confirm start & end time, as well as lesson duration."
       return false
     else
