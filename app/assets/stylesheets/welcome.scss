@@ -585,7 +585,7 @@ h2.how-it-works {
 }
 .pricing-table tbody tr td, .pricing-table thead tr th {
     padding-left: 20px;
-    font-size: 1.2em;
+    font-size: 1em;
     padding-top: 5px;
     padding-bottom: 5px;
     line-height: 1.1;
@@ -989,8 +989,7 @@ text-align: center;
   background-color: #fff;
 }
 #blog{
-  height: 230px;
-  min-height: 160px !important;
+  min-height: 320px !important;
 }
 .blog-header{
     font-weight: bold;
@@ -1314,6 +1313,18 @@ section.pricing-new-lesson{
   padding-bottom: 0px;
   margin-top: 10px;
 }
+h2.blog-cta{
+  margin-bottom: 0px;
+}
+
+/*Deskopt specific adjustments*/
+@media (min-width: 1200px) {
+
+.container {
+    width: 1200px;
+}
+
+}
 
 
 @media (min-width: 768px) {
@@ -1327,16 +1338,50 @@ section.pricing-new-lesson{
   .hidden-unless-desktop{
     display: none;
   }
+  .form-inputs{
+    display: block;
+  }
+
+  .vertical-divider{
+    display: block;
+  }
+  .call-to-action h2{
+    font-size: 1.8em;
+    font-weight: 200;
+    line-height: 30px;
+    margin-top: 35px;
+  }
+
+  .green-button{
+    font-size: 15px;
+  }
+  .link-container{
+    width: 100%;
+  }
 
   .iframe-youtube{
   width: 100%;
   height: 300px;
   }
+  .info-box{
+    display: block;
+  }
+  .process-step{
+    margin-bottom: 20px;
+    height: 525px;
+  }
+
+  .youtube-embed-container, .fluid-width-video-wrapper iframe {
+  min-height: 270px;  
+}
 
   h1 {
     font-size: 1.8em;
     padding-left: 5px;
     padding-right: 5px;
+  }
+  h2 {
+    font-size: 1.8em;
   }
   #header-creative .header-content .header-content-inner p { font-size: 0.7em; }
   section{

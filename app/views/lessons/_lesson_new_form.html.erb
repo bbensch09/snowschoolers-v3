@@ -6,6 +6,8 @@
         <%= render partial: "welcome/prices_simple" %>
       </div>
 
+      <hr class="deposit-hr-navy hidden-unless-mobile">
+
       <% if alert %>
         <div id="alert2" class="alert alert-danger alert-dismissible fade in" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -33,8 +35,7 @@
             </div>
 
             <div class="col-md-3">
-              <!-- %= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase},  include_blank: 'Location', label: false %> -->
-              <%= f.collection_select :requested_location, Location.active_partners.sort_by { |location| location.name.downcase}, :id, :name, {prompt:'Location'}, {class:'form-control', include_blank: 'Location', required: true, label: false} %>
+              <%= f.collection_select :requested_location, Location.active_partners.sort_by { |location| location.name.downcase}, :id, :name, {prompt:'Location'}, {class:'form-control form-group', include_blank: 'Location', required: true, label: false} %>
             </div>
             <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
               <div class="col-md-2">
@@ -43,7 +44,6 @@
               </div>
 
               <div class="col-md-3 time-slot-input">
-                <!-- <%= lt_f.input :slot, as: :select, collection: ['Morning', 'Afternoon', 'Full Day'], include_blank: 'Time', label: false %> -->
                 <%= lt_f.input :slot, as: :select, collection: ['Early Bird (9-10am)', 'Half-day Morning (10am-1pm)', 'Half-day Afternoon (1pm-4pm)', 'Full-day (10am-4pm)'], selected: @slot, include_blank: 'Time', label: false %>
               </div>
               <% if current_user.nil? %>

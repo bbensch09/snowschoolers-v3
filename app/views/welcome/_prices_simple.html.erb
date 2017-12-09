@@ -9,7 +9,7 @@
                 </th>
             </tr>
             <tr class="price-schools">
-              <th class="col-xs-2 text-warning center">STATUS: <%=Location.find(8).calendar_status %> pricing </th>
+              <th class="col-xs-2 text-warning center">*<%=Location.find(8).calendar_status %> pricing* </th>
               <th class="pricing-snowschoolers col-xs-2">Homewood* <br> <span class="homewood-pricing">(Snow Schoolers)</span> </th>
               <th class="pricing-snowschoolers col-xs-2">Granlibakken** <br> <span class="homewood-pricing">(Snow Schoolers)</span> </th>
               <th class="pricing-competitors-names col-xs-2">Northstar</th>
@@ -53,8 +53,8 @@
                 <td class="grey-side-borders pricing-snowschoolers pricing-grey-background">
                 <%= number_to_currency(Product.where(location_id:24,length:"6.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
                 </td>
-                <td class="pricing-competitors">$900</td>
-                <td class="pricing-competitors">$759</td>
+                <td class="grey-side-borders pricing-competitors pricing-grey-background">$900</td>
+                <td class="grey-side-borders pricing-competitors pricing-grey-background">$759</td>
             </tr>
           </tbody>
           <% end %>
