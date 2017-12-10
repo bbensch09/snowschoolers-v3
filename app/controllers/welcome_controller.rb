@@ -117,6 +117,12 @@ def liftopia_referral
     GoogleAnalyticsApi.new.event('tracked-referrals', "BGT-homewood_learn_to_ski")
     LessonMailer.notify_homewood_learn_to_ski_referral.deliver
     redirect_to "http://www.skihomewood.com/learn-ski-or-ride-deal?utm_campaign=SnowSchoolers_beginner_guide"
+  end 
+
+  def homewood_group_lesson_referral
+    GoogleAnalyticsApi.new.event('tracked-referrals', "BGT-homewood_learn_to_ski")
+    LessonMailer.notify_homewood_group_lesson_referral.deliver
+    redirect_to "http://www.skihomewood.com/learn-ski-or-ride-deal?utm_campaign=SnowSchoolers_beginner_guide"
   end  
 
   def homewood_referral
