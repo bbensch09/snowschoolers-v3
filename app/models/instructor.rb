@@ -150,8 +150,10 @@ class Instructor < ActiveRecord::Base
     total_stars = 0
     if self.reviews.count > 0
     self.reviews.each do |review|
-      total_stars += review.rating
-    end
+        unless review.rating.nil?
+          total_stars += review.rating
+        end
+      end
     end
     return (total_stars.to_f / self.reviews.count.to_f)
   end

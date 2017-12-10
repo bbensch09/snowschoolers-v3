@@ -37,7 +37,7 @@
 
     <% if @lesson.waiting_for_payment? && (current_user == @lesson.requester || current_user && current_user.user_type == "Snow Schoolers Employee" || (@lesson.guest_email && current_user.nil?) || @lesson.guest_email && current_user && current_user.instructor.nil? ) %>
       <%= render partial: 'make_payment' %>
-      <% elsif @lesson.waiting_for_payment? && current_user.instructor %>
+      <% elsif @lesson.waiting_for_payment? && current_user && current_user.instructor %>
           <div class="alert alert-success alert-dismissible fade in" role="alert">
             <p>Your student has been notified and prompted to complete and provide their review of the lesson.</p>
           </div>
