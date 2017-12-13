@@ -142,9 +142,9 @@ class InstructorsController < ApplicationController
         @instructor = Instructor.find(params[:id])
       else
         names = params[:id].gsub("-"," ")
-        puts "!!!names is #{names}"
-        @instructor = Instructor.all.select{|instructor| instructor.name.downcase == names.downcase}.first
-        puts "!!!!instructor name is :#{@instructor.name}"
+        puts "!!!names is #{names}."
+        @instructor = Instructor.all.select{|instructor| instructor.name.downcase.strip == names.downcase.strip}.first
+        puts "!!!!instructor name is :#{@instructor.name}."
       end
     end
 
