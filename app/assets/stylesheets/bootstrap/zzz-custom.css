@@ -156,9 +156,9 @@ div.maximage-controls #slider_prev:hover {
   height: 20px;
 }
 
-#middle .white {
+/*#middle .white {
   background: rgba(255, 255, 255, 0.8);
-}
+}*/
 
 #middle .white .alert .btn,
 #middle .white .forgot .btn {

@@ -101,6 +101,8 @@ Rails.application.routes.draw do
   get '/sports-basement' => 'welcome#sportsbasement_referral'
   get '/tahoe-daves' => 'welcome#tahoedaves_referral'
   get '/homewood-learn-to-ski' => 'welcome#homewood_learn_to_ski_referral'
+  get '/homewood-kids-lessons' => 'welcome#homewood_kids_lesson_referral'
+  get '/homewood-adult-lessons' => 'welcome#homewood_adult_lesson_referral'
   get '/march-madness' => 'welcome#march-madness'
   get '/march-madness-challenge' => 'selfies#march_madness_challenge'
   get '/blog/latest' => 'blogs#latest'
