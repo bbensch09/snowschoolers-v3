@@ -72,7 +72,6 @@ class InstructorsController < ApplicationController
 
   # GET /instructors/1/edit
   def edit
-        # @instructor_id = Instructor.find(params[:id]).user_id
         @instructor_id = @instructor.user_id
   end
 
@@ -142,12 +141,10 @@ class InstructorsController < ApplicationController
       if names.first.to_i > 0
         @instructor = Instructor.find(params[:id])
       else
-        # first_name = names.first.downcase      
-        # last_name = names[1..-1].join(" ").downcase
         names = params[:id].gsub("-"," ")
-        # puts "!!!names is #{names}"
+        puts "!!!names is #{names}"
         @instructor = Instructor.all.select{|instructor| instructor.name.downcase == names.downcase}.first
-        # puts "!!!!instructor name is :#{@instructor.name}"
+        puts "!!!!instructor name is :#{@instructor.name}"
       end
     end
 
