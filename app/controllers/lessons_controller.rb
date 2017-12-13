@@ -116,7 +116,8 @@ class LessonsController < ApplicationController
     @activity = session[:lesson].nil? ? nil : session[:lesson]["activity"]
     @slot = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?) ? nil : session[:lesson]["lesson_time"]["slot"]
     @date = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?)  ? nil : session[:lesson]["lesson_time"]["date"]
-    @instructor_requested = Instructor.find(params[:id]).id
+    names = params[:id].gsub("-"," ")
+    @instructor_requested = Instructor.all.select{|instructor| instructor.name.downcase == names.downcase}.first
     @lesson_time = @lesson.lesson_time
     GoogleAnalyticsApi.new.event('lesson-requests', 'load-lessons-new-private-request')
     render 'new'

@@ -14,8 +14,15 @@
       Good news! One of our expert instructors, <%=@lesson.instructor.name %>, has confirmed your lesson request. Please review your instructor's info and the details of your lesson below, and don't be afraid to <a href="mailto:info@snowschoolers.com">reach out to us</a> if you have any questions. You may also reach your instructor directly the day of your lesson using their contact info below.
     </p>
 
+    <h4>What happens next?</h4>
+    <ul>
+      <li>Your lesson will begin promptly at the start time you've selected.</li>
+      <li>If you selected a lesson package including rentals, please plan to arrive at the ski hill at least 45 minutes prior to your lesson so that you can get outfitted with your equipment. When you arrive, please tell one of our staff your name and that you booked your lesson online, and they'll be able to check you in.</li>
+      <li>If you did not select the group lesson package, you should still arrive at least 15 minutes prior to the start of your lesson to afford enough time to find parking and put on your boots and gear.</li>
+    </ul>
     <h4>Meeting Location</h4>
     <p>Please plan to meet <%=@lesson.instructor.first_name %> outside of the Granlibakken Ski Hut a few minutes before the scheduled start of your lesson. The ski hill is located at <a href="https://www.google.com/maps/place/Granlibakken+Ski+%26+Sledding+Hill/@39.1561613,-120.1565678,17z/data=!4m13!1m7!3m6!1s0x80997d8619f5ff29:0x815523715ab4e748!2s725+Granlibakken+Rd,+Tahoe+City,+CA+96145!3b1!8m2!3d39.1561613!4d-120.1543791!3m4!1s0x80997d88a3630ec7:0x30c3373b77f6c7b4!8m2!3d39.1540162!4d-120.1547892" target="_blank" class="contact-link" ><%=@lesson.location.address%></a>. If you would like to meet somewhere else, please be sure to message your instructor ahead of time. </p>
+    <img src="https://s3.amazonaws.com/snowschoolers/ski-hut-meeting-location.jpg" alt="meeting-spot" height="400" width="700" />
 
     <h4>Lesson Details</h4>
     <ul>

@@ -188,7 +188,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <% elsif current_user.instructor %>
                 <li><%= link_to name, instructor_path(current_user.instructor) %></li>
                 <li><a href="/lessons" class="sign-up-btn"> LESSONS </a></li>
-                <li><a href="/browse" class="sign-up-btn">BROWSE REVIEWS</a></li>
+                <li><a href="/browse" class="sign-up-btn">INSTRUCTORS</a></li>
                 <li><%= link_to 'CALENDAR', '/calendar', class: 'sign-up-btn' %></li>
                 <li><%= link_to 'PROFILE', '/profile', class: 'sign-up-btn' %></li>
               <% else %>

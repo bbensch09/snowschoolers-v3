@@ -61,7 +61,7 @@ class InstructorsController < ApplicationController
   def new
     if current_user.instructor
       @instructor = current_user.instructor
-      @instructor_id = Instructor.find(params[:id]).user_id
+      @instructor_id = current_user.instructor.id
       render 'edit'
       else
       @instructor = Instructor.new
@@ -138,11 +138,17 @@ class InstructorsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_instructor
-      @instructor = Instructor.find(params[:id])
-      # names = params[:id].split("-")
-      # first_name = names.first.titleize
-      # last_name = names.last.titleize
-      # @instructor = Instructor.where(first_name:first_name,last_name:last_name).first
+      names = params[:id].split("-")
+      if names.first.to_i > 0
+        @instructor = Instructor.find(params[:id])
+      else
+        # first_name = names.first.downcase      
+        # last_name = names[1..-1].join(" ").downcase
+        names = params[:id].gsub("-"," ")
+        # puts "!!!names is #{names}"
+        @instructor = Instructor.all.select{|instructor| instructor.name.downcase == names.downcase}.first
+        # puts "!!!!instructor name is :#{@instructor.name}"
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

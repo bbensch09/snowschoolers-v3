@@ -73,7 +73,12 @@ class LessonMailer < ActionMailer::Base
   end
 
   def notify_homewood_learn_to_ski_referral
-      mail(to: 'brian@snowschoolers.com', subject: "Homewood group lesson LTS referral click-thru")
+      mail(to: 'brian@snowschoolers.com', subject: "Homewood LTS shopping comparison referral click-thru")
+  end
+  
+  def notify_homewood_group_lesson_referral(type)
+      @type = type
+      mail(to: 'brian@snowschoolers.com', subject: "Homewood #{@type} group lessons referral click-thru")
   end
 
   def notify_jackson_promo_user(beta_user)
