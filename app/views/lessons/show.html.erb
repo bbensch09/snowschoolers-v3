@@ -2,7 +2,7 @@
   <div class="white row">
 
     <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.email == "bbensch@gmail.com") %>
-    <div class="row vertical-padding container admin-viewable">
+    <div class="row vertical-padding admin-viewable">
     <h4> (ADMIN ONLY) Eligible instructors are:</h4>
       <ul>
         <% if @lesson.available_instructors.any? %>
