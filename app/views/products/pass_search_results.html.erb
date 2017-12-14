@@ -9,17 +9,17 @@
       </ul>
 <div class="container">
 <div id="pass-search-header">
-  <h2 class="center">Lock in great savings on the '17/18 season!</h2>
-  <div class="shadow-box-highlight season-pass-subheader white-text"> 
-      <p>
+  <h1 class="center white-text">Compare Season Pass Prices across Tahoe</h1>
+  <div class="season-pass-subheader white-text"> 
+<!--       <p>
           After the snowiest winter in decades, most of Tahoe's <a href="resorts" class="green-link">16 ski areas</a> are now offering great deals on next year's season passes. When you buy today, you not only lock in the lowest price, you'll also enjoy the rest of this year's spring skiing for free!
-      </p>
+      </p> -->
   </div>
   <div class="other-search-verticals">
-    <a href="private-lessons" class="btn btn-primary btn-lg"> Shop Private Lessons</a>
-    <a href="learn-to-ski-packages" class="btn btn-primary btn-lg"> Shop Lesson Packages</a>
-    <!-- <a href="tahoe-season-passes" class="btn btn-primary btn-lg"> Shop Season Passes</a> -->
-    <a href="lift-tickets" class="btn btn-primary btn-lg"> Shop Lift Tickets</a>
+    <a href="private-lessons" class="btn btn-primary btn-lg"> Compare Private Lessons</a>
+    <a href="learn-to-ski-packages" class="btn btn-primary btn-lg"> Learn to Ski & Ride Lesson Packages</a>
+    <a href="tahoe-season-passes" class="btn btn-secondary btn-lg"> Compare Season Passes</a>
+    <a href="lift-tickets" class="btn btn-primary btn-lg"> Compare Lift Tickets</a>
   </div>
   
  </div>
@@ -29,7 +29,7 @@
 
 <div id="secondary-search-filters" class="hidden-unless-desktop">
   <%= form_tag(pass_search_results_path, :method => "get", class: "pass-search-form") do %>  
-  <div id="sort-selector"
+  <div id="sort-selector">
       <h3>Sort Results By: </h3>
       <%= select_tag :sort_tag, options_for_select(["Price Low to High","Price High to Low","North Tahoe Only","South Tahoe Only","Resorts A-Z"], params[:sort_tag]), {class: 'navy-text form-control'} %>
       </h3>
