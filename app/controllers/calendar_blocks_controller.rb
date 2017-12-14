@@ -31,7 +31,7 @@ class CalendarBlocksController < ApplicationController
         params[:id] = current_user.instructor.id
       end
       puts "!!!!!!logging test GA event: ga_client_id is #{params[:ga_client_id]}"
-      GoogleAnalyticsApi.new.event('TESTING', 'calendar_page_load', 1392058105.1511664136s)
+      GoogleAnalyticsApi.new.event('TESTING', 'calendar_page_load', params[:ga_client_id])
   end
 
   def individual_availability
