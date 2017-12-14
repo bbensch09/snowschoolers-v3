@@ -25,7 +25,6 @@
               <div class="col-md-4">
                 <label class="lesson-label"> Assign to User: </label> <br>
                 <%= f.select :requester_id, options_from_collection_for_select(User.all.sort {|a,b| a.username_for_admin <=> b.username_for_admin}, :id, :username_for_admin, selected:@lesson.requester_id), include_blank:true %>
-
               </div>
               <div class="col-md-4">
                 <label class="lesson-label">Number of Days</label>
@@ -66,6 +65,10 @@
             <div class="col-md-2">
               <label class="lesson-label">Total Price</label>
               <%= f.input :lesson_price, as: :string, placeholder: "Enter custom price", label: false %>
+            </div>
+            <div class="col-md-3">
+              <label class="lesson-label">Exclude from reporting (invoices, etc.)?</label>
+            <%= f.select :focus_area, ['No, include as normal','Exclude'], {}, {class: 'form-control', required:false, include_blank:true} %>
             </div>
           </div>
         </div>

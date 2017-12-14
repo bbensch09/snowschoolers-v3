@@ -184,8 +184,12 @@ class Lesson < ActiveRecord::Base
     return total
   end
 
-  def self.completed_lessons_count
-    Lesson.where(state:'Lesson Complete').count 
+  def self.completed_lessons
+    Lesson.where(state:'Lesson Complete')
+  end
+
+  def self.excluded_lessons
+    Lesson.where(focus_area:'Exclude')
   end
 
   def self.open_lesson_requests
@@ -205,7 +209,9 @@ class Lesson < ActiveRecord::Base
     lessons = Lesson.open_lesson_requests
     total = 0
     lessons.each do |lesson|
-      total += lesson.price.to_i
+      unless lesson.focus_area == "Exclude"
+        total += lesson.price.to_i
+      end
     end
     return total
   end
@@ -214,7 +220,20 @@ class Lesson < ActiveRecord::Base
     lessons = Lesson.confirmed_lessons
     total = 0
     lessons.each do |lesson|
-      total += lesson.price.to_i
+      unless lesson.focus_area == "Exclude"
+        total += lesson.price.to_i
+      end
+    end
+    return total
+  end
+
+  def self.other_revenue
+    lessons = Lesson.all
+    total = 0
+    lessons.each do |lesson|
+      if lesson.focus_area == "Exclude"
+        total += lesson.price.to_i
+      end
     end
     return total
   end
@@ -227,6 +246,7 @@ class Lesson < ActiveRecord::Base
     end
     return total
   end
+
 
   def self.total_wages
     total = 0
