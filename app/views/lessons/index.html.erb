@@ -8,14 +8,29 @@
 
 <% if current_user && current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" %>
 <div class="admin-viewable">
-  <a href='lessons/admin_index' class='btn btn-warning'>View Full Lesson Details</a>
-  <ul>
-    <li>Outstanding Requests: <%=Lesson.open_lesson_requests.count %></li>
-    <li>Revenue from Outstanding: <%= number_to_currency(Lesson.open_booked_revenue) %></li>
-    <li>Total Revenue Confirmed: <%= number_to_currency(Lesson.closed_booked_revenue) %></li>
-    <li>Total Revenue: <%= number_to_currency(Lesson.closed_booked_revenue + Lesson.open_booked_revenue) %></li>
-    <!-- <li>Total Instructor Wages Available: <%= number_to_currency(Lesson.open_wages_available) %></li> -->
-  </ul>
+  <div class="col-md-4">
+    <ul>
+      <li>Open Requests: <%= Lesson.open_lesson_requests.count %></li>
+      <li>Confirmed Requests: <%= Lesson.confirmed_lessons.count %></li>
+      <li>Completed Lessons: <%= Lesson.completed_lessons.count %></li>
+      <li>Total Lessons Sold: <%= (Lesson.open_lesson_requests.count + Lesson.confirmed_lessons.count + Lesson.completed_lessons.count) %></li>
+    </ul>
+  </div>
+  <div class="col-md-4">
+    <ul>
+      <li>Instructor Wages Available: <%= number_to_currency(Lesson.open_wages_available) %></li>
+      <li>Revenue from Outstanding: <%= number_to_currency(Lesson.open_booked_revenue) %></li>
+      <li>Total Revenue Confirmed: <%= number_to_currency(Lesson.closed_booked_revenue) %></li>
+      <li>Total Lesson Revenue: <%= number_to_currency(Lesson.closed_booked_revenue + Lesson.open_booked_revenue) %></li>
+    </ul>
+  </div>
+  <div class="col-md-4">
+    <ul>
+      <li>Excluded Lessons: <%= Lesson.excluded_lessons.count %></li>
+      <li>Other Revenue: <%= number_to_currency(Lesson.other_revenue) %></li>
+      <a href='lessons/admin_index' class='btn btn-warning'>View Full Lesson Details</a>
+    </ul>
+  </div>
 </div>
 <% end %>
 <!-- SECTION 0 - AVAILABLE LESSON REQUESTS FOR INSTRUCTORS -->
@@ -34,6 +49,7 @@
       <th class="lessons-table-cells lesson-student">Student</th>
       <th class="lessons-table-cells">Lesson Price</th>
       <th class="lessons-table-cells">Minimum Pay ($16/hr)</th>
+      <!-- <th class="lessons-table-cells">Exclude?</th> -->
       <th class="lessons-table-cells">Location</th>
       <!-- <th class="lessons-table-cells">Status</th> -->
     </tr>
@@ -59,6 +75,7 @@
               <% else %>
               <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.wages) %></td>
             <% end %>
+            <!-- <td class="lessons-table-cells lesson-type"><%= lesson.focus_area %></td>             -->
             <td class="lessons-table-cells lesson-type"><%= lesson.location.name %></td>            
             <!-- <td class="lessons-table-cells"><%= lesson.location.name %></td> -->
             <!-- <td class="lessons-table-cells"><%= lesson.state %></td> -->

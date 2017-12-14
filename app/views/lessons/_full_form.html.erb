@@ -67,6 +67,9 @@
               <label class="lesson-label">Total Price</label>
               <%= f.input :lesson_price, as: :string, placeholder: "Enter custom price", label: false %>
             </div>
+            <div class="col-md-3">
+              <label class="lesson-label">Exclude from reporting (invoices, etc.)?</label>
+            <%= f.select :focus_area, ['No, include as normal','Exclude'], {}, {class: 'form-control', required:false, include_blank:true} %>
           </div>
         </div>
     <% end %>
