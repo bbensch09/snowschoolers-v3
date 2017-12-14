@@ -1,6 +1,7 @@
 class BlogsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show, :index]
   before_action :set_blog, only: [:show, :edit, :update, :destroy]
+  layout false, only: [:test_tinymce, :medium]
 
   # GET /blogs
   # GET /blogs.json
@@ -11,6 +12,12 @@ class BlogsController < ApplicationController
   # GET /blogs/1
   # GET /blogs/1.json
   def show
+  end
+
+  def test_tinymce    
+  end
+
+  def medium
   end
 
   # GET /blogs/new

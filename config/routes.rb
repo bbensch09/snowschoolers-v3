@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   resources :blogs
   get 'blog' => 'blogs#index'
+  get 'test-blog' => 'blogs#test_tinymce'
+  get 'medium' => 'blogs#medium'
   resources :pre_season_location_requests
 
   # mount ActionCable.server => '/cable'
