@@ -6,13 +6,12 @@
       </ul>
 <div class="container">
 <div>
-  <h1 class="cnter shadow-box-highlight text-white">Compare Tahoe's Best Learn to Ski or Ride Packages</h1>  
+  <h1 class="center text-white">Compare Tahoe's Best Learn to Ski or Ride Packages</h1>  
   <div class="other-search-verticals">
-    <a href="private-lessons" class="btn btn-primary btn-lg"> Shop Private Lessons</a>
-    <!-- <a href="learn-to-ski-packages" class="btn btn-primary btn-lg"> Shop Lesson Packages</a> -->
-    <a href="tahoe-season-passes" class="btn btn-primary btn-lg"> Shop Season Passes</a>
-    <a href="lift-tickets" class="btn btn-primary btn-lg"> Shop Lift Tickets</a>
-  </div>
+    <a href="private-lessons" class="btn btn-primary btn-lg"> Compare Private Lessons</a>
+    <a href="learn-to-ski-packages" class="btn btn-secondary btn-lg"> Learn to Ski & Ride Lesson Packages</a>
+    <a href="tahoe-season-passes" class="btn btn-primary btn-lg"> Compare Season Passes</a>
+    <a href="lift-tickets" class="btn btn-primary btn-lg"> Compare Lift Tickets</a>  </div>  </div>
 
 </div>
 <hr class="full-hr">
@@ -21,7 +20,7 @@
 
 <div id="secondary-search-filters" class="hidden-unless-desktop">
   <%= form_tag(lts_search_results_path, :method => "get", class: "pass-search-form") do %>  
-  <div id="sort-selector"
+  <div id="sort-selector">
       <h3>Sort Results By: </h3>
       <%= select_tag :sort_tag, options_for_select(["Price Low to High","Price High to Low","North Tahoe Only","South Tahoe Only","Resorts A-Z"], params[:sort_tag]), {class: 'navy-text form-control'} %>
       </h3>

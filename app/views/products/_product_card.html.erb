@@ -24,12 +24,14 @@
     <% if product.location.opening_date && product.location.opening_date > Date.today %>
       <div class="opening-date">
         <h4 class="text-warning"> Opening date: <%= product.location.opening_date %> (conditions permitting) </h4>
-    <% elsif product.location.closing_date < Date.today && product.product_type != "season_pass" %>
+    <% elsif product.location.closing_date && product.location.closing_date < Date.today && product.product_type != "season_pass" %>
       <div class="closed-for-season">
         <h4 class="text-danger">This resort is now closed for the season.</h4>
-    <% else %>
+    <% elsif product.location.closing_date && ((product.location.closing_date - Date.today) < 30) %>
       <div class="closing-date">
         <h4 class="text-warning">Closing date: <%= product.location.closing_date %> </h4>
+    <% else %>
+      <div class="closing-date">
     <% end %>
     
       <h1 class="product-name"><%= product.name %> @<%= product.location.name %></h1>

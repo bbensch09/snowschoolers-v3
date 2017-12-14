@@ -54,16 +54,7 @@
 
     
 <%= semantic_form_for @lesson do |f| %>
-  <div class="lesson-form-container">
-
-      <div class="new-lesson-call-cta hidden-unless-desktop">
-                    <h1 class="center">QUESTIONS?</h1>                    
-                    <p class="white-text center">Call Us Today! 
-                    <br>
-                    <i class="fa fa-phone fa-3x sr-contact"></i>
-                    <br>
-                    (530)430-SNOW</p>
-      </div>      
+  <div class="lesson-form-container">    
       <div class="new-lesson-pricing-container">
 
         <%= render partial: "welcome/prices_simple" %>
@@ -124,44 +115,36 @@
             <% end %>
           </li>
         </ul>
-
+      </div>
+      
+      <div class="row">
+        
+        <div class="new-lesson-call-cta hidden-unless-desktop">
+          <h1 class="center">QUESTIONS?</h1>                    
+          <p class="white-text center">Call Us Today! 
+            <br>
+            <i class="fa fa-phone fa-3x sr-contact"></i>
+            <br>
+          (530)430-SNOW</p>
+        </div>  
+          
+        <% if @instructor_requested %>
+          <div class="requested-instructor requested-instructor-container-adjustment hidden-unless-desktop">
+            <h1 class="center">Instructor Requested:</h1>
+            <p class="white-text center">
+              <%= link_to Instructor.find(@instructor_requested).name, Instructor.find(@instructor_requested) %>            
+            <div class="hidden">
+              <%= f.input :instructor_id, as: :select, collection: Instructor.all.sort_by{ |instructor| instructor.name}, selected:@instructor_requested, include_blank: 'Instructor', label: false %>
+            </div>
+            <br>            
+              <% if Instructor.find(@instructor_requested).avatar? %>
+              <%= image_tag Instructor.find(@instructor_requested).avatar.url(:large), alt:"avatar-img", class:"img-circle instructor-photo avatar-center" %>
+              <% end %>
+            </p>            
+          </div>
+        <% end %>    
 
       </div>
-          
-      <% if @instructor_requested %>
-        <div class="selected-instructor-container">
-            <p>
-              <div class="col-md-12">
-                <h4 class="hidden-unless-desktop">Instructor Requested:</h4>
-                  <h3 class="center">
-                    <%= link_to Instructor.find(@instructor_requested).name, Instructor.find(@instructor_requested) %>
-                  </h3>
-                  <div class="hidden">
-                    <%= f.input :instructor_id, as: :select, collection: Instructor.all.sort_by{ |instructor| instructor.name}, selected:@instructor_requested, include_blank: 'Instructor', label: false %>
-                  </div>
-                <div class="square-image">
-                  <% if Instructor.find(@instructor_requested).avatar? %>
-                    <%= image_tag Instructor.find(@instructor_requested).avatar.url(:large), alt:"avatar-img", class:"img-circle instructor-photo avatar-center" %>
-                  <% end %>
-                </div>
-              </div>
-            </p>
-        </div>
-      <% else %>
-        <div class="selected-instructor-container hidden-unless-desktop">
-            <p>
-              <div class="col-md-12">
-                <h4 class=""></h4>
-                  <h3 class="center">
-                   </h3>
-                  <div class="hidden">
-                  </div>
-                <div class="square-image">
-                </div>
-              </div>
-            </p>
-        </div>
-    <% end %>    
 
   </div>
 
