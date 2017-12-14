@@ -72,7 +72,7 @@ p {
   background-color: white;
 }
 .bg-grey {
-  background-color: rgb(246, 246, 246);
+  background-color: #d8d8d8;
 }
 .center-content {
   display: flex;
@@ -263,8 +263,9 @@ aside {
 }
 .deposit-hr-navy{
 border-top: 3px solid #3b5998 !important;
-margin-left: auto !important;;
-margin-right: auto !important;;
+margin-left: auto !important;
+margin-right: auto !important;
+width: 200px;
 
 }
 #header-creative .header-content .header-content-inner p {
@@ -1661,7 +1662,6 @@ h2.blog-cta{
     text-align: left;
     padding-left: 10px;
     padding-right: 10px;
-    color: #36454f !important;
   }
   .welcome-ctas{
     text-align: center;
