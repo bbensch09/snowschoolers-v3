@@ -450,7 +450,7 @@ class LessonsController < ApplicationController
 
   def authenticate_from_cookie!
     cookie_expected = @lesson.id + 30
-    unless cookies[:lesson].to_i == cookie_expected.to_i
+    unless cookies[:lesson].to_i == cookie_expected.to_i || current_user.user_type == 'Snow Schoolers Employee'
       puts "!!! current cookie value for lesson is: #{cookies[:lesson]} and expected value is: #{cookie_expected}"
       puts "!!!! cookie does not match!"
       session[:must_sign_in] = true

@@ -40,6 +40,7 @@ class WelcomeController < ApplicationController
     @date = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?)  ? nil : session[:lesson]["lesson_time"]["date"]    
     if session[:must_sign_in] == true
       flash.now[:alert] = "You do not have permission to view that page. Please first log in."
+      session[:must_sign_in] = false
     end
   end
 
