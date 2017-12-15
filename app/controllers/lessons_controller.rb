@@ -1,6 +1,8 @@
 class LessonsController < ApplicationController
   respond_to :html
   skip_before_action :authenticate_user!, only: [:new, :granlibakken, :new_request, :create, :complete, :confirm_reservation, :update, :show, :edit]
+  before_action :set_lesson, only: [:show, :complete, :update, :edit, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie]
+  before_action :authenticate_from_cookie!, only: [:new, :granlibakken, :new_request, :create, :complete, :confirm_reservation, :update, :show, :edit]
   before_action :save_lesson_params_and_redirect, only: [:create]
   before_action :create_lesson_from_session, only: [:create]
 
@@ -56,7 +58,6 @@ class LessonsController < ApplicationController
   end
 
   def send_reminder_sms_to_instructor
-    @lesson = Lesson.find(params[:id])
     if @lesson.instructor.nil?
       puts "!!!instructor = nil"
       instructor = Instructor.find(params[:instructor_id])
@@ -135,24 +136,25 @@ class LessonsController < ApplicationController
     end
   end
 
-  def complete
-    @lesson = Lesson.find(params[:id])
+  def complete    
     @lesson_time = @lesson.lesson_time
     @product_name = @lesson.product_name
     @state = 'booked'
     GoogleAnalyticsApi.new.event('lesson-requests', 'load-full-form')
     flash.now[:notice] = "You're almost there! We just need a few more details."
     flash[:complete_form] = 'TRUE'
+    cookies[:lesson] = {
+      value: @lesson.id + 30,
+      expires: 1.year.from_now
+    }
   end
 
-  def edit
-    @lesson = Lesson.find(params[:id])
+  def edit    
     @lesson_time = @lesson.lesson_time
     @state = @lesson.instructor ? 'pending instructor' : @lesson.state
   end
 
   def reissue_invoice
-    @lesson = Lesson.find(params[:id])
     @lesson_time = @lesson.lesson_time
     @lesson.state == "ready_to_book"
     @lesson.deposit_status = nil
@@ -161,13 +163,11 @@ class LessonsController < ApplicationController
   end
 
   def issue_refund
-    @lesson = Lesson.find(params[:id])
     @lesson_time = @lesson.lesson_time
     render 'edit'
   end
 
   def confirm_reservation
-    @lesson = Lesson.find(params[:id])
     if @lesson.deposit_status != 'confirmed'
         @amount = @lesson.price.to_i
           customer = Stripe::Customer.create(
@@ -198,7 +198,6 @@ class LessonsController < ApplicationController
   end
 
   def update
-    @lesson = Lesson.find(params[:id])
     @original_lesson = @lesson.dup
     @lesson.assign_attributes(lesson_params)
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
@@ -261,7 +260,6 @@ class LessonsController < ApplicationController
   end
 
   def show
-    @lesson = Lesson.find(params[:id])
     if @lesson.state == "ready_to_book"
       GoogleAnalyticsApi.new.event('lesson-requests', 'ready-for-deposit')
     end
@@ -269,7 +267,6 @@ class LessonsController < ApplicationController
   end
 
   def destroy
-    @lesson = Lesson.find(params[:id])
     @lesson.update(state: 'canceled')
     send_cancellation_email_to_instructor
     flash[:notice] = 'Your lesson has been canceled.'
@@ -277,14 +274,13 @@ class LessonsController < ApplicationController
   end
 
   def admin_reconfirm_state
-    @lesson = Lesson.find(params[:id])
     @lesson.state = 'confirmed'
     @lesson.save
     redirect_to @lesson
   end
 
+
   def set_instructor
-    @lesson = Lesson.find(params[:id])
     @lesson.instructor_id = current_user.instructor.id
     @lesson.state = 'confirmed'
     if @lesson.save
@@ -314,7 +310,6 @@ class LessonsController < ApplicationController
   end
 
   def decline_instructor
-    @lesson = Lesson.find(params[:id])
     LessonAction.create!({
       lesson_id: @lesson.id,
       instructor_id: current_user.instructor.id,
@@ -334,7 +329,6 @@ class LessonsController < ApplicationController
   end
 
   def remove_instructor
-    @lesson = Lesson.find(params[:id])
     @canceling_instructor = @lesson.instructor.user.email
     puts "!!!!!!the canceling instructor is #{@canceling_instructor}"
     c = CalendarBlock.find_or_create_by!({
@@ -357,14 +351,12 @@ class LessonsController < ApplicationController
 
   def mark_lesson_complete
     puts "the params are {#{params}"
-    @lesson = Lesson.find(params[:id])
     @lesson.state = 'finalizing'
     @lesson.save
     redirect_to @lesson
   end
 
   def confirm_lesson_time
-    @lesson = Lesson.find(params[:id])
     if valid_duration_params?
       @lesson.update(lesson_params.merge(state: 'finalizing payment & reviews'))
       @lesson.state = @lesson.valid? ? 'finalizing payment & reviews' : 'confirmed'
@@ -453,13 +445,17 @@ class LessonsController < ApplicationController
   end
 
   def check_user_permissions
-    return unless @lesson.guest_email.nil?
-    # FEB7 - disabling permission check to allow non-signed-in users to resume their reservation
-    # unless (current_user && current_user == @lesson.requester || (current_user && current_user.instructor && current_user.instructor.status == "Active") || @lesson.requester.nil? || (current_user.nil? && @lesson.requester.email == "brian@snowschoolers.com") || (current_user && (current_user.user_type == "Ski Area Partner" || current_user.user_type == "Snow Schoolers Employee"))   )
-      # puts "!!!!!!! INSUFFICIENT PERMISSIONS"
-      # flash[:alert] = "You do not have access to this page."
-      # redirect_to root_path
-    # end
+    return unless @lesson.guest_email.nil?    
+  end
+
+  def authenticate_from_cookie!
+    cookie_expected = @lesson.id + 30
+    unless cookies[:lesson].to_i == cookie_expected.to_i
+      puts "!!! current cookie value for lesson is: #{cookies[:lesson]} and expected value is: #{cookie_expected}"
+      puts "!!!! cookie does not match!"
+      session[:must_sign_in] = true
+      redirect_to root_path
+    end
   end
 
   def determine_update_state
@@ -472,6 +468,10 @@ class LessonsController < ApplicationController
     end
     @lesson.save
     @state = params[:lesson][:state]
+  end
+
+  def set_lesson
+      @lesson = Lesson.find(params[:id])
   end
 
   def lesson_params
