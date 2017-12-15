@@ -184,8 +184,20 @@ class Lesson < ActiveRecord::Base
     return total
   end
 
+  def this_season?
+    self.lesson_time.date.to_s >= '2017-12-15'
+  end
+  
+  def last_season?
+    self.lesson_time.date.to_s <= '2017-04-30'
+  end
+
   def self.completed_lessons
-    Lesson.where(state:'Lesson Complete')
+    lessons = Lesson.all.select{|lesson| lesson.this_season? && lesson.completed? }
+  end
+
+  def self.completed_last_year
+    lessons = Lesson.all.select{|lesson| lesson.last_season? && lesson.completed? }
   end
 
   def self.excluded_lessons
@@ -193,11 +205,13 @@ class Lesson < ActiveRecord::Base
   end
 
   def self.open_lesson_requests
-    Lesson.where(state:'booked',instructor_id:nil) 
+    lessons = Lesson.where(state:'booked',instructor_id:nil) 
+    lessons.select{|lesson| lesson.this_season?}
   end
 
+
   def self.confirmed_lessons
-    lessons = Lesson.select{|lesson| !lesson.instructor_id.nil? }
+    lessons = Lesson.select{|lesson| !lesson.instructor_id.nil? && lesson.this_season? }
   end
 
   def self.open_lesson_requests_on_day(date)
