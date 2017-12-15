@@ -2,7 +2,7 @@ class LessonsController < ApplicationController
   respond_to :html
   skip_before_action :authenticate_user!, only: [:new, :granlibakken, :new_request, :create, :complete, :confirm_reservation, :update, :show, :edit]
   before_action :set_lesson, only: [:show, :complete, :update, :edit, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie]
-  before_action :authenticate_from_cookie!, only: [:new, :granlibakken, :new_request, :create, :complete, :confirm_reservation, :update, :show, :edit]
+  before_action :authenticate_from_cookie!, only: [:complete, :confirm_reservation, :update, :show, :edit]
   before_action :save_lesson_params_and_redirect, only: [:create]
   before_action :create_lesson_from_session, only: [:create]
 
