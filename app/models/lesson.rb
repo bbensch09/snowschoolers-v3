@@ -512,10 +512,9 @@ class Lesson < ActiveRecord::Base
   def package_cost
     package_price = 0
     puts "!!!calculating package cost"
-    p1 = [self.additional_students_with_gear * self.cost_per_additional_student_with_gear,0].max
-    p2 = [self.additional_students_without_gear * self.cost_per_additional_student_without_gear,0].max
-    return p1 + p2    
-    return package_price
+    p1 = self.additional_students_with_gear * self.cost_per_additional_student_with_gear
+    p2 = self.additional_students_without_gear * self.cost_per_additional_student_without_gear
+    package_price = p1 + p2    
   end
 
   def cost_per_additional_student_with_gear
@@ -524,6 +523,8 @@ class Lesson < ActiveRecord::Base
         return 65
       when 8
         return 70
+      else
+        return 0
     end
   end
 
@@ -532,6 +533,8 @@ class Lesson < ActiveRecord::Base
       when 24
         return 40
       when 8
+        return 0
+      else
         return 0
     end
   end
@@ -543,7 +546,7 @@ class Lesson < ActiveRecord::Base
           count += 1
         end
       end
-      count
+      return [count,0].max
   end
 
   def additional_students_without_gear
