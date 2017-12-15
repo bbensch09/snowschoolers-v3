@@ -38,6 +38,9 @@ class WelcomeController < ApplicationController
     @location = session[:lesson].nil? ? nil : session[:lesson]["location"]
     @slot = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?) ? nil : session[:lesson]["lesson_time"]["slot"]
     @date = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?)  ? nil : session[:lesson]["lesson_time"]["date"]    
+    if session[:must_sign_in] == true
+      flash.now[:alert] = "You do not have permission to view that page. Please first log in."
+    end
   end
 
   def index_backup_may2017
