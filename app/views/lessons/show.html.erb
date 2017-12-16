@@ -8,7 +8,8 @@
         <% if @lesson.available_instructors.any? %>
         <% @lesson.available_instructors.each do |instructor| %>
         <h6> <%= instructor.name  %> - <%= instructor.user_id %> - <%= instructor.phone_number %>
-          <%= link_to "Send Instructor SMS", send_reminder_sms_to_instructor_path(@lesson, :instructor_id => instructor.id), class: "btn btn-warning" %></h6>
+          <% @lesson.completable? ? button_text = "Remind Instructor to Mark Complete" : button_text = "Send Instructor SMS Remidner" %>
+          <%= link_to button_text, send_reminder_sms_to_instructor_path(@lesson, :instructor_id => instructor.id), class: "btn btn-warning" %></h6>
           <% end %>
           <% else %>
           <li><p class="alert-danger">No instructors available!</p></li>

@@ -155,7 +155,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def final_charge
-    self.transactions.last.final_amount - self.price.to_i
+    self.transactions.last.final_amount - self.lesson_price.to_i
   end
 
   def post_stripe_tip
@@ -288,35 +288,6 @@ class Lesson < ActiveRecord::Base
 
   def lift_ticket_status?
     return true if self.lift_ticket_status == "Yes, I have one."
-  end
-
-  def adjusted_price
-    if self.id == 319
-      return 469
-    end
-    return self.price if actual_duration <= self.product.length.to_i
-    delta = actual_duration - self.product.length.to_i
-    if delta == 3 && self.product.length.to_i == 1
-      upsell_type = "extend_early_bird_to_half"
-    elsif delta == 3 && self.product.length.to_i == 3
-      upsell_type = "extend_half_day_to_full"
-    elsif delta == 6 && self.product.length.to_i == 1
-      upsell_type = "extend_early_bird_to_full"
-    else
-      puts "!!!!!!ERROR"
-    end
-    puts "!!!!!! length of lesson extension = #{delta}"
-    return self.price
-    # case upsell_type
-    # when "extend_early_bird_to_half"
-    #   return Product.where(length:3,calendar_period:self.location.calendar_status).first.price
-    # when "extend_half_day_to_full"
-    #   return Product.where(length:6,calendar_period:self.location.calendar_status).first.price
-    # when "extend_early_bird_to_full"
-    #   return Product.where(length:6,calendar_period:self.location.calendar_status).first.price
-    # else
-    #   return self.price
-    # end
   end
 
   def location
@@ -484,10 +455,7 @@ class Lesson < ActiveRecord::Base
 
   def price
     puts "!!!! calculating price"
-    if self.lesson_price
-      puts "!!!custom price found"
-      return self.lesson_price.to_s
-    elsif self.product_name
+    if self.product_name
       puts "!!!calculating price based on product name, location, and date"
       calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
       puts "!!!!lookup calendar period status, it is: #{calendar_period}"
@@ -509,7 +477,39 @@ class Lesson < ActiveRecord::Base
     return price.to_s
   end
 
+  def adjusted_price
+    return self.price if self.actual_duration <= self.product.length.to_i && self.admin_price_adjustment.nil?
+    delta = actual_duration - self.product.length.to_i
+    if delta == 3 && self.product.length.to_i == 1
+      upsell_type = "extend_early_bird_to_half"
+    elsif delta == 6 && self.product.length.to_i == 1
+      upsell_type = "extend_early_bird_to_full"
+    elsif delta == 3 && self.product.length.to_i == 3
+      upsell_type = "extend_half_day_to_full"
+    else
+      puts "!!!!could not compute an extension type"
+    end
+    calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
+    case upsell_type
+      when "extend_early_bird_to_half"
+        product = Product.where(length:"3.00",location_id:self.location.id,calendar_period:calendar_period,product_type:"private_lesson").first
+      when "extend_half_day_to_full"
+        product = Product.where(length:"6.00",location_id:self.location.id,calendar_period:calendar_period,product_type:"private_lesson").first
+      when "extend_early_bird_to_full"
+        product = Product.where(length:"6.00",location_id:self.location.id,calendar_period:calendar_period,product_type:"private_lesson").first
+      else
+        product = self.product
+    end
+    admin_adjustment = self.admin_price_adjustment.to_f
+    puts "!!!!!! length of lesson extension = #{delta}"
+    puts "!!!!!! the final product is #{product.name} and has a price of #{product.price}"
+    puts "!!!!!! there is also an admin adjustment of #{admin_adjustment}"
+    adjusted_price = product.price + admin_adjustment
+  end
+
+
   def package_cost
+    return 0 if self.students.count == 0
     package_price = 0
     puts "!!!calculating package cost"
     p1 = self.additional_students_with_gear * self.cost_per_additional_student_with_gear
@@ -539,24 +539,46 @@ class Lesson < ActiveRecord::Base
     end
   end
 
-  def additional_students_with_gear
-      self.location.id == 24 ? count = -1 : count = 0
+  def students_with_gear
+      count = 0
       self.students.each do |student|
         if student.needs_rental 
           count += 1
         end
-      end
-      return [count,0].max
+      end      
+      return count
   end
 
-  def additional_students_without_gear
-      self.location.id == 24 ? count = -1 : count = 0
+  def students_without_gear
+      count = 0
       self.students.each do |student|
         unless student.needs_rental 
           count += 1
         end
       end
-      return [count,0].max
+      return count
+  end
+
+  def additional_students_with_gear
+    if self.location.id == 24
+      if self.students_with_gear > 0 
+        return self.students_with_gear - 1
+      end
+    else
+      return self.students_with_gear
+    end
+  end
+
+  def additional_students_without_gear
+    if self.location.id == 24
+      if self.students_with_gear > 0 
+        return self.students_without_gear
+      elsif self.students_with_gear == 0
+        return self.students_without_gear - 1
+      end
+    else
+      return self.students_without_gear
+    end
   end
 
   def visible_lesson_cost
@@ -644,10 +666,11 @@ class Lesson < ActiveRecord::Base
     already_booked_instructors = Lesson.booked_instructors(lesson_time)
     busy_instructors = Lesson.instructors_with_calendar_blocks(lesson_time)
     declined_instructors = []
-    declined_actions = LessonAction.where(lesson_id: self.id, action:"Decline")
-    declined_actions.each do |action|
-      declined_instructors << Instructor.find(action.instructor_id)
-    end
+    #ignore decline actions for future availability >> instructors may decline based on the lesson info, not they're actual availability
+    # declined_actions = LessonAction.where(lesson_id: self.id, action:"Decline")
+    # declined_actions.each do |action|
+      # declined_instructors << Instructor.find(action.instructor_id)
+    # end
     puts "!!!!!!! - Step #4b - eliminating #{already_booked_instructors.count} that are already booked."
     puts "!!!!!!! - Step #4c - eliminating #{declined_instructors.count} that have declined."
     puts "!!!!!!! - Step #4d - eliminating #{busy_instructors.count} that are busy."

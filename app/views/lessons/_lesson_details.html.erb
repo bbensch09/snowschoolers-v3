@@ -47,15 +47,8 @@
         <%= @lesson.location.name %><br>
         <%= @lesson.activity %><br>
         <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %><br>
-        <span> <%= @lesson.slot %></span><br>
-<!--         %= @lesson.gear ? "Already have gear." : "Need to rent." %><br>
-        %= @lesson.lift_ticket_status? ? "Already have one." : "Need lift ticket." %><br>
- -->        
-        <% if @lesson.lesson_price.nil? %>
-          <%= number_to_currency(@lesson.price) %>
-        <% else %>
-          <%= number_to_currency(@lesson.lesson_price.to_i) %>
-        <% end %>
+        <span> <%= @lesson.slot %></span><br> 
+        <%= number_to_currency(@lesson.price) %>
         <% if @lesson.package_info %>
         <br><span class="italic"> <%= @lesson.package_info %></span>
         <% end %>

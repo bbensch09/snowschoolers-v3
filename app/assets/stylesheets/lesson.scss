@@ -33,7 +33,8 @@
   font-size: 1.2em;
   left: -20px;
   position: relative;
-  width: 110%;
+  width: 100%;
+  text-align: left;
 }
 .new-lesson-ctas-list li{
   display: inline-block;
@@ -101,6 +102,18 @@
   border-bottom: 2px solid black;
   padding: 20px;
   margin-left: 0;
+}
+.final-booking-details{
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  max-width: 600px;
+  padding: 40px;
 }
 .booking-details p{
   font-size: 15px;

@@ -56,19 +56,23 @@
             </div>
             <div class="col-md-2">
               <label class="lesson-label">Direct Lesson Cost</label>
-              <%= f.input :lesson_cost, as: :string, placeholder: "Enter custom price", label: false %>
+              <%= f.input :lesson_cost, as: :string, placeholder: "Enter price", label: false %>
             </div>
             <div class="col-md-2">
               <label class="lesson-label">Non-Lesson Cost</label>
-              <%= f.input :non_lesson_cost, as: :string, placeholder: "Enter custom price", label: false %>
+              <%= f.input :non_lesson_cost, as: :string, placeholder: "Enter price", label: false %>
             </div>
             <div class="col-md-2">
-              <label class="lesson-label">Total Price</label>
-              <%= f.input :lesson_price, as: :string, placeholder: "Enter custom price", label: false %>
+              <label class="lesson-label">Exclude from reporting (HTA, etc.)?</label>
+            <%= f.select :focus_area, ['No, include as normal','Exclude'], {}, {class: 'form-control', required:false, include_blank:true} %>
             </div>
             <div class="col-md-3">
-              <label class="lesson-label">Exclude from reporting (invoices, etc.)?</label>
-            <%= f.select :focus_area, ['No, include as normal','Exclude'], {}, {class: 'form-control', required:false, include_blank:true} %>
+              <label class="lesson-label">Reservation Price (charged to confirm reservation)</label>
+              <%= f.input :lesson_price, as: :string, placeholder: "Enter price", label: false %>
+            </div>
+            <div class="col-md-3">
+              <label class="lesson-label">Admin Adjustments (refunds, additional students, etc. to be charged after lesson)</label>
+              <%= f.input :admin_price_adjustment, as: :string, placeholder: "Enter price", label: false %>
             </div>
           </div>
         </div>
@@ -216,7 +220,7 @@
           </div>
           <div class="col-md-3">
             <%= f.input :state, as: :hidden, input_html: { value: @state } %>
-            <%= f.submit button_text, class: 'btn sign-up-btn pull-right continue-to-payment-btn' %>
+            <%= f.submit button_text, class: 'btn sign-up-btn btn-primary pull-right continue-to-payment-btn' %>
           </div>
 
         </div>
