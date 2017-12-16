@@ -15,7 +15,7 @@ class InstructorsController < ApplicationController
   end
 
   def revoke
-    .status = "Revoked"
+    @instructor.status = "Revoked"
     @instructor.save
     redirect_to instructors_path, notice: "Instructor privileges have been revoked"
   end
