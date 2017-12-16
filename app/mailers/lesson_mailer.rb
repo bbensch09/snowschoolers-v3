@@ -215,7 +215,7 @@ class LessonMailer < ActionMailer::Base
     else
       recipient = @lesson.guest_email
     end
-      mail(to: recipient, cc:'notify@snowschoolers.com', bcc:@lesson.instructor.user.email, subject: "Your Snow Schoolers lesson on #{@lesson.date.strftime("%b %-d")} with #{@lesson.instructor.name} is confirmed!")
+      mail(to: recipient, cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", bcc:@lesson.instructor.user.email, subject: "Your Snow Schoolers lesson on #{@lesson.date.strftime("%b %-d")} with #{@lesson.instructor.name} is confirmed!")
   end
 
   def send_lesson_gb_confirmation(lesson) #this gets sent after the instructor has accepted the lesson request.
@@ -225,7 +225,7 @@ class LessonMailer < ActionMailer::Base
     else
       recipient = @lesson.guest_email
     end
-      mail(to: recipient, cc:'notify@snowschoolers.com', bcc:@lesson.instructor.user.email, subject: "Your Snow Schoolers lesson on #{@lesson.date.strftime("%b %-d")} with #{@lesson.instructor.name} is confirmed!")
+      mail(to: recipient, cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", bcc:@lesson.instructor.user.email, subject: "Your Snow Schoolers lesson on #{@lesson.date.strftime("%b %-d")} with #{@lesson.instructor.name} is confirmed!")
   end
 
   def send_lesson_request_notification(lesson)
