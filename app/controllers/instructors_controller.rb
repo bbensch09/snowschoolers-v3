@@ -6,7 +6,7 @@ class InstructorsController < ApplicationController
 
 
   def verify
-    instructor = Instructor.find(params[:id])
+    instructor = @instructor
     instructor.status = 'Active'
     instructor.mark_eligible_for_beginners
     instructor.save
@@ -15,7 +15,7 @@ class InstructorsController < ApplicationController
   end
 
   def revoke
-    @instructor.status = "Revoked"
+    .status = "Revoked"
     @instructor.save
     redirect_to instructors_path, notice: "Instructor privileges have been revoked"
   end
