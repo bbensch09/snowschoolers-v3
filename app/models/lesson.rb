@@ -504,7 +504,7 @@ class Lesson < ActiveRecord::Base
     puts "!!!!!! length of lesson extension = #{delta}"
     puts "!!!!!! the final product is #{product.name} and has a price of #{product.price}"
     puts "!!!!!! there is also an admin adjustment of #{admin_adjustment}"
-    adjusted_price = product.price + admin_adjustment
+    adjusted_price = product.price.to_f + admin_adjustment.to_f
   end
 
 

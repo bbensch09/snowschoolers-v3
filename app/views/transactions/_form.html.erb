@@ -11,7 +11,7 @@
     <b> Actual lesson length:</b> <%= actual_length = @lesson.actual_duration %> hours.
 </h3>
     <% if actual_length == booked_length && @lesson.admin_price_adjustment.nil? %>
-      <h3>No adjustments necessary</h3>
+      <h3 class="italic">No adjustments necessary</h3>
       <%= f.input :base_amount, :input_html => {value: @lesson.lesson_price, class: 'hidden'}, label: false %>
     <% else %>
       <!-- <h3>Lesson extended</h3> -->
@@ -27,7 +27,7 @@
   <b>Amount Due: </b><%= number_to_currency(0) %>
   <% end %>
 </h3>
-    <% tip_amounts_array = ["15% (#{number_to_currency(@lesson.adjusted_price*0.15)})","25% (#{number_to_currency(@lesson.adjusted_price*0.25)})","35% (#{number_to_currency(@lesson.adjusted_price*0.35)})"] %>
+    <% tip_amounts_array = ["15% (#{number_to_currency(@lesson.adjusted_price.to_f*0.15)})","25% (#{number_to_currency(@lesson.adjusted_price.to_f*0.25)})","35% (#{number_to_currency(@lesson.adjusted_price.to_f*0.35)})"] %>
     <%= f.input :tip_amount, as: :select, collection: [[tip_amounts_array[0],0.15],[tip_amounts_array[1],0.25],[tip_amounts_array[2],0.35],['No Tip',0],['Tipped in-person',0.0009]], include_blank: 'Select Tip Amount', label: "Include Instructor Tip (optional)", :input_html => {class:'tip-amount-input', required: true} %>
   <% end %>
   <%= f.submit "Confirm Tip Amount", class: 'btn btn-success' %>
