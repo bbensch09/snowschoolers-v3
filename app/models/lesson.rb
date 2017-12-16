@@ -563,6 +563,8 @@ class Lesson < ActiveRecord::Base
     if self.location.id == 24
       if self.students_with_gear > 0 
         return self.students_with_gear - 1
+      else
+        return 0
       end
     else
       return self.students_with_gear.to_i
@@ -572,9 +574,11 @@ class Lesson < ActiveRecord::Base
   def additional_students_without_gear
     if self.location.id == 24
       if self.students_with_gear > 0 
-        return self.students_without_gear
+        return self.students_without_gear.to_i
       elsif self.students_with_gear == 0
-        return self.students_without_gear - 1
+        return (self.students_without_gear - 1).to_i
+      else
+        return 0
       end
     else
       return self.students_without_gear.to_i
