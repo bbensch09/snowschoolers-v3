@@ -38,7 +38,9 @@ class CalendarBlocksController < ApplicationController
       instructor_id = params[:id]
       @calendar_blocks = CalendarBlock.where(instructor_id:instructor_id)
       # @available_days = CalendarBlock.where(instructor_id:instructor_id,state:'Available')
-      @instructor = Instructor.find(instructor_id)
+      names = params[:id].gsub("-"," ")
+      puts "!!!names is #{names}."
+      @instructor = Instructor.all.select{|instructor| instructor.name.downcase.strip == names.downcase.strip}.first
       render 'availability'
   end
 
