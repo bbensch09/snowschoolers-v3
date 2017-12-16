@@ -10,7 +10,7 @@
   </div>
   <div class="col-md-6">
     <h5><%= Lesson.total_prime_days %></h5>
-    <h5><%= Lesson.completed_lessons_count %> </h5>
+    <h5><%= Lesson.completed_lessons.count %> </h5>
     <h5><%= number_to_currency(Lesson.total_wages) %> (<%= number_to_currency(Lesson.total_tips) %>) </h5>
     <h5><%= number_to_currency(Lesson.total_earnings) %> </h5>
   </div>
