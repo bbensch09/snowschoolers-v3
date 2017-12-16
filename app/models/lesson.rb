@@ -565,7 +565,7 @@ class Lesson < ActiveRecord::Base
         return self.students_with_gear - 1
       end
     else
-      return self.students_with_gear
+      return self.students_with_gear.to_i
     end
   end
 
@@ -577,7 +577,7 @@ class Lesson < ActiveRecord::Base
         return self.students_without_gear - 1
       end
     else
-      return self.students_without_gear
+      return self.students_without_gear.to_i
     end
   end
 
