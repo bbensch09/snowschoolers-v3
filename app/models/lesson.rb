@@ -821,12 +821,12 @@ class Lesson < ActiveRecord::Base
   def send_reminder_sms
     # ENV variable to toggle Twilio on/off during development
     return if ENV['twilio_status'] == "inactive"    
-    return if self.state == 'confirmed' || (Time.now - LessonAction.last.created_at) < 20
+    return if self.state == 'confirmed'
     account_sid = ENV['TWILIO_SID']
     auth_token = ENV['TWILIO_AUTH']
     snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
     recipient = self.available_instructors.any? ? self.available_instructors.first.phone_number : "4083152900"
-    body = "#{self.available_instructors.first.first_name}, it has been over 5 minutes and you have not accepted or declined this request. We are now making this lesson available to other instructors. You may still visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm the lesson."
+    body = "#{self.available_instructors.first.first_name}, it has been over #{ENV['TWILIO_SMS_DELAY']} minutes and you have not accepted or declined this request. We are now making this lesson available to other instructors. You may still visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm the lesson."
     @client = Twilio::REST::Client.new account_sid, auth_token
           @client.api.account.messages.create({
           :to => recipient,
@@ -837,7 +837,7 @@ class Lesson < ActiveRecord::Base
       send_sms_to_all_other_instructors
       LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
   end
-  handle_asynchronously :send_reminder_sms, :run_at => Proc.new {300.seconds.from_now }
+  handle_asynchronously :send_reminder_sms, :run_at => Proc.new {ENV['TWILIO_SMS_DELAY'].to_i.seconds.from_now }
 
   def send_sms_to_all_other_instructors
     # ENV variable to toggle Twilio on/off during development
