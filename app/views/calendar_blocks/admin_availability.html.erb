@@ -1,3 +1,5 @@
+<div id="middle" class="container calendar-container">
+  <div class="white">
 <div class="container"></div>
 <div class='col-md-6'>
   <h2 class="calendar-subheader center bold">Summary</h2>
@@ -10,7 +12,7 @@
   </div>
   <div class="col-md-6">
     <h5><%= Lesson.total_prime_days %></h5>
-    <h5><%= Lesson.completed_lessons_count %> </h5>
+    <h5><%= Lesson.completed_lessons.count %> </h5>
     <h5><%= number_to_currency(Lesson.total_wages) %> (<%= number_to_currency(Lesson.total_tips) %>) </h5>
     <h5><%= number_to_currency(Lesson.total_earnings) %> </h5>
   </div>
@@ -31,9 +33,9 @@
     </div>
     <div class="row">
     <% blocks.sort!{|a,b| a.state <=> b.state}.each do | block | %>        
-          <% if block.state == "Booked" %>
+          <% if block.state == "Booked" && block.lesson %>
               <%= link_to block.lesson.short_title, lesson_path(block.lesson.id).first, method: :get, class: "btn btn-xs btn-success" %>
-            <% else %>
+            <% elsif block.instructor %>
               <div class='admin-calendar-day' >
                 <%= link_to block.instructor.first_name, individual_availability_path(block.instructor.id), method: :get, id: block.id, class: "btn btn-xs btn-primary"  %>
               </div>
@@ -53,3 +55,5 @@
 <div id="calendar"></div>
 
 </section>
+</div>
+</div>

@@ -1,12 +1,12 @@
 class InstructorsController < ApplicationController
-  before_action :set_instructor, only: [:show, :edit, :update, :destroy, :show_candidate]
+  before_action :set_instructor, only: [:show, :edit, :update, :destroy, :show_candidate, :revoke, :verify]
   before_action :confirm_admin_permissions, except: [:create, :profile, :update, :new, :edit, :show, :thank_you, :browse, :show, :show_candidate]
   # before_action :confirm_user_permissions, only: [:edit, :update]
   skip_before_action :authenticate_user!, only: [:new, :create, :thank_you, :browse, :show, :show_candidate]
 
 
   def verify
-    instructor = Instructor.find(params[:id])
+    instructor = @instructor
     instructor.status = 'Active'
     instructor.mark_eligible_for_beginners
     instructor.save
@@ -15,9 +15,8 @@ class InstructorsController < ApplicationController
   end
 
   def revoke
-    instructor = Instructor.find(params[:id])
-    instructor.status = "Revoked"
-    instructor.save
+    @instructor.status = "Revoked"
+    @instructor.save
     redirect_to instructors_path, notice: "Instructor privileges have been revoked"
   end
 
