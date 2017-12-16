@@ -2,9 +2,8 @@ class LessonsController < ApplicationController
   respond_to :html
   skip_before_action :authenticate_user!, only: [:new, :granlibakken, :new_request, :create, :complete, :confirm_reservation, :update, :show, :edit]
   before_action :set_lesson, only: [:show, :complete, :update, :edit, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie]
-  before_action :authenticate_from_cookie!, only: [:complete, :confirm_reservation, :update, :show, :edit]
   before_action :save_lesson_params_and_redirect, only: [:create]
-  before_action :create_lesson_from_session, only: [:create]
+  before_action :authenticate_from_cookie!, only: [:complete, :confirm_reservation, :update, :show, :edit]
 
   def assign_to_section
     puts "the params are #{params}"
@@ -129,7 +128,7 @@ class LessonsController < ApplicationController
       puts "!!!! lesson successfully intiated"
       create_lesson_and_redirect
     else
-      puts "!!!parms not set expected"
+      puts "!!!parms not set as expected"
       session[:lesson] = params[:lesson] 
       flash.now[:alert] = "In order to book a lesson, please select a specific date, time, sport, and location."   
       redirect_to '#book-a-lesson'
@@ -392,15 +391,10 @@ class LessonsController < ApplicationController
   def save_lesson_params_and_redirect
     puts "!!!!! params are below: #{params}"
     puts params[:lesson][:activity]
-    puts params[:lesson][:product_name]
     puts params[:lesson][:lesson_time][:date]
     puts params[:lesson][:lesson_time][:slot]
     puts "!!!!!!! end params"
     validate_new_lesson_params
-  end
-
-  def create_lesson_from_session
-      create_lesson_and_redirect
   end
 
   def create_lesson_and_redirect
@@ -409,9 +403,13 @@ class LessonsController < ApplicationController
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
     @lesson.product_name = @lesson.lesson_time.slot
     if @lesson.save
-      redirect_to complete_lesson_path(@lesson)
       GoogleAnalyticsApi.new.event('lesson-requests', 'request-initiated', params[:ga_client_id])
       @user_email = current_user ? current_user.email : "unknown"
+      cookies[:lesson] = {
+        value: @lesson.id + 30,
+        expires: 1.year.from_now
+      }
+      redirect_to complete_lesson_path(@lesson)
       # LessonMailer.notify_admin_lesson_request_begun(@lesson, @user_email).deliver
       else
         @activity = session[:lesson].nil? ? nil : session[:lesson]["activity"]
@@ -457,6 +455,13 @@ class LessonsController < ApplicationController
       session[:must_sign_in] = true
       redirect_to root_path
     end
+    if params[:allow] == 'true'
+      cookies[:lesson] = {
+        value: @lesson.id + 30,
+        expires: 1.year.from_now
+      }
+      puts"!!!! cookie has been set to: #{cookies[:lesson]}."
+    end
   end
 
   def determine_update_state
@@ -477,7 +482,7 @@ class LessonsController < ApplicationController
 
   def lesson_params
     params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id, :guest_email, :how_did_you_hear, :num_days, :lesson_price, :requester_name, :is_gift_voucher, :includes_lift_or_rental_package, :package_info, :gift_recipient_email, :gift_recipient_name, :lesson_cost, :non_lesson_cost, :product_id, :section_id, :product_name,
-      students_attributes: [:id, :name, :age_range, :gender, :relationship_to_requester, :lesson_history, :requester_id, :most_recent_experience, :most_recent_level, :other_sports_experience, :experience, :_destroy, :needs_rental])
+      students_attributes: [:id, :name, :age_range, :gender, :relationship_to_requester, :lesson_history, :requester_id, :most_recent_experience, :most_recent_level, :other_sports_experience, :experience, :_destroy, :needs_rental], lesson_time_attributes: [:date, :slot])
   end
 
   def lesson_time_params
