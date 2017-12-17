@@ -21,11 +21,11 @@
 <h3>
   <b>Original Reservation Price:</b> <%= number_to_currency(@lesson.lesson_price) %> <br>
   <b>Final Lesson Price:</b> <%= number_to_currency(@lesson.adjusted_price) %> <br>
-  <% if (@lesson.adjusted_price.to_i)-(@lesson.lesson_price.to_i) > 0 %>
+  <!-- % if (@lesson.adjusted_price.to_i)-(@lesson.lesson_price.to_i) > 0 %> -->
   <b>Amount Due: </b><%= number_to_currency((@lesson.adjusted_price.to_i)-(@lesson.lesson_price.to_i)) %>
-  <% else %>
-  <b>Amount Due: </b><%= number_to_currency(0) %>
-  <% end %>
+  <!-- % else %> -->
+  <!-- <b>Amount Due: </b><%= number_to_currency(0) %> -->
+  <!-- % end %> -->
 </h3>
     <% tip_amounts_array = ["15% (#{number_to_currency(@lesson.adjusted_price.to_f*0.15)})","25% (#{number_to_currency(@lesson.adjusted_price.to_f*0.25)})","35% (#{number_to_currency(@lesson.adjusted_price.to_f*0.35)})"] %>
     <%= f.input :tip_amount, as: :select, collection: [[tip_amounts_array[0],0.15],[tip_amounts_array[1],0.25],[tip_amounts_array[2],0.35],['No Tip',0],['Tipped in-person',0.0009]], include_blank: 'Select Tip Amount', label: "Include Instructor Tip (optional)", :input_html => {class:'tip-amount-input', required: true} %>
