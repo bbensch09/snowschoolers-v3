@@ -503,7 +503,7 @@ class Lesson < ActiveRecord::Base
         end
       puts "!!!!!! length of lesson extension = #{delta}"
       puts "!!!!!! the final product is #{product.name} and has a price of #{product.price}"
-      if self.lesson_price > product.price 
+      if self.lesson_price && self.lesson_price > product.price 
         base_price = self.lesson_price
       else
         base_price = product.price
