@@ -188,6 +188,8 @@ class LessonsController < ApplicationController
         @lesson.lesson_price = @lesson.price 
         if @lesson.is_gift_voucher?
           @lesson.state = 'gift_voucher_reserved'
+        elsif @lesson.instructor && @lesson.package_info
+            @lesson.state = 'confirmed'
         else
           @lesson.state = 'booked'
         end
