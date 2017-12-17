@@ -168,7 +168,11 @@ class LessonsController < ApplicationController
 
   def confirm_reservation
     if @lesson.deposit_status != 'confirmed'
-        @amount = @lesson.price.to_i
+        if @lesson.lesson_price.nil?
+          @amount = @lesson.price.to_i
+        else
+          @amount= @lesson.lesson_price.to_i
+        end
           customer = Stripe::Customer.create(
             :email => params[:stripeEmail],
             :source  => params[:stripeToken]
