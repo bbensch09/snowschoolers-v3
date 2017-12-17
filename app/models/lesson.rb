@@ -544,7 +544,7 @@ class Lesson < ActiveRecord::Base
       when 24
         return 40
       when 8
-        return 60
+        return 0
       else
         return 0
     end
