@@ -35,12 +35,13 @@ class CalendarBlocksController < ApplicationController
   end
 
   def individual_availability
-      instructor_id = params[:id]
-      @calendar_blocks = CalendarBlock.where(instructor_id:instructor_id)
-      # @available_days = CalendarBlock.where(instructor_id:instructor_id,state:'Available')
-      names = params[:id].gsub("-"," ")
-      puts "!!!names is #{names}."
-      @instructor = Instructor.all.select{|instructor| instructor.name.downcase.strip == names.downcase.strip}.first
+      instructor_name = params[:id]
+      instructor_name = params[:id].gsub("-"," ")
+      puts "!!!instructor_name is #{instructor_name}."
+      @instructor = Instructor.all.select{|instructor| instructor.name.downcase.strip == instructor_name.downcase.strip}.first
+      puts "!!!!instructor name is :#{@instructor.name}."
+      @calendar_blocks = CalendarBlock.where(instructor_id:@instructor.id)
+      # @available_days = CalendarBlock.where(instructor_id:instructor_id,state:'Available')      
       render 'availability'
   end
 
