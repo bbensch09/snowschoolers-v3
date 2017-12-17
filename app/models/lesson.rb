@@ -478,33 +478,44 @@ class Lesson < ActiveRecord::Base
   end
 
   def adjusted_price
-    return self.price if self.actual_duration <= self.product.length.to_i && self.admin_price_adjustment.nil?
-    delta = actual_duration - self.product.length.to_i
-    if delta == 3 && self.product.length.to_i == 1
-      upsell_type = "extend_early_bird_to_half"
-    elsif delta == 6 && self.product.length.to_i == 1
-      upsell_type = "extend_early_bird_to_full"
-    elsif delta == 3 && self.product.length.to_i == 3
-      upsell_type = "extend_half_day_to_full"
-    else
-      puts "!!!!could not compute an extension type"
-    end
-    calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
-    case upsell_type
-      when "extend_early_bird_to_half"
-        product = Product.where(length:"3.00",location_id:self.location.id,calendar_period:calendar_period,product_type:"private_lesson").first
-      when "extend_half_day_to_full"
-        product = Product.where(length:"6.00",location_id:self.location.id,calendar_period:calendar_period,product_type:"private_lesson").first
-      when "extend_early_bird_to_full"
-        product = Product.where(length:"6.00",location_id:self.location.id,calendar_period:calendar_period,product_type:"private_lesson").first
+    return self.price if self.actual_duration.nil? && self.admin_price_adjustment.nil?
+    if self.actual_duration
+        delta = actual_duration - self.product.length.to_i
+        if delta == 3 && self.product.length.to_i == 1
+          upsell_type = "extend_early_bird_to_half"
+        elsif delta == 6 && self.product.length.to_i == 1
+          upsell_type = "extend_early_bird_to_full"
+        elsif delta == 3 && self.product.length.to_i == 3
+          upsell_type = "extend_half_day_to_full"
+        else
+          puts "!!!!could not compute an extension type"
+        end
+        calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
+        case upsell_type
+          when "extend_early_bird_to_half"
+            product = Product.where(length:"3.00",location_id:self.location.id,calendar_period:calendar_period,product_type:"private_lesson").first
+          when "extend_half_day_to_full"
+            product = Product.where(length:"6.00",location_id:self.location.id,calendar_period:calendar_period,product_type:"private_lesson").first
+          when "extend_early_bird_to_full"
+            product = Product.where(length:"6.00",location_id:self.location.id,calendar_period:calendar_period,product_type:"private_lesson").first
+          else
+            product = self.product
+        end
+      puts "!!!!!! length of lesson extension = #{delta}"
+      puts "!!!!!! the final product is #{product.name} and has a price of #{product.price}"
+      if self.lesson_price > product.price 
+        base_price = self.lesson_price
       else
-        product = self.product
+        base_price = product.price
+      end
+    elsif self.lesson_price
+      base_price = self.lesson_price
+    else
+      base_price = self.product.price
     end
     admin_adjustment = self.admin_price_adjustment.to_f
-    puts "!!!!!! length of lesson extension = #{delta}"
-    puts "!!!!!! the final product is #{product.name} and has a price of #{product.price}"
     puts "!!!!!! there is also an admin adjustment of #{admin_adjustment}"
-    adjusted_price = product.price.to_f + admin_adjustment.to_f
+    adjusted_price = base_price.to_f + admin_adjustment.to_f
   end
 
 

@@ -38,7 +38,13 @@
         <b>Sport:</b> <br>
         <b>Date:</b> <br>
         <b>Slot:</b> <br>
-        <b>Price:</b>
+        <% if @lesson.admin_price_adjustment.nil? %>
+        <b>Price:</b> <br>
+        <% else @lesson.admin_price_adjustment %>
+        <b>Initial Price:</b> <br>
+        <b>Adjustments:</b> <br>
+        <b>Total Price:</b> <br>
+        <% end %>
       </h4>
       </div>
       <div class="col-md-9 col-xs-9">
@@ -48,7 +54,13 @@
         <%= @lesson.activity %><br>
         <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %><br>
         <span> <%= @lesson.slot %></span><br> 
-        <%= number_to_currency(@lesson.price) %>
+        <% if @lesson.price == @lesson.lesson_price %>
+          <%= number_to_currency(@lesson.price) %> <br><br>
+          <% elsif @lesson.adjusted_price %>
+          <%= number_to_currency(@lesson.lesson_price) %> <br>
+          <%= number_to_currency(@lesson.admin_price_adjustment) %> <br>
+          <%= number_to_currency(@lesson.adjusted_price) %> <br>
+        <% end %>
         <% if @lesson.package_info %>
         <br><span class="italic"> <%= @lesson.package_info %></span>
         <% end %>
