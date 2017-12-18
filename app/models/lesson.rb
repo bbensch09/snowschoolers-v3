@@ -11,7 +11,7 @@ class Lesson < ActiveRecord::Base
   accepts_nested_attributes_for :students, reject_if: :all_blank, allow_destroy: true
 
   validates :requested_location, :lesson_time, presence: true
-  validates :phone_number, :lift_ticket_status,
+  validates :phone_number,
             presence: true, on: :update
   # validates :duration, :start_time, presence: true, on: :update
   # validates :gear, inclusion: { in: [true, false] }, on: :update #gear now moved to student section
