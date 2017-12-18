@@ -773,7 +773,9 @@ class Lesson < ActiveRecord::Base
     end
     blocked_instructors =[]
     calendar_blocks.each do |block|
-      blocked_instructors << Instructor.find(block.instructor_id)
+      if block.instructor_id && Instructor.find(block.instructor_id)
+        blocked_instructors << Instructor.find(block.instructor_id)
+      end
     end
     return blocked_instructors
   end
