@@ -50,6 +50,9 @@ class TransactionsController < ApplicationController
     @transaction.lesson.save
     if current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee"
       flash[:notice] = 'Thanks! Admin has updated lesson as complete and instructor has not been messaged. You may now email student to remind them to submit a review.'
+      if ENV['HOST_DOMAIN'] == "localhost:3000"
+        @transaction.lesson.send_sms_to_instructor
+      end
       redirect_to @transaction.lesson
       else
       @transaction.lesson.send_sms_to_instructor
