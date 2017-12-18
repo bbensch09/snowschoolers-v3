@@ -112,11 +112,11 @@
 </div>
 <% end %>
 <div class="col-md-12">
+<%= link_to 'Back to all instructors', instructors_path, class: 'btn btn-primary' %>
 <% if current_user && current_user.email == 'brian@snowschoolers.com' %>
-    <%= link_to 'Edit', edit_instructor_path(@instructor) %> |
+    <%= link_to 'Edit', edit_instructor_path(@instructor), class: 'btn btn-primary' %>
     <%= link_to 'Verify Instructor', edit_user_registration_path(@instructor.user), class: 'btn btn-success' %>
 <% end %>
-<%= link_to 'Back to all instructors', instructors_path, class: 'btn sign-up-btn' %>
 </div>
 <div class="buffer"></div>
 </div>
