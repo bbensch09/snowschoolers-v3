@@ -937,7 +937,7 @@ class Lesson < ActiveRecord::Base
       })
     end
     # identify recipients to be notified as all available instructors except for the first instructor, who has been not responsive
-    recipients[1..-1].each do |instructor|
+    recipients.each do |instructor|
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
@@ -951,7 +951,7 @@ class Lesson < ActiveRecord::Base
     end
     LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
   end
-  # handle_asynchronously :send_sms_to_all_other_instructors, :run_at => Proc.new {5.seconds.from_now }
+  handle_asynchronously :send_sms_to_all_other_instructors, :run_at => Proc.new {ENV['TWILIO_SMS_DELAY'].to_i.seconds.from_now }
 
   def send_manual_sms_request_to_instructor(instructor)
       # ENV variable to toggle Twilio on/off during development

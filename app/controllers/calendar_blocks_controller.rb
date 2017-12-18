@@ -1,6 +1,7 @@
 class CalendarBlocksController < ApplicationController
   before_action :set_calendar_block, only: [:show, :edit, :update, :destroy, :toggle_availability]
   before_action :confirm_admin_permissions, only: [:admin_availability]
+  before_action :set_instructor, only: [:individual_availability, :set_all_days_available, :set_all_weekends_available, :block_all_days]
 
 
   # GET /calendar_blocks
@@ -35,10 +36,6 @@ class CalendarBlocksController < ApplicationController
   end
 
   def individual_availability
-      instructor_name = params[:id]
-      instructor_name = params[:id].gsub("-"," ")
-      puts "!!!instructor_name is #{instructor_name}."
-      @instructor = Instructor.all.select{|instructor| instructor.name.downcase.strip == instructor_name.downcase.strip}.first
       puts "!!!!instructor name is :#{@instructor.name}."
       @calendar_blocks = CalendarBlock.where(instructor_id:@instructor.id)
       # @available_days = CalendarBlock.where(instructor_id:instructor_id,state:'Available')      
@@ -51,21 +48,21 @@ class CalendarBlocksController < ApplicationController
   end
 
   def set_all_days_available
-    instructor_id = params[:id]
+    instructor_id = @instructor.id
     CalendarBlock.open_all_days(instructor_id)
-    redirect_to individual_availability_path(instructor_id)
+    redirect_to individual_availability_path(@instructor.to_param)
   end
 
   def block_all_days
-    instructor_id = params[:id]
+    instructor_id = @instructor.id
     CalendarBlock.block_all_days(instructor_id)
-    redirect_to individual_availability_path(instructor_id)
+    redirect_to individual_availability_path(@instructor.to_param)
   end
 
   def set_all_weekends_available
-    instructor_id = params[:id]
+    instructor_id = @instructor.id
     CalendarBlock.open_all_weekends(instructor_id)
-    redirect_to individual_availability_path(instructor_id)
+    redirect_to individual_availability_path(@instructor.to_param)
   end
 
   
@@ -175,6 +172,13 @@ class CalendarBlocksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_calendar_block
       @calendar_block = CalendarBlock.find(params[:id])
+    end
+
+    def set_instructor
+      instructor_name = params[:id]
+      instructor_name = params[:id].gsub("-"," ")
+      puts "!!!instructor_name is #{instructor_name}."
+      @instructor = Instructor.all.select{|instructor| instructor.name.downcase.strip == instructor_name.downcase.strip}.first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
