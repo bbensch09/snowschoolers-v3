@@ -18,28 +18,16 @@
           <li>Location:<%= @lesson.location.name %> </li>
           <li>Date: <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %></li>
           <li>Slot:<%= @lesson.slot %> </li>
-          <li>Pre-Tip Earnings:<%= number_to_currency(@lesson.price * 0.15) %> </li>
+          <li>Minimum Instructor Pay:<%= number_to_currency(@lesson.length.to_i * 16) %> </li>
       </ul>
 
       <h4>Objectives <strong> and Experience</strong></h4>
 
         <ul>
-          <li>Focus Area:<%= @lesson.focus_area %> </li>
           <li>Objectives:<%= @lesson.objectives %> </li>
         </ul>
 
-      <h4>Student <strong>Info</strong></h4>
-      <% @lesson.students.each do |student| %>
-        <ul>
-            <li>Name: <%= student.name %> </li>
-            <li>Age Range: <%= student.age_range %></li>
-            <li>Gender: <%= student.gender %></li>
-            <li>About the student: <%= student.relationship_to_requester %></li>
-            <li>Previous Experience: <%= student.most_recent_experience %> </li>
-            <li>Ability Level: <%= student.most_recent_level %> </li>
-            <li>Athletic Background: <%= student.other_sports_experience %> </li>
-        </ul>
-      <% end %>
+      <%= render partial: 'lessons/student_details' %>
     </div>
     <button> <h2> <a href=<%= lesson_url(@lesson) %>> Accept this Lesson </a> </h2></button>
   </body>

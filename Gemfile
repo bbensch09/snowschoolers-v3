@@ -37,6 +37,7 @@ gem 'railties'
 gem 'sitemap_generator'
 # gem for cron jobs to schedule sitemap refresh, mkting emails, etc.
 gem 'whenever', :require => false
+
 #stripe for charging credit cards
 gem 'stripe'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

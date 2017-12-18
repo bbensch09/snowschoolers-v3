@@ -128,6 +128,10 @@
   margin-left: 40px;
   font-weight: bold;
 }
+.details-info-box{
+  width: 90vw;
+  max-width: 700px;
+}
 .details-info-box h3{
   font-weight: bold;
 }
@@ -165,6 +169,15 @@
   margin-top: 5px;
   margin-bottom: 5px;
 }
+.lesson-detail-topic{
+  width: 300px;
+  display: inline-block;
+}
+.student-detail-topic{
+  width: 120px;
+  display: inline-block;
+}
+
 
 /*DESKTOP ONLY ADJUSTMENTS*/
 @media (min-width: 768px) {

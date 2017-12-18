@@ -179,9 +179,9 @@ class LessonMailer < ActionMailer::Base
     available_instructors = (lesson.available_instructors - [excluded_instructor])
     @available_instructors = []
     #select only the first instructor in the array that is available to email.
-    instructors_to_email = available_instructors[0...1]
+    # instructors_to_email = available_instructors[0...1]
     #load email addresses for instructors to email
-    instructors_to_email.each do |instructor|
+    available_instructors.each do |instructor|
       if instructor.user 
         @available_instructors << instructor.user.email
       end
@@ -225,15 +225,15 @@ class LessonMailer < ActionMailer::Base
     else
       recipient = @lesson.guest_email
     end
-      mail(to: recipient, cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", bcc:@lesson.instructor.user.email, subject: "Your Snow Schoolers lesson on #{@lesson.date.strftime("%b %-d")} with #{@lesson.instructor.name} is confirmed!")
+      mail(to: recipient, cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", bcc:@lesson.instructor.user.email, subject: "Instructor Confirmation: your Snow Schoolers lesson on #{@lesson.date.strftime("%b %-d")} with #{@lesson.instructor.name} is confirmed!")
   end
 
   def send_lesson_request_notification(lesson)
     @lesson = lesson
     if @lesson.guest_email.nil? || @lesson.guest_email == ""
-      mail(to: @lesson.requester.email, cc:'notify@snowschoolers.com', subject: "Thanks for reserving your SnowSchoolers Lesson for #{@lesson.date.strftime("%b %-d")}")
+      mail(to: @lesson.requester.email, cc:'notify@snowschoolers.com', subject: "Reservation Confirmation: Thanks for booking with Snow Schoolers for #{@lesson.date.strftime("%b %-d")}")
     else
-      mail(to: @lesson.guest_email, cc:'notify@snowschoolers.com', subject: "Thanks for reserving your SnowSchoolers Lesson for #{@lesson.date.strftime("%b %-d")}")
+      mail(to: @lesson.guest_email, cc:'notify@snowschoolers.com', subject: "Reservation Confirmation: Thanks for booking with Snow Schoolers for  for #{@lesson.date.strftime("%b %-d")}")
     end
   end
 

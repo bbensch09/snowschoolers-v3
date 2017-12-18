@@ -1,8 +1,8 @@
 <header class="page-header">
-  <h2 id="lesson-details-header">Full Lesson Details</h2>
+  <h2 id="lesson-details-header">Lesson Status</h2>
 </header>
-<p class="lesson-summary-info">Requester: <%= @lesson.requester ? @lesson.requester.name : @lesson.guest_email %>
-<br>Contact Email: <%= @lesson.requester ? @lesson.requester.email : @lesson.guest_email %>
+<p class="lesson-summary-info">
+Requester Email: <%= @lesson.requester ? @lesson.requester.email : @lesson.guest_email %>
 <% if @lesson.instructor %>
   <br> Instructor: <%= @lesson.instructor.name %>
 <% else %>
@@ -27,87 +27,27 @@
   <% end %>
 
   <div class="details-info-box">
-    <h3>Basic Info</h3>
+    <h3>Lesson Summary</h3>
 
     <div class='row'>
 
-      <div class="col-md-3 col-xs-3">
+      <div class="col-md-12 col-xs-12">
       <h4 class="slot-details-mobile">
-        <b>Requester:</b> <br>
-        <b>Location:</b> <br>
-        <b>Sport:</b> <br>
-        <b>Date:</b> <br>
-        <b>Slot:</b> <br>
-        <% if @lesson.admin_price_adjustment.nil? %>
-        <b>Price:</b> <br>
-        <% else @lesson.admin_price_adjustment %>
-        <b>Initial Price:</b> <br>
-        <b>Adjustments:</b> <br>
-        <b>Total Price:</b> <br>
-        <% end %>
-      </h4>
-      </div>
-      <div class="col-md-9 col-xs-9">
-      <h4 class="slot-details-mobile">
-        <%= @lesson.requester_name %> <br>
-        <%= @lesson.location.name %><br>
-        <%= @lesson.activity %><br>
-        <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %><br>
-        <span> <%= @lesson.slot %></span><br> 
-        <% if @lesson.price == @lesson.lesson_price %>
-          <%= number_to_currency(@lesson.price) %> <br><br>
-          <% elsif @lesson.adjusted_price %>
-          <%= number_to_currency(@lesson.lesson_price) %> <br>
-          <%= number_to_currency(@lesson.admin_price_adjustment) %> <br>
-          <%= number_to_currency(@lesson.adjusted_price) %> <br>
-        <% end %>
-        <% if @lesson.package_info %>
-        <br><span class="italic"> <%= @lesson.package_info %></span>
-        <% end %>
+        <span class="lesson-detail-topic">Requester:</span> <%= @lesson.requester_name %> <br>
+        <span class="lesson-detail-topic">Location:</span>  <%= @lesson.location.name %><br>
+        <span class="lesson-detail-topic">Sport:</span>  <%= @lesson.activity %><br>
+        <span class="lesson-detail-topic">Date:</span> <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %><br>
+        <span class="lesson-detail-topic">Slot:</span>  <%= @lesson.slot %><br><br>
+        <span class="lesson-detail-topic">Objectives:</span> <br> <%= @lesson.objectives %>
       </h4>
       </div>
     </div>
-
   </div>
 
   <div class="details-info-box">
-    <h3>Objectives and Experience</h3>
-
-    <div class='col-md-12'>
-      <h4><b>Focus Area:</b></h4>
-      <div class=''><%= @lesson.focus_area %></div>
-    </div>
-
-    <div class='col-md-12'>
-      <h4><b>Objectives:</b></h4>
-      <div class=''><%= @lesson.objectives %></div>
-    </div>
+      <%= render partial: 'price_details' %>
   </div>
-
-  <div class="col-md-7 col-xs-12">
-    <%= render partial: 'price_details' %>
-  </div>
-
-  <div class='col-md-12 student-box details-info-box'>
-      <h3>Student <strong>Info</strong></h3>
-  <% @lesson.students.each do |student| %>
-    <div class='row'>
-      <div class='col-md-12'>
-        <h4><b>Name:</b> <%= student.name %>
-          <br>
-        <b>Age Range:</b> <%= student.age_range %>
-          <br>
-        <b>Gender:</b> <%= student.gender %>
-        <br>
-        <b>About the student:</b> <%= student.relationship_to_requester %>
-          <br>
-       <b>Experience Level:</b> <%= student.most_recent_level.to_s %>
-          <br>
-       <b>Equipment:</b> <%= student.needs_rental ? "Rental equipment included" : "Already has equipment" %>
-       <br>
-        </h4>
-      </div>
-      <hr>
-    <% end %>
+  <div class='details-info-box'>
+      <%= render partial: 'student_details' %>
   </div>
 </div>
