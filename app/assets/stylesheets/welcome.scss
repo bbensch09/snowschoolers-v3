@@ -403,6 +403,7 @@ width: 200px;
     border-color: #ccc;
     font-weight: 500 !important;
     text-transform: none !important;
+    white-space: normal;
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   transition: all 0.35s;
@@ -451,6 +452,7 @@ fieldset[disabled] .btn-default.active {
   color: white;
   background-color: #55C9B2;
   /*border-color: #3b5998;*/
+  white-space: normal;
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   transition: all 0.35s;
@@ -499,12 +501,13 @@ fieldset[disabled] .btn-primary.active {
   font-family: 'Palanquin', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
   border: none;
   border-radius: 300px;
-  /*font-weight: 700;*/
+  white-space: normal;
   text-transform: uppercase;
 }
 .btn-xl {
   padding: 15px 30px;
   font-size: 1.2em;
+  white-space: normal;
 }
 ::-moz-selection {
   color: white;
@@ -774,7 +777,7 @@ h2 {
 .green-button {
   border-bottom: 2px solid #55C9B2;
   border-top: 2px solid #55C9B2;
-  padding: 5px;
+  padding: 1px;
   font-size: 16px;
 }
 .green-link:hover {
@@ -1467,6 +1470,7 @@ h2.blog-cta{
     padding: 15px 30px;
     font-size: 1.3em;
     max-width: 100%;
+    white-space: normal;
   }
   .powder-title{
       font-size: 1.1em;
