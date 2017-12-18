@@ -11,15 +11,12 @@
     <% end %>
 
     <p>
-      Thank you for submitting your private lesson request through Snow Schoolers!
+      Thank you for submitting your private lesson reservation through Snow Schoolers!
     </p>
-
-    <h4>What happens now?</h4>
+    <h4>Reservation Receipt</h4>
     <p>
-      You have <b>successfully secured your lesson reservation</b>, and we have confirmed that we do have instructors available. Our team is now determining the best instructor to assign to your lesson, based on your stated goals and previous skiing or snowboarding experiences. If you requested a specific instructor and they are not available for any reason (we do accept concurrent requests and sometimes bookings overlap), we will contact you and give you the option to request another of our available instructors, or you can have our team choose the best available instructor for you.
+      Your reservation confirmation number is: <span style="font-size:18px;"><%=@lesson.confirmation_number%></span>. Please save this email, as you will need to show your confirmation number the morning of your lesson as proof of payment. Please also find your lesson reservation details below, including names & ages of the students in your reservation, and whether or not rental equipment has been included. 
     </p>
-    <p>If it has been more than 24 hours since your request, or if your lesson date is less than 48 hours away, please feel free to reach out to us at <a href="mailto:support@snowschoolers.com">support@snowschoolers.com.</p>
-
     <h4>Lesson Details</h4>
     <ul>
       <li>Students: <%= @lesson.students.map(&:name).join(', ') %></li>
@@ -28,8 +25,19 @@
       <li>Location: <%= @lesson.location.name %></li>
       <li>Objectives: <%= @lesson.objectives %></li>
     </ul>
+
+    <%= render partial: 'lessons/price_details' %>
+
+    <%= render partial: 'lessons/student_details' %>
+
+    <h4>What happens now?</h4>
     <p>
-      If you need to make any changes to your lesson reservation, please visit: <%= lesson_url(@lesson) %>
+      You have <b>successfully secured your lesson reservation</b>, and we have confirmed that we do have instructors available. Our team is now determining the best instructor to assign to your lesson, based on your stated goals and previous skiing or snowboarding experiences.
+    </p>
+    <p>If it has been more than 24 hours since your request, or if your lesson date is less than 48 hours away, please feel free to reach out to us at <a href="mailto:support@snowschoolers.com">support@snowschoolers.com.</p>
+
+    <p>
+      If you need to make any changes to your lesson reservation, please visit: <a href=<%= lesson_url(@lesson) %> ><%= lesson_url(@lesson) %></a>.
     </p>
 
     <p>If you have any questions or if there is anything we can do to help you prepare for your upcoming lesson, please don't be afraid to reach out.</p>

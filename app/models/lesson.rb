@@ -26,7 +26,21 @@ class Lesson < ActiveRecord::Base
   after_save :send_lesson_request_to_instructors
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
 
-  
+  def confirmation_number
+    date = self.lesson_time.date.to_s.gsub("-","")
+    date = date[4..-1]
+    case self.location.name
+      when 'Granlibakken'
+        l = 'GB'
+      when 'Homewood'
+        l = 'HW'
+      else
+        l = 'XX'
+    end
+    id = self.id.to_s
+    confirmation_number = l+'-'+date+'-'+id
+  end
+
   def section_assignment_status
     if self.section_id.nil?
       return "Unassigned"
@@ -324,7 +338,21 @@ class Lesson < ActiveRecord::Base
     end
   end
 
-  def includes_lift_or_rental_package?
+  def includes_rental_package?
+    count_students_with_rentals = 0
+    self.students.each do |student|
+      if student.needs_rental == true
+        count_students_with_rentals += 1
+      end
+    end
+    if count_students_with_rentals > 0 
+     true
+   else
+     false
+   end
+  end
+
+  def includes_admin_lift_or_rental_package?
     if self.includes_lift_or_rental_package == true
       return true
     else
@@ -459,12 +487,29 @@ class Lesson < ActiveRecord::Base
       puts "!!!calculating price based on product name, location, and date"
       calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
       puts "!!!!lookup calendar period status, it is: #{calendar_period}"
-      if self.slot == 'Early Bird (9-10am)'
+      #pricing for GB lesson package
+      if self.slot == 'Early Bird (9-10am)' && self.location.id == 24 && self.includes_rental_package?
+        product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,name:'1hr Private Lesson Package',product_type:"private_lesson").first
+      #pricing for GB lesson only
+      elsif self.slot == 'Early Bird (9-10am)' && self.location.id == 24 && !self.includes_rental_package?
+        product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,name:'1hr Private Lesson (lesson + lift only)',product_type:"private_lesson").first
+      #pricing for HW lesson
+      elsif self.slot == 'Early Bird (9-10am)'
         product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson").first
-      elsif self.slot == 'Half-day Morning (10am-1pm)'
+      #pricing for GB half-day package
+      elsif self.slot.starts_with?('Half-day') && self.location.id == 24 && self.includes_rental_package?
+        product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,name:'Half-day Morning Package (3hr)',product_type:"private_lesson").first
+      #pricing for GB half-day lesson only
+      elsif self.slot.starts_with?('Half-day') && self.location.id == 24 && !self.includes_rental_package?
+        product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,name:'Half-day Morning Private Lesson (no rental)',product_type:"private_lesson").first
+      #pricing for HW half-day lesson
+      elsif self.slot.starts_with?('Half-day')  && self.location.id == 24 && self.includes_rental_package?
         product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson").first
-      elsif self.slot == 'Half-day Afternoon (1pm-4pm)'
-        product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson").first
+      #pricing for GB full-day lesson package
+      elsif self.slot == 'Full-day (10am-4pm)'  && self.location.id == 24 && self.includes_rental_package?
+        product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,name:'Full-day Private Lesson Package (6hr)',product_type:"private_lesson").first
+      elsif self.slot == 'Full-day (10am-4pm)' && self.location.id == 24 && !self.includes_rental_package?
+        product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,name:'Full-day Private Lesson (no rental)',product_type:"private_lesson").first
       elsif self.slot == 'Full-day (10am-4pm)'
         product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson").first
       end
@@ -474,7 +519,7 @@ class Lesson < ActiveRecord::Base
       return "Please confirm date & time to see price."
     end
     price = product.price.to_f + self.package_cost
-    return price.to_s
+    return price.to_f
   end
 
   def adjusted_price

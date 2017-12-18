@@ -43,10 +43,11 @@
                   <br>
                   <p><%= @lesson.location.name %>  (<a href="https://www.google.com/maps/place/<%=@lesson.location.address%>" ><%=@lesson.location.address%></a>)</p>
                   <br>
-              <% if @lesson.lesson_price.nil? %>
+              <% if @lesson.lesson_price.nil? || @lesson.price == @lesson.lesson_price %>
                   <% amount = @lesson.price.to_i*100 %>
-                  <p>
-                    <%= number_to_currency(@lesson.price) %>
+                  <p><%= number_to_currency(@lesson.price) %></p>
+                  <br>
+                    <p>
                       <span class="italic text-smaller">
                       <% if @lesson.additional_students_with_gear > 0 %>
                         <%= @lesson.additional_students_with_gear %> additional student(s) with rentals for <%= number_to_currency(@lesson.cost_per_additional_student_with_gear) %> each;
