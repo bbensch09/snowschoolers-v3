@@ -928,14 +928,14 @@ class Lesson < ActiveRecord::Base
     # ENV variable to toggle Twilio on/off during development
     return if ENV['twilio_status'] == "inactive"    
     recipients = self.available_instructors
-    if recipients.count < 2
-      @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
-          @client.api.account.messages.create({
-          :to => "408-315-2900",
-          :from => ENV['TWILIO_NUMBER'],
-          :body => "ALERT - #{self.available_instructors.first.name} is the only instructor available and they have not responded after 10 minutes. No other instructors are available to teach #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date} at #{self.location.name}."
-      })
-    end
+    # if recipients.count < 2
+    #   @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
+    #       @client.api.account.messages.create({
+    #       :to => "408-315-2900",
+    #       :from => ENV['TWILIO_NUMBER'],
+    #       :body => "ALERT - #{self.available_instructors.first.name} is the only instructor available and they have not responded after 10 minutes. No other instructors are available to teach #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date} at #{self.location.name}."
+    #   })
+    # end
     # identify recipients to be notified as all available instructors except for the first instructor, who has been not responsive
     recipients.each do |instructor|
       account_sid = ENV['TWILIO_SID']
