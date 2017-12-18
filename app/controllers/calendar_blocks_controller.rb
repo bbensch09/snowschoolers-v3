@@ -22,7 +22,7 @@ class CalendarBlocksController < ApplicationController
 
   def availability
       if current_user.instructor && CalendarBlock.where(instructor_id:current_user.instructor.id).count == 0
-          CalendarBlock.set_all_days_available(current_user.instructor.id)
+          CalendarBlock.open_all_days(current_user.instructor.id)
           flash[:notice] = "Please set your availability below. We've temporarily marked all weekend days as available."
       end
       if current_user.instructor
