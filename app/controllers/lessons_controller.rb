@@ -224,8 +224,8 @@ class LessonsController < ApplicationController
           name: "#{@lesson.guest_email}"
           })
          @lesson.requester_id = User.last.id
-      end
       puts "!!!! user is checking out as guest; create a temp email for them that must be confirmed"
+      end
     end
     if @lesson.is_gift_voucher? && current_user.user_type == "Snow Schoolers Employee" && @lesson.requester_id.nil?
       @user = User.new({
