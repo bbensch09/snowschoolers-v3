@@ -10,7 +10,7 @@
         <% if @lesson.additional_students_without_gear > 0 %>
         <li><span class="lesson-detail-topic">Additional students w/o equipment:</span> <%= @lesson.additional_students_without_gear %> (<%= number_to_currency(@lesson.cost_per_additional_student_without_gear) %> each)</li>
         <% end %>
-        <li><span class="lesson-detail-topic">Lift & Rental packages subtotal:</span> <%= number_to_currency(@lesson.package_cost) %></li>
+        <li><span class="lesson-detail-topic">Lift & rentals subtotal:</span> <%= number_to_currency(@lesson.package_cost) %></li>
         <li><span class="lesson-detail-topic">Direct lesson cost:</span> <%= number_to_currency(@lesson.product.price) %></li>
         <% if @lesson.price == @lesson.lesson_price %>
           <li><span class="lesson-detail-topic">Final Price:</span> <%= number_to_currency(@lesson.price) %></li>
