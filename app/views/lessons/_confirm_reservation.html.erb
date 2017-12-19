@@ -22,7 +22,7 @@
                 <br>
                 <p><b>Price:</b></p>
                 <br>
-                <%if @lesson.includes_lift_or_rental_package? || @lesson.is_gift_voucher? || @lesson.package_info %>
+                <%if @lesson.includes_lift_or_rental_package? || @lesson.is_gift_voucher? || (@lesson.package_info && @lesson.package_info.length > 1) %>
                 <p><b>Description:</b></p>
                 <br>
                 <% end %>
