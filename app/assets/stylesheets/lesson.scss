@@ -170,8 +170,12 @@
   margin-bottom: 5px;
 }
 .lesson-detail-topic{
-  width: 300px;
-  display: inline-block;
+    width: 250px;
+    font-weight: bold;
+    display: inline-block;
+    font-family: 'Palanquin', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.1;
+    font-size: 18px;
 }
 .student-detail-topic{
   width: 120px;

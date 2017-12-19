@@ -37,7 +37,12 @@ Requester Email: <%= @lesson.requester ? @lesson.requester.email : @lesson.guest
         <span class="lesson-detail-topic">Location:</span>  <%= @lesson.location.name %><br>
         <span class="lesson-detail-topic">Sport:</span>  <%= @lesson.activity %><br>
         <span class="lesson-detail-topic">Date:</span> <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %><br>
-        <span class="lesson-detail-topic">Slot:</span>  <%= @lesson.slot %><br><br>
+        <% @lesson.package_info.include?("custom start time") ? custom_slot_class = "strikethrough" : custom_slot_class = "normal" %>
+        <span class="lesson-detail-topic">Slot:</span> <span class=<%= custom_slot_class%> > <%= @lesson.slot %></span> <br><br>
+        <% if @lesson.package_info %>
+          <span class="lesson-detail-topic">Adjustments:</span>  <%= @lesson.package_info %>
+          <br><br>                  
+        <% end %>
         <span class="lesson-detail-topic">Objectives:</span> <br> <%= @lesson.objectives %>
       </h4>
       </div>
