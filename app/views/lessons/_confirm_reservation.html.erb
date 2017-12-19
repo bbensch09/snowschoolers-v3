@@ -39,7 +39,8 @@
                 <% if @lesson.num_days && @lesson.num_days > 1 %>
                   <p><%= @lesson.num_days %></p>
                 <% end %>
-                  <p><%= @lesson.lesson_time.slot %></p>
+                  <% @lesson.package_info.include?("custom start time") ? custom_slot_class = "strikethrough" : custom_slot_class = "normal" %>
+                  <p class=<%= custom_slot_class %> ><%= @lesson.lesson_time.slot %></p>
                   <br>
                   <p><%= @lesson.location.name %>  (<a href="https://www.google.com/maps/place/<%=@lesson.location.address%>" ><%=@lesson.location.address%></a>)</p>
                   <br>
@@ -60,11 +61,10 @@
               <% else %>
                 <p><%= number_to_currency(@lesson.lesson_price.to_s) %></p>
                 <% amount = @lesson.lesson_price.to_i*100 %>
+              <% end %>                  
               <% if @lesson.includes_lift_or_rental_package? || @lesson.is_gift_voucher? || @lesson.package_info %>
-                  <br>
                   <p><%= @lesson.package_info %></p>
               <% end %>
-              <% end %>                  
               </h4>
             </div>
             <div class="col-md-12"

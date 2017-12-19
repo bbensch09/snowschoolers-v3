@@ -452,7 +452,6 @@ fieldset[disabled] .btn-default.active {
   color: white;
   background-color: #55C9B2;
   /*border-color: #3b5998;*/
-  white-space: normal;
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   transition: all 0.35s;
@@ -502,6 +501,7 @@ fieldset[disabled] .btn-primary.active {
   border: none;
   border-radius: 300px;
   white-space: normal;
+  min-width: 180px;
   text-transform: uppercase;
 }
 .btn-xl {
@@ -1132,7 +1132,7 @@ section.pricing-new-lesson{
   width: 100%;
   min-height: 230px;
   font-size:2em;
-  line-height:70px;
+  line-height: 1.5em;
   padding:6px;
   background-color: rgba(59, 89, 152, 1);
   margin:0;
