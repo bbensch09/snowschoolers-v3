@@ -22,7 +22,7 @@
                 <br>
                 <p><b>Price:</b></p>
                 <br>
-                <%if @lesson.includes_lift_or_rental_package? || @lesson.is_gift_voucher? || @lesson.package_info %>
+                <%if @lesson.includes_lift_or_rental_package? || @lesson.is_gift_voucher? || (@lesson.package_info && @lesson.package_info.length > 1) %>
                 <p><b>Description:</b></p>
                 <br>
                 <% end %>
@@ -39,7 +39,9 @@
                 <% if @lesson.num_days && @lesson.num_days > 1 %>
                   <p><%= @lesson.num_days %></p>
                 <% end %>
-                  <% @lesson.package_info.include?("custom start time") ? custom_slot_class = "strikethrough" : custom_slot_class = "normal" %>
+                  <% if @lesson.package_info %>
+                    <% @lesson.package_info.include?("custom start time") ? custom_slot_class = "strikethrough" : custom_slot_class = "normal" %>
+                  <% end %>
                   <p class=<%= custom_slot_class %> ><%= @lesson.lesson_time.slot %></p>
                   <br>
                   <p><%= @lesson.location.name %>  (<a href="https://www.google.com/maps/place/<%=@lesson.location.address%>" ><%=@lesson.location.address%></a>)</p>
