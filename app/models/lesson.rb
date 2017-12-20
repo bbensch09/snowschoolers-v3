@@ -724,7 +724,7 @@ class Lesson < ActiveRecord::Base
       elsif self.activity == "Telemark"
         active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| instructor.telemark_instructor? }
     end
-    puts "!!!!!!! - Step 3d Filtere for correct sport."
+    puts "!!!!!!! - Step 3d Filtere for correct sport, found #{active_resort_instructors.count} instructors."
     already_booked_instructors = Lesson.booked_instructors(lesson_time)
     busy_instructors = Lesson.instructors_with_calendar_blocks(lesson_time)
     declined_instructors = []
@@ -734,8 +734,18 @@ class Lesson < ActiveRecord::Base
       # declined_instructors << Instructor.find(action.instructor_id)
     # end
     puts "!!!!!!! - Step #4b - eliminating #{already_booked_instructors.count} that are already booked."
-    puts "!!!!!!! - Step #4c - eliminating #{declined_instructors.count} that have declined."
+    already_booked_names = []
+    already_booked_instructors.each do |instructor|
+      already_booked_names << instructor.name
+      puts "!!! #{instructor.name} is already booked."
+    end
+    puts "!!!!!!! - Step #4c - no longer eliminating instructors that have declined."
     puts "!!!!!!! - Step #4d - eliminating #{busy_instructors.count} that are busy."
+    busy_names = []
+    busy_instructors.each do |instructor|
+      busy_names << instructor.name
+      puts "!!! #{instructor.name} is unavailable on #{self.lesson_time.date}."
+    end
     available_instructors = active_resort_instructors - already_booked_instructors - declined_instructors - busy_instructors
     puts "!!!!!!! - Step #5 after all filters, found #{available_instructors.count} instructors."
     available_instructors = self.rank_instructors(available_instructors)
@@ -746,19 +756,11 @@ class Lesson < ActiveRecord::Base
   def rank_instructors(available_instructors)
     puts "!!!!!!!ranking instructors now"
     available_instructors.sort! {|a,b| b.overall_score <=> a.overall_score }
-    # if kids_lesson?
-    #   available_instructors.sort! {|a,b| b.kids_score <=> a.kids_score }
-    #   elsif seniors_lesson?
-    #   available_instructors.sort! {|a,b| b.seniors_score <=> a.seniors_score }
-    #   else
-    #   available_instructors.sort! {|a,b| b.overall_score <=> a.overall_score }
-    # end
     return available_instructors
   end
 
   def available_instructors?
-    return true
-    available_instructors.any?
+    available_instructors.any? ? true : false
   end
 
   def self.find_lesson_times_by_requester(user)
@@ -766,11 +768,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def self.instructors_with_calendar_blocks(lesson_time)
-    if lesson_time.slot == 'Full-day (10am-4pm)'
-      calendar_blocks = self.find_all_calendar_blocks_in_day(lesson_time)
-    else
-      calendar_blocks = self.find_calendar_blocks(lesson_time)
-    end
+    calendar_blocks = CalendarBlock.where(date:lesson_time.date, state:'Not Available')
     blocked_instructors =[]
     calendar_blocks.each do |block|
       if block.instructor_id && block.instructor_id > 0
@@ -790,65 +788,69 @@ class Lesson < ActiveRecord::Base
     blocks = CalendarBlock.where(date:lesson_time.date, state:'Not Available')
   end
 
-  def self.find_all_calendar_blocks_in_day(lesson_time)
-    matching_lesson_times = LessonTime.where(date:lesson_time.date)
-    return [] if matching_lesson_times.nil?
-    calendar_blocks = []
-    matching_lesson_times.each do |lt|
-      blocks_at_lt = CalendarBlock.where(lesson_time_id:lt.id)
-      blocks_at_lt.each do |block|
-        calendar_blocks << block
-      end
-    end
-    return calendar_blocks
-  end
+  # Old blocking logic that allowed instructors to block only specific slots
+  # def self.find_all_calendar_blocks_in_day(lesson_time)
+    # matching_lesson_times = LessonTime.where(date:lesson_time.date)
+    # return [] if matching_lesson_times.nil?
+    # calendar_blocks = []
+    # matching_lesson_times.each do |lt|
+    #   blocks_at_lt = CalendarBlock.where(lesson_time_id:lt.id)
+    #   blocks_at_lt.each do |block|
+    #     calendar_blocks << block
+    #   end
+    # end
+    # return calendar_blocks
+    # calendar_blocks = CalendarBlock.where(date:lesson_time.date)
+  # end
 
   def self.booked_instructors(lesson_time)
-    # puts "checking for booked instructors on #{lesson_time.date} during the #{lesson_time.slot} slot"
+    puts "checking for booked instructors on #{lesson_time.date} during the #{lesson_time.slot} slot"
     if lesson_time.slot == 'Full-day (10am-4pm)'
-      booked_lessons = self.find_all_booked_lessons_in_day(lesson_time)
+      booked_lessons = Lesson.select{|lesson| lesson.date == lesson_time.date}
     else
-      booked_lessons = self.find_booked_lessons(lesson_time)
+      booked_lessons = Lesson.select{|lesson| lesson.date == lesson_time.date && lesson.lesson_time.slot == lesson_time.slot}
     end
-    # puts "There is/are #{booked_lessons.count} lesson(s) already booked at this time."
+    puts "There is/are #{booked_lessons.count} lesson(s) already booked at this time."
     booked_instructors = []
     booked_lessons.each do |lesson|
-      booked_instructors << lesson.instructor
+      if lesson.instructor_id
+        booked_instructors << lesson.instructor
+      end
     end
     return booked_instructors
   end
 
-  def self.find_booked_lessons(lesson_time)
-    lessons_in_same_slot = Lesson.where('lesson_time_id = ?', lesson_time.id)
-    overlapping_full_day_lessons = self.find_full_day_lessons(lesson_time)
-    return lessons_in_same_slot + overlapping_full_day_lessons
-  end
+  # def self.find_booked_lessons(lesson_time)
+  #   lessons_in_same_slot = Lesson.where('lesson_time_id = ?', lesson_time.id)
+  #   overlapping_full_day_lessons = self.find_full_day_lessons(lesson_time)
+  #   return lessons_in_same_slot + overlapping_full_day_lessons
+  # end
 
-  def self.find_full_day_lessons(full_day_lesson_time)
-    return [] unless full_day_lesson_time = LessonTime.find_by_date_and_slot(full_day_lesson_time.date,'Full-day (10am-4pm)')
-    booked_lessons = []
-    lessons_on_same_day = Lesson.where("lesson_time_id=? AND instructor_id is not null",full_day_lesson_time.id)
-      lessons_on_same_day.each do |lesson|
-        booked_lessons << lesson
-        # puts "added a booked lesson to the booked_lesson set"
-      end
-    puts "After searching for other full-day lessons on this date, we found a total of #{booked_lessons.count} other lessons on this date."
-    return booked_lessons
-  end
+  # def self.find_full_day_lessons(full_day_lesson_time)
+  #   return [] unless full_day_lesson_time = LessonTime.find_by_date_and_slot(full_day_lesson_time.date,'Full-day (10am-4pm)')
+  #   booked_lessons = []
+  #   lessons_on_same_day = Lesson.where("lesson_time_id=? AND instructor_id is not null",full_day_lesson_time.id)
+  #     lessons_on_same_day.each do |lesson|
+  #       booked_lessons << lesson
+  #       # puts "added a booked lesson to the booked_lesson set"
+  #     end
+  #   puts "After searching for other full-day lessons on this date, we found a total of #{booked_lessons.count} other lessons on this date."
+  #   return booked_lessons
+  # end
 
-  def self.find_all_booked_lessons_in_day(full_day_lesson_time)
-    matching_lesson_times = LessonTime.where("date=?",full_day_lesson_time.date)
-    # puts "------there are #{matching_lesson_times.count} matched lesson times on this date."
-    booked_lessons = []
-    matching_lesson_times.each do |lt|
-      lessons_at_lt = Lesson.where("lesson_time_id=? AND instructor_id is not null",lt.id)
-      lessons_at_lt.each do |lesson|
-        booked_lessons << lesson
-      end
-    end
-    # puts "After searching through the matching lesson times on this date, the booked lesson count on this day is now: #{booked_lessons.count}"
-    return booked_lessons
-  end
+  # def self.find_all_booked_lessons_in_day(full_day_lesson_time)
+  #   matching_lesson_times = LessonTime.where("date=?",full_day_lesson_time.date)
+  #   # puts "------there are #{matching_lesson_times.count} matched lesson times on this date."
+  #   booked_lessons = []
+  #   matching_lesson_times.each do |lt|
+  #     lessons_at_lt = Lesson.where("lesson_time_id=? AND instructor_id is not null",lt.id)
+  #     lessons_at_lt.each do |lesson|
+  #       booked_lessons << lesson
+  #     end
+  #   end
+  #   # puts "After searching through the matching lesson times on this date, the booked lesson count on this day is now: #{booked_lessons.count}"
+  #   return booked_lessons
+  # end
 
   def send_sms_reminder_to_instructor_complete_lessons
       # ENV variable to toggle Twilio on/off during development
@@ -869,12 +871,12 @@ class Lesson < ActiveRecord::Base
   end
 
   def send_sms_to_instructor
-      # ENV variable to toggle Twilio on/off during development
       return if ENV['twilio_status'] == "inactive"
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
-      recipient = self.available_instructors.any? ? self.available_instructors.first.phone_number : "4083152900"
+      first_instructor = self.available_instructors.any? ? self.available_instructors[0..3].sample : "Admin"
+      recipient = first_instructor.phone_number ? first_instructor.phone_number : "4083152900"
       case self.state
         when 'new'
           body = "A lesson booking was begun and not finished. Please contact an admin or email info@snowschoolers.com if you intended to complete the lesson booking."
@@ -901,6 +903,7 @@ class Lesson < ActiveRecord::Base
       })
       send_reminder_sms
       # puts "!!!!Body: #{body}"
+      puts "!!!!!sorted instructors, and randomly chose one of top 4 ranked instructors to send SMS to. thise time chose #{first_instructor.name}."
       puts "!!!!! - reminder SMS has been scheduled"
       LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
   end

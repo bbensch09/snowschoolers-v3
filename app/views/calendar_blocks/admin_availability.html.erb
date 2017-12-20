@@ -1,4 +1,4 @@
-<div id="middle" class="container calendar-container">
+<div id="middle" class="calendar-container">
   <div class="white">
 <div class="container"></div>
 <div class='col-md-6'>
@@ -20,7 +20,7 @@
 <div class="row center">
 </div>
 
-<div class="calendar-container">
+<div class="">
   <%= month_calendar(calendar_blocks: :date, events:@calendar_blocks) do |date, blocks| %>
     <div class='day-summary'>
         <div class='pull-left date-number'>
@@ -37,7 +37,7 @@
               <%= link_to block.lesson.short_title, lesson_path(block.lesson.id).first, method: :get, class: "btn btn-xs btn-success" %>
             <% elsif block.instructor %>
               <div class='admin-calendar-day' >
-                <%= link_to block.instructor.first_name, individual_availability_path(block.instructor.name.gsub(" ","-")), method: :get, id: block.id, class: "btn btn-xs btn-primary"  %>
+                <%= link_to block.instructor.first_name, individual_availability_path(block.instructor.name.gsub(" ","-")), method: :get, id: block.id, class: "btn-xs btn-primary"  %>
               </div>
           <% end %>
     <% end %>
