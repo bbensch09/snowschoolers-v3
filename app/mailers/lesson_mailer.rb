@@ -1,5 +1,7 @@
 class LessonMailer < ActionMailer::Base
   default from: 'SnowSchoolers.com <info@snowschoolers.com>' #cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>"
+  include Resque::Mailer
+  @queue = :snowschoolers_email_queue
 
   def track_apply_visits(email="Unknown user")
       @email = email
@@ -206,6 +208,16 @@ class LessonMailer < ActionMailer::Base
     @lesson = lesson
     @canceling_instructor = canceling_instructor
     mail(to: @canceling_instructor, cc:'notify@snowschoolers.com, adam@snowschoolers.com', subject: 'You have canceled your Snow Schoolers lesson')
+  end
+
+  def send_day_before_reminder_email(lesson) #this gets sent after the instructor has accepted the lesson request.
+    @lesson = lesson
+    if @lesson.guest_email.nil?
+      recipient = @lesson.requester.email
+    else
+      recipient = @lesson.guest_email
+    end
+      mail(to: recipient, cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", bcc:@lesson.instructor.user.email, subject: "Reminder: your Snow Schoolers lesson is Tomorrow at #{@lesson.date.slot} with #{@lesson.instructor.name}!")
   end
 
   def send_lesson_hw_confirmation(lesson) #this gets sent after the instructor has accepted the lesson request.

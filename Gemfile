@@ -20,8 +20,8 @@ gem 'bootstrap3-datetimepicker-rails'#, '~> 4.17.47'
 gem 'rails-assets-datetimepicker', source: 'https://rails-assets.org'
 
 
-#install redis gem for actioncable troubleshooting
-# gem 'redis'
+#install redis gem for actioncable and for resque jobs
+gem 'redis'
 
 #delayed_jobs for sending Twilio SMS messages if instructors are unresponsive
 gem 'delayed_job_active_record'
@@ -37,6 +37,11 @@ gem 'railties'
 gem 'sitemap_generator'
 # gem for cron jobs to schedule sitemap refresh, mkting emails, etc.
 gem 'whenever', :require => false
+
+#for background jobs to send daily/weekly emails
+gem 'resque'
+gem 'resque_mailer'
+gem 'resque-scheduler'
 
 #stripe for charging credit cards
 gem 'stripe'

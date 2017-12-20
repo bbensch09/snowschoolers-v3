@@ -32,6 +32,8 @@ module SnowSchoolers
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+  # config redis cache
+  config.cache_store = :redis_store, "redis://localhost:6379/0/cache", { expires_in: 90.minutes }
 
   #LOAD all files in library
   config.autoload_paths << Rails.root.join('lib')

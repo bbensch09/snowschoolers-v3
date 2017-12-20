@@ -252,7 +252,13 @@ class LessonsController < ApplicationController
       Heap.track 'lesson-ready-for-deposit', "#{@lesson.requester.heap_uuid}"
       @user_email = current_user ? current_user.email : "unknown"
       if @lesson.state == "ready_to_book"
-      LessonMailer.notify_admin_lesson_full_form_updated(@lesson, @user_email).deliver
+      LessonMailer.notify_admin_lesson_full_form_updated(@lesson, @user_email).deliver_in(1.minute)
+      # Resque.enqueue(
+      #     'snowschoolers_email_queue',
+      #     2.minutes.from_now,
+      #     EmailSender,
+      #     params[email_method:'notify_admin_lesson_full_form_updated',lesson_id:@lesson.id,email:@user_email]
+      #     )
       end
       send_lesson_update_notice_to_instructor
       puts "!!!! Lesson update saved; update notices sent"
