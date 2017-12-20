@@ -23,7 +23,8 @@ namespace :resque do
     require 'resque'
     ENV['QUEUE'] = '*'
 
-    Resque.redis = 'localhost:6379' unless Rails.env == 'production'
+    # Resque.redis = 'localhost:6379' unless Rails.env == 'production'
+    Resque.redis = ENV['REDIS_URL'] unless Rails.env == 'production'
   end
 
   task :setup_schedule => :setup do
