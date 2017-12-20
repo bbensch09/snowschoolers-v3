@@ -1,5 +1,5 @@
 .calendar-container{
-	width: 1400px;
+	max-width: 1400px;
     margin-right: auto;
     margin-left: auto;
 }
@@ -75,12 +75,14 @@
 }
 .example-date{
 	height: 80px;
+	width: 130px;
 	display: inline-block;
 	margin: 10px 10px 10px 10px;
 	padding: 10px 10px 10px 10px;
 	font-size: 1.2em;
 	text-align: center;
 	vertical-align: middle;
+	border-radius: 5px;
 }
 .calendar-subheader{
 	margin-top: 5px;
