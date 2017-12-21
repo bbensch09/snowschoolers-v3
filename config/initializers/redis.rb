@@ -23,13 +23,15 @@ Resque::Failure.backend = Resque::Failure::Multiple
 # config/initializers/resque.rb
 Resque.logger = Logger.new(Rails.root.join('log', "#{Rails.env}_resque.log"))
 
-#start new redis-server on port 6379 whenever running rails server
-# $redis = Redis.new(:host => 'localhost', :port => 6379)
 
-if Rails.env == 'production' #|| Rails.env == 'development'
+#use redistgo for production heroku server
+if Rails.env.production? || ENV['HOST_DOMAIN'] == 'demo.snowschoolers.com'
+  puts "!!! production: #{ENV['REDISTOGO_URL']}"
   uri = URI.parse(ENV["REDISTOGO_URL"])
-  Resque.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
-
+#otherwise start new redis-server on port 6379 whenever running locally
+else
+  puts "!!! not running on production"
+  uri = URI.parse("redis://localhost:6379")
 end
 
-
+Resque.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
