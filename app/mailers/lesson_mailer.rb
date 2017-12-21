@@ -1,6 +1,12 @@
 class LessonMailer < ActionMailer::Base
+  include Resque::Mailer
   default from: 'SnowSchoolers.com <info@snowschoolers.com>' #cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>"
 
+  def test_email(lesson_id)
+    puts "!!!!Test email in resque queue, lesson id= #{lesson_id}"
+    @lesson = Lesson.find(lesson_id)
+    mail(to: 'brian@snowschoolers.com', subject: "Test email for #{@lesson.product_name} at #{@lesson.location.name} sent at #{Time.now}.")
+  end
   def track_apply_visits(email="Unknown user")
       @email = email
       mail(to: 'brian@snowschoolers.com', subject: "Pageview at /apply - #{email}.")
@@ -17,10 +23,11 @@ class LessonMailer < ActionMailer::Base
       mail(to: 'brian@snowschoolers.com', subject: "New Lesson Request begun - #{@lesson.date} - #{@lesson.guest_email}.")
   end
 
-  def notify_admin_lesson_full_form_updated(lesson,email)
-      @lesson = lesson
-      @user_email = email
-      mail(to: 'brian@snowschoolers.com', cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", subject: "Lesson Request complete, ready for deposit - #{@lesson.date.strftime("%b %-d")}.")
+  def notify_admin_lesson_full_form_updated(lesson_id)
+      puts "!!!!Test email in resque queue, lesson id= #{lesson_id}"
+      @lesson = Lesson.find(lesson_id)
+      @user_email = @lesson.guest_email ? @lesson.guest_email : @lesson.requester.email
+      mail(to: 'brian@snowschoolers.com', cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", subject: "Ready for deposit - #{@lesson.date.strftime("%b %-d")} at #{@lesson.location.name}.")
   end
 
   def notify_admin_beta_user(beta_user)
@@ -111,8 +118,9 @@ class LessonMailer < ActionMailer::Base
       mail(to: 'brian@snowschoolers.com', subject: "Concierge request - #{@beta_user.email}.")
   end
 
-  def notify_admin_sms_logs(lesson,recipient,body)
-      @lesson = lesson
+  def notify_admin_sms_logs(lesson_id,recipient,body)
+      puts "!!!!sms_logs in resque queue, lesson id= #{lesson_id}, recipient is #{recipient}"
+      @lesson = Lesson.find(lesson_id)
       @recipient = recipient
       @body = body
       mail(to: 'brian@snowschoolers.com', cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", subject: "SMS sent to #{@recipient}")
@@ -174,8 +182,17 @@ class LessonMailer < ActionMailer::Base
     mail(to: 'brian@snowschoolers.com', subject: "Someone has subscribed to the Snow Schoolers mailing list")
   end
 
-  def send_lesson_request_to_instructors(lesson, excluded_instructor=nil)
-    @lesson = lesson
+  def send_lesson_request_notification(lesson_id)
+    @lesson = Lesson.find(lesson_id)
+    if @lesson.guest_email.nil? || @lesson.guest_email == ""
+      mail(to: @lesson.requester.email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", subject: "Reservation Confirmation: Thanks for booking with Snow Schoolers for #{@lesson.date.strftime("%b %-d")}")
+    else
+      mail(to: @lesson.guest_email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", subject: "Reservation Confirmation #{@lesson.confirmation_number}: Thanks for booking with Snow Schoolers for  for #{@lesson.date.strftime("%b %-d")}")
+    end
+  end
+
+  def send_lesson_request_to_instructors(lesson_id, excluded_instructor=nil)
+    @lesson = Lesson.find(lesson_id)
     available_instructors = (lesson.available_instructors - [excluded_instructor])
     @available_instructors = []
     #select only the first instructor in the array that is available to email.
@@ -226,15 +243,6 @@ class LessonMailer < ActionMailer::Base
       recipient = @lesson.guest_email
     end
       mail(to: recipient, cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", bcc:@lesson.instructor.user.email, subject: "Instructor Confirmation: your Snow Schoolers lesson on #{@lesson.date.strftime("%b %-d")} with #{@lesson.instructor.name} is confirmed!")
-  end
-
-  def send_lesson_request_notification(lesson)
-    @lesson = lesson
-    if @lesson.guest_email.nil? || @lesson.guest_email == ""
-      mail(to: @lesson.requester.email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", subject: "Reservation Confirmation: Thanks for booking with Snow Schoolers for #{@lesson.date.strftime("%b %-d")}")
-    else
-      mail(to: @lesson.guest_email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", subject: "Reservation Confirmation: Thanks for booking with Snow Schoolers for  for #{@lesson.date.strftime("%b %-d")}")
-    end
   end
 
   def send_lesson_update_notice_to_instructor(original_lesson, updated_lesson, changed_attributes)

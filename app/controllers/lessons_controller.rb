@@ -196,7 +196,7 @@ class LessonsController < ApplicationController
         puts "!!!!!About to save state & deposit status after processing lessons#update"
         @lesson.save
       GoogleAnalyticsApi.new.event('lesson-requests', 'deposit-submitted', params[:ga_client_id])
-      LessonMailer.send_lesson_request_notification(@lesson).deliver
+      LessonMailer.send_lesson_request_notification(@lesson.id).deliver_in(2.seconds)
       flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when your instructor confirmed your request. If you have any questions, please email support@snowschoolers.com.'
       flash[:conversion] = 'TRUE'
       puts "!!!!!!!! Lesson deposit successfully charged"
@@ -248,11 +248,11 @@ class LessonsController < ApplicationController
     end
     if @lesson.save
       GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-updated', params[:ga_client_id])
-      #HEAP TESTING - send server-side vent for lesson ready for deposit: this would be redundant...
-      Heap.track 'lesson-ready-for-deposit', "#{@lesson.requester.heap_uuid}"
-      @user_email = current_user ? current_user.email : "unknown"
       if @lesson.state == "ready_to_book"
-      LessonMailer.notify_admin_lesson_full_form_updated(@lesson, @user_email).deliver
+      LessonMailer.notify_admin_lesson_full_form_updated(@lesson.id).deliver_in(2.seconds)
+      # LessonMailer.test_email(@lesson.id).deliver_in(2.seconds)
+      # LessonMailer.test_email.deliver_at(Time.parse('2017-12-20 16:20:00 -0800'))
+      puts "!!!!lesson mailer for form update procesed as resque job"
       end
       send_lesson_update_notice_to_instructor
       puts "!!!! Lesson update saved; update notices sent"

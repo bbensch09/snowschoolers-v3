@@ -867,7 +867,7 @@ class Lesson < ActiveRecord::Base
           :body => body
       })
       # send_reminder_sms
-      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
+      LessonMailer.notify_admin_sms_logs(self.id,recipient,body).deliver
   end
 
   def send_sms_to_instructor
@@ -905,7 +905,7 @@ class Lesson < ActiveRecord::Base
       # puts "!!!!Body: #{body}"
       puts "!!!!!sorted instructors, and randomly chose one of top 4 ranked instructors to send SMS to. thise time chose #{first_instructor.name}."
       puts "!!!!! - reminder SMS has been scheduled"
-      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
+      LessonMailer.notify_admin_sms_logs(self.id,recipient,body).deliver
   end
 
   def send_reminder_sms
@@ -925,7 +925,7 @@ class Lesson < ActiveRecord::Base
       })
       puts "!!!!! - reminder SMS has been sent"
       send_sms_to_all_other_instructors
-      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
+      LessonMailer.notify_admin_sms_logs(self.id,recipient,body).deliver
   end
   handle_asynchronously :send_reminder_sms, :run_at => Proc.new {ENV['TWILIO_SMS_DELAY'].to_i.seconds.from_now }
 
@@ -954,7 +954,7 @@ class Lesson < ActiveRecord::Base
             :body => body
         })
     end
-    LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
+    LessonMailer.notify_admin_sms_logs(self.id,recipient,body).deliver
   end
   handle_asynchronously :send_sms_to_all_other_instructors, :run_at => Proc.new {ENV['TWILIO_SMS_DELAY'].to_i.seconds.from_now }
 
@@ -972,7 +972,7 @@ class Lesson < ActiveRecord::Base
           :from => "#{snow_schoolers_twilio_number}",
           :body => body
       })
-      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
+      LessonMailer.notify_admin_sms_logs(self.id,recipient,body).deliver
   end
 
   def send_sms_to_requester
@@ -997,7 +997,7 @@ class Lesson < ActiveRecord::Base
             :from => "#{snow_schoolers_twilio_number}",
             :body => body
         })
-          LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
+          LessonMailer.notify_admin_sms_logs(self.id,recipient,body).deliver
           else
             puts "!!!! error - could not send SMS via Twilio"
             LessonMailer.send_admin_notify_invalid_phone_number(self).deliver
@@ -1013,7 +1013,7 @@ class Lesson < ActiveRecord::Base
           :from => ENV['TWILIO_NUMBER'],
           :body => body
       })
-      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
+      LessonMailer.notify_admin_sms_logs(self.id,recipient,body).deliver
   end
 
   def send_sms_to_admin_1to1_request_failed
@@ -1023,7 +1023,7 @@ class Lesson < ActiveRecord::Base
           :from => ENV['TWILIO_NUMBER'],
           :body => "ALERT - A private 1:1 request was made and declined. #{self.requester.name} had requested #{self.instructor.name} but they are unavailable at #{self.product.start_time} on #{self.lesson_time.date} at #{self.location.name}."
       })
-      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
+      LessonMailer.notify_admin_sms_logs(self.id,recipient,body).deliver
   end
 
   private
@@ -1049,7 +1049,7 @@ class Lesson < ActiveRecord::Base
 
   def send_lesson_request_to_instructors
     if self.active? && self.confirmable? && self.deposit_status == 'confirmed' && self.state != "pending instructor" && self.available_instructors.any? #&& self.deposit_status == 'verified'
-      LessonMailer.send_lesson_request_to_instructors(self).deliver
+      LessonMailer.send_lesson_request_to_instructors(self.id).deliver_in(2.seconds)
       self.send_sms_to_instructor
     elsif self.available_instructors.any? == false
       self.send_sms_to_admin
