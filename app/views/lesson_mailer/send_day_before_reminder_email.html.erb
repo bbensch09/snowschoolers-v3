@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <% if @lesson.requester.name %>
+      <p>Hello <%= @lesson.requester.name.split(" ").first %>,</p>
+      <% else %>
+      <p>Hello,</p>
+    <% end %>
+
+    <p>
+      Hope you're excited for tomorrow's lesson. This is just a friendly reminder about your lesson start time and to make sure we have all of the important logistics in place.
+    </p>
+
+    <h4>Night before checklist:</h4>
+    <ul>
+      <li>Reservation confirmation number is <span style="font-size:18px;"><%=@lesson.confirmation_number%></span>. You'll need this as your proof of payment to pickup your lift ticket and/or rentals.</li>
+      <li>If you are renting from the mountain, please plan to arrive at the ski hill at least 45 minutes prior to your lesson so that you can get outfitted with your equipment. When you arrive, please tell one of our staff your name and and your reservation confirmation# (below), and they'll be able to check you in.</li>
+      <li>If you have your own equipment, you should still arrive at least 15 minutes prior to the start of your lesson to afford enough time to find parking and put on your boots and gear.</li>
+      <li>Do you have appropriate winter apparel? We recommend waterproof snow pants, a heavy jacket, gloves, and goggles.</li>
+    </ul>
+    <p>
+    </p>
+
+    <h4>Meeting Location</h4>
+    <p>Please plan to meet <%=@lesson.instructor.first_name %> outside of the Granlibakken Ski Hut a few minutes before the scheduled start of your lesson. The ski hill is located at <a href="https://www.google.com/maps/place/Granlibakken+Ski+%26+Sledding+Hill/@39.1561613,-120.1565678,17z/data=!4m13!1m7!3m6!1s0x80997d8619f5ff29:0x815523715ab4e748!2s725+Granlibakken+Rd,+Tahoe+City,+CA+96145!3b1!8m2!3d39.1561613!4d-120.1543791!3m4!1s0x80997d88a3630ec7:0x30c3373b77f6c7b4!8m2!3d39.1540162!4d-120.1547892" target="_blank" class="contact-link" ><%=@lesson.location.address%></a>. If you would like to meet somewhere else, please be sure to message your instructor ahead of time. </p>
+    <img src="https://s3.amazonaws.com/snowschoolers/ski-hut-meeting-location.jpg" alt="meeting-spot" height="400" width="700" />
+
+    <h4>Lesson Summary</h4>
+    <ul>
+      <li>Instructor Name: <%= link_to @lesson.instructor.name, @lesson.instructor %></li>
+      <li>Instructor phone number: <%= @lesson.instructor.phone_number %>; Feel free to contact your instructor directly the day of your lesson if you have any questions. </li>
+      <li>Your phone number: <%= @lesson.phone_number %>; You will receive SMS notifications only regarding <b> this lesson request </b>; your number will never be used for marketing notifications nor shared with any third parties. </li>
+      <li>Date: <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %></li>
+      <li>Slot: <%= @lesson.slot %></li>
+      <li>Location: <%= @lesson.location.name %></li>
+      <li>Objectives: <%= @lesson.objectives %></li>
+    </ul>
+    <%= render partial: 'lessons/price_details' %>
+
+    <%= render partial: 'lessons/student_details' %>
+
+
+    <p>
+      If you need to make changes to your lessons, please visit: <%= lesson_url(@lesson) %>
+    </p>
+        
+    <p>If you have any questions or if there is anything we can do to help you prepare for your upcoming lesson, please don't be afraid to reach out. Happy Trails!</p>
+    <p>
+      - The Snow Schoolers Team <br>
+    </p>
+  </body>
+</html>

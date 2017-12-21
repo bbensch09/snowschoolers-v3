@@ -245,6 +245,16 @@ class LessonMailer < ActionMailer::Base
       mail(to: recipient, cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", bcc:@lesson.instructor.user.email, subject: "Instructor Confirmation: your Snow Schoolers lesson on #{@lesson.date.strftime("%b %-d")} with #{@lesson.instructor.name} is confirmed!")
   end
 
+  def send_day_before_reminder_email(lesson) #this gets sent after the instructor has accepted the lesson request.
+    @lesson = lesson
+    if @lesson.guest_email.nil?
+      recipient = @lesson.requester.email
+    else
+      recipient = @lesson.guest_email
+    end
+      mail(to: recipient, cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", bcc:@lesson.instructor.user.email, subject: "Reminder: your Snow Schoolers lesson is Tomorrow at #{@lesson.slot} with #{@lesson.instructor.name}!")
+  end  
+
   def send_lesson_update_notice_to_instructor(original_lesson, updated_lesson, changed_attributes)
     @original_lesson = original_lesson
     @updated_lesson = updated_lesson
