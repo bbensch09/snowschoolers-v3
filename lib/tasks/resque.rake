@@ -7,14 +7,17 @@ namespace :resque do
     require 'resque'
 
     # you probably already have this somewhere
-    if ENV['HOST_DOMAIN'] = 'localhost:3000'
+    # Resque.redis = 'localhost:6379'
+
+    # you probably already have this somewhere
+    if ENV['HOST_DOMAIN'] == 'localhost:3000'
         Resque.redis = 'localhost:6379'
-    elsif ENV['HOST_DOMAIN'] = 'demo.snowschoolers.com'
+    elsif ENV['HOST_DOMAIN'] == 'demo.snowschoolers.com'
         Resque.redis = ENV['REDIS_URL']
-    elsif ENV['HOST_DOMAIN'] = 'www.snowschoolers.com'
+    elsif ENV['HOST_DOMAIN'] == 'www.snowschoolers.com'
         Resque.redis = ENV['REDIS_URL']
     end
-
+ 
   end
 
   task :setup_schedule => :setup do
