@@ -36,7 +36,7 @@ class LessonsController < ApplicationController
 
   def index
     if current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee"
-      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.canceled? || lesson.state.nil? }
       @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
       @todays_lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.today }
       @wage_rate = current_user.instructor ? current_user.instructor.wage_rate : nil

@@ -20,6 +20,8 @@
         <%= link_to 'Edit Lesson (no price changes)', edit_lesson_path(@lesson), class: "btn btn-success" %> <span> </span>
         <%= link_to 'Edit Lesson & Reissue Invoice', reissue_invoice_path(@lesson), method: :put, class: "btn btn-warning" %><span> </span>
         <%= link_to 'Edit Lesson & Issue Refund', issue_refund_path(@lesson), method: :put, class: "btn btn-danger" %><span> </span>
+        <%= link_to 'Cancel lesson', @lesson, method: :delete, data: { confirm: 'Are you sure you want to cancel this lesson?' }, class: "btn btn-danger" %></td>
+
 
     </div>
     <% end %>
