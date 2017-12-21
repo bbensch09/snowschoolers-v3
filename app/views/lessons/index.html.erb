@@ -116,8 +116,9 @@
 
   <tbody>
     <% @lessons.each do |lesson| %>
-        <% if lesson.completed? || lesson.confirmed? %>
-          <tr>
+        <% if lesson.completed? || lesson.confirmed? || lesson.canceled? || lesson.state.nil? %>
+          <% lesson.canceled? ? highlighted_row = 'alert-danger' : highlighted_row = '' %>
+          <tr class=<%= highlighted_row %>>
             <% if lesson.instructor %>
             <td><%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td>
             <td><%= lesson.instructor.name %></td>
@@ -232,8 +233,9 @@
 
   <tbody>
     <% @lessons.each do |lesson| %>
-        <% if lesson.upcoming? %>
-          <tr>
+        <% if lesson.upcoming? || lesson.canceled? || lesson.state.nil? %>
+          <% lesson.canceled? ? highlighted_row = 'alert-danger' : highlighted_row = '' %>
+          <tr class=<%= highlighted_row %>>
             <% if lesson.instructor %>
             <td><%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td>
             <td><%= lesson.instructor.name %></td>
