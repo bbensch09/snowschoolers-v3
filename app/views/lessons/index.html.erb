@@ -13,6 +13,7 @@
       <li>Open Requests: <%= Lesson.open_lesson_requests.count %></li>
       <li>Confirmed Requests: <%= Lesson.confirmed_lessons.count %></li>
       <li>Completed Lessons: <%= Lesson.completed_lessons.count %></li>
+      <li>Cancellations: <%= Lesson.canceled_lessons.count %></li>
       <li>Total Lessons Sold: <%= (Lesson.open_lesson_requests.count + Lesson.confirmed_lessons.count + Lesson.completed_lessons.count) %></li>
     </ul>
   </div>
