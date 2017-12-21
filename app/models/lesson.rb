@@ -223,9 +223,14 @@ class Lesson < ActiveRecord::Base
     lessons.select{|lesson| lesson.this_season?}
   end
 
+  def self.canceled_lessons
+    lessons = Lesson.where(state:'canceled')
+    lessons.select{|lesson| lesson.this_season?}
+  end
+
 
   def self.confirmed_lessons
-    lessons = Lesson.select{|lesson| !lesson.instructor_id.nil? && lesson.this_season? }
+    lessons = Lesson.select{|lesson| !lesson.instructor_id.nil? && lesson.this_season? && !lesson.canceled?}
   end
 
   def self.open_lesson_requests_on_day(date)
