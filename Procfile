@@ -1,5 +1,4 @@
-web: bundle exec puma -t 5:5 -p ${PORT:-3000} -e ${RACK_ENV:-development}
+web: bundle exec rails server -p $PORT
+worker: QUEUE=* bundle exec rake environment resque:work
 
-
-worker: bundle exec QUEUE=* rake resque:work
-clock:  bundle exec rake resque:scheduler
+scheduler: bundle exec rake resque:scheduler
