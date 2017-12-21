@@ -50,6 +50,9 @@ namespace :resque do
   task :scheduler => :setup_schedule
 end
 
+Resque.after_fork = Proc.new { ActiveRecord::Base.establish_connection }
+
+
 
 =begin
 require 'resque/tasks'
