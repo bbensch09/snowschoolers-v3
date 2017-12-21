@@ -13,11 +13,14 @@ namespace :resque do
     if ENV['HOST_DOMAIN'] == 'localhost:3000'
         Resque.redis = 'localhost:6379'
     elsif ENV['HOST_DOMAIN'] == 'demo.snowschoolers.com'
-        Resque.redis = ENV['REDIS_URL']
+        Resque.redis = ENV['REDISTOGO_URL']
     elsif ENV['HOST_DOMAIN'] == 'www.snowschoolers.com'
-        Resque.redis = ENV['REDIS_URL']
+        Resque.redis = ENV['REDISTOGO_URL']
     end
  
+    puts "!!! ENV['HOST_DOMAIN'] constant is: #{ENV['HOST_DOMAIN']}"
+    puts "!!! ENV['REDISTOGO_URL'] constant is: #{ENV['REDISTOGO_URL']}"
+
   end
 
   task :setup_schedule => :setup do
