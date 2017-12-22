@@ -41,6 +41,13 @@ class Lesson < ActiveRecord::Base
     confirmation_number = l+'-'+date+'-'+id
   end
 
+  def contact_email
+    if self.requester
+      return self.requester.email
+    elsif self.guest_email
+      return self.guest_email
+    end
+  end
   def section_assignment_status
     if self.section_id.nil?
       return "Unassigned"

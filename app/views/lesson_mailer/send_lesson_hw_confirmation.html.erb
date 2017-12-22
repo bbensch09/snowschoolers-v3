@@ -24,9 +24,7 @@
       Reservation confirmation number: <span style="font-size:18px;"><%=@lesson.confirmation_number%></span>
     </p>
 
-    <h4>Meeting Location</h4>
-    <p>Please plan to meet <%=@lesson.instructor.first_name %> outside at the Private Lessons flag at the Homewood North Lodge a few minutes before the scheduled start of your lesson, as depicted below. The lodge is located at <a href="https://www.google.com/maps/place/Homewood+Mountain+Resort/@39.086085,-120.1627817,17z/data=!4m12!1m6!3m5!1s0x809bd57fbf0e6771:0x6cdf8953d18f267f!2sSR+89+Homewood+(Homewood+Mountain+Resort)!8m2!3d39.086085!4d-120.160593!3m4!1s0x0:0x73b0c46aa0c1068d!8m2!3d39.0855831!4d-120.1605392" >5145 W Lake Blvd, Homewood, CA 96141</a>. If you would like to meet somewhere else, such as inside the lodge or in a lift line, please be sure to message your instructor ahead of time. </p>
-    <img src="https://s3.amazonaws.com/snowschoolers/north-lodge-meeting-location.jpg" alt="meeting-spot" height="400" width="700" />
+    <%= render partial: 'meeting_location' %>
 
     <h4>Lesson Details</h4>
     <ul>

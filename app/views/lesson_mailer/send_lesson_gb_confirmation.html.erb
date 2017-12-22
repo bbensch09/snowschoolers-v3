@@ -24,9 +24,7 @@
       Reservation confirmation number: <span style="font-size:18px;"><%=@lesson.confirmation_number%></span>
     </p>
 
-    <h4>Meeting Location</h4>
-    <p>Please plan to meet <%=@lesson.instructor.first_name %> outside of the Granlibakken Ski Hut a few minutes before the scheduled start of your lesson. The ski hill is located at <a href="https://www.google.com/maps/place/Granlibakken+Ski+%26+Sledding+Hill/@39.1561613,-120.1565678,17z/data=!4m13!1m7!3m6!1s0x80997d8619f5ff29:0x815523715ab4e748!2s725+Granlibakken+Rd,+Tahoe+City,+CA+96145!3b1!8m2!3d39.1561613!4d-120.1543791!3m4!1s0x80997d88a3630ec7:0x30c3373b77f6c7b4!8m2!3d39.1540162!4d-120.1547892" target="_blank" class="contact-link" ><%=@lesson.location.address%></a>. If you would like to meet somewhere else, please be sure to message your instructor ahead of time. </p>
-    <img src="https://s3.amazonaws.com/snowschoolers/ski-hut-meeting-location.jpg" alt="meeting-spot" height="400" width="700" />
+    <%= render partial: 'meeting_location' %>
 
     <h4>Lesson Summary</h4>
     <ul>

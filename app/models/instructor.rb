@@ -24,6 +24,10 @@ class Instructor < ActiveRecord::Base
     CalendarBlock.where(instructor_id:self.id,state:'Booked').count
   end
 
+  def email
+    self.user ? self.user.email : self.username
+  end
+
   def mark_eligible_for_beginners
     self.ski_level_ids = [1,2,3,4]
     self.snowboard_level_ids = [1,2,3,4]        

@@ -173,7 +173,7 @@
 
   <tbody>
     <% @todays_lessons.each do |lesson| %>
-        <% if lesson.active_today? && lesson.confirmed? %>
+        <% if lesson.active_today? %> <!-- && lesson.confirmed? -->
           <tr>
             <% if lesson.instructor %>
             <td><%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td>
@@ -245,7 +245,7 @@
             <td>TBD</td>
             <% end %>
             <% if lesson.product %>
-              <td><%= link_to "#{lesson.product.name}", lesson, class: "btn btn-default" %></td>
+              <td><%= link_to "#{lesson.product.name}", lesson, class: "btn btn-wrap btn-default" %></td>
             <% end %>
             <!-- <td><%= lesson.deposit_status %></td> -->
             <% if lesson.requester %>
@@ -257,7 +257,8 @@
             <td><%= lesson.state %></td>
             <% if current_user.user_type == "Snow Schoolers Employee" %>
             <td><%= number_to_currency(lesson.visible_lesson_cost) %></td>
-            <td><%= link_to "Send SMS", send_reminder_sms_to_instructor_path(lesson), class: "btn btn-default" %></td>
+            <td><%= link_to "Send Email (student)", send_day_before_reminder_email_path(lesson), class: "btn btn-success" %><br>
+            <%= link_to "Send SMS (instructor)", send_reminder_sms_to_instructor_path(lesson), class: "btn btn-default" %></td>
             <td><%= link_to 'Cancel', lesson, method: :delete, data: { confirm: 'Are you sure you want to cancel this lesson?' }, class: "btn btn-danger" %></td>
             <% else %>
               <td></td>
