@@ -1,27 +1,43 @@
 <div id="middle" class="container">
   <div class="white row">
-
     <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.email == "bbensch@gmail.com") %>
     <div class="row vertical-padding admin-viewable">
     <h4> (ADMIN ONLY) Eligible instructors are:</h4>
       <ul>
+        <li>
+          Email notifications: <%= @lesson.email_notifications_status %>
+          <%= link_to 'Disable email alerts', disable_email_notifications_path, class: "btn btn-warning" %>       
+          <%= link_to 'Enable email alerts', enable_email_notifications_path, class: "btn btn-success" %>       
+        </li>
+        <li>
+          SMS notifications: <%= @lesson.sms_notification_status %>
+          <%= link_to 'Disable sms alerts', disable_sms_notifications_path, class: "btn btn-warning" %>       
+          <%= link_to 'Enable sms alerts', enable_sms_notifications_path, class: "btn btn-success" %>       
+        </li>
+      </ul>
+      <ul>
         <% if @lesson.available_instructors.any? %>
             <% @lesson.available_instructors.each do |instructor| %>
-              <h6> <%= instructor.name  %> - <%= instructor.user_id %> - <%= instructor.phone_number %>
+              <h6> 
+                <%= instructor.name  %> - <%= instructor.user_id %> - <%= instructor.phone_number %>
               <% @lesson.completable? ? button_text = "Remind to Mark Complete" : button_text = "Send Request Remidner" %>
-              <%= link_to button_text, send_reminder_sms_to_instructor_path(@lesson, :instructor_id => instructor.id), class: "btn btn-warning" %></h6>
+              <%= link_to button_text, send_reminder_sms_to_instructor_path(@lesson, :instructor_id => instructor.id), class: "btn btn-warning" %>
+                <%= link_to "Assign to Instructor (with permission)", admin_assign_instructor_path(@lesson, :instructor_id => instructor.id), method: :put, class: "btn btn-default" %>
+              </h6>
             <% end %>
           <% else %>
             <li><p class="alert-danger">No instructors available!</p></li>
           <% end %>
           <li>Client phone number: <%= @lesson.phone_number %> </li>
-        </ul>       
-        <%= link_to "Mark as Paid", admin_reconfirm_state_path, method: :put, class: "btn btn-default" %>
+        </ul>     
+        <% if @lesson.instructor %>  
+          <%= link_to "Admin Confirm Instructor", admin_confirm_instructor_path, method: :put, class: "btn btn-default" %>
+        <% end %>
+        <%= link_to "Admin Confirm Deposit", admin_confirm_deposit_path, method: :put, class: "btn btn-default" %>
         <%= link_to 'Edit Lesson (no price changes)', edit_lesson_path(@lesson), class: "btn btn-success" %> <span> </span>
         <%= link_to 'Edit Lesson & Reissue Invoice', reissue_invoice_path(@lesson), method: :put, class: "btn btn-warning" %><span> </span>
         <%= link_to 'Edit Lesson & Issue Refund', issue_refund_path(@lesson), method: :put, class: "btn btn-danger" %><span> </span>
         <%= link_to 'Cancel lesson', @lesson, method: :delete, data: { confirm: 'Are you sure you want to cancel this lesson?' }, class: "btn btn-danger" %></td>
-
 
     </div>
     <% end %>
@@ -32,6 +48,10 @@
 
     <% if current_user && current_user.instructor.nil? && @lesson.state == "booked" || @lesson.state == "confirmed" %>
       <!-- <script src="https://www.smartwaiver.com/m/webpl/f.js?webpl_waiver=584daa0c8f287&webpl_title=Please%20now%20sign%20your%20waiver&webpl_align=Left&webpl_fontsize=20&webpl_background=%2355c9b2&webpl_fontcolor=%23ffffff&webpl_font=Verdana" type="text/javascript"></script> -->
+    <% end %>
+
+    <% if @lesson.confirmable? || @lesson.completable? || @lesson.active? %>
+      <%= render partial: 'lesson_actions_active' %>
     <% end %>
 
     <% if @lesson.finalizing? %>
@@ -51,10 +71,6 @@
       <%= render partial: 'reviews/form' %>
       <% elsif @lesson.waiting_for_review? && (current_user.instructor || current_user.user_type == "Snow Schoolers Employee") %>
           <%= link_to "Remind student to submit their review", mark_lesson_complete_path, method: :get, class: "btn btn-success" %>
-    <% end %>
-
-    <% if @lesson.confirmable? || @lesson.completable? || @lesson.active? %>
-      <%= render partial: 'lesson_actions_active' %>
     <% end %>
 
     <%= render partial: 'lesson_details' %>

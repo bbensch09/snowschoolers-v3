@@ -1,4 +1,5 @@
 class Lesson < ActiveRecord::Base
+  include ApplicationHelper
   belongs_to :requester, class_name: 'User', foreign_key: 'requester_id'
   belongs_to :instructor
   belongs_to :lesson_time
@@ -25,6 +26,14 @@ class Lesson < ActiveRecord::Base
   validate :instructors_must_be_available, on: :create
   after_save :send_lesson_request_to_instructors
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
+
+  def email_notifications_status
+    email_status ? email_status : 'default (enabled)'
+  end
+
+  def sms_notification_status
+    sms_status ? sms_status : 'default (enabled)'
+  end
 
   def confirmation_number
     date = self.lesson_time.date.to_s.gsub("-","")
@@ -321,13 +330,13 @@ class Lesson < ActiveRecord::Base
   end
 
   def active?
-    active_states = ['new', 'booked', 'confirmed','pending instructor','gift_voucher_reserved','pending requester','']
+    active_states = ['new', 'booked', 'confirmed','ready_to_book','pending instructor','gift_voucher_reserved','pending requester','']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
     active_states.include?(state)
   end
 
   def active_today?
-    active_states = ['confirmed','seeking replacement instructor','pending instructor', 'pending requester','Lesson Complete','finalizing payment & reviews','waiting for review','finalizing','ready_to_book']
+    active_states = ['confirmed','seeking replacement instructor','pending instructor','booked','pending requester','Lesson Complete','finalizing payment & reviews','waiting for review','finalizing','ready_to_book']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
     return true if self.date == Date.today && active_states.include?(state)
   end
@@ -867,6 +876,7 @@ class Lesson < ActiveRecord::Base
   def send_sms_reminder_to_instructor_complete_lessons
       # ENV variable to toggle Twilio on/off during development
       return if ENV['twilio_status'] == "inactive"
+      return if self.sms_notification_status == 'disabled'
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
@@ -884,6 +894,7 @@ class Lesson < ActiveRecord::Base
 
   def send_sms_to_instructor
       return if ENV['twilio_status'] == "inactive"
+      return if self.sms_notification_status == 'disabled'
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
@@ -922,7 +933,8 @@ class Lesson < ActiveRecord::Base
 
   def send_reminder_sms
     # ENV variable to toggle Twilio on/off during development
-    return if ENV['twilio_status'] == "inactive"    
+    return if ENV['twilio_status'] == "inactive"
+    return if self.sms_notification_status == 'disabled'
     return if self.state == 'confirmed'
     account_sid = ENV['TWILIO_SID']
     auth_token = ENV['TWILIO_AUTH']
@@ -943,7 +955,8 @@ class Lesson < ActiveRecord::Base
 
   def send_sms_to_all_other_instructors
     # ENV variable to toggle Twilio on/off during development
-    return if ENV['twilio_status'] == "inactive"    
+    return if ENV['twilio_status'] == "inactive"
+    return if self.sms_notification_status == 'disabled'
     recipients = self.available_instructors
     # if recipients.count < 2
     #   @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
@@ -973,6 +986,7 @@ class Lesson < ActiveRecord::Base
   def send_manual_sms_request_to_instructor(instructor)
       # ENV variable to toggle Twilio on/off during development
       return if ENV['twilio_status'] == "inactive"
+      return if self.sms_notification_status == 'disabled'
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
@@ -989,7 +1003,8 @@ class Lesson < ActiveRecord::Base
 
   def send_sms_to_requester
       # ENV variable to toggle Twilio on/off during development
-      return if ENV['twilio_status'] == "inactive"    
+      return if ENV['twilio_status'] == "inactive"
+      return if self.sms_notification_status == 'disabled'    
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
@@ -1060,8 +1075,9 @@ class Lesson < ActiveRecord::Base
   end
 
   def send_lesson_request_to_instructors
-    if self.active? && self.confirmable? && self.deposit_status == 'confirmed' && self.state != "pending instructor" && self.available_instructors.any? #&& self.deposit_status == 'verified'
+    if self.active? && self.confirmable? && self.deposit_status == 'confirmed' && self.state != "pending instructor" && self.available_instructors.any?
       LessonMailer.send_lesson_request_to_instructors(self).deliver
+      puts "!!!!!lesson email sent to all available instructors"
       self.send_sms_to_instructor
     elsif self.available_instructors.any? == false
       self.send_sms_to_admin
