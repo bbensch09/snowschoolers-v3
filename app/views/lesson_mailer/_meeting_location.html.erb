@@ -1,0 +1,13 @@
+<% if @lesson.location.id == 24 %>
+
+<h4>Meeting Location</h4>
+    <p>Please plan to meet your instructor outside of the Granlibakken Ski Hut a few minutes before the scheduled start of your lesson. The ski hill is located at <a href="https://www.google.com/maps/place/Granlibakken+Ski+%26+Sledding+Hill/@39.1561613,-120.1565678,17z/data=!4m13!1m7!3m6!1s0x80997d8619f5ff29:0x815523715ab4e748!2s725+Granlibakken+Rd,+Tahoe+City,+CA+96145!3b1!8m2!3d39.1561613!4d-120.1543791!3m4!1s0x80997d88a3630ec7:0x30c3373b77f6c7b4!8m2!3d39.1540162!4d-120.1547892" target="_blank" class="contact-link" ><%=@lesson.location.address%></a>. If you would like to meet somewhere else, please be sure to message your instructor ahead of time. </p>
+    <img src="https://s3.amazonaws.com/snowschoolers/ski-hut-meeting-location.jpg" alt="meeting-spot" height="400" width="700" />
+
+<% elsif @lesson.location.id == 8 %>
+
+<h4>Meeting Location</h4>
+    <p>Please plan to meet your instructor outside at the Private Lessons flag at the Homewood North Lodge a few minutes before the scheduled start of your lesson, as depicted below. The lodge is located at <a href="https://www.google.com/maps/place/Homewood+Mountain+Resort/@39.086085,-120.1627817,17z/data=!4m12!1m6!3m5!1s0x809bd57fbf0e6771:0x6cdf8953d18f267f!2sSR+89+Homewood+(Homewood+Mountain+Resort)!8m2!3d39.086085!4d-120.160593!3m4!1s0x0:0x73b0c46aa0c1068d!8m2!3d39.0855831!4d-120.1605392" >5145 W Lake Blvd, Homewood, CA 96141</a>. If you would like to meet somewhere else, such as inside the lodge or in a lift line, please be sure to message your instructor ahead of time. </p>
+    <img src="https://s3.amazonaws.com/snowschoolers/north-lodge-meeting-location.jpg" alt="meeting-spot" height="400" width="700" />
+
+<% end %>    

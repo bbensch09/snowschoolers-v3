@@ -1,7 +1,7 @@
 class LessonsController < ApplicationController
   respond_to :html
   skip_before_action :authenticate_user!, only: [:new, :granlibakken, :new_request, :create, :complete, :confirm_reservation, :update, :show, :edit]
-  before_action :set_lesson, only: [:show, :complete, :update, :edit, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie]
+  before_action :set_lesson, only: [:show, :complete, :update, :edit, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie, :send_day_before_reminder_email]
   before_action :save_lesson_params_and_redirect, only: [:create]
   before_action :authenticate_from_cookie!, only: [:complete, :confirm_reservation, :update, :show, :edit]
 
@@ -67,6 +67,12 @@ class LessonsController < ApplicationController
       @lesson.send_sms_reminder_to_instructor_complete_lessons
     end
     redirect_to @lesson
+  end
+
+  def send_day_before_reminder_email
+    puts "!!!!sending reminder email to both student & instructor"
+    LessonMailer.send_day_before_reminder_email(@lesson.id).deliver
+    redirect_to lessons_path
   end
 
   def sugarbowl

@@ -502,8 +502,8 @@ fieldset[disabled] .btn-primary.active {
 .btn {
   font-family: 'Palanquin', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
   border: none;
-  border-radius: 300px;
-  text-transform: uppercase;
+  border-radius: 8px;
+  /*text-transform: uppercase;*/
 }
 .btn-xl {
   padding: 15px 30px;

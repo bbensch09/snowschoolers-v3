@@ -228,6 +228,14 @@ class LessonMailer < ActionMailer::Base
       mail(to: recipient, cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", bcc:@lesson.instructor.user.email, subject: "Instructor Confirmation: your Snow Schoolers lesson on #{@lesson.date.strftime("%b %-d")} with #{@lesson.instructor.name} is confirmed!")
   end
 
+  def send_day_before_reminder_email(lesson_id)
+    @lesson = Lesson.find(lesson_id)
+    student_email = @lesson.contact_email
+    instructor_email = @lesson.instructor ? @lesson.instructor.email : "notify@snowschoolers.com"
+    instructor_name = @lesson.instructor ? @lesson.instructor.first_name : "Snow Schoolers"
+    mail(to: student_email, bcc: "SnowSchoolers.com <notify@snowschoolers.com>, Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", cc:instructor_email, subject: "Reminder: #{@lesson.activity} lesson tomorrow with #{instructor_name} at #{@lesson.location.name} - #{@lesson.slot}")
+  end  
+
   def send_lesson_request_notification(lesson)
     @lesson = lesson
     if @lesson.guest_email.nil? || @lesson.guest_email == ""
