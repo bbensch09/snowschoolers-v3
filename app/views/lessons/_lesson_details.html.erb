@@ -27,6 +27,12 @@ Requester Email: <%= @lesson.requester ? @lesson.requester.email : @lesson.guest
   <% end %>
 
   <div class="details-info-box">
+    <% if @lesson.deposit_status == 'confirmed' %>
+    <p>
+      Your reservation confirmation number is: <span style="font-size:18px;"><%=@lesson.confirmation_number%></span>. Please either print this page or save the confirmation email you should automaticaly receive, as you will need to show your confirmation number the morning of your lesson as proof of payment. Please also find your lesson reservation details below. 
+    </p>
+    <% end %>
+    
     <h3>Lesson Summary</h3>
 
     <div class='row'>
