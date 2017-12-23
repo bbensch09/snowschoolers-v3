@@ -36,7 +36,7 @@ class WelcomeController < ApplicationController
     @slot = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?) ? nil : session[:lesson]["lesson_time"]["slot"]
     @date = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?)  ? nil : session[:lesson]["lesson_time"]["date"]    
     if session[:must_sign_in] == true
-      flash.now[:alert] = "You do not have permission to view that page. Please first log in."
+      flash.now[:alert] = "You must login first to view that that page."
       session[:must_sign_in] = false
     end
   end

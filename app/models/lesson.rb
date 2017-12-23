@@ -940,7 +940,7 @@ class Lesson < ActiveRecord::Base
     auth_token = ENV['TWILIO_AUTH']
     snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
     recipient = self.available_instructors.any? ? self.available_instructors.first.phone_number : "4083152900"
-    body = "#{self.available_instructors.first.first_name}, it has been over #{ENV['TWILIO_SMS_DELAY']} minutes and you have not accepted or declined this request. We are now making this lesson available to other instructors. You may still visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm the lesson."
+    body = "#{self.available_instructors.first.first_name}, it has been #{(ENV['TWILIO_SMS_DELAY'].to_i/60).to_f.ceil} minutes and you have not accepted or declined this request. We are now making this lesson available to other instructors. You may still visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm the lesson."
     @client = Twilio::REST::Client.new account_sid, auth_token
           @client.api.account.messages.create({
           :to => recipient,
