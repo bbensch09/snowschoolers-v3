@@ -38,7 +38,7 @@ class Lesson < ActiveRecord::Base
   def confirmation_number
     date = self.lesson_time.date.to_s.gsub("-","")
     date = date[4..-1]
-    self.includes_rental_package? ? rental_code = "R" : rental_code = ""
+    self.includes_rental_package? ? rental_code = "-R" : rental_code = ""
 
     case self.location.name
       when 'Granlibakken'
