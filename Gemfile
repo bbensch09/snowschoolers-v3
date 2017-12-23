@@ -20,8 +20,12 @@ gem 'bootstrap3-datetimepicker-rails'#, '~> 4.17.47'
 gem 'rails-assets-datetimepicker', source: 'https://rails-assets.org'
 
 
-#install redis gem for actioncable troubleshooting
-# gem 'redis'
+#install redis gem to store resque jobs queue
+gem 'redis'
+gem 'resque'
+gem 'resque_mailer'
+gem 'resque-scheduler'
+
 
 #delayed_jobs for sending Twilio SMS messages if instructors are unresponsive
 gem 'delayed_job_active_record'

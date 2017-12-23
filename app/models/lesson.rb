@@ -167,8 +167,12 @@ class Lesson < ActiveRecord::Base
       calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
       if self.requested_location == "8"
         Product.where(location_id:self.location.id, name:self.lesson_time.slot,is_private_lesson:true,calendar_period:calendar_period).first
+      elsif self.requested_location == "24" && self.slot.starts_with?('Half-day Morning')
+        Product.where(location_id:self.location.id, length:self.length, name:'Half-day Morning Package (3hr)', is_private_lesson:true,calendar_period:calendar_period).first
+      elsif self.requested_location == "24" && self.slot.starts_with?('Half-day Afternoon')
+        Product.where(location_id:self.location.id, length:self.length, name:'Half-day Afternoon Package (3hr)', is_private_lesson:true,calendar_period:calendar_period).first
       elsif self.requested_location == "24"
-        Product.where(location_id:self.location.id, length:self.length,is_private_lesson:true,calendar_period:calendar_period).first
+        Product.where(location_id:self.location.id, length:self.length, is_private_lesson:true,calendar_period:calendar_period).first
       end                  
     else
       Product.where(id:self.product_id).first
@@ -940,7 +944,7 @@ class Lesson < ActiveRecord::Base
     auth_token = ENV['TWILIO_AUTH']
     snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
     recipient = self.available_instructors.any? ? self.available_instructors.first.phone_number : "4083152900"
-    body = "#{self.available_instructors.first.first_name}, it has been #{(ENV['TWILIO_SMS_DELAY'].to_i/60).to_f.ceil} minutes and you have not accepted or declined this request. We are now making this lesson available to other instructors. You may still visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm the lesson."
+    body = "#{self.available_instructors.first.first_name}, it has been #{(ENV['TWILIO_SMS_DELAY'].to_f/60.0).ceil} minutes and you have not accepted or declined this request. We are now making this lesson available to other instructors. You may still visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm the lesson."
     @client = Twilio::REST::Client.new account_sid, auth_token
           @client.api.account.messages.create({
           :to => recipient,
@@ -958,20 +962,11 @@ class Lesson < ActiveRecord::Base
     return if ENV['twilio_status'] == "inactive"
     return if self.sms_notification_status == 'disabled'
     recipients = self.available_instructors
-    # if recipients.count < 2
-    #   @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
-    #       @client.api.account.messages.create({
-    #       :to => "408-315-2900",
-    #       :from => ENV['TWILIO_NUMBER'],
-    #       :body => "ALERT - #{self.available_instructors.first.name} is the only instructor available and they have not responded after 10 minutes. No other instructors are available to teach #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date} at #{self.location.name}."
-    #   })
-    # end
-    # identify recipients to be notified as all available instructors except for the first instructor, who has been not responsive
     recipients.each do |instructor|
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
-      body = "#{instructor.first_name}, we have a customer who is eager to find an instructor. #{self.requester.name} wants a lesson at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. Are you available? The lesson is now available to the first instructor that claims it by visiting #{ENV['HOST_DOMAIN']}/lessons/#{self.id} and accepting the request."
+      body = "#{instructor.first_name}, #{self.requester.name} wants a lesson at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. Are you free? The lesson is now available to the first instructor that claims it by visiting #{ENV['HOST_DOMAIN']}/lessons/#{self.id} and accepting the request."
       @client = Twilio::REST::Client.new account_sid, auth_token
             @client.api.account.messages.create({
             :to => instructor.phone_number,
