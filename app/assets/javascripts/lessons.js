@@ -1,4 +1,11 @@
 // console.log("lessons.js loaded");
+var dt = new Date();
+var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+if (time > "16:00:00") {
+    var MIN_DATE = 2
+  } else {
+    var MIN_DATE = 1
+  };
 
 var LESSON = {
   init: function(){
@@ -36,7 +43,8 @@ var LESSON = {
   },
 
   // setDatepicker: function() { LESSON._date.datepicker({ minDate: '2016-12-16', dateFormat: 'yy-mm-dd' }); },
-  setDatepicker: function() { LESSON._date.datepicker({ minDate: 0, maxDate: '2018-04-15', dateFormat: 'yy-mm-dd' }); },
+
+  setDatepicker: function() { LESSON._date.datepicker({ minDate: MIN_DATE, maxDate: '2018-04-15', dateFormat: 'yy-mm-dd' }); },    
 
   // var TODAYS_DATE = new Date().getDate();
   // var LAUNCH_DATE = new Date('2016','11','16').getDate();
