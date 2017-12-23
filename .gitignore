@@ -19,3 +19,4 @@
 /config/local_secrets.yml
 /config/aws.yml
 /config/secrets.yml
+/dump.rdb
