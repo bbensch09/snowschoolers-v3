@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :promo_codes
   resources :shifts
   resources :product_calendars
   resources :selfies

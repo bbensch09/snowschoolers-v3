@@ -1,0 +1,26 @@
+<div id="middle" class="container">
+  <div class="white">
+<p>
+  <strong>Promo code:</strong>
+  <%= @promo_code.promo_code %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @promo_code.status %>
+</p>
+
+<p>
+  <strong>Redemptions:</strong>
+  <%= @promo_code.redemptions %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @promo_code.description %>
+</p>
+
+<%= link_to 'Edit', edit_promo_code_path(@promo_code) %> |
+<%= link_to 'Back', promo_codes_path %>
+</div>
+</div>

@@ -216,6 +216,7 @@ class LessonsController < ApplicationController
     @lesson.assign_attributes(lesson_params)
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
     @lesson.product_name = @lesson.slot
+    @promo_code = PromoCode.new
     unless current_user && current_user.user_type == "Snow Schoolers Employee"
       @lesson.requester = current_user
     end
@@ -510,6 +511,17 @@ class LessonsController < ApplicationController
         expires: 1.year.from_now
       }
       puts"!!!! cookie has been set to: #{cookies[:lesson]}."
+    end
+  end
+
+  def set_promo_code_cookie
+    puts "!!! params for :allow are #{params[:offer]}"
+    if params[:offer]
+      cookies[:offer] = {
+        value: params[:offer],
+        expires: 1.year.from_now
+      }
+      puts"!!!! cookie has been set to: #{cookies[:offer]}."
     end
   end
 
