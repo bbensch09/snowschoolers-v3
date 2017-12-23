@@ -28,29 +28,13 @@ def title(title = nil)
     end
 end
 
-def meta_tag(tag, text)
-  content_for :"meta_#{tag}", text
-end
+  def meta_tag(tag, text)
+    content_for :"meta_#{tag}", text
+  end
 
-def yield_meta_tag(tag, default_text='Browse instructors, compare prices, and book lessons at your favorite resort.')
-  content_for?(:"meta_#{tag}") ? content_for(:"meta_#{tag}") : default_text
-end
-
-def email_status
-  Thread.current[:disable_email]
-end
-
-def self.email_status=(text)
-  Thread.current[:disable_email] = text
-end
-
-def sms_status
-  Thread.current[:disable_sms]
-end
-
-def self.sms_status=(text)
-  Thread.current[:disable_sms] = text
-end
+  def yield_meta_tag(tag, default_text='Browse instructors, compare prices, and book lessons at your favorite resort.')
+    content_for?(:"meta_#{tag}") ? content_for(:"meta_#{tag}") : default_text
+  end
 
 
 end
