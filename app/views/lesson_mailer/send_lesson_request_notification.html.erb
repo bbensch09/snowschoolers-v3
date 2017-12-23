@@ -19,11 +19,10 @@
     </p>
     <h4>Lesson Details</h4>
     <ul>
-      <li>Sport: <%= @lesson.activity %></li>
-      <li>Location: <%= @lesson.location.name %></li>
+      <li>Students: <%= @lesson.students.map(&:name).join(', ') %></li>
       <li>Date: <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %></li>
       <li>Slot: <%= @lesson.slot %></li>
-      <li>Students: <%= @lesson.students.map(&:name).join(', ') %></li>
+      <li>Location: <%= @lesson.location.name %></li>
       <li>Objectives: <%= @lesson.objectives %></li>
     </ul>
 

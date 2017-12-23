@@ -3,12 +3,14 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :set_user
   after_action :store_location
-  before_action :set_admin_notifications
 
-def set_admin_notifications
-  ApplicationHelper.email_status = session[:disable_email]
-  ApplicationHelper.sms_status = session[:disable_sms]
-end
+#TO REFACTOR LATER - CUSTOMIZED METHODS TO INTERCEPT DEFAULT ERROR HANDLING FOR 404s and 500s
+  # rescue_from ActiveRecord::RecordNotFound, :with => :houston_we_have_a_problem
+  # unless Rails.application.config.consider_all_requests_local
+  #   rescue_from ActionController::RoutingError, :with => :houston_we_have_500_routing_problems
+  #   rescue_from ActionController::UnknownController, :with => :houston_we_have_500_routing_problems
+  # end
+  # rescue_from Exception, :with => :houston_we_have_an_exceptional_problem
 
 def confirm_admin_permissions
   return if current_user.email == 'brian@snowschoolers.com' || current_user.user_type == 'Ski Area Partner' || current_user.user_type == "Snow Schoolers Employee"

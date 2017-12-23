@@ -4,29 +4,31 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <p>Hello Snow Schoolers!</p>
+    <h1>You Have a New Lesson Request</h1>
     <p>
-      We have a new lesson request that is now available to the first instructor who wants to claim it. Please find the full lesson details below
+      To take the lesson, go to the lesson page below and click the 'Take It' button before another instructor beats you to it!
     </p>
     <p>
-      To review this lesson and accept or decline it, please visit: <%= lesson_url(@lesson) %>
+      To review this lesson and accept or decline, visit: <%= lesson_url(@lesson) %>
     </p>
     <div class='row'>
-      <h4>Lesson Details</h4>
+      <h4>Basic <strong>Info</strong></h4>
+
       <ul>
-        <li>Sport: <%= @lesson.activity %></li>
-        <li>Location: <%= @lesson.location.name %></li>
-        <li>Date: <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %></li>
-        <li>Slot: <%= @lesson.slot %></li>
-        <li>Students: <%= @lesson.students.map(&:name).join(', ') %></li>
-        <li>Objectives: <%= @lesson.objectives %></li>
+          <li>Location:<%= @lesson.location.name %> </li>
+          <li>Date: <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %></li>
+          <li>Slot:<%= @lesson.slot %> </li>
+          <li>Minimum Instructor Pay:<%= number_to_currency(@lesson.length.to_i * 16) %> </li>
       </ul>
 
-    <%= render partial: 'lessons/price_details' %>
+      <h4>Objectives <strong> and Experience</strong></h4>
 
-    <%= render partial: 'lessons/student_details' %>
+        <ul>
+          <li>Objectives:<%= @lesson.objectives %> </li>
+        </ul>
 
+      <%= render partial: 'lessons/student_details' %>
     </div>
-  
+    <button> <h2> <a href=<%= lesson_url(@lesson) %>> Accept this Lesson </a> </h2></button>
   </body>
 </html>
