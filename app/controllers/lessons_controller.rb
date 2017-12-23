@@ -72,7 +72,7 @@ class LessonsController < ApplicationController
 
   def send_day_before_reminder_email
     puts "!!!!sending reminder email to both student & instructor"
-    LessonMailer.send_day_before_reminder_email(@lesson.id).deliver
+    LessonMailer.send_day_before_reminder_email(@lesson.id).deliver!
     redirect_to lessons_path
   end
 
@@ -204,7 +204,7 @@ class LessonsController < ApplicationController
         puts "!!!!!About to save state & deposit status after processing lessons#update"
         @lesson.save
       GoogleAnalyticsApi.new.event('lesson-requests', 'deposit-submitted', params[:ga_client_id])
-      LessonMailer.send_lesson_request_notification(@lesson).deliver
+      LessonMailer.send_lesson_request_notification(@lesson).deliver!
       flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when your instructor confirmed your request. If you have any questions, please email support@snowschoolers.com.'
       flash[:conversion] = 'TRUE'
       puts "!!!!!!!! Lesson deposit successfully charged"
@@ -347,9 +347,9 @@ class LessonsController < ApplicationController
       c.lesson_time_id = @lesson.lesson_time_id
       c.save
     if @lesson.location.id == 8
-      LessonMailer.send_lesson_hw_confirmation(@lesson).deliver
+      LessonMailer.send_lesson_hw_confirmation(@lesson).deliver!
     elsif @lesson.location.id == 24
-      LessonMailer.send_lesson_gb_confirmation(@lesson).deliver
+      LessonMailer.send_lesson_gb_confirmation(@lesson).deliver!
     end
     @lesson.send_sms_to_requester
     redirect_to @lesson
@@ -373,7 +373,7 @@ class LessonsController < ApplicationController
       @lesson.send_sms_to_admin
     end
     flash[:notice] = 'You have declined the request; another instructor has now been notified.'
-    # LessonMailer.send_lesson_confirmation(@lesson).deliver
+    # LessonMailer.send_lesson_confirmation(@lesson).deliver!
     redirect_to @lesson
   end
 
@@ -410,7 +410,7 @@ class LessonsController < ApplicationController
       @lesson.update(lesson_params.merge(state: 'finalizing payment & reviews'))
       @lesson.state = @lesson.valid? ? 'finalizing payment & reviews' : 'confirmed'
       @lesson.send_sms_to_requester
-      LessonMailer.send_payment_email_to_requester(@lesson).deliver
+      LessonMailer.send_payment_email_to_requester(@lesson).deliver!
     else
       puts "!!!!error on entering valid duration params"
     end
@@ -460,7 +460,7 @@ class LessonsController < ApplicationController
         expires: 1.year.from_now
       }
       redirect_to complete_lesson_path(@lesson)
-      # LessonMailer.notify_admin_lesson_request_begun(@lesson, @user_email).deliver
+      # LessonMailer.notify_admin_lesson_request_begun(@lesson, @user_email).deliver!
       else
         @activity = session[:lesson].nil? ? nil : session[:lesson]["activity"]
         @promo_location = session[:lesson].nil? ? nil : session[:lesson]["requested_location"]
@@ -472,14 +472,14 @@ class LessonsController < ApplicationController
 
   def send_cancellation_email_to_instructor
     if @lesson.instructor.present?
-      LessonMailer.send_cancellation_email_to_instructor(@lesson).deliver
+      LessonMailer.send_cancellation_email_to_instructor(@lesson).deliver!
     end
   end
 
   def send_instructor_cancellation_emails
-    LessonMailer.send_cancellation_confirmation(@canceling_instructor,@lesson).deliver
-    LessonMailer.send_lesson_request_to_new_instructors(@lesson, @lesson.instructor).deliver if @lesson.available_instructors?
-    LessonMailer.inform_requester_of_instructor_cancellation(@lesson, @lesson.available_instructors?).deliver
+    LessonMailer.send_cancellation_confirmation(@canceling_instructor,@lesson).deliver!
+    LessonMailer.send_lesson_request_to_new_instructors(@lesson, @lesson.instructor).deliver! if @lesson.available_instructors?
+    LessonMailer.inform_requester_of_instructor_cancellation(@lesson, @lesson.available_instructors?).deliver!
   end
 
   def send_lesson_update_notice_to_instructor
@@ -488,7 +488,7 @@ class LessonsController < ApplicationController
       changed_attributes = @lesson.get_changed_attributes(@original_lesson)
       return unless changed_attributes.any?
       return unless current_user.email != "brian@snowschoolers.com"
-      LessonMailer.send_lesson_update_notice_to_instructor(@original_lesson, @lesson, changed_attributes).deliver
+      LessonMailer.send_lesson_update_notice_to_instructor(@original_lesson, @lesson, changed_attributes).deliver!
     end
   end
 
