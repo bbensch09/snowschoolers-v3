@@ -260,7 +260,9 @@ class LessonsController < ApplicationController
       Heap.track 'lesson-ready-for-deposit', "#{@lesson.requester.heap_uuid}"
       @user_email = current_user ? current_user.email : "unknown"
       if @lesson.state == "ready_to_book"
-      LessonMailer.notify_admin_lesson_full_form_updated(@lesson, @user_email).deliver
+      LessonMailer.notify_admin_lesson_full_form_updated(@lesson.id).deliver_in(2.seconds)
+      # LessonMailer.test_email(@lesson.id).deliver_in(2.seconds)
+      # LessonMailer.test_email.deliver_at(Time.parse('2017-12-20 16:20:00 -0800'))
       end
       send_lesson_update_notice_to_instructor
       puts "!!!! Lesson update saved; update notices sent"

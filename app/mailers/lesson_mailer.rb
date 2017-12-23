@@ -1,5 +1,6 @@
 class LessonMailer < ActionMailer::Base
   include ApplicationHelper
+  include Resque::Mailer
   default from: 'SnowSchoolers.com <info@snowschoolers.com>' #cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>"
   before_filter :log_mailer_action
 
@@ -25,9 +26,9 @@ class LessonMailer < ActionMailer::Base
       mail(to: 'brian@snowschoolers.com', subject: "New Lesson Request begun - #{@lesson.date} - #{@lesson.guest_email}.")
   end
 
-  def notify_admin_lesson_full_form_updated(lesson,email)
-      @lesson = lesson
-      @user_email = email
+  def notify_admin_lesson_full_form_updated(lesson_id)
+      @lesson = Lesson.find(lesson_id)
+      @user_email = @lesson.guest_email ? @lesson.guest_email : @lesson.requester.email
       return if @lesson.email_notifications_status == 'disabled'
       mail(to: 'brian@snowschoolers.com', cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", subject: "Lesson Request complete, ready for deposit - #{@lesson.date.strftime("%b %-d")}.")
   end
