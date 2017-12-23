@@ -1,12 +1,9 @@
-
 class WelcomeController < ApplicationController
     skip_before_action :authenticate_user!
     before_action :confirm_admin_permissions, only: [:admin_users,:admin_edit, :admin_destroy]
     before_action :merge_current_user_with_instructor_application
     before_action :set_user, only: [:admin_edit, :admin_show_user, :admin_update_user, :admin_destroy]
     protect_from_forgery :except => [:sumo_success]
-
-    include ApplicationHelper
 
   def new_hire_packet
     file = "public/Homewood-Hire-Packet-2016-2017.pdf"
@@ -39,7 +36,7 @@ class WelcomeController < ApplicationController
     @slot = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?) ? nil : session[:lesson]["lesson_time"]["slot"]
     @date = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?)  ? nil : session[:lesson]["lesson_time"]["date"]    
     if session[:must_sign_in] == true
-      flash.now[:alert] = "You do not have permission to view that page. Please first log in."
+      flash.now[:alert] = "You must login first to view that that page."
       session[:must_sign_in] = false
     end
   end
