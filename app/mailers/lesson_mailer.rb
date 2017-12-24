@@ -30,7 +30,7 @@ class LessonMailer < ActionMailer::Base
       @lesson = Lesson.find(lesson_id)
       @user_email = @lesson.guest_email ? @lesson.guest_email : @lesson.requester.email
       return if @lesson.email_notifications_status == 'disabled'
-      mail(to: 'brian@snowschoolers.com', cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", subject: "Lesson Request complete, ready for deposit - #{@lesson.date.strftime("%b %-d")}.")
+      mail(to: 'notify@snowschoolers.com', cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", subject: "Lesson Request complete, ready for deposit - #{@lesson.date.strftime("%b %-d")}.")
   end
 
   def notify_admin_beta_user(beta_user)
@@ -211,7 +211,7 @@ class LessonMailer < ActionMailer::Base
       end
     end
     return if @lesson.email_notifications_status == 'disabled'
-    mail(to: 'notify@snowschoolers.com', cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", bcc: @available_instructors, subject: 'A previous instructor canceled - can you help with this lesson request?')
+    mail(to: 'notify@snowschoolers.com', cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, notify@snowschoolers.com", bcc: @available_instructors, subject: 'A previous instructor canceled - can you help with this lesson request?')
   end
 
   # notification when instructor cancels
@@ -230,7 +230,7 @@ class LessonMailer < ActionMailer::Base
       recipient = @lesson.guest_email
     end
     return if @lesson.email_notifications_status == 'disabled'
-      mail(to: recipient, cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", bcc:@lesson.instructor.user.email, subject: "Your Snow Schoolers lesson on #{@lesson.date.strftime("%b %-d")} with #{@lesson.instructor.name} is confirmed!")
+      mail(to: recipient, cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, notify@snowschoolers.com", bcc:@lesson.instructor.user.email, subject: "Your Snow Schoolers lesson on #{@lesson.date.strftime("%b %-d")} with #{@lesson.instructor.name} is confirmed!")
   end
 
   def send_lesson_gb_confirmation(lesson) #this gets sent after the instructor has accepted the lesson request.
@@ -241,7 +241,7 @@ class LessonMailer < ActionMailer::Base
       recipient = @lesson.guest_email
     end
     return if @lesson.email_notifications_status == 'disabled'
-      mail(to: recipient, cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", bcc:@lesson.instructor.user.email, subject: "Instructor Confirmation: your Snow Schoolers lesson on #{@lesson.date.strftime("%b %-d")} with #{@lesson.instructor.name} is confirmed!")
+      mail(to: recipient, cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, notify@snowschoolers.com", bcc:@lesson.instructor.user.email, subject: "Instructor Confirmation: your Snow Schoolers lesson on #{@lesson.date.strftime("%b %-d")} with #{@lesson.instructor.name} is confirmed!")
   end
 
   def send_day_before_reminder_email(lesson_id)
@@ -257,9 +257,9 @@ class LessonMailer < ActionMailer::Base
     @lesson = lesson
     return if @lesson.email_notifications_status == 'disabled'
     if @lesson.guest_email.nil? || @lesson.guest_email == ""
-      mail(to: @lesson.requester.email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", subject: "Reservation Confirmation: Thanks for booking with Snow Schoolers for #{@lesson.date.strftime("%b %-d")}")
+      mail(to: @lesson.requester.email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, notify@snowschoolers.com", subject: "Reservation Confirmation: Thanks for booking with Snow Schoolers for #{@lesson.date.strftime("%b %-d")}")
     else
-      mail(to: @lesson.guest_email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", subject: "Reservation Confirmation: Thanks for booking with Snow Schoolers for  for #{@lesson.date.strftime("%b %-d")}")
+      mail(to: @lesson.guest_email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, notify@snowschoolers.com", subject: "Reservation Confirmation: Thanks for booking with Snow Schoolers for  for #{@lesson.date.strftime("%b %-d")}")
     end
   end
 
