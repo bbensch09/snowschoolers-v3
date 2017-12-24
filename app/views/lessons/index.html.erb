@@ -1,4 +1,4 @@
-<div id="middle" class="container">
+<div id="middle" class="container lesson-index-mobile">
   <div class="white">
 
 <!--
@@ -168,6 +168,7 @@
       <th>Status</th>
       <th></th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -192,9 +193,12 @@
             <td><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
             <td><%= lesson.state %></td>
             <td></td>
+            <td><%= link_to "Remind Instructor to Mark Complete", send_reminder_sms_to_instructor_path(lesson), class: "btn btn-default btn-wrap" %></td>
+            <% if lesson.state == 'finalizing payment & reviews' %>
+            <td><%= link_to "Remind Student to Review/Tip", send_review_reminders_to_student_path(lesson), class: "btn btn-success btn-wrap" %></td>
+            <% else %>
             <td></td>
-            <!-- <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td> -->
-            <!-- <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+            <% end %>
           </tr>
         <%end%>
     <% end %>

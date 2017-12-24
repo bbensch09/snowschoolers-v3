@@ -1,7 +1,7 @@
 class LessonsController < ApplicationController
   respond_to :html
   skip_before_action :authenticate_user!, only: [:new, :granlibakken, :new_request, :create, :complete, :confirm_reservation, :update, :show, :edit]
-  before_action :set_lesson, only: [:show, :complete, :update, :edit, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_instructor, :admin_confirm_deposit, :admin_assign_instructor, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications]
+  before_action :set_lesson, only: [:show, :complete, :update, :edit, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_instructor, :admin_confirm_deposit, :admin_assign_instructor, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications, :send_review_reminders_to_student]
   before_action :save_lesson_params_and_redirect, only: [:create]
   before_action :authenticate_from_cookie!, only: [:complete, :confirm_reservation, :update, :show, :edit]
 
@@ -67,6 +67,13 @@ class LessonsController < ApplicationController
       @lesson.send_sms_reminder_to_instructor_complete_lessons
     end
     redirect_to @lesson
+  end
+
+  def send_review_reminders_to_student
+    return unless @lesson.state == 'finalizing payment & reviews'
+    @lesson.send_sms_to_requester
+    LessonMailer.send_payment_email_to_requester(@lesson.id).deliver!
+    redirect_to lessons_path
   end
 
   def send_day_before_reminder_email
@@ -145,7 +152,7 @@ class LessonsController < ApplicationController
   def complete    
     @lesson_time = @lesson.lesson_time
     @product_name = @lesson.product_name
-    @state = 'booked'
+    @promo_code = PromoCode.new
     GoogleAnalyticsApi.new.event('lesson-requests', 'load-full-form')
     flash.now[:notice] = "You're almost there! We just need a few more details."
     flash[:complete_form] = 'TRUE'
@@ -176,9 +183,9 @@ class LessonsController < ApplicationController
   def confirm_reservation
     if @lesson.deposit_status != 'confirmed'
         if @lesson.lesson_price.nil?
-          @amount = @lesson.price.to_i
+          amount_in_cents = (@lesson.price.to_f*100).to_i
         else
-          @amount= @lesson.lesson_price.to_i
+          amount_in_cents= (@lesson.lesson_price.to_f*100).to_i
         end
           customer = Stripe::Customer.create(
             :email => params[:stripeEmail],
@@ -186,7 +193,7 @@ class LessonsController < ApplicationController
           )
           charge = Stripe::Charge.create(
             :customer    => customer.id,
-            :amount      => @amount*100,
+            :amount      => amount_in_cents,
             :description => 'Lesson reservation deposit',
             :currency    => 'usd'
           )
@@ -377,7 +384,7 @@ class LessonsController < ApplicationController
   end
 
   def remove_instructor
-    @canceling_instructor = @lesson.instructor.user.email
+    @canceling_instructor = @lesson.instructor.email
     puts "!!!!!!the canceling instructor is #{@canceling_instructor}"
     c = CalendarBlock.find_or_create_by!({
         date: @lesson.lesson_time.date,
@@ -409,7 +416,7 @@ class LessonsController < ApplicationController
       @lesson.update(lesson_params.merge(state: 'finalizing payment & reviews'))
       @lesson.state = @lesson.valid? ? 'finalizing payment & reviews' : 'confirmed'
       @lesson.send_sms_to_requester
-      LessonMailer.send_payment_email_to_requester(@lesson).deliver!
+      LessonMailer.send_payment_email_to_requester(@lesson.id).deliver!
     else
       puts "!!!!error on entering valid duration params"
     end
@@ -530,7 +537,7 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id, :guest_email, :how_did_you_hear, :num_days, :lesson_price, :requester_name, :is_gift_voucher, :includes_lift_or_rental_package, :package_info, :gift_recipient_email, :gift_recipient_name, :lesson_cost, :non_lesson_cost, :product_id, :section_id, :product_name, :admin_price_adjustment, 
+    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id, :guest_email, :how_did_you_hear, :num_days, :lesson_price, :requester_name, :is_gift_voucher, :includes_lift_or_rental_package, :package_info, :gift_recipient_email, :gift_recipient_name, :lesson_cost, :non_lesson_cost, :product_id, :section_id, :product_name, :admin_price_adjustment, :promo_code_id,
       students_attributes: [:id, :name, :age_range, :gender, :relationship_to_requester, :lesson_history, :requester_id, :most_recent_experience, :most_recent_level, :other_sports_experience, :experience, :_destroy, :needs_rental], lesson_time_attributes: [:date, :slot])
   end
 

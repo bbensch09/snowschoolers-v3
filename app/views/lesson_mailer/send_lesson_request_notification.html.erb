@@ -13,10 +13,22 @@
     <p>
       Thank you for submitting your private lesson reservation through Snow Schoolers!
     </p>
-    <h4>Reservation Receipt</h4>
     <p>
-      Your reservation confirmation number is: <span style="font-size:18px;"><%=@lesson.confirmation_number%></span>. Please save this email, as you will need to show your confirmation number the morning of your lesson as proof of payment. Please also find your lesson reservation details below, including names & ages of the students in your reservation, and whether or not rental equipment has been included. 
+      Reservation confirmation number: <span style="font-size:18px;"><%=@lesson.confirmation_number%></span>
     </p>
+    <h4>What happens now?</h4>
+    <ul>
+      <li>
+        You have <b>successfully secured your lesson reservation</b>, and we have confirmed that we do have instructors available. Our team is now determining the best instructor to assign to your lesson, based on your stated goals and previous skiing or snowboarding experiences. If it has been more than 24 hours since your request, or if your lesson date is less than 48 hours away, please feel free to reach out to us at <a href="mailto:support@snowschoolers.com">support@snowschoolers.com.</a>
+      </li>
+      <li>
+        Please save this email, as you will need to show your confirmation number (above) the morning of your lesson as proof of payment. Please also find your lesson reservation details below, including names & ages of the students in your reservation, and whether or not rental equipment has been included. 
+      </li>
+      <li>Your lesson will begin promptly at the start time you've selected.</li>
+      <li>If you are renting from the mountain, please plan to arrive at the ski hill at least <%= ENV['RENTAL_ADVANCE_TIME'] %> prior to your lesson so that you can get outfitted with your equipment. For afternoon lessons, if it is at all possible please come by in the morning before 1030am to pickup your equipment, because rental equipment selection is often extremely limited in the afternoon.</li>
+      <li>If you have your own equipment, you should still arrive at least 15 minutes prior to the start of your lesson to afford enough time to find parking and put on your boots and gear.</li>
+    </ul>
+
     <h4>Lesson Details</h4>
     <ul>
       <li>Sport: <%= @lesson.activity %></li>
@@ -31,11 +43,6 @@
 
     <%= render partial: 'lessons/student_details' %>
 
-    <h4>What happens now?</h4>
-    <p>
-      You have <b>successfully secured your lesson reservation</b>, and we have confirmed that we do have instructors available. Our team is now determining the best instructor to assign to your lesson, based on your stated goals and previous skiing or snowboarding experiences.
-    </p>
-    <p>If it has been more than 24 hours since your request, or if your lesson date is less than 48 hours away, please feel free to reach out to us at <a href="mailto:support@snowschoolers.com">support@snowschoolers.com.</p>
 
     <p>
       If you need to make any changes to your lesson reservation, please visit: <a href=<%= lesson_url(@lesson) %> ><%= lesson_url(@lesson) %></a>.

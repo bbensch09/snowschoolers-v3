@@ -5,6 +5,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :lesson_time
   has_many :students
   has_one :review
+  belongs_to :promo_code
   has_many :transactions
   has_many :lesson_actions
   belongs_to :product #, class_name: 'Product', foreign_key: 'product_id'
@@ -548,7 +549,27 @@ class Lesson < ActiveRecord::Base
       return "Please confirm date & time to see price."
     end
     price = product.price.to_f + self.package_cost
+    if self.promo_code
+      case self.promo_code.discount_type
+      when 'cash'
+        puts "!!!discount of #{self.promo_code.discount} is applied to total price."
+        price = (price.to_f - self.promo_code.discount.to_f)
+      when 'percent'
+        puts "!!!discount percentage of of #{self.promo_code.discount} is applied to total price."
+        price = (price.to_f * (1-self.promo_code.discount.to_f/100))
+      end
+    end
     return price.to_f
+  end
+
+  def original_price
+    return self.price unless self.promo_code
+    case self.promo_code.discount_type
+      when 'cash'
+        return original_price = self.price.to_f + self.promo_code.discount.to_f
+      when 'percent'
+        return original_price = self.price.to_f / (1-self.promo_code.discount.to_f/100)
+      end
   end
 
   def adjusted_price
@@ -787,7 +808,25 @@ class Lesson < ActiveRecord::Base
   end
 
   def available_instructors?
-    available_instructors.any? ? true : false
+    puts "!!!!!! checking to see if there are any available instructors"
+    # available_instructors.any? ? true : false
+    if available_instructors.count == 0
+      return false
+    else
+      all_open_lesson_requests = Lesson.open_lesson_requests
+      overlapping_open_requests = all_open_lesson_requests.select{|lesson| lesson.date == self.date } #&& lesson.lesson_time.slot == self.lesson_time.slot}
+      actual_availability_count = available_instructors.count - overlapping_open_requests.count
+      case 
+      when actual_availability_count >= 2
+        puts "!!! Estimated actual availability at this time slot is #{actual_availability_count}"
+        return true
+      when actual_availability_count > 0 
+        puts "!!! Warning: at most 1-2 instructors are available"
+        return true
+      when actual_availability_count <= 0
+        return false
+      end
+    end
   end
 
   def self.find_lesson_times_by_requester(user)
@@ -895,7 +934,7 @@ class Lesson < ActiveRecord::Base
           :body => body
       })
       # send_reminder_sms
-      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
+      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
   end
 
   def send_sms_to_instructor
@@ -934,7 +973,7 @@ class Lesson < ActiveRecord::Base
       # puts "!!!!Body: #{body}"
       puts "!!!!!sorted instructors, and randomly chose one of top 4 ranked instructors to send SMS to. thise time chose #{first_instructor.name}."
       puts "!!!!! - reminder SMS has been scheduled"
-      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
+      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
   end
 
   def send_reminder_sms
@@ -955,7 +994,7 @@ class Lesson < ActiveRecord::Base
       })
       puts "!!!!! - reminder SMS has been sent"
       send_sms_to_all_other_instructors
-      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
+      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
   end
   handle_asynchronously :send_reminder_sms, :run_at => Proc.new {ENV['TWILIO_SMS_DELAY'].to_i.seconds.from_now }
 
@@ -976,7 +1015,7 @@ class Lesson < ActiveRecord::Base
             :body => body
         })
     end
-    LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
+    LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
   end
   handle_asynchronously :send_sms_to_all_other_instructors, :run_at => Proc.new {ENV['TWILIO_SMS_DELAY'].to_i.seconds.from_now }
 
@@ -995,7 +1034,7 @@ class Lesson < ActiveRecord::Base
           :from => "#{snow_schoolers_twilio_number}",
           :body => body
       })
-      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
+      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
   end
 
   def send_sms_to_requester
@@ -1021,7 +1060,7 @@ class Lesson < ActiveRecord::Base
             :from => "#{snow_schoolers_twilio_number}",
             :body => body
         })
-          LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
+          LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
           else
             puts "!!!! error - could not send SMS via Twilio"
             LessonMailer.send_admin_notify_invalid_phone_number(self).deliver
@@ -1037,7 +1076,19 @@ class Lesson < ActiveRecord::Base
           :from => ENV['TWILIO_NUMBER'],
           :body => body
       })
-      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
+      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
+  end
+
+  def notify_admin_pending_supply_constraint(lesson_time)
+      recipient = "408-315-2900"
+      body = "ALERT - a student attempted to request a lesson at #{lesson_time}, but we either have no instructors available or already have unclaimed lessons that match or exceed the number of available instructors."
+      @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
+          @client.api.account.messages.create({
+          :to => recipient,
+          :from => ENV['TWILIO_NUMBER'],
+          :body => body
+      })
+      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
   end
 
   def send_sms_to_admin_1to1_request_failed
@@ -1047,14 +1098,15 @@ class Lesson < ActiveRecord::Base
           :from => ENV['TWILIO_NUMBER'],
           :body => "ALERT - A private 1:1 request was made and declined. #{self.requester.name} had requested #{self.instructor.name} but they are unavailable at #{self.product.start_time} on #{self.lesson_time.date} at #{self.location.name}."
       })
-      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver
+      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
   end
 
   private
 
   def instructors_must_be_available
-    unless available_instructors.any?
-      errors.add(:lesson, " unfortunately not available at that time. Please email info@snowschoolers.com to be notified if we have any instructors that become available.")
+    unless available_instructors?
+      errors.add(:lesson, "Error: unfortunately we are sold out of private instructors at that time. Please choose another time slot, or email info@snowschoolers.com to be notified if we have any instructors that become available.")
+      notify_admin_pending_supply_constraint(self.date)
       return false
     end
   end

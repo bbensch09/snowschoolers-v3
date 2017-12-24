@@ -17,7 +17,7 @@
     <h4>Night before checklist:</h4>
     <ol>
       <li>Your reservation confirmation number is <span style="font-size:18px;"><%=@lesson.confirmation_number%></span>. You'll need this as your proof of payment to pickup your lift ticket and/or rentals.</li>
-      <li>If you are renting from the mountain, please plan to arrive at the ski hill at least 45 minutes prior to your lesson so that you can get outfitted with your equipment.</li>
+      <li>If you are renting from the mountain, please plan to arrive at the ski hill at least <%= ENV['RENTAL_ADVANCE_TIME'] %> prior to your lesson so that you can get outfitted with your equipment. For afternoon lessons, if it is at all possible please come by in the morning before 1030am to pickup your equipment, because rental equipment selection is often extremely limited in the afternoon. When you arrive, please tell one of our staff your name and and your reservation confirmation# (below), and they'll be able to check you in.</li>
       <li>If you have your own equipment, you should still arrive at least 15 minutes prior to the start of your lesson to afford enough time to find parking and put on your boots and gear.</li>
       <li>Do you have all of the necessary winter apparel below to be comfortable on the hill? </li>
           <ul>

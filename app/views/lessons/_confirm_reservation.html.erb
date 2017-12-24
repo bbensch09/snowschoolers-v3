@@ -47,8 +47,12 @@
                   <p><%= @lesson.location.name %>  (<a href="https://www.google.com/maps/place/<%=@lesson.location.address%>" ><%=@lesson.location.address%></a>)</p>
                   <br>
               <% if @lesson.lesson_price.nil? || @lesson.price == @lesson.lesson_price %>
-                  <% amount = @lesson.price.to_i*100 %>
+                  <% amount = (@lesson.price.to_f*100).to_i %>
                   <p><%= number_to_currency(@lesson.price) %></p>
+                  <% if @lesson.promo_code %>
+                  <p class="italic">Original price: <%= number_to_currency(@lesson.original_price) %></p>
+                  <p class="italic">Promotional Offer: <%= @lesson.promo_code.description %></p>
+                  <% end %>
                   <br>
                     <p>
                       <span class="italic text-smaller">
@@ -62,7 +66,7 @@
                   </p>
               <% else %>
                 <p><%= number_to_currency(@lesson.lesson_price.to_s) %></p>
-                <% amount = @lesson.lesson_price.to_i*100 %>
+                <% amount =(@lesson.lesson_price.to_f*100).to_i %>
               <% end %>                  
               <% if @lesson.includes_lift_or_rental_package? || @lesson.is_gift_voucher? || @lesson.package_info %>
                   <p><%= @lesson.package_info %></p>

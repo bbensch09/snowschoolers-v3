@@ -6,12 +6,14 @@
   <body>
     <h4>Snow Schoolers SMS Logs for <%= DateTime.now %> </h4>
     <ul>
+    <% if @lesson.id %>
       <li>Lesson URL: <%= lesson_url(@lesson) %></li>
       <li>Recipient phone number: <%= @recipient %></li>
       <% if @lesson.instructor %>
       <li>Instructor name: <%= @lesson.instructor.name %></li>
       <% end %>
       <li>Requester name: <%= @lesson.requester.email %></li>
+    <% end %>
       <li>Content of SMS: <%= @body %></li>
     </ul>
   </body>

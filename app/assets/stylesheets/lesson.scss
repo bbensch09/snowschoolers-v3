@@ -199,6 +199,9 @@
 /*MOBILE ADJUSTMENTS*/
 @media (max-width: 768px) {
 
+.lesson-index-mobile{
+  width: 300% !important;
+}
 .lesson-summary-info{
   word-wrap: break-word;
   font-size: 1.3em;

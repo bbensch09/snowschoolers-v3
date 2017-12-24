@@ -20,7 +20,7 @@
             <% @lesson.available_instructors.each do |instructor| %>
               <h6> 
                 <%= instructor.name  %> - <%= instructor.user_id %> - <%= instructor.phone_number %>
-              <% @lesson.completable? ? button_text = "Remind to Mark Complete" : button_text = "Send Request Remidner" %>
+              <% @lesson.completable? ? button_text = "Remind to Mark Complete" : button_text = "Send Request Reminder" %>
               <%= link_to button_text, send_reminder_sms_to_instructor_path(@lesson, :instructor_id => instructor.id), class: "btn btn-warning" %>
                 <%= link_to "Assign to Instructor (with permission)", admin_assign_instructor_path(@lesson, :instructor_id => instructor.id), method: :put, class: "btn btn-default" %>
               </h6>
