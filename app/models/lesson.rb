@@ -5,7 +5,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :lesson_time
   has_many :students
   has_one :review
-  has_one :promo_code
+  belongs_to :promo_code
   has_many :transactions
   has_many :lesson_actions
   belongs_to :product #, class_name: 'Product', foreign_key: 'product_id'

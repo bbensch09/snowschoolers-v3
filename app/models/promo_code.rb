@@ -1,3 +1,3 @@
 class PromoCode < ApplicationRecord
-	belongs_to :lesson
+	has_many :lessons
 end

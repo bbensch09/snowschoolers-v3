@@ -4,6 +4,7 @@ class LessonsController < ApplicationController
   before_action :set_lesson, only: [:show, :complete, :update, :edit, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_instructor, :admin_confirm_deposit, :admin_assign_instructor, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications]
   before_action :save_lesson_params_and_redirect, only: [:create]
   before_action :authenticate_from_cookie!, only: [:complete, :confirm_reservation, :update, :show, :edit]
+  before_action :set_promo_code_cookie_and_session
 
   def assign_to_section
     puts "the params are #{params}"
@@ -145,7 +146,7 @@ class LessonsController < ApplicationController
   def complete    
     @lesson_time = @lesson.lesson_time
     @product_name = @lesson.product_name
-    @state = 'booked'
+    @promo_code = PromoCode.new
     GoogleAnalyticsApi.new.event('lesson-requests', 'load-full-form')
     flash.now[:notice] = "You're almost there! We just need a few more details."
     flash[:complete_form] = 'TRUE'
@@ -216,7 +217,6 @@ class LessonsController < ApplicationController
     @lesson.assign_attributes(lesson_params)
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
     @lesson.product_name = @lesson.slot
-    @promo_code = PromoCode.new
     unless current_user && current_user.user_type == "Snow Schoolers Employee"
       @lesson.requester = current_user
     end
@@ -514,14 +514,15 @@ class LessonsController < ApplicationController
     end
   end
 
-  def set_promo_code_cookie
-    puts "!!! params for :allow are #{params[:offer]}"
-    if params[:offer]
-      cookies[:offer] = {
-        value: params[:offer],
+  def set_promo_code_cookie_and_session
+    puts "!!! params for :allow are #{params[:promo_code]}"
+    if params[:promo_code]
+      cookies[:promo_code] = {
+        value: params[:promo_code],
         expires: 1.year.from_now
       }
-      puts"!!!! cookie has been set to: #{cookies[:offer]}."
+      session[:promo_code] = params[:promo_code]
+      puts"!!!! cookie has been set to: #{cookies[:promo_code]}."
     end
   end
 
@@ -542,7 +543,7 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id, :guest_email, :how_did_you_hear, :num_days, :lesson_price, :requester_name, :is_gift_voucher, :includes_lift_or_rental_package, :package_info, :gift_recipient_email, :gift_recipient_name, :lesson_cost, :non_lesson_cost, :product_id, :section_id, :product_name, :admin_price_adjustment, 
+    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id, :guest_email, :how_did_you_hear, :num_days, :lesson_price, :requester_name, :is_gift_voucher, :includes_lift_or_rental_package, :package_info, :gift_recipient_email, :gift_recipient_name, :lesson_cost, :non_lesson_cost, :product_id, :section_id, :product_name, :admin_price_adjustment, :promo_code_id,
       students_attributes: [:id, :name, :age_range, :gender, :relationship_to_requester, :lesson_history, :requester_id, :most_recent_experience, :most_recent_level, :other_sports_experience, :experience, :_destroy, :needs_rental], lesson_time_attributes: [:date, :slot])
   end
 

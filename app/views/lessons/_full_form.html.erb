@@ -75,9 +75,6 @@
               <%= f.input :admin_price_adjustment, as: :string, placeholder: "Enter price", label: false %>
             </div>
           </div>
-          <div class="col-md-12">
-            <%= render partial: 'promo_codes/form' %>
-          </div>
         </div>
     <% end %>
     <% if current_user.nil? || current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" %>
@@ -204,6 +201,13 @@
             <label class="lesson-label">How did you first hear about Snow Schoolers?</label>
             <%= f.select :how_did_you_hear, [['From a friend',1],['Facebook',2],['Google',3],['I took a previous lesson',10],['From a postcard',4],['From someone at Homewood',5],['Tahoe Daves',6],['Ski Butlers',7],['Yelp',8],['Snowglers',9],['Other',100]], {}, {class: 'form-control', required:true, include_blank:false} %>
           </div>
+          <% if session[:promo_code] %>
+          <div class="col-md-12">
+            <label class="lesson-label">Referral Code</label>
+          <% pc_id = PromoCode.where(promo_code:session[:promo_code]).first.id %>
+            <%= f.select :promo_code_id, [[session[:promo_code],pc_id]], {}, {class: 'form-control', required:true, include_blank:false} %>
+          </div>
+          <% end %>
           <div class="col-md-12 term-checkbox">
             <span class="remember-box checkbox ">
               <label for="rememberme" class="lesson-label">
