@@ -81,7 +81,17 @@ def houston_we_have_an_exceptional_problem
   HOUSTON_WE_HAVE_EXCEPTIONAL_PROBLEMS
 end
 
-
+def set_promo_code_cookie_and_session
+  puts "!!! params for :allow are #{params[:promo_code]}"
+  if params[:promo_code]
+    cookies[:promo_code] = {
+      value: params[:promo_code],
+      expires: 1.year.from_now
+    }
+    session[:promo_code] = params[:promo_code]
+    puts"!!!! cookie has been set to: #{cookies[:promo_code]}."
+  end
+end
 
 
 end

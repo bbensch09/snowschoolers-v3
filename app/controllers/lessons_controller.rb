@@ -521,18 +521,6 @@ class LessonsController < ApplicationController
     end
   end
 
-  def set_promo_code_cookie_and_session
-    puts "!!! params for :allow are #{params[:promo_code]}"
-    if params[:promo_code]
-      cookies[:promo_code] = {
-        value: params[:promo_code],
-        expires: 1.year.from_now
-      }
-      session[:promo_code] = params[:promo_code]
-      puts"!!!! cookie has been set to: #{cookies[:promo_code]}."
-    end
-  end
-
   def determine_update_state
     @lesson.state = 'new' unless params[:lesson][:terms_accepted] == '1'
     if @lesson.deposit_status == 'confirmed' && @lesson.is_gift_voucher == false
