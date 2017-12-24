@@ -4,7 +4,6 @@ class LessonsController < ApplicationController
   before_action :set_lesson, only: [:show, :complete, :update, :edit, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_instructor, :admin_confirm_deposit, :admin_assign_instructor, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications, :send_review_reminders_to_student]
   before_action :save_lesson_params_and_redirect, only: [:create]
   before_action :authenticate_from_cookie!, only: [:complete, :confirm_reservation, :update, :show, :edit]
-  before_action :set_promo_code_cookie_and_session
 
   def assign_to_section
     puts "the params are #{params}"

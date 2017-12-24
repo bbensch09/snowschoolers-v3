@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :set_user
   after_action :store_location
   before_action :set_admin_notifications
+  before_action :set_promo_code_cookie_and_session
 
 def set_admin_notifications
   ApplicationHelper.email_status = session[:disable_email]
