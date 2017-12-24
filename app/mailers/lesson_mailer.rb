@@ -285,8 +285,8 @@ class LessonMailer < ActionMailer::Base
     mail(to: @lesson.requester.email, cc:'notify@snowschoolers.com', subject: 'Your Snow Schoolers lesson has been canceled')
   end
 
-  def send_payment_email_to_requester(lesson)
-    @lesson = lesson
+  def send_payment_email_to_requester(lesson_id)
+    @lesson = Lesson.find(lesson_id)
     return if @lesson.email_notifications_status == 'disabled'
     if @lesson.guest_email.nil?
       mail(to: @lesson.requester.email, cc:'notify@snowschoolers.com', subject: 'Please complete your Snow Schoolers online experience!')
