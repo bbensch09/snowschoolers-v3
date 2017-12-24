@@ -808,7 +808,25 @@ class Lesson < ActiveRecord::Base
   end
 
   def available_instructors?
-    available_instructors.any? ? true : false
+    puts "!!!!!! checking to see if there are any available instructors"
+    # available_instructors.any? ? true : false
+    if available_instructors.count == 0
+      return false
+    else
+      all_open_lesson_requests = Lesson.open_lesson_requests
+      overlapping_open_requests = all_open_lesson_requests.select{|lesson| lesson.date == self.date } #&& lesson.lesson_time.slot == self.lesson_time.slot}
+      actual_availability_count = available_instructors.count - overlapping_open_requests.count
+      case 
+      when actual_availability_count >= 2
+        puts "!!! Estimated actual availability at this time slot is #{actual_availability_count}"
+        return true
+      when actual_availability_count > 0 
+        puts "!!! Warning: at most 1-2 instructors are available"
+        return true
+      when actual_availability_count <= 0
+        return false
+      end
+    end
   end
 
   def self.find_lesson_times_by_requester(user)
@@ -1074,8 +1092,8 @@ class Lesson < ActiveRecord::Base
   private
 
   def instructors_must_be_available
-    unless available_instructors.any?
-      errors.add(:lesson, " unfortunately not available at that time. Please email info@snowschoolers.com to be notified if we have any instructors that become available.")
+    unless available_instructors?
+      errors.add(:lesson, "Error: unfortunately we are sold out of private instructors at that time. Please choose another time slot, or email info@snowschoolers.com to be notified if we have any instructors that become available.")
       return false
     end
   end
