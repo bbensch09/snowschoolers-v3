@@ -385,7 +385,7 @@ class LessonsController < ApplicationController
   end
 
   def remove_instructor
-    @canceling_instructor = @lesson.instructor.user.email
+    @canceling_instructor = @lesson.instructor.email
     puts "!!!!!!the canceling instructor is #{@canceling_instructor}"
     c = CalendarBlock.find_or_create_by!({
         date: @lesson.lesson_time.date,
