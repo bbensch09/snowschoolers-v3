@@ -549,7 +549,27 @@ class Lesson < ActiveRecord::Base
       return "Please confirm date & time to see price."
     end
     price = product.price.to_f + self.package_cost
+    if self.promo_code
+      case self.promo_code.discount_type
+      when 'cash'
+        puts "!!!discount of #{self.promo_code.discount} is applied to total price."
+        price = (price.to_f - self.promo_code.discount.to_f)
+      when 'percent'
+        puts "!!!discount percentage of of #{self.promo_code.discount} is applied to total price."
+        price = (price.to_f * (1-self.promo_code.discount.to_f/100))
+      end
+    end
     return price.to_f
+  end
+
+  def original_price
+    return self.price unless self.promo_code
+    case self.promo_code.discount_type
+      when 'cash'
+        return original_price = self.price.to_f + self.promo_code.discount.to_f
+      when 'percent'
+        return original_price = self.price.to_f / (1-self.promo_code.discount.to_f/100)
+      end
   end
 
   def adjusted_price

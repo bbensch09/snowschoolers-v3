@@ -49,6 +49,10 @@
               <% if @lesson.lesson_price.nil? || @lesson.price == @lesson.lesson_price %>
                   <% amount = @lesson.price.to_i*100 %>
                   <p><%= number_to_currency(@lesson.price) %></p>
+                  <% if @lesson.promo_code %>
+                  <p class="italic">Original price: <%= number_to_currency(@lesson.original_price) %></p>
+                  <p class="italic">Promotional Offer: <%= @lesson.promo_code.description %></p>
+                  <% end %>
                   <br>
                     <p>
                       <span class="italic text-smaller">

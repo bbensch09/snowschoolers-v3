@@ -300,10 +300,12 @@ ActiveRecord::Schema.define(version: 20171224063450) do
   create_table "promo_codes", force: :cascade do |t|
     t.string   "promo_code"
     t.string   "status"
+    t.float    "discount"
+    t.string   "discount_type"
     t.integer  "redemptions"
     t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "reviews", force: :cascade do |t|

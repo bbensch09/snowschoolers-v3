@@ -8,6 +8,8 @@
     <tr>
       <th>Promo code</th>
       <th>Status</th>
+      <th>Discount</th>
+      <th>Discount Type</th>
       <th>Redemptions</th>
       <th>Description</th>
       <th colspan="3"></th>
@@ -19,6 +21,8 @@
       <tr>
         <td><%= promo_code.promo_code %></td>
         <td><%= promo_code.status %></td>
+        <td><%= promo_code.discount %></td>
+        <td><%= promo_code.discount_type %></td>
         <td><%= promo_code.redemptions %></td>
         <td><%= promo_code.description %></td>
         <td><%= link_to 'Show', promo_code %></td>
