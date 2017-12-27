@@ -1,0 +1,105 @@
+<div id="middle" class="container lesson-index-mobile">
+  <div class="white">
+
+<div class="admin-viewable">
+  <div class="col-md-12">
+    <ul>
+      <li>Lessons Today: <%= @todays_lessons.count %></li>
+      <li>Lessons Tomorrow: <%= @tomorrows_lessons.count %></li>
+    </ul>
+    <div class="inline-block">
+      <a href="#hideLessons" class="btn btn-success" id="toggle-available-lessons">Show Today's Lessons </a>
+      <a href="#hideLessons" class="btn btn-success" id="toggle-completed-lessons">Show Tomorrow's Lessons</a>
+    </div>
+  </div>
+</div>
+<!-- SECTION 0 - AVAILABLE LESSON REQUESTS FOR INSTRUCTORS -->
+<div id="available-lessons" class="">
+<h1>Today's Lessons</h1>
+
+<table class="instructors-table">
+  <thead>
+    <tr>
+      <th class="lessons-table-cells lesson-date">Date</th>
+      <th class="lessons-table-cells lesson-instructor">Instructor</th>
+      <th class="lessons-table-cells lesson-type">Type</th>
+      <th class="lessons-table-cells lesson-type">Sport</th>
+      <th class="lessons-table-cells lesson-student">Reservation Name</th>
+      <th class="lessons-table-cells lesson-student">State</th>
+      <th class="lessons-table-cells lesson-student">Confirmation #</th>
+      <th class="lessons-table-cells">Includes Rentals?</th>
+      <th class="lessons-table-cells">Location</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @todays_lessons.each do |lesson| %>
+          <tr>
+            <td class="lessons-table-cells lesson-date"><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
+            <td class="lessons-table-cells lesson-date"><%= lesson.instructor ? lesson.instructor.name : "TBD" %></td>
+            <% if lesson.product && lesson.custom_start_time? %>
+              <td><%= link_to "#{lesson.package_info}", lesson, class: "" %></td>
+              <% elsif  lesson.product %>
+              <td><%= link_to "#{lesson.product.name}", lesson, class: "" %></td>
+            <% end %>
+            <td class="lessons-table-cells lesson-type"><%= lesson.activity %></td>            
+            <% if lesson.requester %>
+              <td class="lessons-table-cells lesson-student"><%= lesson.requester_name %>, <%= lesson.phone_number %></td>
+              <% else %>
+              <td class="lessons-table-cells lesson-student"><%= lesson.guest_email %></td>
+            <% end %>
+            <td class="lessons-table-cells"><%= lesson.state %></td>
+            <td class="lessons-table-cells"><%= lesson.confirmation_number %></td>
+            <td class="lessons-table-cells"><%= lesson.includes_rental_package? ? "Yes" : "No" %></td>
+            <td class="lessons-table-cells lesson-type"><%= lesson.location.name %></td>            
+          </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<hr>
+
+<!-- SECTION 1 - PREVIOUS LESSONS -->
+<div id="completed-lessons" class="hidden">
+<h1>Tomorrow's Lessons</h1>
+
+<table class="instructors-table">
+  <thead>
+    <tr>
+      <th class="lessons-table-cells lesson-date">Date</th>
+      <th class="lessons-table-cells lesson-instructor">Instructor</th>
+      <th class="lessons-table-cells lesson-type">Type</th>
+      <th class="lessons-table-cells lesson-type">Sport</th>
+      <th class="lessons-table-cells lesson-student">Reservation Name</th>
+      <th class="lessons-table-cells lesson-student">State</th>
+      <th class="lessons-table-cells lesson-student">Confirmation #</th>
+      <th class="lessons-table-cells">Includes Rentals?</th>
+      <th class="lessons-table-cells">Location</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tomorrows_lessons.each do |lesson| %>
+          <tr>
+            <td class="lessons-table-cells lesson-date"><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
+            <td class="lessons-table-cells lesson-date"><%= lesson.instructor ? lesson.instructor.name : "TBD" %></td>
+            <% if lesson.product && lesson.custom_start_time? %>
+              <td><%= link_to "#{lesson.package_info}", lesson, class: "" %></td>
+              <% elsif  lesson.product %>
+              <td><%= link_to "#{lesson.product.name}", lesson, class: "" %></td>
+            <% end %>
+            <td class="lessons-table-cells lesson-type"><%= lesson.activity %></td>            
+            <% if lesson.requester %>
+              <td class="lessons-table-cells lesson-student"><%= lesson.requester_name %>, <%= lesson.phone_number %></td>
+              <% else %>
+              <td class="lessons-table-cells lesson-student"><%= lesson.guest_email %></td>
+            <% end %>
+            <td class="lessons-table-cells"><%= lesson.state %></td>
+            <td class="lessons-table-cells"><%= lesson.confirmation_number %></td>
+            <td class="lessons-table-cells"><%= lesson.includes_rental_package? ? "Yes" : "No" %></td>
+            <td class="lessons-table-cells lesson-type"><%= lesson.location.name %></td>            
+          </tr>
+      <% end %>
+  </tbody>
+</table>
+</div>

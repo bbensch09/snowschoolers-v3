@@ -422,7 +422,7 @@ class Lesson < ActiveRecord::Base
     self.state == 'confirmed'
   end
 
-   def new?
+  def new?
     state == 'new'
   end
 
@@ -450,6 +450,14 @@ class Lesson < ActiveRecord::Base
     state == 'Payment complete, waiting for review.'
   end
 
+  def custom_start_time?
+    if self.package_info && self.package_info.include?("custom start time")
+      return true
+    else
+      false
+    end
+  end
+
   def completed?
     active_states = ['finalizing','finalizing payment & reviews','Payment complete, waiting for review.','Lesson Complete']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
@@ -458,6 +466,14 @@ class Lesson < ActiveRecord::Base
 
   def payment_complete?
     state == 'Payment complete, waiting for review.' || state == 'Lesson Complete'
+  end
+
+  def ready_for_deposit?
+     self.state == "ready_to_book" || self.deposit_status.nil? || self.deposit_status == 'pending_new_payment'
+  end
+
+  def booked?
+    self.deposit_status == 'confirmed' || self.deposit_status == 'pending_new_payment' 
   end
 
   def referral_source

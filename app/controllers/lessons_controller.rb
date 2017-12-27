@@ -34,9 +34,17 @@ class LessonsController < ApplicationController
     render 'schedule'
   end
 
+  def daily_roster
+    # lessons = Lesson.all.select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.canceled? || lesson.booked? || lesson.state.nil? }
+    lessons = Lesson.all
+    @todays_lessons = lessons.select{|lesson| lesson.date == Date.today}
+    @tomorrows_lessons = lessons.to_a.keep_if{|lesson| lesson.date == Date.today+1 && lesson.state != 'new' }
+    render 'daily_roster'
+  end
+
   def index
     if current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee"
-      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.canceled? || lesson.state.nil? }
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.canceled? || lesson.booked? || lesson.state.nil? }
       @lessons = @lessons.select{|lesson| lesson.this_season?}
       @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
       @todays_lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.today }
@@ -170,7 +178,7 @@ class LessonsController < ApplicationController
   def reissue_invoice
     @lesson_time = @lesson.lesson_time
     @lesson.state == "ready_to_book"
-    @lesson.deposit_status = nil
+    @lesson.deposit_status = 'pending_new_payment'
     @lesson.save
     render 'edit'
   end
