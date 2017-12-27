@@ -125,8 +125,10 @@ class LessonMailer < ActionMailer::Base
       @lesson = lesson
       @recipient = recipient
       @body = body
-      @instructor_id = instructor_id
-      @instructor = Instructor.find(instructor_id)
+      if instructor_id
+        @instructor_id = instructor_id
+        @instructor = Instructor.find(instructor_id)
+      end
       @instructor_name = @instructor ? @instructor.name : 'not provided'
       mail(to: 'brian@snowschoolers.com', cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", subject: "SMS sent to #{@recipient}")
   end
