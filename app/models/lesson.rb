@@ -167,19 +167,44 @@ class Lesson < ActiveRecord::Base
 
   def product
     if self.product_id.nil?
-      calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
-      if self.requested_location == "8"
-        Product.where(location_id:self.location.id, name:self.lesson_time.slot,is_private_lesson:true,calendar_period:calendar_period).first
-      elsif self.requested_location == "24" && self.slot.starts_with?('Half-day Morning')
-        Product.where(location_id:self.location.id, length:self.length, name:'Half-day Morning Package (3hr)', is_private_lesson:true,calendar_period:calendar_period).first
-      elsif self.requested_location == "24" && self.slot.starts_with?('Half-day Afternoon')
-        Product.where(location_id:self.location.id, length:self.length, name:'Half-day Afternoon Package (3hr)', is_private_lesson:true,calendar_period:calendar_period).first
-      elsif self.requested_location == "24"
-        Product.where(location_id:self.location.id, length:self.length, is_private_lesson:true,calendar_period:calendar_period).first
-      end                  
+        if self.product_name
+          puts "!!!calculating price based on product name, location, and date"
+          calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
+          puts "!!!!lookup calendar period status, it is: #{calendar_period}"
+          #pricing for GB lesson package
+          if self.slot == 'Early Bird (9-10am)' && self.location.id == 24 && self.includes_rental_package?
+            product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,name:'1hr Private Lesson Package',product_type:"private_lesson").first
+          #pricing for GB lesson only
+          elsif self.slot == 'Early Bird (9-10am)' && self.location.id == 24 && !self.includes_rental_package?
+            product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,name:'1hr Private Lesson (lesson + lift only)',product_type:"private_lesson").first
+          #pricing for HW lesson
+          elsif self.slot == 'Early Bird (9-10am)'
+            product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson").first
+          #pricing for GB half-day package
+          elsif self.slot.starts_with?('Half-day') && self.location.id == 24 && self.includes_rental_package?
+            product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,name:'Half-day Morning Package (3hr)',product_type:"private_lesson").first
+          #pricing for GB half-day lesson only
+          elsif self.slot.starts_with?('Half-day') && self.location.id == 24 && !self.includes_rental_package?
+            product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,name:'Half-day Morning Private Lesson (no rental)',product_type:"private_lesson").first
+          #pricing for HW half-day lesson
+          elsif self.slot.starts_with?('Half-day')
+            product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson").first
+          #pricing for GB full-day lesson package
+          elsif self.slot == 'Full-day (10am-4pm)'  && self.location.id == 24 && self.includes_rental_package?
+            product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,name:'Full-day Private Lesson Package (6hr)',product_type:"private_lesson").first
+          #pricing for GB full-day lesson only
+          elsif self.slot == 'Full-day (10am-4pm)' && self.location.id == 24 && !self.includes_rental_package?
+            product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,name:'Full-day Private Lesson (no rental)',product_type:"private_lesson").first
+          #pricing for HW full-day lesson
+          elsif self.slot == 'Full-day (10am-4pm)'
+            product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson").first
+          end
+          puts "!!!product found, its price is #{product.price}"
+        end
     else
-      Product.where(id:self.product_id).first
+      product = Product.where(id:self.product_id).first
     end
+    return product
   end
 
   def tip
@@ -510,41 +535,8 @@ class Lesson < ActiveRecord::Base
   end
 
   def price
-    puts "!!!! calculating price"
-    if self.product_name
-      puts "!!!calculating price based on product name, location, and date"
-      calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
-      puts "!!!!lookup calendar period status, it is: #{calendar_period}"
-      #pricing for GB lesson package
-      if self.slot == 'Early Bird (9-10am)' && self.location.id == 24 && self.includes_rental_package?
-        product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,name:'1hr Private Lesson Package',product_type:"private_lesson").first
-      #pricing for GB lesson only
-      elsif self.slot == 'Early Bird (9-10am)' && self.location.id == 24 && !self.includes_rental_package?
-        product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,name:'1hr Private Lesson (lesson + lift only)',product_type:"private_lesson").first
-      #pricing for HW lesson
-      elsif self.slot == 'Early Bird (9-10am)'
-        product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson").first
-      #pricing for GB half-day package
-      elsif self.slot.starts_with?('Half-day') && self.location.id == 24 && self.includes_rental_package?
-        product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,name:'Half-day Morning Package (3hr)',product_type:"private_lesson").first
-      #pricing for GB half-day lesson only
-      elsif self.slot.starts_with?('Half-day') && self.location.id == 24 && !self.includes_rental_package?
-        product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,name:'Half-day Morning Private Lesson (no rental)',product_type:"private_lesson").first
-      #pricing for HW half-day lesson
-      elsif self.slot.starts_with?('Half-day')
-        product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson").first
-      #pricing for GB full-day lesson package
-      elsif self.slot == 'Full-day (10am-4pm)'  && self.location.id == 24 && self.includes_rental_package?
-        product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,name:'Full-day Private Lesson Package (6hr)',product_type:"private_lesson").first
-      #pricing for GB full-day lesson only
-      elsif self.slot == 'Full-day (10am-4pm)' && self.location.id == 24 && !self.includes_rental_package?
-        product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,name:'Full-day Private Lesson (no rental)',product_type:"private_lesson").first
-      #pricing for HW full-day lesson
-      elsif self.slot == 'Full-day (10am-4pm)'
-        product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson").first
-      end
-      puts "!!!product found, its price is #{product.price}"
-    end
+    puts "!!!! lookup product matched to this lesson"
+    self.product
     if product.nil?
       return "Please confirm date & time to see price."
     end
@@ -944,6 +936,7 @@ class Lesson < ActiveRecord::Base
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
       first_instructor = self.available_instructors.any? ? self.available_instructors[0..3].sample : "Admin"
+      instructor_id = first_instructor.id
       recipient = first_instructor.phone_number ? first_instructor.phone_number : "4083152900"
       case self.state
         when 'new'
@@ -973,7 +966,7 @@ class Lesson < ActiveRecord::Base
       # puts "!!!!Body: #{body}"
       puts "!!!!!sorted instructors, and randomly chose one of top 4 ranked instructors to send SMS to. thise time chose #{first_instructor.name}."
       puts "!!!!! - reminder SMS has been scheduled"
-      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
+      LessonMailer.notify_admin_sms_logs(self,recipient,body,instructor_id).deliver!
   end
 
   def send_reminder_sms

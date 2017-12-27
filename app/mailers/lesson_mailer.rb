@@ -121,10 +121,13 @@ class LessonMailer < ActionMailer::Base
       mail(to: 'brian@snowschoolers.com', subject: "Concierge request - #{@beta_user.email}.")
   end
 
-  def notify_admin_sms_logs(lesson,recipient,body)
+  def notify_admin_sms_logs(lesson,recipient,body,instructor_id=nil)
       @lesson = lesson
       @recipient = recipient
       @body = body
+      @instructor_id = instructor_id
+      @instructor = Instructor.find(instructor_id)
+      @instructor_name = @instructor ? @instructor.name : 'not provided'
       mail(to: 'brian@snowschoolers.com', cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", subject: "SMS sent to #{@recipient}")
   end
 
