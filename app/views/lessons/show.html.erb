@@ -42,7 +42,7 @@
     </div>
     <% end %>
 
-    <% if @lesson.state == "ready_to_book" && @lesson.deposit_status.nil? %>
+    <% if @lesson.ready_for_deposit? %>
       <%= render partial: 'confirm_reservation' %>
     <% end %>
 

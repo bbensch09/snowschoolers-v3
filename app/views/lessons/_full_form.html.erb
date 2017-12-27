@@ -120,6 +120,9 @@
               <label>Price</label>
                 <h2> <span id="lesson-price"><%= number_to_currency(@lesson.price) %></span></h2>
             </div>
+            <div class="col-md-12">
+              <h4 class="text-warning left">Note: The price above will update based on number of students in lesson. Final price will be confirmed on the next page.</h4>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-6">
@@ -205,7 +208,7 @@
           <div class="col-md-12">
             <label class="lesson-label">Referral Code</label>
           <% pc_id = PromoCode.where(promo_code:session[:promo_code]).first.id %>
-            <%= f.select :promo_code_id, [[session[:promo_code],pc_id]], {}, {class: 'form-control', required:false, include_blank:false} %>
+            <%= f.select :promo_code_id, [["",nil],[session[:promo_code],pc_id]], {}, {class: 'form-control', required:false, include_blank:false} %>
           </div>
           <% end %>
           <div class="col-md-12 term-checkbox">

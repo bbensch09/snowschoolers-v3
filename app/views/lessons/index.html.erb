@@ -45,8 +45,8 @@
     <tr>
       <th class="lessons-table-cells lesson-date">Date</th>
       <th class="lessons-table-cells lesson-instructor">Instructor</th>
-      <th class="lessons-table-cells lesson-type">Sport</th>
       <th class="lessons-table-cells lesson-type">Type</th>
+      <th class="lessons-table-cells lesson-type">Sport</th>
       <th class="lessons-table-cells lesson-student">Student</th>
       <th class="lessons-table-cells">Lesson Price</th>
       <th class="lessons-table-cells">Minimum Pay ($16/hr)</th>
@@ -62,7 +62,11 @@
           <tr>
             <td class="lessons-table-cells lesson-date"><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
             <td class="lessons-table-cells lesson-instructor"><%= link_to "Review & Claim", lesson, class: "btn btn-default" %></td>
-            <td class="lessons-table-cells lesson-type"><%= lesson.lesson_time.slot %></td>
+            <% if lesson.product && lesson.custom_start_time? %>
+              <td><%= link_to "#{lesson.package_info}", lesson, class: "" %></td>
+              <% elsif  lesson.product %>
+              <td><%= link_to "#{lesson.product.name}", lesson, class: "" %></td>
+            <% end %>
             <td class="lessons-table-cells lesson-type"><%= lesson.activity %></td>            
             <!-- <td class="lessons-table-cells"><%= lesson.deposit_status %></td> -->
             <% if lesson.requester %>
@@ -127,8 +131,11 @@
             <td></td>
             <td>TBD</td>
             <% end %>
-            <td><%= link_to "#{lesson.lesson_time.slot}", lesson, class: "btn btn-default" %></td>
-            <!-- <td><%= lesson.deposit_status %></td> -->
+            <% if lesson.product && lesson.custom_start_time? %>
+              <td><%= link_to "#{lesson.package_info}", lesson, class: "" %></td>
+              <% elsif  lesson.product %>
+              <td><%= link_to "#{lesson.product.name}", lesson, class: "" %></td>
+            <% end %>
             <% if lesson.requester %>
               <td class="lessons-table-cells lesson-student">Requester: <%= lesson.requester.email %></td>
               <% else %>
@@ -183,8 +190,11 @@
             <td></td>
             <td>TBD</td>
             <% end %>
-            <td><%= link_to "#{lesson.lesson_time.slot}", lesson, class: "btn btn-default" %></td>
-            <!-- <td><%= lesson.deposit_status %></td> -->
+            <% if lesson.product && lesson.custom_start_time? %>
+              <td><%= link_to "#{lesson.package_info}", lesson, class: "" %></td>
+              <% elsif  lesson.product %>
+              <td><%= link_to "#{lesson.product.name}", lesson, class: "" %></td>
+            <% end %>
             <% if lesson.requester %>
               <td class="lessons-table-cells lesson-student">Requester: <%= lesson.requester.email %></td>
               <% else %>
@@ -219,7 +229,7 @@
       <th>ID</th>
       <th>Instructor</th>
       <th>Type</th>
-      <!-- <th>Deposit?</th> -->
+      <th>Sport</th>
       <th>Student</th>
       <!-- <th>Mountain</th> -->
       <th>Date</th>
@@ -248,10 +258,12 @@
             <td></td>
             <td>TBD</td>
             <% end %>
-            <% if lesson.product %>
+            <% if lesson.product && lesson.custom_start_time? %>
+              <td><%= link_to "#{lesson.package_info}", lesson, class: "btn btn-wrap btn-warning" %></td>
+              <% elsif  lesson.product %>
               <td><%= link_to "#{lesson.product.name}", lesson, class: "btn btn-wrap btn-default" %></td>
             <% end %>
-            <!-- <td><%= lesson.deposit_status %></td> -->
+            <td class="lessons-table-cells lesson-type"><%= lesson.activity %></td>            
             <% if lesson.requester %>
               <td class="lessons-table-cells lesson-student"><%= lesson.requester.email %></td>
               <% else %>
