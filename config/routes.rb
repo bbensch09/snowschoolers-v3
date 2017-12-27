@@ -85,7 +85,6 @@ Rails.application.routes.draw do
   get   'lessons/sugarbowl'               => 'lessons#sugarbowl'
   # get 'homewood' => "welcome#homewood"
   get 'homewood2' => "welcome#homewood2"
-  get   'lessons/homewood'               => 'lessons#homewood'
   #landing page for prospective instructors
   get 'apply' => 'welcome#apply'
   get 'become-a-certified-ski-instructor' => 'welcome#become_a_certified_ski_instructor'
@@ -115,7 +114,6 @@ Rails.application.routes.draw do
   get '/shop/:id' => 'welcome#comparison_shopping_referral'
 
   # Begin resort referrals
-  get '/homewood' => 'welcome#homewood_referral'
   get '/kirkwood' => 'welcome#kirkwood_referral'
   get '/alpine-meadows' => 'welcome#alpine_referral'
   get '/squaw' => 'welcome#squaw_referral'
@@ -129,9 +127,11 @@ Rails.application.routes.draw do
   get '/tahoe-donner' => 'welcome#tahoe_donner_referral'
   get '/soda-springs' => 'welcome#soda_springs_referral'
   get '/donner-ski-ranch' => 'welcome#donner_ski_ranch_referral'
-  get '/granlibakken' => 'lessons#granlibakken'
   get '/granlibakken-group-lessons' => 'welcome#granlibakken_lesssons_referral'
   get '/sky-tavern' => 'welcome#sky_tavern_referral'
+  get '/granlibakken' => 'lessons#granlibakken'
+  get '/homewood' => 'lessons#homewood'
+  get '/daily-roster' => 'lessons#daily_roster'
 
   #Avantlink site verification
   get '/avantlink_confirmation.txt' => 'welcome#avantlink'

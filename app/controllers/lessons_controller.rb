@@ -91,7 +91,7 @@ class LessonsController < ApplicationController
 
   def homewood
     @lesson = Lesson.new
-    @promo_location = 6
+    @promo_location = 8
     @lesson_time = @lesson.lesson_time
     render 'new'
   end
