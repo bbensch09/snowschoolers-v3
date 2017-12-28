@@ -3,7 +3,7 @@ class BetaUser < ActiveRecord::Base
 
   def send_admin_notification
       @beta_user = BetaUser.last
-      LessonMailer.subscriber_sign_up(@beta_user).deliver
+      LessonMailer.subscriber_sign_up(@beta_user).deliver!
       puts "an admin notification has been sent."
   end
 

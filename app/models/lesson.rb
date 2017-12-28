@@ -1089,7 +1089,7 @@ class Lesson < ActiveRecord::Base
           LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
           else
             puts "!!!! error - could not send SMS via Twilio"
-            LessonMailer.send_admin_notify_invalid_phone_number(self).deliver
+            LessonMailer.send_admin_notify_invalid_phone_number(self).deliver!
         end
   end
 
@@ -1151,7 +1151,7 @@ class Lesson < ActiveRecord::Base
 
   def send_lesson_request_to_instructors
     if self.active? && self.confirmable? && self.deposit_status == 'confirmed' && self.state != "pending instructor" && self.available_instructors.any?
-      LessonMailer.send_lesson_request_to_instructors(self).deliver
+      LessonMailer.send_lesson_request_to_instructors(self).deliver!
       puts "!!!!!lesson email sent to all available instructors"
       self.send_sms_to_instructor
     elsif self.available_instructors.any? == false

@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
 
   def send_admin_notification
       @user = User.last
-      LessonMailer.new_user_signed_up(@user).deliver
+      LessonMailer.new_user_signed_up(@user).deliver!
       puts "an admin notification has been sent."
   end
 

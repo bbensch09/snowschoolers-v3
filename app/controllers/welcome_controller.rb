@@ -51,7 +51,7 @@ class WelcomeController < ApplicationController
 
   def sumo_success
     email=params[:email]
-    LessonMailer.notify_sumo_success(email).deliver
+    LessonMailer.notify_sumo_success(email).deliver!
     flash[:notice] = 'Thank you for subscribing! You can expect to receive a weekly email from us with useful tips for planning your next ski vacation. If you have any immediate questions, feel free to send a chat message using the widget below, or email us at support@snowschoolers.com.'
       flash[:sumo_success] = 'TRUE'
     redirect_to :index
@@ -72,7 +72,7 @@ class WelcomeController < ApplicationController
     @unique_id = request.remote_ip
     puts "!!!! PREPARE TO SEND GA EVENT"
     GoogleAnalyticsApi.new.event('tracked-referrals', "#{@product.product_type} - #{@product.name} - #{@product.location.name}")
-    LessonMailer.notify_comparison_shopping_referral(@product,@current_user,@unique_id).deliver
+    LessonMailer.notify_comparison_shopping_referral(@product,@current_user,@unique_id).deliver!
     redirect_to @product.url
   end
 
@@ -80,55 +80,55 @@ class WelcomeController < ApplicationController
     @current_user = current_user ? current_user.email : "Unknown"
     @unique_id = request.remote_ip
     GoogleAnalyticsApi.new.event('tracked-referrals', "custom-Homewood_season_pass")
-    LessonMailer.notify_homewood_pass_referral(@current_user,@unique_id).deliver
+    LessonMailer.notify_homewood_pass_referral(@current_user,@unique_id).deliver!
     redirect_to "http://www.skihomewood.com/ski-tickets/season-passes"
   end
 
 def liftopia_referral
     GoogleAnalyticsApi.new.event('tracked-referrals', "custom-liftopia_generic")
-    LessonMailer.notify_liftopia_referral.deliver
+    LessonMailer.notify_liftopia_referral.deliver!
     redirect_to "http://www.avantlink.com/click.php?tt=cl&amp;mi=10065&amp;pw=209735&amp;url=https%3A%2F%2Fwww.liftopia.com%2Fhomewood"
   end
 
   def mountain_collective_referral
     GoogleAnalyticsApi.new.event('tracked-referrals', "custom-mountain_collective")
-    LessonMailer.notify_mountain_collective_referral.deliver
+    LessonMailer.notify_mountain_collective_referral.deliver!
     redirect_to "https://mountaincollective.com/?uest?utm_campaign=SnowSchoolers_beginner_guide"
   end
 
   def sportsbasement_referral
     GoogleAnalyticsApi.new.event('tracked-referrals', "custom-sports_basement")
-    LessonMailer.notify_sportsbasement_referral.deliver
+    LessonMailer.notify_sportsbasement_referral.deliver!
     redirect_to "https://rentals.sportsbasement.com/rent/ski-rentals/adult-basic-ski-package?utm_campaign=SnowSchoolers_beginner_guide"
   end
 
   def tahoedaves_referral
     GoogleAnalyticsApi.new.event('tracked-referrals', "custom-tahoe_daves")
-    LessonMailer.notify_tahoedaves_referral.deliver
+    LessonMailer.notify_tahoedaves_referral.deliver!
     redirect_to "https://rentals.tahoedaves.com/?utm_campaign=SnowSchoolers_beginner_guide"
   end
 
   def skibutlers_referral
     GoogleAnalyticsApi.new.event('tracked-referrals', "custom-ski_butlers")
-    LessonMailer.notify_skibutlers_referral.deliver
+    LessonMailer.notify_skibutlers_referral.deliver!
     redirect_to "https://www.skibutlers.com/portal/Snowschoolers%20Guest?utm_campaign=SnowSchoolers_beginner_guide"
   end 
 
   def homewood_learn_to_ski_referral
     GoogleAnalyticsApi.new.event('tracked-referrals', "BGT-homewood_learn_to_ski")
-    LessonMailer.notify_homewood_learn_to_ski_referral.deliver
+    LessonMailer.notify_homewood_learn_to_ski_referral.deliver!
     redirect_to "http://www.skihomewood.com/learn-ski-or-ride-deal?utm_campaign=SnowSchoolers_beginner_guide"
   end 
 
   def homewood_kids_lesson_referral
     GoogleAnalyticsApi.new.event('tracked-referrals', "Homepage-homewood")
-    LessonMailer.notify_homewood_group_lesson_referral("kids").deliver
+    LessonMailer.notify_homewood_group_lesson_referral("kids").deliver!
     redirect_to "https://cloudstore.skihomewood.com/categories/children-s-lessons?utm_source=snow_schoolers&utm_campaign=snow_schoolers_home_page_referrals"
   end 
 
   def homewood_adult_lesson_referral
     GoogleAnalyticsApi.new.event('tracked-referrals', "Homepage-homewood")
-    LessonMailer.notify_homewood_group_lesson_referral("adults").deliver
+    LessonMailer.notify_homewood_group_lesson_referral("adults").deliver!
     redirect_to "https://cloudstore.skihomewood.com/categories/adult-lessons?utm_source=snow_schoolers&utm_campaign=snow_schoolers_home_page_referrals"
   end  
 
@@ -136,7 +136,7 @@ def liftopia_referral
     resort = "Homewood"
     user = current_user ? current_user.email : "Unknown User"
     GoogleAnalyticsApi.new.event('tracked-referrals', "resort_guide-homewood")
-    LessonMailer.notify_resort_referral(resort,user).deliver
+    LessonMailer.notify_resort_referral(resort,user).deliver!
     redirect_to "http://www.skihomewood.com/?utm_campaign=SnowSchoolers_beginner_guide"
   end
 
@@ -144,7 +144,7 @@ def liftopia_referral
     resort = "Kirkwood"
     user = current_user ? current_user.email : "Unknown User"
     GoogleAnalyticsApi.new.event('tracked-referrals', "resort_guide-kirkwood")
-    LessonMailer.notify_resort_referral(resort,user).deliver
+    LessonMailer.notify_resort_referral(resort,user).deliver!
     redirect_to "https://www.kirkwood.com/?utm_campaign=SnowSchoolers_beginner_guide"
   end  
 
@@ -152,7 +152,7 @@ def liftopia_referral
     resort = "Alpine Meadows"
     user = current_user ? current_user.email : "Unknown User"
     GoogleAnalyticsApi.new.event('tracked-referrals', "resort_guide-alpine")
-    LessonMailer.notify_resort_referral(resort,user).deliver
+    LessonMailer.notify_resort_referral(resort,user).deliver!
     redirect_to "http://squawalpine.com/?utm_campaign=SnowSchoolers_beginner_guide"
   end
 
@@ -160,7 +160,7 @@ def liftopia_referral
     resort = "Squaw Valley"
     user = current_user ? current_user.email : "Unknown User"
     GoogleAnalyticsApi.new.event('tracked-referrals', "resort_guide-squaw")
-    LessonMailer.notify_resort_referral(resort,user).deliver
+    LessonMailer.notify_resort_referral(resort,user).deliver!
     redirect_to "http://squawalpine.com/?utm_campaign=SnowSchoolers_beginner_guide"
   end  
 
@@ -168,7 +168,7 @@ def liftopia_referral
     resort = "Sugar Bowl"
     user = current_user ? current_user.email : "Unknown User"
     GoogleAnalyticsApi.new.event('tracked-referrals', "resort_guide-sugar_bowl")
-    LessonMailer.notify_resort_referral(resort,user).deliver
+    LessonMailer.notify_resort_referral(resort,user).deliver!
     redirect_to "http://www.sugarbowl.com/home?utm_campaign=SnowSchoolers_beginner_guide"
   end
 
@@ -176,7 +176,7 @@ def liftopia_referral
     resort = "Heavenly"
     user = current_user ? current_user.email : "Unknown User"
     GoogleAnalyticsApi.new.event('tracked-referrals', "resort_guide-heavenly")
-    LessonMailer.notify_resort_referral(resort,user).deliver
+    LessonMailer.notify_resort_referral(resort,user).deliver!
     redirect_to "https://www.skiheavenly.com?utm_campaign=SnowSchoolers_beginner_guide"
   end
 
@@ -184,7 +184,7 @@ def liftopia_referral
     resort = "Northstar"
     user = current_user ? current_user.email : "Unknown User"
     GoogleAnalyticsApi.new.event('tracked-referrals', "resort_guide-northstar")
-    LessonMailer.notify_resort_referral(resort,user).deliver
+    LessonMailer.notify_resort_referral(resort,user).deliver!
     redirect_to "https://www.northstarcalifornia.com?utm_campaign=SnowSchoolers_beginner_guide"
   end  
 
@@ -192,7 +192,7 @@ def liftopia_referral
     resort = "Mt. Rose"
     user = current_user ? current_user.email : "Unknown User"
     GoogleAnalyticsApi.new.event('tracked-referrals', "resort_guide-mt_rose")
-    LessonMailer.notify_resort_referral(resort,user).deliver
+    LessonMailer.notify_resort_referral(resort,user).deliver!
     redirect_to "http://skirose.com/?utm_campaign=SnowSchoolers_beginner_guide"
   end
 
@@ -200,7 +200,7 @@ def liftopia_referral
     resort = "Sierra at Tahoe"
     user = current_user ? current_user.email : "Unknown User"
     GoogleAnalyticsApi.new.event('tracked-referrals', "resort_guide-sierra")
-    LessonMailer.notify_resort_referral(resort,user).deliver
+    LessonMailer.notify_resort_referral(resort,user).deliver!
     redirect_to "https://www.sierraattahoe.com/?utm_campaign=SnowSchoolers_beginner_guide"
   end
 
@@ -208,7 +208,7 @@ def liftopia_referral
     resort = "Boreal"
     user = current_user ? current_user.email : "Unknown User"
     GoogleAnalyticsApi.new.event('tracked-referrals', "resort_guide-boreal")
-    LessonMailer.notify_resort_referral(resort,user).deliver
+    LessonMailer.notify_resort_referral(resort,user).deliver!
     redirect_to "http://www.rideboreal.com/?utm_campaign=SnowSchoolers_beginner_guide"
   end  
 
@@ -216,7 +216,7 @@ def liftopia_referral
     resort = "Diamond Peak"
     user = current_user ? current_user.email : "Unknown User"
     GoogleAnalyticsApi.new.event('tracked-referrals', "resort_guide-diamond_peak")
-    LessonMailer.notify_resort_referral(resort,user).deliver
+    LessonMailer.notify_resort_referral(resort,user).deliver!
     redirect_to "http://www.diamondpeak.com/?utm_campaign=SnowSchoolers_beginner_guide"
   end
 
@@ -224,7 +224,7 @@ def liftopia_referral
     resort = "Tahoe Donner"
     user = current_user ? current_user.email : "Unknown User"
     GoogleAnalyticsApi.new.event('tracked-referrals', "resort_guide-tahoe_donner")
-    LessonMailer.notify_resort_referral(resort,user).deliver
+    LessonMailer.notify_resort_referral(resort,user).deliver!
     redirect_to "http://www.tahoedonner.com/downhill-ski/rates/day-tickets/?utm_campaign=SnowSchoolers_beginner_guide"
   end
 
@@ -232,7 +232,7 @@ def liftopia_referral
     resort = "Donner Ski Ranch"
     user = current_user ? current_user.email : "Unknown User"
     GoogleAnalyticsApi.new.event('tracked-referrals', "resort_guide-donner_ski_ranch")
-    LessonMailer.notify_resort_referral(resort,user).deliver
+    LessonMailer.notify_resort_referral(resort,user).deliver!
     redirect_to "https://www.donnerskiranch.com/?utm_campaign=SnowSchoolers_beginner_guide"
   end 
 
@@ -240,7 +240,7 @@ def liftopia_referral
     resort = "Soda Springs"
     user = current_user ? current_user.email : "Unknown User"
     GoogleAnalyticsApi.new.event('tracked-referrals', "resort_guide-soda_springs")
-    LessonMailer.notify_resort_referral(resort,user).deliver
+    LessonMailer.notify_resort_referral(resort,user).deliver!
     redirect_to "http://www.skisodasprings.com/?utm_campaign=SnowSchoolers_beginner_guide"
   end  
 
@@ -248,7 +248,7 @@ def liftopia_referral
     resort = "Granlibakken"
     user = current_user ? current_user.email : "Unknown User"
     GoogleAnalyticsApi.new.event('tracked-referrals', "resort_guide-granlibakken")
-    LessonMailer.notify_resort_referral(resort,user).deliver
+    LessonMailer.notify_resort_referral(resort,user).deliver!
     redirect_to "http://granlibakken.com/ski-board-sled-hill/?utm_campaign=SnowSchoolers_beginner_guide"
   end  
 
@@ -256,7 +256,7 @@ def liftopia_referral
     resort = "Granlibakken Software Services"
     user = current_user ? current_user.email : "Unknown User"
     GoogleAnalyticsApi.new.event('tracked-referrals', "resort_guide-granlibakken")
-    LessonMailer.notify_resort_referral(resort,user).deliver
+    LessonMailer.notify_resort_referral(resort,user).deliver!
     redirect_to "http://lessons.granlibakken.com/"
   end
 
@@ -264,7 +264,7 @@ def liftopia_referral
     resort = "Sky Tavern"
     user = current_user ? current_user.email : "Unknown User"
     GoogleAnalyticsApi.new.event('tracked-referrals', "resort_guide-sky_tavern")
-    LessonMailer.notify_resort_referral(resort,user).deliver
+    LessonMailer.notify_resort_referral(resort,user).deliver!
     redirect_to "http://skytavern.org/?utm_campaign=SnowSchoolers_beginner_guide"
   end      
 
@@ -319,9 +319,9 @@ def liftopia_referral
     @instructor = Instructor.new
     GoogleAnalyticsApi.new.event('instructor-recruitment', 'load-application-page')
     # if current_user.nil?
-    #     LessonMailer.track_apply_visits.deliver
+    #     LessonMailer.track_apply_visits.deliver!
     #   else
-    #     LessonMailer.track_apply_visits(current_user.email).deliver
+    #     LessonMailer.track_apply_visits(current_user.email).deliver!
     # end
   end
 
@@ -336,9 +336,9 @@ def liftopia_referral
       last_name = params[:last_name]
       email = params[:email]
       if current_user.nil?
-        LessonMailer.application_begun(email, first_name, last_name).deliver
+        LessonMailer.application_begun(email, first_name, last_name).deliver!
       else
-        LessonMailer.application_begun(current_user.email).deliver
+        LessonMailer.application_begun(current_user.email).deliver!
       end
       render json: {notice: "Email has been validated."}
     end
