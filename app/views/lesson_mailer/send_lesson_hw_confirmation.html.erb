@@ -33,7 +33,8 @@
       <li>Your phone number: <%= @lesson.phone_number %>; You will receive SMS notifications only regarding <b> this lesson request </b>; your number will never be used for marketing notifications nor shared with any third parties. </li>
       <li>Students: <%= @lesson.students.map(&:name).join(', ') %></li>
       <li>Date: <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %></li>
-      <li>Slot: <%= @lesson.slot %></li>
+      <li>Lesson Product: <%= @lesson.product %></li>
+      <li>Start Time: <%= @lesson.start_time %></li>
       <li>Sport: <%= @lesson.activity %></li>
       <li>Location: <%= @lesson.location.name %></li>
       <li>Objectives: <%= @lesson.objectives %></li>

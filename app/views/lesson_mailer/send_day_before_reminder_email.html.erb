@@ -41,7 +41,8 @@
       <% end %>
       <li>Your phone number: <%= @lesson.phone_number %>; Your instructor will use this number to contact you in the morning if there is any trouble meeting at the location above. You can also expect to receive SMS notifications to this number when your lesson is complete.</li>
       <li>Date: <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %></li>
-      <li>Slot: <%= @lesson.slot %></li>
+      <li>Lesson Product: <%= @lesson.product %></li>
+      <li>Start Time: <%= @lesson.start_time %></li>
       <li>Location: <%= @lesson.location.name %></li>
       <li>Objectives: <%= @lesson.objectives %></li>
     </ul>
