@@ -51,28 +51,36 @@
           </div>
           <div class="row">
             <div class="col-md-6">
-                <label class="lesson-label">Package info</label>
-                <%= f.input :package_info, as: :text, placeholder: "Includes one adult lift ticket for $64", label: false %>
+                <div class="col-md-12">
+                  <label class="lesson-label">Package info</label>
+                  <%= f.input :package_info, as: :text, placeholder: "Includes one adult lift ticket for $64", label: false %>
+                </div>
+                <div class="col-md-6">
+                    <label class="lesson-label">Exclude from reporting (HTA, etc.)?</label>
+                  <%= f.select :focus_area, ['No, include as normal','Exclude'], {}, {class: 'form-control', required:false, include_blank:true} %>
+                </div>
+                <div class="col-md-6">
+                  <label class="lesson-label">Custom start time</label>
+                  <%= f.input :planned_start_time, as: :string, placeholder: "Start Time", input_html: { id: 'start-timepicker' }, class: "end-times", label: false, required: false %>
+                </div>
             </div>
-            <div class="col-md-2">
-              <label class="lesson-label">Direct Lesson Cost</label>
-              <%= f.input :lesson_cost, as: :string, placeholder: "Enter price", label: false %>
-            </div>
-            <div class="col-md-2">
-              <label class="lesson-label">Non-Lesson Cost</label>
-              <%= f.input :non_lesson_cost, as: :string, placeholder: "Enter price", label: false %>
-            </div>
-            <div class="col-md-2">
-              <label class="lesson-label">Exclude from reporting (HTA, etc.)?</label>
-            <%= f.select :focus_area, ['No, include as normal','Exclude'], {}, {class: 'form-control', required:false, include_blank:true} %>
-            </div>
-            <div class="col-md-3">
-              <label class="lesson-label">Reservation Price (charged to confirm reservation)</label>
-              <%= f.input :lesson_price, as: :string, placeholder: "Enter price", label: false %>
-            </div>
-            <div class="col-md-3">
-              <label class="lesson-label">Admin Adjustments (refunds, additional students, etc. to be charged after lesson)</label>
-              <%= f.input :admin_price_adjustment, as: :string, placeholder: "Enter price", label: false %>
+            <div class="col-md-6">
+              <div class="col-md-6">
+                <label class="lesson-label">Direct Lesson Cost</label>
+                <%= f.input :lesson_cost, as: :string, placeholder: "Enter price", label: false %>
+              </div>
+              <div class="col-md-6">
+                <label class="lesson-label">Non-Lesson Cost</label>
+                <%= f.input :non_lesson_cost, as: :string, placeholder: "Enter price", label: false %>
+              </div>
+              <div class="col-md-6">
+                <label class="lesson-label">Reservation Price (charged to confirm reservation)</label>
+                <%= f.input :lesson_price, as: :string, placeholder: "Enter price", label: false %>
+              </div>
+              <div class="col-md-6">
+                <label class="lesson-label">Admin Adjustments (refunds, additional students, etc. to be charged after lesson)</label>
+                <%= f.input :admin_price_adjustment, as: :string, placeholder: "Enter price", label: false %>
+              </div>
             </div>
           </div>
         </div>
