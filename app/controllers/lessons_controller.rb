@@ -35,9 +35,9 @@ class LessonsController < ApplicationController
   end
 
   def daily_roster
-    lessons = Lesson.all.select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.canceled? || lesson.booked? || lesson.state.nil? }
-    @todays_lessons = lessons.select{|lesson| lesson.date == Date.today}
-    @tomorrows_lessons = lessons.to_a.keep_if{|lesson| lesson.date == Date.today+1 }
+    lessons = Lesson.all.select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.state.nil? }
+    @todays_lessons = lessons.select{|lesson| lesson.date == Date.today && lesson.state != 'canceled' }
+    @tomorrows_lessons = lessons.to_a.keep_if{|lesson| lesson.date == Date.today+1 && lesson.state != 'canceled' }
     render 'daily_roster'
   end
 
