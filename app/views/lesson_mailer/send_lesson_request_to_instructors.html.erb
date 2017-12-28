@@ -17,7 +17,8 @@
         <li>Sport: <%= @lesson.activity %></li>
         <li>Location: <%= @lesson.location.name %></li>
         <li>Date: <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %></li>
-        <li>Slot: <%= @lesson.slot %></li>
+        <li>Lesson Product: <%= @lesson.product %></li>
+        <li>Start Time: <%= @lesson.start_time %></li>
         <li>Students: <%= @lesson.students.map(&:name).join(', ') %></li>
         <li>Objectives: <%= @lesson.objectives %></li>
       </ul>
