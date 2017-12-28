@@ -835,7 +835,7 @@ class Lesson < ActiveRecord::Base
     # available_instructors.any? ? true : false
     if available_instructors.count == 0
       return false
-    elsif self.requester.user_type == "Snow Schoolers Employee" || self.requester.email == "brian@snowschoolers.com"
+    elsif self.requester && (self.requester.user_type == "Snow Schoolers Employee" || self.requester.email == "brian@snowschoolers.com")
       return true
     else
       all_open_lesson_requests = Lesson.open_lesson_requests
