@@ -54,7 +54,7 @@ class Review < ActiveRecord::Base
   end
 
   def send_admin_notification
-    LessonMailer.new_review_submitted(@review).deliver
+    LessonMailer.new_review_submitted(@review).deliver!
   end
 
 end

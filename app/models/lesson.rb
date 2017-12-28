@@ -408,6 +408,18 @@ class Lesson < ActiveRecord::Base
    end
   end
 
+  def start_time
+    if self.planned_start_time
+      return self.planned_start_time
+    elsif self.product_id
+      return Product.find(self.product_id).start_time
+    elsif self.product
+      return self.product.start_time
+    else 
+      return "Unknown"
+    end
+  end
+
   def includes_admin_lift_or_rental_package?
     if self.includes_lift_or_rental_package == true
       return true
@@ -446,11 +458,11 @@ class Lesson < ActiveRecord::Base
   end
 
   def waiting_for_payment?
-    state == 'finalizing payment & reviews'
+    state == 'waiting for payment'
   end
 
   def waiting_for_review?
-    state == 'Payment complete, waiting for review.'
+    state == 'waiting for review'
   end
 
   def custom_start_time?
@@ -823,6 +835,8 @@ class Lesson < ActiveRecord::Base
     # available_instructors.any? ? true : false
     if available_instructors.count == 0
       return false
+    elsif self.requester && (self.requester.user_type == "Snow Schoolers Employee" || self.requester.email == "brian@snowschoolers.com")
+      return true
     else
       all_open_lesson_requests = Lesson.open_lesson_requests
       overlapping_open_requests = all_open_lesson_requests.select{|lesson| lesson.date == self.date } #&& lesson.lesson_time.slot == self.lesson_time.slot}
@@ -966,7 +980,7 @@ class Lesson < ActiveRecord::Base
           body = "We need your help! Another instructor unfortunately had to cancel. Are you available to teach #{self.requester.name} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name} at #{self.product.start_time}? Please visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm."
         when 'pending instructor'
           body =  "#{self.available_instructors.first.first_name}, There has been a change in your previously confirmed lesson request. #{self.requester.name} would now like their lesson to be at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. Are you still available? Please visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm."
-        when 'Payment complete, waiting for review.'
+        when 'Lesson Complete'
           if self.transactions.last.tip_amount == 0.0009            
             body = "#{self.requester.name} has completed their lesson review and reported that they gave you a cash tip. Great work!"
           elsif self.transactions.last.tip_amount == 0
@@ -1062,7 +1076,7 @@ class Lesson < ActiveRecord::Base
         body = "Congrats! Your Snow Schoolers lesson has been confirmed. #{self.instructor.name} will be your instructor at #{self.location.name} on #{self.lesson_time.date.strftime("%b %d")} at #{self.product.start_time}. Please check your email for more details about meeting location & to review your pre-lesson checklist."
         when 'seeking replacement instructor'
         body = "Bad news! Your instructor has unfortunately had to cancel your lesson. Don't worry, we are finding you a new instructor right now."
-        when 'finalizing payment & reviews'
+        when 'waiting for review'
         body = "We hope you had a great lesson with #{self.instructor.name}! You may now complete the lesson experience online and leave a quick review for #{self.instructor.first_name} by visiting #{ENV['HOST_DOMAIN']}/lessons/#{self.id}. Thanks for using Snow Schoolers!"
       end
       if recipient.length == 10 || recipient.length == 11
@@ -1075,7 +1089,7 @@ class Lesson < ActiveRecord::Base
           LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
           else
             puts "!!!! error - could not send SMS via Twilio"
-            LessonMailer.send_admin_notify_invalid_phone_number(self).deliver
+            LessonMailer.send_admin_notify_invalid_phone_number(self).deliver!
         end
   end
 
@@ -1137,7 +1151,7 @@ class Lesson < ActiveRecord::Base
 
   def send_lesson_request_to_instructors
     if self.active? && self.confirmable? && self.deposit_status == 'confirmed' && self.state != "pending instructor" && self.available_instructors.any?
-      LessonMailer.send_lesson_request_to_instructors(self).deliver
+      LessonMailer.send_lesson_request_to_instructors(self).deliver!
       puts "!!!!!lesson email sent to all available instructors"
       self.send_sms_to_instructor
     elsif self.available_instructors.any? == false

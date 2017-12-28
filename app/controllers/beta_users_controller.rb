@@ -31,31 +31,31 @@ class BetaUsersController < ApplicationController
     respond_to do |format|
       if @beta_user.save
         if @beta_user.user_type == "Jackson_promo"
-          LessonMailer.notify_jackson_promo_user(@beta_user).deliver
+          LessonMailer.notify_jackson_promo_user(@beta_user).deliver!
           format.html { redirect_to jackson_hole_path, notice: 'Thanks for your interest. If it is after January 3rd, but before Jan 6th, please call us at 530-430-SNOW.' }
           format.json { render action: 'show', status: :created, location: @beta_user }
           elsif @beta_user.user_type == "powder_promo"
-          LessonMailer.notify_powder_promo(@beta_user).deliver
+          LessonMailer.notify_powder_promo(@beta_user).deliver!
           format.html { redirect_to powder_path, notice: "Thanks for your interest. We'll get back to you shortly. If you have any other questions feel free to call us at 530-430-SNOW." }
           format.json { render action: 'show', status: :created, location: @beta_user }
           elsif @beta_user.user_type == "beginner_concierge"
-          LessonMailer.notify_beginner_concierge(@beta_user).deliver
+          LessonMailer.notify_beginner_concierge(@beta_user).deliver!
           format.html { redirect_to beginners_guide_to_tahoe_path, notice: "Thanks for your interest. We'll get back to you shortly. If you have any other questions feel free to call us at 530-430-SNOW." }
           format.json { render action: 'show', status: :created, location: @beta_user }
           elsif @beta_user.user_type == "package_promo"
-          LessonMailer.notify_package_promo(@beta_user).deliver
+          LessonMailer.notify_package_promo(@beta_user).deliver!
           format.html { redirect_to root_path, notice: "Thanks for your interest. We'll get back to you shortly. If you have any other questions feel free to call us at 530-430-SNOW." }
           format.json { render action: 'show', status: :created, location: @beta_user }
           elsif @beta_user.user_type == "march_madness"
-          LessonMailer.notify_march_madness_signup(@beta_user).deliver
+          LessonMailer.notify_march_madness_signup(@beta_user).deliver!
           format.html { redirect_to root_path, notice: "Thanks for your signing up. You should receive an email shorty with full instructions on how the contest will work." }
           format.json { render action: 'show', status: :created, location: @beta_user }
           elsif @beta_user.user_type == "team_offsite"
-          LessonMailer.notify_team_offsite(@beta_user).deliver
+          LessonMailer.notify_team_offsite(@beta_user).deliver!
           format.html { redirect_to root_path, notice: "Thanks for expressing interest. You should receive an email shorty from your dedicated trip planning concierge." }
           format.json { render action: 'show', status: :created, location: @beta_user }
           else
-          LessonMailer.notify_admin_beta_user(@beta_user).deliver
+          LessonMailer.notify_admin_beta_user(@beta_user).deliver!
           format.html { redirect_to root_path, notice: 'Thanks for signing up!' }
           format.json { render action: 'show', status: :created, location: @beta_user }
         end

@@ -46,7 +46,8 @@ Requester Email: <%= @lesson.requester ? @lesson.requester.email : @lesson.guest
         <% if @lesson.package_info %>
           <% @lesson.package_info.include?("custom start time") ? custom_slot_class = "strikethrough" : custom_slot_class = "normal" %>
         <% end %>
-        <span class="lesson-detail-topic">Slot:</span> <span class=<%= custom_slot_class%> > <%= @lesson.slot %></span> <br><br>
+        <span class="lesson-detail-topic">Start Time:</span>  <%= @lesson.start_time %><br>
+        <span class="lesson-detail-topic">Lesson Product:</span> <span class=<%= custom_slot_class%> > <%= @lesson.slot %></span> <br><br>
         <% if @lesson.package_info && @lesson.package_info.length > 1 %>
           <span class="lesson-detail-topic">Adjustments:</span>  <%= @lesson.package_info %>
           <br><br>                  

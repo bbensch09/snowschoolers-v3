@@ -10,7 +10,7 @@ class InstructorsController < ApplicationController
     instructor.status = 'Active'
     instructor.mark_eligible_for_beginners
     instructor.save
-    LessonMailer.instructor_status_activated(instructor).deliver
+    LessonMailer.instructor_status_activated(instructor).deliver!
     redirect_to instructors_path, notice: "Instructor has been verified"
   end
 

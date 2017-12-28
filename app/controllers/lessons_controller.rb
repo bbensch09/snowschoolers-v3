@@ -3,7 +3,7 @@ class LessonsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:new, :granlibakken, :new_request, :create, :complete, :confirm_reservation, :update, :show, :edit]
   before_action :set_lesson, only: [:show, :complete, :update, :edit, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_instructor, :admin_confirm_deposit, :admin_assign_instructor, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications, :send_review_reminders_to_student]
   before_action :save_lesson_params_and_redirect, only: [:create]
-  before_action :authenticate_from_cookie!, only: [:complete, :confirm_reservation, :update, :show, :edit]
+  # before_action :authenticate_from_cookie!, only: [:complete, :confirm_reservation, :update, :show, :edit]
 
   def assign_to_section
     puts "the params are #{params}"
@@ -421,8 +421,8 @@ class LessonsController < ApplicationController
 
   def confirm_lesson_time
     if valid_duration_params?
-      @lesson.update(lesson_params.merge(state: 'finalizing payment & reviews'))
-      @lesson.state = @lesson.valid? ? 'finalizing payment & reviews' : 'confirmed'
+      @lesson.update(lesson_params.merge(state: 'waiting for review'))
+      @lesson.state = @lesson.valid? ? 'waiting for review' : 'confirmed'
       @lesson.send_sms_to_requester
       LessonMailer.send_payment_email_to_requester(@lesson.id).deliver!
     else
@@ -545,7 +545,7 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id, :guest_email, :how_did_you_hear, :num_days, :lesson_price, :requester_name, :is_gift_voucher, :includes_lift_or_rental_package, :package_info, :gift_recipient_email, :gift_recipient_name, :lesson_cost, :non_lesson_cost, :product_id, :section_id, :product_name, :admin_price_adjustment, :promo_code_id,
+    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id, :guest_email, :how_did_you_hear, :num_days, :lesson_price, :requester_name, :is_gift_voucher, :includes_lift_or_rental_package, :package_info, :gift_recipient_email, :gift_recipient_name, :lesson_cost, :non_lesson_cost, :product_id, :section_id, :product_name, :admin_price_adjustment, :promo_code_id, :planned_start_time,
       students_attributes: [:id, :name, :age_range, :gender, :relationship_to_requester, :lesson_history, :requester_id, :most_recent_experience, :most_recent_level, :other_sports_experience, :experience, :_destroy, :needs_rental], lesson_time_attributes: [:date, :slot])
   end
 
