@@ -31,10 +31,10 @@ class ReviewsController < ApplicationController
     respond_to do |format|
       if @review.save
         if @review.lesson
-          @review.lesson.state = "Lesson Complete"
+          @review.lesson.state = "waiting for payment"
           LessonMailer.new_review_submitted(@review).deliver!
           @review.lesson.save
-        format.html { redirect_to @review.lesson, notice: 'Thanks for reviewing your instructor! Hope to see you back on the mountain soon.' }
+        format.html { redirect_to @review.lesson, notice: "Thanks! If you feel it is deserved, please consider providing a tip for your instructor." }
         format.json { render action: 'show', status: :created, location: @review }
         else
           format.html { redirect_to @review.instructor, notice: "Admin has successfully created a review." }
@@ -51,7 +51,7 @@ class ReviewsController < ApplicationController
   def update
     respond_to do |format|
       if @review.update(review_params)
-        @review.lesson.state = "Lesson Complete"
+        @review.lesson.state = "waiting for payment"
         LessonMailer.new_review_submitted(@review).deliver!
         @review.lesson.save
         format.html { redirect_to @review.lesson, notice: 'Thanks for updating your review! Hope to see you back on the mountain soon.' }

@@ -458,11 +458,11 @@ class Lesson < ActiveRecord::Base
   end
 
   def waiting_for_payment?
-    state == 'finalizing payment & reviews'
+    state == 'waiting for payment'
   end
 
   def waiting_for_review?
-    state == 'Payment complete, waiting for review.'
+    state == 'waiting for review'
   end
 
   def custom_start_time?
@@ -980,7 +980,7 @@ class Lesson < ActiveRecord::Base
           body = "We need your help! Another instructor unfortunately had to cancel. Are you available to teach #{self.requester.name} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name} at #{self.product.start_time}? Please visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm."
         when 'pending instructor'
           body =  "#{self.available_instructors.first.first_name}, There has been a change in your previously confirmed lesson request. #{self.requester.name} would now like their lesson to be at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. Are you still available? Please visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm."
-        when 'Payment complete, waiting for review.'
+        when 'Lesson Complete'
           if self.transactions.last.tip_amount == 0.0009            
             body = "#{self.requester.name} has completed their lesson review and reported that they gave you a cash tip. Great work!"
           elsif self.transactions.last.tip_amount == 0
@@ -1076,7 +1076,7 @@ class Lesson < ActiveRecord::Base
         body = "Congrats! Your Snow Schoolers lesson has been confirmed. #{self.instructor.name} will be your instructor at #{self.location.name} on #{self.lesson_time.date.strftime("%b %d")} at #{self.product.start_time}. Please check your email for more details about meeting location & to review your pre-lesson checklist."
         when 'seeking replacement instructor'
         body = "Bad news! Your instructor has unfortunately had to cancel your lesson. Don't worry, we are finding you a new instructor right now."
-        when 'finalizing payment & reviews'
+        when 'waiting for review'
         body = "We hope you had a great lesson with #{self.instructor.name}! You may now complete the lesson experience online and leave a quick review for #{self.instructor.first_name} by visiting #{ENV['HOST_DOMAIN']}/lessons/#{self.id}. Thanks for using Snow Schoolers!"
       end
       if recipient.length == 10 || recipient.length == 11
