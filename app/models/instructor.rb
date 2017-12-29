@@ -58,7 +58,16 @@ class Instructor < ActiveRecord::Base
   end
 
   def total_wages
-    lessons = Lesson.where(state:'Lesson Complete',instructor_id:self.id)
+    lessons = Lesson.select{|lesson| lesson.eligible_for_payroll? }
+    wages = 0
+    lessons.each do |lesson|
+        wages += lesson.wages
+    end
+    return wages
+  end
+
+  def paid_wages_to_date
+    lessons = Lesson.select{|lesson| lesson.eligible_for_payroll? && lesson.payment_status == "Paid"}
     wages = 0
     lessons.each do |lesson|
         wages += lesson.wages

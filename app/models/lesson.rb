@@ -249,6 +249,15 @@ class Lesson < ActiveRecord::Base
     return wages
   end
 
+  def payment_status
+  end
+
+  def payment_method
+  end
+
+  def payment_date
+  end
+
   def self.total_prime_days
     total = 0
     Instructor.active_instructors.each do |instructor|
@@ -345,6 +354,14 @@ class Lesson < ActiveRecord::Base
     total = 0
     Instructor.active_instructors.each do |instructor|
       total += instructor.total_wages
+    end
+    return total
+  end
+
+  def self.paid_wages_to_date
+    total = 0
+    Instructor.active_instructors.each do |instructor|
+      total += instructor.paid_wages_to_date
     end
     return total
   end
@@ -483,7 +500,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def completed?
-    active_states = ['finalizing','finalizing payment & reviews','Payment complete, waiting for review.','Lesson Complete']
+    active_states = ['finalizing','finalizing payment & reviews','Payment complete, waiting for review.','waiting for payment','Lesson Complete']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
     active_states.include?(state)
   end
@@ -498,6 +515,12 @@ class Lesson < ActiveRecord::Base
 
   def booked?
     self.deposit_status == 'confirmed' || self.deposit_status == 'pending_new_payment' 
+  end
+
+  def eligible_for_payroll?
+    eligible_states = ['finalizing','finalizing payment & reviews','Payment complete, waiting for review.','waiting for payment','Lesson Complete','confirmed']
+    #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
+    eligible_states.include?(state)
   end
 
   def referral_source
