@@ -42,6 +42,7 @@ class LessonsController < ApplicationController
     end
     # @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?|| lesson.canceled? || lesson.booked? || lesson.state.nil? }
     @lessons.sort_by!{|lesson| lesson.instructor_id}
+    @payroll_total = Lesson.payroll_total(@lessons)
     render 'payroll_prep'
   end
 
