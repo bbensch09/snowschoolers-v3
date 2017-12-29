@@ -40,6 +40,7 @@ Requester Email: <%= @lesson.requester ? @lesson.requester.email : @lesson.guest
       <div class="col-md-12 col-xs-12">
       <h4 class="slot-details-mobile">
         <span class="lesson-detail-topic">Requester:</span> <%= @lesson.requester_name %> <br>
+        <span class="lesson-detail-topic">Phone:</span> <%= @lesson.phone_number %> <br>
         <span class="lesson-detail-topic">Location:</span>  <%= @lesson.location.name %><br>
         <span class="lesson-detail-topic">Sport:</span>  <%= @lesson.activity %><br>
         <span class="lesson-detail-topic">Date:</span> <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %><br>
