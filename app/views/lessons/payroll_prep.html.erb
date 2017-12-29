@@ -1,0 +1,72 @@
+<div id="middle" class="container lesson-index-mobile">
+  <div class="white">
+
+<div class="admin-viewable">
+  <div class="col-md-12">
+    <ul>
+      <li>Wages Current Payroll: <%= number_to_currency(Lesson.total_tips) %></li>
+      <li>Wages Paid to-date: <%= Lesson.paid_wages_to_date %></li>
+    </ul>
+    <div class="inline-block">
+      <a href="#hideLessons" class="btn btn-success" id="toggle-completed-lessons">Show Lessons for Next Payroll</a>
+      <a href="#hideLessons" class="btn btn-success" id="toggle-available-lessons">Show Lessons for Past Payroll</a>
+    </div>
+  </div>
+</div>
+<!-- SECTION 0 - AVAILABLE LESSON REQUESTS FOR INSTRUCTORS -->
+<div id="available-lessons" class="">
+<h1>Curent Payroll Cycle</h1>
+<h4>Dates: </h4>
+<table class="instructors-table">
+  <thead>
+    <tr>
+      <th class="lessons-table-cells lesson-date">Time</th>
+      <th class="lessons-table-cells lesson-date">Date</th>
+      <th class="lessons-table-cells lesson-type">Sport</th>
+      <th class="lessons-table-cells lesson-instructor">Instructor</th>
+      <th class="lessons-table-cells lesson-type">Type</th>
+      <th class="lessons-table-cells lesson-student">State</th>
+      <th class="lessons-table-cells">Location</th>
+      <th class="lessons-table-cells">Wage Rate</th>
+      <th class="lessons-table-cells">Length</th>
+      <th class="lessons-table-cells">Wages</th>
+      <th class="lessons-table-cells">Payment Status</th>
+      <th class="lessons-table-cells">Payment Method</th>
+      <th class="lessons-table-cells">Payment Date</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lessons.each do |lesson| %>
+          <tr>
+            <td class="lessons-table-cells lesson-date"><%= lesson.start_time %></td>
+            <td class="lessons-table-cells lesson-date"><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
+            <td class="lessons-table-cells lesson-type"><%= lesson.activity %></td>            
+            <td class="lessons-table-cells lesson-date"><%= lesson.instructor ? lesson.instructor.name : "TBD" %></td>
+            <% if lesson.product && lesson.custom_start_time? %>
+              <td><%= link_to "#{lesson.package_info}", lesson, class: "" %></td>
+              <% elsif  lesson.product %>
+              <td><%= link_to "#{lesson.product.name}", lesson, class: "" %></td>
+            <% end %>
+            <td class="lessons-table-cells"><%= lesson.state %></td>
+            <td class="lessons-table-cells lesson-type"><%= lesson.location.name %></td>            
+            <td class="lessons-table-cells lesson-type"><%= lesson.instructor.wage_rate %></td>            
+            <td class="lessons-table-cells lesson-type"><%= lesson.length %></td>            
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.wages) %></td>            
+            <td class="lessons-table-cells lesson-type"><%= lesson.payment_status %></td>            
+            <td class="lessons-table-cells lesson-type"><%= lesson.payment_method %></td>            
+            <td class="lessons-table-cells lesson-type"><%= lesson.payment_date %></td>            
+          </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<hr>
+
+<!-- SECTION 1 - PREVIOUS LESSONS -->
+<div id="completed-lessons" class="hidden">
+<h1>Previously Paid Payroll</h1>
+
+
+
+</div>

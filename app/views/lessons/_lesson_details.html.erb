@@ -2,7 +2,7 @@
   <h2 id="lesson-details-header">Lesson Status</h2>
 </header>
 <p class="lesson-summary-info">
-Requester Email: <%= @lesson.requester ? @lesson.requester.email : @lesson.guest_email %>
+
 <% if @lesson.instructor %>
   <br> Instructor: <%= @lesson.instructor.name %>
 <% else %>
@@ -41,6 +41,7 @@ Requester Email: <%= @lesson.requester ? @lesson.requester.email : @lesson.guest
       <h4 class="slot-details-mobile">
         <span class="lesson-detail-topic">Requester:</span> <%= @lesson.requester_name %> <br>
         <span class="lesson-detail-topic">Phone:</span> <%= @lesson.phone_number %> <br>
+        <span class="lesson-detail-topic">Email:</span> <%= @lesson.guest_email ? @lesson.guest_email :  @lesson.requester.email %> <br>
         <span class="lesson-detail-topic">Location:</span>  <%= @lesson.location.name %><br>
         <span class="lesson-detail-topic">Sport:</span>  <%= @lesson.activity %><br>
         <span class="lesson-detail-topic">Date:</span> <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %><br>
