@@ -36,9 +36,9 @@ class LessonsController < ApplicationController
 
   def payroll_prep
     if current_user.email == "brian@snowschoolers.com"
-      @lessons = Lesson.all.select{|lesson| lesson.eligible_for_payroll? }
+      @lessons = Lesson.all.select{|lesson| lesson.eligible_for_payroll? && lesson.date < Date.today }
     elsif current_user && current_user.instructor
-      @lessons = Lesson.all.select{|lesson| lesson.eligible_for_payroll? && lesson.instructor_id == current_user.instructor.id}
+      @lessons = Lesson.all.select{|lesson| lesson.eligible_for_payroll? && lesson.instructor_id == current_user.instructor.id && lesson.date < Date.today }
     end
     # @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?|| lesson.canceled? || lesson.booked? || lesson.state.nil? }
     @lessons.sort_by!{|lesson| lesson.instructor_id}
