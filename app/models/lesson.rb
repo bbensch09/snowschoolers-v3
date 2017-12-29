@@ -435,7 +435,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def start_time
-    if self.planned_start_time
+    if self.planned_start_time && self.planned_start_time.length > 1
       return self.planned_start_time
     elsif self.product_id
       return Product.find(self.product_id).start_time
