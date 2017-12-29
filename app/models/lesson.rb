@@ -181,13 +181,22 @@ class Lesson < ActiveRecord::Base
           elsif self.slot == 'Early Bird (9-10am)'
             product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson").first
           #pricing for GB half-day package
-          elsif self.slot.starts_with?('Half-day') && self.location.id == 24 && self.includes_rental_package?
+          elsif self.slot.starts_with?('Half-day Morning') && self.location.id == 24 && self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,name:'Half-day Morning Package (3hr)',product_type:"private_lesson").first
           #pricing for GB half-day lesson only
-          elsif self.slot.starts_with?('Half-day') && self.location.id == 24 && !self.includes_rental_package?
+          elsif self.slot.starts_with?('Half-day Morning') && self.location.id == 24 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,name:'Half-day Morning Private Lesson (no rental)',product_type:"private_lesson").first
           #pricing for HW half-day lesson
-          elsif self.slot.starts_with?('Half-day')
+          elsif self.slot.starts_with?('Half-day Morning')
+            product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson").first
+          #pricing for GB half-day package
+          elsif self.slot.starts_with?('Half-day Afternoon') && self.location.id == 24 && self.includes_rental_package?
+            product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,name:'Half-day Afternoon Package (3hr)',product_type:"private_lesson").first
+          #pricing for GB half-day lesson only
+          elsif self.slot.starts_with?('Half-day Afternoon') && self.location.id == 24 && !self.includes_rental_package?
+            product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,name:'Half-day Afternoon Private Lesson (no rental)',product_type:"private_lesson").first
+          #pricing for HW half-day lesson
+          elsif self.slot.starts_with?('Half-day Afternoon')
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson").first
           #pricing for GB full-day lesson package
           elsif self.slot == 'Full-day (10am-4pm)'  && self.location.id == 24 && self.includes_rental_package?
