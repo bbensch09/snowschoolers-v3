@@ -523,6 +523,14 @@ class Lesson < ActiveRecord::Base
     eligible_states.include?(state) && self.this_season?
   end
 
+  def self.payroll_total(lessons)
+    total = 0
+    lessons.each do |lesson|
+      total += lesson.wages
+    end
+    return total
+  end
+
   def referral_source
     case self.how_did_you_hear.to_i
     when 1
