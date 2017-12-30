@@ -34,6 +34,7 @@ class LessonsController < ApplicationController
     render 'schedule'
   end
 
+  #WORK IN PROGRESS - Dec29
   def search_index
     @lessons_to_export = Lesson.where(state:"booked")
     @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.finalizing? || lesson.booked? || lesson.payment_complete? || lesson.ready_to_book? || lesson.waiting_for_review?}
