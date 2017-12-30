@@ -34,9 +34,27 @@ class LessonsController < ApplicationController
     render 'schedule'
   end
 
+  #WORK IN PROGRESS - Dec29
+  def search_index
+    @lessons_to_export = Lesson.where(state:"booked")
+    @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.finalizing? || lesson.booked? || lesson.payment_complete? || lesson.ready_to_book? || lesson.waiting_for_review?}
+    @lessons = @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
+    respond_to do |format|
+          format.html {render 'admin_index'}
+          format.csv { send_data @lessons_to_export.to_csv, filename: "group-lessons-export-#{Date.today}.csv" }
+        end
+  end
+
+  def search_results
+  end
+
   def payroll_prep
-    if current_user.email == "brian@snowschoolers.com"
+    if current_user.email == "brian@snowschoolers.com" && params[:instructor].nil?
       @lessons = Lesson.all.select{|lesson| lesson.eligible_for_payroll? && lesson.date < Date.today }
+    elsif current_user.email == "brian@snowschoolers.com" && params[:instructor]
+      puts "!!!!filtering for instructor params"
+      instructor = Instructor.all.select{|i| params[:instructor].downcase == i.to_param}
+      @lessons = Lesson.all.select{|lesson| lesson.eligible_for_payroll? && lesson.date < Date.today && lesson.instructor_id == instructor.first.id }
     elsif current_user && current_user.instructor
       @lessons = Lesson.all.select{|lesson| lesson.eligible_for_payroll? && lesson.instructor_id == current_user.instructor.id && lesson.date < Date.today }
     end
