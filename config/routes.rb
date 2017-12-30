@@ -133,6 +133,7 @@ Rails.application.routes.draw do
   get '/homewood' => 'lessons#homewood'
   get '/daily-roster' => 'lessons#daily_roster'
   get '/payroll-prep' => 'lessons#payroll_prep'
+  get '/search' => 'lessons#search'
 
   #Avantlink site verification
   get '/avantlink_confirmation.txt' => 'welcome#avantlink'
