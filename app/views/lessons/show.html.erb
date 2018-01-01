@@ -61,7 +61,7 @@
 
     <% if @lesson.waiting_for_review? && (current_user == @lesson.requester || @lesson.guest_email || current_user && current_user.user_type == "Snow Schoolers Employee") %>
       <%= render partial: 'reviews/form' %>
-      <% elsif @lesson.waiting_for_review? && (current_user.instructor || current_user.user_type == "Snow Schoolers Employee") %>
+      <% elsif @lesson.waiting_for_review? && current_user && (current_user.instructor || current_user.user_type == "Snow Schoolers Employee") %>
           <%= link_to "Remind student to submit their review", mark_lesson_complete_path, method: :get, class: "btn btn-success" %>
     <% end %>
 
