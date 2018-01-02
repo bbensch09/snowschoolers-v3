@@ -663,9 +663,10 @@ class Lesson < ActiveRecord::Base
     # puts "!!!! lookup product matched to this lesson"
     self.product
     if product.nil?
-      # return "Please confirm date & time to see price."
-    end
+      return "Please confirm date & time to see price."
+    else
     price = product.price.to_f + self.package_cost
+    end
     if self.promo_code
       case self.promo_code.discount_type
       when 'cash'
