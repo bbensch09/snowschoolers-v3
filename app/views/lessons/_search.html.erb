@@ -1,0 +1,33 @@
+<div id="search-widget">
+    <%= form_tag(search_results_path, :method => "get", id: "search-form") do %>
+<div class="row">
+    <div class="col-md-2">
+    	<%= text_field_tag :email, params[:email], placeholder: "Search Email", class:'navy-text form-control' %>
+	  </div>
+    <div class="col-md-2">
+      <%= text_field_tag :location, params[:location], placeholder: "Resort (case-senstitive)", class:'navy-text form-control' %>
+    </div>
+    <div class="col-md-2">
+	    <%= text_field_tag :instructor, params[:instrutor], placeholder: "Instructor (case-senstitive)", class:'navy-text form-control' %>
+	  </div>
+    <div class="col-md-2">	
+   		<%= text_field_tag :date, params[:date], placeholder: 'Search by Date', id: 'datepicker', class:'navy-text form-control', required: false %>   
+   	</div>
+    <div class="col-md-2">
+      <label for="rememberme">
+          <%= check_box_tag :gear, params[:gear], false, class: 'form-control'  %> Only show Lessons WITH  rentals?
+      </label>
+    </div>
+    <div class="col-md-2">
+      <label for="rememberme">
+          <%= check_box_tag :incomplete, params[:incomplete], false, class: 'form-control'  %> Show all lessons including those not yet booked.
+      </label>
+   	</div>
+</div>
+<div class="row">
+    <%= submit_tag "Search", class:"btn btn-primary btn-lg page-scroll" %>
+   <a href="/search" class="btn btn-lg btn-warning"> Clear Filters</a>
+    <%= link_to "Export CSV", search_results_path(format: "csv"), class: 'btn btn-lg btn-success' %>
+</div>
+    <% end %>
+</div>

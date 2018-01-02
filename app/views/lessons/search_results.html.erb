@@ -1,0 +1,115 @@
+<div id="middle" class="report-container lesson-index-mobile">
+  <div class="white">
+
+<div class="admin-viewable">
+  <div class="col-md-12">
+  <div class="col-md-4">
+    <ul>
+      <li>Open Requests: <%= Lesson.open_lesson_requests.count %></li>
+      <li>Confirmed Requests: <%= Lesson.confirmed_lessons.count %></li>
+      <li>Completed Lessons: <%= Lesson.completed_lessons.count %></li>
+      <li>Cancellations: <%= Lesson.canceled_lessons.count %></li>
+      <li>Total Lessons Sold: <%= (Lesson.open_lesson_requests.count + Lesson.confirmed_lessons.count + Lesson.completed_lessons.count) %></li>
+    </ul>
+  </div>
+  <div class="col-md-4">
+    <ul>
+      <li>Instructor Wages Available: <%= number_to_currency(Lesson.open_wages_available) %></li>
+      <li>Revenue from Outstanding: <%= number_to_currency(Lesson.open_booked_revenue) %></li>
+      <li>Total Revenue Confirmed: <%= number_to_currency(Lesson.closed_booked_revenue) %></li>
+      <li>Total Lesson Revenue: <%= number_to_currency(Lesson.closed_booked_revenue + Lesson.open_booked_revenue) %></li>
+    </ul>
+  </div>
+  <div class="col-md-4">
+    <ul>
+      <li>Excluded Lessons: <%= Lesson.excluded_lessons.count %></li>
+      <li>Other Revenue: <%= number_to_currency(Lesson.other_revenue) %></li>
+      <a href='lessons/admin_index' class='btn btn-warning'>View Full Lesson Details</a>
+    </ul>
+  </div>
+  </div>
+</div>
+
+
+<div class="center">
+  <div class="buffer"></div>
+  <%= render partial: 'lessons/search' %>
+</div>
+
+<!-- SECTION 0 - AVAILABLE LESSON REQUESTS FOR INSTRUCTORS -->
+<div id="available-lessons" class="">
+<h1>Curent Payroll Cycle</h1>
+<h4>Total Wages: <%= number_to_currency(@payroll_total) %> </h4>
+<table class="instructors-table">
+  <thead>
+    <tr>
+      <th class="lessons-table-cells lesson-date"></th>
+      <th class="lessons-table-cells lesson-date">Time</th>
+      <th class="lessons-table-cells lesson-date">Date</th>
+      <th class="lessons-table-cells lesson-type">Sport</th>
+      <th class="lessons-table-cells lesson-type">Type</th>
+      <th class="lessons-table-cells lesson-instructor">Instructor</th>
+      <th class="lessons-table-cells lesson-instructor">Customer</th>
+      <th class="lessons-table-cells lesson-student">State</th>
+      <th class="lessons-table-cells">Location</th>
+      <th class="lessons-table-cells">Rentals?</th>
+      <th class="lessons-table-cells">Price</th>
+      <th class="lessons-table-cells">Non-lesson Rev</th>
+      <th class="lessons-table-cells">Lesson Rev</th>
+      <th class="lessons-table-cells">Labor</th>
+      <th class="lessons-table-cells">Gross Margin</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lessons.each_with_index do |lesson, index| %>
+          <tr>
+            <td class="lessons-table-cells lesson-date"><%= index+1 %></td>
+            <td class="lessons-table-cells lesson-date"><%= lesson.start_time %></td>
+            <td class="lessons-table-cells lesson-date"><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
+            <td class="lessons-table-cells lesson-type"><%= lesson.activity %></td>   
+            <% if lesson.product && lesson.custom_start_time? %>
+              <td><%= link_to "#{lesson.package_info}", lesson, class: "" %></td>
+              <% elsif  lesson.product %>
+              <td><%= link_to "#{lesson.product.name}", lesson, class: "" %></td>
+            <% end %>
+            <td class="lessons-table-cells lesson-date"><%= lesson.instructor_assigned? ? lesson.instructor.name : "TBD" %></td>
+            <td class="lessons-table-cells lesson-date"><%= lesson.requester ? lesson.requester.email : lesson.guest_email %></td>
+            <td class="lessons-table-cells"><%= lesson.state %></td>
+            <td class="lessons-table-cells lesson-type"><%= lesson.location.name %></td>            
+            <td class="lessons-table-cells lesson-type"><%= lesson.includes_rental_package? ? "Yes" : "No" %></td>            
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.price) %></td>            
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.non_lesson_revenue) %></td>            
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.lesson_revenue) %></td>            
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.wages) %></td>            
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.gross_margin) %></td>            
+          </tr>
+    <% end %>
+    <tr class="bold">
+            <td class="lessons-table-cells lesson-date"><%= @lessons.count %></td>
+            <td class="lessons-table-cells lesson-date"></td>
+            <td class="lessons-table-cells lesson-date"></td>
+            <td class="lessons-table-cells lesson-type"></td>   
+            <td class="lessons-table-cells lesson-type"></td>   
+            <td class="lessons-table-cells lesson-date"></td>
+            <td class="lessons-table-cells lesson-date"></td>
+            <td class="lessons-table-cells"></td>
+            <td class="lessons-table-cells lesson-type">     
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(Lesson.gross_revenue_total(@lessons)) %></td>            
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(Lesson.non_lesson_revenue_total(@lessons)) %></td>
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(Lesson.lesson_revenue_total(@lessons)) %></td>            
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(Lesson.payroll_total(@lessons)) %></td>            
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(Lesson.gross_margin_total(@lessons)) %></td>            
+
+    </tr>
+  </tbody>
+</table>
+</div>
+<hr>
+
+<!-- SECTION 1 - PREVIOUS LESSONS -->
+<div id="completed-lessons" class="hidden">
+<!-- <h1>Previously Paid Payroll</h1> -->
+
+
+</div>

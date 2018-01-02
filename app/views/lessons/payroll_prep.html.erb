@@ -20,6 +20,7 @@
 <table class="instructors-table">
   <thead>
     <tr>
+      <th class="lessons-table-cells lesson-date">No.</th>
       <th class="lessons-table-cells lesson-date">Time</th>
       <th class="lessons-table-cells lesson-date">Date</th>
       <th class="lessons-table-cells lesson-type">Sport</th>
@@ -37,8 +38,9 @@
   </thead>
 
   <tbody>
-    <% @lessons.each do |lesson| %>
+    <% @lessons.each_with_index do |lesson, index| %>
           <tr>
+            <td class="lessons-table-cells lesson-date"><%= index+1 %></td>
             <td class="lessons-table-cells lesson-date"><%= lesson.start_time %></td>
             <td class="lessons-table-cells lesson-date"><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
             <td class="lessons-table-cells lesson-type"><%= lesson.activity %></td>            
@@ -66,7 +68,6 @@
 <!-- SECTION 1 - PREVIOUS LESSONS -->
 <div id="completed-lessons" class="hidden">
 <!-- <h1>Previously Paid Payroll</h1> -->
-
 
 
 </div>
