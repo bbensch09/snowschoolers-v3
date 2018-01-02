@@ -93,11 +93,11 @@
             <td class="lessons-table-cells lesson-date"></td>
             <td class="lessons-table-cells"></td>
             <td class="lessons-table-cells lesson-type">     
-            <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.price) %></td>            
-            <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.non_lesson_revenue) %></td>            
-            <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.lesson_revenue) %></td>            
-            <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.wages) %></td>            
-            <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.gross_margin) %></td>            
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(Lesson.gross_revenue_total(@lessons)) %></td>            
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(Lesson.non_lesson_revenue_total(@lessons)) %></td>
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(Lesson.lesson_revenue_total(@lessons)) %></td>            
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(Lesson.payroll_total(@lessons)) %></td>            
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(Lesson.gross_margin_total(@lessons)) %></td>            
 
     </tr>
   </tbody>

@@ -539,7 +539,7 @@ class Lesson < ActiveRecord::Base
 
 #CLASS METHODS FOR TABLE TOTALS
 
-  def self.gross_revenue_total
+  def self.gross_revenue_total(lessons)
     total = 0
     lessons.each do |lesson|
       total += lesson.price
@@ -547,7 +547,7 @@ class Lesson < ActiveRecord::Base
     return total
   end
 
-  def self.non_lesson_revenue_total
+  def self.non_lesson_revenue_total(lessons)
     total = 0
     lessons.each do |lesson|
       total += lesson.non_lesson_revenue
@@ -555,7 +555,7 @@ class Lesson < ActiveRecord::Base
     return total
   end
 
-  def self.lesson_revenue_total
+  def self.lesson_revenue_total(lessons)
     total = 0
     lessons.each do |lesson|
       total += lesson.lesson_revenue
@@ -571,7 +571,7 @@ class Lesson < ActiveRecord::Base
     return total
   end
 
-  def self.gross_margin_total
+  def self.gross_margin_total(lessons)
     total = 0
     lessons.each do |lesson|
       total += lesson.gross_margin
