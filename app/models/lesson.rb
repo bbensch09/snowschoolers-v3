@@ -168,9 +168,9 @@ class Lesson < ActiveRecord::Base
   def product
     if self.product_id.nil?
         if self.product_name
-          puts "!!!calculating price based on product name, location, and date"
+          # puts "!!!calculating price based on product name, location, and date"
           calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
-          puts "!!!!lookup calendar period status, it is: #{calendar_period}"
+          # puts "!!!!lookup calendar period status, it is: #{calendar_period}"
           #pricing for GB lesson package
           if self.slot == 'Early Bird (9-10am)' && self.location.id == 24 && self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,name:'1hr Private Lesson Package',product_type:"private_lesson").first
@@ -660,19 +660,19 @@ class Lesson < ActiveRecord::Base
   end
 
   def price
-    puts "!!!! lookup product matched to this lesson"
+    # puts "!!!! lookup product matched to this lesson"
     self.product
     if product.nil?
-      return "Please confirm date & time to see price."
+      # return "Please confirm date & time to see price."
     end
     price = product.price.to_f + self.package_cost
     if self.promo_code
       case self.promo_code.discount_type
       when 'cash'
-        puts "!!!discount of #{self.promo_code.discount} is applied to total price."
+        # puts "!!!discount of #{self.promo_code.discount} is applied to total price."
         price = (price.to_f - self.promo_code.discount.to_f)
       when 'percent'
-        puts "!!!discount percentage of of #{self.promo_code.discount} is applied to total price."
+        # puts "!!!discount percentage of of #{self.promo_code.discount} is applied to total price."
         price = (price.to_f * (1-self.promo_code.discount.to_f/100))
       end
     end
