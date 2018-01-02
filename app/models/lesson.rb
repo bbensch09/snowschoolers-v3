@@ -518,7 +518,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def eligible_for_payroll?
-    eligible_states = ['finalizing','finalizing payment & reviews','Payment complete, waiting for review.','waiting for payment','Lesson Complete','confirmed']
+    eligible_states = ['finalizing','finalizing payment & reviews','Payment complete','waiting for review.','waiting for payment','Lesson Complete','confirmed']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
     eligible_states.include?(state) && self.this_season?
   end
