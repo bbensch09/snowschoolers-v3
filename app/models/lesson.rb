@@ -523,6 +523,20 @@ class Lesson < ActiveRecord::Base
     eligible_states.include?(state) && self.this_season?
   end
 
+  def non_lesson_revenue
+    lift_only_revenue = self.students_without_gear * 15
+    rental_packages_revenue = self.students_with_gear * 30
+    non_lesson_revenue = lift_only_revenue + rental_packages_revenue
+  end
+
+  def lesson_revenue
+    self.price - self.non_lesson_revenue
+  end
+
+  def gross_margin
+    self.lesson_revenue - self.wages
+  end
+
   def self.payroll_total(lessons)
     total = 0
     lessons.each do |lesson|
@@ -556,6 +570,10 @@ class Lesson < ActiveRecord::Base
 
   def instructor_accepted?
     LessonAction.where(action:"Accept", lesson_id: self.id).any?
+  end
+
+  def instructor_assigned?
+    return true unless instructor_id.nil?
   end
 
   def self.visible_to_instructor?(instructor)
