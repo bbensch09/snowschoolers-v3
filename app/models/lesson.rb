@@ -537,10 +537,44 @@ class Lesson < ActiveRecord::Base
     self.lesson_revenue - self.wages
   end
 
+#CLASS METHODS FOR TABLE TOTALS
+
+  def self.gross_revenue_total
+    total = 0
+    lessons.each do |lesson|
+      total += lesson.price
+    end
+    return total
+  end
+
+  def self.non_lesson_revenue_total
+    total = 0
+    lessons.each do |lesson|
+      total += lesson.non_lesson_revenue
+    end
+    return total
+  end
+
+  def self.lesson_revenue_total
+    total = 0
+    lessons.each do |lesson|
+      total += lesson.lesson_revenue
+    end
+    return total
+  end
+
   def self.payroll_total(lessons)
     total = 0
     lessons.each do |lesson|
       total += lesson.wages
+    end
+    return total
+  end
+
+  def self.gross_margin_total
+    total = 0
+    lessons.each do |lesson|
+      total += lesson.gross_margin
     end
     return total
   end
