@@ -45,7 +45,7 @@ class LessonsController < ApplicationController
   end
 
   def search_results
-    search_params = {email: params[:search], name: params[:name], date: params[:date], gear:params[:gear]}
+    search_params = {email: params[:search], name: params[:name], date: params[:date], gear:params[:gear], incomplete:params[:incomplete], instructor:params[:instructor]}
     puts "!!!!! the search_params are: #{search_params}"
     @lessons = Lesson.all
     if params[:date] != ""      
@@ -53,24 +53,35 @@ class LessonsController < ApplicationController
         @lessons = @lessons.to_a.keep_if{|lesson| lesson.date.to_s == params[:date]}  
         puts "found #{@lessons.count} mactching lessons"
     end
-    if params[:name] != ""
-        puts "!!!filter by name.  param is #{params['name']}"
-        @lessons = @lessons.to_a.keep_if{|lesson| lesson.name == params[:name]}  
+    if params[:location] != ""
+        puts "!!!filter by location.  param is #{params['location']}"
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.location.name.include?(params[:location])}  
+        puts "found #{@lessons.count} mactching lessons"
+    end 
+    if params[:instructor] != ""
+        puts "!!!filter by instructor.  param is #{params['instructor']}"
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.instructor && lesson.instructor.name.include?(params[:instructor])}  
         puts "found #{@lessons.count} mactching lessons"
     end 
     if params['email'] != ""
         puts "!!!filter by email. email param is #{params['email']}"
-        @lessons = @lessons.to_a.keep_if{|lesson| lesson.email == params[:email]}  
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.contact_email.include?(params[:email])}  
         # @lessons = Lesson.all.select{|lesson| lesson.email == 'brian@snowschoolers.com'}  
         puts "found #{@lessons.count} mactching lessons"
     end  
-    if params['gear'] == "on"
-        puts "!!!filtering for resrations with rentals."
-        @lessons = @lessons.to_a.keep_if{|lesson| lesson.gear == true}  
+    if params['gear'] != ""
+        puts "!!!filtering for reservations with rentals."
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.includes_rental_package?}  
         puts "found #{@lessons.count} mactching lessons"
     end  
-    puts "!!!! @lessons.count is #{@lessons.count}"
-    @lessons = @lessons.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.finalizing? || lesson.booked? || lesson.payment_complete? || lesson.ready_to_book? || lesson.waiting_for_review?}    
+      puts "!!!! @lessons.count is #{@lessons.count}"
+    unless params['incomplete'] != ""
+      @lessons = @lessons.to_a.keep_if{|lesson| lesson.booked? }    
+    end
+    respond_to do |format|
+      format.html {render 'search_results'}
+      format.csv { send_data @lessons.to_csv, filename: "private-lessons-export-#{Date.today}.csv" }
+    end
   end
 
   def payroll_prep
