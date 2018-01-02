@@ -36,7 +36,7 @@ class LessonsController < ApplicationController
 
   #WORK IN PROGRESS - Jan1
   def search
-    @lessons = Lesson.all.select{|lesson| lesson.booked? }
+    @lessons = Lesson.all.select{|lesson| lesson.booked? && lesson.this_season? }
     @lessons = @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
     respond_to do |format|
           format.html {render 'search_results'}
@@ -76,7 +76,7 @@ class LessonsController < ApplicationController
     end  
       puts "!!!! @lessons.count is #{@lessons.count}"
     unless params['incomplete'] != ""
-      @lessons = @lessons.to_a.keep_if{|lesson| lesson.booked? }    
+      @lessons = @lessons.to_a.keep_if{|lesson| lesson.booked? && lesson.this_season? }    
     end
     respond_to do |format|
       format.html {render 'search_results'}
