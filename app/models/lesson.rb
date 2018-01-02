@@ -530,7 +530,9 @@ class Lesson < ActiveRecord::Base
   end
 
   def lesson_revenue
-    self.price - self.non_lesson_revenue
+    if self.price.to_i 
+      return self.price - self.non_lesson_revenue
+    end
   end
 
   def gross_margin
