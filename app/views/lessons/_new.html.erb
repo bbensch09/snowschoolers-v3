@@ -77,7 +77,11 @@
             </div>
 
             <div class="col-md-2">
+              <% if current_user && current_user.user_type == "Snow Schoolers Employee" %>
+              <%= f.input :requested_location , as: :select, collection: Location.all.sort_by { |location| location.name.downcase} , selected: @promo_location, include_blank: 'Location', label: false %>
+                <% else %>
               <%= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase} , selected: @promo_location, include_blank: 'Location', label: false %>
+              <% end %>
               <!-- %= f.input :requested_location , as: :select, collection: [['North Tahoe',1],['South Lake Tahoe',2],['Southern CA',3],['Utah',4],['Colorado',5],['Wyoming',6],['Idaho',7],['New Mexico',8]], selected: @promo_location, include_blank: 'Location', label: false %> -->
             </div>
 
