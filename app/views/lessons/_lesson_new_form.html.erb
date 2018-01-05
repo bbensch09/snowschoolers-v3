@@ -35,7 +35,11 @@
             </div>
 
             <div class="col-md-3">
-              <%= f.collection_select :requested_location, Location.active_partners.sort_by { |location| location.name.downcase}, :id, :name, {prompt:'Location'}, {class:'form-control form-group', include_blank: 'Location', required: true, label: false} %>
+              <% if current_user && current_user.user_type == "Snow Schoolers Employee" %>
+              <%= f.input :requested_location , as: :select, collection: Location.all.sort_by { |location| location.name.downcase} , selected: @promo_location, include_blank: 'Location', label: false %>
+                <% else %>
+              <%= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase} , selected: @promo_location, include_blank: 'Location', label: false %>
+              <% end %>
             </div>
             <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
               <div class="col-md-2">
