@@ -1,4 +1,3 @@
-<div id="middle" class="container">
   <div class="teach-with-us-form-container">
 
 <!-- REGISTER -->
@@ -80,28 +79,28 @@
   </div>
     <% end %>
     <h4><b>Contact Info</b> </h4>
-    <div class="col-md-6 vertical-padding">
+    <div class="col-md-6 col-xs-12 vertical-padding">
       <%= f.text_field :first_name, placeholder: 'First name', class: 'form-control', required:true %>
     </div>
-    <div class="col-md-6 vertical-padding">
+    <div class="col-md-6 col-xs-12 vertical-padding">
       <%= f.text_field :last_name, placeholder: 'Last name', class: 'form-control', required:true %>
     </div>
   </div>
   <div class="">
-    <div class="col-md-6 vertical-padding">
+    <div class="col-md-6 col-xs-12 vertical-padding">
       <!-- %= f.text_field :username, value: current_user.email, class: 'form-control', required:true %> -->
       <%= f.text_field :username, placeholder: "email@example.com", class: 'form-control', required:true %>
     </div>
-    <div class="col-md-6 vertical-padding">
+    <div class="col-md-6 col-xs-12 vertical-padding">
       <%= f.text_field :phone_number, placeholder: 'Phone number', class: 'form-control' %>
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-6 col-xs-12">
   <h4> In what city are you based? </h4>
     <%= f.text_field :city, placeholder: 'i.e. Tahoe City, CA', class: 'form-control', required:true %>
     <br><br>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-6 col-xs-12">
   <h4> What sports do you teach? </h4>
   <%= f.collection_check_boxes :sport_ids, Sport.all, :id, :name do |sport| %>
       <div class="collection-check-box form-control">
@@ -137,7 +136,7 @@
     <br>
   </div>
   <h4><b>How</b> did you first hear about Snow Schoolers?</h4>
-  <div class="col-md-6">
+  <div class="col-md-6 col-xs-12">
     <%= f.select :how_did_you_hear, [['From a Friend',1],['Facebook',2],['Google',3],['From a Flyer',4],['Linkedin',5],['Other',100]], {}, {class: 'form-control', required:true, include_blank:false} %>
   </div>
   <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
@@ -157,5 +156,4 @@
 
 </div>
 <!-- /REGISTER -->
-</div>
 </div>
