@@ -1,0 +1,131 @@
+  <div id="lesson-flow-background">
+      <img src="https://s3.amazonaws.com/snowschoolers/images/demo/slider/thredbo-village-resort-hero.jpg" alt="" />
+  </div>
+
+<div id="middle" class="container">
+  <div class="white">
+
+    <header class="page-header">
+      <h1>Edit Leson Wages</h1>
+    </header>
+
+    <%  if ENV['HOST_DOMAIN'] == "localhost:3000" || current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.email == "bbensch@gmail.com") %>
+    <div id="autofill-container" class="admin-viewable">
+      <a href="#fill" id="autofill_complete_form" class="btn btn-primary">Autofill Form</a>
+    </div>
+    <% end %>
+
+    <%= semantic_form_for @lesson do |f| %>
+      <%= f.semantic_errors :instructor %>
+      <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
+    <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.email == "bbensch@gmail.com") %>
+        <div class="admin-viewable">
+          <div class="row">
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+                <div class="col-md-12">
+                  <label class="lesson-label">Package info</label>
+                  <%= f.input :package_info, as: :text, placeholder: "Includes one adult lift ticket for $64", label: false %>
+                </div>
+                <div class="col-md-6">
+                    <label class="lesson-label">Exclude from reporting (HTA, etc.)?</label>
+                  <%= f.select :focus_area, ['No, include as normal','Exclude'], {}, {class: 'form-control', required:false, include_blank:true} %>
+                </div>
+                <div class="col-md-6">
+                  <label class="lesson-label">Custom start time</label>
+                  <%= f.input :planned_start_time, as: :string, placeholder: "Start Time", input_html: { id: 'start-timepicker' }, class: "end-times", label: false, required: false %>
+                </div>
+            </div>
+            <div class="col-md-6">
+              <div class="col-md-6">
+                <label class="lesson-label">Direct Lesson Cost</label>
+                <%= f.input :lesson_cost, as: :string, placeholder: "Enter price", label: false %>
+              </div>
+              <div class="col-md-6">
+                <label class="lesson-label">Non-Lesson Cost</label>
+                <%= f.input :non_lesson_cost, as: :string, placeholder: "Enter price", label: false %>
+              </div>
+              <div class="col-md-6">
+                <label class="lesson-label">Reservation Price (charged to confirm reservation)</label>
+                <%= f.input :lesson_price, as: :string, placeholder: "Enter price", label: false %>
+              </div>
+              <div class="col-md-6">
+                <label class="lesson-label">Admin Adjustments (refunds, additional students, etc. to be charged after lesson)</label>
+                <%= f.input :admin_price_adjustment, as: :string, placeholder: "Enter price", label: false %>
+              </div>
+            </div>
+          </div>
+        </div>
+    <% end %>
+      <div class='row update-lesson-form'>
+        <div class="col-md-6">
+          <h4>Wage <strong>Info</strong></h4>
+
+          <div class='row'>
+
+            <div class="col-md-6">
+              <label>Hourly Bonus</label>
+              <%= f.select :hourly_bonus, [['$5/hr',5],['$10/hr',10]], {}, {class: 'form-control', required:true, include_blank:'Lesson Type'} %>
+            </div>
+
+            <div class="col-md-6">
+              <label>Bonsus Type</label>
+              <%= f.select :bonus_category, ['private request', 'weather (rain)', 'Kids Under 6'], {}, {class: 'form-control', required:true, include_blank:'Lesson Type'} %>
+            </div>
+
+          </div>
+          
+          <div class="row">
+              <div class="col-md-4">
+                <label>Payment Status</label>
+                <%= f.text_field :payment_status, value: @lesson.payment_status, class: "form-control", required: true, label: false %>
+              </div>
+              <div class="col-md-4">
+                <label>Payment Method</label>
+                <%= f.text_field :payment_method, value: @lesson.payment_method, class: "form-control", required: true, label: false %>
+              </div>
+              <div class="col-md-4">
+                <label>Payment Date</label>
+                <%= f.text_field :payment_date, value: @lesson.payment_date, class: "form-control", required: true, label: false %>
+              </div>
+            </div>
+
+          
+          <div class="col-md-9">
+            <h4>Update <strong> Update Lesson Wages</strong></h4>
+            <% button_text = "Update Lesson Wages" %>
+          </div>
+          <div class="col-md-3">
+            <%= f.input :state, as: :hidden, input_html: { value: @state } %>
+            <%= f.submit button_text, class: 'btn sign-up-btn btn-primary pull-right continue-to-payment-btn' %>
+          </div>
+
+        </div>
+      </div>
+
+      <hr class='lesson-break' />
+
+      <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+          <hr>
+
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+</div>
+
+<!-- SLIDER -->
+<!-- <img id="cycle-loader" src="https://s3.amazonaws.com/snowschoolers/images/spinner.gif" alt="loader" /> -->
+
+<!-- <div id="lesson-flow-background">
+      <img src="https://s3.amazonaws.com/snowschoolers/images/demo/slider/thredbo-village-resort-hero.jpg" alt="" />
+</div> -->
+
+<ul id="slider" class="mc-cycle" style="display: block; height: 100%; width: 100%;">
+    <div class="mc-image bg-photo" title="background photo" style="background-image: url('https://s3.amazonaws.com/snowschoolers/images/demo/slider/thredbo-village-resort-hero.jpg'); height: 100%; width: 100%;" data-href=""
+    </div>
+</ul>
