@@ -63,9 +63,9 @@ class LessonsController < ApplicationController
         @lessons = @lessons.to_a.keep_if{|lesson| lesson.instructor && lesson.instructor.name.include?(params[:instructor])}  
         puts "found #{@lessons.count} mactching lessons"
     end 
-    if params['email'] != ""
+    if params[:email] != ""
         puts "!!!filter by email. email param is #{params['email']}"
-        @lessons = @lessons.to_a.keep_if{|lesson| lesson.contact_email.include?(params[:email])}  
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.contact_email && lesson.contact_email.include?(params[:email])}  
         # @lessons = Lesson.all.select{|lesson| lesson.email == 'brian@snowschoolers.com'}  
         puts "found #{@lessons.count} mactching lessons"
     end  
