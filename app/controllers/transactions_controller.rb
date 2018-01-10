@@ -74,7 +74,7 @@ class TransactionsController < ApplicationController
       elsif @transaction.tip_amount == 0.0009
         tip_amount = 0
       else 
-        tip_amount = @transaction.tip_amount*@transaction.base_amount
+        tip_amount = @transaction.tip_amount * @transaction.base_amount
     end
     # tip_amount = @transaction.tip_amount.nil? ? 0 : @transaction.tip_amount*@transaction.base_amount
     @transaction.final_amount = @transaction.base_amount + tip_amount

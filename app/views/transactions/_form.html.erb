@@ -12,7 +12,7 @@
 </h3>
     <% if actual_length == booked_length && @lesson.admin_price_adjustment.nil? %>
       <h3 class="italic">No adjustments necessary</h3>
-      <%= f.input :base_amount, :input_html => {value: @lesson.lesson_price, class: 'hidden'}, label: false %>
+      <%= f.input :base_amount, :input_html => {value: @lesson.price, class: 'hidden'}, label: false %>
     <% else %>
       <!-- <h3>Lesson extended</h3> -->
       <%= f.input :base_amount, :input_html => {value: @lesson.adjusted_price, class: 'hidden'}, label: false %>
