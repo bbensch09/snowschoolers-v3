@@ -55,7 +55,9 @@
               <%= location.name %> <br>
           <% end %>
         </td> -->
-        <td> <%= instructor.user ? instructor.user.email : "N/A - must link to user" %> </td>
+        <td> <%= instructor.user ? instructor.user.email : "N/A - must link to user" %> <br>
+          Ph: <%= instructor.phone_number %>
+        </td>
         <% if instructor.status != "Active" %>
         <td><%= link_to 'Activate', verify_instructor_path(instructor), method: :post, class: 'btn btn-success' %></td>
           <% else %>
