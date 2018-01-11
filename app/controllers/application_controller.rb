@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   after_action :store_location
   before_action :set_admin_notifications
   before_action :set_promo_code_cookie_and_session
+  before_action :set_cookie_to_allow_gb_bookings
 
 def set_admin_notifications
   ApplicationHelper.email_status = session[:disable_email]
@@ -91,6 +92,18 @@ def set_promo_code_cookie_and_session
     }
     session[:promo_code] = params[:promo_code]
     puts"!!!! cookie has been set to: #{cookies[:promo_code]}."
+  end
+end
+
+def set_cookie_to_allow_gb_bookings
+  puts "!!! params for :allow are #{params[:granlibakken]}"
+  if params[:granlibakken]
+    cookies[:granlibakken] = {
+      value: params[:granlibakken],
+      expires: 1.year.from_now
+    }
+    session[:granlibakken] = params[:granlibakken]
+    puts"!!!! cookie has been set to: #{cookies[:granlibakken]}."
   end
 end
 

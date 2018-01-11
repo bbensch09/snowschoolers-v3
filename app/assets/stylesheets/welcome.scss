@@ -876,7 +876,8 @@ display: block;
   float: none;
 }
 .price-details h3{
-  font-size: 1em;
+  font-size: 1.3em;
+  font-style: italic;
   text-align: left;
   margin-bottom: 10px;
   margin-top: 10px;
@@ -1296,7 +1297,6 @@ section.pricing-new-lesson{
 }
 .strikethrough{
   text-decoration: line-through;
-  color: red;
 }
 #about{
   display: flex;
