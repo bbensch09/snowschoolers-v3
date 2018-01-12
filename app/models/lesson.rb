@@ -208,7 +208,8 @@ class Lesson < ActiveRecord::Base
           elsif self.slot == 'Full-day (10am-4pm)'
             product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson").first
           end
-          puts "!!!product found, its price is #{product.price}"
+          product.nil? ? product_comment = "No product found" : product_comment = "!!!product found, its price is #{product.price}"
+          puts product_comment
         end
     else
       product = Product.where(id:self.product_id).first
