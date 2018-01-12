@@ -242,6 +242,7 @@ class LessonsController < ApplicationController
 
   def edit_wages   
     @lesson_time = @lesson.lesson_time 
+    @state = @lesson.state
   end
 
   def reissue_invoice

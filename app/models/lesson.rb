@@ -250,15 +250,6 @@ class Lesson < ActiveRecord::Base
     return wages
   end
 
-  def payment_status
-  end
-
-  def payment_method
-  end
-
-  def payment_date
-  end
-
   def self.total_prime_days
     total = 0
     Instructor.active_instructors.each do |instructor|
@@ -519,7 +510,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def eligible_for_payroll?
-    eligible_states = ['finalizing','finalizing payment & reviews','Payment complete','waiting for review.','waiting for payment','Lesson Complete','confirmed']
+    eligible_states = ['finalizing','finalizing payment & reviews','Payment complete','waiting for review','waiting for payment','Lesson Complete','confirmed']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
     eligible_states.include?(state) && self.this_season?
   end
