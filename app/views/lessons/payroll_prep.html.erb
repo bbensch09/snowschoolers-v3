@@ -43,8 +43,12 @@
             <td class="lessons-table-cells lesson-date"><%= index+1 %></td>
             <td class="lessons-table-cells lesson-date"><%= lesson.start_time %></td>
             <td class="lessons-table-cells lesson-date"><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
-            <td class="lessons-table-cells lesson-type"><%= lesson.activity %></td>            
-            <td class="lessons-table-cells lesson-date"><%= link_to lesson.instructor ? lesson.instructor.name : "TBD", instructor_path(lesson.instructor.name.gsub(" ","-")) %></td>
+            <td class="lessons-table-cells lesson-type"><%= lesson.activity %></td>
+            <% if lesson.instructor %>            
+              <td class="lessons-table-cells lesson-date"><%= link_to lesson.instructor.name, instructor_path(lesson.instructor.name.gsub(" ","-")) %></td>
+            <% else %>
+              <td class="lessons-table-cells lesson-type">TBD</td>
+            <% end %>
             <% if lesson.product && lesson.custom_start_time? %>
               <td><%= link_to "#{lesson.package_info}", lesson, class: "" %></td>
               <% elsif  lesson.product %>

@@ -80,11 +80,11 @@
           <div class="row">
               <div class="col-md-4">
                 <label>Payment Status</label>
-                <%= f.select :payment_status, ["Paid","Not Yet Paid"], {}, {class: 'form-control', required:true, include_blank:'Status'} %>
+                <%= f.select :payment_status, ["Paid","Not Yet Paid"], {}, {class: 'form-control', required:false, include_blank:'Status'} %>
               </div>
               <div class="col-md-4">
                 <label>Payment Method</label>
-                <%= f.select :payment_method, ["Square Payroll","Venmo","Paypal","Cash"], {}, {class: 'form-control', required:true, include_blank:'Payment Method'} %>
+                <%= f.select :payment_method, ["Square Payroll","Venmo","Paypal","Cash"], {}, {class: 'form-control', required:false, include_blank:'Payment Method'} %>
               </div>
               <div class="col-md-4">
                 <label>Payment Date</label>
