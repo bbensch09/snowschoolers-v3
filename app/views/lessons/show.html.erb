@@ -29,11 +29,19 @@
             <li><p class="alert-danger">No instructors available!</p></li>
           <% end %>
           <li>Client phone number: <%= @lesson.phone_number %> </li>
+          <li>Lesson wages: <%= number_to_currency(@lesson.wages) %></li>
+          <% if @lesson.hourly_bonus %>
+          <ul>
+            <li>Bonus type: <%=@lesson.bonus_category %></li>
+            <li>Bonus rate: <%= number_to_currency(@lesson.hourly_bonus) %>/hr</li>            
+          </ul>
+          <% end %>
         </ul>     
         <% if @lesson.instructor %>  
           <%= link_to "Admin Confirm Instructor", admin_confirm_instructor_path, method: :put, class: "btn btn-default" %>
         <% end %>
         <%= link_to "Admin Confirm Deposit", admin_confirm_deposit_path, method: :put, class: "btn btn-default" %>
+        <%= link_to 'Edit Wages', edit_wages_path(@lesson), class: 'btn btn-warning' %>
         <%= link_to 'Edit Lesson', edit_lesson_path(@lesson), class: "btn btn-success" %> <span> </span>
         <%= link_to 'Edit Lesson & Reissue Deposit', reissue_invoice_path(@lesson), method: :put, class: "btn btn-warning" %><span> </span>
         <%= link_to 'Edit Lesson & Issue Refund', issue_refund_path(@lesson), method: :put, class: "btn btn-danger" %><span> </span>

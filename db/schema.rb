@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171229072521) do
+ActiveRecord::Schema.define(version: 20180109065419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -223,6 +223,9 @@ ActiveRecord::Schema.define(version: 20171229072521) do
     t.string   "payment_status"
     t.string   "payment_method"
     t.string   "payment_date"
+    t.integer  "hourly_bonus"
+    t.string   "bonus_category"
+    t.text     "additional_info"
   end
 
   create_table "locations", force: :cascade do |t|
