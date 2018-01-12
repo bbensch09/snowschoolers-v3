@@ -239,7 +239,11 @@ class Lesson < ActiveRecord::Base
 
   def wages
     instructor = self.instructor
-    bonus_wage = self.hourly_bonus ? self.hourly_bonus : 0
+    if self.hourly_bonus
+      bonus_wage = self.hourly_bonus
+      else
+      bonus_wage = 0
+    end
     if instructor && self.product
       wages = self.product.length.to_i * (instructor.wage_rate + bonus_wage)
     elsif self.product
