@@ -220,7 +220,7 @@
           <div class="col-md-12">
             <label class="lesson-label">Referral Code</label>
           <% pc_id = PromoCode.where(promo_code:session[:promo_code]).first.id %>
-            <%= f.select :promo_code_id, [["",nil],[session[:promo_code],pc_id]], {}, {class: 'form-control', required:false, include_blank:false} %>
+            <%= f.select :promo_code_id, [[session[:promo_code],pc_id],["",nil] ], {}, {class: 'form-control', required:false, include_blank:false} %>
           </div>
           <% end %>
           <div class="col-md-12 term-checkbox">

@@ -240,8 +240,8 @@ class LessonsController < ApplicationController
     @state = @lesson.instructor ? 'pending instructor' : @lesson.state
   end
 
-  def edit_wages    
-    puts "!!! set wages"
+  def edit_wages   
+    @lesson_time = @lesson.lesson_time 
   end
 
   def reissue_invoice
@@ -287,6 +287,9 @@ class LessonsController < ApplicationController
         puts "!!!!!About to save state & deposit status after processing lessons#update"
         @lesson.save
       GoogleAnalyticsApi.new.event('lesson-requests', 'deposit-submitted', params[:ga_client_id])
+      if @lesson.promo_code
+        LessonMailer.send_promo_redemption_notification(@lesson).deliver!
+      end
       LessonMailer.send_lesson_request_notification(@lesson).deliver!
       flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when your instructor confirmed your request. If you have any questions, please email support@snowschoolers.com.'
       flash[:conversion] = 'TRUE'

@@ -198,7 +198,7 @@ Rails.application.routes.draw do
   post 'lessons/:id/confirm_reservation'              => 'lessons#confirm_reservation', as: :confirm_reservation
   put 'lessons/:id/issue_refund'              => 'lessons#issue_refund', as: :issue_refund
   put 'lessons/:id/reissue_invoice'              => 'lessons#reissue_invoice', as: :reissue_invoice
-  get '/lessons/:id/edit_wages' => 'lessons#edit_wages'
+  get '/lessons/:id/edit_wages' => 'lessons#edit_wages', as: :edit_wages
 
 
 
