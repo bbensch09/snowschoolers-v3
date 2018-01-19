@@ -800,6 +800,11 @@ h2 {
 }
 #why-snowschoolers{
   padding-bottom: 30px;
+  display: block;
+  position: relative;
+  padding-top:50px;
+  padding-bottom: 45px;
+  background-color: #fff;  
 }
 .vertical-divider{
   display: flex;
@@ -1422,7 +1427,7 @@ h2.blog-cta{
     max-width: 95vw;
   }
   section.pricing-section{
-  min-height: 950px !important;
+  min-height: 1100px !important;
   display: block;
   position: relative;
   padding-top:50px;
@@ -1461,8 +1466,8 @@ h2.blog-cta{
       padding: 5px 5px 5px 5px;
   }
   #why-snowschoolers{
-    /*max-height: 300vh !important;*/
     padding-bottom: 30px;
+    min-height: 900px;
   }
   #private-group-comparison{
     clear:both;
