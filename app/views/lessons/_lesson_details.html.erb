@@ -27,7 +27,10 @@
   <% end %>
 
   <div class="details-info-box">
-    <% if @lesson.deposit_status == 'confirmed' %>
+    <% if @lesson.deposit_status == 'confirmed' && @lesson.waiver? %>
+    <p class="left">
+      You must complete a required release of liability waiver prior to the start of your lesson. Please find the waiver at <a href="https://www.smartwaiver.com/v/snowschoolers2018" class="navy-link">https://www.smartwaiver.com/v/snowschoolers2018</a>
+    </p>
     <p class="confirmation-number">
       Your reservation confirmation number is: <span style="font-weight: bold; font-size:18px;"><%=@lesson.confirmation_number%></span>. Please either print this page or save the confirmation email you should automaticaly receive, as you will need to show your confirmation number the morning of your lesson as proof of payment. Please also find your lesson reservation details below. 
     </p>

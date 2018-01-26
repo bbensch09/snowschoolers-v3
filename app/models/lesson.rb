@@ -404,6 +404,11 @@ class Lesson < ActiveRecord::Base
     return true if active_states.include?(state) && self.date > Date.today
   end
 
+  def waiver?
+    active_states = ['new','booked','confirmed','seeking replacement instructor','pending instructor', 'pending requester','ready_to_book']
+    return true if active_states.include?(state)
+  end
+
   def confirmable?
     confirmable_states = ['booked', 'pending instructor', 'pending requester','seeking replacement instructor']
     confirmable_states.include?(state) #&& self.available_instructors.any?
