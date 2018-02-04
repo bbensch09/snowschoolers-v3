@@ -2,6 +2,8 @@
 
 This application is currently under development. For questions or inquiries, please email brian@snowschoolers.com
 
+## Dev setup - please contact the owner to receive the local_secrets.yml file, as well as the two CSVs which are necessary for seeding the DB.
+
 ## Basic rails setup
 rails db:create
 rails db:migrate
