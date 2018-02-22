@@ -994,7 +994,7 @@ class Lesson < ActiveRecord::Base
   def self.booked_instructors(lesson_time)
     puts "checking for booked instructors on #{lesson_time.date} during the #{lesson_time.slot} slot"
     if lesson_time.slot == 'Full-day (10am-4pm)'
-      booked_lessons = Lesson.select{|lesson| lesson.date == lesson_time.date}
+      booked_lessons = Lesson.select{|lesson| lesson.date == lesson_time.date && lesson.lesson_time.slot != 'Early Bird (9-10am)'}
     else
       booked_lessons = Lesson.select{|lesson| lesson.date == lesson_time.date && lesson.lesson_time.slot == lesson_time.slot}
     end
