@@ -238,17 +238,61 @@ class Lesson < ActiveRecord::Base
     end
   end
 
+  def private_request?
+    unless self.bonus_category == 'private_request'
+      return false
+    end
+  end
+
+  def bad_weather?
+    unless self.bonus_category == 'weather'
+      return false
+    end
+  end
+
+  def kids_under_6?
+    bonus_boolean = false 
+    self.students.each do |student|
+      if student.age_range.to_i <= 6
+        bonus_boolean = true
+      end
+    end
+    return bonus_boolean
+  end
+
+  def bonus_rate
+    if self.private_request?
+      return 10
+    elsif self.bad_weather?
+      return 10
+    elsif self.kids_under_6?
+      return 5
+    else
+      return 0
+    end
+  end
+
+  def bonus_wages
+    if self.hourly_bonus
+      rate = self.hourly_bonus
+      else
+      rate = self.bonus_rate
+    end
+    if self.product
+      amount = self.product.length.to_i * rate
+    else
+      amount = 0
+    end
+    return amount
+  end
+
   def wages
     instructor = self.instructor
-    if self.hourly_bonus
-      bonus_wage = self.hourly_bonus
-      else
-      bonus_wage = 0
-    end
+    
     if instructor && self.product
-      wages = self.product.length.to_i * (instructor.wage_rate + bonus_wage)
+      wages = self.product.length.to_i * instructor.wage_rate
     elsif self.product
-      wages = self.product.length.to_i * (16 + bonus_wage)
+      wages = self.product.length.to_i * 16
     else
       wages = 0
     end
