@@ -2,7 +2,7 @@
 var dt = new Date();
 var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
 if (time > "16:00:00") {
-    var MIN_DATE = 1
+    var MIN_DATE = 2
   } else {
     var MIN_DATE = 1
   };
