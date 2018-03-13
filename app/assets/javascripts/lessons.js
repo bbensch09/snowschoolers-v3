@@ -44,7 +44,29 @@ var LESSON = {
 
   // setDatepicker: function() { LESSON._date.datepicker({ minDate: '2016-12-16', dateFormat: 'yy-mm-dd' }); },
 
-  setDatepicker: function() { LESSON._date.datepicker({ minDate: MIN_DATE, maxDate: '2018-04-15', dateFormat: 'yy-mm-dd' }); },    
+  // setDatepicker: function() { LESSON._date.datepicker({ minDate: MIN_DATE, maxDate: '2018-04-15', dateFormat: 'yy-mm-dd' }); },  
+
+  setDatepicker: function() { 
+  var blocked_dates_array = ['2018-03-13','2018-03-14','2018-03-15','2018-03-20','2018-03-21','2018-03-22','2018-03-27','2018-03-28','2018-03-29','2018-04-03','2018-04-04','2018-04-05','2018-04-10','2018-04-11','2018-04-12'];
+  LESSON._date.datepicker({
+    beforeShowDay: function(date){
+      var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+      return [ blocked_dates_array.indexOf(string) == -1 ]
+    },
+    minDate: MIN_DATE,
+    maxDate: '2018-04-08',
+    dateFormat: 'yy-mm-dd' 
+  });
+  LESSON._date2.datepicker({
+    beforeShowDay: function(date){
+      var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+      return [ blocked_dates_array.indexOf(string) == -1 ]
+    },
+    minDate: MIN_DATE,
+    maxDate: '2018-04-08',
+    dateFormat: 'yy-mm-dd' 
+    });
+  },  
 
   // var TODAYS_DATE = new Date().getDate();
   // var LAUNCH_DATE = new Date('2016','11','16').getDate();
