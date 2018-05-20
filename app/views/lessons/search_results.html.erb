@@ -78,17 +78,13 @@
             <td class="lessons-table-cells lesson-type"><%= number_to_currency(Lesson.gross_margin_total(@lessons)) %></td>            
 
       </tr>
-    <% @lessons.each_with_index do |lesson, index| %>
+      <% @lessons.each_with_index do |lesson, index| %>
           <tr>
             <td class="lessons-table-cells lesson-date"><%= index+1 %></td>
             <td class="lessons-table-cells lesson-date"><%= lesson.start_time %></td>
             <td class="lessons-table-cells lesson-date"><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
             <td class="lessons-table-cells lesson-type"><%= lesson.activity %></td>   
-            <% if lesson.product && lesson.custom_start_time? %>
-              <td><%= link_to "#{lesson.package_info}", lesson, class: "" %></td>
-              <% elsif  lesson.product %>
-              <td><%= link_to "#{lesson.product.name}", lesson, class: "" %></td>
-            <% end %>
+            <td><%= link_to "#{lesson.product.name}", lesson, class: "" %></td>
             <td class="lessons-table-cells lesson-date"><%= lesson.instructor_assigned? ? lesson.instructor.name : "TBD" %></td>
             <td class="lessons-table-cells lesson-date"><%= lesson.requester ? lesson.requester.email : lesson.guest_email %></td>
             <td class="lessons-table-cells"><%= lesson.state %></td>
@@ -100,7 +96,7 @@
             <td class="lessons-table-cells lesson-type"><%= link_to number_to_currency(lesson.wages), edit_wages_path(lesson), class: 'btn btn-xs' %></td>
             <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.gross_margin) %></td>            
           </tr>
-    <% end %>
+      <% end %>
   </tbody>
 </table>
 </div>
