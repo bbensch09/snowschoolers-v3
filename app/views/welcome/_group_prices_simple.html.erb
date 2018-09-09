@@ -1,0 +1,68 @@
+<!-- hack to remove GB if weather forces ski hill closure
+<% if Location.find(24).partner_status == 'Inactive' %>
+    <% granlibakken_class = '' %>
+  <% else %>
+    <% granlibakken_class = '' %>
+<% end %>
+-->
+ <section id="group_prices_simple" class="pricing-new-lesson">
+    <div class="pricing-container">
+          <% if (Product.where(location_id:8,length:"1.00",product_type:'private_lesson').first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson').first == nil) %>
+          <h3 class='text-danger center'> Pricing Not Yet Available </h3>
+          <% else %>
+        <table class="col-lg-12 col-xs-12 pricing-table">
+          <thead class="">
+            <tr>
+                <th class="center price-header" colspan="6">
+                    <h1 class="navy-text">2018/19 GROUP LESSON RATES</h1>
+                    <h3 class="center navy-text">Book Early and Save over 50% Compared to Other Resorts</h3>
+                </th>
+            </tr>
+            
+            <tr class="price-schools">
+              <th class="col-xs-2 text-warning center">*<%=Location.find(24).calendar_status %> pricing* </th>
+              <!-- <th class="col-xs-2 text-warning center">*January Sale Pricing Until Jan 24th* </th> -->
+              <th class="pricing-snowschoolers col-xs-2">Granlibakken** <br> <span class="">(Lesson-only)</span> </th>
+              <th class="pricing-snowschoolers col-xs-2 <%=granlibakken_class %>">Granlibakken** <br> <span class="">(Lift + Rentals)</span> </th>
+              <th class="hidden-unless-desktop pricing-competitors-names">Northstar </th>
+              <th class="hidden-unless-desktop pricing-competitors-names">Squaw Valley</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+                <td class="grey-side-borders pricing-length pricing-grey-background">Early-bird <br>(8:45am-9:45am)</td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background ">
+                 <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
+                </td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background <%=granlibakken_class %>">
+                  <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>                    
+                </td>
+                <td class="hidden-unless-desktop grey-side-borders pricing-competitors pricing-grey-background">N/A</td>
+                <td class="hidden-unless-desktop grey-side-borders pricing-competitors pricing-grey-background">N/A</td>
+            </tr>
+            <tr>
+                <td class="grey-side-borders pricing-length">2hr Group Lesson (10am-12pm; 1-3pm)</td>
+                <td class="grey-side-borders pricing-snowschoolers ">
+                  <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %> 
+                </td>
+                <td class="grey-side-borders pricing-snowschoolers <%=granlibakken_class %>">
+                  <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>                    
+                </td>
+                <td class="hidden-unless-desktop pricing-competitors">$225</td>
+                <td class="hidden-unless-desktop pricing-competitors">$199</td>
+            </tr>
+          </tbody>
+          <% end %>
+        </table>
+        <div class="row col-md-12 price-details">
+            <h4 class='left'>
+                <a href=#full-pricing class="green-link">Click here</a> to review the full pricing calendar for holidays.
+            </h4>
+            <h4 class="left alert-warning">ATTENTION: Group lessons at Granlibakken are <b> ONLY </b> available Friday, Saturday, Sunday, and Monday, and holidays. If you are interested in group lessons midweek, please shoot us a quick email at <a href="mailto:info@snowschoolers.com" class="green-link">info@snowschoolers.com</a>, and we'll be happy to confirm availability and assist you with your reservation.
+            <h4 class="left alert-warning hidden">ATTENTION: Due to unfavorable snow conditions, Granlibakken Ski Hill is temporarily closed, and so all lessons are currently taking place at Homewood. We expect Granlibakken to re-open on January 19th. If you would like to reserve a lesson at Granlibakken for the 19th or after, <a href=<%= root_path+"?granlibakken=true#book-a-lesson" %> class="green-link">please first click here to reload this page</a> and then proceed with your reservation.
+                <br><br>
+                If you have questions about the latest conditions forecast or if you need assistance rescheduling a previously booked lesson, please email us at <a href="mailto:info@snowschoolers.com" class="green-link">info@snowschoolers.com</a> or call us directly at <a href="tel:5304307669" class="green-link">530-430-SNOW</a>.</h4>            
+        </div>
+    </div>
+</section>

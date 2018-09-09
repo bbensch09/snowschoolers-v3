@@ -175,9 +175,30 @@ Rails.application.routes.draw do
 
 
 
-  resources :sections
+  resources :sections do
+    member do
+      post :duplicate
+      delete :remove
+      delete :destroy
+    end
+  end
+  
+  # group lesson routes
+  get 'lessons-availability' => 'sections#available_lessons', as: :available_lessons
+  post 'sections/generate_all_sections' => 'sections#generate_all_sections', as: :generate_all_sections
+  post 'sections/generate_new_sections' => 'sections#generate_new_sections', as: :generate_new_sections
+  post 'sections/delete_all_sections_and_lessons' => 'sections#delete_all_sections_and_lessons', as: :delete_all_sections_and_lessons
+  post 'sections/:id/duplicate_ski_section' => 'sections#duplicate_ski_section', as: :duplicate_ski_section
+  post 'sections/:id/duplicate_snowboard_section' => 'sections#duplicate_snowboard_section', as: :duplicate_snowboard_section
+  post 'seed_lessons_with_students' => 'sections#fill_sections_with_lessons', as: :seed_lessons_with_students
+  post 'delete_all_lessons' => 'sections#delete_all_lessons', as: :delete_all_lessons
+  get 'filtered-group-schedule-results' => 'lessons#filtered_group_schedule_results', as: :filtered_group_schedule_results
+  get 'filtered-group-lesson-reservations' => 'lessons#filtered_group_lesson_reservations', as: :filtered_group_lesson_reservations
+
+
   resources :lessons
   # get 'new_request' => 'lessons#new_request'
+  get 'group_lessons' => 'lessons#group_index'
   get 'new_request/:id' => 'lessons#new_request'
   put   'lessons/:id/set_instructor'      => 'lessons#set_instructor',      as: :set_instructor
   put   'lessons/:id/admin_confirm_instructor'      => 'lessons#admin_confirm_instructor',      as: :admin_confirm_instructor

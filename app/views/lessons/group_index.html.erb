@@ -1,0 +1,68 @@
+<div class="container white-bg">
+<!--
+<h3> Current User ID: <%= current_user.id %> </h3>
+<h3> Current User.email: <%= current_user.email %> </h3>
+ -->
+<% if current_user && (current_user.user_type == "Granlibakken Employee" || current_user.user_type == "Ski Area Partner" || current_user.email == "brian@snowschoolers.com") %>
+<div class="admin-viewable">
+ <div id="admin-testing" class="row vertical-padding container admin-viewable">
+  <h4>Setup test sections & lessons</h4>
+    <%= link_to 'Fill first 50 lessons with sample students', seed_lessons_with_students_path, method: :post, class: "btn btn-success" %>
+    <%= link_to 'Clear sample lessons', delete_all_lessons_path, method: :post, class: "btn btn-warning" %>
+    <%= link_to 'Delete all sections & lessons', delete_all_sections_and_lessons_path, method: :post, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+    <%= link_to 'Generate sections for all dates', generate_all_sections_path, method: :post, class: "btn btn-success" %>
+</div>
+<h4>
+</h4>
+<% end %>
+<div class="col-md-6">
+  <h3>Generate new sections for a specific date</h3>
+  <%= semantic_form_for(@new_date, url: generate_new_sections_path) do |f| %>
+     <%= f.input :date, as: :string, input_html: { id: 'datepicker', class:'navy-text form-control search-form' }, placeholder: 'Date', required: true, label: false %>    
+      <%= f.action :submit, :as => :input, :button_html => {class:'btn btn-success'}, label:"CREATE SECTIONS" %>
+  <% end %>
+</div>
+</div>
+
+
+<h3 class="center">Filter Lesson Schedule for a Specific Date</h3>
+  <div id="search-widget" class="center">
+    <%= form_tag(filtered_group_schedule_results_path, :method => "get") do %>
+    <%= text_field_tag :date, params[:date], placeholder: "Select a date", id:"datepicker2", class:'navy-text form-control search-form' %>
+    <%= submit_tag "Filter by Date", class:"btn btn-primary btn-lg page-scroll" %>
+    <%= link_to 'Search by customer', lessons_admin_index_path, method: :get, class: "btn btn-primary btn-lg" %>
+    <% end %>
+</div>
+
+
+<div id="upcoming-lessons" class="">
+
+<% if @days.count == 0 %>
+<h1 class="center warning">Please search again. <a href='/lessons' class='btn btn-lg btn-default'>SEE ALL DATES</a></h1>
+<% end %>
+
+<% @days.each do |day| %>
+
+
+<h1 class="center clear-both"><b>---Lessons for <%= day.date.strftime("%A %b %e, %Y") %>---</b></h1>
+
+  <div class="col-md-6 ski-sections">
+    <h2 class="center bold">Ski Lessons</h2>
+    <% Section.where(date:day.date,sport_id:1).sort{ |a,b| b.slot <=> a.slot }.each do |section| %>
+      <%= render partial: 'lessons/daily_schedule', locals: {section: section} %>
+    <% end %>
+  </div>
+  <div class="col-md-6 snowboard-sections">
+    <h2 class="center bold">Snowboard Lessons</h2>
+    <% Section.where(date:day.date,sport_id:2).sort{ |a,b| a.slot <=> b.slot }.each do |section| %>
+      <%= render partial: 'lessons/daily_schedule', locals: {section: section} %>
+    <% end %>
+  </div>
+
+<% end %>
+
+<div class="buffer"></div>
+
+</div>
+
+</div>

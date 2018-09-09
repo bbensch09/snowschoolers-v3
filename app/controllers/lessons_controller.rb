@@ -130,6 +130,77 @@ class LessonsController < ApplicationController
     end
   end
 
+  def group_index
+    if current_user && (current_user.user_type == 'Ski Area Partner' || current_user.email == 'brian@snowschoolers.com')
+      all_days = Section.select(:date).distinct.sort{|a,b| a.date <=> b.date}
+      @days = all_days.keep_if{|a| a.date >= Date.today}
+      @days = @days.first(30)
+      @new_date = Section.new
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable?}
+      # @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
+      if session[:notice]
+        flash.now[:notice] = session[:notice]
+      end
+    elsif current_user
+        @lessons = Lesson.where(requester_id:current_user.id)
+        if @lessons.count > 0
+          @new_date = Section.new
+          days =[]
+          @lessons.each do |lesson|
+            days << Section.select(:date).where(date:lesson.lesson_time.date).first
+          end
+          @days = days
+          render 'index'
+        else
+          redirect_to root_path
+          flash[:notice] = "You do not have permission to view that page."
+        end
+    end
+  end
+
+  def filtered_group_lesson_reservations
+    search_params = {email: params[:search], name: params[:name], date: params[:date], gear:params[:gear]}
+    puts "!!!!! the search_params are: #{search_params}"
+    @lessons = Lesson.all
+    if params[:date] != ""      
+        puts "!!!filter by date.  param is #{params['date']}"
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.date.to_s == params[:date]}  
+        puts "found #{@lessons.count} mactching lessons"
+    end
+    if params[:name] != ""
+        puts "!!!filter by name.  param is #{params['name']}"
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.name == params[:name]}  
+        puts "found #{@lessons.count} mactching lessons"
+    end 
+    if params['email'] != ""
+        puts "!!!filter by email. email param is #{params['email']}"
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.email == params[:email]}  
+        # @lessons = Lesson.all.select{|lesson| lesson.email == 'brian@snowschoolers.com'}  
+        puts "found #{@lessons.count} mactching lessons"
+    end  
+    if params['gear'] == "on"
+        puts "!!!filtering for resrations with rentals."
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.gear == true}  
+        puts "found #{@lessons.count} mactching lessons"
+    end  
+    puts "!!!! @lessons.count is #{@lessons.count}"
+    @lessons = @lessons.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.finalizing? || lesson.booked? || lesson.payment_complete? || lesson.ready_to_book? || lesson.waiting_for_review?}
+    render 'admin_index'
+  end
+
+  def filtered_group_schedule_results
+      date = params[:date]
+      puts "!!! filtere date: #{date}"
+      all_days = Section.select(:date).distinct
+      @days = all_days.to_a.keep_if{|a| a.date.to_s == params[:date]}
+      puts "!!!filter by date.  param is #{params['date']}"
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date.to_s == params[:date]}       
+        puts "found #{@lessons.count} mactching lessons"
+      @new_date = Section.new
+      render 'index'
+  end
+
+
   def send_reminder_sms_to_instructor
     if @lesson.instructor.nil?
       puts "!!!instructor = nil"
@@ -619,7 +690,7 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id, :guest_email, :how_did_you_hear, :num_days, :lesson_price, :requester_name, :is_gift_voucher, :includes_lift_or_rental_package, :package_info, :gift_recipient_email, :gift_recipient_name, :lesson_cost, :non_lesson_cost, :product_id, :section_id, :product_name, :admin_price_adjustment, :promo_code_id, :planned_start_time, :payment_status, :payment_method, :payment_date, :hourly_bonus, :bonus_category, :additional_info, 
+    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id, :guest_email, :how_did_you_hear, :num_days, :lesson_price, :requester_name, :is_gift_voucher, :includes_lift_or_rental_package, :package_info, :gift_recipient_email, :gift_recipient_name, :lesson_cost, :non_lesson_cost, :product_id, :section_id, :product_name, :admin_price_adjustment, :promo_code_id, :planned_start_time, :payment_status, :payment_method, :payment_date, :hourly_bonus, :bonus_category, :additional_info, :class_type,
       students_attributes: [:id, :name, :age_range, :gender, :relationship_to_requester, :lesson_history, :requester_id, :most_recent_experience, :most_recent_level, :other_sports_experience, :experience, :_destroy, :needs_rental], lesson_time_attributes: [:date, :slot])
   end
 

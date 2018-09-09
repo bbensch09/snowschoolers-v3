@@ -3,7 +3,7 @@
 
       <div class="new-lesson-pricing-container">
 
-        <%= render partial: "welcome/prices_simple" %>
+        <%= render partial: "welcome/group_prices_simple" %>
       </div>
 
       <hr class="deposit-hr-navy hidden-unless-mobile">
@@ -20,7 +20,7 @@
       <div class="new-lesson-caption">
 
         <div class="block">
-          <h3 class="center mobile-book-cta">BOOK A PRIVATE LESSON</h3>
+          <h3 class="center mobile-book-cta">BOOK A GROUP LESSON AT GRANLIBAKKEN</h3>
         </div>
 
         <div class="block">
@@ -34,12 +34,8 @@
               <%= f.input :activity, as: :select, collection: ['Ski', 'Snowboard'], selected:@activity, include_blank: 'Lesson Type', label: false %>
             </div>
 
-            <div class="col-md-3">
-              <% if current_user && current_user.user_type == "Snow Schoolers Employee" || session[:granlibakken] == 'true' %>
-              <%= f.input :requested_location , as: :select, collection: Location.where("id=? OR id =?",8,24).sort_by { |location| location.name.downcase} , selected: @promo_location, include_blank: 'Location', label: false %>
-                <% else %>
-              <%= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase} , selected: @promo_location, include_blank: 'Location', label: false %>
-              <% end %>
+            <div class="col-md-2">
+              <%= f.input :requested_location , as: :string, placeholder: "Granlibakken", label: false %>
             </div>
             <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
               <div class="col-md-2">
@@ -48,7 +44,7 @@
               </div>
 
               <div class="col-md-3 time-slot-input">
-                <%= lt_f.input :slot, as: :select, collection: ['Early Bird (9-10am)', 'Half-day Morning (10am-1pm)', 'Half-day Afternoon (1pm-4pm)', 'Full-day (10am-4pm)'], selected: @slot, include_blank: 'Time', label: false %>
+                <%= lt_f.input :slot, as: :select, collection: GROUP_SLOTS, selected: @slot, include_blank: 'Time', label: false %>
               </div>
               <% if current_user.nil? %>
               <div class="col-md-2 guest-email-input">
@@ -60,7 +56,8 @@
         </div>
 
         <%= f.input :state, as: :hidden, input_html: { value: 'new' } %>
-        <%= f.input :class_type, as: :hidden, input_html: { value: 'private' } %>
+        <%= f.input :requested_location, as: :hidden, input_html: { value: 24 } %>
+        <%= f.input :class_type, as: :hidden, input_html: { value: 'group' } %>
         <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
     <div id="get-started-form-button" class="row clear-both">
         <h1 class="new-lesson-ctas-list center">

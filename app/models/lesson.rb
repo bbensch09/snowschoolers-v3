@@ -25,8 +25,13 @@ class Lesson < ActiveRecord::Base
 
   #Check to ensure an instructor is available before booking
   validate :instructors_must_be_available, on: :create
+  validate :add_group_lesson_to_section, on: :create
   after_save :send_lesson_request_to_instructors
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
+
+  def group_lesson?
+    self.class_type == 'group'
+  end
 
   def email_notifications_status
     email_status ? email_status : 'default (enabled)'
@@ -79,7 +84,7 @@ class Lesson < ActiveRecord::Base
   def self.seed_lessons(date,number)    
     LessonTime.create!({
         date: date,
-        slot: ['Early Bird (9-10am)', 'Half-day Morning (10am-1pm)', 'Half-day Afternoon (1pm-4pm)','Full-day (10am-4pm)', 'Mountain Rangers All-day', 'Snow Rangers All-day'].sample
+        slot: PRIVATE_SLOTS.sample
         })
     number.times do 
       puts "!!! - first creating new student user"
@@ -154,13 +159,13 @@ class Lesson < ActiveRecord::Base
 
   def length
     case self.lesson_time.slot
-      when SLOTS.first
+      when PRIVATE_SLOTS.first
         return "1.00"
-      when SLOTS.second
+      when PRIVATE_SLOTS.second
         return "3.00"
-      when SLOTS.third
+      when PRIVATE_SLOTS.third
         return "3.00"
-      when SLOTS.fourth
+      when PRIVATE_SLOTS.fourth
         return "6.00"
       end
   end
@@ -168,17 +173,17 @@ class Lesson < ActiveRecord::Base
   def product
     if self.product_id.nil?
         if self.product_name
-          # puts "!!!calculating price based on product name, location, and date"
+          # puts "!!!calculating price based on product length, location, and calendar_period"
           calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
-          # puts "!!!!lookup calendar period status, it is: #{calendar_period}"
+          puts "!!!!lookup calendar period status, it is: #{calendar_period}"
           #pricing for GB lesson package
-          if self.slot == 'Early Bird (9-10am)' && self.location.id == 24 && self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,name:'1hr Private Lesson Package',product_type:"private_lesson").first
+          if self.slot == PRIVATE_SLOTS.first && self.location.id == 24 && self.includes_rental_package?
+            product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson").first
           #pricing for GB lesson only
-          elsif self.slot == 'Early Bird (9-10am)' && self.location.id == 24 && !self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,name:'1hr Private Lesson (lesson + lift only)',product_type:"private_lesson").first
+          elsif self.slot == PRIVATE_SLOTS.first && self.location.id == 24 && !self.includes_rental_package?
+            product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson").first
           #pricing for HW lesson
-          elsif self.slot == 'Early Bird (9-10am)'
+          elsif self.slot == PRIVATE_SLOTS.first
             product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson").first
           #pricing for GB half-day package
           elsif self.slot.starts_with?('Half-day Morning') && self.location.id == 24 && self.includes_rental_package?
@@ -902,6 +907,92 @@ class Lesson < ActiveRecord::Base
     end
   end
 
+  def sport_id
+    if self.activity == "Ski"
+      Sport.where(name:"Ski Instructor").first.id
+    else
+      Sport.where(name:"Snowboard Instructor").first.id
+    end
+  end
+
+  def available_sections
+    sections = Section.where(sport_id:self.sport_id,date:self.lesson_time.date,slot:self.lesson_time.slot)
+    sections = sections.select{|section| section.has_capacity?}
+  end
+
+  def add_group_lesson_to_section
+    return true if self.section_id && self.sport_id == self.section.sport_id && self.date == self.section.date
+    existing_sections = self.available_sections
+      if self.available_sections.count == 0
+      puts "!!!!!!!! The requested time slot is full!!!!!"
+      self.state = 'This section is unfortunately full, please choose another time slot.'
+      errors.add(:lesson, "There is unfortunately no more room in this lesson, please review the available times below and choose another slot.")
+      return false
+      end
+      puts "!!!!section available is #{available_sections.first }"
+      self.section_id = available_sections.first.id
+      self.state = "new"
+  end
+
+  def confirm_section_valid
+    if self.section.nil?
+      if self.available_sections.count == 0
+          errors.add(:lesson, "There is unfortunately no more room in this lesson, please review the available times below and choose another slot.")
+          return false
+      end
+      self.section_id = self.available_sections.first.id
+      self.save
+    elsif self.section.remaining_capacity <= 0
+      puts "!!!!warning, at capcity"
+    else self.section.remaining_capacity >= 1
+      return true
+    end
+  end
+
+  def confirm_valid_email
+    if self.guest_email
+      puts "!!! user guest emails is: #{self.guest_email.downcase}"
+      if self.requester_id
+        return true
+      elsif User.find_by_email(self.guest_email.downcase)
+          self.requester_id = User.find_by_email(self.guest_email.downcase).id
+          puts "!!!! user is checking out as guest; found matching email from previous entry"
+          return true
+      elsif self.guest_email.include?("@")
+          User.create!({
+          email: self.guest_email,
+          password: 'sstemp2017',
+          user_type: "Student",
+          name: "#{self.guest_email}"
+          })
+         self.requester_id = User.last.id
+         return true
+         puts "!!!! user is checking out as guest; create a temp email for them that must be confirmed"
+       else
+        errors.add(:lesson, "Please enter a valid email, or sign-into your account.")
+        return false
+      end
+    end
+  end
+
+  def self.assign_all_instructors_to_sections
+    unassigned_sections = Section.all.select{|section| section.instructor_id.nil?}
+    unassigned_sections.each do |section|
+      section.instructor_id = section.available_instructors.first.id
+      section.save!
+    end
+    unassigned_lessons = Lesson.where(instructor_id:nil)
+    puts "!!!!!!!!! there are #{unassigned_lessons.count} unassigned lessons"
+    unassigned_lessons.each do |lesson|
+      if lesson.section.nil?
+        lesson.section_id = lesson.available_sections.first ? lesson.available_sections.first.id : Section.first.id
+        lesson.instructor_id = lesson.section.instructor_id
+        lesson.save
+      end
+    end
+  end
+  
+
   def available_instructors
     if self.instructor_id
         if  Lesson.instructors_with_calendar_blocks(self.lesson_time).include?(self.instructor)
@@ -1038,7 +1129,7 @@ class Lesson < ActiveRecord::Base
   def self.booked_instructors(lesson_time)
     puts "checking for booked instructors on #{lesson_time.date} during the #{lesson_time.slot} slot"
     if lesson_time.slot == 'Full-day (10am-4pm)'
-      booked_lessons = Lesson.select{|lesson| lesson.date == lesson_time.date && lesson.lesson_time.slot != 'Early Bird (9-10am)'}
+      booked_lessons = Lesson.select{|lesson| lesson.date == lesson_time.date && lesson.lesson_time.slot != PRIVATE_SLOTS.first}
     else
       booked_lessons = Lesson.select{|lesson| lesson.date == lesson_time.date && lesson.lesson_time.slot == lesson_time.slot}
     end
@@ -1271,7 +1362,11 @@ class Lesson < ActiveRecord::Base
   private
 
   def instructors_must_be_available
-    unless available_instructors?
+    puts "!!! checking if group class type"
+    if group_lesson?
+      return true
+    end
+    unless available_instructors? 
       errors.add(:lesson, "Error: unfortunately we are sold out of private instructors at that time. Please choose another time slot, or email info@snowschoolers.com to be notified if we have any instructors that become available.")
       notify_admin_pending_supply_constraint(self.date)
       return false
