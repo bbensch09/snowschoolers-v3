@@ -1,0 +1,70 @@
+<div class="slot-roster">
+<div class="slot-instructor">
+  <h4>Slot: <%= section.slot %> on <%= section.date.strftime("%b #{section.date.day.ordinalize}") %></h4>  
+
+  Instructor: 
+   <% if section.instructor %>
+   <%= section.instructor.name %>
+   <%= image_tag(section.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %>
+   <%= link_to 'Re-assign', edit_section_path(section), class: 'btn btn-sm btn-warning' %>
+   <% else %>
+   TBD
+   <%= link_to 'Assign', edit_section_path(section), class: 'btn btn-sm btn-success' %>
+   <em> (spots remaining: <%= section.remaining_capacity %>)</em>
+   <% end %>
+</div>
+<!-- <h3><%= section.id %></h3> -->
+<table class="instructors-table">
+
+  <%= render partial: "lessons/lessons_column_headers" %>
+
+  <% if Lesson.where(section_id:section.id).count == 0 %>
+
+  <tbody>
+    <tr> <td colspan="6">[Available to book]</td></tr>
+    <tr> <td colspan="6">[Available to book]</td></tr>
+  </tbody>
+
+  <% else %> 
+
+  <% Lesson.where(section_id:section.id).each do |lesson| %>
+
+  <% lesson.students. each do |student| %>
+
+  <tbody>
+    <tr>         
+      <!-- <td><%= student.lesson.requester ? student.lesson.requester.name : student.lesson.guest_email %></td> -->
+      <td><%= student.name %></td>
+      <td><%= student.age_range %></td>
+      <!-- <td><%= student.most_recent_level %></td> -->
+      <% if lesson.requester %>
+      <!-- <td class="lessons-table-cells lesson-student"><%= lesson.requester.email %></td> -->
+      <% else %>
+      <!-- <td class="lessons-table-cells lesson-student"><%= lesson.guest_email %></td> -->
+      <% end %>            <!-- <td><%= lesson.location.name %></td> -->
+      <td><a href="tel:<%= student.lesson.phone_number %>" class="btn btn-phone"><%= student.lesson.phone_number %></td>
+      <td><%= lesson.state %></td>
+      <!-- <td><%= number_to_currency(lesson.visible_lesson_cost) %></td> -->
+      <!-- <td></td> -->
+      <!-- <td></td> -->
+      <!-- <td><%= link_to 'Edit', edit_lesson_path(lesson), class: "btn btn-sm btn-warning" %></td> -->
+      <td><%= link_to 'Review', lesson, class: "btn btn-sm btn-default" %></td>
+      <td><%= link_to 'Cancel', lesson, method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-sm btn-danger" %></td>
+    </tr>
+  </tbody>
+
+  <%end%>
+
+  <%end%>
+  
+  <%end%>
+
+</table>
+      <% if section.sport_id == 1 %>
+      <%= link_to 'Create new ski section for this date & time', duplicate_ski_section_path(section.id), method: :post, class: "btn btn-default" %>
+      <% elsif section.sport_id == 2%>
+      <%= link_to 'Create new snowboard section for this date & time', duplicate_snowboard_section_path(section.id), method: :post, class: "btn btn-default" %>
+      <% end %>
+      <%= link_to 'Remove this section', remove_section_path(section), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+  <!-- <hr class="hr-full"> -->
+</div>

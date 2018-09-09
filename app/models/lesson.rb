@@ -25,6 +25,7 @@ class Lesson < ActiveRecord::Base
 
   #Check to ensure an instructor is available before booking
   validate :instructors_must_be_available, on: :create
+  validate :add_group_lesson_to_section, on: :create
   after_save :send_lesson_request_to_instructors
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
 
@@ -901,6 +902,92 @@ class Lesson < ActiveRecord::Base
       return "snowboarder"
     end
   end
+
+  def sport_id
+    if self.activity == "Ski"
+      Sport.where(name:"Ski Instructor").first.id
+    else
+      Sport.where(name:"Snowboard Instructor").first.id
+    end
+  end
+
+  def available_sections
+    sections = Section.where(sport_id:self.sport_id,date:self.lesson_time.date,slot:self.lesson_time.slot)
+    sections = sections.select{|section| section.has_capacity?}
+  end
+
+  def add_group_lesson_to_section
+    return true if self.section_id && self.sport_id == self.section.sport_id && self.date == self.section.date
+    existing_sections = self.available_sections
+      if self.available_sections.count == 0
+      puts "!!!!!!!! The requested time slot is full!!!!!"
+      self.state = 'This section is unfortunately full, please choose another time slot.'
+      errors.add(:lesson, "There is unfortunately no more room in this lesson, please review the available times below and choose another slot.")
+      return false
+      end
+      puts "!!!!section available is #{available_sections.first }"
+      self.section_id = available_sections.first.id
+      self.state = "new"
+  end
+
+  def confirm_section_valid
+    if self.section.nil?
+      if self.available_sections.count == 0
+          errors.add(:lesson, "There is unfortunately no more room in this lesson, please review the available times below and choose another slot.")
+          return false
+      end
+      self.section_id = self.available_sections.first.id
+      self.save
+    elsif self.section.remaining_capacity <= 0
+      puts "!!!!warning, at capcity"
+    else self.section.remaining_capacity >= 1
+      return true
+    end
+  end
+
+  def confirm_valid_email
+    if self.guest_email
+      puts "!!! user guest emails is: #{self.guest_email.downcase}"
+      if self.requester_id
+        return true
+      elsif User.find_by_email(self.guest_email.downcase)
+          self.requester_id = User.find_by_email(self.guest_email.downcase).id
+          puts "!!!! user is checking out as guest; found matching email from previous entry"
+          return true
+      elsif self.guest_email.include?("@")
+          User.create!({
+          email: self.guest_email,
+          password: 'sstemp2017',
+          user_type: "Student",
+          name: "#{self.guest_email}"
+          })
+         self.requester_id = User.last.id
+         return true
+         puts "!!!! user is checking out as guest; create a temp email for them that must be confirmed"
+       else
+        errors.add(:lesson, "Please enter a valid email, or sign-into your account.")
+        return false
+      end
+    end
+  end
+
+  def self.assign_all_instructors_to_sections
+    unassigned_sections = Section.all.select{|section| section.instructor_id.nil?}
+    unassigned_sections.each do |section|
+      section.instructor_id = section.available_instructors.first.id
+      section.save!
+    end
+    unassigned_lessons = Lesson.where(instructor_id:nil)
+    puts "!!!!!!!!! there are #{unassigned_lessons.count} unassigned lessons"
+    unassigned_lessons.each do |lesson|
+      if lesson.section.nil?
+        lesson.section_id = lesson.available_sections.first ? lesson.available_sections.first.id : Section.first.id
+        lesson.instructor_id = lesson.section.instructor_id
+        lesson.save
+      end
+    end
+  end
+  
 
   def available_instructors
     if self.instructor_id
