@@ -84,7 +84,7 @@ class Lesson < ActiveRecord::Base
   def self.seed_lessons(date,number)    
     LessonTime.create!({
         date: date,
-        slot: ['Early Bird (9-10am)', 'Half-day Morning (10am-1pm)', 'Half-day Afternoon (1pm-4pm)','Full-day (10am-4pm)', 'Mountain Rangers All-day', 'Snow Rangers All-day'].sample
+        slot: PRIVATE_SLOTS.sample
         })
     number.times do 
       puts "!!! - first creating new student user"
@@ -173,17 +173,17 @@ class Lesson < ActiveRecord::Base
   def product
     if self.product_id.nil?
         if self.product_name
-          # puts "!!!calculating price based on product name, location, and date"
+          # puts "!!!calculating price based on product length, location, and calendar_period"
           calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
-          # puts "!!!!lookup calendar period status, it is: #{calendar_period}"
+          puts "!!!!lookup calendar period status, it is: #{calendar_period}"
           #pricing for GB lesson package
-          if self.slot == 'Early Bird (9-10am)' && self.location.id == 24 && self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,name:'1hr Private Lesson Package',product_type:"private_lesson").first
+          if self.slot == PRIVATE_SLOTS.first && self.location.id == 24 && self.includes_rental_package?
+            product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson").first
           #pricing for GB lesson only
-          elsif self.slot == 'Early Bird (9-10am)' && self.location.id == 24 && !self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,name:'1hr Private Lesson (lesson + lift only)',product_type:"private_lesson").first
+          elsif self.slot == PRIVATE_SLOTS.first && self.location.id == 24 && !self.includes_rental_package?
+            product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson").first
           #pricing for HW lesson
-          elsif self.slot == 'Early Bird (9-10am)'
+          elsif self.slot == PRIVATE_SLOTS.first
             product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson").first
           #pricing for GB half-day package
           elsif self.slot.starts_with?('Half-day Morning') && self.location.id == 24 && self.includes_rental_package?
@@ -1129,7 +1129,7 @@ class Lesson < ActiveRecord::Base
   def self.booked_instructors(lesson_time)
     puts "checking for booked instructors on #{lesson_time.date} during the #{lesson_time.slot} slot"
     if lesson_time.slot == 'Full-day (10am-4pm)'
-      booked_lessons = Lesson.select{|lesson| lesson.date == lesson_time.date && lesson.lesson_time.slot != 'Early Bird (9-10am)'}
+      booked_lessons = Lesson.select{|lesson| lesson.date == lesson_time.date && lesson.lesson_time.slot != PRIVATE_SLOTS.first}
     else
       booked_lessons = Lesson.select{|lesson| lesson.date == lesson_time.date && lesson.lesson_time.slot == lesson_time.slot}
     end

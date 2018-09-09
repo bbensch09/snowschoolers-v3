@@ -95,10 +95,10 @@
             <tr>
                 <td class="pricing-length grey-side-borders pricing-grey-background col-xs-2">1hr Learn to Ski/Ride Package</td>
                 <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
-                    <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:'Regular',name:'1hr Private Lesson Package').first.price, :precision => 0) %>
+                    <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:'Regular').first.price, :precision => 0) %>
                 </td>
                 <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
-                    <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:'Holiday',name:'1hr Private Lesson Package').first.price, :precision => 0) %>
+                    <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:'Holiday').first.price, :precision => 0) %>
                 </td>
             </tr>
             <tr>

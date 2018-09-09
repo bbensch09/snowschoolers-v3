@@ -32,23 +32,23 @@
           <tbody>
             <tr>
                 <td class="grey-side-borders pricing-length pricing-grey-background">Early-bird <br>(8:45am-9:45am)</td>
-                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background ">$50
-<!--                     <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',name:'1hr Private Lesson (lesson + lift only)',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
- -->                </td>
-                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background <%=granlibakken_class %>"> $70
-<!--                     <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',name:'1hr Private Lesson Package',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
- -->                </td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background ">
+                 <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
+                </td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background <%=granlibakken_class %>">
+                  <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>                    
+                </td>
                 <td class="hidden-unless-desktop grey-side-borders pricing-competitors pricing-grey-background">N/A</td>
                 <td class="hidden-unless-desktop grey-side-borders pricing-competitors pricing-grey-background">N/A</td>
             </tr>
             <tr>
                 <td class="grey-side-borders pricing-length">2hr Group Lesson (10am-12pm; 1-3pm)</td>
-                <td class="grey-side-borders pricing-snowschoolers "> $80
-<!--                 <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',name:'Half-day Morning Private Lesson (no rental)',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %> 
- -->                </td>
-                <td class="grey-side-borders pricing-snowschoolers <%=granlibakken_class %>">$100
-<!--                 <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',name:'Half-day Morning Package (3hr)',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
- -->                </td>
+                <td class="grey-side-borders pricing-snowschoolers ">
+                  <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %> 
+                </td>
+                <td class="grey-side-borders pricing-snowschoolers <%=granlibakken_class %>">
+                  <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>                    
+                </td>
                 <td class="hidden-unless-desktop pricing-competitors">$225</td>
                 <td class="hidden-unless-desktop pricing-competitors">$199</td>
             </tr>
