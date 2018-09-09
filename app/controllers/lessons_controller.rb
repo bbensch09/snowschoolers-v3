@@ -137,7 +137,7 @@ class LessonsController < ApplicationController
       @days = @days.first(30)
       @new_date = Section.new
       @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable?}
-      @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
+      # @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
       if session[:notice]
         flash.now[:notice] = session[:notice]
       end
@@ -690,7 +690,7 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id, :guest_email, :how_did_you_hear, :num_days, :lesson_price, :requester_name, :is_gift_voucher, :includes_lift_or_rental_package, :package_info, :gift_recipient_email, :gift_recipient_name, :lesson_cost, :non_lesson_cost, :product_id, :section_id, :product_name, :admin_price_adjustment, :promo_code_id, :planned_start_time, :payment_status, :payment_method, :payment_date, :hourly_bonus, :bonus_category, :additional_info, 
+    params.require(:lesson).permit(:activity, :phone_number, :requested_location, :state, :student_count, :gear, :lift_ticket_status, :objectives, :duration, :ability_level, :start_time, :actual_start_time, :actual_end_time, :actual_duration, :terms_accepted, :deposit_status, :public_feedback_for_student, :private_feedback_for_student, :instructor_id, :focus_area, :requester_id, :guest_email, :how_did_you_hear, :num_days, :lesson_price, :requester_name, :is_gift_voucher, :includes_lift_or_rental_package, :package_info, :gift_recipient_email, :gift_recipient_name, :lesson_cost, :non_lesson_cost, :product_id, :section_id, :product_name, :admin_price_adjustment, :promo_code_id, :planned_start_time, :payment_status, :payment_method, :payment_date, :hourly_bonus, :bonus_category, :additional_info, :class_type,
       students_attributes: [:id, :name, :age_range, :gender, :relationship_to_requester, :lesson_history, :requester_id, :most_recent_experience, :most_recent_level, :other_sports_experience, :experience, :_destroy, :needs_rental], lesson_time_attributes: [:date, :slot])
   end
 

@@ -171,7 +171,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
            <% if current_user.instructor %>
            <li><%= link_to current_user.email, instructor_path(current_user.instructor) %></li>
            <% end %>
-            <li><a href="/lessons" class="sign-up-btn"> LESSONS </a></li>
+            <li><a href="/lessons" class="sign-up-btn"> PRIVATES </a></li>
+            <li><a href="/group_lessons" class="sign-up-btn"> GROUPS </a></li>
             <li><a href="/browse" class="hidden sign-up-btn">INSTRUCTORS</a></li>
             <li><%= link_to 'CALENDAR', '/calendar', class: 'sign-up-btn' %></li>
             <li><%= link_to 'PROFILE', '/profile', class: 'sign-up-btn' %></li>
@@ -181,14 +182,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <% name = current_user.email.present? ? current_user.email : 'EDIT PROFILE' %>
             <% if current_user.instructor.nil? %>
                 <li><%= link_to name, "#", id: "email-btn" %></li>
-                <li><a href="/lessons" class="sign-up-btn"> LESSONS</a></li>
-                <!-- <li><%= link_to 'Calendar', '/calendar', class: 'sign-up-btn' %></li> -->
+              <li><a href="/lessons" class="sign-up-btn"> PRIVATES </a></li>
+              <li><a href="/group_lessons" class="sign-up-btn"> GROUPS </a></li>
               <li><a href="/blog" target="_blank" class="sign-up-btn">BLOG</a></li>
                 <li><a href="/browse" class="sign-up-btn">INSTRUCTORS</a></li>
                 <li><%= link_to 'TEACH WITH US', '/apply', class: 'sign-up-btn' %></li>
               <% elsif current_user.instructor %>
                 <li><%= link_to name, instructor_path(current_user.instructor) %></li>
-                <li><a href="/lessons" class="sign-up-btn"> LESSONS </a></li>
+              <li><a href="/lessons" class="sign-up-btn"> PRIVATES </a></li>
+              <li><a href="/group_lessons" class="sign-up-btn"> GROUPS </a></li>
                 <li><a href="/browse" class="sign-up-btn">INSTRUCTORS</a></li>
                 <li><%= link_to 'CALENDAR', '/calendar', class: 'sign-up-btn' %></li>
                 <li><%= link_to 'PROFILE', '/profile', class: 'sign-up-btn' %></li>

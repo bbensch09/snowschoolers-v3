@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container white-bg">
 <!--
 <h3> Current User ID: <%= current_user.id %> </h3>
 <h3> Current User.email: <%= current_user.email %> </h3>
@@ -48,7 +48,7 @@
 
   <div class="col-md-6 ski-sections">
     <h2 class="center bold">Ski Lessons</h2>
-    <% Section.where(date:day.date,sport_id:1).sort{ |a,b| a.slot <=> b.slot }.each do |section| %>
+    <% Section.where(date:day.date,sport_id:1).sort{ |a,b| b.slot <=> a.slot }.each do |section| %>
       <%= render partial: 'lessons/daily_schedule', locals: {section: section} %>
     <% end %>
   </div>

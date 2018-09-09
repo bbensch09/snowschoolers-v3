@@ -29,6 +29,10 @@ class Lesson < ActiveRecord::Base
   after_save :send_lesson_request_to_instructors
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
 
+  def group_lesson?
+    self.class_type == 'group'
+  end
+
   def email_notifications_status
     email_status ? email_status : 'default (enabled)'
   end
@@ -155,13 +159,13 @@ class Lesson < ActiveRecord::Base
 
   def length
     case self.lesson_time.slot
-      when SLOTS.first
+      when PRIVATE_SLOTS.first
         return "1.00"
-      when SLOTS.second
+      when PRIVATE_SLOTS.second
         return "3.00"
-      when SLOTS.third
+      when PRIVATE_SLOTS.third
         return "3.00"
-      when SLOTS.fourth
+      when PRIVATE_SLOTS.fourth
         return "6.00"
       end
   end
@@ -1358,7 +1362,11 @@ class Lesson < ActiveRecord::Base
   private
 
   def instructors_must_be_available
-    unless available_instructors?
+    puts "!!! checking if group class type"
+    if group_lesson?
+      return true
+    end
+    unless available_instructors? 
       errors.add(:lesson, "Error: unfortunately we are sold out of private instructors at that time. Please choose another time slot, or email info@snowschoolers.com to be notified if we have any instructors that become available.")
       notify_admin_pending_supply_constraint(self.date)
       return false
