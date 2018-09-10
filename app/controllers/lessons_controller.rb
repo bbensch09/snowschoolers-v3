@@ -111,6 +111,7 @@ class LessonsController < ApplicationController
     if current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee"
       @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.canceled? || lesson.booked? || lesson.state.nil? }
       @lessons = @lessons.select{|lesson| lesson.this_season?}
+      @lessons = @lessons.select{|lesson| lesson.private_lesson?}
       @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
       @todays_lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.today }
       @wage_rate = current_user.instructor ? current_user.instructor.wage_rate : nil
@@ -296,6 +297,7 @@ class LessonsController < ApplicationController
   def complete    
     @lesson_time = @lesson.lesson_time
     @product_name = @lesson.product_name
+    @slot = @lesson.slot
     @promo_code = PromoCode.new
     GoogleAnalyticsApi.new.event('lesson-requests', 'load-full-form')
     flash.now[:notice] = "You're almost there! We just need a few more details."
@@ -363,7 +365,11 @@ class LessonsController < ApplicationController
         LessonMailer.send_promo_redemption_notification(@lesson).deliver!
       end
       LessonMailer.send_lesson_request_notification(@lesson).deliver!
-      flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when your instructor confirmed your request. If you have any questions, please email support@snowschoolers.com.'
+      if @lesson.group_lesson?
+        flash[:notice] = 'Thank you, your lesson request was successful. If you have any questions, please email support@snowschoolers.com.'
+      else 
+        flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when your instructor confirmed your request. If you have any questions, please email support@snowschoolers.com.'
+      end
       flash[:conversion] = 'TRUE'
       puts "!!!!!!!! Lesson deposit successfully charged"
     end

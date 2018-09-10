@@ -87,6 +87,17 @@
     <% end %>
     <% if current_user.nil? || current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" %>
       <div class='row'>
+        <% if @lesson.private_lesson? %>
+        <h2><b>Private Lesson Request Form</b> - 
+          <spand class="text-smaller italic">To book a <b>group lesson</b>, <a href="/lessons/new#group-request" class="green-link">click here</a>.</span>
+        </h2>
+        <% else %>
+        <h2><b>Group Lesson Request Form</b> - 
+          <spand class="text-smaller italic">To book a <b>private lesson</b>, <a href="/lessons/new#private-request" class="green-link">click here</a>.</span>
+        </h2>
+        <% end %>
+      </div>
+      <div class='row'>
         <div class="col-md-6">
           <h4>Book as a <strong>Guest</strong> | Or <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Sign-in to your Account</a></h4>
               <label class="lesson-label">Email</label>
@@ -124,7 +135,11 @@
 
               <div class="col-md-4">
                 <label class="lesson-label">Slot</label>
-                <%= lt_f.input :slot, as: :select, collection: PRIVATE_SLOTS, include_blank: 'Time', label: false %>
+                <% if @lesson.group_lesson? %>
+                <%= lt_f.input :slot, as: :select, collection: GROUP_SLOTS, selected: @slot, include_blank: 'Time', label: false %>
+                <% else %>
+                <%= lt_f.input :slot, as: :select, collection: PRIVATE_SLOTS, selected: @slot, include_blank: 'Time', label: false %>
+                <% end %>                
 
               </div>
           <% end %>

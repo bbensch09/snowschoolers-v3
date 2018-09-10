@@ -38,7 +38,7 @@
                     <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
                 </td>
                 <td class="grey-side-borders pricing-snowschoolers pricing-grey-background <%=granlibakken_class %>">
-                    <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
+                    <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',is_rental:true,calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
                 </td>
                 <td class="hidden-unless-desktop grey-side-borders pricing-competitors pricing-grey-background">N/A</td>
                 <td class="hidden-unless-desktop grey-side-borders pricing-competitors pricing-grey-background">N/A</td>
@@ -52,7 +52,7 @@
                 <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %> 
                 </td>
                 <td class="grey-side-borders pricing-snowschoolers <%=granlibakken_class %>">
-                <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
+                <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',is_rental:true,calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
                 </td>
                 <td class="hidden-unless-desktop pricing-competitors">$620</td>
                 <td class="hidden-unless-desktop pricing-competitors">$539</td>
@@ -66,7 +66,7 @@
                 <%= number_to_currency(Product.where(location_id:24,length:"6.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
                 </td>
                 <td class="grey-side-borders pricing-snowschoolers pricing-grey-background <%=granlibakken_class %>">
-                <%= number_to_currency(Product.where(location_id:24,length:"6.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
+                <%= number_to_currency(Product.where(location_id:24,length:"6.00",product_type:'private_lesson',is_rental:true,calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
                 </td>
                 <td class="hidden-unless-desktop grey-side-borders pricing-competitors pricing-grey-background">$900</td>
                 <td class="hidden-unless-desktop grey-side-borders pricing-competitors pricing-grey-background">$759</td>

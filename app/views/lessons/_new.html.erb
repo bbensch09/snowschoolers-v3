@@ -52,106 +52,22 @@
   <% end %>
 <!-- /PreSeason Modal -->
 
+<section id="book-a-lesson" class="pricing-section">
+    <div id="lesson-flow-background">
+        <div class="homepage-lesson-container center" id="private-request">
+            <%= render partial: "lessons/lesson_new_form" %>
+        </div>
+    </div>
+</section>
+<section id="book-a-group-lesson" class="group-pricing-section">
+    <div id="lesson-flow-background">
+        <div class="homepage-lesson-container center" id="group-request">
+            <%= render partial: "lessons/group_lesson_new_form" %>
+        </div>
+    </div>
+</section>
     
-<%= semantic_form_for @lesson do |f| %>
-  <div class="lesson-form-container">    
-      <div class="new-lesson-pricing-container">
 
-        <%= render partial: "welcome/prices_simple" %>
-      </div>
-
-      <div class="new-lesson-caption">
-
-        <div class="block">
-          <h1 class="center mobile-book-cta">BOOK A LESSON TODAY</h1>
-        </div>
-        <%= f.semantic_errors :lesson %>
-        <div class="block">
-          <p class="cta-subtext">Dedicated attention from a certified <strong>Snow Schoolers </strong> instructor is the best way to experience Lake Tahoe!</p>
-        </div>
-
-        <div class="block inputs">
-          <p>
-            <div class="col-md-2">
-              <%= f.input :activity, as: :select, collection: ['Ski', 'Snowboard','Telemark'], selected:@activity, include_blank: 'Lesson Type', label: false %>
-            </div>
-
-            <div class="col-md-2">
-              <% if current_user && current_user.user_type == "Snow Schoolers Employee" %>
-              <%= f.input :requested_location , as: :select, collection: Location.all.sort_by { |location| location.name.downcase} , selected: @promo_location, include_blank: 'Location', label: false %>
-                <% else %>
-              <%= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase} , selected: @promo_location, include_blank: 'Location', label: false %>
-              <% end %>
-              <!-- %= f.input :requested_location , as: :select, collection: [['North Tahoe',1],['South Lake Tahoe',2],['Southern CA',3],['Utah',4],['Colorado',5],['Wyoming',6],['Idaho',7],['New Mexico',8]], selected: @promo_location, include_blank: 'Location', label: false %> -->
-            </div>
-
-            <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
-              <div class="col-md-2">
-                <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker', value:@date }, placeholder: 'Date', label: false %>
-                <span class="search-area-icon"></span>
-              </div>
-
-              <div class="time-slot-input">
-                <!-- <%= lt_f.input :slot, as: :select, collection: ['Morning', 'Afternoon', 'Full Day'], include_blank: 'Time', label: false %> -->
-                <%= lt_f.input :slot, as: :select, collection: ['Early Bird (9-10am)', 'Half-day Morning (10am-1pm)', 'Half-day Afternoon (1pm-4pm)', 'Full-day (10am-4pm)'], selected: @slot, include_blank: 'Time', label: false %>
-              </div>
-              <% if current_user.nil? %>
-              <div class="guest-email-input">
-                <%= f.input :guest_email, as: :string, placeholder: "your_email@example.com", label: false %>
-              </div>
-              <% end %>
-            <% end %>
-          </p>
-        </div>
-
-        <%= f.input :state, as: :hidden, input_html: { value: 'new' } %>
-        <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
-        <ul class="new-lesson-ctas-list">
-          <li class="center">
-            <%= f.actions do %>
-              <!-- %= f.action :submit, as: :input, button_html: { class: 'btn btn-default btn-lg', value: 'Book Lesson' } %> -->
-              <%= f.action :submit, :label => "Book Lesson", as: :input, button_html: { class: 'btn btn-default btn-lg' } %>
-                <% if @instructor_requested.nil? %>
-                <!-- <li>  OR </li> -->
-                <!-- <li> <button id='browser-instructors-cta' href="/browse" value="Browse Instructors" class="btn btn-default btn-lg">Browse instructors</button></li> -->
-                <% end %>
-            <% end %>
-          </li>
-        </ul>
-      </div>
-      
-      <div class="row">
-        
-        <div class="new-lesson-call-cta hidden-unless-desktop">
-          <h1 class="center">QUESTIONS?</h1>                    
-          <p class="white-text center">Call Us Today! 
-            <br>
-            <i class="fa fa-phone fa-3x sr-contact"></i>
-            <br>
-          (530)430-SNOW</p>
-        </div>  
-          
-        <% if @instructor_requested %>
-          <div class="requested-instructor requested-instructor-container-adjustment hidden-unless-desktop">
-            <h1 class="center">Instructor Requested:</h1>
-            <p class="white-text center">
-              <%= link_to Instructor.find(@instructor_requested).name, Instructor.find(@instructor_requested) %>            
-            <div class="hidden">
-              <%= f.input :instructor_id, as: :select, collection: Instructor.all.sort_by{ |instructor| instructor.name}, selected:@instructor_requested, include_blank: 'Instructor', label: false %>
-            </div>
-            <br>            
-              <% if Instructor.find(@instructor_requested).avatar? %>
-              <%= image_tag Instructor.find(@instructor_requested).avatar.url(:large), alt:"avatar-img", class:"img-circle instructor-photo avatar-center" %>
-              <% end %>
-            </p>            
-          </div>
-        <% end %>    
-
-      </div>
-
-  </div>
-
-<% end %>
 <!-- /end lesson form -->  
 <div class='container'>
 <%= render partial: 'welcome/full_pricing' %>
