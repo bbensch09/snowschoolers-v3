@@ -33,6 +33,23 @@ class Lesson < ActiveRecord::Base
     self.class_type == 'group'
   end
 
+  def private_lesson?
+    self.class_type == 'private'
+  end
+
+  def class_type_text
+    if self.class_type == 'group' && self.activity == 'Ski'
+      return 'Group Ski Lesson'
+    elsif self.class_type == 'group' && self.activity == 'Snowboard'
+      return 'Group Snowboard Lesson'
+    elsif self.class_type == 'private' && self.activity == 'Ski'
+      return 'Private Ski Lesson'
+    elsif self.class_type == 'private' && self.activity == 'Snowboard'
+      return 'Private Snowboard Lesson'
+      else 'N/A'
+    end
+  end
+
   def email_notifications_status
     email_status ? email_status : 'default (enabled)'
   end
@@ -54,8 +71,15 @@ class Lesson < ActiveRecord::Base
       else
         l = 'XX'
     end
+    case self.class_type
+      when 'group'
+        class_type_code = 'GROUP'
+      when 'private'
+        class_type_code = 'PRIVATE'
+      else 'NA'
+    end
     id = self.id.to_s
-    confirmation_number = l+'-'+date+'-'+id+rental_code
+    confirmation_number = l+'-'+class_type_code+'-'+date+'-'+id+rental_code
   end
 
   def contact_email
@@ -179,22 +203,22 @@ class Lesson < ActiveRecord::Base
          
           #pricing for Granlibakken GROUPS
           #Early-bird, no rental
-          if self.slot == GROUP_SLOTS.first && self.location.id == 24 && !self.includes_rental_package?
+          if self.slot == GROUP_SLOTS.first && self.location.id == 24 && self.class_type == 'group' && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"group_lesson",is_lift_rental_package:false).first
           #Early-bird, with rental
-          elsif self.slot == GROUP_SLOTS.first && self.location.id == 24 && self.includes_rental_package?
+          elsif self.slot == GROUP_SLOTS.first && self.location.id == 24 && self.class_type == 'group' && self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"group_lesson",is_lift_rental_package:true).first
           #2hr morning lesson, no rental
-          elsif self.slot == GROUP_SLOTS.second && self.location.id == 24 && !self.includes_rental_package?
+          elsif self.slot == GROUP_SLOTS.second && self.location.id == 24 && self.class_type == 'group' && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"2.00",calendar_period:calendar_period,product_type:"group_lesson",is_lift_rental_package:false).first
           #2hr morning lesson, with rental
-          elsif self.slot == GROUP_SLOTS.second && self.location.id == 24 && self.includes_rental_package?
+          elsif self.slot == GROUP_SLOTS.second && self.location.id == 24 && self.class_type == 'group' && self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"2.00",calendar_period:calendar_period,product_type:"group_lesson",is_lift_rental_package:true).first
           #2hr afternoons lesson, no rental
-          elsif self.slot == GROUP_SLOTS.third && self.location.id == 24 && !self.includes_rental_package?
+          elsif self.slot == GROUP_SLOTS.third && self.location.id == 24 && self.class_type == 'group' && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"2.00",calendar_period:calendar_period,product_type:"group_lesson",is_lift_rental_package:false).first
           #2hr afternoons lesson, with rental
-          elsif self.slot == GROUP_SLOTS.third && self.location.id == 24 && self.includes_rental_package?
+          elsif self.slot == GROUP_SLOTS.third && self.location.id == 24 && self.class_type == 'group' && self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"2.00",calendar_period:calendar_period,product_type:"group_lesson",is_lift_rental_package:true).first
           
 
@@ -753,13 +777,17 @@ class Lesson < ActiveRecord::Base
   end
 
   def price
-    # puts "!!!! lookup product matched to this lesson"
-    self.product
+    puts "!!!! lookup product matched to this lesson"
+    product = self.product
     if product.nil?
       return "Please confirm date & time to see price."
     else
     price = product.price.to_f + self.package_cost
     end
+    if self.class_type == 'group'
+      price = product.price * [1,self.students.count].max
+    end
+
     if self.promo_code
       case self.promo_code.discount_type
       when 'cash'
@@ -826,7 +854,7 @@ class Lesson < ActiveRecord::Base
 
 
   def package_cost
-    return 0 if self.students.count == 0
+    return 0 if self.students.count == 0 || class_type == 'group'
     package_price = 0
     puts "!!!calculating package cost"
     p1 = self.additional_students_with_gear.to_i * self.cost_per_additional_student_with_gear
@@ -963,6 +991,8 @@ class Lesson < ActiveRecord::Base
   end
 
   def add_group_lesson_to_section
+    puts "!!!! skip adding to section if private lesson !!!!!"
+    return true if self.private_lesson?
     return true if self.section_id && self.sport_id == self.section.sport_id && self.date == self.section.date
     existing_sections = self.available_sections
       if self.available_sections.count == 0
@@ -1405,9 +1435,7 @@ class Lesson < ActiveRecord::Base
 
   def instructors_must_be_available
     puts "!!! checking if group class type"
-    if group_lesson?
-      return true
-    end
+    return true if group_lesson?
     unless available_instructors? 
       errors.add(:lesson, "Error: unfortunately we are sold out of private instructors at that time. Please choose another time slot, or email info@snowschoolers.com to be notified if we have any instructors that become available.")
       notify_admin_pending_supply_constraint(self.date)
@@ -1428,6 +1456,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def send_lesson_request_to_instructors
+    return true if group_lesson?
     if self.active? && self.confirmable? && self.deposit_status == 'confirmed' && self.state != "pending instructor" && self.available_instructors.any?
       LessonMailer.send_lesson_request_to_instructors(self).deliver!
       puts "!!!!!lesson email sent to all available instructors"
