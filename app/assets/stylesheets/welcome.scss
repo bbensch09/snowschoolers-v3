@@ -1229,8 +1229,9 @@ section.pricing-new-lesson{
   max-width: 90% !important;
 }
 .btn-secondary{
-  /*color: #36454f !important; fuscia*/
-  color: #fff !important;
+  background-color: #fff !important;
+  color: #000 !important;
+  border: 1px #000;
   /*color: #DF5DDF !important; dark gray*/
   margin-top: 4px;
   margin-bottom: 4px;
@@ -1394,11 +1395,19 @@ h2.blog-cta{
 
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/
 @media (max-width: 768px) {
+
   .hidden-unless-desktop{
     display: none;
   }
   .form-inputs, .update-lesson-form, .vertical-divider, .info-box{
     display: block;
+  }
+  .wage-rates-details, .wage-rates-details li{
+    margin-left: 0px;
+    font-size: 1.05em;
+  }
+  .bonus-amount{
+    padding-right: 0px;
   }
 
   #apply{
@@ -1531,7 +1540,7 @@ h2.blog-cta{
     font-size: 2em;
   }
   .powder-btn{
-    font-size: 0.85em;
+    font-size: 0.5em;
   }
   .disclaimer{
     padding-left:20px;
