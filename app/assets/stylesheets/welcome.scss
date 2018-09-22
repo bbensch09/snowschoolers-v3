@@ -685,10 +685,9 @@ h2 {
     font-size: 2em;
     font-weight: 200;
     line-height: 42px;
-    margin: 0 0 32px 0;
+    /*margin: 0 0 32px 0;*/
     margin-top: 0px;
     margin-right: 0px;
-    margin-bottom: 32px;
     margin-left: 0px;
 }
 .how-it-works-images{
@@ -1349,6 +1348,27 @@ h2.blog-cta{
 }
 #apply{
   width:35vw;
+}
+.wages-headline li{
+  font-size: 1.3em;
+  list-style: none;
+  padding-left: 20%;
+  text-align: left;
+  line-height: 1.5;
+  color: #fff;
+}
+.wage-rates-container{
+  color:#fff;
+}
+.wage-rates-details li{
+  font-size: 1.2em;
+  text-align: left;
+  line-height: 1.4;
+  margin-left: 100px;
+  color: #fff;
+}
+.bonus-amount{
+  padding-right: 20%;
 }
 
 /*Desktop specific adjustments*/
