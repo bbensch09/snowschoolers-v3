@@ -1,61 +1,89 @@
-<% title 'Apply as an Instructor' %>
+<% title 'Become a Certified Instructor' %>
 <% meta_tag :description, "Snow Schoolers instructors get 100% schedule flexibility, higher average earnings and tips, and access to modern client communication tools that allow you to cultivate a loyal following of clients." %>
 
-<section id="recruiting-landing-page" class="top-section navy-text">
+<section id="header-creative" class="top-section">
     <ul id="slider" class="mc-cycle" style="display: block; height: 100%; width: 100%;">
-            <div class="mc-image bg-photo" title="background photo" style="background-image: url('https://s3-us-west-1.amazonaws.com/snowsports/backcountry-jackson-hole-hero.jpg'); height: 100%; width: 100%;" data-href=""    
-            </div>
+        <div class="mc-image bg-photo" title="background photo" style="background-image: url('https://s3-us-west-1.amazonaws.com/snowsports/backcountry-jackson-hole-hero.jpg'); height: 100%; width: 100%;" data-href=""></div>
     </ul>
-<div class="container">
- <div class="row white-transparent-bg">
-    <h1 id="homeHeading" class="center home-header">Earn your <b>Professional Instructor Certification</b> in just <b>4 DAYS</b><br> </h1>
-    <div class="col-md-10 col-md-offset-1">
-      <h2 class="container">
-          <span class=""><b> $10.50:</b> Minimum wage for non-certified instructors in Tahoe</span>
-          <br>
-          <span class=""><b> $17.00:</b> Base rate for Snow Schoolers instructors (plus tips and incentive-based bonuses!)</span>
-          <br>
-          <span class="italic"></span>
-      </h2>
-      <!-- <h3 class= "center">Only <span class="strikethrough">2</span> 1 spot remains for this season's Accelerated Ski Instructor Program.</h3> -->
-      <h2 class= "center no-margin-bottom">Program Details</h2>
-      <div class="row text-medium">
-          <div class="col-md-6">
-              <b> Details </b>
-              <ul>
-                  <li>Registration Fee:  $300 </li>
-                  <li>4 days of on-snow instruction, plus written exam.</li>
-                  <li>Over 90% pass-rate.</li>
-              </ul>
-          </div>
-          <div class="col-md-6">
-              <b> Schedule </b>
-              <ul>
-                  <li>Fundamentals of Skiing: Nov 17th/18th, 9am - 4pm </li>
-                  <li>Fundamentals of Teaching: Dec 1st/2nd, 9am - 4pm </li>
-              </ul>
-          </div>
-        </div>
-          <h3 class= "center row"> Sign up now to reserve your spot!</h3>
+
+    <div class="header-content">
+      <h1 class="home-header"> Become a Professionally Certified Instructor in just 4 DAYS<br>
+        at Homewood Teaching Academy</h1>
+        <h1>Earn at least 50% more as a certified instructor with Snow Schoolers!</h1>
+        <ul class="wages-headline">
+          <li> <b>$11 per hour</b>: Average wage for non-certified instructors in Tahoe.</li>
+          <li> <b>$17 per hour</b>: Base rate for Snow Schoolers instructors <br>(details on rates & bonus schedule <a href="#wage-rates" class="green-link">below</a>)</li>
+        </ul>
+        <br>
+      </h1>
+      <h3 class= "center row"> Enroll today to reserve your spot!</h3>
+      <h3><a href="#apply-now" class="btn btn-primary btn-xl">Get Started</a></h3>
     </div>
+</section>
+      <!-- <h3 class= "center">Only <span class="strikethrough">2</span> 1 spot remains for this season's Accelerated Ski Instructor Program.</h3> -->
 
+
+<div class="container" id="apply-now">
+  <div class="row">
+    <div class="col-md-6 col-xs-12 black-transparent-bg">
+      <h1 class="center white-text">Course Details
+        <h2 class="center white-text">
+          4 full days over 2 weekends in the late autumn
+          <div style="text-align: center;">
+            <div style="display: inline-block; text-align: left;">
+              <ul>
+                  <li>Weekend 1: Fundamentals of Skiing - November 17th & 18th, 9am - 4pm</li>
+                  <li>Weekend 2: Fundamentals of Teaching - December 1st & 2nd, 9am - 4pm</li>
+                  <ul>
+                    <li>* Includes a final written exam *</li>
+                  </ul>
+                  <li>Make-up Weekend (weather contingency): December 8th & 9th, 9am-4pm</li>
+              </ul>
+            </div>
+           </div>
+           Cost: $400
+           <div style="text-align: center;">
+            <div style="display: inline-block; text-align: left;"> 
+              <ul>
+                  <li>Earn back the entire cost of the course in just 2 weeks of teaching! </li>
+                  <li>* Over 90% of instructors successfully graduate the course. *</li>
+                  <li>Comparable <a href="https://www.snowtrainers.com/courses/ski/colorado-usa/4-week-ski-instructor-course/" class="green-link">certification programs in Colorado</a> cost $6,900!</li>
+              </ul>
+             </div>
+            </div>
+        </h2>
+      </h1>
+      <!--<h1 class="center white-text">About HTA
+        <h2>Homewood Teaching Academy (HTA) was created by Bryan Schilling, etc.</h2>-->
+      <hr>
+      <div id="wage-rates">
+            <%= render partial: 'welcome/wage_rates' %>  
+      </div>
+    </div>
+    <div class="row col-md-6 col-xs-12 white-transparent-bg">                     
+      <div class="col-md-12 padding-top hidden-unless-desktop">
+          <h1 class="center navy-text btn-apply btn-lg"> Get Started and Apply Today</h1>
+      </div>
+      <div class="col-md-12">
+          <%= render partial: 'instructors/form' %>
+      </div>
+    </div>
+  </div>
 </div>
-<h1 class="center">    
-    <a href="#instructor_first_name" class="btn btn-primary btn-xl page-scroll powder-btn">Get Started</a>
-</h1>
-<div class="col-md-12 white-transparent-bg">
-    <div id="recruiting-Carousel" class="carousel slide" data-ride="carousel">
 
-          <!-- Indicators -->
-          <ol class="carousel-indicators hidden">
-            <li data-target="#recruiting-Carousel" data-slide-to="0" class="active"></li>
-            <li data-target="#recruiting-Carousel" data-slide-to="1"></li>
-            <li data-target="#recruiting-Carousel" data-slide-to="2"></li>
+<div class="bg-primary bg-grey center-content">
+  <div id="recruiting-Carousel" class="carousel slide" data-ride="carousel">
+
+        <!-- Indicators -->
+        <ol class="carousel-indicators hidden">
+          <li data-target="#recruiting-Carousel" data-slide-to="0" class="active"></li>
+          <li data-target="#recruiting-Carousel" data-slide-to="1"></li>
+          <li data-target="#recruiting-Carousel" data-slide-to="2"></li>
         </ol>
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
           <div class="item active">
-              <h1 class="navy-text center padding-top">Tahoe's Best Accelerated Ski Instructor Certification Program. </h1>
+              <h1 class="navy-text center padding-top">Tahoe's Best Accelerated Ski Instructor Certification Program.</h1>
           </div>
 
           <div class="item">
@@ -68,22 +96,11 @@
 
           <div class="item">
             <h1 class="navy-text center padding-top">
-                Master the foundation necessary to pass your PSIA level 1 exam.
-            </h1>
+                Master the foundation necessary to pass your PSIA level 1 exam.</h1>
           </div>
         </div>
-    </div>
+  </div>
 </div>
-<div id= class="col-md-12 col-xs-12 black-transparent-bg">
-    <div class="buffer"></div>
-</div>
-
-<div class="row col-md-10 col-md-offset-1 col-xs-12 white-transparent-bg">                    
-    <%= render partial: 'instructors/hta_form' %>
-</div>
-
-</section>
-
 
 <section class="navy-bg small">
     <div class="container text-center">
@@ -94,4 +111,49 @@
          </h3>
      </div>
  </div>
+</section>
+<section id="how-it-works">
+        <div class="container">
+            <div class="row how-it-works">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading how-it-works">Why Snow Schoolers?</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 text-center why-ss">
+                    <div class="why-snow-schoolers-box">
+                        <h3>Schedule Flexibility</h3>
+                        <img src="assets/calendar.png" alt="calendar" class="why-snow-schoolers">
+                        <p class="navy-text">Set your own schedule. <br> Teach when you want. Earn what you need.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 text-center why-ss">
+                    <div class="why-snow-schoolers-box">
+                        <h3>Earn More</h3>
+                        <img src="assets/referrals.png" alt="referrals" class="why-snow-schoolers">
+                        <p class="navy-text">Easily accept tips and engage with your clients online, earning their trust and future business.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 text-center why-ss">
+                    <div class="why-snow-schoolers-box">
+                        <h3>Learn More</h3>
+                        <img src="assets/PSIA-AASI_Logos.jpg" alt="psia-aasi" class="why-snow-schoolers">
+                        <p class="navy-text">Develop your teaching skills by training with Tahoe's finest. Reimbursements for  passing PSIA-AASI exams.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+<section class="navy-bg small">
+    <div class="container text-center">
+        <div class="call-to-action">
+            <a href="#instructor_first_name" class="btn btn-primary btn-xl page-scroll powder-btn">Apply Now</a>
+               <h4 class="white-text">
+                Questions? Email us at <a href="mailto:info@snowschoolers.com">info@snowschoolers.com</a>
+               </h4>
+
+        </div>
+    </div>
 </section>

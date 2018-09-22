@@ -3,9 +3,10 @@
 
     <section id="recruiting-landing-page" class="top-section">
         <ul id="slider" class="mc-cycle" style="display: block; height: 100%; width: 100%;">
-            <div class="mc-image bg-photo" title="background photo" style="background-image: url('https://s3.amazonaws.com/snowschoolers/images/demo/slider/snow-less.jpg'); height: 100%; width: 100%;" data-href=""    
+            <div class="mc-image bg-photo" title="background photo" style="background-image: url('https://s3.amazonaws.com/snowschoolers/images/demo/slider/snow-less.jpg'); height: 100%; width: 100%;" data-href="">
             </div>
-        </ul>        <div class="container">
+        </ul>        
+        <div class="container">
             <div class="row">
                 <div class="col-md-6 col-xs-12 white-transparent-bg">
                     <div class="hidden-unless-mobile col-md-12">
@@ -46,22 +47,21 @@
 
                     </div>
                     <div class="col-md-12 padding-top hidden-unless-desktop">
-                        <h1 class="center navy-text btn-apply btn-lg"> Get Started and Apply Today</h1>
+                        <h1 class="center navy-text btn-apply btn-lg"> Get Started Below and Apply Today</h1>
                     </div>
                     <div class="col-md-12">
                         <%= render partial: 'instructors/form' %>
                     </div>
                 </div>
                 <div id="recruiting-learn-more" class="col-md-6 col-xs-12 black-transparent-bg">
-                    <h1 class="center white-text"> Be your own boss this winter</h2>
-                    <!-- <img src="https://s3.amazonaws.com/snowschoolers/images/tahoe-ski-bum.png" class="ski-bum-photo" alt="ski-bum-photo"> -->
+                    <h1 class="center white-text"> Apply to Join the Snow Schoolers team!</h2>
                     <hr>
-                    <h2 class="recruiting-ctas center white-text"> Earn up to $25 per hour.</h2>
-                    <h2 class="recruiting-ctas center white-text"> Teach at your favorite mountains.</h2>
-                    <!-- <h2 class="recruiting-ctas center white-text"> Teach at any of our partner ski areas.</h2> -->
+                    <h2 class="recruiting-ctas center white-text"> Earn over $26 per hour.</h2>
+                    <h2 class="recruiting-ctas center white-text"> Set your own schedule.</h2>
                     <h2 class="recruiting-ctas center white-text"> Train along side Tahoe's finest.</h2>
                     <div id="spacer"></div>
                     <hr>
+                    <%= render partial: 'welcome/wage_rates' %>
                     <img src="https://s3.amazonaws.com/snowschoolers/private-lesson.jpg" class="ski-bum-photo" alt="ski-bum-photo">
                     <!-- <h2 class="recruiting-ctas center white-text"> #freelanceFreedom</h2> -->
                     <hr>

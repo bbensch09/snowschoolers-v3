@@ -473,7 +473,7 @@ fieldset[disabled] .btn-default.active {
 .btn-primary.active,
 .open > .dropdown-toggle.btn-primary {
   color: white !important;
-  background-color: #4bb49f;
+  background-color: #55C9B2;
   /*padding: 15px 30px;*/
 }
 .btn-primary:active,
@@ -685,10 +685,9 @@ h2 {
     font-size: 2em;
     font-weight: 200;
     line-height: 42px;
-    margin: 0 0 32px 0;
+    /*margin: 0 0 32px 0;*/
     margin-top: 0px;
     margin-right: 0px;
-    margin-bottom: 32px;
     margin-left: 0px;
 }
 .how-it-works-images{
@@ -1230,8 +1229,9 @@ section.pricing-new-lesson{
   max-width: 90% !important;
 }
 .btn-secondary{
-  /*color: #36454f !important; fuscia*/
-  color: #fff !important;
+  background-color: #fff !important;
+  color: #000 !important;
+  border: 1px #000;
   /*color: #DF5DDF !important; dark gray*/
   margin-top: 4px;
   margin-bottom: 4px;
@@ -1350,8 +1350,29 @@ h2.blog-cta{
 #apply{
   width:35vw;
 }
+.wages-headline li{
+  font-size: 1.3em;
+  list-style: none;
+  padding-left: 20%;
+  text-align: left;
+  line-height: 1.5;
+  color: #fff;
+}
+.wage-rates-container{
+  color:#fff;
+}
+.wage-rates-details li{
+  font-size: 1.2em;
+  text-align: left;
+  line-height: 1.4;
+  margin-left: 100px;
+  color: #fff;
+}
+.bonus-amount{
+  padding-right: 20%;
+}
 
-/*Deskopt specific adjustments*/
+/*Desktop specific adjustments*/
 @media (min-width: 1200px) {
 
 .container {
@@ -1374,11 +1395,19 @@ h2.blog-cta{
 
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/
 @media (max-width: 768px) {
+
   .hidden-unless-desktop{
     display: none;
   }
   .form-inputs, .update-lesson-form, .vertical-divider, .info-box{
     display: block;
+  }
+  .wage-rates-details, .wage-rates-details li{
+    margin-left: 0px;
+    font-size: 1.05em;
+  }
+  .bonus-amount{
+    padding-right: 0px;
   }
 
   #apply{
@@ -1511,7 +1540,7 @@ h2.blog-cta{
     font-size: 2em;
   }
   .powder-btn{
-    font-size: 0.85em;
+    font-size: 0.5em;
   }
   .disclaimer{
     padding-left:20px;
