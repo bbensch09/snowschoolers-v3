@@ -101,7 +101,7 @@
     <br><br>
   </div>
   <div class="col-md-6 col-xs-12">
-  <h4> What sports do you teach? </h4>
+  <h4> What sport are you interested in teaching? </h4>
   <%= f.collection_check_boxes :sport_ids, Sport.all, :id, :name do |sport| %>
       <div class="collection-check-box form-control">
         <%= sport.check_box %>
@@ -125,9 +125,9 @@
     <% end %>
     <br>
   </div>
-  <h4><b>Professional certifications</b> (PSIA, AASI, etc.) </h4>
+  <h4><b>Do you already hold any professional certifications?</b> </h4>
   <div class="col-md-12">
-    <%= f.text_field :certification, placeholder: 'What certifications do you hold?', class: 'form-control', required:true %>
+    <%= f.text_field :certification, placeholder: '(PSIA, AASI, etc.)', class: 'form-control', required:false %>
     <br>
   </div>
   <h4><b>Why</b> are you excited to join Snow Schoolers?</h4>
