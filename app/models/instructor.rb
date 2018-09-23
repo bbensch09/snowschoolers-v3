@@ -215,7 +215,7 @@ class Instructor < ActiveRecord::Base
   def send_admin_notification
       @instructor = Instructor.last
       if @instructor.bio == "hta_candidate"
-        LessonMailer.new_instructor_application_received(@instructor).deliver!
+        LessonMailer.new_hta_application_received(@instructor).deliver!
         LessonMailer.send_hta_application_confirmation(@instructor).deliver!
       else
         LessonMailer.new_instructor_application_received(@instructor).deliver!

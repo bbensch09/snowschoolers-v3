@@ -101,7 +101,7 @@
     <br><br>
   </div>
   <div class="col-md-6 col-xs-12">
-  <h4> What sports do you teach? </h4>
+  <h4> What sport are you interested in teaching? </h4>
   <%= f.collection_check_boxes :sport_ids, Sport.all, :id, :name do |sport| %>
       <div class="collection-check-box form-control">
         <%= sport.check_box %>
