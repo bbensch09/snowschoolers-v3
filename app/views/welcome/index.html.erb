@@ -18,11 +18,12 @@
             <hr>
  -->            <span class="smaller-text">Interested in teaching?</span>
             <br>
-            <a href="/apply" class="btn btn-primary btn-lg page-scroll powder-btn">Apply Online</a>
+            <a href="/apply" class="btn btn-primary btn-lg page-scroll fixed-width-170">Apply Online</a>
             <br>
-            <span class="smaller-text">Not yet professionally certified?</span>
+            <span class="smaller-text">Not yet certified?</span>
             <br>
-            <a href="/become-a-certified-ski-instructor" class="btn btn-primary btn-lg page-scroll powder-btn">Get Certified</a>
+            <a href="/become-a-certified-ski-instructor" class="btn btn-primary btn-lg page-scroll fixed-width-170">Get Certified</a>
+            <br>
             </h1>
         </div>
     </div>
@@ -33,7 +34,7 @@
     </h1>
     <hr class="deposit-hr-navy">
     <div>
-        <p class="welcome-subheader navy-text"> Where is best to ski? Compare prices and packages across Tahoe's <a href="/beginners-guide-to-tahoe" class="green-link">16 ski areas</a> in just a few clicks.
+        <p class="welcome-subheader navy-text text-center"> Where is best to ski? Compare prices and packages across Tahoe's <a href="/beginners-guide-to-tahoe" class="green-link">16 ski areas</a>
         </p>
         <span class="welome-ctas">
         </span>
@@ -45,23 +46,25 @@
         <!-- <a href="/beginners-guide-to-tahoe" class="btn btn-primary btn-lg page-scroll">Complete Guide to Tahoe</a> -->
     </div>
     <div class="section-box-container">
-        <div>
+<!--         <div>
             <p id="search-index-header" class="welcome-subheader navy-text">Already have a favorite mountain? See current deals on lessons, lift tickets, and more.<br>
             <span class="smaller-text"></span>
             <%= render partial: 'products/search' %>
             </p>
         </div>
+ -->    
     </div>
     <hr class="deposit-hr-navy">
     <div class="container">
      <h1 id="why-snowschoolers-subheader" class="center navy-text">Where to even begin? </h1>
      <h3 class="center navy-text">Know what to expect on your first day with these 7 must-knows: </h3>
-     <h4 class="center"><a href="https://medium.com/@snowschoolers/what-to-expect-on-your-first-day-skiing-5db1048e82bd" class="btn btn-xl btn-default" target="_blank">What to Expect from your First Lesson</a> </h4>
+     <h4 class="center"><a href="https://medium.com/@snowschoolers/what-to-expect-on-your-first-day-skiing-5db1048e82bd" class="btn btn-xl btn-default" target="_blank">See 7 Quick Tips for Beginners</a> </h4>
 </section>
 <section id="why-snowschoolers" class="">
     <div class="container">
             <div class="row">
-                <p class="why-snowschoolers-text navy-text">
+                <h2 class="section-heading text-center navy-text">WHY SNOWSCHOOLERS</h2>
+                <p class="why-snowschoolers-text navy-text text-left">
                 As a team of lifelong skiers, we believe anyone should be able learn how to ski or snowboard, and without spending thousands of dollars. Whether it's your first time on snow, or whether you're an experienced skier looking to take your skills to the next level, we're here to ensure you have the <b>perfect lesson experience</b>.
                 </p>
                 <div style="position:relative;height:0;" class="youtube-embed-container">
@@ -89,29 +92,27 @@
         </div>
     </div>
 </section>
-<section id="book-a-group-lesson" class="group-pricing-section">
+<section id="book-a-group-lesson" class="group-pricing-section pricing-section">
     <div id="lesson-flow-background">
         <div class="homepage-lesson-container center">
             <%= render partial: "lessons/group_lesson_new_form" %>
         </div>
     </div>
 </section>
-
 <section id="where-do-we-teach" class="bg-grey">
     <div class="container">
             <div id="more-info" class="row">
                 <div class="">
                     <div class='col-md-6 col-xs-12'>
                         <h2 class="section-heading how-it-works where-we-teach-header center navy-text">Where do we teach?</h2>
-                        <p class="why-snowschoolers-text where-we-teach navy-text">
+                        <p class="why-snowschoolers-text where-we-teach navy-text text-left">
                             <span class=""> Snow Schoolers lessons take place at either <a href="https://www.google.com/maps/place/Homewood+Mountain+Resort/@39.0855833,-120.1627278,17z/data=!3m1!4b1!4m5!3m4!1s0x80997fda4762005f:0x73b0c46aa0c1068d!8m2!3d39.0855833!4d-120.1605391" class="green-link">Homewood</a> or <a href="https://www.google.com/maps/place/Granlibakken+Ski+%26+Sledding+Hill/@39.1561996,-120.1543405,15z/data=!4m12!1m6!3m5!1s0x0:0xbe2330dfc1e3324e!2sGranlibakken+Tahoe!8m2!3d39.1561996!4d-120.1543405!3m4!1s0x80997d88a3630ec7:0x30c3373b77f6c7b4!8m2!3d39.1540167!4d-120.1547885" class="green-link">Granlibakken</a>, both of which are located on the west shore of Lake Tahoe, near Tahoe city.</span>
                             <br>
                             <br>
-                            Looking for group lessons? See prices and book online directly at Homewood & Granlibakken websites below.
+                            Looking for a group lesson at Homewood? See prices and book online directly at the Homewood website below.
                                 <ul class="group-lesson-links center">
-                                    <li><a href="/homewood-adult-lessons" target="_blank" class="btn btn-primary">Homewood Group Lessons</a> <br>starting at $69 </li>
-                                    <li><a href="/homewood-kids-lessons" target="_blank" class="btn btn-primary">Homewood Kids Lessons</a> <br>starting at $159</li>
-                                    <li><a href="http://lessons.granlibakken.com/" target="_blank" class="btn btn-primary">Granlibakken Group Lessons</a> <br>starting at $50</li>
+                                    <li><a href="/homewood-adult-lessons" target="_blank" class="btn btn-primary btn-text-larger">Homewood Group Lessons</a> <br>starting at $69 </li>
+                                    <li><a href="/homewood-kids-lessons" target="_blank" class="btn btn-primary btn-text-larger">Homewood Kids Lessons</a> <br>starting at $159</li>
                                 </ul>
                             <br>
                             Have questions about what ski area is best for your upcoming vacation? Feel free to <a href="/resorts" class="green-link">browse our resort guide</a>, or simply <a href="#chat" class="green-link">chat</a> with one of our dedicated customer success representative today.
@@ -145,7 +146,7 @@
                     <h2 class="navy-text">Request a Lesson</h2>
                     <div class="service-box">
                         <img src="assets/book-lesson.png" alt="book-lesson" class="how-it-works-images">
-                        <p class="navy-text process-info">Get started by selecting your sport, mountain, date, and time of lesson.</p>
+                        <p class="navy-text process-info text-left">Get started by selecting your sport, mountain, date, and time of lesson.</p>
                     </div>
                 </div>
             </div>
@@ -155,9 +156,9 @@
                     <h2 class="navy-text">Lesson Confirmation</h2>
                     <div class="service-box">
                         <img src="assets/accept-request.png" alt="accept-request" class="how-it-works-images">
-                        <p class="navy-text process-info">When your reservation is booked, our automated system begins reaching out to our instructors to determine the best available instructor.</p>
+                        <p class="navy-text process-info text-left">When your reservation is booked, our automated system begins reaching out to our instructors to determine the best available instructor.</p>
                         <br>
-                        <p class="small-text navy-text">80% of instructor assignments are confirmed within 30 minutes.</p>
+                        <p class="small-text navy-text text-left">80% of instructor assignments are confirmed within 30 minutes.</p>
                     </div>
                 </div>
             </div>
@@ -167,7 +168,7 @@
                     <h2 class="navy-text">Learn from a Pro</h2>
                     <div class="service-box">
                         <img src="assets/bearvalley-snowbomb.png" alt="snowboarder" class="how-it-works-images">
-                        <p class="navy-text process-info">Prior to your lesson, your instructor will contact you to confirm the meeting location and time. </p>
+                        <p class="navy-text process-info text-left">Prior to your lesson, your instructor will contact you to confirm the meeting location and time. </p>
                     </div>
                 </div>
             </div>
@@ -177,7 +178,7 @@
                     <h2 class="navy-text">Share the Love</h2>
                     <div class="service-box">
                         <img src="assets/review-instructor.png" alt="accept-request" class="how-it-works-images">
-                        <p class="navy-text process-info">After your lesson, you'll receive feedback from your instructor about your progress, and we also ask that you rate the quality of your lesson experience.</p>
+                        <p class="navy-text process-info text-left">After your lesson, you'll receive feedback from your instructor about your progress, and we also ask that you rate the quality of your lesson experience.</p>
                         <!-- <p class="text-muted">Rate the quality of your Snow Schoolers experience, and have the option of making a donation to help sustain the program. 100% of donations go to our instructors.</p> -->
                     </div>
                 </div>
@@ -201,7 +202,7 @@
     <hr class="deposit-hr-navy">
     <div class="text-center">
         <h2 class="section-heading navy-text">Learning to ski or snowboard is hard. <br> Booking a lesson online shouldn't be.</h2>
-        <a href="#book-a-lesson" class="btn btn-primary btn-lg page-scroll">Book a Lesson Today</a>
+        <a href="#book-a-lesson" class="btn btn-primary btn-lg page-scroll btn-text-larger">Book a Lesson Today</a>
     </div>
 </section>
 
@@ -229,7 +230,7 @@
                     <% end %>
                     <div class="email-input">
                     <%= f.email_field :email, autofocus: false, class:"black-text form-control beta-sign-up", placeholder:"Enter Email", required: true  %>
-                    <%= f.submit "Learn More", class:"btn btn-primary btn-lg page-scroll" %>
+                    <%= f.submit "Learn More", class:"btn btn-primary btn-lg page-scroll btn-text-larger" %>
                     <!-- <h3 class="offer-limitations">*First 100 sign ups receive 20% off their first lesson.</h3> -->
                     <!-- <h3 class="text-white">Instructors at Snow Schoolers loving sharing their passion for the mountain, and don't care to see your wallet drained. </h3> -->
                 </div>
