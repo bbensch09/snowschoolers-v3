@@ -265,7 +265,10 @@ h2 {
   font-size: 0.8em;
 }
 label, select{
-  font-size: 1.3em;
+  font-size: 1em;
+}
+textarea.form-control {
+    height: 150px;
 }
 .browse-instructors-btn{
   left:180px;

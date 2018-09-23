@@ -19,7 +19,9 @@ html, body {
     overflow: auto;
 }
 */
-
+.fixed-width-170{
+  width: 170px;
+}
 .text-medium {
   font-size: 1.4em;
 }
@@ -465,6 +467,7 @@ fieldset[disabled] .btn-default.active {
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   transition: all 0.35s;
+  font-size: 0.5em;
 }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -1396,6 +1399,9 @@ h2.blog-cta{
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/
 @media (max-width: 768px) {
 
+  .btn-text-larger{
+    font-size: 1.0em;
+  }
   .hidden-unless-desktop{
     display: none;
   }
@@ -1416,7 +1422,12 @@ h2.blog-cta{
   .teach-with-us-form-container {
     max-width: 100vw;
   }
-
+  .section-break{
+    display:block;
+    width:100%;
+    height: 0px;
+    float: none;
+  }
   .call-to-action h2{
     font-size: 1.8em;
     font-weight: 200;
@@ -1425,7 +1436,7 @@ h2.blog-cta{
   }
 
   .green-button{
-    font-size: 14px;
+    font-size: 0.7em;
   }
   .link-container{
     width: 100%;
@@ -1450,7 +1461,7 @@ h2.blog-cta{
     padding-right: 5px;
   }
   h2 {
-    font-size: 1.8em;
+    font-size: 1.6em;
   }
   #header-creative .header-content .header-content-inner p { font-size: 0.7em; }
   section{
@@ -1464,7 +1475,7 @@ h2.blog-cta{
     max-width: 95vw;
   }
   section.pricing-section{
-  min-height: 1100px !important;
+  min-height: 925px !important;
   display: block;
   position: relative;
   padding-top:50px;
@@ -1628,7 +1639,6 @@ h2.blog-cta{
     float:none;
   }
   .where-we-teach-header{
-    height: 100px;
   }
   .beta-sign-up-offer{
     font-size:1.4em;
@@ -1718,7 +1728,6 @@ h2.blog-cta{
     clear: both;
   }
   .welcome-subheader{
-    text-align: left;
     padding-left: 10px;
     padding-right: 10px;
   }
