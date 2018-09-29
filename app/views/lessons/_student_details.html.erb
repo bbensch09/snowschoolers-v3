@@ -9,5 +9,16 @@
             <li><span class="student-detail-topic">About student: </span><%= student.relationship_to_requester %></li>
             <li><span class="student-detail-topic">Experience: </span><%= student.most_recent_level.to_s %></li>
             <li><span class="student-detail-topic">Equipment: </span><%= student.needs_rental ? "Rental equipment included" : "Already has equipment" %></li>
+            <% if student.needs_rental %>
+              <li><span class="student-detail-topic">Height: </span> <%= student.height_feet %>'<%= student.height_inches %></li>
+              <li><span class="student-detail-topic">Weight: </span> <%= student.weight %>lbs</li>
+              <li><span class="student-detail-topic">Shoe Size: </span> <%= student.shoe_size %></li>
+              <% if @lesson.activity == 'Ski' %>
+                <li><span class="student-detail-topic">Skier Type: </span> <%= student.skier_type %></li>
+                <% else %>
+                <li><span class="student-detail-topic">Board Direction: </span> <%= student.board_direction %></li>
+              <% end %>
+            <% end %>
+          </ul>
       </div>
 <% end %>

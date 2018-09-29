@@ -4,11 +4,11 @@
       <div class='remove-student'>(<%= link_to_remove_association "Remove Student", f, class: 'remove-student' %>)</div>
       <div class='col-md-6'>
         <label>Student Name</label>
-        <%= f.text_field :name, placeholder: "Full name of student", class: "form-control", label: false, required:true %>                      
+        <%= f.text_field :name, placeholder: "Full name of student", class: "form-control name", label: false, required:true %>                      
       </div>
       <div class='col-md-3'>
         <label>Age</label>
-        <%= f.text_field :age_range, class: "form-control", label: false, required:true %>
+        <%= f.text_field :age_range, class: "form-control age", label: false, required:true %>
       </div>
       <div class='col-md-3'>
         <label>Gender</label>
@@ -19,10 +19,6 @@
       <div class='col-md-12'>
         <label class="lesson-label">About the student</label>
         <%= f.input :relationship_to_requester, as: :select, collection: ['I am the student.', 'Student is a friend.', 'Student is my significant other.','Student is my child.'], selected: 'I am the student.', include_blank: 'How is this student related to you?', :input_html => { :class => 'relationship-student'}, label: false %>
-      </div>
-      <div class='col-md-12'>
-        <label>Include rental equipment?</label>        
-        <%= f.select :needs_rental, [['Yes, student needs to rent equipment.', true],['No, student already has equipment.', false]], {}, {class: 'form-control needs-rental', required:true, include_blank:'(Skis,boots,etc.)'} %>
       </div>
       <div class='col-md-12'>
             <label>Ability level </label>
@@ -38,10 +34,43 @@
               "Level 9 - can confidently and safely ski expert-only (double-black diamond) terrain."], {}, {class: 'form-control ability-level', required:true,
                include_blank: "Approximately what level of ability is the student?", label: false} %>              
       </div>
-      <!-- <div class='col-md-12'>
-            <label>Other sports experience </label>
-            <%= f.input :other_sports_experience, placeholder: 'plays recreational soccer, is a varsity tennis player, casual runner, etc.', label: false %>
-      </div> -->
+      <div class='col-md-12'>
+        <label>Include rental equipment?</label>        
+        <%= f.select :needs_rental, [['Yes, student needs to rent equipment.', true],['No, student already has equipment.', false]], {}, {class: 'form-control needs-rental', required:true, include_blank:'(Skis,boots,etc.)'} %>
+      </div>
+      <div class="small-buffer"></div>
+    <div class="student-rental-information hidden">
+      <h4>Rental Equipment <strong>Info</strong></h4>
+
+      <div class='col-md-3'>
+        <label>Height (feet)</label>
+        <%= f.text_field :height_feet, class: "form-control height_feet", label: false, required:false %>
+      </div>
+      <div class='col-md-3'>
+        <label>Height (inches)</label>
+        <%= f.text_field :height_inches, class: "form-control height_inches", label: false, required:false %>
+      </div>
+      <div class='col-md-6'>
+        <label>Weight (lbs)</label>
+        <%= f.text_field :weight, class: "form-control weight", label: false, required:false %>
+      </div>
+      
+      <div class='col-md-6'>
+        <label>Shoe Size</label>        
+        <%= f.select :shoe_size, BOOT_SIZES, {}, {class: 'form-control shoe_size', required:false} %>
+      </div>
+      <% if @lesson.activity == 'Ski' %>
+      <div class='col-md-6'>
+        <label>Skier Type</label>        
+        <%= f.select :skier_type, ['I - Beginner', 'II - intermediate', 'III - Advanced'], {}, {class: 'form-control skier_type', required:false, include_blank:'I - Beginner'} %>
+      </div>
+      <% else %>
+      <div class='col-md-6'>
+        <label>Snowboard Direction</label>        
+        <%= f.select :board_direction, ['Regular', 'Goofy', "I don't know"], {}, {class: 'form-control board_direction', required:false, include_blank:'Which is your strong foot?'} %>
+      </div>
+    </div>
+      <% end %>
           <% if current_user %>
           <%= f.input :requester_id, as: :hidden, input_html: { value: current_user.id } %>
           <% end %>
