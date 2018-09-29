@@ -151,7 +151,7 @@ class LessonMailer < ActionMailer::Base
 
   def new_instructor_application_received(instructor)
     @instructor = instructor
-    mail(to: 'info@snowschoolers.com', subject: "Submitted Application: #{@instructor.username} has applied to join Snow Schoolers")
+    mail(to: 'info@snowschoolers.com', cc: 'brian@snowschoolers.com', subject: "Submitted Application: #{@instructor.username} has applied to join Snow Schoolers")
   end
 
   def send_new_instructor_application_confirmation(instructor)
@@ -161,7 +161,7 @@ class LessonMailer < ActionMailer::Base
 
   def new_hta_application_received(instructor)
     @instructor = instructor
-    mail(to: 'info@snowschoolers.com', subject: "Submitted HTA Application: #{@instructor.username} has applied to join Snow Schoolers")
+    mail(to: 'info@snowschoolers.com', cc: 'brian@snowschoolers.com', subject: "Submitted HTA Application: #{@instructor.username} has applied to join Snow Schoolers")
   end
 
   def send_hta_application_confirmation(instructor)
