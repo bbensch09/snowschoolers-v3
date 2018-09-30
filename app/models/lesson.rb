@@ -1153,13 +1153,15 @@ class Lesson < ActiveRecord::Base
     puts "!!!!!! checking to see if there are any available instructors"
     # available_instructors.any? ? true : false
     if available_instructors.count == 0
+      puts "!!!found zero instructors"
       return false
     elsif self.requester && (self.requester.user_type == "Snow Schoolers Employee" || self.requester.email == "brian@snowschoolers.com")
       return true
     else
       all_open_lesson_requests = Lesson.open_lesson_requests
-      overlapping_open_requests = all_open_lesson_requests.select{|lesson| lesson.date == self.date } #&& lesson.lesson_time.slot == self.lesson_time.slot}
+      overlapping_open_requests = all_open_lesson_requests.select{|lesson| lesson.date == self.date && lesson.lesson_time.slot == self.lesson_time.slot}
       actual_availability_count = available_instructors.count - overlapping_open_requests.count
+      puts "!!!actual available is #{actual_availability_count}"
       case 
       when actual_availability_count >= 2
         puts "!!! Estimated actual availability at this time slot is #{actual_availability_count}"
@@ -1167,8 +1169,10 @@ class Lesson < ActiveRecord::Base
       when actual_availability_count > 0 
         puts "!!! Warning: at most 1-2 instructors are available"
         return true
-      when actual_availability_count <= 0
+      when actual_availability_count == 0
         return false
+      else
+        return true
       end
     end
   end
@@ -1463,14 +1467,14 @@ class Lesson < ActiveRecord::Base
           rental_date: self.date,
           resource_type: 'ski',
           student_id: student.id,
-          status: 'booked, ready to process'
+          status: 'not yet selected'
           })
         Rental.find_or_create_by!({
           lesson_id: self.id,
           rental_date: self.date,
           resource_type: 'ski_boot',
           student_id: student.id,
-          status: 'booked, ready to process'
+          status: 'not yet selected'
           })
       end
     else
@@ -1499,7 +1503,9 @@ private
   def instructors_must_be_available
     puts "!!! checking if group class type"
     return true if group_lesson?
-    unless available_instructors? 
+    if available_instructors? 
+      return true
+    else
       errors.add(:lesson, "Error: unfortunately we are sold out of private instructors at that time. Please choose another time slot, or email info@snowschoolers.com to be notified if we have any instructors that become available.")
       notify_admin_pending_supply_constraint(self.date)
       return false

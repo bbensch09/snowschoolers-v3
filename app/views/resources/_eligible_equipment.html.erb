@@ -19,7 +19,7 @@
       <tbody>
         <% resources.each do |resource| %>
         <tr>
-          <td><%= resource.resource_type %></td>
+          <td><%= resource.resource_type_text %></td>
           <!-- <td><%= resource.gb_identifier %></td> -->
           <td><%= resource.manufacturer %></td>
           <% if @rental.resource_type == 'ski' || @rental.resource_type == 'snowboard' %>

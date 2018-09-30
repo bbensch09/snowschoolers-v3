@@ -13,8 +13,10 @@
     <table class="instructors-table">
       <thead>
         <tr>
+          <% if current_user && current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" %>
           <th>Rental ID</th>
           <th>GB Identifier</th>
+          <% end %>
           <th>Student Name</th>
           <th>Equipment Type</th>
           <th>Size</th>
@@ -27,10 +29,12 @@
       <tbody>
         <% lesson.rentals.each do |rental| %>
         <tr>
+          <% if current_user && current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" %>
           <td><%= rental.id %></td>
           <td><%= rental.resource_id ? rental.resource.gb_identifier : "" %></td>
+          <% end %>
           <td><%= rental.student.name %></td>
-          <td><%= rental.resource_type %></td>
+          <td><%= rental.resource_type_text %></td>
           <% if rental.resource_type == 'ski' || rental.resource_type == 'snowboard' %>
           <td><%= rental.resource_id ? rental.resource.board_size : "" %></td>
           <% else %>
@@ -41,9 +45,9 @@
           <% if rental.resource_id %>
           <td><%= link_to 'Change Equipment', edit_rental_path(rental), class: 'btn btn-warning' %></td>
           <% else %>
-          <td><%= link_to 'Reserve Equipment', edit_rental_path(rental), class: 'btn btn-primary' %></td>
+          <td><%= link_to 'Choose your Equipment', edit_rental_path(rental), class: 'btn btn-primary' %></td>
           <% end %>
-          <td><%= link_to 'Delete Rental', rental, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Cancel Rental', rental, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %></td>
         </tr>
         <% end %>
       </tbody>

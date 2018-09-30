@@ -81,7 +81,7 @@ class RentalsController < ApplicationController
   def update
     respond_to do |format|
       if @rental.update(rental_params)
-        format.html { redirect_to @rental, notice: 'Rental was successfully updated.' }
+        format.html { redirect_to rentals_path, notice: 'Rental was successfully updated.' }
         format.json { render :show, status: :ok, location: @rental }
       else
         format.html { render :edit }

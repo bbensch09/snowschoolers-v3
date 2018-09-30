@@ -25,4 +25,18 @@ def shoe_sizes
 	self.student.eligible_shoe_sizes
 end
 
+def resource_type_text
+	case resource_type
+	when 'ski'
+		return 'Skis'
+	when 'snowboard'
+		return 'Snowboard'
+	when 'ski_boot'
+		return 'Ski Boots'
+	when 'snowboard_boot'
+		return 'Snowboard Boots'
+	else
+	end
+end
+
 end
