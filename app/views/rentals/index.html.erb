@@ -5,10 +5,30 @@
 
     <% @lessons.each do |lesson| %>
 
+    <div class="row">
     <p class='text-left'>
        Rentals for <%= lesson.requester_name %> on <%= lesson.date.strftime("%A %b %e, %Y") %> <%= link_to lesson.product.name, lesson_path(lesson.id), class: 'btn btn-primary' %> <!-- (Lesson ID: <%= lesson.id %>) -->
     </p>
-
+    <% lesson.students.each do |student| %>
+      <div class='col-md-4'>
+          <ul>
+            <!-- <li><span class="student-detail-topic">Student ID: </span><%= student.id %></li> -->
+            <li><span class="student-detail-topic"><b>Name</b>: </span><%= student.name %></li>
+            <li><span class="student-detail-topic"><b>Age:</b></span><%= student.age_range %></li>
+            <!-- <li><span class="student-detail-topic">Experience:</b> </span><%= student.most_recent_level.to_s %></li> -->
+          <li><span class="student-detail-topic"><b>Height:</b> </span> <%= student.height_feet %>'<%= student.height_inches %></li>
+            <li><span class="student-detail-topic"><b>Weight:</b> </span> <%= student.weight %>lbs</li>
+            <li><span class="student-detail-topic"><b>Shoe Size:</b> </span> <%= student.shoe_size %></li>
+            <% if lesson.activity == 'Ski' %>
+            <li><span class="student-detail-topic"><b>Skier Type:</b> </span> <%= student.skier_type %></li>
+            <li><span class="student-detail-topic"><b>Ski Poles?</b> </span> <%= student.poles_requested %></li>
+            <% else %>
+            <li><span class="student-detail-topic"><b>Board Direction:</b> </span> <%= student.board_direction %></li>
+            <% end %>
+          </ul>
+      </div>
+    <% end %>
+    </div>
 
     <table class="instructors-table">
       <thead>
@@ -52,7 +72,9 @@
         <% end %>
       </tbody>
     </table>
-
+  
+    <hr class="deposit-hr-navy">
+  
     <% end %>
 
   </div>
