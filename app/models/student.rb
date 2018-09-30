@@ -24,8 +24,8 @@ class Student < ActiveRecord::Base
 
   def eligible_shoe_sizes
   	index_actual_size = BOOT_SIZES.index(self.shoe_size)
-  	index_min = [0,index_actual_size - 2].max
-  	index_max = [29,index_actual_size+2].min
+  	index_min = [0,index_actual_size - 1].max
+  	index_max = [29,index_actual_size+1].min
   	index_eligible = [index_min..index_max].to_a
   	result_array = []
   	index_eligible.each do |index|

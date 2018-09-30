@@ -1,5 +1,3 @@
-<h1>Available Equipment</h1>
-
 <% if resources.present? %>
 <% else %>
   <p class="text-warning">There are no matching equipment resources available.</p>
@@ -27,7 +25,10 @@
           <td><%= resource.boot_size %></td>
           <td><%= resource.board_size %></td>
           <td><%= resource.status %></td>
-          <td><%= link_to 'Select Equipment for this Rental', select_resource_path(@rental.id,resource.id),  :method => "put", class: 'btn btn-primary' %></td>
+          <td><%= link_to 'Select Equipment for this Rental', select_resource_path(@rental, :resource_id => resource.id),  :method => "put", class: 'btn btn-primary' %></td>
+          <% if @rental.resource_id == resource.id %>
+          <td><%= link_to 'Drop', remove_resource_path(@rental, :resource_id => resource.id),  :method => "put", class: 'btn btn-warning' %></td>
+          <% end %>
         </tr>
         <% end %>
       </tbody>

@@ -19,10 +19,10 @@ class ResourcesController < ApplicationController
 
   def eligible_equipment
     if params[:search]
-      @search_params = {resource_type: 'snowboard_boot'}
+      @search_params = params[:search]
       puts "!!!!! the search_params are: #{@search_params}"
       @resources = Resource.search(@search_params)
-      @resources = @resources.to_a.keep_if {|resource| resource.status != 'reserved'}
+      @resources = @resources.to_a.keep_if {|resource| resource.status != 'Reserved'}
     else
       @resources = Resource.all
     end

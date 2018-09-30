@@ -3,6 +3,7 @@
 </header>
 <p class="lesson-summary-info">
 
+Status: <%= @lesson.state %>
 <% if @lesson.instructor %>
   <br> Instructor: <%= @lesson.instructor.name %>
 <% else %>
@@ -12,7 +13,10 @@
     <!-- <br> No instructor assigned yet -->
   <% end %>
 <% end %>
-<br> Status: <%= @lesson.state %>
+<% if @lesson.includes_rental_package? %>
+  <br> Equipment Status: <%= @lesson.rental_status %> 
+  <%= link_to "Select or Review Equipment", rentals_path, method: :get, class: "btn btn-primary" %>
+<% end %>
 <% if @lesson.review %>
 <br>
   Instructor Review: <%= @lesson.review.rating %> stars - <%= @lesson.review.review %>

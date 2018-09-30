@@ -343,7 +343,7 @@ ActiveRecord::Schema.define(version: 20180930000639) do
     t.string   "boot_age"
     t.string   "boot_size"
     t.string   "boot_size_raw"
-    t.string   "board_size"
+    t.integer  "board_size"
     t.string   "status"
     t.string   "ss_unique_identifier"
     t.string   "non_unique_identifier"

@@ -18,6 +18,7 @@ class Resource < ApplicationRecord
         resources = resources.to_a.keep_if{ |resource| rental.shoe_sizes.include?(resource.boot_size) }
       else
     end
+    resources = resources.to_a.keep_if {|resource| resource.status != 'Reserved'}
     return resources
   end
 

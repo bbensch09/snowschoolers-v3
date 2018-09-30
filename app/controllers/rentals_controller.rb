@@ -1,5 +1,5 @@
 class RentalsController < ApplicationController
-  before_action :set_rental, only: [:show, :edit, :update, :destroy]
+  before_action :set_rental, only: [:show, :edit, :update, :destroy, :select_resource, :remove_resource]
 
   # GET /rentals
   # GET /rentals.json
@@ -23,11 +23,21 @@ class RentalsController < ApplicationController
     puts "!!!!!!! there are #{@resources.count} resources found"
   end
 
-  def select_resource(rental_id,resource_id)
-    @rental = Rental.find(rental_id)
-    @rental.resource_id = id
+  def select_resource
+    puts "!!! params are #{params[:resource_id]}"
+    @rental.resource_id = params[:resource_id]
+    @rental.status = "Reserved"
     @rental.save!
+    redirect_to rentals_path
   end
+
+  def remove_resource
+    @rental.resource_id = nil
+    @rental.status = "Needs Equipment"
+    @rental.save!
+    redirect_to rentals_path
+  end
+
 
   # POST /rentals
   # POST /rentals.json

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     # post :select_resource
   end
   put 'rentals/:id/select_resource' => 'rentals#select_resource', as: :select_resource
+  put 'rentals/:id/remove_resource' => 'rentals#remove_resource', as: :remove_resource
   resources :rentals
   resources :promo_codes
   resources :shifts

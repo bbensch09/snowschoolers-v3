@@ -553,6 +553,19 @@ class Lesson < ActiveRecord::Base
    end
   end
 
+  def rental_status
+    if !self.includes_rental_package?
+      return 'N/A'
+    else
+      rentals = self.rentals
+      status = 'Equipment Reserved'
+      rentals.each do |rental|
+        status = "Pending" if rental.status != 'Reserved'
+      end
+      return status
+    end
+  end
+
   def start_time
     if self.planned_start_time && self.planned_start_time.length > 1
       return self.planned_start_time
@@ -1442,7 +1455,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def create_rental_reservation
-    return true unless self.includes_rental_package?
+    return false if !self.includes_rental_package? || self.rentals.count > 0
     if self.activity == 'Ski'
       self.students.each do |student|
         Rental.find_or_create_by!({
