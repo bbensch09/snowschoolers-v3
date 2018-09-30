@@ -166,7 +166,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
            <!-- <li>  <a href="/"> <span class="glyphicon glyphicon glyphicon-home" aria-hidden="true"></span> </a></li> -->
            <!-- <li> <a href="/search" class="btn-success"> Search</a></li> -->
            <li> <a href="/instructors" class="btn-success"> Admin</a></li>
-           <li> <a href="/daily-roster" class="btn-success"> Daily Roster</a></li>
+           <li> <a href="/daily-roster" class="btn-success"> Daily</a></li>
+           <li> <a href="/rentals" class="btn-success"> Rentals</a></li>
            <li> <a href="/search" class="btn-success"> Search</a></li>
            <% if current_user.instructor %>
            <li><%= link_to current_user.email, instructor_path(current_user.instructor) %></li>

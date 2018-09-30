@@ -6,12 +6,12 @@
     <table class="instructors-table">
       <thead>
         <tr>
-          <th>Type</th>
-          <th>gb_identifier</th>
-          <th>manufacturer</th>
-          <th>boot_size</th>
-          <th>board_size</th>
-          <th>status</th>
+          <th>Type of Gear</th>
+          <!-- <th>gb_identifier</th> -->
+          <th>Brand</th>
+          <th>Size</th>
+          <!-- <th>board_size</th> -->
+          <th>Availability</th>
           <th colspan="3"></th>
         </tr>
       </thead>
@@ -20,12 +20,19 @@
         <% resources.each do |resource| %>
         <tr>
           <td><%= resource.resource_type %></td>
-          <td><%= resource.gb_identifier %></td>
+          <!-- <td><%= resource.gb_identifier %></td> -->
           <td><%= resource.manufacturer %></td>
-          <td><%= resource.boot_size %></td>
+          <% if @rental.resource_type == 'ski' || @rental.resource_type == 'snowboard' %>
           <td><%= resource.board_size %></td>
-          <td><%= resource.status %></td>
-          <td><%= link_to 'Select Equipment for this Rental', select_resource_path(@rental, :resource_id => resource.id),  :method => "put", class: 'btn btn-primary' %></td>
+          <% else %>
+          <td><%= resource.boot_size %></td>
+          <% end %>
+          <td><%= resource.availability(@rental) %></td>
+          <% if resource.availability(@rental) == 'Available' %>
+          <td><%= link_to 'Reserve This', select_resource_path(@rental, :resource_id => resource.id),  :method => "put", class: 'btn btn-primary' %></td>
+          <% else %> 
+          <td></td>
+          <% end %>
           <% if @rental.resource_id == resource.id %>
           <td><%= link_to 'Drop', remove_resource_path(@rental, :resource_id => resource.id),  :method => "put", class: 'btn btn-warning' %></td>
           <% end %>

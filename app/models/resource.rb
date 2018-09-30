@@ -3,6 +3,18 @@ class Resource < ApplicationRecord
   has_many :rentals
   has_many :students
 
+  def availability(rental)
+    this_rental = Rental.where(rental_date:rental.rental_date,resource_id:self.id,id:rental.id)
+    other_rentals = Rental.where(rental_date:rental.rental_date,resource_id:self.id)
+    if this_rental.count > 0
+      return 'Already Reserved'
+    elsif other_rentals.count > 0
+      return  'Not Available'
+    else
+      return 'Available'
+    end
+  end
+
   def self.search(rental)
     resource_type = rental.resource_type
     case resource_type
@@ -18,7 +30,7 @@ class Resource < ApplicationRecord
         resources = resources.to_a.keep_if{ |resource| rental.shoe_sizes.include?(resource.boot_size) }
       else
     end
-    resources = resources.to_a.keep_if {|resource| resource.status != 'Reserved'}
+    # resources = resources.to_a.keep_if {|resource| resource.availability(rental) != 'Reserved'}
     return resources
   end
 

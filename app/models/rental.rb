@@ -1,7 +1,7 @@
 class Rental < ApplicationRecord
 	belongs_to :lesson
 	belongs_to :student
-	has_one :resource
+	belongs_to :resource
 
 def max_size
 	case self.resource_type

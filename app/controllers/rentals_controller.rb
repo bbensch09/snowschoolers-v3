@@ -4,8 +4,29 @@ class RentalsController < ApplicationController
   # GET /rentals
   # GET /rentals.json
   def index
-    @rentals = Rental.all
+    if current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee"
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.canceled? || lesson.booked? || lesson.state.nil? }
+      @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.includes_rental_package? }
+      @lessons = @lessons.select{|lesson| lesson.private_lesson?}
+      @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
+      @todays_lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.today && lesson.includes_rental_package? }
+      elsif current_user.user_type == "Ski Area Partner"
+        lessons = Lesson.where(requested_location:current_user.location.id.to_s).sort_by { |lesson| lesson.id}
+        @todays_lessons = lessons.to_a.keep_if{|lesson| lesson.date == Date.today && lesson.state != 'new' && lesson.includes_rental_package?  }
+        @lessons = Lesson.where(requested_location:current_user.location.id.to_s).to_a.keep_if{|lesson| lesson.includes_rental_package? && lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
+        @lessons.sort_by { |lesson| lesson.id}
+      else
+        @lessons = current_user.lessons
+        @todays_lessons = current_user.lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
+    end
+    # @rentals = Rental.all
   end
+
+  def admin_index
+    @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
+    @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
+  end
+
 
   # GET /rentals/1
   # GET /rentals/1.json
