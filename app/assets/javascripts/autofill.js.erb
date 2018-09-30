@@ -20,15 +20,60 @@ $(document).ready(function(){
 		$('#rememberme')[0].checked = true;
 		// Student info
 		$('.student-box input')[1].value = "Sample Student";
-		$('.student-box input')[2].value = 10;
-		$('.student-box input')[5].value = "Sample Student2";
-		$('.student-box input')[6].value = 11;
-		$('.student-box input')[9].value = "Sample Student3";
-		$('.student-box input')[10].value = 12;
-		$('.student-box input')[13].value = "Sample Student4";
-		$('.student-box input')[14].value = 12;
-		$('.student-box input')[17].value = "Sample Student5";
-		$('.student-box input')[18].value = 12;
+		// $('.student-box input')[2].value = 10;
+		// $('.student-box input')[5].value = "Sample Student2";
+		// $('.student-box input')[6].value = 11;
+		// $('.student-box input')[9].value = "Sample Student3";
+		// $('.student-box input')[10].value = 12;
+		// $('.student-box input')[13].value = "Sample Student4";
+		// $('.student-box input')[14].value = 12;
+		// $('.student-box input')[17].value = "Sample Student5";
+		// $('.student-box input')[18].value = 12;
+
+		// Student info
+		// $('.name')[0].value = "Sample Student";
+		// $('.name')[1].value = "Sample Student1";
+		// $('.name')[2].value = "Sample Student2";
+		// $('.name')[3].value = "Sample Student3";
+		// $('.name')[4].value = "Sample Student4";
+		// $('.age')[0].value = 10;
+		// $('.age')[1].value = 11;
+		// $('.age')[2].value = 12;
+		// $('.age')[3].value = 13;
+		// $('.age')[4].value = 14;
+		// $('.height_feet')[0].value = 4;
+		// $('.height_feet')[1].value = 4;
+		// $('.height_feet')[2].value = 4;
+		// $('.height_feet')[3].value = 4;
+		// $('.height_feet')[4].value = 4;
+		// $('.height_inches')[0].value = 6;
+		// $('.height_inches')[1].value = 7;
+		// $('.height_inches')[2].value = 8;
+		// $('.height_inches')[3].value = 9;
+		// $('.height_inches')[4].value = 10;
+		// $('.weight')[0].value = 110;
+		// $('.weight')[1].value = 110;
+		// $('.weight')[2].value = 110;
+		// $('.weight')[3].value = 110;
+		// $('.weight')[4].value = 110;
+		// $('.skier_type')[0].value = 'I - Beginner';
+
+		$('.name').each(function(index){
+			$('.name')[index].value = "Sample Student";
+		});
+		$('.age').each(function(index){
+			$('.age')[index].value = 10
+		});
+		$('.height_feet').each(function(index){
+			$('.height_feet')[index].value = 4;
+		});
+		$('.height_inches').each(function(index){
+			$('.height_inches')[index].value = 10;
+		});
+		$('.weight').each(function(index){
+			$('.weight')[index].value = 105;
+		});
+
 		console.log("successfully autofilled form")
 	});
 

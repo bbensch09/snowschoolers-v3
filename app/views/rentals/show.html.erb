@@ -1,0 +1,37 @@
+<div id="middle" class="container">
+	<div class="white">
+
+<p>
+  <strong>Lesson:</strong>
+  <%= @rental.lesson_id %>
+</p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @rental.student_id %>
+</p>
+
+<p>
+  <strong>Equipment Type:</strong>
+  <%= @rental.resource_type %>
+</p>
+
+<p>
+  <strong>Equipment ID:</strong>
+  <%= @rental.resource_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @rental.status %>
+</p>
+
+<p>
+  <strong>Other:</strong>
+  <%= @rental.other %>
+</p>
+
+<%= link_to 'Edit', edit_rental_path(@rental), class: 'btn btn-default' %>
+<%= link_to 'Back', rentals_path, class: 'btn btn-default' %>
+</div>
+</div>

@@ -10,6 +10,7 @@ class Lesson < ActiveRecord::Base
   has_many :lesson_actions
   belongs_to :product #, class_name: 'Product', foreign_key: 'product_id'
   belongs_to :section
+  has_many :rentals
   accepts_nested_attributes_for :students, reject_if: :all_blank, allow_destroy: true
 
   validates :requested_location, :lesson_time, presence: true
@@ -28,6 +29,7 @@ class Lesson < ActiveRecord::Base
   validate :add_group_lesson_to_section, on: :create
   after_save :send_lesson_request_to_instructors
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
+  after_save :create_rental_reservation
 
   def group_lesson?
     self.class_type == 'group'
@@ -549,6 +551,19 @@ class Lesson < ActiveRecord::Base
    else
      false
    end
+  end
+
+  def rental_status
+    if !self.includes_rental_package?
+      return 'N/A'
+    else
+      rentals = self.rentals
+      status = 'Equipment Reserved'
+      rentals.each do |rental|
+        status = "Pending" if rental.status != 'Reserved'
+      end
+      return status
+    end
   end
 
   def start_time
@@ -1138,13 +1153,15 @@ class Lesson < ActiveRecord::Base
     puts "!!!!!! checking to see if there are any available instructors"
     # available_instructors.any? ? true : false
     if available_instructors.count == 0
+      puts "!!!found zero instructors"
       return false
     elsif self.requester && (self.requester.user_type == "Snow Schoolers Employee" || self.requester.email == "brian@snowschoolers.com")
       return true
     else
       all_open_lesson_requests = Lesson.open_lesson_requests
-      overlapping_open_requests = all_open_lesson_requests.select{|lesson| lesson.date == self.date } #&& lesson.lesson_time.slot == self.lesson_time.slot}
+      overlapping_open_requests = all_open_lesson_requests.select{|lesson| lesson.date == self.date && lesson.lesson_time.slot == self.lesson_time.slot}
       actual_availability_count = available_instructors.count - overlapping_open_requests.count
+      puts "!!!actual available is #{actual_availability_count}"
       case 
       when actual_availability_count >= 2
         puts "!!! Estimated actual availability at this time slot is #{actual_availability_count}"
@@ -1152,8 +1169,10 @@ class Lesson < ActiveRecord::Base
       when actual_availability_count > 0 
         puts "!!! Warning: at most 1-2 instructors are available"
         return true
-      when actual_availability_count <= 0
+      when actual_availability_count == 0
         return false
+      else
+        return true
       end
     end
   end
@@ -1431,12 +1450,62 @@ class Lesson < ActiveRecord::Base
       LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
   end
 
-  private
+  def student_ids
+    ids = []
+    self.students.each do |student|
+      ids << student.id
+    end
+    return ids
+  end
+
+  def create_rental_reservation
+    return false if !self.includes_rental_package? || self.rentals.count > 0
+    if self.activity == 'Ski'
+      self.students.each do |student|
+        Rental.find_or_create_by!({
+          lesson_id: self.id,
+          rental_date: self.date,
+          resource_type: 'ski',
+          student_id: student.id,
+          status: 'not yet selected'
+          })
+        Rental.find_or_create_by!({
+          lesson_id: self.id,
+          rental_date: self.date,
+          resource_type: 'ski_boot',
+          student_id: student.id,
+          status: 'not yet selected'
+          })
+      end
+    else
+      self.students.each do |student|
+        Rental.find_or_create_by!({
+          lesson_id: self.id,
+          rental_date: self.date,
+          resource_type: 'ski',
+          student_id: student.id,
+          status: 'booked, ready to process'
+          })
+        Rental.find_or_create_by!({
+          lesson_id: self.id,
+          rental_date: self.date,
+          resource_type: 'ski_boot',
+          student_id: student.id,
+          status: 'booked, ready to process'
+          })
+      end
+    end      
+  end
+
+
+private
 
   def instructors_must_be_available
     puts "!!! checking if group class type"
     return true if group_lesson?
-    unless available_instructors? 
+    if available_instructors? 
+      return true
+    else
       errors.add(:lesson, "Error: unfortunately we are sold out of private instructors at that time. Please choose another time slot, or email info@snowschoolers.com to be notified if we have any instructors that become available.")
       notify_admin_pending_supply_constraint(self.date)
       return false

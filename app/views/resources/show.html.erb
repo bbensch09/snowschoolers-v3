@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @resource.type %>
+</p>
+
+<p>
+  <strong>Gb identifier:</strong>
+  <%= @resource.gb_identifier %>
+</p>
+
+<p>
+  <strong>Manufacturer:</strong>
+  <%= @resource.manufacturer %>
+</p>
+
+<p>
+  <strong>Board model:</strong>
+  <%= @resource.board_model %>
+</p>
+
+<p>
+  <strong>Binding model:</strong>
+  <%= @resource.binding_model %>
+</p>
+
+<p>
+  <strong>Is boot:</strong>
+  <%= @resource.is_boot %>
+</p>
+
+<p>
+  <strong>Boot age:</strong>
+  <%= @resource.boot_age %>
+</p>
+
+<p>
+  <strong>Boot size:</strong>
+  <%= @resource.boot_size %>
+</p>
+
+<p>
+  <strong>Boot size raw:</strong>
+  <%= @resource.boot_size_raw %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @resource.status %>
+</p>
+
+<p>
+  <strong>Ss unique identifier:</strong>
+  <%= @resource.ss_unique_identifier %>
+</p>
+
+<p>
+  <strong>Non unique identifier:</strong>
+  <%= @resource.non_unique_identifier %>
+</p>
+
+<p>
+  <strong>Walk in only:</strong>
+  <%= @resource.walk_in_only %>
+</p>
+
+<%= link_to 'Edit', edit_resource_path(@resource) %> |
+<%= link_to 'Back', resources_path %>

@@ -315,6 +315,19 @@ var toggleElementListener = function(){
     $('#more-info').toggleClass('hidden');
     console.log("info revealed.");
   });
+    $('.needs-rental').change(function(e){
+    e.preventDefault();
+    // $('.student-rental-information').toggleClass('hidden');
+    rental_state = $('.needs-rental').val();
+    console.log("current rental_state is "+rental_state);
+    if (rental_state == 'true') {
+    $('.student-rental-information').removeClass('hidden');
+    console.log("rental info revealed");
+    } else { 
+      $('.student-rental-information').addClass('hidden');
+      console.log('keep rental info hidden');
+    };
+  });
 }
 
 $(function(){

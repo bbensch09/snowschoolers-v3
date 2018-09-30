@@ -1,0 +1,21 @@
+<%= semantic_form_for @resource do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :resource_type %>
+    <%= f.input :gb_identifier %>
+    <%= f.input :manufacturer %>
+    <%= f.input :board_model %>
+    <%= f.input :binding_model %>
+    <%= f.input :is_boot %>
+    <%= f.input :boot_age %>
+    <%= f.input :boot_size %>
+    <%= f.input :boot_size_raw %>
+    <%= f.input :status %>
+    <%= f.input :ss_unique_identifier %>
+    <%= f.input :non_unique_identifier %>
+    <%= f.input :walk_in_only %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>

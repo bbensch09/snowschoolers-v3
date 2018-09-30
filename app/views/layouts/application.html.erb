@@ -166,7 +166,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
            <!-- <li>  <a href="/"> <span class="glyphicon glyphicon glyphicon-home" aria-hidden="true"></span> </a></li> -->
            <!-- <li> <a href="/search" class="btn-success"> Search</a></li> -->
            <li> <a href="/instructors" class="btn-success"> Admin</a></li>
-           <li> <a href="/daily-roster" class="btn-success"> Daily Roster</a></li>
+           <li> <a href="/daily-roster" class="btn-success"> Daily</a></li>
+           <li> <a href="/rentals" class="btn-success"> Rentals</a></li>
            <li> <a href="/search" class="btn-success"> Search</a></li>
            <% if current_user.instructor %>
            <li><%= link_to current_user.email, instructor_path(current_user.instructor) %></li>
@@ -211,9 +212,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <li> <%= link_to 'TEACH WITH US', '/apply', class: 'sign-up-btn' %></li>
               <li><a href="#" class="sign-up-btn" data-toggle="modal" data-target="#registerModal">REGISTER</a></li>
               <li><a href="#" class="sign-up-btn" data-toggle="modal" data-target="#loginModal">LOG IN</a></li>
-<!--               <li>
-                <%= link_to 'Join the Beta - First hour free!', "/beta_users/new", class: 'btn btn-default' %>
-              </li> -->
             <% end %>
           <% end %>
         </ul>

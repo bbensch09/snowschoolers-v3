@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  resources :resources do 
+    collection {post :import}
+    collection {post :delete_all}
+    # post :select_resource
+  end
+  put 'rentals/:id/select_resource' => 'rentals#select_resource', as: :select_resource
+  put 'rentals/:id/remove_resource' => 'rentals#remove_resource', as: :remove_resource
+  resources :rentals
   resources :promo_codes
   resources :shifts
   resources :product_calendars

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180909010414) do
+ActiveRecord::Schema.define(version: 20180930000639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -316,6 +316,42 @@ ActiveRecord::Schema.define(version: 20180909010414) do
     t.datetime "updated_at",    null: false
   end
 
+  create_table "rentals", force: :cascade do |t|
+    t.integer  "lesson_id"
+    t.integer  "student_id"
+    t.integer  "resource_id"
+    t.string   "resource_type"
+    t.date     "rental_date"
+    t.string   "status"
+    t.string   "other"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "rentals_resources", id: false, force: :cascade do |t|
+    t.integer "rental_id",   null: false
+    t.integer "resource_id", null: false
+  end
+
+  create_table "resources", force: :cascade do |t|
+    t.string   "resource_type"
+    t.string   "gb_identifier"
+    t.string   "manufacturer"
+    t.string   "board_model"
+    t.string   "binding_model"
+    t.boolean  "is_boot"
+    t.string   "boot_age"
+    t.string   "boot_size"
+    t.string   "boot_size_raw"
+    t.integer  "board_size"
+    t.string   "status"
+    t.string   "ss_unique_identifier"
+    t.string   "non_unique_identifier"
+    t.boolean  "walk_in_only"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.integer  "instructor_id"
     t.integer  "lesson_id"
@@ -396,6 +432,13 @@ ActiveRecord::Schema.define(version: 20180909010414) do
     t.string  "most_recent_level"
     t.text    "other_sports_experience"
     t.boolean "needs_rental"
+    t.string  "shoe_size"
+    t.integer "height_feet"
+    t.integer "height_inches"
+    t.integer "weight"
+    t.string  "skier_type"
+    t.string  "board_direction"
+    t.boolean "poles_requested"
   end
 
   create_table "transactions", force: :cascade do |t|

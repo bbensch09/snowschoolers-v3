@@ -136,9 +136,9 @@
               <div class="col-md-4">
                 <label class="lesson-label">Slot</label>
                 <% if @lesson.group_lesson? %>
-                <%= lt_f.input :slot, as: :select, collection: GROUP_SLOTS, selected: @slot, include_blank: 'Time', label: false %>
+                <%= lt_f.input :slot, as: :select, collection: GROUP_SLOTS, include_blank: 'Time', label: false %>
                 <% else %>
-                <%= lt_f.input :slot, as: :select, collection: PRIVATE_SLOTS, selected: @slot, include_blank: 'Time', label: false %>
+                <%= lt_f.input :slot, as: :select, collection: PRIVATE_SLOTS, include_blank: 'Time', label: false %>
                 <% end %>                
 
               </div>
@@ -189,6 +189,7 @@
             <%= f.semantic_fields_for :students do |student| %>
               <%= render 'student_fields', f: student %>
             <% end %>
+            <div class="small-buffer"></div>
             <h3 class="text-warning hidden" id="ability-level-warning">Warning - students must all be within one level of each other in order to participate in the same lesson.</h3>
             <div class='links'>
               <span class="add-student-pricing">
@@ -232,8 +233,8 @@
             <%= f.input :focus_area, as: :select, collection: ['Basics (for beginners and intermediates)','Advanced Racing Technique', 'Moguls','Terrain Park','Powder Skiing','Big-Mountain Skiing'], include_blank: 'Select a focus area', input_html: {class: 'width100'}, required: false, label: false %>
           </div> -->
          <div class='col-md-12'>
-            <label class="lesson-label">What is your primary objective for the lesson? <br> Is there anything specific you want your instructor to know?</label>
-            <%= f.input :objectives, placeholder: 'i.e. my child has a fear of heights, my child has special needs, I tore my ACL three years ago, etc.', required: false, label: false %>
+            <label class="lesson-label">What is your primary objective for the lesson? Is there anything specific you want your instructor to know? Do you or your children play other sports?</label>
+            <%= f.input :objectives, placeholder: 'i.e. My child is very athletic but has a fear of heights, my child has special needs, I tore my ACL a few years ago and this will be first time on thes now since, etc.', required: false, label: false %>
           </div>
           <div class="col-md-12">
             <label class="lesson-label">How did you first hear about Snow Schoolers?</label>

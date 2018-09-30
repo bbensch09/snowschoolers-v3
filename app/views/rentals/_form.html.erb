@@ -1,0 +1,23 @@
+<h1>Select from Available Equipment</h1>
+
+<%= semantic_form_for @rental do |f| %>
+  
+  <%= render partial: 'resources/eligible_equipment', locals: {resources: @resources}  %>
+  
+  <%= f.inputs do %>
+    <!-- <%= f.input :lesson_id %> -->
+    <!-- <%= f.input :student_id %> -->
+    <!-- <%= f.input :resource_type %> -->
+    <!-- <%= f.input :resource_id %> -->
+    <!-- <%= f.input :status %> -->
+    <div class='col-md-12'>
+      <label class="lesson-label">Other notes about this equipment (optional).</label>
+      <%= f.text_area :other, rows:2, placeholder: "e.g. I don't see any available but would love a women's 7.5 if there are any left.", required: false, class: 'form-control', label: false %>
+    </div>
+  <% end %>
+
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>
