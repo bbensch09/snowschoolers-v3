@@ -136,9 +136,9 @@
               <div class="col-md-4">
                 <label class="lesson-label">Slot</label>
                 <% if @lesson.group_lesson? %>
-                <%= lt_f.input :slot, as: :select, collection: GROUP_SLOTS, selected: @slot, include_blank: 'Time', label: false %>
+                <%= lt_f.input :slot, as: :select, collection: GROUP_SLOTS, include_blank: 'Time', label: false %>
                 <% else %>
-                <%= lt_f.input :slot, as: :select, collection: PRIVATE_SLOTS, selected: @slot, include_blank: 'Time', label: false %>
+                <%= lt_f.input :slot, as: :select, collection: PRIVATE_SLOTS, include_blank: 'Time', label: false %>
                 <% end %>                
 
               </div>

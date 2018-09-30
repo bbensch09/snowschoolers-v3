@@ -15,6 +15,7 @@
               <li><span class="student-detail-topic">Shoe Size: </span> <%= student.shoe_size %></li>
               <% if @lesson.activity == 'Ski' %>
                 <li><span class="student-detail-topic">Skier Type: </span> <%= student.skier_type %></li>
+                <li><span class="student-detail-topic">Poles Requested: </span> <%= student.poles_requested %></li>
                 <% else %>
                 <li><span class="student-detail-topic">Board Direction: </span> <%= student.board_direction %></li>
               <% end %>

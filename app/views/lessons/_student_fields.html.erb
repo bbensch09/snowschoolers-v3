@@ -39,7 +39,7 @@
         <%= f.select :needs_rental, [['Yes, student needs to rent equipment.', true],['No, student already has equipment.', false]], {}, {class: 'form-control needs-rental', required:true, include_blank:'(Skis,boots,etc.)'} %>
       </div>
       <div class="small-buffer"></div>
-    <div class="student-rental-information hidden">
+    <div class="student-rental-information">
       <h4>Rental Equipment <strong>Info</strong></h4>
 
       <div class='col-md-3'>
@@ -69,8 +69,13 @@
         <label>Snowboard Direction</label>        
         <%= f.select :board_direction, ['Regular', 'Goofy', "I don't know"], {}, {class: 'form-control board_direction', required:false, include_blank:'Which is your strong foot?'} %>
       </div>
-    </div>
       <% end %>
+      <div class='col-md-12'>
+          <%= f.check_box :poles_requested, required: false  %>I would like to include ski poles with my rental reservation.
+          <br>
+          <b>Note: </b> poles are not recommended for kids under 10.
+      </div>
+    </div>
           <% if current_user %>
           <%= f.input :requester_id, as: :hidden, input_html: { value: current_user.id } %>
           <% end %>

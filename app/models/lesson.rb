@@ -10,6 +10,7 @@ class Lesson < ActiveRecord::Base
   has_many :lesson_actions
   belongs_to :product #, class_name: 'Product', foreign_key: 'product_id'
   belongs_to :section
+  has_many :rentals
   accepts_nested_attributes_for :students, reject_if: :all_blank, allow_destroy: true
 
   validates :requested_location, :lesson_time, presence: true
@@ -28,6 +29,7 @@ class Lesson < ActiveRecord::Base
   validate :add_group_lesson_to_section, on: :create
   after_save :send_lesson_request_to_instructors
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
+  after_save :create_rental_reservation
 
   def group_lesson?
     self.class_type == 'group'
@@ -1431,7 +1433,55 @@ class Lesson < ActiveRecord::Base
       LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
   end
 
-  private
+  def student_ids
+    ids = []
+    self.students.each do |student|
+      ids << student.id
+    end
+    return ids
+  end
+
+  def create_rental_reservation
+    return true unless self.includes_rental_package?
+    if self.activity == 'Ski'
+      self.students.each do |student|
+        Rental.find_or_create_by!({
+          lesson_id: self.id,
+          rental_date: self.date,
+          resource_type: 'ski',
+          student_id: student.id,
+          status: 'booked, ready to process'
+          })
+        Rental.find_or_create_by!({
+          lesson_id: self.id,
+          rental_date: self.date,
+          resource_type: 'ski_boot',
+          student_id: student.id,
+          status: 'booked, ready to process'
+          })
+      end
+    else
+      self.students.each do |student|
+        Rental.find_or_create_by!({
+          lesson_id: self.id,
+          rental_date: self.date,
+          resource_type: 'ski',
+          student_id: student.id,
+          status: 'booked, ready to process'
+          })
+        Rental.find_or_create_by!({
+          lesson_id: self.id,
+          rental_date: self.date,
+          resource_type: 'ski_boot',
+          student_id: student.id,
+          status: 'booked, ready to process'
+          })
+      end
+    end      
+  end
+
+
+private
 
   def instructors_must_be_available
     puts "!!! checking if group class type"

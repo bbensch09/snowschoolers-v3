@@ -6,5 +6,6 @@ class AddRentalFieldsToStudents < ActiveRecord::Migration[5.0]
   	add_column :students, :weight, :integer
   	add_column :students, :skier_type, :string
   	add_column :students, :board_direction, :string
+  	add_column :students, :poles_requested, :boolean
   end
 end

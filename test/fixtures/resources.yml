@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  gb_identifier: MyString
+  manufacturer: MyString
+  board_model: MyString
+  binding_model: MyString
+  is_boot: false
+  boot_age: MyString
+  boot_size: MyString
+  boot_size_raw: MyString
+  status: MyString
+  ss_unique_identifier: MyString
+  non_unique_identifier: MyString
+  walk_in_only: false
+
+two:
+  type: 
+  gb_identifier: MyString
+  manufacturer: MyString
+  board_model: MyString
+  binding_model: MyString
+  is_boot: false
+  boot_age: MyString
+  boot_size: MyString
+  boot_size_raw: MyString
+  status: MyString
+  ss_unique_identifier: MyString
+  non_unique_identifier: MyString
+  walk_in_only: false
