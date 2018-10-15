@@ -4,6 +4,9 @@
     <% granlibakken_class = '' %>
 <% end %>
 <section id="prices_simple" class="pricing-new-lesson">
+    <h1 class="text-left">
+        <span><a href="#book-a-group-lesson" class="btn btn-primary">See Group Lesson Rates</a></span>
+    </h1>
     <div class="pricing-container">
           <% if (Product.where(location_id:8,length:"1.00",product_type:'private_lesson').first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson').first == nil) %>
           <h3 class='text-danger center'> Pricing Not Yet Available </h3>
@@ -12,7 +15,9 @@
           <thead class="">
             <tr>
                 <th class="center price-header" colspan="6">
-                    <h1 class="navy-text">2017/18 PRIVATE LESSON RATES</h1>
+                    <h1 class="navy-text">
+                        <span>2018/19 PRIVATE LESSON RATES</span>
+                    </h1>
                     <h3 class="center navy-text">Book Early and Save over 50% Compared to Other Resorts</h3>
                 </th>
             </tr>

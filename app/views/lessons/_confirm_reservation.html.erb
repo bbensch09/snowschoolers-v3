@@ -11,6 +11,8 @@
             <h1>Authorize Payment to Secure your Reservation</h1>
             <div id="booking-details-container">
               <h4 class="booking-details-labels">
+                <p><b>Lesson Type:</b></p>
+                <br>
                 <p><b>Lesson Date:</b></p>
                 <br>
                 <% if @lesson.num_days && @lesson.num_days > 1 %>
@@ -31,6 +33,8 @@
               <%= link_to 'Edit Lesson', edit_lesson_path(@lesson), class: "btn btn-primary" %>
               </h4>
               <h4 class="booking-details">
+                  <p><%= @lesson.class_type_text %>, number of students: <%= @lesson.students.count %></p>
+                  <br>
                 <% if @lesson.is_gift_voucher? %>
                   <p>TBD</p>
                   <br>
@@ -58,7 +62,12 @@
                   <br>
               <% if @lesson.lesson_price.nil? || @lesson.price == @lesson.lesson_price %>
                   <% amount = (@lesson.price.to_f*100).to_i %>
-                  <p><%= number_to_currency(@lesson.price) %></p>
+                  <p>
+                    <%= number_to_currency(@lesson.price) %>
+                    <% if @lesson.product.calendar_period == 'Holiday' || @lesson.product.calendar_period == 'Peak' %>
+                    (holiday pricing)
+                    <% end %>
+                  </p>
                   <% if @lesson.promo_code %>
                   <p class="italic">Original price: <%= number_to_currency(@lesson.original_price) %></p>
                   <p class="italic">Promotional Offer: <%= @lesson.promo_code.description %></p>
@@ -66,11 +75,13 @@
                   <br>
                     <p>
                       <span class="italic text-smaller">
-                      <% if @lesson.additional_students_with_gear > 0 %>
-                        <%= @lesson.additional_students_with_gear %> additional student(s) with rentals for <%= number_to_currency(@lesson.cost_per_additional_student_with_gear) %> each;
-                      <% end %>
-                      <% if @lesson.additional_students_without_gear > 0 %>
-                        <%= @lesson.additional_students_without_gear %> additional student(s) without equipment for <%= number_to_currency(@lesson.cost_per_additional_student_without_gear) %> each;
+                      <% if @lesson.class_type == "private" %>
+                        <% if @lesson.additional_students_with_gear > 0 %>
+                          <%= @lesson.additional_students_with_gear %> additional student(s) with rentals for <%= number_to_currency(@lesson.cost_per_additional_student_with_gear) %> each;
+                        <% end %>
+                        <% if @lesson.additional_students_without_gear > 0 %>
+                          <%= @lesson.additional_students_without_gear %> additional student(s) without equipment for <%= number_to_currency(@lesson.cost_per_additional_student_without_gear) %> each;
+                        <% end %>
                       <% end %>
                       </span>
                   </p>
