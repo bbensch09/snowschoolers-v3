@@ -197,7 +197,6 @@ class Lesson < ActiveRecord::Base
   end
 
   def product
-    if self.product_id.nil?
         if self.product_name
           # puts "!!!calculating price based on product length, location, and calendar_period"
           calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
@@ -257,36 +256,33 @@ class Lesson < ActiveRecord::Base
           #pricing for Homewood
           #early bird w/o rental
           elsif self.slot == PRIVATE_SLOTS.first && self.location.id == 8 && self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:true).first
+            product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
           #early bird w/ rental
           elsif self.slot == PRIVATE_SLOTS.first && self.location.id == 8 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
           
           #pricing for morning GB half-day package
           elsif self.slot == PRIVATE_SLOTS.second && self.location.id == 8 && self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:true).first
+            product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
           #pricing for morning GB half-day lesson only
           elsif self.slot == PRIVATE_SLOTS.second && self.location.id == 8 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
 
           #pricing for afternoon GB half-day package
           elsif self.slot == PRIVATE_SLOTS.third && self.location.id == 8 && self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:true).first
+            product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
           #pricing for afternoon GB half-day lesson only
           elsif self.slot == PRIVATE_SLOTS.third && self.location.id == 8 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
 
           #pricing for GB full-day lesson package
           elsif self.slot == PRIVATE_SLOTS.fourth  && self.location.id == 8 && self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:true).first
+            product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
           #pricing for GB full-day lesson only
           elsif self.slot == PRIVATE_SLOTS.fourth  && self.location.id == 8 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
           end
         end
-    else
-      product = Product.where(id:self.product_id).first
-    end
     return product
   end
 
@@ -880,7 +876,7 @@ class Lesson < ActiveRecord::Base
   def cost_per_additional_student_with_gear
     case self.location.id
       when 24
-        return 65
+        return 60
       when 8
         return 0
       else

@@ -39,6 +39,9 @@
         <%= f.select :needs_rental, [['Yes, student needs to rent equipment.', true],['No, student already has equipment.', false]], {}, {class: 'form-control needs-rental', required:true, include_blank:'(Skis,boots,etc.)'} %>
       </div>
       <div class="small-buffer"></div>
+<% if @lesson.location.id == 8 %>
+  <h4 class="text-warning left">Unfortunately online reservations are not available for rental equipment at Homewood. We recommend arriving at least 45minutes before your lesson to ensure enough time to get properly fitted with your equipment.</h4>
+<% else %>      
     <div class="student-rental-information">
       <h4>Rental Equipment <strong>Info</strong></h4>
 
@@ -56,8 +59,8 @@
       </div>
       
       <div class='col-md-6'>
-        <label>Shoe Size</label>        
-        <%= f.select :shoe_size, BOOT_SIZES, {}, {class: 'form-control shoe_size', required:false} %>
+        <label>Boot Size</label>        
+        <%= f.select :shoe_size, BOOT_SIZES, {}, {class: 'form-control shoe_size', required:false, include_blank:'Select Your Shoe Size'} %>
       </div>
       <% if @lesson.activity == 'Ski' %>
       <div class='col-md-6'>
@@ -76,6 +79,8 @@
           <b>Note: </b> poles are not recommended for kids under 10.
       </div>
     </div>
+<% end %>      
+
           <% if current_user %>
           <%= f.input :requester_id, as: :hidden, input_html: { value: current_user.id } %>
           <% end %>
