@@ -265,7 +265,7 @@ class LessonsController < ApplicationController
     @slot = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?) ? nil : session[:lesson]["lesson_time"]["slot"]
     @date = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?)  ? nil : session[:lesson]["lesson_time"]["date"]
     @lesson_time = @lesson.lesson_time
-    GoogleAnalyticsApi.new.event('lesson-requests', 'load-lessons-new')
+    # GoogleAnalyticsApi.new.event('lesson-requests', 'load-lessons-new')
   end
 
   def new_request
@@ -278,7 +278,7 @@ class LessonsController < ApplicationController
     names = params[:id].gsub("-"," ")
     @instructor_requested = Instructor.all.select{|instructor| instructor.name.downcase == names.downcase}.first
     @lesson_time = @lesson.lesson_time
-    GoogleAnalyticsApi.new.event('lesson-requests', 'load-lessons-new-private-request')
+    # GoogleAnalyticsApi.new.event('lesson-requests', 'load-lessons-new-private-request')
     render 'new'
   end
 
@@ -299,7 +299,7 @@ class LessonsController < ApplicationController
     @product_name = @lesson.product_name
     @slot = @lesson.slot
     @promo_code = PromoCode.new
-    GoogleAnalyticsApi.new.event('lesson-requests', 'load-full-form')
+    # GoogleAnalyticsApi.new.event('lesson-requests', 'load-full-form')
     flash.now[:notice] = "You're almost there! We just need a few more details."
     flash[:complete_form] = 'TRUE'
     cookies[:lesson] = {
@@ -360,7 +360,7 @@ class LessonsController < ApplicationController
         end
         puts "!!!!!About to save state & deposit status after processing lessons#update"
         @lesson.save
-      GoogleAnalyticsApi.new.event('lesson-requests', 'deposit-submitted', params[:ga_client_id])
+      # GoogleAnalyticsApi.new.event('lesson-requests', 'deposit-submitted', params[:ga_client_id])
       if @lesson.promo_code
         LessonMailer.send_promo_redemption_notification(@lesson).deliver!
       end
@@ -419,7 +419,7 @@ class LessonsController < ApplicationController
       @lesson.state = 'ready_to_book'
     end
     if @lesson.save
-      GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-updated', params[:ga_client_id])
+      # GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-updated', params[:ga_client_id])
       @user_email = current_user ? current_user.email : "unknown"
       if @lesson.state == "ready_to_book"
       LessonMailer.notify_admin_lesson_full_form_updated(@lesson.id).deliver!
@@ -438,7 +438,7 @@ class LessonsController < ApplicationController
 
   def show
     if @lesson.state == "ready_to_book"
-      GoogleAnalyticsApi.new.event('lesson-requests', 'ready-for-deposit')
+      # GoogleAnalyticsApi.new.event('lesson-requests', 'ready-for-deposit')
     end
     check_user_permissions
   end
@@ -616,7 +616,7 @@ class LessonsController < ApplicationController
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
     @lesson.product_name = @lesson.lesson_time.slot
     if @lesson.save
-      GoogleAnalyticsApi.new.event('lesson-requests', 'request-initiated', params[:ga_client_id])
+      # GoogleAnalyticsApi.new.event('lesson-requests', 'request-initiated', params[:ga_client_id])
       @user_email = current_user ? current_user.email : "unknown"
       cookies[:lesson] = {
         value: @lesson.id + 30,
