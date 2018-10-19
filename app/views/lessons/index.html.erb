@@ -76,7 +76,7 @@
             <% end %>
             <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.price) %></td>
             <% if current_user && current_user.instructor %>              
-              <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.length.to_i * @wage_rate) %></td>
+              <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.length.to_i * 17) %></td>
               <% else %>
               <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.wages) %></td>
             <% end %>
