@@ -1,32 +1,62 @@
 <div id="middle" class="container">
 	<div class="white">
 
-		<h1>Student Info</h1>		
+		<h1>Rental Equipment - Select <%= @rental.resource_type_text %></h1>		
 
   <% student = @rental.student %>
     <div class='row'>
-      <div class='col-md-12'>
+      <div class='col-md-6'>
+        <h4>
+          Based on your height, weight, and ability level, your recommended equipment size is below. 
+        </h4>
+        <ul>
+          <% if student.lesson.activity == 'Ski'%>
+            <li><span class="student-detail-topic"><b>Beginner:</b> </span><%= student.recommended_beginner_ski_length %> (chin height)</li>
+            <li><span class="student-detail-topic"><b>Intermediate:</b> </span><%= student.recommended_intermediate_ski_length %> (nose height)</li>
+            <li><span class="student-detail-topic"><b>Advanced:</b> </span><%= student.recommended_advanced_ski_length%> (full height)</li>
+          <% else %>
+            <li><span class="student-detail-topic"><b>Beginner:</b> </span><%= student.recommended_beginner_snowboard_length %> (chest height)</li>
+            <li><span class="student-detail-topic"><b>Intermediate:</b> </span><%= student.recommended_intermediate_snowboard_length %> (chin height)</li>
+            <li><span class="student-detail-topic"><b>Advanced:</b> </span><%= student.recommended_advanced_snowboard_length%> (nose height)</li>
+          <% end %>
+        </ul>
+        <h4>Please choose from one of the available rental pieces below.</h4>
+      </div>
+
+      <div class='col-md-6'>
         <h4><b><%= student.name %></b></h4>
           <ul>
             <!-- <li><span class="student-detail-topic">Student ID: </span><%= student.id %></li> -->
             <li><span class="student-detail-topic">Age: </span><%= student.age_range %></li>
             <li><span class="student-detail-topic">Gender: </span><%= student.gender %></li>
             <!-- <li><span class="student-detail-topic">Experience: </span><%= student.most_recent_level.to_s %></li> -->
-	        <li><span class="student-detail-topic">Height: </span> <%= student.height_feet %>'<%= student.height_inches %></li>
-          	<li><span class="student-detail-topic">Weight: </span> <%= student.weight %>lbs</li>
-          	<li><span class="student-detail-topic">Shoe Size: </span> <%= student.shoe_size %></li>
-          	<% if @rental.lesson.activity == 'Ski' %>
+          <li><span class="student-detail-topic">Height: </span> <%= student.height_feet %>'<%= student.height_inches %></li>
+            <li><span class="student-detail-topic">Weight: </span> <%= student.weight %>lbs</li>
+            <li><span class="student-detail-topic">Shoe Size: </span> <%= student.shoe_size %></li>
+            <% if @rental.lesson.activity == 'Ski' %>
             <!-- <li><span class="student-detail-topic">Skier Type: </span> <%= student.skier_type %></li> -->
             <!-- <li><span class="student-detail-topic">Poles Requested: </span> <%= student.poles_requested %></li> -->
             <% else %>
             <li><span class="student-detail-topic">Board Direction: </span> <%= student.board_direction %></li>
-          	<% end %>
+            <% end %>
           </ul>
-      </div>
-      
-		<%= render 'form', rental: @rental%>
-
-		<%= link_to 'Show', @rental %> |
-		<%= link_to 'Back', rentals_path %>
+        </div>
 	</div>
+
+<div class ="col-md-6">
+      
+    <%= render 'form', rental: @rental%>
+
+</div>
+
+<div class ="col-md-6">
+  <% if student.lesson.activity == "Ski" %>
+    <img src="https://static.evo.com/content/kbis/2013-1-4_ski_adult_v2.jpg" class="sizing-chart" alt="sizing guide">
+    <% else %>
+    <img src="https://static.evo.com/content/kbis/2013-1-4_sb_adult_v2.jpg" class="sizing-chart" alt="sizing guide">
+  <% end %>
+</div>
+<div class="clear-both"></div>
+    <%= link_to 'Show', @rental %> |
+    <%= link_to 'Back', rentals_path %>
 </div>
