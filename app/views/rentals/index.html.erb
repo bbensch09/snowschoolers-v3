@@ -2,6 +2,9 @@
   <div class="white">
 
     <h1>Rentals</h1>
+    <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner") %>
+    <h3><a href="past_rentals" class="btn btn-success" >View Past Rentals</a></h3>
+    <% end %>
 
     <% @lessons.each do |lesson| %>
 

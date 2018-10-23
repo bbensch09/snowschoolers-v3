@@ -14,18 +14,48 @@ class Student < ActiveRecord::Base
   	length = (height_in_inches * 2.54*0.85).to_i
   end
 
+  def recommended_beginner_ski_length
+    # based on chin height being 86% of body height
+    length = (height_in_inches * 2.54*0.86).to_i
+  end
+
+  def recommended_intermediate_ski_length
+    # based on chin height being 93% of body height
+    length = (height_in_inches * 2.54*0.93).to_i
+  end
+
+  def recommended_advanced_ski_length
+    # based on chin height being 100% of body height
+    length = (height_in_inches * 2.54*1.00).to_i
+  end
+
   def max_sb_length
-  	length = ((height_in_inches * 2.54)*0.9).to_i
+    length = ((height_in_inches * 2.54)*0.9).to_i
   end
 
   def min_sb_length
-  	length = ((height_in_inches * 2.54)*0.7).to_i
+    length = ((height_in_inches * 2.54)*0.7).to_i
+  end
+
+  def recommended_beginner_snowboard_length
+    # based on chin height being 79% of body height
+    length = (height_in_inches * 2.54*0.79).to_i
+  end
+
+  def recommended_intermediate_snowboard_length
+    # based on chin height being 86% of body height
+    length = (height_in_inches * 2.54*0.86).to_i
+  end
+
+  def recommended_advanced_snowboard_length
+    # based on chin height being 93% of body height
+    length = (height_in_inches * 2.54*0.93).to_i
   end
 
   def eligible_shoe_sizes
   	index_actual_size = BOOT_SIZES.index(self.shoe_size)
-  	index_min = [0,index_actual_size - 1].max
-  	index_max = [29,index_actual_size+1].min
+  	index_min = [0,index_actual_size - 2].max
+  	index_max = [29,index_actual_size + 2].min
   	index_eligible = [index_min..index_max].to_a
   	result_array = []
   	index_eligible.each do |index|

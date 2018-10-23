@@ -12,13 +12,20 @@
           <th>Size</th>
           <!-- <th>board_size</th> -->
           <th>Availability</th>
-          <th colspan="3"></th>
+          <th colspan="1"></th>
         </tr>
       </thead>
 
       <tbody>
-        <% resources.each do |resource| %>
+        <% resources.each_with_index do |resource, index| %>
+
+        <% if resource.board_size == resources[index-1].board_size && resource.boot_size == resources[index-1].boot_size %>
+        <tr class="hidden">
+          <td> test: index position is <%= index %> </td>
+        <% else %>
         <tr>
+        <% end %>
+
           <td><%= resource.resource_type_text %></td>
           <!-- <td><%= resource.gb_identifier %></td> -->
           <td><%= resource.manufacturer %></td>

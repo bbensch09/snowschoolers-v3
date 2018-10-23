@@ -197,6 +197,7 @@ class LessonsController < ApplicationController
       puts "!!!filter by date.  param is #{params['date']}"
       @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date.to_s == params[:date]}       
         puts "found #{@lessons.count} mactching lessons"
+      @todays_lessons = []
       @new_date = Section.new
       render 'index'
   end

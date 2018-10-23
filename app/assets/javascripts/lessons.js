@@ -1,11 +1,22 @@
-// console.log("lessons.js loaded");
 var dt = new Date();
 var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
-if (time > "16:00:00") {
+var hour = dt.getHours();
+if (hour > 15) {
     var MIN_DATE = 2
   } else {
     var MIN_DATE = 1
   };
+
+var day = dt.getDate();
+var month = dt.getMonth() + 1;
+var year = dt.getYear() +1900;
+var date = year + "-" + month + "-" + day
+
+console.log(date);
+if (date <= '2018-12-14') {
+  var MIN_DATE = '2018-12-14';
+  console.log(MIN_DATE);
+}  
 
 var LESSON = {
   init: function(){
