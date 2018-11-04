@@ -10,10 +10,11 @@ if (hour > 15) {
 var day = dt.getDate();
 var month = dt.getMonth() + 1;
 var year = dt.getYear() +1900;
-var date = year + "-" + month + "-" + day
+var date = year + "-" + month + "-" + day;
+var opening_date = new Date("2018-12-14");
 
 console.log(date);
-if (date <= '2018-12-14') {
+if (Date.now() <= opening_date) {
   var MIN_DATE = '2018-12-14';
   console.log(MIN_DATE);
 }  
