@@ -35,6 +35,14 @@ class Lesson < ActiveRecord::Base
     self.class_type == 'group'
   end
 
+  def first_name
+    requester_name.split(" ").first    
+  end
+    
+  def last_name
+    requester_name.split(" ")[1..-1].join()  
+  end
+
   def private_lesson?
     self.class_type == 'private'
   end

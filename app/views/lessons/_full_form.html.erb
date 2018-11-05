@@ -107,7 +107,7 @@
       <% end %>
       <div class='row update-lesson-form'>
         <div class="col-md-6">
-          <h4>Basic <strong>Info</strong></h4>
+          <h4 class="full-form-section-header"><strong>Basic Info</strong></h4>
 
           <div class='row'>
 
@@ -151,32 +151,39 @@
               <h4 class="text-warning left">Note: The price above will update based on number of students in lesson. Final price will be confirmed on the next page.</h4>
             </div>
           </div>
-          <div class="row">
+                    <div class='row'>
             <div class="col-md-6">
-                <label>Your Name</label>
-                <%= f.text_field :requester_name, value: @lesson.requester_name, class: "form-control", required: true, label: false %>
-              </div>
-              <div class="col-md-6">
-                <label class="lesson-label">Cell Phone<span class="lesson-label-small"> (Shared only with your instructor)</span></label>
-                <%= f.text_field :phone_number, placeholder: 'xxx-xxx-xxxx', class: 'form-control', required:true, include_blank:false %>
-              </div>
+              <label>Your Name</label>
+              <%= f.text_field :requester_name, value: @lesson.requester_name, class: "form-control", required: true, label: false %>
+            </div>
+            <div class="col-md-6">
+              <label>Phone</label> <span class="text-smaller"></span>
+              <%= f.text_field :phone_number, as: :number, placeholder: 'xxx-xxx-xxxx', class: 'form-control', required:true, include_blank:false %>
+            </div>
+            <div class="col-md-6">
+              <label>Address</label> <span class="text-smaller"></span>
+              <%= f.text_field :street_address, placeholder: '1234 StreetName', class: 'form-control', required:true, include_blank:false %>
+            </div>
+            <div class="col-md-6">
+              <label>City</label> <span class="text-smaller"></span>
+              <%= f.text_field :city, placeholder: 'San Francisco', class: 'form-control', required:true, include_blank:false %>
+            </div>
+            <div class="col-md-3">
+              <label>State</label> <span class="text-smaller"></span>
+              <%= f.text_field :state_code, placeholder: 'CA', class: 'form-control', required:true, include_blank:false %>
+            </div>
+            <div class="col-md-3">
+              <label>Zip Code</label> <span class="text-smaller"></span>
+              <%= f.text_field :zip_code, as: :number, placeholder: '94102', class: 'form-control', required:true, include_blank:false %>
+            </div>
+            <div class="col-md-6">
+              <label>Driver's License #</label> <span class="text-smaller"></span>
+              <%= f.text_field :drivers_license, placeholder: 'D555-1111', class: 'form-control', required:false, include_blank:false %>
             </div>
 
-          <div class='row'>
-            <div class="col-md-6">
-
-<!--               <label>Do you have equipment?</label>
-              <%= f.input :gear, as: :select, collection: [['Yes, I already have my equipment.', true], ['No, I will need to rent equipment.', false]], include_blank: '(Skis,boots,etc.)', label: false, required:true %>  -->
-             </div>
-<!--             <div class="col-md-6">
-              <label class="lesson-label">Have a lift ticket or pass?</label>
-              <%= f.input :lift_ticket_status, as: :select, collection: [['Yes, I have one.', true], ['No, I still need one.', false]], include_blank: 'Choose one', label: false, required:true %>
-            </div> -->
-
-            <div class="col-md-12">
-            <!-- Price ($75 per hour): $<span id="donation-amount"><%= @lesson.price %></span>.00 -->
-            </div>
           </div>
+
+
 
           <h4>Student <strong>Info</strong></h4>
           <!-- <div id="previous_students">

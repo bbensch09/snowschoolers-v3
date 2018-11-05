@@ -1,0 +1,281 @@
+<div class="rental-agreement-container">
+<h2 class="center">
+	GRANLIBAKKEN RENTAL AGREEMENT - 2018/19 SEASON
+</h2>
+<ul class="instructions">
+	<li>Person responsible for equipment shall complete shaded areas (in-person or online in advance).</li>
+	<li>Rental technician will complete white (unshaded) areas by hand.</li>
+</ul>
+
+<h3> Customer Information</h3>
+<div class="box-outline split">
+	<div class="full-row">
+		<div class="w40">
+			<div class="label">Last Name</div>
+			<div class="value"><%= @lesson.last_name %></div>
+		</div>
+		<div class="w40">
+			<div class="label">First Name</div>
+			<div class="value"><%= @lesson.first_name %></div>
+		</div>
+	</div>
+	<div class="full-row">
+		<div class="w40">
+			<div class="label">Home Address</div>
+			<div class="value"><%= @lesson.street_address %></div>
+		</div>
+		<div class="w40">
+			<div class="label">Phone</div>
+			<div class="value"><%= @lesson.phone_number %></div>
+		</div>
+	</div>
+	<div class="full-row">
+		<div class="w40">
+			<div class="label">City</div>
+			<div class="value"><%= @lesson.city %></div>
+		</div>
+		<div class="w20">
+			<div class="label">State</div>
+			<div class="value"><%= @lesson.state_code %></div>
+		</div>
+		<div class="w30">
+			<div class="label">Zip</div>
+			<div class="value"><%= @lesson.zip_code %></div>
+		</div>
+	</div>
+
+	<div class="full-row no-padding">
+		<div class="w100 black-header">
+			Local Contact Information
+		</div>
+	</div>
+	<div class="full-row">
+		<div class="w40">
+			<div class="label">Address of Accomodations</div>
+			<div class="value">[_____________]</div>
+		</div>
+		<div class="w40">
+			<div class="label">Phone</div>
+			<div class="value"><%= @lesson.phone_number %></div>
+		</div>
+	</div>
+	<div class="full-row">
+		<div class="w40">
+			<div class="label">City</div>
+			<div class="value">[_____________]</div>
+		</div>
+		<div class="w20">
+			<div class="label">State</div>
+			<div class="value">[____]</div>
+		</div>
+		<div class="w30">
+			<div class="label">Zip</div>
+			<div class="value">[_____________]</div>
+		</div>
+	</div>
+
+ </div>
+
+ <!-- payment & dates information -->
+<div class="box-outline split">
+	<div class="full-row">
+		<div class="w25">
+			<div class="label">Start Date</div>
+			<div class="value"><%= @lesson.date %></div>
+		</div>
+		<div class="w25">
+			<div class="label">Start Time</div>
+			<div class="value"><%= @lesson.product.start_time %></div>
+		</div>
+		<div class="w25">
+			<div class="label">End Date</div>
+			<div class="value"><%= @lesson.date %></div>
+		</div>
+		<div class="w25">
+			<div class="label">End Time</div>
+			<div class="value">4:00pm</div>
+		</div>
+	</div>
+	<div class="full-row">
+		<div class="w30">
+			<div class="label">Rented Days</div>
+			<div class="value"><%= @lesson.num_days.nil? ? 1 : @lesson.num_days %></div>
+		</div>
+		<div class="w30">
+			<div class="label">Paid Days</div>
+			<div class="value"><%= @lesson.num_days.nil? ? 1 : @lesson.num_days %></div>
+		</div>
+		<div class="w40">
+			<div class="label"><b>NOT PAID</b>Days</div>
+			<div class="value"></div>
+		</div>
+	</div>
+	<div class="full-row">
+		<div class="w40">
+			<div class="label">Extended To</div>
+			<div class="value"></div>
+		</div>
+		<div class="w40">
+			<div class="label"></div>
+			<div class="value">
+				<input type="checkbox" value="1"> Yes 
+				<input type="checkbox" value="0" checked> No
+			</div>
+		</div>
+	</div>
+	<div class="full-row no-padding">
+		<div class="w100 black-header">
+			PAYMENT / DEPOSIT INFORMATION
+		</div>
+	</div>	
+	<div class="full-row">
+		<div class="w60">
+			<div class="label">Driver's License Number</div>
+			<div class="value"><%= @lesson.drivers_license %></div>
+		</div>
+		<div class="w40">
+			<div class="label">State</div>
+			<div class="value"><%= @lesson.state_code %></div>
+		</div>
+	</div>
+	<div class="full-row">
+		<div class="w60">
+			<div class="label">Comments</div>
+			<div class="value"></div>
+		</div>
+		<div class="w40">
+			<div class="label">Amount Paid</div>
+			<div class="value"><%= number_to_currency(@lesson.price) %></div>
+		</div>
+	</div>
+
+</div>
+
+<div class="clear-both"></div>
+<!-- <hr class="deposit-hr-navy"> -->
+
+<h3> Student Rental Information</h3>
+<% @students.each do |student| %>
+<!-- Begin equipment user info -->
+<div class="box-outline split">
+	<div class="full-row">
+		<div class="w100">
+			<div class="label">Name</div>
+			<div class="value"><%= student.name %></div>
+		</div>
+	</div>
+	<div class="full-row">
+		<div class="w30">
+			<div class="label">Skier Type</div>
+			<div class="value"><%= student.skier_type %></div>
+		</div>
+		<div class="w10">
+			<div class="label">Age</div>
+			<div class="value"><%= student.age_range %></div>
+		</div>
+		<div class="w30">
+			<div class="label">Height</div>
+			<div class="value"><%= student.height_feet %>'<%= student.height_inches %>"</div>
+		</div>
+		<div class="w30">
+			<div class="label">Weight</div>
+			<div class="value"><%= student.weight %>lbs.</div>
+		</div>
+	</div>
+	<div class="full-row technician-row">
+		<div class="w20">
+			<div class="label">Sole Length</div>
+			<div class="value">______</div>
+		</div>
+		<div class="w50">
+			<div class="label">Boot Type</div>
+			<div class="value center">
+				<% if @lesson.activity == 'Ski'%>
+				<input type="checkbox" value="0" checked> Skis 
+				<input type="checkbox" value="0"> Snowboard
+				<% else %>
+				<input type="checkbox" value="0"> Skis 
+				<input type="checkbox" value="0"checked> Snowboard
+				<% end %>
+			</div>
+		</div>
+		<div class="w30">
+			<div class="label">ID#</div>
+			<div class="value">______</div>
+		</div>
+	</div>
+	<div class="full-row technician-row">
+		<div class="w30">
+			<div class="label">Skier Code</div>
+			<div class="value"><%= student.skier_type %></div>
+		</div>
+		<div class="w40">
+			<div class="label">Board Stance</div>
+			<div class="value center">
+				<% if student.board_direction == "Regular" %>
+				<input type="checkbox" value="0" checked> Regular 
+				<input type="checkbox" value="0"> Goofy
+				<% else %>
+				<input type="checkbox" value="0"> Regular 
+				<input type="checkbox" value="0" checked> Goofy
+				<% end %>
+			</div>
+		</div>
+		<div class="w30">
+			<div class="label">ID#</div>
+			<div class="value">______</div>
+		</div>
+	</div>
+	<div class="full-row technician-row">
+		<div class="w25">
+			<div class="label">Tech Init</div>
+			<div class="value">______</div>
+		</div>
+		<div class="w25">
+			<div class="label">DIN code</div>
+			<div class="value">______</div>
+		</div>
+		<div class="w25">
+			<div class="label">Boots</div>
+			<div class="value">______</div>
+		</div>
+		<div class="w25">
+			<div class="label">Poles</div>
+			<div class="value"><%= student.poles_requested? ? "include" : "N/A" %></div>
+		</div>
+	</div>
+	<div class="full-row">
+		<div class="w100">
+			<div class="label">I have read, understand, and agree to the release of liability below.</div>
+			<div class="value"><span class="signature"> <%= @lesson.requester_name %></span>
+				<span class="pull-right"> <%= @lesson.updated_at.strftime("%D") %></span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<% end %>
+
+<h2 class="center">Warning & Liability Release - Agreement NOT to Sue</h2>
+<p>
+	I have received the equipment listed on this agreement and have been instructed on its use. I verify that the personal information (height, weight, age, skier classification) on this agreement is correct. If at any time I feel the equipment is not functioning properly, I will stop using it and return it for inspection, repair or adjustments.
+</p>
+<p>
+	I understand and agree that skiing, snowboarding, snowshoeing and other winter sports are HAZARDOUS activities, that INJURIES from various causes are an INHERENT RISK of participating in these activities, and that injuries to any or all parts of my body are a COMMON AND ORDINARY OCCURRENCE during these activities. I freely accept and ASSUME ALL RISKS OF INJURY OR DEATH that may occur while using this equipment.
+</p>
+<p>
+	ALPINE SYSTEMS: I have confirmed that the visual release indicators on the alpine ski bindings are the same as those designated on this ticket. I understand alpine ski/boot/binding systems CANNOT RELEASE OR RETAIN in all situations where release or retention may prevent injury and that they therefore CANNOT GUARANTEE MY SAFETY.
+</p>
+<p>
+	SNOWBOARDS, SNOWSHOES AND X-C: I understand that the binding systems on showboards, snowshoes and cross-country skis are NOT INTENDED TO RELEASE in a fall or upon impact.
+</p>
+<p>
+	To the fullest extent allowed by law, I agree to RELEASE FROM LIABILITY, and to INDEMNIFY AND HOLD HARMLESS Granlibakken Resort, Rossignol Ski Company, Inc., all other manufacturers and distributors of the equipment provided to me under this agreement, any involved winter sports area, shop or service technician, and their owners, agents, employers and employees for any injuries, damages or death related to the use of this equipment. I FURTHER AGREE NOT TO MAKE A CLAIM OR SUE FOR INJURIES OR DAMAGES RELATING TO THE USE OF THIS EQUIPMENT, whether such claim is based on NEGLIGENCE, breach of warranty, product defect or any other theory. I accept this equipment AS IS with no warranties, express or implied. These waivers and obligations extend to my heirs and assigns.
+</p>
+<p>
+	THIS DOCUMENT IS A LEGALLY BINDING CONTRACT which supercedes any other agreements or representations by or between the parties. It shall be interpreted to provide a broad and inclusive a release of liability as is legally possible, but is not intended to assert any claims or defenses which are prohibited by law. If any part of this agreement is deemed void or unenforceable, the remainder shall be given full force and effect. The specific rights of the parties under this contract may vary from state to state.
+</p>
+<p>
+	I have read, understand, and agree to the terms of this Warning, Liability Release and Assumption of Risk Agreement.
+</p>
+</div>

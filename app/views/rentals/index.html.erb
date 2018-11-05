@@ -10,7 +10,8 @@
 
     <div class="row">
     <p class='text-left'>
-       Rentals for <%= lesson.requester_name %> on <%= lesson.date.strftime("%A %b %e, %Y") %> <%= link_to lesson.product.name, lesson_path(lesson.id), class: 'btn btn-primary' %> <!-- (Lesson ID: <%= lesson.id %>) -->
+       Rentals for <%= lesson.requester_name %> on <%= lesson.date.strftime("%a %b %e, %Y") %> <%= link_to lesson.product.name, lesson_path(lesson.id), class: 'btn btn-primary' %>
+       <%= link_to "Print Rental Agreement", rental_agreement_path(lesson.id), class: 'btn btn-success', target:"_blank" %>
     </p>
     <% lesson.students.each do |student| %>
       <div class='col-md-4'>
