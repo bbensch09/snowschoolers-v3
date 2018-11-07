@@ -19,6 +19,20 @@ class RentalsController < ApplicationController
     # @rentals = Rental.all
   end
 
+  def rentals_today
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.canceled? || lesson.booked? || lesson.state.nil? }
+      @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.includes_rental_package?}
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.today}
+      render 'index'
+  end
+
+  def rentals_tomorrow
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.canceled? || lesson.booked? || lesson.state.nil? }
+      @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.includes_rental_package?}
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.tomorrow}
+      render 'index'
+  end
+
   def view_reservation
     @lessons = []
     @lessons << Lesson.find(params[:id])

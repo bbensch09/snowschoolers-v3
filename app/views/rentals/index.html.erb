@@ -3,7 +3,10 @@
 
     <h1>Rentals</h1>
     <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner") %>
-    <h3><a href="past_rentals" class="btn btn-success" >View Past Rentals</a></h3>
+    <h3><a href="past_rentals" class="btn btn-success" >View Past Rentals</a>
+      <%= link_to 'Rentals Today', rentals_today_path, class:'btn btn-default' %>
+      <%= link_to 'Rentals Tomorrow', rentals_tomorrow_path, class:'btn btn-default' %>
+    </h3>
     <% end %>
 
     <% @lessons.each do |lesson| %>

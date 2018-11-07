@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   put 'rentals/:id/remove_resource' => 'rentals#remove_resource', as: :remove_resource
   get 'rental-agreements/:id' => 'lessons#rental_agreement', as: :rental_agreement
   get 'rental-reservations/:id' => 'rentals#view_reservation', as: :view_reservation
+  get 'rental-reservations-today' => 'rentals#rentals_today', as: :rentals_today
+  get 'rental-reservations-tomorrow' => 'rentals#rentals_tomorrow', as: :rentals_tomorrow
   resources :rentals
   resources :promo_codes
   resources :shifts
