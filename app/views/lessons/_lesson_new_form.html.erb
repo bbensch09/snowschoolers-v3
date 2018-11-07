@@ -43,7 +43,7 @@
             </div>
             <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
               <div class="col-md-2">
-                <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker', value:@date }, placeholder: 'Date', label: false %>
+                <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker', value:@date, required:true }, placeholder: 'Date', label: false %>
                 <span class="search-area-icon"></span>
               </div>
 

@@ -13,7 +13,7 @@ ul.instructions{
 	font-style: italic;
 }
 .split{
-	width: 50%;
+	width: 48%;
 	float: left;
 }
 .black-header{
@@ -33,6 +33,7 @@ ul.instructions{
 .box-outline{
     border: 2px solid #000;
     background-color: rgba(190,188,188,0.5);
+    margin: 5px;
 }
 .box-outline .technician-row{
 	background-color: #fff;
@@ -52,7 +53,7 @@ ul.instructions{
 	border: 1px solid gray;
 }
 .box-outline .label{
-	font-size: 0.7em;
+	font-size: 0.6em;
     font-weight: bold;
     top: -10px;
     color: #696464;

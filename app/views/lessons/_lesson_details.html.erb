@@ -15,7 +15,7 @@ Status: <%= @lesson.state %>
 <% end %>
 <% if @lesson.includes_rental_package? %>
   <br> Equipment Status: <%= @lesson.rental_status %> 
-  <%= link_to "Select or Review Equipment", rentals_path, method: :get, class: "btn btn-primary" %>
+  <%= link_to "Select or Review Equipment", view_reservation_path(@lesson.id), method: :get, class: "btn btn-primary" %>
   <br> <em> While not required, we highly recommend selecting your own rental equipment in advance. That way we can have your boots and skis/board fitted for you when you arrive. </em>
 <% end %>
 <% if @lesson.review %>
