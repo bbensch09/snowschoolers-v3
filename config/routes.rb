@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   put 'rentals/:id/select_resource' => 'rentals#select_resource', as: :select_resource
   put 'rentals/:id/remove_resource' => 'rentals#remove_resource', as: :remove_resource
   get 'rental-agreements/:id' => 'lessons#rental_agreement', as: :rental_agreement
+  get 'rental-reservations/:id' => 'rentals#view_reservation', as: :view_reservation
   resources :rentals
   resources :promo_codes
   resources :shifts

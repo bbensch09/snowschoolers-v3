@@ -1,5 +1,6 @@
 class RentalsController < ApplicationController
   before_action :set_rental, only: [:show, :edit, :update, :destroy, :select_resource, :remove_resource]
+  skip_before_action :authenticate_user!, except: [:index]
 
   # GET /rentals
   # GET /rentals.json
@@ -16,6 +17,12 @@ class RentalsController < ApplicationController
         @todays_lessons = current_user.lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
     end
     # @rentals = Rental.all
+  end
+
+  def view_reservation
+    @lessons = []
+    @lessons << Lesson.find(params[:id])
+    render 'index'
   end
 
   def past_rentals_index
@@ -59,14 +66,14 @@ class RentalsController < ApplicationController
     @rental.resource_id = params[:resource_id]
     @rental.status = "Reserved"
     @rental.save!
-    redirect_to rentals_path
+    redirect_to view_reservation_path(@rental.lesson.id)
   end
 
   def remove_resource
     @rental.resource_id = nil
     @rental.status = "Needs Equipment"
     @rental.save!
-    redirect_to rentals_path
+    redirect_to view_reservation_path(@rental.lesson.id)
   end
 
 
@@ -91,7 +98,7 @@ class RentalsController < ApplicationController
   def update
     respond_to do |format|
       if @rental.update(rental_params)
-        format.html { redirect_to rentals_path, notice: 'Rental was successfully updated.' }
+        format.html { redirect_to view_reservation_path(@rental.lesson.id), notice: 'Rental was successfully updated.' }
         format.json { render :show, status: :ok, location: @rental }
       else
         format.html { render :edit }
