@@ -205,6 +205,12 @@ class Lesson < ActiveRecord::Base
   end
 
   def product
+        puts "!!!!!! begining Lesson.product"
+        puts "!!! the param to skip product_id is #{@skip_product_id}"
+        # if @skip_product_id == 'blue'
+        #   puts "!!!found product already"
+        #   return Product.find(self.product_id)
+        # end
         if self.product_name
           # puts "!!!calculating price based on product length, location, and calendar_period"
           calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
@@ -291,6 +297,8 @@ class Lesson < ActiveRecord::Base
             product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
           end
         end
+        self.product_id = product.id
+        save!
     return product
   end
 
@@ -796,7 +804,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def price
-    puts "!!!! lookup product matched to this lesson"
+    puts "!!!! runing Lesson.price method to determine current price."
     product = self.product
     if product.nil?
       return "Please confirm date & time to see price."

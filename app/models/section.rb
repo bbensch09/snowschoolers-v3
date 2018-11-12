@@ -92,6 +92,54 @@ class Section < ApplicationRecord
 
 	end
 
+	def self.fill_sections_with_lessons
+		puts "!!!!!Begin method: self.fill_sections_with_lessons"
+		sections = Section.all.select{|a| a.date >= Date.today }
+		sections.first(50).each do |section|		
+			
+			num_cycles = 1 #(1..4).to_a.sample
+			num_cycles.times do |cycle|			
+				lt = LessonTime.find_or_create_by({
+					date: section.date,
+					slot: section.slot
+					})
+				puts "!!!!!new lesson time created"
+				Lesson.create!({
+					requester_id: User.first.id,
+					guest_email: 'test@example.com',
+					instructor_id: Instructor.first.id,
+					lesson_time_id: lt.id,
+					deposit_status: 'confirmed',
+					activity: ['Ski','Snowboard'].sample,
+					requested_location: 24,
+					phone_number: '555-555-5555',
+					gear: [true,false].sample,
+					lift_ticket_status: true,
+					objectives: 'Test lesson',
+					terms_accepted: true,
+					how_did_you_hear: 100,
+					requester_name: 'John Parent',
+					product_id: Product.where(location_id:24,length:"1.00").sample.id,
+					section_id: section.id,
+					product_name: Product.where(location_id:24,length:"1.00").sample.name,
+					class_type: 'group',
+					state: "booked"
+					})
+				Student.create!({
+					lesson_id: Lesson.last.id,
+					name: "Student #{Lesson.last.id}",
+					age_range: 10,
+					gender: ['Male','Female'].sample,
+					relationship_to_requester: 'Student is my child',
+					most_recent_level: "Level 1 - first-time ever, no previous experience.", 
+					requester_id: User.first.id					
+					})
+				puts "!!!! new lesson created"
+			end
+		end
+	end
+
+
 
 	def student_count
 		Lesson.where(section_id:self.id).count

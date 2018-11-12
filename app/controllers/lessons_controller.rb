@@ -2,6 +2,7 @@ class LessonsController < ApplicationController
   respond_to :html
   skip_before_action :authenticate_user!, only: [:new, :granlibakken, :new_request, :create, :complete, :confirm_reservation, :update, :show, :edit, :rental_agreement]
   before_action :set_lesson, only: [:show, :complete, :update, :edit, :edit_wages, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_instructor, :admin_confirm_deposit, :admin_assign_instructor, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications, :send_review_reminders_to_student, :rental_agreement]
+  before_action :skip_product_id, except: [:create, :update]
   before_action :save_lesson_params_and_redirect, only: [:create]
   # before_action :authenticate_from_cookie!, only: [:complete, :confirm_reservation, :update, :show, :edit]
 
@@ -428,8 +429,8 @@ class LessonsController < ApplicationController
       GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-updated', params[:ga_client_id])
       @user_email = current_user ? current_user.email : "unknown"
       if @lesson.state == "ready_to_book"
-      LessonMailer.notify_admin_lesson_full_form_updated(@lesson.id).deliver!
-      # LessonMailer.notify_admin_lesson_full_form_updated(@lesson.id).deliver_in(2.seconds)
+      # LessonMailer.notify_admin_lesson_full_form_updated(@lesson.id).deliver!
+      LessonMailer.notify_admin_lesson_full_form_updated(@lesson.id).deliver_in(5.seconds)
       # LessonMailer.test_email(@lesson.id).deliver_in(2.seconds)
       # LessonMailer.test_email.deliver_at(Time.parse('2017-12-20 16:20:00 -0800'))
       end
@@ -697,6 +698,10 @@ class LessonsController < ApplicationController
 
   def set_lesson
       @lesson = Lesson.find(params[:id])
+  end
+
+  def skip_product_id
+    @skip_product_id = 'blue' #Lesson.find(params[:id]).product_id
   end
 
   def lesson_params

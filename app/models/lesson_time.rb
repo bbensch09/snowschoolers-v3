@@ -3,7 +3,7 @@ class LessonTime < ActiveRecord::Base
   has_many :calendar_blocks
   has_many :users, through: :lessons
 
-  validates :date, :slot, presence: true
+  validates :date, presence: true
 
   def self.find_morning_slot(date)
     LessonTime.find_by_date_and_slot(date, 'Morning')
