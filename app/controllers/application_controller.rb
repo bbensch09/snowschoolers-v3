@@ -84,8 +84,8 @@ def houston_we_have_an_exceptional_problem
 end
 
 def set_promo_code_cookie_and_session
-  puts "!!! params for :allow are #{params[:promo_code]}"
   if params[:promo_code]
+    puts "!!! detected params for :promo code are #{params[:promo_code]}"
     cookies[:promo_code] = {
       value: params[:promo_code],
       expires: 1.year.from_now
@@ -96,8 +96,8 @@ def set_promo_code_cookie_and_session
 end
 
 def set_cookie_to_allow_gb_bookings
-  puts "!!! params for :allow are #{params[:granlibakken]}"
   if params[:granlibakken]
+    puts "!!! detected params for :granlibakken code are #{params[:promo_code]}"
     cookies[:granlibakken] = {
       value: params[:granlibakken],
       expires: 1.year.from_now
