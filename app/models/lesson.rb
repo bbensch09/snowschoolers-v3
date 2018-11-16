@@ -688,7 +688,9 @@ class Lesson < ActiveRecord::Base
   def self.gross_revenue_total(lessons)
     total = 0
     lessons.each do |lesson|
+      if lesson.price.is_a? Numeric
       total += lesson.price
+      end
     end
     return total
   end
