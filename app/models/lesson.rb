@@ -810,7 +810,9 @@ class Lesson < ActiveRecord::Base
     puts "!!!! runing Lesson.price method to determine current price."
     product = self.product
     if product.nil?
-      return "Please confirm date & time to see price."
+      return 0
+      # returning integer rather than string formula to ensure price can always be summed
+      # return "Please confirm date & time to see price."
     else
     price = product.price.to_f + self.package_cost
     end
