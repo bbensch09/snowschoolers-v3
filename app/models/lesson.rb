@@ -21,7 +21,7 @@ class Lesson < ActiveRecord::Base
   validates :terms_accepted, inclusion: { in: [true], message: 'must accept terms' }, on: :update
   validates :actual_start_time, :actual_end_time, presence: true, if: :just_finalized?
   # validate :requester_must_not_be_instructor, on: :create
-  validate :lesson_time_must_be_valid
+  # validate :lesson_time_must_be_valid
   validate :student_exists, on: :update
 
   #Check to ensure an instructor is available before booking
@@ -207,10 +207,10 @@ class Lesson < ActiveRecord::Base
   def product
         puts "!!!!!! begining Lesson.product"
         puts "!!! the param to skip product_id is #{@skip_product_id}"
-        # if @skip_product_id == 'blue'
-        #   puts "!!!found product already"
-        #   return Product.find(self.product_id)
-        # end
+        if @skip_product_id == 'blue'
+          puts "!!!found product already"
+          return Product.find(self.product_id)
+        end
         if self.product_name
           # puts "!!!calculating price based on product length, location, and calendar_period"
           calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
@@ -296,9 +296,10 @@ class Lesson < ActiveRecord::Base
           elsif self.slot == PRIVATE_SLOTS.fourth  && self.location.id == 8 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
           end
+        # HACKY SHIT this is causing a stock too deep error so commenting out
+        # self.product_id = product.id
+        # save!
         end
-        self.product_id = product.id
-        save!
     return product
   end
 
