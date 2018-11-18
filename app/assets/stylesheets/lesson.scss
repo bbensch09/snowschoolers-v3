@@ -1,3 +1,26 @@
+
+.date-input{
+  max-width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.booking-details p, .booking-details span, .booking-details{
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+.lodging-discount-warning, .lodging-discount-warning p{
+  font-style: italic;
+  font-size: 0.8em;
+}
+.full-width{
+  width:100%;
+}
+.student-list-confirm-reservation li{
+  font-size: 0.8em;
+  padding: 0 0 0 0px;
+}
+
+
 .full-form-section-header{
   text-transform: uppercase;
   font-weight: bold;
@@ -90,6 +113,7 @@ form{
 .nonrefundable_disclaimer{
   font-size: 0.8em;
 }
+
 #booking-details-container{
   display: flex;
   justify-content: center;
@@ -101,12 +125,12 @@ form{
   border-top: 2px solid black;
   border-left: 2px solid black;
   border-bottom: 2px solid black;
-  padding: 20px;
+  padding: 10px;
 }
 .booking-details-labels p{
   font-size: 15px;
   margin-bottom: 5px;
-  text-align: left;
+  line-height: 0;
 }
 .booking-details{
   margin-left: 10px;
@@ -114,11 +138,14 @@ form{
   flex-direction: column;
   align-items: flex-start;
   border-top: 2px solid black;
+  border-left: 2px solid black;
   border-right: 2px solid black;
   border-bottom: 2px solid black;
   padding: 20px;
   margin-left: 0;
 }
+
+
 .final-booking-details{
   margin: auto;
   display: flex;
@@ -208,10 +235,20 @@ form{
   font-size: 1.6em;
   line-height: 1.6;
 }
+.booking-details{
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
 }
 
 /*MOBILE ADJUSTMENTS*/
 @media (max-width: 768px) {
+
+.booking-details p, .booking-details span, .booking-details{
+  font-size: 0.9em;
+  margin-bottom: 5px;
+}  
 
 .lesson-index-mobile{
   width: 300% !important;
