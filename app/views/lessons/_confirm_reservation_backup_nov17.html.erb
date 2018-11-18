@@ -1,0 +1,122 @@
+<div class="col-md-12">
+        <%= form_tag confirm_reservation_path do %>
+
+          <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
+          <article>
+            <% if flash[:error].present? %>
+              <div id="error_explanation">
+                <p><%= flash[:error] %></p>
+              </div>
+            <% end %>
+            <h1>Authorize Payment to Secure your Reservation</h1>
+            <div id="booking-details-container">
+              <h4 class="booking-details-labels">
+                <p><b>Lesson Type:</b></p>
+                <br>
+                <p><b>Lesson Date:</b></p>
+                <br>
+                <% if @lesson.num_days && @lesson.num_days > 1 %>
+                  Number of consecutive days:
+                <% end %>
+                <p><b>Lesson Time:</b></p>
+                <br>
+                <p><b>Meeting Location:</b></p>
+                <br>
+                <p><b>Rental Equipment:</b></p>
+                <br>
+                <p><b>Price:</b></p>
+                <br>
+                <%if @lesson.includes_lift_or_rental_package? || @lesson.is_gift_voucher? || (@lesson.package_info && @lesson.package_info.length > 1) %>
+                <p><b>Description:</b></p>
+                <br>
+                <% end %>
+              <%= link_to 'Edit Lesson', edit_lesson_path(@lesson), class: "btn btn-primary" %>
+              </h4>
+              <h4 class="booking-details">
+                  <p><%= @lesson.class_type_text %>, number of students: <%= @lesson.students.count %></p>
+                  <br>
+                <% if @lesson.is_gift_voucher? %>
+                  <p>TBD</p>
+                  <br>
+                <% else %>
+                  <p><%= @lesson.lesson_time.date.strftime("%A %b #{@lesson.lesson_time.date.day.ordinalize}, %Y") %></p>
+                  <br>
+                <% end %>
+                <% if @lesson.num_days && @lesson.num_days > 1 %>
+                  <p><%= @lesson.num_days %></p>
+                <% end %>
+                  <% if @lesson.package_info %>
+                    <% @lesson.package_info.include?("custom start time") ? custom_slot_class = "strikethrough" : custom_slot_class = "normal" %>
+                  <% end %>
+                  <p class=<%= custom_slot_class %> ><%= @lesson.lesson_time.slot %></p>
+                  <br>
+                  <p><%= @lesson.location.name %>  (<a href="https://www.google.com/maps/place/<%=@lesson.location.address%>" ><%=@lesson.location.address%></a>)</p>
+                  <br>
+                  <p>
+                    <%if @lesson.includes_rental_package? %>
+                      Included
+                      <% else %>
+                      Not Included  
+                    <% end %>
+                  </p>
+                  <br>
+              <% if @lesson.lesson_price.nil? || @lesson.price == @lesson.lesson_price %>
+                  <% amount = (@lesson.price.to_f*100).to_i %>
+                  <p>
+                    <%= number_to_currency(@lesson.price) %>
+                    <% if @lesson.product.calendar_period == 'Holiday' || @lesson.product.calendar_period == 'Peak' %>
+                    (holiday pricing)
+                    <% end %>
+                  </p>
+                  <% if @lesson.promo_code %>
+                  <p class="italic">Original price: <%= number_to_currency(@lesson.original_price) %></p>
+                  <p class="italic">Promotional Offer: <%= @lesson.promo_code.description %></p>
+                  <% end %>
+                  <br>
+                    <p>
+                      <span class="italic text-smaller">
+                      <% if @lesson.class_type == "private" %>
+                        <% if @lesson.additional_students_with_gear > 0 %>
+                          <%= @lesson.additional_students_with_gear %> additional student(s) with rentals for <%= number_to_currency(@lesson.cost_per_additional_student_with_gear) %> each;
+                        <% end %>
+                        <% if @lesson.additional_students_without_gear > 0 %>
+                          <%= @lesson.additional_students_without_gear %> additional student(s) without equipment for <%= number_to_currency(@lesson.cost_per_additional_student_without_gear) %> each;
+                        <% end %>
+                      <% end %>
+                      </span>
+                  	</p>
+              <% else %>
+                <p><%= number_to_currency(@lesson.lesson_price.to_s) %></p>
+                <% amount =(@lesson.lesson_price.to_f*100).to_i %>
+              <% end %>                  
+              <% if @lesson.includes_lift_or_rental_package? || @lesson.is_gift_voucher? || @lesson.package_info %>
+                  <p><%= @lesson.package_info %></p>
+              <% end %>
+              </h4>
+            </div>
+            <div class="col-md-12 center">
+              <label class="amount">
+              </label>
+              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                      data-description="Thanks for booking with Snow Schoolers!"
+                      data-name="Snow Schoolers"
+                      data-image="https://s3.amazonaws.com/snowschoolers/SnowSchoolers-favicon.png"
+                      data-amount=<%= amount %>
+                      data-locale="auto"
+                      data-zip-code="true">
+              </script>
+                  <p class="nonrefundable_disclaimer">
+                  <br>
+                    You may cancel or modify your reservation up to 24 hours before the start of your lesson. A $50 charge will be applied for any customer-initiated cancellations made after your reservation has been made. Any cancellation made less than 24 hours before the lesson time will be charged the full amount, regardless of weather conditions. A no-call/no-show will be charged the full amount. If for any reason you are unsatisfied with your Snow Schoolers experience, please <a class="contact-link" href="mailto:info@snowschoolers.com">ask about our 100% satisfaction guarantee.</a>
+                </p>
+            </div>
+        </article>
+
+        <% end %>
+
+<div class="col-md-12">
+  <hr class="deposit-hr-navy">
+</div>
+
+</div>

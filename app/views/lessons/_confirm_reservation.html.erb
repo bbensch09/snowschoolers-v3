@@ -2,79 +2,119 @@
         <%= form_tag confirm_reservation_path do %>
 
           <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
-          <article>
+          <article class="center">
             <% if flash[:error].present? %>
               <div id="error_explanation">
                 <p><%= flash[:error] %></p>
               </div>
             <% end %>
-            <h1>Authorize Payment to Secure your Reservation</h1>
-            <div id="booking-details-container">
-              <h4 class="booking-details-labels">
-                <p><b>Lesson Type:</b></p>
-                <br>
-                <p><b>Lesson Date:</b></p>
-                <br>
-                <% if @lesson.num_days && @lesson.num_days > 1 %>
-                  Number of consecutive days:
-                <% end %>
-                <p><b>Lesson Time:</b></p>
-                <br>
-                <p><b>Meeting Location:</b></p>
-                <br>
-                <p><b>Rental Equipment:</b></p>
-                <br>
-                <p><b>Price:</b></p>
-                <br>
-                <%if @lesson.includes_lift_or_rental_package? || @lesson.is_gift_voucher? || (@lesson.package_info && @lesson.package_info.length > 1) %>
-                <p><b>Description:</b></p>
-                <br>
-                <% end %>
-              <%= link_to 'Edit Lesson', edit_lesson_path(@lesson), class: "btn btn-primary" %>
-              </h4>
-              <h4 class="booking-details">
-                  <p><%= @lesson.class_type_text %>, number of students: <%= @lesson.students.count %></p>
-                  <br>
-                <% if @lesson.is_gift_voucher? %>
-                  <p>TBD</p>
-                  <br>
-                <% else %>
-                  <p><%= @lesson.lesson_time.date.strftime("%A %b #{@lesson.lesson_time.date.day.ordinalize}, %Y") %></p>
-                  <br>
-                <% end %>
-                <% if @lesson.num_days && @lesson.num_days > 1 %>
-                  <p><%= @lesson.num_days %></p>
-                <% end %>
+          </article>
+
+            <h1 class="center">Authorize Payment</h1>
+            <div id="booking-details-container" class="booking-details">
+              <div class="row full-width">
+                <div class="col-xs-4 col-md-3">
+                  <b>Type:</b>
+                </div>
+                <div class="col-xs-8 col-md-9">
+                    <span class="left">
+                      <%= @lesson.class_type_text %>, number of students: <%= @lesson.students.count %>
+                    </span>
+                </div>
+              </div>                              
+              <div class="row full-width">
+                <div class="col-xs-4 col-md-3">
+                  <b>Date:</b>
+                </div>
+                <div class="col-xs-8 col-md-9">
+                    <span class="left">
+                      <% if @lesson.is_gift_voucher? %>
+                        TBD
+                      <% else %>                
+                        <%= @lesson.lesson_time.date.strftime("%b %d, %Y") %>
+                      <% end %>
+                    </span>
+                </div>
+              </div>
+              <div class="row full-width">
+                <div class="col-xs-4 col-md-3">
+                  <b>Lesson Time:</b>
+                </div>
+                <div class="col-xs-8 col-md-9">
+                    <span class="left">
+                      <% if @lesson.num_days && @lesson.num_days > 1 %>
+                        <%= @lesson.num_days %>;
+                      <% end %>
                   <% if @lesson.package_info %>
                     <% @lesson.package_info.include?("custom start time") ? custom_slot_class = "strikethrough" : custom_slot_class = "normal" %>
                   <% end %>
-                  <p class=<%= custom_slot_class %> ><%= @lesson.lesson_time.slot %></p>
-                  <br>
-                  <p><%= @lesson.location.name %>  (<a href="https://www.google.com/maps/place/<%=@lesson.location.address%>" ><%=@lesson.location.address%></a>)</p>
-                  <br>
-                  <p>
-                    <%if @lesson.includes_rental_package? %>
-                      Included
+                  <span class=<%= custom_slot_class %> ><%= @lesson.lesson_time.slot %></span>
+                    </span>
+                </div>
+              </div>
+              <div class="row full-width">
+                <div class="col-xs-4 col-md-3">
+                  <b>Location:</b>
+                </div>
+                <div class="col-xs-8 col-md-9">
+                    <span class="left">
+                      <%= @lesson.location.name %>  (<a href="https://www.google.com/maps/place/<%=@lesson.location.address%>" ><%=@lesson.location.address%></a>)
+                    </span>
+                </div>
+              </div>
+              <div class="row full-width">
+                <div class="col-xs-4 col-md-3">
+                  <b>Equipment:</b>
+                </div>
+                <div class="col-xs-8 col-md-9">
+                    <span class="left">
+                      <%if @lesson.includes_rental_package? %>
+                        Included
                       <% else %>
-                      Not Included  
+                        Not Included  
                     <% end %>
-                  </p>
-                  <br>
-              <% if @lesson.lesson_price.nil? || @lesson.price == @lesson.lesson_price %>
-                  <% amount = (@lesson.price.to_f*100).to_i %>
-                  <p>
-                    <%= number_to_currency(@lesson.price) %>
-                    <% if @lesson.product.calendar_period == 'Holiday' || @lesson.product.calendar_period == 'Peak' %>
-                    (holiday pricing)
-                    <% end %>
-                  </p>
-                  <% if @lesson.promo_code %>
-                  <p class="italic">Original price: <%= number_to_currency(@lesson.original_price) %></p>
-                  <p class="italic">Promotional Offer: <%= @lesson.promo_code.description %></p>
+
+                    </span>
+                </div>
+              </div>
+              <div class="row full-width">
+                <div class="col-xs-4 col-md-3">
+                  <b>Price:</b>
+                </div>
+                <div class="col-xs-8 col-md-9">
+                  <span class="left">
+
+                  <% if @lesson.lesson_price.nil? || @lesson.price == @lesson.lesson_price %>
+                      <% amount = (@lesson.price.to_f*100).to_i %>
+                      <%= number_to_currency(@lesson.price) %>
+    
+                      <% if @lesson.product.calendar_period == 'Holiday' || @lesson.product.calendar_period == 'Peak' %>
+                        (holiday pricing)
+                      <% end %>
+          
+                      <% if @lesson.promo_code %>
+                      <p class="italic">Original price: <%= number_to_currency(@lesson.original_price) %></p>
+                      <p class="italic">Promotional Offer: <%= @lesson.promo_code.description %></p>
+                      <% end %>
+                    <% else %>
+                      <% amount =(@lesson.lesson_price.to_f*100).to_i %>
+                      <p><%= number_to_currency(@lesson.lesson_price.to_s) %></p>
                   <% end %>
-                  <br>
+
+                  </span>
+                </div>
+              </div>
+              <div class="row full-width">
+                <div class="col-xs-4 col-md-3">
+                  <b>Additional Info:</b>
+                </div>
+                <div class="col-xs-8 col-md-9">
+                    <% if @lesson.includes_lift_or_rental_package? || @lesson.is_gift_voucher? || @lesson.package_info %>
+                      <p><%= @lesson.package_info %></p>
+                    <% end %>
+
                     <p>
-                      <span class="italic text-smaller">
+                      <span class="left">
                       <% if @lesson.class_type == "private" %>
                         <% if @lesson.additional_students_with_gear > 0 %>
                           <%= @lesson.additional_students_with_gear %> additional student(s) with rentals for <%= number_to_currency(@lesson.cost_per_additional_student_with_gear) %> each;
@@ -84,37 +124,49 @@
                         <% end %>
                       <% end %>
                       </span>
-                  </p>
-              <% else %>
-                <p><%= number_to_currency(@lesson.lesson_price.to_s) %></p>
-                <% amount =(@lesson.lesson_price.to_f*100).to_i %>
-              <% end %>                  
-              <% if @lesson.includes_lift_or_rental_package? || @lesson.is_gift_voucher? || @lesson.package_info %>
-                  <p><%= @lesson.package_info %></p>
-              <% end %>
-              </h4>
+                    </p>
+
+                </div>
+              </div>              
+              <div class="row">
+                <div class="col-xs-12">
+                  <ul class="student-list-confirm-reservation">
+                    <% @lesson.students.each do |student| %>
+                      <li><%= student.name %>, age <%= student.age_range %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+              <div class="row lodging-discount-warning">
+                <div class="col-xs-12">
+                  <% if @lesson.lodging_guest == true && @lesson.lodging_reservation_id.length != 6 %>
+                    <p>*You may have mis-entered your lodging reservation number. Please confirm and re-enter the reservation id you received when booking your accommdations, and we will apply the 50% discount.</p>
+                  <% end %>
+                </div>
+              </div>
             </div>
+
+              
             <div class="col-md-12 center">
               <label class="amount">
               </label>
+              <%= link_to 'Edit Reservation', edit_lesson_path(@lesson), class: "center btn btn-sm btn-primary" %>
               <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                       data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                      data-description="Thanks for booking with Snow Schoolers!"
-                      data-name="Snow Schoolers"
-                      data-image="https://s3.amazonaws.com/snowschoolers/SnowSchoolers-favicon.png"
+                      data-description="Thanks for booking at Granlibakken!"
+                      data-name="Granlibakken Sledding"
+                      data-image="http://granlibakken.com/wp-content/uploads/cropped-tin-g-32x32.png"
                       data-amount=<%= amount %>
                       data-locale="auto"
                       data-zip-code="true">
               </script>
-                  <p class="nonrefundable_disclaimer">
+                <p class="nonrefundable_disclaimer left">
                   <br>
-                    You may cancel or modify your reservation up to 24 hours before the start of your lesson. A $50 charge will be applied for any customer-initiated cancellations made after your reservation has been made. Any cancellation made less than 24 hours before the lesson time will be charged the full amount, regardless of weather conditions. A no-call/no-show will be charged the full amount. If for any reason you are unsatisfied with your Snow Schoolers experience, please <a class="contact-link" href="mailto:info@snowschoolers.com">ask about our 100% satisfaction guarantee.</a>
+                    You may cancel or modify your sledding hill ticket up to 24 hours before the day of your reservation. Any cancellation made less than 24 hours before the lesson time will not be refundable, regardless of weather conditions. Please email <a href="mailto:frontdesk@granlibakken.com">frontdesk@granlibakken.com</a> to initiate a cancellation.
                 </p>
             </div>
-        </article>
 
         <% end %>
-
 <div class="col-md-12">
   <hr class="deposit-hr-navy">
 </div>
