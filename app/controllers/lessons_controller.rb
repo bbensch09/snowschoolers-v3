@@ -429,8 +429,8 @@ class LessonsController < ApplicationController
       GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-updated', params[:ga_client_id])
       @user_email = current_user ? current_user.email : "unknown"
       if @lesson.state == "ready_to_book"
-      # LessonMailer.notify_admin_lesson_full_form_updated(@lesson.id).deliver!
-      LessonMailer.notify_admin_lesson_full_form_updated(@lesson.id).deliver_in(5.seconds)
+      LessonMailer.notify_admin_lesson_full_form_updated(@lesson.id).deliver!
+      # LessonMailer.notify_admin_lesson_full_form_updated(@lesson.id).deliver_in(5.seconds)
       # LessonMailer.test_email(@lesson.id).deliver_in(2.seconds)
       # LessonMailer.test_email.deliver_at(Time.parse('2017-12-20 16:20:00 -0800'))
       end
