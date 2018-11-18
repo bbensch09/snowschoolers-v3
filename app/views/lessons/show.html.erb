@@ -82,8 +82,11 @@
           <%= link_to "Edit Lesson Times", mark_lesson_complete_path, method: :put, class: "btn btn-success" %>
     <% end %>
 
+    <% unless @lesson.focus_area == "Exclude" %>
+
     <%= render partial: 'lesson_details' %>
 
+    <% end %>
 
     <% if @lesson.canceled? %>
       <p>Lesson has been canceled.</p>
