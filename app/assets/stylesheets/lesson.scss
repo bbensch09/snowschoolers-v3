@@ -246,9 +246,12 @@ form{
 @media (max-width: 768px) {
 
 .booking-details p, .booking-details span, .booking-details{
-  font-size: 0.9em;
+  font-size: 1.1em;
   margin-bottom: 5px;
 }  
+#booking-details-container .row{
+  padding-top: 10px;
+}
 
 .lesson-index-mobile{
   width: 300% !important;
