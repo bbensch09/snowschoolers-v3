@@ -1,6 +1,7 @@
 <header class="page-header">
-  <h2 id="lesson-details-header">Lesson Status</h2>
+  <h2 id="lesson-details-header"><b>Lesson Status</b></h2>
 </header>
+
 <p class="lesson-summary-info">
 
 Status: <%= @lesson.state %>
@@ -15,8 +16,10 @@ Status: <%= @lesson.state %>
 <% end %>
 <% if @lesson.includes_rental_package? %>
   <br> Equipment Status: <%= @lesson.rental_status %> 
-  <%= link_to "Select or Review Equipment", view_reservation_path(@lesson.id), method: :get, class: "btn btn-primary" %>
-  <br> <em> While not required, we highly recommend selecting your own rental equipment in advance. That way we can have your boots and skis/board fitted for you when you arrive. </em>
+  <br> While not required, we highly recommend selecting your own rental equipment in advance. That way we can have your boots and skis/board fitted for you when you arrive.
+  <br> <%= link_to "Select or Review Equipment", view_reservation_path(@lesson.id), method: :get, class: "btn btn-primary", target:"_blank" %>
+  <br> By purchasing a lesson with rentals, you agreed to the terms & conditions of the equipment rental agreement. You may view and print that rental agreement below.
+  <br> <%= link_to "Print Rental Agreement", rental_agreement_path(@lesson.id), class: 'btn btn-default', target:"_blank" %>
 <% end %>
 <% if @lesson.review %>
 <br>
@@ -32,16 +35,17 @@ Status: <%= @lesson.state %>
   <% end %>
 
   <div class="details-info-box">
+    <p class="confirmation-number">
+      Your reservation confirmation number is: <span style="font-weight: bold; font-size:18px;"><%=@lesson.confirmation_number%></span>. Please either print this page or save the confirmation email you should automaticaly receive, as you will need to show your confirmation number the morning of your lesson as proof of payment. Please also find your lesson reservation details below. 
+    </p>
+
     <% if @lesson.deposit_status == 'confirmed' && @lesson.waiver? %>
     <p class="left">
       You must also complete a required release of liability waiver prior to the start of your lesson. Please find the waiver at <a href="https://www.smartwaiver.com/v/snowschoolers2018" class="navy-link">https://www.smartwaiver.com/v/snowschoolers2018</a>
     </p>
-    <p class="confirmation-number">
-      Your reservation confirmation number is: <span style="font-weight: bold; font-size:18px;"><%=@lesson.confirmation_number%></span>. Please either print this page or save the confirmation email you should automaticaly receive, as you will need to show your confirmation number the morning of your lesson as proof of payment. Please also find your lesson reservation details below. 
-    </p>
     <% end %>
     
-    <h3>Lesson Summary</h3>
+    <h3><b>Lesson Summary</b></h3>
 
     <div class='row'>
 

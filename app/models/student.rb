@@ -52,6 +52,11 @@ class Student < ActiveRecord::Base
     length = (height_in_inches * 2.54*0.93).to_i
   end
 
+  def skier_type_text
+    text_to_split = self.skier_type.split("(")
+    return text_to_split.first
+  end
+
   def eligible_shoe_sizes
   	index_actual_size = BOOT_SIZES.index(self.shoe_size)
   	index_min = [0,index_actual_size - 2].max

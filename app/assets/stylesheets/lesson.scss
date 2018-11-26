@@ -33,13 +33,10 @@ form{
 #group_prices_simple{background-color:white;}
 .white-bg {background-color:white;}
 .confirmation-number{
-  text-align: left;
-  font-size: 1.4em;
-  line-height: 1.4;
+
 }
 .lesson-summary-info{
-  text-align: left;
-  margin-left: 50px;
+  margin-left: 40px;
 }
 .medium-text p{
   font-size: 1.5em;
@@ -109,9 +106,6 @@ form{
     margin-left: auto;
     padding-right: 60px;
     line-height: 28px;
-}
-.nonrefundable_disclaimer{
-  font-size: 0.8em;
 }
 
 #booking-details-container{
@@ -226,6 +220,18 @@ form{
 }
 .inline-block{
   display: inline-block;
+}
+.nonrefundable_disclaimer{
+  font-size: 1em;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.cancellation-title{
+  font-weight: bold;
+  font-size: 1.1em;
 }
 
 
