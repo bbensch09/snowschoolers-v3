@@ -106,7 +106,7 @@
               </div>
               <div class="row full-width">
                 <div class="col-xs-4 col-md-3">
-                  <b>Additional Info:</b>
+                  <!-- <b>Additional Info:</b> -->
                 </div>
                 <div class="col-xs-8 col-md-9">
                     <% if @lesson.includes_lift_or_rental_package? || @lesson.is_gift_voucher? || @lesson.package_info %>
@@ -148,9 +148,9 @@
 
               
             <div class="col-md-12 center">
-              <label class="amount">
-              </label>
+              <label class="amount"></label>
               <%= link_to 'Edit Reservation', edit_lesson_path(@lesson), class: "center btn btn-sm btn-primary" %>
+              <br>
               <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                       data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                       data-description="Thanks for booking at Granlibakken!"
@@ -161,8 +161,9 @@
                       data-zip-code="true">
               </script>
                 <p class="nonrefundable_disclaimer left">
+                  <span class="cancellation-title">Cancellation Policy</span>
                   <br>
-                    You may cancel or modify your sledding hill ticket up to 24 hours before the day of your reservation. Any cancellation made less than 24 hours before the lesson time will not be refundable, regardless of weather conditions. Please email <a href="mailto:frontdesk@granlibakken.com">frontdesk@granlibakken.com</a> to initiate a cancellation.
+                    You may cancel or modify your reservation up to 24 hours before the start of your lesson. A $50 charge will be applied for any customer-initiated cancellations made after your reservation has been made. Any cancellation made less than 24 hours before the lesson time will be charged the full amount, regardless of weather conditions. A no-call/no-show will be charged the full amount. If for any reason you are unsatisfied with your Snow Schoolers experience, please <a class="contact-link" href="mailto:hello@snowschoolers.com">ask about our 100% satisfaction guarantee.</a>
                 </p>
             </div>
 

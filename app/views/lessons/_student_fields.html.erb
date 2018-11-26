@@ -64,8 +64,8 @@
       </div>
       <% if @lesson.activity == 'Ski' %>
       <div class='col-md-6'>
-        <label>Skier Type</label>        
-        <%= f.select :skier_type, ['I - Beginner', 'II - intermediate', 'III - Advanced'], {}, {class: 'form-control skier_type', required:false, include_blank:'I - Beginner'} %>
+        <label>Skier Type</label> - <a href="/skier-types" class="navy-link" target="_blank">what is "skier type"?</a>
+        <%= f.select :skier_type, ['I - Beginner (levels 1-4)', 'II - Intermediate (levels 5-7)', 'III - Advanced (levels 8-9'], {}, {class: 'form-control skier_type', required:false, include_blank:'I - Beginner'} %>
       </div>
       <% else %>
       <div class='col-md-6'>

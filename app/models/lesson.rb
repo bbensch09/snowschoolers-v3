@@ -1313,7 +1313,7 @@ class Lesson < ActiveRecord::Base
       recipient = first_instructor.phone_number ? first_instructor.phone_number : "4083152900"
       case self.state
         when 'new'
-          body = "A lesson booking was begun and not finished. Please contact an admin or email info@snowschoolers.com if you intended to complete the lesson booking."
+          body = "A lesson booking was begun and not finished. Please contact an admin or email hello@snowschoolers.com if you intended to complete the lesson booking."
         when 'booked'
           body = "#{first_instructor.first_name}, You have a new lesson request from #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. They are a level #{self.level.to_s} #{self.athlete}. Are you available? Please visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm."
         when 'seeking replacement instructor'
@@ -1523,7 +1523,7 @@ private
     if available_instructors? 
       return true
     else
-      errors.add(:lesson, "Error: unfortunately we are sold out of private instructors at that time. Please choose another time slot, or email info@snowschoolers.com to be notified if we have any instructors that become available.")
+      errors.add(:lesson, "Error: unfortunately we are sold out of private instructors at that time. Please choose another time slot, or email hello@snowschoolers.com to be notified if we have any instructors that become available.")
       notify_admin_pending_supply_constraint(self.date)
       return false
     end
