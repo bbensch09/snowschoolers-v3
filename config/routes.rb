@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'rental-reservations/:id' => 'rentals#view_reservation', as: :view_reservation
   get 'rental-reservations-today' => 'rentals#rentals_today', as: :rentals_today
   get 'rental-reservations-tomorrow' => 'rentals#rentals_tomorrow', as: :rentals_tomorrow
+  get 'skier-types' => 'lessons#skier_types', as: :skier_types
   resources :rentals
   resources :promo_codes
   resources :shifts

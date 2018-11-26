@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 ruby "~> 2.3.0"
 
+# gem to enable popper tooltips; did not work as of 11.25.18
+# gem 'popper_js'
+
 #gem for server-side API calls for from Heap
 gem 'heap', '~> 1.0'
 
