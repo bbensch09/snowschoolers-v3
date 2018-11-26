@@ -1,7 +1,7 @@
 class LessonMailer < ActionMailer::Base
   include ApplicationHelper
   include Resque::Mailer
-  default from: 'SnowSchoolers.com <info@snowschoolers.com>' #cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>"
+  default from: 'SnowSchoolers.com <hello@snowschoolers.com>' #cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>"
   before_filter :log_mailer_action
 
   def log_mailer_action
@@ -151,22 +151,22 @@ class LessonMailer < ActionMailer::Base
 
   def new_instructor_application_received(instructor)
     @instructor = instructor
-    mail(to: 'info@snowschoolers.com', cc: 'brian@snowschoolers.com', subject: "Submitted Application: #{@instructor.username} has applied to join Snow Schoolers")
+    mail(to: 'hello@snowschoolers.com', cc: 'brian@snowschoolers.com', subject: "Submitted Application: #{@instructor.username} has applied to join Snow Schoolers")
   end
 
   def send_new_instructor_application_confirmation(instructor)
     @instructor = instructor
-    mail(to: @instructor.username, cc: 'info@snowschoolers.com', subject: "Thanks for applying to Snow Schoolers -- please schedule your interview!")
+    mail(to: @instructor.username, cc: 'hello@snowschoolers.com', subject: "Thanks for applying to Snow Schoolers -- please schedule your interview!")
   end
 
   def new_hta_application_received(instructor)
     @instructor = instructor
-    mail(to: 'info@snowschoolers.com', cc: 'brian@snowschoolers.com', subject: "Submitted HTA Application: #{@instructor.username} has applied to join Snow Schoolers")
+    mail(to: 'hello@snowschoolers.com', cc: 'brian@snowschoolers.com', subject: "Submitted HTA Application: #{@instructor.username} has applied to join Snow Schoolers")
   end
 
   def send_hta_application_confirmation(instructor)
     @instructor = instructor
-    mail(to: @instructor.username, cc: 'info@snowschoolers.com', subject: "Thanks for applying to our upcoming Accelerated Instructor Certification Program -- we'll be in touch!")
+    mail(to: @instructor.username, cc: 'hello@snowschoolers.com', subject: "Thanks for applying to our upcoming Accelerated Instructor Certification Program -- we'll be in touch!")
   end
 
   def new_homewood_application_received(applicant)

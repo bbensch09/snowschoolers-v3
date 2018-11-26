@@ -35,7 +35,7 @@ class ApplicantsController < ApplicationController
     respond_to do |format|
       if @applicant.save
         GoogleAnalyticsApi.new.event('liftops-recruitment', 'new-application-submitted', params[:ga_client_id])
-        format.html { redirect_to root_path, notice: 'Your application was successfully submitted, you will be contacted shortly. You may also reach out with questions to info@snowschoolers.com' }
+        format.html { redirect_to root_path, notice: 'Your application was successfully submitted, you will be contacted shortly. You may also reach out with questions to hello@snowschoolers.com' }
         format.json { render action: 'show', status: :created, location: @applicant }
       else
         format.html { render :new }
