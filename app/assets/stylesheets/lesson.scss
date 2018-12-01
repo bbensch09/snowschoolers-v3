@@ -179,7 +179,6 @@ form{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 40px;
 }
 .duration-and-feedback{
   display:block;
@@ -250,6 +249,15 @@ form{
 
 /*MOBILE ADJUSTMENTS*/
 @media (max-width: 768px) {
+
+.lesson-detail-topic{
+    width: 60%;
+    font-weight: bold;
+    display: inline-block;
+    font-family: 'Palanquin', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.1;
+    font-size: 18px;
+}
 
 .booking-details p, .booking-details span, .booking-details{
   font-size: 1.1em;
