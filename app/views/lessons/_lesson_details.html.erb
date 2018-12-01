@@ -1,82 +1,87 @@
-<header class="page-header">
-  <h2 id="lesson-details-header"><b>Lesson Status</b></h2>
-</header>
 
-<p class="lesson-summary-info">
+  <p>
+    <b>Lesson status:</b>
+      <%= @lesson.state %>
+  </p>
 
-Status: <%= @lesson.state %>
-<% if @lesson.instructor %>
-  <br> Instructor: <%= @lesson.instructor.name %>
-<% else %>
-  <% if @lesson.pending_requester? %>
-    <!-- <br> No instructors available for this date and time. Please edit or cancel -->
+  <p>
+  <% if @lesson.instructor %>
+    <br> <b>Instructor:</b> <%= @lesson.instructor.name %>
   <% else %>
-    <!-- <br> No instructor assigned yet -->
-  <% end %>
-<% end %>
-<% if @lesson.includes_rental_package? %>
-  <br> Equipment Status: <%= @lesson.rental_status %> 
-  <br> While not required, we highly recommend selecting your own rental equipment in advance. That way we can have your boots and skis/board fitted for you when you arrive.
-  <br> <%= link_to "Select or Review Equipment", view_reservation_path(@lesson.id), method: :get, class: "btn btn-primary", target:"_blank" %>
-  <br> By purchasing a lesson with rentals, you agreed to the terms & conditions of the equipment rental agreement. You may view and print that rental agreement below.
-  <br> <%= link_to "Print Rental Agreement", rental_agreement_path(@lesson.id), class: 'btn btn-default', target:"_blank" %>
-<% end %>
-<% if @lesson.review %>
-<br>
-  Instructor Review: <%= @lesson.review.rating %> stars - <%= @lesson.review.review %>
-<% end %>
-<% if @lesson.payment_complete? %>
-<br> Tip Amount: <%= number_to_currency(@lesson.tip) %>
-<% end %>
-</p>
-<div id='full-details-container'>
-  <%if @lesson.public_feedback_for_student %>
-      <%= render partial: 'lessons/confirmed_time_and_feedback' %>
-  <% end %>
-
-  <div class="details-info-box">
-    <p class="confirmation-number">
-      Your reservation confirmation number is: <span style="font-weight: bold; font-size:18px;"><%=@lesson.confirmation_number%></span>. Please either print this page or save the confirmation email you should automaticaly receive, as you will need to show your confirmation number the morning of your lesson as proof of payment. Please also find your lesson reservation details below. 
-    </p>
-
-    <% if @lesson.deposit_status == 'confirmed' && @lesson.waiver? %>
-    <p class="left">
-      You must also complete a required release of liability waiver prior to the start of your lesson. Please find the waiver at <a href="https://www.smartwaiver.com/v/snowschoolers2018" class="navy-link">https://www.smartwaiver.com/v/snowschoolers2018</a>
-    </p>
+    <% if @lesson.pending_requester? %>
+      <!-- <br> No instructors available for this date and time. Please edit or cancel -->
+    <% else %>
+      <!-- <br> No instructor assigned yet -->
     <% end %>
-    
-    <h3><b>Lesson Summary</b></h3>
+  <% end %>
+  <% if @lesson.includes_rental_package? %>
+    <br> <b>Equipment:</b> <%= @lesson.rental_status %> 
+    <br> While not required, we highly recommend selecting your own rental equipment in advance. That way we can have your boots and skis/board fitted for you when you arrive.
+    <br> <%= link_to "Select or Review Equipment", view_reservation_path(@lesson.id), method: :get, class: "btn btn-primary", target:"_blank" %>
+    <br> By purchasing a lesson with rentals, you agreed to the terms & conditions of the equipment rental agreement. You may view and print that rental agreement below.
+    <br> <%= link_to "Print Rental Agreement", rental_agreement_path(@lesson.id), class: 'btn btn-default', target:"_blank" %>
+  <% end %>
+  <% if @lesson.review %>
+  <br>
+    Instructor Review: <%= @lesson.review.rating %> stars - <%= @lesson.review.review %>
+  <% end %>
+  <% if @lesson.payment_complete? %>
+  <br> Tip Amount: <%= number_to_currency(@lesson.tip) %>
+  <% end %>
+  </p>
 
-    <div class='row'>
+  <div id='full-details-container'>
+    <%if @lesson.public_feedback_for_student %>
+        <%= render partial: 'lessons/confirmed_time_and_feedback' %>
+    <% end %>
 
-      <div class="col-md-12 col-xs-12">
-      <h4 class="slot-details-mobile">
-        <span class="lesson-detail-topic">Reservation Name:</span> <%= @lesson.requester_name %> <br>
-        <span class="lesson-detail-topic">Class Type:</span> <%= @lesson.class_type_text %> <br>
-        <span class="lesson-detail-topic">Phone:</span> <%= @lesson.phone_number %> <br>
-        <span class="lesson-detail-topic">Email:</span> <%= @lesson.guest_email ? @lesson.guest_email :  @lesson.requester.email %> <br>
-        <span class="lesson-detail-topic">Location:</span>  <%= @lesson.location.name %><br>
-        <!-- <span class="lesson-detail-topic">Sport:</span>  <%= @lesson.activity %><br> -->
-        <span class="lesson-detail-topic">Date:</span> <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %><br>
-        <% if @lesson.package_info %>
-          <% @lesson.package_info.include?("custom start time") ? custom_slot_class = "strikethrough" : custom_slot_class = "normal" %>
-        <% end %>
-        <!-- <span class="lesson-detail-topic">Start Time:</span>  <%= @lesson.start_time %><br> -->
-        <span class="lesson-detail-topic">Time Slot:</span> <span class=<%= custom_slot_class%> > <%= @lesson.slot %></span> <br><br>
-        <% if @lesson.package_info && @lesson.package_info.length > 1 %>
-          <span class="lesson-detail-topic">Adjustments:</span>  <%= @lesson.package_info %>
-          <br><br>                  
-        <% end %>
-        <span class="lesson-detail-topic">Objectives:</span> <br> <%= @lesson.objectives %>
-      </h4>
+    <div class="details-info-box">
+      <p class="confirmation-number">
+        <b> Confirmation Receipt </b>
+        <br>
+        Your reservation confirmation number is: <span style="font-weight: bold; font-size:18px;"><%=@lesson.confirmation_number%></span>. Please either print this page or save the confirmation email you should automaticaly receive, as you will need to show your confirmation number the morning of your lesson as proof of payment. Please also find your lesson reservation details below. 
+      </p>
+
+      <% if @lesson.deposit_status == 'confirmed' && @lesson.waiver? %>
+      <p class="left">
+        <!-- You must also complete a required release of liability waiver prior to the start of your lesson. Please find the waiver at <a href="https://www.smartwaiver.com/v/snowschoolers2018" class="navy-link">https://www.smartwaiver.com/v/snowschoolers2018</a> -->
+      </p>
+      <% end %>
+      
+      <hr class="deposit-hr-navy">
+
+      <p><b>Lesson Summary</b></p>
+
+      <div class='row'>
+
+        <div class="col-md-12 col-xs-12">
+        <h4 class="slot-details-mobile">
+          <span class="lesson-detail-topic">Reservation Name:</span> <%= @lesson.requester_name %> <br>
+          <span class="lesson-detail-topic">Class Type:</span> <%= @lesson.class_type_text %> <br>
+          <span class="lesson-detail-topic">Phone:</span> <%= @lesson.phone_number %> <br>
+          <span class="lesson-detail-topic">Email:</span> <%= @lesson.guest_email ? @lesson.guest_email :  @lesson.requester.email %> <br>
+          <span class="lesson-detail-topic">Location:</span>  <%= @lesson.location.name %><br>
+          <!-- <span class="lesson-detail-topic">Sport:</span>  <%= @lesson.activity %><br> -->
+          <span class="lesson-detail-topic">Date:</span> <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %><br>
+          <% if @lesson.package_info %>
+            <% @lesson.package_info.include?("custom start time") ? custom_slot_class = "strikethrough" : custom_slot_class = "normal" %>
+          <% end %>
+          <!-- <span class="lesson-detail-topic">Start Time:</span>  <%= @lesson.start_time %><br> -->
+          <span class="lesson-detail-topic">Time Slot:</span> <span class=<%= custom_slot_class%> > <%= @lesson.slot %></span> <br><br>
+          <% if @lesson.package_info && @lesson.package_info.length > 1 %>
+            <span class="lesson-detail-topic">Adjustments:</span>  <%= @lesson.package_info %>
+            <br><br>                  
+          <% end %>
+          <span class="lesson-detail-topic">Objectives:</span> <br> <%= @lesson.objectives %>
+        </h4>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="details-info-box">
-      <%= render partial: 'price_details' %>
+    <div class="details-info-box">
+        <%= render partial: 'price_details' %>
+    </div>
+    <div class='details-info-box'>
+        <%= render partial: 'student_details' %>
+    </div>
   </div>
-  <div class='details-info-box'>
-      <%= render partial: 'student_details' %>
-  </div>
-</div>
