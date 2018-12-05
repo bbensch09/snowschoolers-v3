@@ -11,11 +11,11 @@ var day = dt.getDate();
 var month = dt.getMonth() + 1;
 var year = dt.getYear() +1900;
 var date = year + "-" + month + "-" + day;
-var opening_date = new Date("2018-12-14");
+var opening_date = new Date("2018-12-07");
 
 console.log(date);
 if (Date.now() <= opening_date) {
-  var MIN_DATE = '2018-12-14';
+  var MIN_DATE = '2018-12-07';
   console.log(MIN_DATE);
 }  
 
@@ -59,7 +59,22 @@ var LESSON = {
   // setDatepicker: function() { LESSON._date.datepicker({ minDate: MIN_DATE, maxDate: '2018-04-15', dateFormat: 'yy-mm-dd' }); },  
 
   setDatepicker: function() { 
-  var blocked_dates_array = ['2018-03-13','2018-03-14','2018-03-15','2018-03-20','2018-03-21','2018-03-22','2018-03-27','2018-03-28','2018-03-29','2018-04-03','2018-04-04','2018-04-05','2018-04-10','2018-04-11','2018-04-12'];
+  var blocked_dates_array = ['2018-12-10','2018-12-11','2018-12-12','2018-12-13',
+  '2018-12-18','2018-12-19','2018-12-20',
+  '2019-01-08','2019-01-09','2019-01-10',
+  '2019-01-15','2019-01-16','2019-01-17',
+  '2019-01-22','2019-01-23','2019-01-24',
+  '2019-01-29','2019-01-30','2019-01-31',
+  '2019-02-05','2019-02-06','2019-02-07',
+  '2019-02-12','2019-02-13','2019-02-14',
+  '2019-02-19','2019-02-20','2019-02-21',
+  '2019-02-26','2019-02-27','2019-02-28',
+  '2019-03-05','2019-03-06','2019-03-07',
+  '2019-03-12','2019-03-13','2019-03-14',
+  '2019-03-19','2019-03-20','2019-03-21',
+  '2019-03-26','2019-03-27','2019-03-28',
+  '2019-04-02','2019-04-03','2019-04-04',
+  ];
   LESSON._date.datepicker({
     beforeShowDay: function(date){
       var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
@@ -69,6 +84,7 @@ var LESSON = {
     maxDate: '2019-04-15',
     dateFormat: 'yy-mm-dd' 
   });
+
   LESSON._date2.datepicker({
     beforeShowDay: function(date){
       var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
