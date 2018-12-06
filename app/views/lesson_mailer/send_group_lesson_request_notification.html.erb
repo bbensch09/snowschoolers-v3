@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <% if @lesson.requester.name %>
+      <p>Hello <%= @lesson.requester.name.split(" ").first %>,</p>
+      <% else %>
+      <p>Hello,</p>
+    <% end %>
+
+    <p>
+      Thank you for booking a group lesson with Snow Schoolers!
+    </p>
+    <p>
+      Reservation confirmation number: <span style="font-size:18px;"><%=@lesson.confirmation_number%></span>
+    </p>
+    <h4>What happens now?</h4>
+    <ul>
+      <li>Please complete a required release of liability waiver prior to the start of your lesson. The waiver can be found at <a href="https://www.smartwaiver.com/v/snowschoolers2018" class="navy-link">https://www.smartwaiver.com/v/snowschoolers2018</a></li>
+      <li>
+        Please save this email, as you may need to show your confirmation number (above) the morning of your lesson as proof of payment. Please also find your lesson reservation details below, including names & ages of the students in your reservation, and whether or not rental equipment has been included. 
+      </li>
+      <li>
+          By purchasing a lesson with rentals, you agreed to the terms & conditions of the equipment rental agreement. You may view and print that rental agreement below.
+          <br> <%= link_to "Print Rental Agreement", rental_agreement_url(@lesson.id), class: 'btn btn-default', target:"_blank" %>
+      </li>
+      <li>Your lesson will begin promptly at the start time you've selected.</li>
+      <li>If you are renting from the mountain, please plan to arrive at the ski hill at least <%= ENV['RENTAL_ADVANCE_TIME'] %> prior to your lesson so that you can get outfitted with your equipment. For afternoon lessons, if it is at all possible please come by in the morning before 1030am to pickup your equipment, because rental equipment selection is often extremely limited in the afternoon.</li>
+      <li>If you have your own equipment, you should still arrive at least 15 minutes prior to the start of your lesson to afford enough time to find parking and put on your boots and gear.</li>
+    </ul>
+
+    <%= render partial: 'meeting_location' %>
+
+
+    <h4>Lesson Details</h4>
+    <ul>
+      <li>Sport: <%= @lesson.activity %></li>
+      <li>Location: <%= @lesson.location.name %></li>
+      <li>Date: <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %></li>
+      <li>Lesson Product: <%= @lesson.product.name %></li>
+      <li>Start Time: <%= @lesson.start_time %></li>
+      <li>Students: <%= @lesson.students.map(&:name).join(', ') %></li>
+      <li>Objectives: <%= @lesson.objectives %></li>
+    </ul>
+
+    <%= render partial: 'lessons/price_details' %>
+
+    <%= render partial: 'lessons/student_details' %>
+
+
+    <p>
+      If you need to make any changes to your lesson reservation, please visit: <a href=<%= lesson_url(@lesson) %> ><%= lesson_url(@lesson) %></a>.
+    </p>
+
+    <p>If you have any questions or if there is anything we can do to help you prepare for your upcoming lesson, please don't be afraid to reach out.</p>
+    <p>
+      - Brian Bensch <br>
+      Founder, SnowSchoolers.com <br>
+      brian@snowschoolers.com
+    </p>
+  </body>
+</html>

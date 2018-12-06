@@ -151,22 +151,22 @@ class LessonMailer < ActionMailer::Base
 
   def new_instructor_application_received(instructor)
     @instructor = instructor
-    mail(to: 'hello@snowschoolers.com', cc: 'brian@snowschoolers.com', subject: "Submitted Application: #{@instructor.username} has applied to join Snow Schoolers")
+    mail(to: 'info@snowschoolers.com', cc: 'brian@snowschoolers.com', subject: "Submitted Application: #{@instructor.username} has applied to join Snow Schoolers")
   end
 
   def send_new_instructor_application_confirmation(instructor)
     @instructor = instructor
-    mail(to: @instructor.username, cc: 'hello@snowschoolers.com', subject: "Thanks for applying to Snow Schoolers -- please schedule your interview!")
+    mail(to: @instructor.username, cc: 'info@snowschoolers.com', subject: "Thanks for applying to Snow Schoolers -- please schedule your interview!")
   end
 
   def new_hta_application_received(instructor)
     @instructor = instructor
-    mail(to: 'hello@snowschoolers.com', cc: 'brian@snowschoolers.com', subject: "Submitted HTA Application: #{@instructor.username} has applied to join Snow Schoolers")
+    mail(to: 'info@snowschoolers.com', cc: 'brian@snowschoolers.com', subject: "Submitted HTA Application: #{@instructor.username} has applied to join Snow Schoolers")
   end
 
   def send_hta_application_confirmation(instructor)
     @instructor = instructor
-    mail(to: @instructor.username, cc: 'hello@snowschoolers.com', subject: "Thanks for applying to our upcoming Accelerated Instructor Certification Program -- we'll be in touch!")
+    mail(to: @instructor.username, cc: 'info@snowschoolers.com', subject: "Thanks for applying to our upcoming Accelerated Instructor Certification Program -- we'll be in touch!")
   end
 
   def new_homewood_application_received(applicant)
@@ -262,9 +262,19 @@ class LessonMailer < ActionMailer::Base
     @lesson = lesson
     return if @lesson.email_notifications_status == 'disabled'
     if @lesson.guest_email.nil? || @lesson.guest_email == ""
-      mail(to: @lesson.requester.email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, notify@snowschoolers.com", subject: "Reservation Confirmation: Thanks for booking with Snow Schoolers for #{@lesson.date.strftime("%b %-d")}")
+      mail(to: @lesson.requester.email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, notify@snowschoolers.com", subject: "Private Lesson Confirmation: Thanks for booking with Snow Schoolers for #{@lesson.date.strftime("%b %-d")}")
     else
-      mail(to: @lesson.guest_email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, notify@snowschoolers.com", subject: "Reservation Confirmation: Thanks for booking with Snow Schoolers for  for #{@lesson.date.strftime("%b %-d")}")
+      mail(to: @lesson.guest_email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, notify@snowschoolers.com", subject: "Private Lesson Confirmation: Thanks for booking with Snow Schoolers for #{@lesson.date.strftime("%b %-d")}")
+    end
+  end
+
+def send_group_lesson_request_notification(lesson)
+    @lesson = lesson
+    return if @lesson.email_notifications_status == 'disabled'
+    if @lesson.guest_email.nil? || @lesson.guest_email == ""
+      mail(to: @lesson.requester.email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, notify@snowschoolers.com", subject: "Group Lesson Confirmation: Thanks for booking with Snow Schoolers on #{@lesson.date.strftime("%b %-d")}")
+    else
+      mail(to: @lesson.guest_email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, notify@snowschoolers.com", subject: "Group Lesson Confirmation: Thanks for booking with Snow Schoolers on #{@lesson.date.strftime("%b %-d")}")
     end
   end
 
