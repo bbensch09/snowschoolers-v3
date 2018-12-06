@@ -540,6 +540,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def confirmable?
+    return false if self.group_lesson?
     confirmable_states = ['booked', 'pending instructor', 'pending requester','seeking replacement instructor']
     confirmable_states.include?(state) #&& self.available_instructors.any?
   end
@@ -605,6 +606,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def completable?
+    return false if self.group_lesson?
     self.state == 'confirmed'
   end
 

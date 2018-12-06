@@ -46,6 +46,7 @@
       <th class="lessons-table-cells lesson-date">Date</th>
       <th class="lessons-table-cells lesson-instructor">Instructor</th>
       <th class="lessons-table-cells lesson-type">Type</th>
+      <th class="lessons-table-cells lesson-type">Conf#</th>
       <th class="lessons-table-cells lesson-type">Sport</th>
       <th class="lessons-table-cells lesson-student">Student</th>
       <th class="lessons-table-cells">Lesson Price</th>
@@ -68,6 +69,7 @@
               <td><%= link_to "#{lesson.product.name}", lesson, class: "" %></td>
             <% end %>
             <td class="lessons-table-cells lesson-type"><%= lesson.activity %></td>            
+            <td class="lessons-table-cells lesson-type"><%= lesson.confirmation_number %></td>            
             <!-- <td class="lessons-table-cells"><%= lesson.deposit_status %></td> -->
             <% if lesson.requester %>
               <td class="lessons-table-cells lesson-student">Contact: <%= lesson.requester_name %>, <%= lesson.requester.email %></td>
@@ -230,6 +232,7 @@
       <th>ID</th>
       <th>Instructor</th>
       <th>Type</th>
+      <th>Conf#</th>
       <th>Sport</th>
       <th>Student</th>
       <!-- <th>Mountain</th> -->
@@ -266,6 +269,7 @@
               <td><%= link_to "#{lesson.product.name}", lesson, class: "btn btn-wrap btn-default" %></td>
             <% end %>
             <td class="lessons-table-cells lesson-type"><%= lesson.activity %></td>            
+            <td class="lessons-table-cells lesson-type"><%= lesson.confirmation_number %></td>            
             <% if lesson.requester %>
               <td class="lessons-table-cells lesson-student"><%= lesson.requester.email %></td>
               <% else %>

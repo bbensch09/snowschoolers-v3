@@ -54,7 +54,7 @@
   </div>
   <div class="col-md-6 snowboard-sections">
     <h2 class="center bold">Snowboard Lessons</h2>
-    <% Section.where(date:day.date,sport_id:2).sort{ |a,b| a.slot <=> b.slot }.each do |section| %>
+    <% Section.where(date:day.date,sport_id:2).sort{ |a,b| b.slot <=> a.slot }.each do |section| %>
       <%= render partial: 'lessons/daily_schedule', locals: {section: section} %>
     <% end %>
   </div>
