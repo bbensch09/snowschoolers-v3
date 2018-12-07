@@ -127,8 +127,7 @@
           <% lesson.canceled? ? highlighted_row = 'alert-danger' : highlighted_row = '' %>
           <tr class=<%= highlighted_row %>>
             <% if lesson.instructor %>
-            <!-- <td>%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td> -->
-            <td>INSERT IMAGE</td>
+            <td>%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td>
             <td><%= lesson.instructor.name %></td>
             <% else %>
             <td></td>
@@ -256,8 +255,7 @@
           <% lesson.canceled? ? highlighted_row = 'alert-danger' : highlighted_row = '' %>
           <tr class=<%= highlighted_row %>>
             <% if lesson.instructor %>
-            <!-- <td>%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td> -->
-            <td>INSERT IMAGE</td>
+            <td><%= image_tag(lesson.instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail") %></td>
             <td><%= lesson.instructor.name %></td>
             <% else %>
             <td></td>
