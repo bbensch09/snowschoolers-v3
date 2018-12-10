@@ -172,14 +172,18 @@ class CalendarBlocksController < ApplicationController
       @calendar_block = CalendarBlock.find(params[:id])
     end
 
-    def set_instructor
-      instructor_name = params[:id]
-      instructor_name = params[:id].gsub("-"," ")
-      puts "!!!instructor_name is #{instructor_name}."
-      @instructor = Instructor.all.select{|instructor| instructor.name.downcase.strip == instructor_name.downcase.strip}.first
+    def set_instructor      
+      names = params[:id].split("-")
+      if names.first.to_i > 0
+        @instructor = Instructor.find(params[:id])
+      else
+        names = params[:id].gsub("-"," ")
+        puts "!!!names is #{names}."
+        @instructor = Instructor.all.select{|instructor| instructor.name.parameterize == params[:id]}.first
+        puts "!!!!instructor name is :#{@instructor.name}."
+      end
     end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
+  
     def calendar_block_params
       params.require(:calendar_block).permit(:instructor_id, :lesson_time_id, :status, :date, :state, :prime_day)
     end
