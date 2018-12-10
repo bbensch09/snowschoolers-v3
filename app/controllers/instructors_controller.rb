@@ -136,6 +136,7 @@ class InstructorsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_instructor
+      
       names = params[:id].split("-")
       if names.first.to_i > 0
         @instructor = Instructor.find(params[:id])
