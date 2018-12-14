@@ -212,6 +212,7 @@ Rails.application.routes.draw do
 
   resources :lessons
   # get 'new_request' => 'lessons#new_request'
+  get 'manage_group_lessons' => 'lessons#manage_group_lessons'
   get 'group_lessons' => 'lessons#group_index'
   get 'new_request/:id' => 'lessons#new_request'
   put   'lessons/:id/set_instructor'      => 'lessons#set_instructor',      as: :set_instructor
