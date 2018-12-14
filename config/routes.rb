@@ -145,6 +145,7 @@ Rails.application.routes.draw do
   get '/granlibakken' => 'lessons#granlibakken'
   get '/homewood' => 'lessons#homewood'
   get '/daily-roster' => 'lessons#daily_roster'
+  get '/daily-group-roster' => 'lessons#daily_group_roster'
   get '/payroll-prep' => 'lessons#payroll_prep'
   get '/search' => 'lessons#search'
   get '/search-results' => 'lessons#search_results', as: :search_results
@@ -212,6 +213,7 @@ Rails.application.routes.draw do
 
   resources :lessons
   # get 'new_request' => 'lessons#new_request'
+  get 'manage_group_lessons' => 'lessons#manage_group_lessons'
   get 'group_lessons' => 'lessons#group_index'
   get 'new_request/:id' => 'lessons#new_request'
   put   'lessons/:id/set_instructor'      => 'lessons#set_instructor',      as: :set_instructor
