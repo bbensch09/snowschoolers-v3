@@ -139,8 +139,36 @@ class LessonsController < ApplicationController
         @todays_lessons = current_user.lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
     end
   end
+  
+  def daily_group_roster
+    lessons = Lesson.where(class_type: "group").select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.state.nil? }
+    @todays_lessons = lessons.select{|lesson| lesson.date == Date.today && lesson.state != 'canceled' }
+    @tomorrows_lessons = lessons.keep_if{|lesson| lesson.date == Date.today + 1 && lesson.state != 'canceled' }
+    render 'daily_group_roster'
+  end
 
   def group_index
+    if current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee"
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.canceled? || lesson.booked? || lesson.state.nil? }
+      @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.group_lesson?}
+      @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
+      @todays_lessons = @lessons.select{|lesson| lesson.date == Date.today }
+      @wage_rate = current_user.instructor ? current_user.instructor.wage_rate : nil
+    elsif current_user.user_type == "Ski Area Partner"
+      lessons = Lesson.where(requested_location: current_user.location.id.to_s, class_type: "group").sort_by { |lesson| lesson.id}
+      @todays_lessons = lessons.keep_if{|lesson| lesson.date == Date.today && lesson.state != 'new' }
+      @lessons = lessons.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
+    elsif current_user.instructor
+      @lessons = Lesson.where(class_type: "group").visible_to_instructor?(current_user.instructor)
+      @todays_lessons = @lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
+      @wage_rate = current_user.instructor ? current_user.instructor.wage_rate : nil
+    else
+      @lessons = current_user.lessons.where(class_type: "group")
+      @todays_lessons = @lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
+    end
+  end
+
+  def manage_group_lessons
     if current_user && (current_user.user_type == 'Ski Area Partner' || current_user.email == 'brian@snowschoolers.com')
       all_days = Section.select(:date).distinct.sort{|a,b| a.date <=> b.date}
       @days = all_days.keep_if{|a| a.date >= Date.today}
@@ -160,7 +188,7 @@ class LessonsController < ApplicationController
             days << Section.select(:date).where(date:lesson.lesson_time.date).first
           end
           @days = days
-          render 'group_index'
+          render 'manage_group_lessons'
         else
           redirect_to root_path
           flash[:notice] = "You do not have permission to view that page."

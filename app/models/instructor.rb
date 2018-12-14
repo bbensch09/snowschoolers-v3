@@ -119,7 +119,7 @@ class Instructor < ActiveRecord::Base
       Instructor.create!({
         first_name: first_names[number],
         last_name: last_names[number],
-        username: "test_user",
+        username: "test_user@snowschoolers.com",
         certification: ['Level 1', 'Level 2', 'Level 3', 'HTA'].sample,
         phone_number: "408-315-2900",
         bio: Faker::Hipster.paragraph,
