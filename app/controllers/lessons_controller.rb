@@ -188,7 +188,7 @@ class LessonsController < ApplicationController
             days << Section.select(:date).where(date:lesson.lesson_time.date).first
           end
           @days = days
-          render 'index'
+          render 'manage_group_lessons'
         else
           redirect_to root_path
           flash[:notice] = "You do not have permission to view that page."
