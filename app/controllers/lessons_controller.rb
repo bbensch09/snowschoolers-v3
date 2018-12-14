@@ -139,6 +139,13 @@ class LessonsController < ApplicationController
         @todays_lessons = current_user.lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
     end
   end
+  
+  def daily_group_roster
+    lessons = Lesson.where(class_type: "group").select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.state.nil? }
+    @todays_lessons = lessons.select{|lesson| lesson.date == Date.today && lesson.state != 'canceled' }
+    @tomorrows_lessons = lessons.keep_if{|lesson| lesson.date == Date.today + 1 && lesson.state != 'canceled' }
+    render 'daily_group_roster'
+  end
 
   def group_index
     if current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee"
