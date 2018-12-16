@@ -814,6 +814,8 @@ class Lesson < ActiveRecord::Base
 
   def price
     puts "!!!! runing Lesson.price method to determine current price."
+    # begin work to reduce price/product calls which are causing application errors
+    # return self.lesson_price if self.lesson_price != nil
     product = self.product
     if product.nil?
       return 0
