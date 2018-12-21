@@ -9,6 +9,28 @@ class Section < ApplicationRecord
 	# 	return "#{self.age_group} #{self.lesson_type} - #{self.sport.activity_name}"
 	# end
 
+	def self.duplicate_ski_section(date,slot)
+		Section.create!({
+			date: date,
+			name: 'Skiing Group Lesson',
+			slot: slot,
+			sport_id: 1,
+			level: 'Beginner',
+			capacity: 5
+			})		
+	end
+
+	def self.duplicate_snowboard_section(date,slot)
+		Section.create!({
+			date: date,
+			name: 'Snowboarding Group Lesson',
+			slot: slot,
+			sport_id: 2,
+			level: 'Beginner',
+			capacity: 5
+			})		
+	end
+
 	def has_capacity?
 		self.capacity > self.student_count
 	end

@@ -55,18 +55,18 @@ class SectionsController < ApplicationController
   def fill_sections_with_lessons
     session[:disable_notifications] == true
     Section.fill_sections_with_lessons
-    redirect_to '/group_lessons'
+    redirect_to '/manage_group_lessons'
   end
 
   def delete_all_sections_and_lessons
     Section.delete_all
     Lesson.delete_all
-    redirect_to '/group_lessons'
+    redirect_to '/manage_group_lessons'
   end
 
   def delete_all_lessons
     Lesson.delete_all
-    redirect_to '/group_lessons'
+    redirect_to '/manage_group_lessons'
   end
 
   def generate_new_sections
@@ -74,13 +74,13 @@ class SectionsController < ApplicationController
     puts "!!!!!!! new section params are: #{params[:section][:date]}"
     Section.seed_sections(day)    
     session[:notice] = "Lesson sections created for specified day."
-    redirect_to '/group_lessons'
+    redirect_to '/manage_group_lessons'
   end
 
   def generate_all_sections
     Section.generate_all_sections
     session[:notice] = "Lesson sections created for all eligible days."
-    redirect_to '/group_lessons'
+    redirect_to '/manage_group_lessons'
   end
 
   def duplicate_ski_section
@@ -88,7 +88,7 @@ class SectionsController < ApplicationController
     date = section.date 
     slot = section.slot
     Section.duplicate_ski_section(date,slot)
-    redirect_to '/group_lessons'
+    redirect_to '/manage_group_lessons'
   end
 
   def duplicate_snowboard_section
@@ -96,7 +96,7 @@ class SectionsController < ApplicationController
     date = section.date 
     slot = section.slot
     Section.duplicate_snowboard_section(date,slot)
-    redirect_to '/group_lessons'
+    redirect_to '/manage_group_lessons'
   end
 
   def duplicate
@@ -123,7 +123,7 @@ class SectionsController < ApplicationController
   def remove
     section = Section.find(params[:id])
     section.destroy
-    redirect_to '/group_lessons'
+    redirect_to '/manage_group_lessons'
   end
 
   # POST /sections
@@ -133,7 +133,7 @@ class SectionsController < ApplicationController
 
     respond_to do |format|
       if @section.save
-        format.html { redirect_to "/lessons", notice: 'Section was successfully created.' }
+        format.html { redirect_to "/manage_group_lessons", notice: 'Section was successfully created.' }
         format.json { render :show, status: :created, location: @section }
       else
         format.html { render :new }
