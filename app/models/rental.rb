@@ -39,4 +39,20 @@ def resource_type_text
 	end
 end
 
+def self.match_resource_type_to_activity
+	Rental.all.each do |rental|
+		next if rental.lesson.nil?
+		if rental.lesson.activity == "Snowboard" && rental.resource_type == "ski"
+			puts "!!! found mismatching entry for snowboard rental -- skis instead of board"
+			rental.resource_type = "snowboard"
+			rental.save!
+		elsif 
+			rental.lesson.activity == "Snowboard" && rental.resource_type == "ski_boot"
+			puts "!!! found mismatching entry for snowboard rental -- ski boots instead of board boots"
+			rental.resource_type = "snowboard_boot"
+			rental.save!
+		end
+	end
+end
+
 end
