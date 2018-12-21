@@ -7,7 +7,7 @@ class RentalsController < ApplicationController
   def index
     if current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner"
       @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.canceled? || lesson.booked? || lesson.state.nil? }
-      @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.includes_rental_package?}
+      @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.includes_rental_package? && !lesson.canceled?}
       @past_lessons = @lessons.select{|lesson| lesson.lesson_time.date < Date.today }
       @lessons = @lessons.select{|lesson| lesson.lesson_time.date >= Date.today }
       @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
