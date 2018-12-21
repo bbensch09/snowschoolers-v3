@@ -155,7 +155,8 @@ class LessonsController < ApplicationController
       @todays_lessons = @lessons.select{|lesson| lesson.date == Date.today }
       @wage_rate = current_user.instructor ? current_user.instructor.wage_rate : nil
     elsif current_user.user_type == "Ski Area Partner"
-      lessons = Lesson.where(requested_location: current_user.location.id.to_s, class_type: "group").sort_by { |lesson| lesson.id}
+      #group index only set to show group lessons at GB (id=24)
+      lessons = Lesson.where(requested_location: "24", class_type: "group").sort_by { |lesson| lesson.id}
       @todays_lessons = lessons.keep_if{|lesson| lesson.date == Date.today && lesson.state != 'new' }
       @lessons = lessons.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
     elsif current_user.instructor
