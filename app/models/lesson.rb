@@ -1507,14 +1507,14 @@ class Lesson < ActiveRecord::Base
         Rental.find_or_create_by!({
           lesson_id: self.id,
           rental_date: self.date,
-          resource_type: 'ski',
+          resource_type: 'snowboard',
           student_id: student.id,
           status: 'booked, ready to process'
           })
         Rental.find_or_create_by!({
           lesson_id: self.id,
           rental_date: self.date,
-          resource_type: 'ski_boot',
+          resource_type: 'snowboard_boot',
           student_id: student.id,
           status: 'booked, ready to process'
           })
