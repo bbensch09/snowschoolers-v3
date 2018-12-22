@@ -587,6 +587,8 @@ class Lesson < ActiveRecord::Base
   def start_time
     if self.planned_start_time && self.planned_start_time.length > 1
       return self.planned_start_time
+    elsif self.lesson_time_id
+      return self.slot      
     elsif self.product_id
       return Product.find(self.product_id).start_time
     elsif self.product
