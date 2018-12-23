@@ -53,6 +53,7 @@ class Student < ActiveRecord::Base
   end
 
   def skier_type_text
+    return "" if self.skier_type.nil?
     text_to_split = self.skier_type.split("(")
     return text_to_split.first
   end

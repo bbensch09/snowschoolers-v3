@@ -23,6 +23,7 @@
       <th class="lessons-table-cells lesson-date">Time</th>
       <th class="lessons-table-cells lesson-date">Date</th>
       <th class="lessons-table-cells lesson-type">Sport</th>
+      <th class="lessons-table-cells lesson-type">Student Count</th>
       <th class="lessons-table-cells lesson-instructor">Instructor</th>
       <th class="lessons-table-cells lesson-type">Type</th>
       <th class="lessons-table-cells lesson-student">Reservation Name</th>
@@ -39,6 +40,7 @@
             <td class="lessons-table-cells lesson-date"><%= lesson.start_time %></td>
             <td class="lessons-table-cells lesson-date"><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
             <td class="lessons-table-cells lesson-type"><%= lesson.activity %></td>            
+            <td class="lessons-table-cells lesson-type"><%= lesson.students.count %></td>            
             <td class="lessons-table-cells lesson-date"><%= lesson.instructor ? lesson.instructor.name : "TBD" %></td>
             <% if lesson.product && lesson.custom_start_time? %>
               <td><%= link_to "#{lesson.package_info}", lesson, class: "" %></td>
