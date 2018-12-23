@@ -31,6 +31,14 @@ class Lesson < ActiveRecord::Base
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
   after_save :create_rental_reservation
 
+  def self.replace_555_numbers
+    lessons = Lesson.where(phone_number: '555-555-5555')
+    lessons.each do |l|
+      l.phone_number = '408-315-2900'
+      l.save!
+    end
+  end
+
   def group_lesson?
     self.class_type == 'group'
   end
