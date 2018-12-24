@@ -9,6 +9,17 @@ class Section < ApplicationRecord
 	# 	return "#{self.age_group} #{self.lesson_type} - #{self.sport.activity_name}"
 	# end
 
+	def self.clear_empty_sections
+		empty_sections = 0
+		Section.all.to_a.each do |section|
+			if section.lessons.count == 0
+				section.destroy!
+				empty_sections += 1
+			end
+		end
+		puts "!!!there were #{empty_sections} empty sections just removed"
+	end
+
 	def self.duplicate_ski_section(date,slot)
 		Section.create!({
 			date: date,
@@ -17,7 +28,7 @@ class Section < ApplicationRecord
 			sport_id: 1,
 			level: 'Beginner',
 			capacity: 5
-			})		
+			})
 	end
 
 	def self.duplicate_snowboard_section(date,slot)
@@ -28,7 +39,7 @@ class Section < ApplicationRecord
 			sport_id: 2,
 			level: 'Beginner',
 			capacity: 5
-			})		
+			})
 	end
 
 	def has_capacity?
@@ -117,10 +128,10 @@ class Section < ApplicationRecord
 	def self.fill_sections_with_lessons
 		puts "!!!!!Begin method: self.fill_sections_with_lessons"
 		sections = Section.all.select{|a| a.date >= Date.today }
-		sections.first(50).each do |section|		
-			
+		sections.first(50).each do |section|
+
 			num_cycles = 1 #(1..4).to_a.sample
-			num_cycles.times do |cycle|			
+			num_cycles.times do |cycle|
 				lt = LessonTime.find_or_create_by({
 					date: section.date,
 					slot: section.slot
@@ -153,8 +164,8 @@ class Section < ApplicationRecord
 					age_range: 10,
 					gender: ['Male','Female'].sample,
 					relationship_to_requester: 'Student is my child',
-					most_recent_level: "Level 1 - first-time ever, no previous experience.", 
-					requester_id: User.first.id					
+					most_recent_level: "Level 1 - first-time ever, no previous experience.",
+					requester_id: User.first.id
 					})
 				puts "!!!! new lesson created"
 			end
@@ -172,7 +183,7 @@ class Section < ApplicationRecord
 	end
 
 	def no_double_booking_instructors
-		#TBD - tricky due to nature of AM & PM sections	
+		#TBD - tricky due to nature of AM & PM sections
 	    # errors.add(:section, "cannot double book an instructor") unless Instructor.count == 0
 	end
 
