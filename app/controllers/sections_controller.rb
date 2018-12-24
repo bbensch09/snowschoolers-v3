@@ -6,14 +6,14 @@ class SectionsController < ApplicationController
     puts "the params are #{params}"
     @instructor = Instructor.find(params[:instructor_id])
     @section = Section.find(params[:section_id])
-    @section.instructor_id = @instructor.id    
+    @section.instructor_id = @instructor.id
     days_shifts = Shift.all.to_a.keep_if {|shift| shift.start_time.to_date == @section.date}
     shift_to_update = days_shifts.keep_if { |shift| shift.instructor_id == @instructor.id}
     # @shift = shift_to_update.first
     # @shift.update(status:"Assigned")
     # @section.shift_id = @shift.id
     @section.save!
-    # redirect_to "/schedule-filtered?utf8=✓&search_date=#{@section.parametized_date}&age_type=#{@section.age_group}"    
+    # redirect_to "/schedule-filtered?utf8=✓&search_date=#{@section.parametized_date}&age_type=#{@section.age_group}"
     redirect_to "/sections"
   end
 
@@ -34,8 +34,8 @@ class SectionsController < ApplicationController
   def show
     puts "!!!!!! params are #{params}"
     session[:activity] = @section.activity
-    session[:slot] = @section.slot 
-    session[:date] = @section.date 
+    session[:slot] = @section.slot
+    session[:date] = @section.date
     redirect_to new_specific_slot_path
   end
 
@@ -69,10 +69,15 @@ class SectionsController < ApplicationController
     redirect_to '/manage_group_lessons'
   end
 
+  def clear_empty_sections
+    Section.clear_empty_sections
+    redirect_to '/manage_group_lessons'
+  end
+
   def generate_new_sections
     day = params[:section][:date]
     puts "!!!!!!! new section params are: #{params[:section][:date]}"
-    Section.seed_sections(day)    
+    Section.seed_sections(day)
     session[:notice] = "Lesson sections created for specified day."
     redirect_to '/manage_group_lessons'
   end
@@ -85,7 +90,7 @@ class SectionsController < ApplicationController
 
   def duplicate_ski_section
     section = Section.find(params[:id])
-    date = section.date 
+    date = section.date
     slot = section.slot
     Section.duplicate_ski_section(date,slot)
     redirect_to '/manage_group_lessons'
@@ -93,7 +98,7 @@ class SectionsController < ApplicationController
 
   def duplicate_snowboard_section
     section = Section.find(params[:id])
-    date = section.date 
+    date = section.date
     slot = section.slot
     Section.duplicate_snowboard_section(date,slot)
     redirect_to '/manage_group_lessons'

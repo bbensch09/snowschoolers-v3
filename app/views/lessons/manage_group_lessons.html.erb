@@ -12,6 +12,7 @@
   <h4>Setup test sections & lessons</h4>
   <%= link_to 'Fill first 50 lessons with sample students', seed_lessons_with_students_path, method: :post, class: "btn btn-success" %>
   <%= link_to 'Clear sample lessons', delete_all_lessons_path, method: :post, class: "btn btn-warning" %>
+  <%= link_to 'Clear empty sections', clear_empty_sections_path, method: :post, class: "btn btn-warning" %>
   <%= link_to 'Delete all sections & lessons', delete_all_sections_and_lessons_path, method: :post, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
   <%= link_to 'Generate sections for all dates', generate_all_sections_path, method: :post, class: "btn btn-success" %>
 </div>
@@ -21,7 +22,7 @@
 <div class="col-md-6">
   <h3>Generate new sections for a specific date</h3>
   <%= semantic_form_for(@new_date, url: generate_new_sections_path) do |f| %>
-  <%= f.input :date, as: :string, input_html: { id: 'datepicker', class:'navy-text form-control search-form' }, placeholder: 'Date', required: true, label: false %>    
+  <%= f.input :date, as: :string, input_html: { id: 'datepicker', class:'navy-text form-control search-form' }, placeholder: 'Date', required: true, label: false %>
   <%= f.action :submit, :as => :input, :button_html => {class:'btn btn-success'}, label:"CREATE SECTIONS" %>
   <% end %>
 </div>

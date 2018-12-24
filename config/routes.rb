@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :resources do 
+  resources :resources do
     collection {post :import}
     collection {post :delete_all}
     # post :select_resource
@@ -66,7 +66,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :locations do 
+  resources :locations do
         collection {post :import}
   end
   resources :charges
@@ -93,7 +93,7 @@ Rails.application.routes.draw do
   get 'resort-search' => 'products#search'
   get 'tahoe-season-passes' => 'products#pass_search_results'
   get 'tahoe-season-passes-search-results' => 'products#pass_search_results', as: :pass_search_results
-  get 'product-search-results' => 'products#search_results', as: :product_search_results 
+  get 'product-search-results' => 'products#search_results', as: :product_search_results
 
   get   'lessons/sugarbowl'               => 'lessons#sugarbowl'
   # get 'homewood' => "welcome#homewood"
@@ -182,7 +182,7 @@ Rails.application.routes.draw do
   delete 'users/:id' => 'welcome#admin_destroy', as: :admin_destroy
 
   #Snowschoolers as a Service scheduling views
-  get 'schedule' => 'lessons#schedule'  
+  get 'schedule' => 'lessons#schedule'
   get 'schedule-filtered' => 'lessons#lesson_schedule_results', as: :lesson_schedule_results
   # put 'lessons/:id/assign-to-section/:section_id' => 'lessons#assign_to_section', as: :assign_section
   put 'lessons/assign-to-section' => 'lessons#assign_to_section', as: :assign_section
@@ -197,7 +197,7 @@ Rails.application.routes.draw do
       delete :destroy
     end
   end
-  
+
   # group lesson routes
   get 'lessons-availability' => 'sections#available_lessons', as: :available_lessons
   post 'sections/generate_all_sections' => 'sections#generate_all_sections', as: :generate_all_sections
@@ -206,6 +206,7 @@ Rails.application.routes.draw do
   post 'sections/:id/duplicate_ski_section' => 'sections#duplicate_ski_section', as: :duplicate_ski_section
   post 'sections/:id/duplicate_snowboard_section' => 'sections#duplicate_snowboard_section', as: :duplicate_snowboard_section
   post 'seed_lessons_with_students' => 'sections#fill_sections_with_lessons', as: :seed_lessons_with_students
+  post 'clear_empty_sections' => 'sections#clear_empty_sections', as: :clear_empty_sections
   post 'delete_all_lessons' => 'sections#delete_all_lessons', as: :delete_all_lessons
   get 'filtered-group-schedule-results' => 'lessons#filtered_group_schedule_results', as: :filtered_group_schedule_results
   get 'filtered-group-lesson-reservations' => 'lessons#filtered_group_lesson_reservations', as: :filtered_group_lesson_reservations
