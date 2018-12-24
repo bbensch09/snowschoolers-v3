@@ -44,11 +44,11 @@ class Lesson < ActiveRecord::Base
   end
 
   def first_name
-    requester_name.split(" ").first    
+    requester_name.split(" ").first
   end
-    
+
   def last_name
-    requester_name.split(" ")[1..-1].join()  
+    requester_name.split(" ")[1..-1].join()
   end
 
   def private_lesson?
@@ -123,12 +123,12 @@ class Lesson < ActiveRecord::Base
     end
   end
 
-  def self.seed_lessons(date,number)    
+  def self.seed_lessons(date,number)
     LessonTime.create!({
         date: date,
         slot: PRIVATE_SLOTS.sample
         })
-    number.times do 
+    number.times do
       puts "!!! - first creating new student user"
       User.create!({
           email: Faker::Internet.email,
@@ -154,13 +154,13 @@ class Lesson < ActiveRecord::Base
           terms_accepted: true
         })
       puts "!!! - lesson created, creating students for lesson"
-      last_lesson_product_age_type = Lesson.last.product.age_type      
+      last_lesson_product_age_type = Lesson.last.product.age_type
       if last_lesson_product_age_type == "Child"
         sample_age = (4..12).to_a.sample
       elsif last_lesson_product_age_type == "Adult"
         sample_age = (12..50).to_a.sample
       else
-        sample_age = (4..50).to_a.sample        
+        sample_age = (4..50).to_a.sample
       end
       Student.create!({
           lesson_id: Lesson.last.id,
@@ -214,16 +214,17 @@ class Lesson < ActiveRecord::Base
 
   def product
         puts "!!!!!! begining Lesson.product"
-        puts "!!! the param to skip product_id is #{@skip_product_id}"
-        if @skip_product_id == 'blue'
-          puts "!!!found product already"
-          return Product.find(self.product_id)
-        end
+        # HACKY CODE TO REMOVE --  added in effort to reduce latency by storing/retrievingproduct_id
+        # puts "!!! the param to skip product_id is #{@skip_product_id}"
+        # if @skip_product_id == 'blue'
+        #   puts "!!!found product already"
+        #   return Product.find(self.product_id)
+        # end
         if self.product_name
           # puts "!!!calculating price based on product length, location, and calendar_period"
           calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
           puts "!!!!lookup calendar period status, it is: #{calendar_period}"
-         
+
           #pricing for Granlibakken GROUPS
           #Early-bird, no rental
           if self.slot == GROUP_SLOTS.first && self.location.id == 24 && self.class_type == 'group' && !self.includes_rental_package?
@@ -239,11 +240,11 @@ class Lesson < ActiveRecord::Base
             product = Product.where(location_id:self.location.id,length:"2.00",calendar_period:calendar_period,product_type:"group_lesson",is_lift_rental_package:true).first
           #2hr afternoons lesson, no rental
           elsif self.slot == GROUP_SLOTS.third && self.location.id == 24 && self.class_type == 'group' && !self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:"2.00",calendar_period:calendar_period,product_type:"group_lesson",is_lift_rental_package:false).first
+            product = Product.where(location_id:self.location.id,length:"2.00",calendar_period:calendar_period,slot:"Afternoon",product_type:"group_lesson",is_lift_rental_package:false).first
           #2hr afternoons lesson, with rental
           elsif self.slot == GROUP_SLOTS.third && self.location.id == 24 && self.class_type == 'group' && self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:"2.00",calendar_period:calendar_period,product_type:"group_lesson",is_lift_rental_package:true).first
-          
+            product = Product.where(location_id:self.location.id,length:"2.00",calendar_period:calendar_period,slot:"Afternoon",product_type:"group_lesson",is_lift_rental_package:true).first
+
 
           #pricing for Granlibakken PRIVATES
           #early bird w/o rental
@@ -252,7 +253,7 @@ class Lesson < ActiveRecord::Base
           #early bird w/ rental
           elsif self.slot == PRIVATE_SLOTS.first && self.location.id == 24 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
-          
+
           #pricing for morning GB half-day package
           elsif self.slot == PRIVATE_SLOTS.second && self.location.id == 24 && self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:true).first
@@ -262,10 +263,10 @@ class Lesson < ActiveRecord::Base
 
           #pricing for afternoon GB half-day package
           elsif self.slot == PRIVATE_SLOTS.third && self.location.id == 24 && self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:true).first
+            product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,slot:"Afternoon",product_type:"private_lesson",is_lift_rental_package:true).first
           #pricing for afternoon GB half-day lesson only
           elsif self.slot == PRIVATE_SLOTS.third && self.location.id == 24 && !self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
+            product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,slot:"Afternoon",product_type:"private_lesson",is_lift_rental_package:false).first
 
           #pricing for GB full-day lesson package
           elsif self.slot == PRIVATE_SLOTS.fourth  && self.location.id == 24 && self.includes_rental_package?
@@ -273,7 +274,7 @@ class Lesson < ActiveRecord::Base
           #pricing for GB full-day lesson only
           elsif self.slot == PRIVATE_SLOTS.fourth  && self.location.id == 24 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
-          
+
 
           #pricing for Homewood
           #early bird w/o rental
@@ -282,25 +283,25 @@ class Lesson < ActiveRecord::Base
           #early bird w/ rental
           elsif self.slot == PRIVATE_SLOTS.first && self.location.id == 8 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
-          
-          #pricing for morning GB half-day package
+
+          #pricing for morning homewood half-day package
           elsif self.slot == PRIVATE_SLOTS.second && self.location.id == 8 && self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
-          #pricing for morning GB half-day lesson only
+          #pricing for morning homewood half-day lesson only
           elsif self.slot == PRIVATE_SLOTS.second && self.location.id == 8 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
 
-          #pricing for afternoon GB half-day package
+          #pricing for afternoon homewood half-day package
           elsif self.slot == PRIVATE_SLOTS.third && self.location.id == 8 && self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
-          #pricing for afternoon GB half-day lesson only
+            product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,slot:"Afternoon",product_type:"private_lesson",is_lift_rental_package:false).first
+          #pricing for afternoon homewood half-day lesson only
           elsif self.slot == PRIVATE_SLOTS.third && self.location.id == 8 && !self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
+            product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,slot:"Afternoon",product_type:"private_lesson",is_lift_rental_package:false).first
 
-          #pricing for GB full-day lesson package
+          #pricing for homewood full-day lesson package
           elsif self.slot == PRIVATE_SLOTS.fourth  && self.location.id == 8 && self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
-          #pricing for GB full-day lesson only
+          #pricing for homewood full-day lesson only
           elsif self.slot == PRIVATE_SLOTS.fourth  && self.location.id == 8 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
           end
@@ -345,7 +346,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def kids_under_6?
-    bonus_boolean = false 
+    bonus_boolean = false
     self.students.each do |student|
       if student.age_range.to_i <= 6
         bonus_boolean = true
@@ -382,7 +383,7 @@ class Lesson < ActiveRecord::Base
 
   def wages
     instructor = self.instructor
-    
+
     if instructor && self.product
       wages = self.product.length.to_i * instructor.wage_rate
     elsif self.product
@@ -405,7 +406,7 @@ class Lesson < ActiveRecord::Base
   def this_season?
     self.lesson_time.date.to_s >= '2018-12-01'
   end
-  
+
   def last_season?
     self.lesson_time.date.to_s <= '2018-04-30' && self.lesson_time.date.to_s >= '2017-12-01'
   end
@@ -427,7 +428,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def self.open_lesson_requests
-    lessons = Lesson.where(state:'booked',instructor_id:nil) 
+    lessons = Lesson.where(state:'booked',instructor_id:nil)
     lessons.select{|lesson| lesson.this_season?}
   end
 
@@ -442,7 +443,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def self.open_lesson_requests_on_day(date)
-    lessons = Lesson.where(state:'booked',instructor_id:nil) 
+    lessons = Lesson.where(state:'booked',instructor_id:nil)
     lesson = lessons.select{|lesson| lesson.date == date}
   end
 
@@ -572,7 +573,7 @@ class Lesson < ActiveRecord::Base
         count_students_with_rentals += 1
       end
     end
-    if count_students_with_rentals > 0 
+    if count_students_with_rentals > 0
      true
    else
      false
@@ -596,12 +597,12 @@ class Lesson < ActiveRecord::Base
     if self.planned_start_time && self.planned_start_time.length > 1
       return self.planned_start_time
     elsif self.lesson_time_id
-      return self.slot      
+      return self.slot
     elsif self.product_id
       return Product.find(self.product_id).start_time
     elsif self.product
       return self.product.start_time
-    else 
+    else
       return "Unknown"
     end
   end
@@ -675,7 +676,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def booked?
-    self.deposit_status == 'confirmed' || self.deposit_status == 'pending_new_payment' 
+    self.deposit_status == 'confirmed' || self.deposit_status == 'pending_new_payment'
   end
 
   def eligible_for_payroll?
@@ -691,7 +692,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def lesson_revenue
-    if self.price.to_i 
+    if self.price.to_i
       return self.price - self.non_lesson_revenue
     end
   end
@@ -887,7 +888,7 @@ class Lesson < ActiveRecord::Base
         end
       puts "!!!!!! length of lesson extension = #{delta}"
       puts "!!!!!! the final product is #{product.name} and has a price of #{product.price}"
-      if self.lesson_price && self.lesson_price > product.price 
+      if self.lesson_price && self.lesson_price > product.price
         base_price = self.lesson_price
       else
         base_price = product.price
@@ -909,7 +910,7 @@ class Lesson < ActiveRecord::Base
     puts "!!!calculating package cost"
     p1 = self.additional_students_with_gear.to_i * self.cost_per_additional_student_with_gear
     p2 = self.additional_students_without_gear.to_i * self.cost_per_additional_student_without_gear
-    package_price = p1 + p2    
+    package_price = p1 + p2
   end
 
   def cost_per_additional_student_with_gear
@@ -937,17 +938,17 @@ class Lesson < ActiveRecord::Base
   def students_with_gear
       count = 0
       self.students.each do |student|
-        if student.needs_rental 
+        if student.needs_rental
           count += 1
         end
-      end      
+      end
       return count
   end
 
   def students_without_gear
       count = 0
       self.students.each do |student|
-        unless student.needs_rental 
+        unless student.needs_rental
           count += 1
         end
       end
@@ -956,7 +957,7 @@ class Lesson < ActiveRecord::Base
 
   def additional_students_with_gear
     if self.location.id == 24
-      if self.students_with_gear > 0 
+      if self.students_with_gear > 0
         return self.students_with_gear - 1
       else
         return 0
@@ -968,7 +969,7 @@ class Lesson < ActiveRecord::Base
 
   def additional_students_without_gear
     if self.location.id == 24
-      if self.students_with_gear > 0 
+      if self.students_with_gear > 0
         return self.students_without_gear.to_i
       elsif self.students_with_gear == 0
         return (self.students_without_gear - 1).to_i
@@ -1113,7 +1114,7 @@ class Lesson < ActiveRecord::Base
       end
     end
   end
-  
+
 
   def available_instructors
     if self.instructor_id
@@ -1197,11 +1198,11 @@ class Lesson < ActiveRecord::Base
       overlapping_open_requests = all_open_lesson_requests.select{|lesson| lesson.date == self.date && lesson.lesson_time.slot == self.lesson_time.slot}
       actual_availability_count = available_instructors.count - overlapping_open_requests.count
       puts "!!!actual available is #{actual_availability_count}"
-      case 
+      case
       when actual_availability_count >= 2
         puts "!!! Estimated actual availability at this time slot is #{actual_availability_count}"
         return true
-      when actual_availability_count > 0 
+      when actual_availability_count > 0
         puts "!!! Warning: at most 1-2 instructors are available"
         return true
       when actual_availability_count == 0
@@ -1339,10 +1340,10 @@ class Lesson < ActiveRecord::Base
         when 'pending instructor'
           body =  "#{self.available_instructors.first.first_name}, There has been a change in your previously confirmed lesson request. #{self.requester.name} would now like their lesson to be at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. Are you still available? Please visit #{ENV['HOST_DOMAIN']}/lessons/#{self.id} to confirm."
         when 'Lesson Complete'
-          if self.transactions.last.tip_amount == 0.0009            
+          if self.transactions.last.tip_amount == 0.0009
             body = "#{self.requester.name} has completed their lesson review and reported that they gave you a cash tip. Great work!"
           elsif self.transactions.last.tip_amount == 0
-            body = "Hope you had a great lesson with #{self.requester.name}. They have now completed their lesson review, which you should receive an email notification about shortly."            
+            body = "Hope you had a great lesson with #{self.requester.name}. They have now completed their lesson review, which you should receive an email notification about shortly."
           else
             body = "#{self.requester.name} has completed payment for their lesson and you've received a tip of $#{self.post_stripe_tip.round(2)}. Great work!"
           end
@@ -1424,7 +1425,7 @@ class Lesson < ActiveRecord::Base
   def send_sms_to_requester
       # ENV variable to toggle Twilio on/off during development
       return if ENV['twilio_status'] == "inactive"
-      return if self.sms_notification_status == 'disabled'    
+      return if self.sms_notification_status == 'disabled'
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
@@ -1529,7 +1530,7 @@ class Lesson < ActiveRecord::Base
           status: 'booked, ready to process'
           })
       end
-    end      
+    end
   end
 
 
@@ -1538,7 +1539,7 @@ private
   def instructors_must_be_available
     puts "!!! checking if group class type"
     return true if group_lesson?
-    if available_instructors? 
+    if available_instructors?
       return true
     else
       errors.add(:lesson, "Error: unfortunately we are sold out of private instructors at that time. Please choose another time slot, or email hello@snowschoolers.com to be notified if we have any instructors that become available.")

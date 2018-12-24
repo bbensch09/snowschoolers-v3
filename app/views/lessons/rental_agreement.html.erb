@@ -118,7 +118,7 @@
 		<div class="w40">
 			<div class="label"></div>
 			<div class="value">
-				<input type="checkbox" value="1"> Yes 
+				<input type="checkbox" value="1"> Yes
 				<input type="checkbox" value="0"> No
 			</div>
 		</div>
@@ -127,7 +127,7 @@
 		<div class="w100 black-header">
 			PAYMENT / DEPOSIT INFORMATION
 		</div>
-	</div>	
+	</div>
 	<div class="full-row">
 		<div class="w60">
 			<div class="label">Driver's License Number</div>
@@ -191,10 +191,10 @@
 			<div class="label">Boot Type</div>
 			<div class="value center">
 				<% if @lesson.activity == 'Ski'%>
-				<input type="checkbox" value="0" checked> Skis 
+				<input type="checkbox" value="0" checked> Skis
 				<input type="checkbox" value="0"> Snowboard
 				<% else %>
-				<input type="checkbox" value="0"> Skis 
+				<input type="checkbox" value="0"> Skis
 				<input type="checkbox" value="0"checked> Snowboard
 				<% end %>
 			</div>
@@ -212,12 +212,15 @@
 		<div class="w40">
 			<div class="label">Board Stance</div>
 			<div class="value center">
-				<% if student.board_direction == "Regular" %>
-				<input type="checkbox" value="0" checked> Regular 
-				<input type="checkbox" value="0"> Goofy
+				<% if @lesson.activity == 'Ski' %>
+					<input type="checkbox" value="0"> Regular
+					<input type="checkbox" value="0"> Goofy
+				<% elsif student.board_direction == "Regular" %>
+					<input type="checkbox" value="0" checked> Regular
+					<input type="checkbox" value="0"> Goofy
 				<% else %>
-				<input type="checkbox" value="0"> Regular 
-				<input type="checkbox" value="0" checked> Goofy
+					<input type="checkbox" value="0"> Regular
+					<input type="checkbox" value="0" checked> Goofy
 				<% end %>
 			</div>
 		</div>

@@ -1,0 +1,30 @@
+current directory: /Users/brian_bensch/SnowSchoolersLocal/snowschoolers-v3/vendor/bundle/ruby/2.3.0/gems/websocket-driver-0.6.5/ext/websocket-driver
+/System/Library/Frameworks/Ruby.framework/Versions/2.3/usr/bin/ruby -r ./siteconf20181223-99247-1h653uf.rb extconf.rb
+Ignoring bcrypt-3.1.12 because its extensions are not built.  Try: gem pristine bcrypt --version 3.1.12
+Ignoring bcrypt-3.1.11 because its extensions are not built.  Try: gem pristine bcrypt --version 3.1.11
+Ignoring binding_of_caller-0.8.0 because its extensions are not built.  Try: gem pristine binding_of_caller --version 0.8.0
+Ignoring binding_of_caller-0.7.3 because its extensions are not built.  Try: gem pristine binding_of_caller --version 0.7.3
+Ignoring byebug-10.0.2 because its extensions are not built.  Try: gem pristine byebug --version 10.0.2
+Ignoring byebug-9.1.0 because its extensions are not built.  Try: gem pristine byebug --version 9.1.0
+Ignoring debug_inspector-0.0.3 because its extensions are not built.  Try: gem pristine debug_inspector --version 0.0.3
+Ignoring ffi-1.9.25 because its extensions are not built.  Try: gem pristine ffi --version 1.9.25
+Ignoring ffi-1.9.18 because its extensions are not built.  Try: gem pristine ffi --version 1.9.18
+Ignoring json-1.8.6 because its extensions are not built.  Try: gem pristine json --version 1.8.6
+Ignoring nokogiri-1.8.4 because its extensions are not built.  Try: gem pristine nokogiri --version 1.8.4
+Ignoring nokogiri-1.8.1 because its extensions are not built.  Try: gem pristine nokogiri --version 1.8.1
+Ignoring unf_ext-0.0.7.5 because its extensions are not built.  Try: gem pristine unf_ext --version 0.0.7.5
+Ignoring unf_ext-0.0.7.4 because its extensions are not built.  Try: gem pristine unf_ext --version 0.0.7.4
+creating Makefile
+
+current directory: /Users/brian_bensch/SnowSchoolersLocal/snowschoolers-v3/vendor/bundle/ruby/2.3.0/gems/websocket-driver-0.6.5/ext/websocket-driver
+make "DESTDIR=" clean
+
+current directory: /Users/brian_bensch/SnowSchoolersLocal/snowschoolers-v3/vendor/bundle/ruby/2.3.0/gems/websocket-driver-0.6.5/ext/websocket-driver
+make "DESTDIR="
+compiling websocket_mask.c
+linking shared-object websocket_mask.bundle
+ld: warning: text-based stub file /System/Library/Frameworks/Ruby.framework/Versions/2.3/usr/lib/libruby.2.3.0.tbd and library file /System/Library/Frameworks/Ruby.framework/Versions/2.3/usr/lib/libruby.2.3.0.dylib are out of sync. Falling back to library file for linking.
+
+current directory: /Users/brian_bensch/SnowSchoolersLocal/snowschoolers-v3/vendor/bundle/ruby/2.3.0/gems/websocket-driver-0.6.5/ext/websocket-driver
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 websocket_mask.bundle ./.gem.20181223-99247-uvvaqb

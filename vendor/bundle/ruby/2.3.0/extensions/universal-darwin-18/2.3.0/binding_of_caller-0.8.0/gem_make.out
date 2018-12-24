@@ -1,0 +1,27 @@
+current directory: /Users/brian_bensch/SnowSchoolersLocal/snowschoolers-v3/vendor/bundle/ruby/2.3.0/gems/binding_of_caller-0.8.0/ext/binding_of_caller
+/System/Library/Frameworks/Ruby.framework/Versions/2.3/usr/bin/ruby -r ./siteconf20181223-99247-15res6.rb extconf.rb
+Ignoring bcrypt-3.1.11 because its extensions are not built.  Try: gem pristine bcrypt --version 3.1.11
+Ignoring binding_of_caller-0.7.3 because its extensions are not built.  Try: gem pristine binding_of_caller --version 0.7.3
+Ignoring byebug-10.0.2 because its extensions are not built.  Try: gem pristine byebug --version 10.0.2
+Ignoring byebug-9.1.0 because its extensions are not built.  Try: gem pristine byebug --version 9.1.0
+Ignoring ffi-1.9.25 because its extensions are not built.  Try: gem pristine ffi --version 1.9.25
+Ignoring ffi-1.9.18 because its extensions are not built.  Try: gem pristine ffi --version 1.9.18
+Ignoring json-1.8.6 because its extensions are not built.  Try: gem pristine json --version 1.8.6
+Ignoring nokogiri-1.8.4 because its extensions are not built.  Try: gem pristine nokogiri --version 1.8.4
+Ignoring nokogiri-1.8.1 because its extensions are not built.  Try: gem pristine nokogiri --version 1.8.1
+Ignoring unf_ext-0.0.7.5 because its extensions are not built.  Try: gem pristine unf_ext --version 0.0.7.5
+Ignoring unf_ext-0.0.7.4 because its extensions are not built.  Try: gem pristine unf_ext --version 0.0.7.4
+
+current directory: /Users/brian_bensch/SnowSchoolersLocal/snowschoolers-v3/vendor/bundle/ruby/2.3.0/gems/binding_of_caller-0.8.0/ext/binding_of_caller
+make "DESTDIR=" clean
+make: *** No rule to make target `clean'.  Stop.
+
+current directory: /Users/brian_bensch/SnowSchoolersLocal/snowschoolers-v3/vendor/bundle/ruby/2.3.0/gems/binding_of_caller-0.8.0/ext/binding_of_caller
+make "DESTDIR="
+echo "Nada."
+Nada.
+
+current directory: /Users/brian_bensch/SnowSchoolersLocal/snowschoolers-v3/vendor/bundle/ruby/2.3.0/gems/binding_of_caller-0.8.0/ext/binding_of_caller
+make "DESTDIR=" install
+echo "Nada."
+Nada.

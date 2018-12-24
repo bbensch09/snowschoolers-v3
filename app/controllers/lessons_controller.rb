@@ -20,7 +20,7 @@ class LessonsController < ApplicationController
     @section = Section.find(params[:section_id])
     @lesson.section_id = @section.id
     @lesson.save!
-    redirect_to "/schedule-filtered?utf8=✓&search_date=#{@section.parametized_date}&age_type=#{@section.age_group}"    
+    redirect_to "/schedule-filtered?utf8=✓&search_date=#{@section.parametized_date}&age_type=#{@section.age_group}"
   end
 
   def admin_index
@@ -57,35 +57,35 @@ class LessonsController < ApplicationController
     search_params = {email: params[:search], name: params[:name], date: params[:date], gear:params[:gear], incomplete:params[:incomplete], instructor:params[:instructor]}
     puts "!!!!! the search_params are: #{search_params}"
     @lessons = Lesson.all
-    if params[:date] != ""      
+    if params[:date] != ""
         puts "!!!filter by date.  param is #{params['date']}"
-        @lessons = @lessons.to_a.keep_if{|lesson| lesson.date.to_s == params[:date]}  
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.date.to_s == params[:date]}
         puts "found #{@lessons.count} mactching lessons"
     end
     if params[:location] != ""
         puts "!!!filter by location.  param is #{params['location']}"
-        @lessons = @lessons.to_a.keep_if{|lesson| lesson.location.name.include?(params[:location])}  
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.location.name.include?(params[:location])}
         puts "found #{@lessons.count} mactching lessons"
-    end 
+    end
     if params[:instructor] != ""
         puts "!!!filter by instructor.  param is #{params['instructor']}"
-        @lessons = @lessons.to_a.keep_if{|lesson| lesson.instructor && lesson.instructor.name.include?(params[:instructor])}  
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.instructor && lesson.instructor.name.include?(params[:instructor])}
         puts "found #{@lessons.count} mactching lessons"
-    end 
+    end
     if params[:email] != ""
         puts "!!!filter by email. email param is #{params['email']}"
-        @lessons = @lessons.to_a.keep_if{|lesson| lesson.contact_email && lesson.contact_email.include?(params[:email])}  
-        # @lessons = Lesson.all.select{|lesson| lesson.email == 'brian@snowschoolers.com'}  
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.contact_email && lesson.contact_email.include?(params[:email])}
+        # @lessons = Lesson.all.select{|lesson| lesson.email == 'brian@snowschoolers.com'}
         puts "found #{@lessons.count} mactching lessons"
-    end  
+    end
     if params['gear'] != ""
         puts "!!!filtering for reservations with rentals."
-        @lessons = @lessons.to_a.keep_if{|lesson| lesson.includes_rental_package?}  
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.includes_rental_package?}
         puts "found #{@lessons.count} mactching lessons"
-    end  
+    end
       puts "!!!! @lessons.count is #{@lessons.count}"
     unless params['incomplete'] != ""
-      @lessons = @lessons.to_a.keep_if{|lesson| lesson.booked? && lesson.this_season? }    
+      @lessons = @lessons.to_a.keep_if{|lesson| lesson.booked? && lesson.this_season? }
     end
     respond_to do |format|
       format.html {render 'search_results'}
@@ -139,7 +139,7 @@ class LessonsController < ApplicationController
         @todays_lessons = current_user.lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
     end
   end
-  
+
   def daily_group_roster
     lessons = Lesson.where(class_type: "group").select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.state.nil? }
     @todays_lessons = lessons.select{|lesson| lesson.date == Date.today && lesson.state != 'canceled' }
@@ -201,27 +201,27 @@ class LessonsController < ApplicationController
     search_params = {email: params[:search], name: params[:name], date: params[:date], gear:params[:gear]}
     puts "!!!!! the search_params are: #{search_params}"
     @lessons = Lesson.all
-    if params[:date] != ""      
+    if params[:date] != ""
         puts "!!!filter by date.  param is #{params['date']}"
-        @lessons = @lessons.to_a.keep_if{|lesson| lesson.date.to_s == params[:date]}  
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.date.to_s == params[:date]}
         puts "found #{@lessons.count} mactching lessons"
     end
     if params[:name] != ""
         puts "!!!filter by name.  param is #{params['name']}"
-        @lessons = @lessons.to_a.keep_if{|lesson| lesson.name == params[:name]}  
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.name == params[:name]}
         puts "found #{@lessons.count} mactching lessons"
-    end 
+    end
     if params['email'] != ""
         puts "!!!filter by email. email param is #{params['email']}"
-        @lessons = @lessons.to_a.keep_if{|lesson| lesson.email == params[:email]}  
-        # @lessons = Lesson.all.select{|lesson| lesson.email == 'brian@snowschoolers.com'}  
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.email == params[:email]}
+        # @lessons = Lesson.all.select{|lesson| lesson.email == 'brian@snowschoolers.com'}
         puts "found #{@lessons.count} mactching lessons"
-    end  
+    end
     if params['gear'] == "on"
         puts "!!!filtering for resrations with rentals."
-        @lessons = @lessons.to_a.keep_if{|lesson| lesson.gear == true}  
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.gear == true}
         puts "found #{@lessons.count} mactching lessons"
-    end  
+    end
     puts "!!!! @lessons.count is #{@lessons.count}"
     @lessons = @lessons.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.finalizing? || lesson.booked? || lesson.payment_complete? || lesson.ready_to_book? || lesson.waiting_for_review?}
     render 'admin_index'
@@ -233,7 +233,7 @@ class LessonsController < ApplicationController
       all_days = Section.select(:date).distinct
       @days = all_days.to_a.keep_if{|a| a.date.to_s == params[:date]}
       puts "!!!filter by date.  param is #{params['date']}"
-      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date.to_s == params[:date]}       
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date.to_s == params[:date]}
         puts "found #{@lessons.count} mactching lessons"
       @todays_lessons = []
       @new_date = Section.new
@@ -327,13 +327,13 @@ class LessonsController < ApplicationController
       create_lesson_and_redirect
     else
       puts "!!!parms not set as expected"
-      session[:lesson] = params[:lesson] 
-      flash.now[:alert] = "In order to book a lesson, please select a specific date, time, sport, and location."   
+      session[:lesson] = params[:lesson]
+      flash.now[:alert] = "In order to book a lesson, please select a specific date, time, sport, and location."
       redirect_to '#book-a-lesson'
     end
   end
 
-  def complete    
+  def complete
     @lesson_time = @lesson.lesson_time
     @product_name = @lesson.product_name
     @slot = @lesson.slot
@@ -347,13 +347,13 @@ class LessonsController < ApplicationController
     }
   end
 
-  def edit    
+  def edit
     @lesson_time = @lesson.lesson_time
     @state = @lesson.instructor ? 'pending instructor' : @lesson.state
   end
 
-  def edit_wages   
-    @lesson_time = @lesson.lesson_time 
+  def edit_wages
+    @lesson_time = @lesson.lesson_time
     @state = @lesson.state
   end
 
@@ -389,7 +389,7 @@ class LessonsController < ApplicationController
           )
         @lesson.deposit_status = 'confirmed'
         #at time of deposit, record the transaction amount as lesson_price, that way if pricing changes later, can calculate diff.
-        @lesson.lesson_price = @lesson.price 
+        @lesson.lesson_price = @lesson.price
         if @lesson.is_gift_voucher?
           @lesson.state = 'gift_voucher_reserved'
         elsif @lesson.instructor && @lesson.package_info
@@ -406,7 +406,7 @@ class LessonsController < ApplicationController
       if @lesson.group_lesson?
         LessonMailer.send_group_lesson_request_notification(@lesson).deliver!
         flash[:notice] = 'Thank you, your lesson request was successful. If you have any questions, please email support@snowschoolers.com.'
-      else 
+      else
         LessonMailer.send_lesson_request_notification(@lesson).deliver!
         flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when your instructor confirmed your request. If you have any questions, please email support@snowschoolers.com.'
       end
@@ -696,7 +696,7 @@ class LessonsController < ApplicationController
   end
 
   def check_user_permissions
-    return unless @lesson.guest_email.nil?    
+    return unless @lesson.guest_email.nil?
   end
 
   def authenticate_from_cookie!
