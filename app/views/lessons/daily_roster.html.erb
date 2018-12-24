@@ -18,46 +18,71 @@
 <h1>Today's Lessons</h1>
 
 <table class="instructors-table">
-  <thead>
-    <tr>
-      <th class="lessons-table-cells lesson-date">Time</th>
-      <th class="lessons-table-cells lesson-date">Date</th>
-      <th class="lessons-table-cells lesson-type">Sport</th>
-      <th class="lessons-table-cells lesson-type">Student Count</th>
-      <th class="lessons-table-cells lesson-instructor">Instructor</th>
-      <th class="lessons-table-cells lesson-type">Type</th>
-      <th class="lessons-table-cells lesson-student">Reservation Name</th>
-      <th class="lessons-table-cells lesson-student">State</th>
-      <th class="lessons-table-cells lesson-student">Confirmation #</th>
-      <th class="lessons-table-cells">Includes Rentals?</th>
-      <th class="lessons-table-cells">Location</th>
-    </tr>
-  </thead>
+
+  <%= render partial: 'daily_roster_table_headers' %>
 
   <tbody>
+
+    <!-- Early bird slots -->
+
+    <tr>
+      <td colspan="11" class="daily-roster-section-break">Early Bird Privates </td>
+    </tr>
     <% @todays_lessons.each do |lesson| %>
-          <tr>
-            <td class="lessons-table-cells lesson-date"><%= lesson.start_time %></td>
-            <td class="lessons-table-cells lesson-date"><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
-            <td class="lessons-table-cells lesson-type"><%= lesson.activity %></td>            
-            <td class="lessons-table-cells lesson-type"><%= lesson.students.count %></td>            
-            <td class="lessons-table-cells lesson-date"><%= lesson.instructor ? lesson.instructor.name : "TBD" %></td>
-            <% if lesson.product && lesson.custom_start_time? %>
-              <td><%= link_to "#{lesson.package_info}", lesson, class: "" %></td>
-              <% elsif  lesson.product %>
-              <td><%= link_to "#{lesson.product.name}", lesson, class: "" %></td>
-            <% end %>
-            <% if lesson.requester %>
-              <td class="lessons-table-cells lesson-student"><%= lesson.requester_name %>, <%= lesson.phone_number %></td>
-              <% else %>
-              <td class="lessons-table-cells lesson-student"><%= lesson.guest_email %></td>
-            <% end %>
-            <td class="lessons-table-cells"><%= lesson.state %></td>
-            <td class="lessons-table-cells"><%= lesson.confirmation_number %></td>
-            <td class="lessons-table-cells"><%= lesson.includes_rental_package? ? "Yes" : "No" %></td>
-            <td class="lessons-table-cells lesson-type"><%= lesson.location.name %></td>            
-          </tr>
+        <% if lesson.product.slot == 'Early-bird' && lesson.product.product_type == 'private_lesson' %>
+          <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
+        <% end %>
     <% end %>
+
+    <tr>
+      <td colspan="11" class="daily-roster-section-break">Early Bird Groups </td>
+    </tr>
+    <% @todays_lessons.each do |lesson| %>
+        <% if lesson.product.slot == 'Early-bird' && lesson.product.product_type == 'group_lesson' %>
+          <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
+        <% end %>
+    <% end %>
+
+    <!-- Morning slots -->
+
+    <tr>
+      <td colspan="11" class="daily-roster-section-break">Morning Privates </td>
+    </tr>
+    <% @todays_lessons.each do |lesson| %>
+        <% if lesson.product.slot == 'Morning' && lesson.product.product_type == 'private_lesson' %>
+          <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
+        <% end %>
+    <% end %>
+
+    <tr>
+      <td colspan="11" class="daily-roster-section-break">Morning Groups </td>
+    </tr>
+    <% @todays_lessons.each do |lesson| %>
+        <% if lesson.product.slot == 'Morning' && lesson.product.product_type == 'group_lesson' %>
+          <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
+        <% end %>
+    <% end %>
+
+    <!-- Afternoon slots -->
+
+    <tr>
+      <td colspan="11" class="daily-roster-section-break">Afternoon Privates </td>
+    </tr>
+    <% @todays_lessons.each do |lesson| %>
+        <% if lesson.product.slot == 'Afternoon' && lesson.product.product_type == 'private_lesson' %>
+          <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
+        <% end %>
+    <% end %>
+
+    <tr>
+      <td colspan="11" class="daily-roster-section-break">Afternoon Groups </td>
+    </tr>
+    <% @todays_lessons.each do |lesson| %>
+        <% if lesson.product.slot == 'Afternoon' && lesson.product.product_type == 'group_lesson' %>
+          <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
+        <% end %>
+    <% end %>
+
   </tbody>
 </table>
 </div>
@@ -68,46 +93,72 @@
 <h1>Tomorrow's Lessons</h1>
 
 <table class="instructors-table">
-  <thead>
-    <tr>
-      <th class="lessons-table-cells lesson-date">Time</th>
-      <th class="lessons-table-cells lesson-date">Date</th>
-      <th class="lessons-table-cells lesson-type">Sport</th>
-      <th class="lessons-table-cells lesson-type">Student Count</th>
-      <th class="lessons-table-cells lesson-instructor">Instructor</th>
-      <th class="lessons-table-cells lesson-type">Type</th>
-      <th class="lessons-table-cells lesson-student">Reservation Name</th>
-      <th class="lessons-table-cells lesson-student">State</th>
-      <th class="lessons-table-cells lesson-student">Confirmation #</th>
-      <th class="lessons-table-cells">Includes Rentals?</th>
-      <th class="lessons-table-cells">Location</th>
-    </tr>
-  </thead>
+
+  <%= render partial: 'daily_roster_table_headers' %>
 
   <tbody>
+
+    <!-- Early bird slots -->
+
+    <tr>
+      <td colspan="11" class="daily-roster-section-break">Early Bird Privates </td>
+    </tr>
     <% @tomorrows_lessons.each do |lesson| %>
-          <tr>
-            <td class="lessons-table-cells lesson-date"><%= lesson.start_time %></td>
-            <td class="lessons-table-cells lesson-date"><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
-            <td class="lessons-table-cells lesson-type"><%= lesson.activity %></td>
-            <td class="lessons-table-cells lesson-type"><%= lesson.students.count %></td>
-            <td class="lessons-table-cells lesson-date"><%= lesson.instructor ? lesson.instructor.name : "TBD" %></td>
-            <% if lesson.product && lesson.custom_start_time? %>
-              <td><%= link_to "#{lesson.package_info}", lesson, class: "" %></td>
-              <% elsif  lesson.product %>
-              <td><%= link_to "#{lesson.product.name}", lesson, class: "" %></td>
-            <% end %>
-            <% if lesson.requester %>
-              <td class="lessons-table-cells lesson-student"><%= lesson.requester_name %>, <%= lesson.phone_number %></td>
-              <% else %>
-              <td class="lessons-table-cells lesson-student"><%= lesson.guest_email %></td>
-            <% end %>
-            <td class="lessons-table-cells"><%= lesson.state %></td>
-            <td class="lessons-table-cells"><%= lesson.confirmation_number %></td>
-            <td class="lessons-table-cells"><%= lesson.includes_rental_package? ? "Yes" : "No" %></td>
-            <td class="lessons-table-cells lesson-type"><%= lesson.location.name %></td>            
-          </tr>
-      <% end %>
+        <% if lesson.product.slot == 'Early-bird' && lesson.product.product_type == 'private_lesson' %>
+          <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
+        <% end %>
+    <% end %>
+
+    <tr>
+      <td colspan="11" class="daily-roster-section-break">Early Bird Groups </td>
+    </tr>
+    <% @tomorrows_lessons.each do |lesson| %>
+        <% if lesson.product.slot == 'Early-bird' && lesson.product.product_type == 'group_lesson' %>
+          <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
+        <% end %>
+    <% end %>
+
+    <!-- Morning slots -->
+
+    <tr>
+      <td colspan="11" class="daily-roster-section-break">Morning Privates </td>
+    </tr>
+    <% @tomorrows_lessons.each do |lesson| %>
+        <% if lesson.product.slot == 'Morning' && lesson.product.product_type == 'private_lesson' %>
+          <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
+        <% end %>
+    <% end %>
+
+    <tr>
+      <td colspan="11" class="daily-roster-section-break">Morning Groups </td>
+    </tr>
+    <% @tomorrows_lessons.each do |lesson| %>
+        <% if lesson.product.slot == 'Morning' && lesson.product.product_type == 'group_lesson' %>
+          <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
+        <% end %>
+    <% end %>
+
+    <!-- Afternoon slots -->
+
+    <tr>
+      <td colspan="11" class="daily-roster-section-break">Afternoon Privates </td>
+    </tr>
+    <% @tomorrows_lessons.each do |lesson| %>
+        <% if lesson.product.slot == 'Afternoon' && lesson.product.product_type == 'private_lesson' %>
+          <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
+        <% end %>
+    <% end %>
+
+    <tr>
+      <td colspan="11" class="daily-roster-section-break">Afternoon Groups </td>
+    </tr>
+    <% @tomorrows_lessons.each do |lesson| %>
+        <% if lesson.product.slot == 'Afternoon' && lesson.product.product_type == 'group_lesson' %>
+          <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
+        <% end %>
+    <% end %>
+
+
   </tbody>
 </table>
 </div>
