@@ -1,4 +1,9 @@
-
+.daily-roster-section-break{
+  background-color: gray;
+  color: #fff;
+  font-size: 1.2em;
+  padding-left: 40px !important;
+}
 .date-input{
   max-width: 200px;
   margin-left: auto;
@@ -262,7 +267,7 @@ form{
 .booking-details p, .booking-details span, .booking-details{
   font-size: 1.1em;
   margin-bottom: 5px;
-}  
+}
 #booking-details-container .row{
   padding-top: 10px;
 }
