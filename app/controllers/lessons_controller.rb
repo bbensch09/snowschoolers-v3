@@ -119,7 +119,7 @@ class LessonsController < ApplicationController
 
   def index
     if current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee"
-      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.canceled? || lesson.booked? || lesson.state.nil? }
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.state.nil? }
       @lessons = @lessons.select{|lesson| lesson.this_season?}
       @lessons = @lessons.select{|lesson| lesson.private_lesson?}
       @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
@@ -176,7 +176,7 @@ class LessonsController < ApplicationController
       @days = all_days.keep_if{|a| a.date >= Date.today}
       @days = @days.first(30)
       @new_date = Section.new
-      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable?}
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.state.nil? }
       # @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
       if session[:notice]
         flash.now[:notice] = session[:notice]
