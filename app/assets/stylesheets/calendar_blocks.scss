@@ -52,11 +52,26 @@
 	font-weight: bold;
 }
 .simple-calendar th{
-	width: 12% !important;
+	width: 12%;
 }
 .simple-calendar .day {
 	height: 100px;
-    width: 12vw !important;
+  width: 12vw;
+}
+@media (max-width: 34em) {
+	.simple-calendar th {
+		display: none;
+	}
+	.simple-calendar .day {
+		display: block;
+		width: 100%;
+	}
+	.simple-calendar .past {
+		display: none;
+	}
+	.calendar-heading {
+		margin: 1em;
+	}
 }
 .toggle-availability, .toggle-availability:hover, .toggle-availability:visited, .toggle-availability:focus{
 	color: #fff;
