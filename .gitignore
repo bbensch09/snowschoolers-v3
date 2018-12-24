@@ -14,6 +14,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/vendor/bundle
 
 #Ignore Local ENV variables
 /config/local_secrets.yml
