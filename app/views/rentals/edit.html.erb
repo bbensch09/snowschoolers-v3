@@ -1,13 +1,13 @@
 <div id="middle" class="container">
 	<div class="white">
 
-		<h1>Rental Equipment - Select <%= @rental.resource_type_text %></h1>		
+		<h1>Rental Equipment - Select <%= @rental.resource_type_text %></h1>
 
   <% student = @rental.student %>
     <div class='row'>
       <div class='col-md-6'>
         <h4>
-          Based on your height, weight, and ability level, your recommended equipment size is below. 
+          Based on your height, weight, and ability level, your recommended equipment size is below.
         </h4>
         <ul>
           <% if student.lesson.activity == 'Ski'%>
@@ -44,7 +44,7 @@
 	</div>
 
 <div class ="col-md-6">
-      
+
     <%= render 'form', rental: @rental%>
 
 </div>

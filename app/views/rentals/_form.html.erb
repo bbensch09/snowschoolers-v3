@@ -1,9 +1,9 @@
 <h1>Select from Available Equipment</h1>
 
 <%= semantic_form_for @rental do |f| %>
-  
+
   <%= render partial: 'resources/eligible_equipment', locals: {resources: @resources}  %>
-  
+
   <%= f.inputs do %>
     <!-- <%= f.input :lesson_id %> -->
     <!-- <%= f.input :student_id %> -->

@@ -13,7 +13,7 @@
 
     <div class="row">
     <p class='text-left'>
-       Rentals for <%= lesson.requester_name %> on <%= lesson.date.strftime("%a %b %e, %Y") %> <%= link_to lesson.product.name, lesson_path(lesson.id), class: 'btn btn-primary' %>
+       Rentals for <%= lesson.requester_name %> on <%= lesson.date.strftime("%a %b %e, %Y") %> <%= link_to lesson.product_name, lesson_path(lesson.id), class: 'btn btn-primary' %>
        <%= link_to "Print Rental Agreement", rental_agreement_path(lesson.id), class: 'btn btn-success', target:"_blank" %>
     </p>
     <% lesson.students.each do |student| %>
@@ -79,9 +79,9 @@
         <% end %>
       </tbody>
     </table>
-  
+
     <hr class="deposit-hr-navy">
-  
+
     <% end %>
 
   </div>

@@ -32,7 +32,7 @@ def max_size
 		then self.student.max_ski_length.to_s
 	when 'snowboard'
 		then self.student.max_sb_length.to_s
-	end			
+	end
 end
 
 def min_size
@@ -41,7 +41,7 @@ def min_size
 		then self.student.min_ski_length.to_s
 	when 'snowboard'
 		then self.student.min_sb_length.to_s
-	end			
+	end
 end
 
 def shoe_sizes
@@ -69,7 +69,7 @@ def self.match_resource_type_to_activity
 			puts "!!! found mismatching entry for snowboard rental -- skis instead of board"
 			rental.resource_type = "snowboard"
 			rental.save!
-		elsif 
+		elsif
 			rental.lesson.activity == "Snowboard" && rental.resource_type == "ski_boot"
 			puts "!!! found mismatching entry for snowboard rental -- ski boots instead of board boots"
 			rental.resource_type = "snowboard_boot"
