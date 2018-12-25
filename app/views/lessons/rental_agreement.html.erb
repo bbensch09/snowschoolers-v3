@@ -159,9 +159,21 @@
 <!-- Begin equipment user info -->
 <div class="box-outline split">
   <div class="full-row">
-    <div class="w100">
+    <div class="w40">
       <div class="label">Name</div>
       <div class="value"><%= student.name %></div>
+    </div>
+    <div class="w30">
+      <div class="label">Boot Size</div>
+      <div class="value"><%= student.shoe_size %></div>
+    </div>
+    <div class="w30">
+      <div class="label">Skis/Board Length</div>
+      <% if @lesson.activity == 'Ski'%>
+          <div class="value"><%= student.recommended_beginner_ski_length %></div>
+        <% else %>
+          <div class="value"><%= student.recommended_beginner_snowboard_length %></div>
+      <% end %>
     </div>
   </div>
   <div class="full-row">
@@ -200,8 +212,8 @@
       </div>
     </div>
     <div class="w30">
-      <div class="label">ID#</div>
-      <div class="value">______</div>
+      <div class="label">Boot ID#</div>
+      <div class="value equipmment-identifiers"><%= student.boot_reserved %></div>
     </div>
   </div>
   <div class="full-row technician-row">
@@ -225,8 +237,8 @@
       </div>
     </div>
     <div class="w30">
-      <div class="label">ID#</div>
-      <div class="value">______</div>
+      <div class="label">Board/Skis ID#</div>
+      <div class="value equipmment-identifiers"><%= student.ski_or_board_reserved %></div>
     </div>
   </div>
   <div class="full-row technician-row">

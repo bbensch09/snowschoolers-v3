@@ -1,6 +1,35 @@
 class Student < ActiveRecord::Base
   belongs_to :lesson
   belongs_to :requester, class_name: 'User', foreign_key: 'requester_id'
+  has_many :rentals
+
+  def boot_reserved
+    case self.lesson.activity
+    when 'Ski'
+      then resource_type = 'ski_boot'
+    when 'Snowboard'
+      then resource_type = 'snowboard_boot'
+    end
+    boot_rental = self.rentals.to_a.keep_if{|r| r.resource_type == resource_type }
+    if boot_rental.nil? || boot_rental.first.resource.nil?
+      return "TBD"
+    end
+    return boot_rental.first.resource.gb_identifier
+  end
+
+  def ski_or_board_reserved
+    case self.lesson.activity
+    when 'Ski'
+      then resource_type = 'ski'
+    when 'Snowboard'
+      then resource_type = 'snowboard'
+    end
+    ski_or_board_rental = self.rentals.to_a.keep_if{|r| r.resource_type == resource_type }
+    if ski_or_board_rental.nil? || ski_or_board_rental.first.resource.nil?
+      return "TBD"
+    end
+    return ski_or_board_rental.first.resource.gb_identifier
+  end
 
   def height_in_inches
   	height = height_feet*12 + height_inches
