@@ -18,4 +18,7 @@
             <td class="lessons-table-cells"><%= lesson.confirmation_number %></td>
             <td class="lessons-table-cells"><%= lesson.includes_rental_package? ? "Yes" : "No" %></td>
             <td class="lessons-table-cells lesson-type"><%= lesson.location.name %></td>
+            <td><%= link_to "Send Email (student)", send_day_before_reminder_email_path(lesson), class: "btn btn-success" %><br>
+            <%= link_to "Send SMS (instructor)", send_reminder_sms_to_instructor_path(lesson), class: "btn btn-default" %>
+            </td>
           </tr>
