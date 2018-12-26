@@ -1495,7 +1495,8 @@ class Lesson < ActiveRecord::Base
   end
 
   def create_rental_reservation
-    return false if !self.includes_rental_package? || self.rentals.count > 0
+    return false if !self.includes_rental_package?
+    return true if self.rentals.count == (self.students.count * 2)
     if self.activity == 'Ski'
       self.students.each do |student|
         Rental.find_or_create_by!({

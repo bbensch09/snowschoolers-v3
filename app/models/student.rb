@@ -4,6 +4,9 @@ class Student < ActiveRecord::Base
   has_many :rentals
 
   def boot_reserved
+    if self.rentals.count == 0
+      return "TBD"
+    end
     case self.lesson.activity
     when 'Ski'
       then resource_type = 'ski_boot'
@@ -11,13 +14,17 @@ class Student < ActiveRecord::Base
       then resource_type = 'snowboard_boot'
     end
     boot_rental = self.rentals.to_a.keep_if{|r| r.resource_type == resource_type }
-    if boot_rental.nil? || boot_rental.first.resource.nil?
+    if boot_rental.first.resource.nil?
       return "TBD"
     end
+
     return boot_rental.first.resource.gb_identifier
   end
 
   def ski_or_board_reserved
+    if self.rentals.count == 0
+      return "TBD"
+    end
     case self.lesson.activity
     when 'Ski'
       then resource_type = 'ski'
@@ -25,7 +32,7 @@ class Student < ActiveRecord::Base
       then resource_type = 'snowboard'
     end
     ski_or_board_rental = self.rentals.to_a.keep_if{|r| r.resource_type == resource_type }
-    if ski_or_board_rental.nil? || ski_or_board_rental.first.resource.nil?
+    if ski_or_board_rental.first.resource.nil?
       return "TBD"
     end
     return ski_or_board_rental.first.resource.gb_identifier
