@@ -1322,6 +1322,25 @@ class Lesson < ActiveRecord::Base
       LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
   end
 
+  def send_sms_day_before_reminder_to_instructor
+      # ENV variable to toggle Twilio on/off during development
+      return if ENV['twilio_status'] == "inactive"
+      return if self.sms_notification_status == 'disabled'
+      account_sid = ENV['TWILIO_SID']
+      auth_token = ENV['TWILIO_AUTH']
+      snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
+      recipient = self.instructor.phone_number
+      body = "Reminder! You're scheduled for a lesson with. #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. They are a level #{self.level.to_s} #{self.athlete}. Please remember to call them the night before to introduce yourself."
+      @client = Twilio::REST::Client.new account_sid, auth_token
+          @client.api.account.messages.create({
+          :to => recipient,
+          :from => "#{snow_schoolers_twilio_number}",
+          :body => body
+      })
+      # send_reminder_sms
+      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
+  end
+
   def send_sms_to_instructor
       return if ENV['twilio_status'] == "inactive"
       return if self.sms_notification_status == 'disabled'

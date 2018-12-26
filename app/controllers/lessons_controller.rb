@@ -247,6 +247,8 @@ class LessonsController < ApplicationController
       puts "!!!instructor = nil"
       instructor = Instructor.find(params[:instructor_id])
       @lesson.send_manual_sms_request_to_instructor(instructor)
+    elsif @lesson.confirmed? || @lesson.confirmable?
+      @lesson.send_sms_day_before_reminder_to_instructor
     elsif @lesson.completable?
       puts "!!!instructor found, lesson is compeltable"
       @lesson.send_sms_reminder_to_instructor_complete_lessons
@@ -507,7 +509,7 @@ class LessonsController < ApplicationController
   def admin_assign_instructor
     puts "!!! params are #{params[:instructor_id]}"
     @lesson.instructor_id = params[:instructor_id]
-    # @lesson.state = 'pending instructor'
+    @lesson.state = 'pending instructor'
     @lesson.save
     redirect_to @lesson
   end
