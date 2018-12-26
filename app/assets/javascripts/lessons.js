@@ -17,7 +17,7 @@ console.log(date);
 if (Date.now() <= opening_date) {
   var MIN_DATE = '2018-12-07';
   console.log(MIN_DATE);
-}  
+}
 
 var LESSON = {
   init: function(){
@@ -56,9 +56,9 @@ var LESSON = {
 
   // setDatepicker: function() { LESSON._date.datepicker({ minDate: '2016-12-16', dateFormat: 'yy-mm-dd' }); },
 
-  // setDatepicker: function() { LESSON._date.datepicker({ minDate: MIN_DATE, maxDate: '2018-04-15', dateFormat: 'yy-mm-dd' }); },  
+  // setDatepicker: function() { LESSON._date.datepicker({ minDate: MIN_DATE, maxDate: '2018-04-15', dateFormat: 'yy-mm-dd' }); },
 
-  setDatepicker: function() { 
+  setDatepicker: function() {
   var blocked_dates_array = ['2018-12-10','2018-12-11','2018-12-12','2018-12-13',
   '2018-12-18','2018-12-19','2018-12-20',
   '2019-01-08','2019-01-09','2019-01-10',
@@ -82,7 +82,7 @@ var LESSON = {
     },
     minDate: MIN_DATE,
     maxDate: '2019-04-15',
-    dateFormat: 'yy-mm-dd' 
+    dateFormat: 'yy-mm-dd'
   });
 
   LESSON._date2.datepicker({
@@ -92,9 +92,9 @@ var LESSON = {
     },
     minDate: MIN_DATE,
     maxDate: '2019-04-15',
-    dateFormat: 'yy-mm-dd' 
+    dateFormat: 'yy-mm-dd'
     });
-  },  
+  },
 
   // var TODAYS_DATE = new Date().getDate();
   // var LAUNCH_DATE = new Date('2016','11','16').getDate();
@@ -263,12 +263,12 @@ $(document).ready(function(){
 
 var maxStudentsListener = function(){
   $('#add-student-button').click(function(e){
-    var studentCount = $('.nested-fields').length    
+    var studentCount = $('.nested-fields').length
     console.log('student count is '+studentCount);
     if (studentCount >= 4){
       $('#add-student-button').addClass('hidden');
       $('#max-students-warning').removeClass('hidden');
-      console.log('hide button to add more students.');      
+      console.log('hide button to add more students.');
     }
   });
 }
@@ -356,7 +356,7 @@ var toggleElementListener = function(){
     if (rental_state == 'true') {
     $('.student-rental-information').removeClass('hidden');
     console.log("rental info revealed");
-    } else { 
+    } else {
       $('.student-rental-information').addClass('hidden');
       console.log('keep rental info hidden');
     };
