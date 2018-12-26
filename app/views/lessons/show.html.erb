@@ -1,3 +1,5 @@
+<% title "Lesson Details" %>
+
 <div id="middle" class="container">
   <div class="white row">
     <% if current_user && (current_user.user_type == "Snow Schoolers Employee") %>
@@ -6,19 +8,19 @@
       <ul>
         <li>
           Email notifications: <%= @lesson.email_notifications_status %>
-          <%= link_to 'Disable email alerts', disable_email_notifications_path, class: "btn btn-warning" %>       
-          <%= link_to 'Enable email alerts', enable_email_notifications_path, class: "btn btn-success" %>       
+          <%= link_to 'Disable email alerts', disable_email_notifications_path, class: "btn btn-warning" %>
+          <%= link_to 'Enable email alerts', enable_email_notifications_path, class: "btn btn-success" %>
         </li>
         <li>
           SMS notifications: <%= @lesson.sms_notification_status %>
-          <%= link_to 'Disable sms alerts', disable_sms_notifications_path, class: "btn btn-warning" %>       
-          <%= link_to 'Enable sms alerts', enable_sms_notifications_path, class: "btn btn-success" %>       
+          <%= link_to 'Disable sms alerts', disable_sms_notifications_path, class: "btn btn-warning" %>
+          <%= link_to 'Enable sms alerts', enable_sms_notifications_path, class: "btn btn-success" %>
         </li>
       </ul>
       <ul>
         <% if @lesson.available_instructors.any? %>
             <% @lesson.available_instructors.each do |instructor| %>
-              <h6> 
+              <h6>
                 <%= instructor.name  %> - <%= instructor.user_id %> - <%= instructor.phone_number %>
               <% @lesson.completable? ? button_text = "Remind to Mark Complete" : button_text = "Send Request Reminder" %>
               <%= link_to button_text, send_reminder_sms_to_instructor_path(@lesson, :instructor_id => instructor.id), class: "btn btn-warning" %>
@@ -33,11 +35,11 @@
           <% if @lesson.hourly_bonus %>
           <ul>
             <li>Bonus type: <%=@lesson.bonus_category %></li>
-            <li>Bonus rate: <%= number_to_currency(@lesson.hourly_bonus) %>/hr</li>            
+            <li>Bonus rate: <%= number_to_currency(@lesson.hourly_bonus) %>/hr</li>
           </ul>
           <% end %>
-        </ul>     
-        <% if @lesson.instructor %>  
+        </ul>
+        <% if @lesson.instructor %>
           <%= link_to "Admin Confirm Instructor", admin_confirm_instructor_path, method: :put, class: "btn btn-default" %>
         <% end %>
         <%= link_to "Admin Confirm Deposit", admin_confirm_deposit_path, method: :put, class: "btn btn-default" %>
@@ -104,6 +106,6 @@
 <!-- <img id="cycle-loader" src="https://s3.amazonaws.com/snowschoolers/images/spinner.gif" alt="loader" /> -->
 
 <ul id="slider" class="mc-cycle" style="display: block; height: 100%; width: 100%;">
-    <div class="mc-image bg-photo" title="background photo" style="background-image: url('https://s3.amazonaws.com/snowschoolers/images/demo/slider/thredbo-sunrise.jpg'); height: 100%; width: 100%;" data-href=""    
+    <div class="mc-image bg-photo" title="background photo" style="background-image: url('https://s3.amazonaws.com/snowschoolers/images/demo/slider/thredbo-sunrise.jpg'); height: 100%; width: 100%;" data-href=""
     </div>
 </ul>
