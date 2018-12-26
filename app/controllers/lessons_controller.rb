@@ -122,6 +122,7 @@ class LessonsController < ApplicationController
       @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.state.nil? }
       @lessons = @lessons.select{|lesson| lesson.this_season?}
       @lessons = @lessons.select{|lesson| lesson.private_lesson?}
+      @lessons = @lessons.keep_if{|lesson| !lesson.canceled?}
       @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
       @todays_lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.today }
       @wage_rate = current_user.instructor ? current_user.instructor.wage_rate : nil
