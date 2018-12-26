@@ -26,6 +26,7 @@ class Lesson < ActiveRecord::Base
 
   #Check to ensure an instructor is available before booking
   validate :instructors_must_be_available, on: :create
+  validate :group_students_are_old_enough, on: :update
   validate :add_group_lesson_to_section, on: :create
   after_save :send_lesson_request_to_instructors
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
@@ -1033,6 +1034,19 @@ class Lesson < ActiveRecord::Base
       Sport.where(name:"Ski Instructor").first.id
     else
       Sport.where(name:"Snowboard Instructor").first.id
+    end
+  end
+
+  def group_students_are_old_enough
+    return true if self.private_lesson?
+    self.students.each do |student|
+      if student.age_range.to_i < 8
+        puts "!!!!students are NOT old enough"
+        errors.add(:lesson, "Group lessons are only for students 8 and up. Please select a private lesson for children 7 and under.")
+        return false
+      else
+        puts "!!!!students are all old enough for groups"
+      end
     end
   end
 

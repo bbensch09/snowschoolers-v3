@@ -97,6 +97,11 @@
         </h2>
         <% end %>
       </div>
+
+      <h1 class="warning">
+        <%= f.semantic_errors :lesson %>
+      </h1>
+
       <div class='row'>
         <div class="col-md-6">
           <h4>Book as a <strong>Guest</strong> | Or <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Sign-in to your Account</a></h4>
@@ -183,9 +188,8 @@
 
           </div>
 
-
-
           <h4>Student <strong>Info</strong></h4>
+
           <!-- <div id="previous_students">
             % if current_user.students %>
             <h4>This lesson is for the previously entered student(s) below.</h4>
