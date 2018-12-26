@@ -507,6 +507,7 @@ class LessonsController < ApplicationController
   def admin_assign_instructor
     puts "!!! params are #{params[:instructor_id]}"
     @lesson.instructor_id = params[:instructor_id]
+    # @lesson.state = 'pending instructor'
     @lesson.save
     redirect_to @lesson
   end
