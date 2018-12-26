@@ -1049,7 +1049,8 @@ class Lesson < ActiveRecord::Base
       if self.available_sections.count == 0
       puts "!!!!!!!! The requested time slot is full!!!!!"
       self.state = 'This section is unfortunately full, please choose another time slot.'
-      errors.add(:lesson, "There is unfortunately no more room in this lesson, please review the available times below and choose another slot.")
+      errors.add(:lesson, "There is unfortunately no more open spots in this group lesson, please try another time slot or contact us at 530-430-SNOW.")
+      notify_admin_group_lessons_sold_out(self.date)
       return false
       end
       puts "!!!!section available is #{available_sections.first }"
@@ -1060,7 +1061,7 @@ class Lesson < ActiveRecord::Base
   def confirm_section_valid
     if self.section.nil?
       if self.available_sections.count == 0
-          errors.add(:lesson, "There is unfortunately no more room in this lesson, please review the available times below and choose another slot.")
+          errors.add(:lesson, "There is unfortunately no more open spots in this group lesson, please try another time slot or contact us at 530-430-SNOW.")
           return false
       end
       self.section_id = self.available_sections.first.id
@@ -1466,7 +1467,19 @@ class Lesson < ActiveRecord::Base
 
   def notify_admin_pending_supply_constraint(lesson_time)
       recipient = "408-315-2900"
-      body = "ALERT - a student attempted to request a lesson at #{lesson_time}, but we either have no instructors available or already have unclaimed lessons that match or exceed the number of available instructors."
+      body = "ALERT - a customer attempted to request a private lesson at #{lesson_time}. We either have no instructors available or already have unclaimed lessons that match or exceed the number of available instructors."
+      @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
+          @client.api.account.messages.create({
+          :to => recipient,
+          :from => ENV['TWILIO_NUMBER'],
+          :body => body
+      })
+      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
+  end
+
+  def notify_admin_group_lessons_sold_out(lesson_time)
+      recipient = "408-315-2900"
+      body = "ALERT - a customer attempted to book a group lesson at #{lesson_time}. The section is either full or we have not opened up lessons on that day."
       @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
           @client.api.account.messages.create({
           :to => recipient,
@@ -1543,7 +1556,7 @@ private
     if available_instructors?
       return true
     else
-      errors.add(:lesson, "Error: unfortunately we are sold out of private instructors at that time. Please choose another time slot, or email hello@snowschoolers.com to be notified if we have any instructors that become available.")
+      errors.add(:lesson, "Error: unfortunately we are sold out of private instructors at that time. Please choose another time slot, or contact us by phone at 530-430-SNOW or email hello@snowschoolers.com for the latest information on instructor availability.")
       notify_admin_pending_supply_constraint(self.date)
       return false
     end

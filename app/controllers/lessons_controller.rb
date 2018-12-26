@@ -670,7 +670,11 @@ class LessonsController < ApplicationController
         @promo_location = session[:lesson].nil? ? nil : session[:lesson]["requested_location"]
         @slot = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["slot"]
         @date = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["date"]
-        render 'new'
+        if @lesson.group_lesson?
+          render 'new_group'
+        else
+          render 'new'
+        end
     end
   end
 
