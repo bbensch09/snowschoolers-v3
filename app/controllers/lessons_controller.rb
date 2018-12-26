@@ -122,6 +122,7 @@ class LessonsController < ApplicationController
       @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.state.nil? }
       @lessons = @lessons.select{|lesson| lesson.this_season?}
       @lessons = @lessons.select{|lesson| lesson.private_lesson?}
+      @lessons = @lessons.keep_if{|lesson| !lesson.canceled?}
       @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
       @todays_lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.today }
       @wage_rate = current_user.instructor ? current_user.instructor.wage_rate : nil
@@ -247,6 +248,8 @@ class LessonsController < ApplicationController
       puts "!!!instructor = nil"
       instructor = Instructor.find(params[:instructor_id])
       @lesson.send_manual_sms_request_to_instructor(instructor)
+    elsif @lesson.confirmed? || @lesson.confirmable?
+      @lesson.send_sms_day_before_reminder_to_instructor
     elsif @lesson.completable?
       puts "!!!instructor found, lesson is compeltable"
       @lesson.send_sms_reminder_to_instructor_complete_lessons
@@ -507,6 +510,7 @@ class LessonsController < ApplicationController
   def admin_assign_instructor
     puts "!!! params are #{params[:instructor_id]}"
     @lesson.instructor_id = params[:instructor_id]
+    @lesson.state = 'pending instructor'
     @lesson.save
     redirect_to @lesson
   end
@@ -670,7 +674,11 @@ class LessonsController < ApplicationController
         @promo_location = session[:lesson].nil? ? nil : session[:lesson]["requested_location"]
         @slot = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["slot"]
         @date = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["date"]
-        render 'new'
+        if @lesson.group_lesson?
+          render 'new_group'
+        else
+          render 'new'
+        end
     end
   end
 

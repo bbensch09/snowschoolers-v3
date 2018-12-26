@@ -26,6 +26,7 @@ class Lesson < ActiveRecord::Base
 
   #Check to ensure an instructor is available before booking
   validate :instructors_must_be_available, on: :create
+  validate :group_students_are_old_enough, on: :update
   validate :add_group_lesson_to_section, on: :create
   after_save :send_lesson_request_to_instructors
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
@@ -1036,6 +1037,19 @@ class Lesson < ActiveRecord::Base
     end
   end
 
+  def group_students_are_old_enough
+    return true if self.private_lesson?
+    self.students.each do |student|
+      if student.age_range.to_i < 8
+        puts "!!!!students are NOT old enough"
+        errors.add(:lesson, "Group lessons are only for students 8 and up. Please select a private lesson for children 7 and under.")
+        return false
+      else
+        puts "!!!!students are all old enough for groups"
+      end
+    end
+  end
+
   def available_sections
     sections = Section.where(sport_id:self.sport_id,date:self.lesson_time.date,slot:self.lesson_time.slot)
     sections = sections.select{|section| section.has_capacity?}
@@ -1049,7 +1063,8 @@ class Lesson < ActiveRecord::Base
       if self.available_sections.count == 0
       puts "!!!!!!!! The requested time slot is full!!!!!"
       self.state = 'This section is unfortunately full, please choose another time slot.'
-      errors.add(:lesson, "There is unfortunately no more room in this lesson, please review the available times below and choose another slot.")
+      errors.add(:lesson, "There is unfortunately no more open spots in this group lesson, please try another time slot or contact us at 530-430-SNOW.")
+      notify_admin_group_lessons_sold_out(self.date)
       return false
       end
       puts "!!!!section available is #{available_sections.first }"
@@ -1060,7 +1075,7 @@ class Lesson < ActiveRecord::Base
   def confirm_section_valid
     if self.section.nil?
       if self.available_sections.count == 0
-          errors.add(:lesson, "There is unfortunately no more room in this lesson, please review the available times below and choose another slot.")
+          errors.add(:lesson, "There is unfortunately no more open spots in this group lesson, please try another time slot or contact us at 530-430-SNOW.")
           return false
       end
       self.section_id = self.available_sections.first.id
@@ -1321,6 +1336,25 @@ class Lesson < ActiveRecord::Base
       LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
   end
 
+  def send_sms_day_before_reminder_to_instructor
+      # ENV variable to toggle Twilio on/off during development
+      return if ENV['twilio_status'] == "inactive"
+      return if self.sms_notification_status == 'disabled'
+      account_sid = ENV['TWILIO_SID']
+      auth_token = ENV['TWILIO_AUTH']
+      snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
+      recipient = self.instructor.phone_number
+      body = "Reminder! You're scheduled for a lesson with. #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. They are a level #{self.level.to_s} #{self.athlete}. Please remember to call them the night before to introduce yourself."
+      @client = Twilio::REST::Client.new account_sid, auth_token
+          @client.api.account.messages.create({
+          :to => recipient,
+          :from => "#{snow_schoolers_twilio_number}",
+          :body => body
+      })
+      # send_reminder_sms
+      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
+  end
+
   def send_sms_to_instructor
       return if ENV['twilio_status'] == "inactive"
       return if self.sms_notification_status == 'disabled'
@@ -1466,7 +1500,19 @@ class Lesson < ActiveRecord::Base
 
   def notify_admin_pending_supply_constraint(lesson_time)
       recipient = "408-315-2900"
-      body = "ALERT - a student attempted to request a lesson at #{lesson_time}, but we either have no instructors available or already have unclaimed lessons that match or exceed the number of available instructors."
+      body = "ALERT - a customer attempted to request a private lesson at #{lesson_time}. We either have no instructors available or already have unclaimed lessons that match or exceed the number of available instructors."
+      @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
+          @client.api.account.messages.create({
+          :to => recipient,
+          :from => ENV['TWILIO_NUMBER'],
+          :body => body
+      })
+      LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
+  end
+
+  def notify_admin_group_lessons_sold_out(lesson_time)
+      recipient = "408-315-2900"
+      body = "ALERT - a customer attempted to book a group lesson at #{lesson_time}. The section is either full or we have not opened up lessons on that day."
       @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
           @client.api.account.messages.create({
           :to => recipient,
@@ -1543,7 +1589,7 @@ private
     if available_instructors?
       return true
     else
-      errors.add(:lesson, "Error: unfortunately we are sold out of private instructors at that time. Please choose another time slot, or email hello@snowschoolers.com to be notified if we have any instructors that become available.")
+      errors.add(:lesson, "Error: unfortunately we are sold out of private instructors at that time. Please choose another time slot, or contact us by phone at 530-430-SNOW or email hello@snowschoolers.com for the latest information on instructor availability.")
       notify_admin_pending_supply_constraint(self.date)
       return false
     end

@@ -1,3 +1,5 @@
+<% title "Admin Calendar" %>
+
 <div id="middle" class="calendar-container">
   <div class="white">
 <div class="container"></div>
@@ -24,7 +26,7 @@
   <%= month_calendar(calendar_blocks: :date, events:@calendar_blocks) do |date, blocks| %>
     <div class='day-summary'>
         <div class='pull-left date-number'>
-          <%= date.strftime('%-d') %>  
+          <%= date.strftime('%-d') %>
         </div>
         <div class='pull-right'>
           <em> Instructors Available:</em> <%= CalendarBlock.instructors_available(date).count %> <br>
@@ -32,7 +34,7 @@
         </div>
     </div>
     <div class="row">
-    <% blocks.sort!{|a,b| a.state <=> b.state}.each do | block | %>        
+    <% blocks.sort!{|a,b| a.state <=> b.state}.each do | block | %>
           <% if block.state == "Booked" && block.lesson %>
               <%= link_to block.lesson.short_title, lesson_path(block.lesson.id).first, method: :get, class: "btn btn-xs btn-success" %>
             <% elsif block.instructor %>
@@ -42,7 +44,7 @@
           <% end %>
     <% end %>
     <% Lesson.open_lesson_requests_on_day(date).each do |lesson| %>
-        <%= link_to lesson.short_title, lesson_path(lesson.id), method: :get, class: "btn btn-xs btn-warning" %>    
+        <%= link_to lesson.short_title, lesson_path(lesson.id), method: :get, class: "btn btn-xs btn-warning" %>
     <% end %>
     </div>
   <% end %>
