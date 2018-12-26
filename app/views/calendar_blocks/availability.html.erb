@@ -46,7 +46,7 @@
 
 <div class="calendar-container">
   <%= month_calendar(calendar_blocks: :date, events:@calendar_blocks) do |date, blocks| %>
-    <% blocks.each do | block | %>        
+    <% blocks.each do | block | %>
     <div class=<%=blocks.first.availability_formatting %> >
     <%= date.strftime('%-d') %>
     <h2 class="center block-text">
@@ -56,17 +56,11 @@
       <%= link_to block.toggle_display, toggle_availability_path(block.id), method: :put, id: block.id, class: 'toggle-availability', remote:true %>
       <% end %>
 
-    </h2>          
+    </h2>
     <% end %>
     </div>
   <% end %>
 </div>
 <div class="buffer"></div>
-
-<section id="mobile-view" class="hidden-unless-mobile">
-
-<div id="calendar"></div>
-
-</section>
 </div>
 </div>
