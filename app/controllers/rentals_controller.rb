@@ -16,20 +16,27 @@ class RentalsController < ApplicationController
         @lessons = current_user.lessons
         @todays_lessons = current_user.lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
     end
-    # @rentals = Rental.all
   end
 
   def rentals_today
-      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.canceled? || lesson.booked? || lesson.state.nil? }
-      @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.includes_rental_package?}
-      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.today}
+    if current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner"
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? }
+      @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.includes_rental_package? && !lesson.canceled?}
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.today && lesson.includes_rental_package? }
+      else
+        @lessons = current_user.lessons
+    end
       render 'index'
   end
 
   def rentals_tomorrow
-      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.canceled? || lesson.booked? || lesson.state.nil? }
-      @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.includes_rental_package?}
-      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.tomorrow}
+    if current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner"
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? }
+      @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.includes_rental_package? && !lesson.canceled?}
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.tomorrow && lesson.includes_rental_package? }
+      else
+        @lessons = current_user.lessons
+    end
       render 'index'
   end
 
