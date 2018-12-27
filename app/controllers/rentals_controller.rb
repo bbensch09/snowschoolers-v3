@@ -6,7 +6,7 @@ class RentalsController < ApplicationController
   # GET /rentals.json
   def index
     if current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner"
-      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.canceled? || lesson.booked? || lesson.state.nil? }
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? }
       @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.includes_rental_package? && !lesson.canceled?}
       @past_lessons = @lessons.select{|lesson| lesson.lesson_time.date < Date.today }
       @lessons = @lessons.select{|lesson| lesson.lesson_time.date >= Date.today }

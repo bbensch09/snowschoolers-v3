@@ -42,7 +42,7 @@
     <table class="instructors-table">
       <thead>
         <tr>
-          <% if current_user && current_user.email == "brian@snowschoolers.com" || current_user && current_user.user_type == "Snow Schoolers Employee" %>
+        <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner") %>
           <th>Rental ID</th>
           <th>GB Identifier</th>
           <% end %>
@@ -58,7 +58,7 @@
       <tbody>
         <% lesson.rentals.each do |rental| %>
         <tr>
-          <% if current_user && current_user.email == "brian@snowschoolers.com" || current_user && current_user.user_type == "Snow Schoolers Employee" %>
+        <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner") %>
           <td><%= rental.id %></td>
           <td><%= rental.resource_id ? rental.resource.gb_identifier : "" %></td>
           <% end %>
