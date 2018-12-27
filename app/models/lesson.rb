@@ -1344,7 +1344,7 @@ class Lesson < ActiveRecord::Base
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
       recipient = self.instructor.phone_number
-      body = "Reminder! You're scheduled for a lesson with. #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. They are a level #{self.level.to_s} #{self.athlete}. Please remember to call them the night before to introduce yourself."
+      body = "Reminder! You're scheduled for a lesson with #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date.strftime("%b %d")} at #{self.location.name}. Their number is #{self.phone_number.gsub(/[^0-9a-z ]/i,"")}. They are a level #{self.level.to_s} #{self.athlete}. Please remember to call them the night before to introduce yourself. You can view the full lesson details at #{ENV['HOST_DOMAIN']}/lessons/#{self.id}."
       @client = Twilio::REST::Client.new account_sid, auth_token
           @client.api.account.messages.create({
           :to => recipient,
