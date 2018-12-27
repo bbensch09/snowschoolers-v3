@@ -62,7 +62,7 @@
           <td><%= rental.id %></td>
           <td><%= rental.resource_id ? rental.resource.gb_identifier : "" %></td>
           <% end %>
-          <td><%= rental.student.name %></td>
+          <td><%= rental.student ? rental.student.name : "N/A" %></td>
           <td><%= rental.resource_type_text %></td>
           <% if rental.resource_type == 'ski' || rental.resource_type == 'snowboard' %>
           <td><%= rental.resource_id ? rental.resource.board_size : "" %></td>
