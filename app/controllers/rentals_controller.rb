@@ -25,7 +25,6 @@ class RentalsController < ApplicationController
       @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.today && lesson.includes_rental_package? }
       else
         @lessons = current_user.lessons
-        @todays_lessons = current_user.lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
     end
       render 'index'
   end
@@ -34,10 +33,9 @@ class RentalsController < ApplicationController
     if current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner"
       @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? }
       @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.includes_rental_package? && !lesson.canceled?}
-      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.today && lesson.includes_rental_package? }
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.tomorrow && lesson.includes_rental_package? }
       else
         @lessons = current_user.lessons
-        @todays_lessons = current_user.lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
     end
       render 'index'
   end
