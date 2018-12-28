@@ -144,6 +144,7 @@ Rails.application.routes.draw do
   get '/sky-tavern' => 'welcome#sky_tavern_referral'
   get '/granlibakken' => 'lessons#granlibakken'
   get '/homewood' => 'lessons#homewood'
+  get '/future-daily-roster' => 'lessons#future_daily_roster'
   get '/daily-roster' => 'lessons#daily_roster'
   get '/daily-group-roster' => 'lessons#daily_group_roster'
   get '/payroll-prep' => 'lessons#payroll_prep'
