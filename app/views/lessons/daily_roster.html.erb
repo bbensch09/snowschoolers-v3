@@ -12,7 +12,7 @@
     <div class="inline-block">
       <a href="#hideLessons" class="btn btn-success" id="toggle-available-lessons">Show Today's Lessons </a>
       <a href="#hideLessons" class="btn btn-success" id="toggle-completed-lessons">Show Tomorrow's Lessons</a>
-      <a href="/future-daily-roster" class="btn btn-success" id="toggle-completed-lessons">View Future Dates</a>
+      <a href="/future-daily-roster?date=<%=Date.tomorrow.to_s%>" class="btn btn-success" id="toggle-completed-lessons">View Future Dates</a>
     </div>
   </div>
 </div>
