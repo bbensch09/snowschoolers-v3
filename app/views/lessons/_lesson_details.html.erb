@@ -15,7 +15,7 @@
     <% end %>
   <% end %>
   <% if @lesson.includes_rental_package? %>
-    <br> <b>Equipment:</b> <%= @lesson.rental_status %> 
+    <br> <b>Equipment:</b> <%= @lesson.rental_status %>
     <br> While not required, we highly recommend selecting your own rental equipment in advance. That way we can have your boots and skis/board fitted for you when you arrive.
     <br> <%= link_to "Select or Review Equipment", view_reservation_path(@lesson.id), method: :get, class: "btn btn-primary", target:"_blank" %>
     <br> By purchasing a lesson with rentals, you agreed to the terms & conditions of the equipment rental agreement. You may view and print that rental agreement below.
@@ -39,15 +39,17 @@
       <p class="confirmation-number">
         <b> Confirmation Receipt </b>
         <br>
-        Your reservation confirmation number is: <span style="font-weight: bold; font-size:18px;"><%=@lesson.confirmation_number%></span>. Please either print this page or save the confirmation email you should automaticaly receive, as you will need to show your confirmation number the morning of your lesson as proof of payment. Please also find your lesson reservation details below. 
+        Your reservation confirmation number is: <span style="font-weight: bold; font-size:18px;"><%=@lesson.confirmation_number%></span>. Please either print this page or save the confirmation email you should automaticaly receive, as you will need to show your confirmation number the morning of your lesson as proof of payment. Please also find your lesson reservation details below.
       </p>
 
       <% if @lesson.deposit_status == 'confirmed' && @lesson.waiver? %>
       <p class="left">
-        <!-- You must also complete a required release of liability waiver prior to the start of your lesson. Please find the waiver at <a href="https://www.smartwaiver.com/v/snowschoolers2018" class="navy-link">https://www.smartwaiver.com/v/snowschoolers2018</a> -->
+      <b> Release of Liability </b>
+      <br>
+        You must also complete a required release of liability waiver prior to the start of your lesson. Please find the waiver at <a href="https://www.smartwaiver.com/v/snowschoolers2018" class="navy-link">https://www.smartwaiver.com/v/snowschoolers2018</a>
       </p>
       <% end %>
-      
+
       <hr class="deposit-hr-navy">
 
       <p><b>Lesson Summary</b></p>
@@ -70,7 +72,7 @@
           <span class="lesson-detail-topic">Time Slot:</span> <span class=<%= custom_slot_class%> > <%= @lesson.slot %></span> <br><br>
           <% if @lesson.package_info && @lesson.package_info.length > 1 %>
             <span class="lesson-detail-topic">Adjustments:</span>  <%= @lesson.package_info %>
-            <br><br>                  
+            <br><br>
           <% end %>
           <span class="lesson-detail-topic">Objectives:</span> <br> <%= @lesson.objectives %>
         </h4>
