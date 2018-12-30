@@ -1038,7 +1038,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def group_students_are_old_enough
-    return true if self.private_lesson?  || self.state == 'booked'
+    return true if self.private_lesson?  || self.state == 'booked' || self.state == 'confirmed'
     self.students.each do |student|
       if student.age_range.to_i < 8
         puts "!!!!students are NOT old enough"
