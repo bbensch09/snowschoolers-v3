@@ -39,7 +39,8 @@ class Student < ActiveRecord::Base
   end
 
   def height_in_inches
-  	height = height_feet*12 + height_inches
+  	return 'TBD' if height_feet.nil? || height_inches.nil?
+    height = height_feet*12 + height_inches
   end
 
   def max_ski_length
