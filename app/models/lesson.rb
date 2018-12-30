@@ -1273,7 +1273,7 @@ class Lesson < ActiveRecord::Base
     if lesson_time.slot == 'Full-day (10am-4pm)'
       booked_lessons = Lesson.select{|lesson| lesson.date == lesson_time.date && lesson.lesson_time.slot != PRIVATE_SLOTS.first}
     else
-      booked_lessons = Lesson.select{|lesson| lesson.date == lesson_time.date && lesson.lesson_time.slot == lesson_time.slot}
+      booked_lessons = Lesson.select{|lesson| lesson.date == lesson_time.date && lesson.product && lesson.product.start_time == lesson_time.start_time}
     end
     puts "There is/are #{booked_lessons.count} lesson(s) already booked at this time."
     booked_instructors = []
