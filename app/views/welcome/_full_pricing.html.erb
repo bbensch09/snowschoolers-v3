@@ -1,5 +1,5 @@
 <section id="full-pricing" class="container">
-    <div class="">        
+    <div class="">
         <h1 class="center navy-text">Full Pricing Schedule</h1>
         <table class="col-lg-11 col-xs-12 pricing-table">
           <thead class="">
@@ -18,14 +18,14 @@
               <th class="col-xs-2 text-warning center"></th>
               <th class="pricing-snowschoolers col-xs-2"><br></th>
               <th class="holiday-dates col-xs-4">Peak days: Saturdays, Dec. 25, Jan 1, Feb 14th, Feb 18-22<br></th>
-              <th class="holiday-dates col-xs-4">Holidays: Dec 22–24, Dec 26-31, Jan 12–13, Feb 16–17, and Feb 23.<br></th>
+              <th class="holiday-dates col-xs-4">Holidays: Dec 22–24, Dec 26-31, Jan 19-20, Feb 16–17, and Feb 23.<br></th>
             </tr>
           </thead>
 
           <% if (Product.where(location_id:8,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(8).calendar_status).first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil) %>
           <h1 class='text-danger center'> Pricing Not Yet Available </h1>
 
-          <% else %> 
+          <% else %>
 
           <tbody>
             <tr>
@@ -81,7 +81,7 @@
               <th class="sub-header" colspan="5">
                 <h3 class="navy-text">Lesson packages with rental equipment included:</h3>
               </th>
-            </tr>            
+            </tr>
             <tr class="">
               <th class="col-xs-4 text-warning center"></th>
               <th class="pricing-snowschoolers col-xs-4">Daily Rate<br></th>
@@ -91,13 +91,13 @@
               <th class="col-xs-4 text-warning center"></th>
               <th class="pricing-snowschoolers col-xs-4"><br></th>
               <th class="holiday-dates col-xs-4">Holidays: Dec 21-Jan 6, Jan 12-14, and Feb 16-24</th>
-            </tr>            
+            </tr>
           </thead>
 
           <% if (Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil) %>
           <h1 class='text-danger center'> Pricing Not Yet Available </h1>
 
-          <% else %> 
+          <% else %>
 
           <tbody>
             <tr>
@@ -136,7 +136,7 @@
               <th class="sub-header" colspan="5">
                 <h3 class="navy-text">Lesson packages WITHOUT any rental equipment:</h3>
               </th>
-            </tr>            
+            </tr>
             <tr class="">
               <th class="col-xs-4 text-warning center"></th>
               <th class="pricing-snowschoolers col-xs-4">Daily Rate<br></th>
@@ -146,13 +146,13 @@
               <th class="col-xs-4 text-warning center"></th>
               <th class="pricing-snowschoolers col-xs-4"><br></th>
               <th class="holiday-dates col-xs-4">Holidays: Dec 21-Jan 6, Jan 12-14, and Feb 16-24</th>
-            </tr>            
+            </tr>
           </thead>
 
           <% if (Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil) %>
           <h1 class='text-danger center'> Pricing Not Yet Available </h1>
 
-          <% else %> 
+          <% else %>
 
           <tbody>
             <tr>
@@ -199,7 +199,7 @@
               <th class="sub-header" colspan="5">
                 <h3 class="navy-text">Lessons with rental equipment included:</h3>
               </th>
-            </tr>            
+            </tr>
             <tr class="">
               <th class="col-xs-4 text-warning center"></th>
               <th class="pricing-snowschoolers col-xs-4">Daily Rate<br></th>
@@ -209,13 +209,13 @@
               <th class="col-xs-4 text-warning center"></th>
               <th class="pricing-snowschoolers col-xs-4"><br></th>
               <th class="holiday-dates col-xs-4">Holidays: Dec 21-Jan 6, Jan 12-14, and Feb 16-24</th>
-            </tr>            
+            </tr>
           </thead>
 
           <% if (Product.where(location_id:24,length:"1.00",product_type:'group_lesson',calendar_period:Location.find(24).calendar_status).first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil) %>
           <h1 class='text-danger center'> Pricing Not Yet Available </h1>
 
-          <% else %> 
+          <% else %>
 
           <tbody>
             <tr>
@@ -246,7 +246,7 @@
               <th class="sub-header" colspan="5">
                 <h3 class="navy-text">Lessons WITHOUT rental equipment:</h3>
               </th>
-            </tr>            
+            </tr>
             <tr class="">
               <th class="col-xs-4 text-warning center"></th>
               <th class="pricing-snowschoolers col-xs-4">Daily Rate<br></th>
@@ -256,13 +256,13 @@
               <th class="col-xs-4 text-warning center"></th>
               <th class="pricing-snowschoolers col-xs-4"><br></th>
               <th class="holiday-dates col-xs-4">Holidays: Dec 21-Jan 6, Jan 12-14, and Feb 16-24</th>
-            </tr>            
+            </tr>
           </thead>
 
           <% if (Product.where(location_id:24,length:"1.00",product_type:'group_lesson',calendar_period:Location.find(24).calendar_status).first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil) %>
           <h1 class='text-danger center'> Pricing Not Yet Available </h1>
 
-          <% else %> 
+          <% else %>
 
           <tbody>
             <tr>
@@ -289,5 +289,5 @@
 
 
 
-    </div>    
+    </div>
 </section>
