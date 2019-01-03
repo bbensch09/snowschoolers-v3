@@ -177,7 +177,16 @@ class Section < ApplicationRecord
 
 
 	def student_count
-		Lesson.where(section_id:self.id).count
+		lessons = Lesson.where(section_id:self.id)
+		lessons = lessons.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.state.nil? }
+		student_count = 0
+		lessons.each do |lesson|
+			student_count += lesson.students.count
+			# lesson.students.each do |student|
+			# 	student_count +=1
+			# end
+		end
+		return student_count.to_i
 	end
 
 	def remaining_capacity
