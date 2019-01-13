@@ -180,7 +180,7 @@ class LessonsController < ApplicationController
   end
 
   def manage_group_lessons
-    if current_user && (current_user.user_type == 'Ski Area Partner' || current_user.email == 'brian@snowschoolers.com')
+    if current_user && (current_user.user_type == 'Ski Area Partner' || current_user.user_type == 'Snow Schoolers Employee' || current_user.email == 'brian@snowschoolers.com')
       all_days = Section.select(:date).distinct.sort{|a,b| a.date <=> b.date}
       @days = all_days.keep_if{|a| a.date >= Date.today}
       @days = @days.first(30)
