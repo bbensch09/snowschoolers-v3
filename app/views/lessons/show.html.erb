@@ -30,6 +30,38 @@
           <% else %>
             <li><p class="alert-danger">No instructors available!</p></li>
           <% end %>
+          <%= semantic_form_for @lesson do |f| %>
+          <!-- include lesson time fields to update lesson instructor manually -->
+            <div class="hidden">
+                <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
+                <div class='row'>
+                  <div class="col-md-4">
+                    <label class="lesson-label">Date</label>
+                    <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker', required:true }, placeholder: 'Pick a date', label: false %>
+                    <span class="search-area-icon"></span>
+                  </div>
+
+                  <div class="col-md-4">
+                    <label class="lesson-label">Slot</label>
+                    <% if @lesson.group_lesson? %>
+                    <%= lt_f.input :slot, as: :select, collection: GROUP_SLOTS, include_blank: 'Time Slot', label: false, required:true %>
+                    <% else %>
+                    <%= lt_f.input :slot, as: :select, collection: PRIVATE_SLOTS, include_blank: 'Time Slot', label: false, required:true %>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <!-- end hidden lesson time fields -->
+
+          <h4>Select an instructor by last name:
+            <%= f.select :instructor_id, options_from_collection_for_select(Instructor.active_instructors.sort {|a,b| a.last_name <=> b.last_name}, :id, :last_name, selected:@instructor_id), include_blank:true %>
+            <%= f.submit "Assign Instructor Directly", class: "btn btn-success" %>
+          </h4>
+          <% end %>
+
+          <hr>
+
           <li>Client phone number: <%= @lesson.phone_number %> </li>
           <li>Lesson wages: <%= number_to_currency(@lesson.wages) %></li>
           <% if @lesson.hourly_bonus %>
