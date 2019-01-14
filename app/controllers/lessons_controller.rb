@@ -492,6 +492,8 @@ class LessonsController < ApplicationController
     if @lesson.state == "ready_to_book"
       GoogleAnalyticsApi.new.event('lesson-requests', 'ready-for-deposit')
     end
+    @lesson_time = @lesson.lesson_time
+    @state = @lesson.instructor ? 'pending instructor' : @lesson.state
     check_user_permissions
   end
 
