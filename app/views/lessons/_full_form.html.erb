@@ -124,7 +124,7 @@
             <div class="col-md-6">
               <label class="lesson-label">Location</label>
                 <% if current_user && current_user.user_type == "Snow Schoolers Employee" || session[:granlibakken] == 'true' %>
-                <%= f.input :requested_location , as: :select, collection: Location.where("id=? OR id =?",8,24).sort_by { |location| location.name.downcase} , include_blank: 'Location', label: false %>
+                <%= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase} , include_blank: 'Location', label: false %>
                   <% else %>
                 <%= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase} , include_blank: 'Location', label: false %>
                 <% end %>
