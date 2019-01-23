@@ -58,6 +58,18 @@ class WelcomeController < ApplicationController
   def jackson_hole
   end
 
+  def niseko
+    @lesson = Lesson.new
+    @activity = session[:lesson].nil? ? nil : session[:lesson]["activity"]
+    @location = session[:lesson].nil? ? nil : session[:lesson]["location"]
+    @slot = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?) ? nil : session[:lesson]["lesson_time"]["slot"]
+    @date = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?)  ? nil : session[:lesson]["lesson_time"]["date"]    
+    if session[:must_sign_in] == true
+      flash.now[:alert] = "You must login first to view that that page."
+      session[:must_sign_in] = false
+    end
+  end
+
   def beginners_guide_to_tahoe
   end
 

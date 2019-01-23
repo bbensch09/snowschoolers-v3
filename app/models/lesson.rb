@@ -226,6 +226,20 @@ class Lesson < ActiveRecord::Base
           calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
           puts "!!!!lookup calendar period status, it is: #{calendar_period}"
 
+          #pricing for Niseko
+          if self.slot == PRIVATE_SLOTS.first && self.location.name == "Niseko"
+            product = Product.where(location_id:self.location.id,length:"1.00",product_type:"private_lesson"  ).first
+          end
+          if self.slot == PRIVATE_SLOTS.second && self.location.name == "Niseko"
+            product = Product.where(location_id:self.location.id,length:"3.00",product_type:"private_lesson"  ).first
+          end
+          if self.slot == PRIVATE_SLOTS.third && self.location.name == "Niseko"
+            product = Product.where(location_id:self.location.id,length:"3.00",product_type:"private_lesson"  ).last
+          end
+          if self.slot == PRIVATE_SLOTS.fourth && self.location.name == "Niseko"
+            product = Product.where(location_id:self.location.id,length:"6.00",product_type:"private_lesson"  ).first
+          end
+          
           #pricing for Granlibakken GROUPS
           #Early-bird, no rental
           if self.slot == GROUP_SLOTS.first && self.location.id == 24 && self.class_type == 'group' && !self.includes_rental_package?
