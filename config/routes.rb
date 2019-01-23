@@ -81,6 +81,7 @@ Rails.application.routes.draw do
   get 'twilio/test_sms' => 'twilio#test_sms'
   #promo pages
   get 'jackson-hole' => "welcome#jackson_hole"
+  get 'niseko' => "welcome#niseko"
   get 'powder' => "welcome#powder"
   get 'road-conditions' => "welcome#road_conditions"
   get 'accommodations' => "welcome#accommodations"
