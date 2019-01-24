@@ -213,36 +213,26 @@ class Lesson < ActiveRecord::Base
       end
   end
 
-  def product
-        puts "!!!!!! begining Lesson.product"
-        # HACKY CODE TO REMOVE --  added in effort to reduce latency by storing/retrievingproduct_id
-        # puts "!!! the param to skip product_id is #{@skip_product_id}"
-        # if @skip_product_id == 'blue'
-        #   puts "!!!found product already"
-        #   return Product.find(self.product_id)
-        # end
+  def set_product_from_lesson_params
+        puts "====begin method: set_product_from_lesson_params"
         if self.product_name
           # puts "!!!calculating price based on product length, location, and calendar_period"
           calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
-          puts "!!!!lookup calendar period status, it is: #{calendar_period}"
+          # puts "!!!!lookup calendar period status of lesson object, it is: #{calendar_period}"
 
           #pricing for Niseko
           if self.slot == PRIVATE_SLOTS.first && self.location.name == "Niseko"
             product = Product.where(location_id:self.location.id,length:"1.00",product_type:"private_lesson"  ).first
-          end
-          if self.slot == PRIVATE_SLOTS.second && self.location.name == "Niseko"
+          elsif self.slot == PRIVATE_SLOTS.second && self.location.name == "Niseko"
             product = Product.where(location_id:self.location.id,length:"3.00",product_type:"private_lesson"  ).first
-          end
-          if self.slot == PRIVATE_SLOTS.third && self.location.name == "Niseko"
+          elsif self.slot == PRIVATE_SLOTS.third && self.location.name == "Niseko"
             product = Product.where(location_id:self.location.id,length:"3.00",product_type:"private_lesson"  ).last
-          end
-          if self.slot == PRIVATE_SLOTS.fourth && self.location.name == "Niseko"
+          elsif self.slot == PRIVATE_SLOTS.fourth && self.location.name == "Niseko"
             product = Product.where(location_id:self.location.id,length:"6.00",product_type:"private_lesson"  ).first
-          end
           
           #pricing for Granlibakken GROUPS
           #Early-bird, no rental
-          if self.slot == GROUP_SLOTS.first && self.location.id == 24 && self.class_type == 'group' && !self.includes_rental_package?
+          elsif self.slot == GROUP_SLOTS.first && self.location.id == 24 && self.class_type == 'group' && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"group_lesson",is_lift_rental_package:false).first
           #Early-bird, with rental
           elsif self.slot == GROUP_SLOTS.first && self.location.id == 24 && self.class_type == 'group' && self.includes_rental_package?
@@ -319,12 +309,26 @@ class Lesson < ActiveRecord::Base
           #pricing for homewood full-day lesson only
           elsif self.slot == PRIVATE_SLOTS.fourth  && self.location.id == 8 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
-          end
-        # HACKY SHIT this is causing a stock too deep error so commenting out
-        # self.product_id = product.id
-        # save!
         end
-    return product
+        puts "===lesson id is #{self.id}. preparing to save new product_id"
+        self.update({product_id:product.id})
+      end
+      return product
+  end
+
+  def product
+      puts "!!!!!! begining Lesson.product"
+        # HACKY CODE TO REMOVE --  added in effort to reduce latency by storing/retrievingproduct_id
+        # puts "!!! the param to skip product_id is #{@skip_product_id}"
+        # if @skip_product_id == 'blue'
+        #   return Product.find(self.product_id)
+        # end
+      if product_id.nil?
+        set_product_from_lesson_params
+      else
+        return Product.find(product_id)
+        puts "!!! lesson has stored product_id - skip rest of method to assign product"
+      end
   end
 
   def tip
@@ -839,7 +843,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def price
-    puts "!!!! runing Lesson.price method to determine current price."
+    puts "!!!! running Lesson.price method to determine current price."
     # begin work to reduce price/product calls which are causing application errors
     # return self.lesson_price if self.lesson_price != nil
     product = self.product
