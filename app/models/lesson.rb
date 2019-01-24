@@ -310,8 +310,10 @@ class Lesson < ActiveRecord::Base
           elsif self.slot == PRIVATE_SLOTS.fourth  && self.location.id == 8 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
         end
-        puts "===lesson id is #{self.id}. preparing to save new product_id"
-        self.update({product_id:product.id})
+        unless product.nil?
+          puts "===lesson id is #{self.id}. preparing to save new product_id"
+          self.update({product_id:product.id})
+        end
       end
       return product
   end
