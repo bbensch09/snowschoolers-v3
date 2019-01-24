@@ -43,10 +43,17 @@ class LessonsController < ApplicationController
     render 'schedule'
   end
 
-  #WORK IN PROGRESS - Jan1
-  def search
+  def all_booked_lessons_this_season
     @lessons = Lesson.all.select{|lesson| lesson.booked? && lesson.this_season? }
-    # @lessons = @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
+    @lessons = @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
+    respond_to do |format|
+          format.html {render 'search_results_archived_jan2019'}
+          format.csv { send_data @lessons.to_csv, filename: "private-lessons-export-#{Date.today}.csv" }
+        end
+  end
+
+  def search
+    @lessons = Lesson.last(20)
     respond_to do |format|
           format.html {render 'search_results'}
           format.csv { send_data @lessons.to_csv, filename: "private-lessons-export-#{Date.today}.csv" }
