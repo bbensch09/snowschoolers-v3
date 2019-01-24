@@ -471,6 +471,7 @@ class LessonsController < ApplicationController
       @lesson.state = 'ready_to_book'
     end
     if @lesson.save
+      @lesson.set_product_from_lesson_params
       GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-updated', params[:ga_client_id])
       @user_email = current_user ? current_user.email : "unknown"
       if @lesson.state == "ready_to_book"
