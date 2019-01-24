@@ -78,17 +78,17 @@ class LessonsController < ApplicationController
     end
     if params[:instructor] != ""
         puts "!!!filter by instructor.  param is #{params['instructor']}"
-        @lessons = @lessons.to_a.keep_if{|lesson| lesson.instructor && lesson.instructor.name.include?(params[:instructor])}
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.instructor && lesson.instructor.name.downcase.include?(params[:instructor].downcase)}
         puts "found #{@lessons.count} mactching lessons"
     end
     if params[:name] != ""
         puts "!!!filter by name. param is #{params['name']}"
-        @lessons = @lessons.to_a.keep_if{|lesson| lesson.requester_name.to_s.include?(params[:name])}
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.requester_name && lesson.requester_name.downcase.include?(params[:name].downcase)}
         puts "found #{@lessons.count} mactching lessons"
     end
     if params[:email] != ""
         puts "!!!filter by email. email param is #{params['email']}"
-        @lessons = @lessons.to_a.keep_if{|lesson| lesson.contact_email && lesson.contact_email.include?(params[:email])}
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.contact_email && lesson.contact_email.downcase.include?(params[:email].downcase)}
         # @lessons = Lesson.all.select{|lesson| lesson.email == 'brian@snowschoolers.com'}
         puts "found #{@lessons.count} mactching lessons"
     end
