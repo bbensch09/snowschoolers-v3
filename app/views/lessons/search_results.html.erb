@@ -17,7 +17,7 @@
   <thead>
     <tr>
       <th class="lessons-table-cells lesson-date"></th>
-      <th class="lessons-table-cells lesson-date">Time</th>
+      <th class="lessons-table-cells lesson-date">Customer Name</th>
       <th class="lessons-table-cells lesson-date">Date</th>
       <th class="lessons-table-cells lesson-type">Sport</th>
       <th class="lessons-table-cells lesson-type">Type</th>
@@ -30,23 +30,10 @@
   </thead>
 
   <tbody>
-        <tr class="bold">
-            <td class="lessons-table-cells lesson-date"><%= @lessons.count %></td>
-            <td class="lessons-table-cells lesson-date"></td>
-            <td class="lessons-table-cells lesson-date"></td>
-            <td class="lessons-table-cells lesson-type"></td>
-            <td class="lessons-table-cells lesson-type"></td>
-            <td class="lessons-table-cells lesson-type"></td>
-            <td class="lessons-table-cells lesson-date"></td>
-            <td class="lessons-table-cells lesson-date"></td>
-            <td class="lessons-table-cells"></td>
-            <td class="lessons-table-cells lesson-type">
-
-      </tr>
       <% @lessons.each_with_index do |lesson, index| %>
           <tr>
             <td class="lessons-table-cells lesson-date"><%= index+1 %></td>
-            <td class="lessons-table-cells lesson-date"><%= lesson.start_time %></td>
+            <td class="lessons-table-cells lesson-date"><%= lesson.requester_name %></td>
             <td class="lessons-table-cells lesson-date"><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
             <td class="lessons-table-cells lesson-type"><%= lesson.activity %></td>
             <td><%= link_to "#{lesson.product_name}", lesson, class: "" %></td>
