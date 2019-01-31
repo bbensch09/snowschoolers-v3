@@ -91,6 +91,8 @@ class Lesson < ActiveRecord::Base
         l = 'XX'
     end
     case self.class_type
+      when nil
+        class_type_code = 'PRIVATE'
       when 'group'
         class_type_code = 'GROUP'
       when 'private'
@@ -451,6 +453,17 @@ class Lesson < ActiveRecord::Base
   def self.open_lesson_requests
     lessons = Lesson.where(state:'booked',instructor_id:nil)
     lessons.select{|lesson| lesson.this_season?}
+  end
+
+  def self.group_sections_available(date)
+    lessons = Lesson.where(state:'booked',class_type:'group')
+    lessons = lessons.select{|lesson| lesson.date == date}
+    section_ids = []
+    lessons.each do |l|
+      section_ids << l.section.id
+    end
+    sections_count = section_ids.uniq
+    return sections_count.count
   end
 
   def self.canceled_lessons
@@ -1226,12 +1239,13 @@ class Lesson < ActiveRecord::Base
     if available_instructors.count == 0
       puts "!!!found zero instructors"
       return false
-    elsif self.requester && (self.requester.user_type == "Snow Schoolers Employee" || self.requester.email == "brian@snowschoolers.com")
-      return true
+    # elsif self.requester && (self.requester.user_type == "Snow Schoolers Employee" || self.requester.email == "brian@snowschoolers.com")
+    #   return true
     else
       all_open_lesson_requests = Lesson.open_lesson_requests
       overlapping_open_requests = all_open_lesson_requests.select{|lesson| lesson.date == self.date && lesson.lesson_time.slot == self.lesson_time.slot}
-      actual_availability_count = available_instructors.count - overlapping_open_requests.count
+      overlapping_group_sections = Lesson.group_sections_available(self.date)
+      actual_availability_count = available_instructors.count - overlapping_open_requests.count - overlapping_group_sections
       puts "!!!actual available is #{actual_availability_count}"
       case
       when actual_availability_count >= 2
@@ -1605,7 +1619,8 @@ private
 
   def instructors_must_be_available
     puts "!!! checking if group class type"
-    return true if group_lesson?
+    # don't automatically approve group lessons if private instructors are sold out
+    # return true if group_lesson?
     if available_instructors?
       return true
     else

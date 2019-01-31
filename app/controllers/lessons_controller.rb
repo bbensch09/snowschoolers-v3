@@ -144,7 +144,7 @@ class LessonsController < ApplicationController
     if current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee"
       @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.state.nil? }
       @lessons = @lessons.select{|lesson| lesson.this_season?}
-      @lessons = @lessons.select{|lesson| lesson.private_lesson?}
+      # @lessons = @lessons.select{|lesson| lesson.private_lesson?}
       @lessons = @lessons.keep_if{|lesson| !lesson.canceled?}
       @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
       @todays_lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.today }
