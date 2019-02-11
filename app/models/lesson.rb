@@ -1233,7 +1233,7 @@ class Lesson < ActiveRecord::Base
     return available_instructors
   end
 
-  def available_instructors?
+def available_instructors?
     puts "!!!!!! checking to see if there are any available instructors"
     # available_instructors.any? ? true : false
     if available_instructors.count == 0
@@ -1246,18 +1246,22 @@ class Lesson < ActiveRecord::Base
       overlapping_open_requests = all_open_lesson_requests.select{|lesson| lesson.date == self.date && lesson.lesson_time.slot == self.lesson_time.slot}
       overlapping_group_sections = Lesson.group_sections_available(self.date)
       actual_availability_count = available_instructors.count - overlapping_open_requests.count - overlapping_group_sections
-      puts "!!!actual available is #{actual_availability_count}"
-      case
-      when actual_availability_count >= 2
+      puts "!!!actual available count is currently: #{actual_availability_count}"
+      case actual_availability_count.to_i
+      when 2..100
         puts "!!! Estimated actual availability at this time slot is #{actual_availability_count}"
         return true
-      when actual_availability_count > 0
+      when 0..1
         puts "!!! Warning: at most 1-2 instructors are available"
         return true
-      when actual_availability_count == 0
+      when 0
+        puts "!!! Error: no instructors are available."
+        return false
+      when -10...-1
+        puts "!!! Error: we are OVERBOOKED no instructors are available."
         return false
       else
-        return true
+        return false
       end
     end
   end
