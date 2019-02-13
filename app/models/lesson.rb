@@ -18,11 +18,11 @@ class Lesson < ActiveRecord::Base
             presence: true, on: :update
   # validates :duration, :start_time, presence: true, on: :update
   # validates :gear, inclusion: { in: [true, false] }, on: :update #gear now moved to student section
-  validates :terms_accepted, inclusion: { in: [true], message: 'must accept terms' }, on: :update
+  # validates :terms_accepted, inclusion: { in: [true], message: 'must accept terms' }, on: :update
   validates :actual_start_time, :actual_end_time, presence: true, if: :just_finalized?
   # validate :requester_must_not_be_instructor, on: :create
   # validate :lesson_time_must_be_valid
-  validate :student_exists, on: :update
+  # validate :student_exists, on: :update
 
   #Check to ensure an instructor is available before booking
   validate :instructors_must_be_available, on: :create
