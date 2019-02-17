@@ -61,7 +61,7 @@
           <% end %>
 
           <hr>
-
+          <%= link_to "Send Reminder Email", send_day_before_reminder_email_path(@lesson), class: "btn btn-success" %> (goes to student & cc instructor)
           <li>Client phone number: <%= @lesson.phone_number %> </li>
           <li>Lesson wages: <%= number_to_currency(@lesson.wages) %></li>
           <% if @lesson.hourly_bonus %>
