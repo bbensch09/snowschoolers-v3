@@ -255,7 +255,7 @@ class LessonMailer < ActionMailer::Base
     instructor_email = @lesson.instructor ? @lesson.instructor.email : "notify@snowschoolers.com"
     instructor_name = @lesson.instructor ? @lesson.instructor.first_name : "Snow Schoolers"
     return if @lesson.email_notifications_status == 'disabled'
-    mail(to: student_email, bcc: "SnowSchoolers.com <notify@snowschoolers.com>, Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", cc:instructor_email, subject: "Reminder: #{@lesson.activity} lesson tomorrow with #{instructor_name} at #{@lesson.location.name} - #{@lesson.slot}")
+    mail(to: student_email, bcc: "SnowSchoolers.com <notify@snowschoolers.com>, Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", cc:instructor_email, subject: "Reminder: #{@lesson.activity} lesson with #{instructor_name} on #{@lesson.date} at #{@lesson.location.name} - #{@lesson.slot}")
   end  
 
   def send_lesson_request_notification(lesson)
