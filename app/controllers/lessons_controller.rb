@@ -4,6 +4,7 @@ class LessonsController < ApplicationController
   before_action :set_lesson, only: [:show, :complete, :update, :edit, :edit_wages, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_instructor, :admin_confirm_deposit, :admin_assign_instructor, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications, :send_review_reminders_to_student, :rental_agreement]
   before_action :skip_product_id, except: [:create, :update]
   before_action :save_lesson_params_and_redirect, only: [:create]
+  before_action :set_admin_skip_validations
   # before_action :authenticate_from_cookie!, only: [:complete, :confirm_reservation, :update, :show, :edit]
 
   def rental_agreement
@@ -672,6 +673,17 @@ class LessonsController < ApplicationController
     end
   end
 
+  def set_admin_skip_validations
+    if current_user && (current_user.email == 'brian@snowschoolers.com' || current_user.email == 'adam@snowschoolers.com')
+      session[:skip_validations] = true
+      if @lesson
+        @lesson.skip_validations = true
+      else
+      puts "no lesson found yet"
+      end
+    end
+  end
+
   def save_lesson_params_and_redirect
     puts "!!!!! params are below: #{params}"
     puts params[:lesson][:activity]
@@ -684,6 +696,9 @@ class LessonsController < ApplicationController
   def create_lesson_and_redirect
     @lesson = Lesson.new(lesson_params)
     @lesson.requester = current_user
+    if (current_user.email == 'brian@snowschoolers.com' || current_user.email == 'adam@snowschoolers.com')
+      @lesson.skip_validations = true
+    end
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
     @lesson.product_name = @lesson.lesson_time.slot
     if @lesson.save

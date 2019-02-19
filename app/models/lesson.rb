@@ -1525,6 +1525,7 @@ def available_instructors?
   end
 
   def send_sms_to_admin
+      return true if self.skip_validations
       recipient = "408-315-2900"
       body = "ALERT - no instructors are available to teach #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date} at #{self.location.name}. The last person to decline was #{Instructor.find(LessonAction.last.instructor_id).username}."
       @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
@@ -1622,6 +1623,7 @@ def available_instructors?
 private
 
   def instructors_must_be_available
+    return true if self.skip_validations
     puts "!!! checking if group class type"
     # don't automatically approve group lessons if private instructors are sold out
     # return true if group_lesson?
