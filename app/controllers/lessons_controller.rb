@@ -119,7 +119,7 @@ class LessonsController < ApplicationController
       @lessons = Lesson.all.select{|lesson| lesson.eligible_for_payroll? && lesson.instructor_id == current_user.instructor.id && lesson.date < Date.today }
     end
     # @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?|| lesson.canceled? || lesson.booked? || lesson.state.nil? }
-    @lessons.sort_by!{|lesson| [lesson.date, lesson.instructor.name]}
+    @lessons.sort_by!{|lesson| [lesson.date]}
     @payroll_total = Lesson.payroll_total(@lessons)
     render 'payroll_prep'
   end
