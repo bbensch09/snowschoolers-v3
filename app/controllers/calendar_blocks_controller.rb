@@ -180,7 +180,6 @@ class CalendarBlocksController < ApplicationController
         names = params[:id].gsub("-"," ")
         puts "!!!names is #{names}."
         @instructor = Instructor.all.select{|instructor| instructor.name.parameterize == params[:id]}.first
-        puts "!!!!instructor name is :#{@instructor.name}."
       end
     end
   
