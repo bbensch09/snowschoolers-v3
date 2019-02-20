@@ -696,7 +696,7 @@ class LessonsController < ApplicationController
   def create_lesson_and_redirect
     @lesson = Lesson.new(lesson_params)
     @lesson.requester = current_user
-    if (current_user.email == 'brian@snowschoolers.com' || current_user.email == 'adam@snowschoolers.com')
+    if current_user && (current_user.email == 'brian@snowschoolers.com' || current_user.email == 'adam@snowschoolers.com')
       @lesson.skip_validations = true
     end
     @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
