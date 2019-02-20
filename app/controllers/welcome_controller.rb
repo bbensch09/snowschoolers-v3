@@ -50,7 +50,7 @@ class WelcomeController < ApplicationController
   def sumo_success
     email=params[:email]
     LessonMailer.notify_sumo_success(email).deliver!
-    flash[:notice] = 'Thank you for subscribing! You can expect to receive a weekly email from us with useful tips for planning your next ski vacation. If you have any immediate questions, feel free to send a chat message using the widget below, or email us at support@snowschoolers.com.'
+    flash[:notice] = 'Thank you for subscribing! You can expect to receive a weekly email from us with useful tips for planning your next ski vacation. If you have any immediate questions, feel free to send a chat message using the widget below, or email us at hello@snowschoolers.com.'
       flash[:sumo_success] = 'TRUE'
     redirect_to :index
   end
