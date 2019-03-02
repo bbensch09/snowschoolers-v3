@@ -144,7 +144,7 @@ class LessonsController < ApplicationController
   def index
     if current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee"
       @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.state.nil? }
-      @lessons = @lessons.select{|lesson| lesson.this_season?}
+      @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.date >= Date.yesterday }
       # @lessons = @lessons.select{|lesson| lesson.private_lesson?}
       @lessons = @lessons.keep_if{|lesson| !lesson.canceled?}
       @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
@@ -156,9 +156,9 @@ class LessonsController < ApplicationController
         @lessons = Lesson.where(requested_location:current_user.location.id.to_s).to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
         @lessons.sort_by { |lesson| lesson.id}
       elsif current_user.instructor
-        lessons = Lesson.visible_to_instructor?(current_user.instructor)
-        @todays_lessons = lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
         @lessons = Lesson.visible_to_instructor?(current_user.instructor)
+        @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.date >= Date.yesterday }
+        @todays_lessons = lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
         @wage_rate = current_user.instructor ? current_user.instructor.wage_rate : nil
       else
         @lessons = current_user.lessons
