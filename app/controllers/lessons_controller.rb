@@ -158,6 +158,7 @@ class LessonsController < ApplicationController
       elsif current_user.instructor
         @lessons = Lesson.visible_to_instructor?(current_user.instructor)
         @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.date >= Date.yesterday }
+        @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
         @todays_lessons = lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
         @wage_rate = current_user.instructor ? current_user.instructor.wage_rate : nil
       else
