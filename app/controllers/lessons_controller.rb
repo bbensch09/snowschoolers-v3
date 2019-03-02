@@ -433,10 +433,10 @@ class LessonsController < ApplicationController
       end
       if @lesson.group_lesson?
         LessonMailer.send_group_lesson_request_notification(@lesson).deliver!
-        flash[:notice] = 'Thank you, your lesson request was successful. If you have any questions, please email support@snowschoolers.com.'
+        flash[:notice] = 'Thank you, your lesson request was successful. If you have any questions, please email hello@snowschoolers.com.'
       else
         LessonMailer.send_lesson_request_notification(@lesson).deliver!
-        flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when your instructor confirmed your request. If you have any questions, please email support@snowschoolers.com.'
+        flash[:notice] = 'Thank you, your lesson request was successful. You will receive an email notification when your instructor confirmed your request. If you have any questions, please email hello@snowschoolers.com.'
       end
       flash[:conversion] = 'TRUE'
       puts "!!!!!!!! Lesson deposit successfully charged"
