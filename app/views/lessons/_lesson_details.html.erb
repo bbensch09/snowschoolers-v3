@@ -36,11 +36,14 @@
     <% end %>
 
     <div class="details-info-box">
+    <% if @lesson.booked? %>
       <p class="confirmation-number">
         <b> Confirmation Receipt </b>
         <br>
         Your reservation confirmation number is: <span style="font-weight: bold; font-size:18px;"><%=@lesson.confirmation_number%></span>. Please either print this page or save the confirmation email you should automaticaly receive, as you will need to show your confirmation number the morning of your lesson as proof of payment. Please also find your lesson reservation details below.
       </p>
+      <% end %>
+    </div>
 
       <% if @lesson.deposit_status == 'confirmed' && @lesson.waiver? %>
       <p class="left">
