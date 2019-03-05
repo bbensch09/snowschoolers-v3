@@ -318,24 +318,31 @@ var calculateTotalListener = function() {
 }
 
 var toggleElementListener = function(){
+  $('#toggle-today-lessons').click(function(e){
+    e.preventDefault();
+    $('#today-lessons').toggleClass('hidden');
+    console.log("lessons for today toggled, buttons switched.");
+  });
+
+  $('#toggle-tomorrow-lessons').click(function(e){
+    e.preventDefault();
+    $('#tomorrow-lessons').toggleClass('hidden');
+    console.log("lessons for tomorrow toggled, buttons switched.");
+  });
+
   $('#toggle-completed-lessons').click(function(e){
     e.preventDefault();
     $('#completed-lessons').toggleClass('hidden');
     console.log("lessons revealed, buttons switched.");
   });
-   $('#toggle-upcoming-lessons').click(function(e){
-    e.preventDefault();
-    $('#upcoming-lessons').toggleClass('hidden');
-    console.log("lessons revealed, buttons switched.");
-  });
     $('#toggle-available-lessons').click(function(e){
     e.preventDefault();
     $('#available-lessons').toggleClass('hidden');
-    console.log("lessons revealed, buttons switched.");
+    console.log("toggle today's lessons, buttons switched.");
   });
-    $('#toggle-todays-lessons').click(function(e){
+   $('#toggle-upcoming-lessons').click(function(e){
     e.preventDefault();
-    $('#todays-lessons').toggleClass('hidden');
+    $('#upcoming-lessons').toggleClass('hidden');
     console.log("lessons revealed, buttons switched.");
   });
     $('#toggle-filter-options').click(function(e){

@@ -10,14 +10,14 @@
       <li>Lessons Tomorrow: <%= @tomorrows_lessons.count %></li>
     </ul>
     <div class="inline-block">
-      <a href="#hideLessons" class="btn btn-success" id="toggle-available-lessons">Show Today's Lessons </a>
-      <a href="#hideLessons" class="btn btn-success" id="toggle-completed-lessons">Show Tomorrow's Lessons</a>
-      <a href="/future-daily-roster?date=<%=Date.tomorrow.to_s%>" class="btn btn-success" id="toggle-completed-lessons">View Future Dates</a>
+      <a href="#hideLessons" class="btn btn-success" id="toggle-today-lessons">Show Today's Lessons </a>
+      <a href="#hideLessons" class="btn btn-warning" id="toggle-tomorrow-lessons">Show Tomorrow's Lessons</a>
+      <a href="/future-daily-roster?date=<%=Date.tomorrow.to_s%>" class="btn btn-success" id="">View Future Dates</a>
     </div>
   </div>
 </div>
 <!-- SECTION 0 - AVAILABLE LESSON REQUESTS FOR INSTRUCTORS -->
-<div id="available-lessons" class="">
+<div id="today-lessons" class="">
 <h1>Today's Lessons</h1>
 
 <table class="instructors-table">
@@ -103,7 +103,7 @@
 <hr>
 
 <!-- SECTION 1 - PREVIOUS LESSONS -->
-<div id="completed-lessons" class="hidden">
+<div id="tomorrow-lessons" class="">
 <h1>Tomorrow's Lessons</h1>
 
 <table class="instructors-table">
