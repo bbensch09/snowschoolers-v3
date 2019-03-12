@@ -357,8 +357,10 @@ class Lesson < ActiveRecord::Base
   end
 
   def private_request?
-    unless self.bonus_category == 'private_request'
-      return false
+    if self.bonus_category == 'private request'
+      return 'Yes'
+    else
+      return 'No'
     end
   end
 

@@ -57,13 +57,15 @@
           <h4>Select an instructor by last name:
             <%= f.select :instructor_id, options_from_collection_for_select(Instructor.active_instructors.sort {|a,b| a.last_name <=> b.last_name}, :id, :last_name, selected:@instructor_id), include_blank:true %>
             <%= f.submit "Assign Instructor Directly", class: "btn btn-success" %>
+            <%= link_to 'Add Private Request', add_private_request_path(@lesson), class: 'btn btn-success' %>
+            <%= link_to 'Remove PR', remove_private_request_path(@lesson), class: 'btn btn-danger' %>
           </h4>
           <% end %>
 
           <hr>
           <%= link_to "Send Reminder Email", send_day_before_reminder_email_path(@lesson), class: "btn btn-success" %> (goes to student & cc instructor)
           <li>Client phone number: <%= @lesson.phone_number %> </li>
-          <li>Lesson wages: <%= number_to_currency(@lesson.wages) %></li>
+          <li>Lesson wages: <%= number_to_currency(@lesson.wages+@lesson.bonus_wages) %> total; base:<%= number_to_currency(@lesson.wages)%>; bonus:<%= number_to_currency(@lesson.bonus_wages)%> </li>
           <% if @lesson.hourly_bonus %>
           <ul>
             <li>Bonus type: <%=@lesson.bonus_category %></li>
