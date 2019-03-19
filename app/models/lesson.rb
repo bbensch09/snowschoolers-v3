@@ -212,6 +212,8 @@ class Lesson < ActiveRecord::Base
         return "3.00"
       when PRIVATE_SLOTS.fourth
         return "6.00"
+      else
+        return "2.00"
       end
   end
 
