@@ -381,7 +381,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def bonus_rate
-    if self.private_request?
+    if self.private_request? == 'Yes'
       return 10
     elsif self.bad_weather?
       return 10
