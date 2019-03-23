@@ -689,7 +689,7 @@ class LessonsController < ApplicationController
   end
 
   def set_admin_skip_validations
-    if current_user && (current_user.email == 'brian@snowschoolers.com' || current_user.email == 'adam@snowschoolers.com')
+    if current_user && (current_user.email == 'brian@snowschoolers.com' || current_user.user_type == 'Snow Schoolers Employee')
       session[:skip_validations] = true
       if @lesson
         @lesson.skip_validations = true
