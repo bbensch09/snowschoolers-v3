@@ -1101,7 +1101,7 @@ class Lesson < ActiveRecord::Base
       puts "!!!!!!!! The requested time slot is full!!!!!"
       self.state = 'This section is unfortunately full, please choose another time slot.'
       errors.add(:lesson, "There is unfortunately no more open spots in this group lesson, please try another time slot or contact us at 530-430-SNOW.")
-      notify_admin_group_lessons_sold_out(self.date)
+      notify_admin_group_lessons_sold_out(self.lesson_time,self.activity,self.guest_email)
       return false
       end
       puts "!!!!section available is #{available_sections.first }"
@@ -1533,36 +1533,45 @@ def available_instructors?
       recipient = "408-315-2900"
       body = "ALERT - no instructors are available to teach #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date} at #{self.location.name}. The last person to decline was #{Instructor.find(LessonAction.last.instructor_id).username}."
       @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
+      ADMIN_PHONE_NUMBERS.each do |recipient|
           @client.api.account.messages.create({
           :to => recipient,
           :from => ENV['TWILIO_NUMBER'],
           :body => body
-      })
+          })
       LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
+      end
   end
 
-  def notify_admin_pending_supply_constraint(lesson_time)
-      recipient = "408-315-2900"
-      body = "ALERT - a customer attempted to request a private lesson at #{lesson_time}. We either have no instructors available or already have unclaimed lessons that match or exceed the number of available instructors."
-      @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
+  def notify_admin_private_lessons_sold_out(lesson_time,activity,guest_email)
+      # lesson = Lesson.find(lesson_id)
+      # recipient = "408-315-2900"
+      guest = guest_email ? guest_email : 'a new customer'
+      body = "ALERT - #{guest} attempted to request a private #{activity} lesson on #{lesson_time.date}. The lesson is a #{lesson_time.slot}. We have no more instructors available based on the current calendar. We must activate more instructors before selling additional lessons at this time."
+      @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']    
+      ADMIN_PHONE_NUMBERS.each do |recipient|
           @client.api.account.messages.create({
           :to => recipient,
           :from => ENV['TWILIO_NUMBER'],
           :body => body
-      })
+          })
       LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
+      end
   end
 
-  def notify_admin_group_lessons_sold_out(lesson_time)
+  def notify_admin_group_lessons_sold_out(lesson_time,activity,guest_email)
       recipient = "408-315-2900"
-      body = "ALERT - a customer attempted to book a group lesson at #{lesson_time}. The section is either full or we have not opened up lessons on that day."
+      guest = guest_email ? guest_email : 'a new customer'
+      body = "ALERT - #{guest} attempted to request a group #{activity} lesson on #{lesson_time.date}. The lesson is a #{lesson_time.slot}. We have no more instructors available based on the current calendar. We must activate more instructors before selling additional lessons at this time."
       @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']
+      ADMIN_PHONE_NUMBERS.each do |recipient|
           @client.api.account.messages.create({
           :to => recipient,
           :from => ENV['TWILIO_NUMBER'],
           :body => body
-      })
+          })
       LessonMailer.notify_admin_sms_logs(self,recipient,body).deliver!
+      end
   end
 
   def send_sms_to_admin_1to1_request_failed
@@ -1634,8 +1643,8 @@ private
     if available_instructors?
       return true
     else
-      errors.add(:lesson, "Error: unfortunately we are sold out of private instructors at that time. Please choose another time slot, or contact us by phone at 530-430-SNOW or email hello@snowschoolers.com for the latest information on instructor availability.")
-      notify_admin_pending_supply_constraint(self.date)
+      errors.add(:lesson, "Error: unfortunately we are sold out of instructors at that time. Please choose another time slot, or contact us by phone at 530-430-SNOW or email hello@snowschoolers.com for the latest information on instructor availability.")
+      notify_admin_private_lessons_sold_out(self.lesson_time, self.activity, self.guest_email)
       return false
     end
   end
