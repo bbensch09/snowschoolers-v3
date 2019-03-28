@@ -459,15 +459,43 @@ class Lesson < ActiveRecord::Base
     lessons.select{|lesson| lesson.this_season?}
   end
 
-  def self.group_sections_available(date)
-    lessons = Lesson.where(state:'booked',class_type:'group')
-    lessons = lessons.select{|lesson| lesson.date == date}
-    section_ids = []
-    lessons.each do |l|
-      section_ids << l.section.id
+  def self.group_sections_available(date,lesson_time)
+    lessons = Lesson.where(state:'booked',class_type:'group').select{|l| l.date == date}
+    if lesson_time.slot == 'Half-day Morning (10am-12:45pm)' || lesson_time.slot == '2hr Morning 10am-12pm'
+        am_lessons = lessons.select{|lesson| lesson.start_time == '2hr Morning 10am-12pm'}
+      elsif lesson_time.slot == 'Half-day Afternoon (1:15-4pm)' || lesson_time.slot == '2hr Afternoon 1pm-3pm' 
+        pm_lessons = lessons.select{|lesson| lesson.start_time == '2hr Afternoon 1pm-3pm'}
+      else
+        lesson = lessons
+    end   
+
+    # determine number of morning group sections with at least one booking
+    am_section_ids = []
+    unless am_lessons.nil?
+      am_lessons.each do |l|
+        am_section_ids << l.section.id
+      end
+      am_sections_count = am_section_ids.uniq.count
     end
-    sections_count = section_ids.uniq
-    return sections_count.count
+
+    # determine number of afternoon group sections with at least one booking
+    unless pm_lessons.nil?
+      pm_section_ids = []
+      pm_lessons.each do |l|
+        pm_section_ids << l.section.id
+      end
+      pm_sections_count = pm_section_ids.uniq.count
+    end
+
+    if lesson_time.slot == 'Half-day Morning (10am-12:45pm)' || lesson_time.slot == '2hr Morning 10am-12pm'
+        return am_sections_count
+      elsif lesson_time.slot == 'Half-day Afternoon (1:15-4pm)' || lesson_time.slot == '2hr Afternoon 1pm-3pm' 
+        return pm_sections_count
+      elsif lesson_time.slot == 'Full Day'
+        return [am_sections_count,pm_sections_count].max
+      else
+        return 0
+      end
   end
 
   def self.canceled_lessons
@@ -1247,9 +1275,9 @@ def available_instructors?
     #   return true
     else
       all_open_lesson_requests = Lesson.open_lesson_requests
-      overlapping_open_requests = all_open_lesson_requests.select{|lesson| lesson.date == self.date && lesson.lesson_time.slot == self.lesson_time.slot}
-      overlapping_group_sections = Lesson.group_sections_available(self.date)
-      actual_availability_count = available_instructors.count - overlapping_open_requests.count - overlapping_group_sections
+      overlapping_open_private_lesson_requests = all_open_lesson_requests.select{|lesson| lesson.date == self.date && lesson.lesson_time.slot == self.lesson_time.slot}
+      overlapping_group_sections = Lesson.group_sections_available(self.date,self.lesson_time)          
+      actual_availability_count = available_instructors.count - overlapping_open_private_lesson_requests.count - overlapping_group_sections
       puts "!!!actual available count is currently: #{actual_availability_count}"
       case actual_availability_count.to_i
       when 2..100
