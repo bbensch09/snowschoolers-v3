@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <!-- %= action_cable_meta_tag %> -->
+  <meta name='description'
+      content='<%= yield_meta_tag(:description, 'Snow Schoolers is an online platform for private ski & snowboard lessons. We offer guests the ability to easily book a private ski or snowboard lesson online with our fleet of expert, certified instructors. We collaborate closely with our ski area partners to help them attract valuable new visitors.') %>' />
+  <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+  <link rel="icon" type="image/png" href="https://s3.amazonaws.com/snowschoolers/SnowSchoolers-favicon.png">
+  <meta name="google-site-verification" content="W1jQsfy52H6ubJcGDNxflQmKuSNdLuId5JvlfBaLBF4" />
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MPD8RJQ');</script>
+  <!-- End Google Tag Manager -->
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Herr+Von+Muellerhoff" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Palanquin" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <%= javascript_include_tag "bootstrap/modernizr.min.js" %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+
+  <!-- Google Optimize snippet to minimize flickering (optional?) -->
+  <style>.async-hide { opacity: 0 !important} </style>
+  <script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+  h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+  (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+  })(window,document.documentElement,'async-hide','dataLayer',4000,
+  {'GTM-PKBC5NX':true});</script>
+
+  <!-- Meta verification for Bing webmaster tools -->
+  <meta name="msvalidate.01" content="4E8F207E8EA0C5FD7DA648D737405F6D" />
+
+  <% if ENV['HOST_DOMAIN'] == "localhost:3000" %>
+<!-- GA code for Local Host tracking & QA -->
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      // property ID for localhost:3000
+      ga('create', 'UA-80641194-2', {'cookieDomain': 'none'});
+      ga('require', 'GTM-PKBC5NX');
+      ga('send', 'pageview');
+    </script>
+
+  <% elsif ENV['HOST_DOMAIN'] == "demo.snowschoolers.com" %>
+        <meta name="robots" content="noindex">
+  <!-- GA code for Local Host tracking & QA -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    // property ID for demo.snowschoolers.com
+      ga('create', 'UA-80641194-3', 'auto');
+      ga('require', 'GTM-PKBC5NX');
+      ga('send', 'pageview');
+    </script>
+
+  <% end %>
+
+<!-- GOOGLE ANALYTICS PRODUCTION TRACKING NOW LIVES IN GTM -  -->
+<!--    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    // property ID for www.snowschoolers.com
+    ga('create', 'UA-80641194-1', 'auto');
+    ga('require', 'GTM-PKBC5NX');
+    ga('send', 'pageview');
+  </script> -->
+
+
+<!-- Facebook Pixel Code NOW LIVES IN GTM -->
+    <!-- <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+    fbq('init', '1111997732228432');
+    fbq('track', "PageView");</script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1111997732228432&ev=PageView&noscript=1"
+    /></noscript> -->
+<!-- End Facebook Pixel Code -->
+
+</head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MPD8RJQ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<% if current_user %>
+
+  <h3 id="current_user_info" class="hidden admin-viewable">
+    <span> User Type: <%= current_user.user_type %> </span>
+    <br>
+    <span id="user_email">UUID: <%=current_user.id %></span>
+  </h3>
+
+  <script type="text/javascript">
+    // creating a global variable for show user id to debug (previously for heap analytics)
+    var SS_USER_ID = '<%= current_user.id %>';
+    var USER_TYPE = '<%= current_user.user_type %>';
+    var USER_STATE = 'signed-in';
+  </script>
+
+<% else %>
+
+  <script type="text/javascript">
+    var SS_USER_ID = null;
+    var USER_STATE = 'not signed-in';
+  </script>
+
+<% end %>
+
+<header id="header">
+  <div class="container">
+    <h2>
+      <%= link_to raw("<strong>SNOW</strong><span class='schoolers'>SCHOOLERS</span>"), root_path, class: 'logo' %>
+
+    <!-- <%= link_to image_tag("https://s3.amazonaws.com/snowschoolers/SNOW+SCHOOLERS-logo-2017.jpeg", class:"ss-logo"), root_path, class: 'logo' %> -->
+
+      <ul id="topOptions">
+        <li>
+          <button class="btn btn-mobile hidden-unless-mobile" data-toggle="collapse" data-target=".nav-collapse">
+            <i class="fa fa-bars"></i>
+          </button>
+        </li>
+      </ul>
+    </h2>
+
+  <div class="container">
+
+    <div class="nav-collapse hidden-unless-desktop nav-main-collapse pull-right">
+      <nav class="nav-main">
+        <ul class="nav nav-pills nav-main scroll-menu" id="topMain">
+           <!-- <li> <a href="#learn-more" class="btn-success"> Learn More</a></li> -->
+           <!-- <li> <a href="#about" class="btn-success"> About Us</a></li> -->
+        </ul>
+      </nav>
+    </div>
+
+  </div>
+
+  </div>
+</header>
+<!-- /HEADER -->
+
+<!-- Registration Modal -->
+<div class="modal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Register with Facebook, or with an email and password below.</h4>
+      </div>
+      <div class="modal-body">
+          <h3 class="center">
+            <%= link_to image_tag("fb-login.png", class:"fb-login-btn"), user_facebook_omniauth_authorize_path %>
+          </h3>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <%= devise_error_messages! %>
+            <div class="field center">
+              <%= f.email_field :email, placeholder: "Email", autofocus: true, class: "form-control", type: 'email', required:true, label: false %>
+            </div>
+            <div class="field center">
+              <% if @minimum_password_length %>
+              <em>(<%= @minimum_password_length %> characters minimum)</em>
+              <% end %>
+              <%= f.password_field :password, placeholder: "password", autocomplete: "off", class: "form-control", type: 'password', required:true, label: false %>
+            </div>
+            <div class="field center">
+              <%= f.password_field :password_confirmation,  placeholder: "confirm password", autocomplete: "off", class: "form-control", type: 'password', required:true, label: false %>
+            </div>
+            <br>
+            <div class="actions center">
+              <%= f.submit "Register", class: "btn btn-success"%>
+            </div>
+          <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Login Modal -->
+<div class="modal" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Login with either Facebook, or your email and password.</h4>
+      </div>
+      <div class="modal-body">
+          <h3 class="center">
+            <%= link_to image_tag("fb-login.png", class:"fb-login-btn"), user_facebook_omniauth_authorize_path %>
+          </h3>
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="field center">
+              <%= f.email_field :email, placeholder: "Email", autofocus: true %>
+            </div>
+            <div class="field center">
+              <%= f.password_field :password, placeholder: "password", autocomplete: "off" %>
+            </div>
+            <div class="actions center">
+              <%= f.submit "Log in", class: "btn btn-success" %>
+            <% end %>
+            </div>
+            <div class="center">
+              <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+                <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
+              <% end -%>
+              <a href="#" data-toggle="modal" data-target="#registerModal">New user? First register your Account</a>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class='container'>
+  <% if notice %>
+  <!--   <p class="alert alert-success alert-dismissable"><%= notice %>
+    </p> -->
+    <div class="alert alert-success alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+     <p> <%= notice %> </p>
+    </div>
+  <% end %>
+
+  <% if alert %>
+    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+     <p> <%= alert %> <%= notice %> </p>
+    </div>
+  <% end %>
+
+  <% if notice && flash[:complete_form] == 'TRUE' %>
+
+      <!-- Google Code for Initiate Lesson Request (advance to /lessons/XX/complete) Conversion Page -->
+          <script type="text/javascript">
+          /* <![CDATA[ */
+          var google_conversion_id = 880357341;
+          var google_conversion_language = "en";
+          var google_conversion_format = "3";
+          var google_conversion_color = "ffffff";
+          var google_conversion_label = "dMkNCLmj22wQ3d_kowM";
+          var google_remarketing_only = false;
+          /* ]]> */
+          </script>
+          <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+          </script>
+          <noscript>
+          <div style="display:inline;">
+          <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/880357341/?label=dMkNCLmj22wQ3d_kowM&amp;guid=ON&amp;script=0"/>
+          </div>
+          </noscript>
+
+      <!-- Facebook Pixel Code for IniatiateCheckout -->
+          <script>
+            fbq('track', 'InitiateCheckout');
+          </script>
+      <!-- End Facebook Pixel Code -->
+
+  <% end %>
+
+  <% if notice && flash[:sumo_success] == 'TRUE' %>
+      <!-- Google Code for Email capture Conversion Page -->
+      <script type="text/javascript">
+      /* <![CDATA[ */
+      var google_conversion_id = 880357341;
+      var google_conversion_language = "en";
+      var google_conversion_format = "3";
+      var google_conversion_color = "ffffff";
+      var google_conversion_label = "MH1ICP-Bpm4Q3d_kowM";
+      var google_remarketing_only = false;
+      /* ]]> */
+      </script>
+      <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+      </script>
+      <noscript>
+      <div style="display:inline;">
+      <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/880357341/?label=MH1ICP-Bpm4Q3d_kowM&amp;guid=ON&amp;script=0"/>
+      </div>
+      </noscript>
+
+  <% end %>
+
+  <% if notice && flash[:application_submitted] == 'TRUE' %>
+
+      <!-- Google Code for Instructor Leads Conversion Page -->
+      <script type="text/javascript">
+      /* <![CDATA[ */
+      var google_conversion_id = 880357341;
+      var google_conversion_label = "3ofGCKve3XUQ3d_kowM";
+      var google_remarketing_only = false;
+      /* ]]> */
+      </script>
+      <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+      </script>
+      <noscript>
+      <div style="display:inline;">
+      <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/880357341/?label=3ofGCKve3XUQ3d_kowM&amp;guid=ON&amp;script=0"/>
+      </div>
+      </noscript>
+
+
+      <!-- Facebook lead conversion event -->
+      <script>
+        fbq('init', '1111997732228432');
+        fbq('track', 'Lead');
+      </script>
+      <!-- end -->
+
+  <% end %>
+
+  <% if notice && flash[:conversion] == 'TRUE' %> 
+
+    <% if ENV['HOST_DOMAIN'] == 'localhost:3000' %>
+        <!-- Google Code for Lesson Booking [TEST - localhost] Conversion Page -->
+        <script type="text/javascript">
+        /* <![CDATA[ */
+        var google_conversion_id = 880357341;
+        var google_conversion_label = "fdfcCPOyq3oQ3d_kowM";
+        var google_remarketing_only = false;
+        /* ]]> */
+        </script>
+        <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+        </script>
+        <noscript>
+        <div style="display:inline;">
+        <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/880357341/?label=fdfcCPOyq3oQ3d_kowM&amp;guid=ON&amp;script=0"/>
+        </div>
+        </noscript>
+    <% elsif ENV['HOST_DOMAIN'] == 'www.snowschoolers.com' %>
+      <!-- Google Code for Lesson Bookings Conversion Page -->
+        <script type="text/javascript">
+        /* <![CDATA[ */
+        var google_conversion_id = 880357341;
+        var google_conversion_label = "bMVQCIvNxWwQ3d_kowM";
+        var google_conversion_value = 30.00;
+        var google_conversion_currency = "USD";
+        var google_remarketing_only = false;
+        /* ]]> */
+        </script>
+        <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+        </script>
+        <noscript>
+        <div style="display:inline;">
+        <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/880357341/?value=30.00&amp;currency_code=USD&amp;label=bMVQCIvNxWwQ3d_kowM&amp;guid=ON&amp;script=0"/>
+        </div>
+        </noscript>
+    <% end %>
+
+  <% end %>
+
+</div>
+<% if controller.controller_name != "welcome" %>
+<% images = ['https://s3.amazonaws.com/snowschoolers/big-blue-bar-Jan29.jpg','https://s3.amazonaws.com/snowschoolers/Jan24-hw-twitter.jpg','https://s3.amazonaws.com/snowschoolers/Jan13-theface-powder.jpg'] %>
+<div class="page-container">
+    <ul id="slider" class="mc-cycle" style="display: block; height: 100%; width: 100%;">
+        <div class="mc-image bg-photo" title="background photo" style="background-image: url('<%=images.sample %>'); height: 100%; width: 100%;" data-href=""></div>
+    </ul>
+</div>
+<% end %>
+
+<%= yield %>
+
+<!-- Avantlink Affiliate code; no longer need active -->
+<!-- <script type="text/javascript" src="http://classic.avantlink.com/affiliate_app_confirm.php?mode=js&authResponse=06120309f10e5c8a15d74ad27a012f96dec561bb"></script> -->
+
+<!-- FOOTER -->
+
+<footer id="footer">
+<!-- JS snippet for Crisp chat client -->
+<% if controller.controller_name == "welcome" || controller.controller_name == "lessons" || controller.controller_name == "instructors" %>
+<script type="text/javascript">CRISP_WEBSITE_ID = "0ae9bf60-bc66-4da4-b4d3-716ab557898c";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.im/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+<% end %>
+  <span id="slideTimer"><!-- fs-slideshow timer line --></span>
+
+  <!-- right menu -->
+  <h4 class="center">
+  <ul>
+    <li><a href="/beginners-guide-to-tahoe" target="_blank">Complete Guide to Tahoe</a></li>
+    <li><a href="/team-offsites" target="_blank">Corporate Trips</a></li>
+    <li><a href="/resorts" target="_blank">Where to Ski</a></li>
+    <li><a href="/accommodations" target="_blank">Places to Stay</a></li>
+    <li><a href="/blog" target="_blank">Our Blog</a></li>
+    <li><a href="/about_us" target="_blank">About Us</a></li>
+    <li><a href="/privacy" target="_blank">privacy</a></li>
+    <li><a href="mailto:hello@snowschoolers.com" target="_blank">Contact</a></li>
+    <li><a href="https://www.snowsportsjobs.com" target="_blank">Jobs - JOIN THE TEAM</a></li>
+  </ul>
+  <span class="hidden-xs copyright-text pull-left">&copy; Snow Schoolers, Inc. 2017</span>
+  </h4>
+  <!-- /right menu -->
+
+  <!-- copyright -->
+  <!-- /copyright -->
+</footer>
+<!-- /FOOTER -->
+
+
+<!-- FOLLOW US -->
+<div class="modal fade bs-example-modal-lg" id="socialInlineModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header"><!-- modal header -->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-hand-o-down"></i> Follow Us</h4>
+      </div><!-- /modal header -->
+
+      <!-- modal body -->
+      <div class="modal-body">
+        <p>Follow us online, join our conversations, engage with our teams around the world!</p>
+        <div class="text-center">
+          <a href="https://www.facebook.com/snowschoolers2016" class="socialbtn facebook"><i class="fa fa-facebook"></i>Facebook</a>
+          <a href="https://twitter.com/snowschoolers" class="socialbtn twitter"><i class="fa fa-twitter"></i>Twitter</a>
+          <a href="https://www.linkedin.com/company/snow-schoolers" class="socialbtn linkedin"><i class="fa fa-linkedin"></i>Linkedin</a>
+          <a href="https://www.youtube.com/channel/UCHhUiwRmAQSrmzNUimeP7Uw" class="socialbtn youtube"><i class="fa fa-youtube"></i>Youtube</a>
+        </div>
+      </div>
+      <!-- /modal body -->
+
+    </div>
+  </div>
+</div>
+<!-- /Closing Div for #MasterContainer US -->
+<!-- </div> -->
+
+<!-- Google Code for Remarketing Tag -->
+<script type="text/javascript">
+  /* <![CDATA[ */
+  var google_conversion_id = 880357341;
+  var google_custom_params = window.google_tag_params;
+  var google_remarketing_only = true;
+  /* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+  <div style="display:inline;">
+  <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/880357341/?guid=ON&amp;script=0"/>
+  </div>
+</noscript>
+
+</body>
+</html>
