@@ -24,10 +24,16 @@
 .white-transparent-bg{
   background: rgba(255, 255, 255, 0.8);
   border-radius: 0.5rem;
+  border: 1px solid black;
 }
 .black-transparent-bg{
   background: rgba(0, 0, 0, 0.3);
   border-radius: 0.5rem;
+}
+.navy-transparent-bg{
+  background: rgba(9, 35, 64, 0.6);
+  border-radius: 0.5rem;
+  border: 1px solid black;
 }
 .why-ss{
   border-radius: 0.5rem;

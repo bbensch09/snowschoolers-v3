@@ -28,6 +28,18 @@ body {
        -moz-box-sizing: border-box;
             box-sizing: border-box;
 }
+
+.prompt-box{
+    position: absolute;
+    top: 40%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 90vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
 .close{
   color: #000;
 }
@@ -281,6 +293,11 @@ aside {
   padding-top: 15px;
   padding-bottom: 15px;
 }
+.black-shadow-box-highlight {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
 .light-shadow-box-highlight{
   background-color: rgba(59, 89, 152, .3);
   padding-top: 15px;
@@ -321,8 +338,11 @@ width: 200px;
     margin-right: auto;
   }
   #header-creative .header-content .header-content-inner h1 {
-    font-size: 40px;
-  }
+    font-size: 50px;
+    font-family: "futura-pt-bold", sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+}  
   #header-creative .header-content .header-content-inner p {
     font-size: 24px;
     line-height: 1;
@@ -563,6 +583,9 @@ body {
 
 .smaller-text{
   font-size: 0.5em;
+}
+.recruiting-text{
+  font-size: 1.1em;
 }
 .price-comparison{
   display:block;
@@ -1393,6 +1416,57 @@ h2.blog-cta{
 .bonus-amount{
   padding-right: 20%;
 }
+.wide-container{
+  max-width: 1400px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.amp-button {
+    font-family: 'futura-pt-bold',sans-serif;
+    /*font-weight: bold;*/
+    background-color: #0080bb;
+    border: 0;
+    font-size: 1.8em;
+    line-height: 60px;
+    text-align: left;
+    color: #ffffff;
+    padding: 0 30px;
+    margin-left: 10px;
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+}
+.amp-button-small{
+  font-size: 1.1em;
+  line-height: 1.4em;
+  width: 25vw;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+
+}
+.amp-button.dark:hover, .amp-button.dark:focus, .amp-button.primary:hover, .amp-button.primary:focus, .amp-button.progress:hover, .amp-button.progress:focus, .amp-button.progress-alt:hover, .amp-button.progress-alt:focus, .amp-button.previous:hover, .amp-button.previous:focus, .amp-button.outline:hover, .amp-button.outline:focus {
+    background-color: #006695;
+    transition: background-color 0.1s ease-in;
+    transition-delay: 0.4s;
+    color: #ffffff;
+    text-decoration: none;
+}
+.amp-button:hover {
+    background-color:#fff;
+    color: #0080bb;
+}
+
+.bg-navy {
+    color: #36454f;
+    background-color: #092340;
+}
 
 /*Desktop specific adjustments*/
 @media (min-width: 1200px) {
@@ -1424,6 +1498,71 @@ h2.blog-cta{
   .hidden-unless-desktop{
     display: none;
   }
+
+  .hidden-unless-desktop{
+    display: none;
+  }
+
+  .homepage-lesson-container{
+    min-height: 840px;
+  }
+
+  .cvps-mobile{
+    margin-top: -25px;
+  }
+  
+  h3 {
+    font-size: 1.1em;
+  }
+
+  h4{
+    font-size: 0.8em
+  }
+
+  .prompt-box{
+    top:50%;
+  }
+
+  .amp-button{
+    font-size: 1.3em;
+  }
+
+  .amp-button-small{
+    width: 60vw;
+    text-align: center;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    font-size: 1.4em;
+    line-height: 1.4em;
+  }
+
+  .intro-questions{
+    margin-top: 15px;
+    font-size: 1.4em;
+  }
+
+  label {
+    font-size: 1em;
+    font-weight:normal;
+  }
+  .mobile-no-padding{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .form-control{
+    font-size: 1.2em;
+  }
+  .mobile-form-question{
+    font-size: 1.5em;
+  }
+  .form-title{
+    font-size: 1.9em;
+  }
+  .email-us{
+    font-size: 1.4em;
+  }
+
   .form-inputs, .update-lesson-form, .vertical-divider, .info-box{
     display: block;
   }
@@ -1756,4 +1895,13 @@ h2.blog-cta{
   #search-index-header{
     font-size: 1.1em;
   }
+.service-box {
+  max-width: 100%;
+  margin: 30px auto 0;
+}
+.service-box h3{
+  font-size: 1.5em;
+  text-decoration: underline;
+}
+
 }
