@@ -92,7 +92,7 @@ class Lesson < ActiveRecord::Base
     end
     case self.class_type
       when nil
-        class_type_code = 'PRIVATE'
+        class_type_code = 'SS'
       when 'group'
         class_type_code = 'GROUP'
       when 'private'
@@ -470,11 +470,12 @@ class Lesson < ActiveRecord::Base
     end   
 
     # determine number of morning group sections with at least one booking
-    am_section_ids = []
     unless am_lessons.nil?
+      am_section_ids = []
       am_lessons.each do |l|
         am_section_ids << l.section.id
       end
+      puts "!!!! am section_ids are: #{am_section_ids}"
       am_sections_count = am_section_ids.uniq.count
     end
 
@@ -484,6 +485,7 @@ class Lesson < ActiveRecord::Base
       pm_lessons.each do |l|
         pm_section_ids << l.section.id
       end
+      puts "!!!! pm section_ids are: #{pm_section_ids}"
       pm_sections_count = pm_section_ids.uniq.count
     end
 
