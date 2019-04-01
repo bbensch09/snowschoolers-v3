@@ -74,7 +74,7 @@ Rails.application.routes.draw do
   # root to: "lessons#new"
   root to: "welcome#index"
   get 'jobs' => 'welcome#jobs'
-  get 'jobs-get-started' => 'welcome#jobs_get_started'
+  get 'join-the-team' => 'welcome#join_the_team'
 
   #backup index
   get 'winter' => 'welcome#index_backup_may2017'

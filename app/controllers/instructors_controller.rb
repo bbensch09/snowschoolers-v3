@@ -75,6 +75,7 @@ class InstructorsController < ApplicationController
   end
 
   def thank_you
+    render 'ikon_thank_you'
   end
 
   # POST /instructors

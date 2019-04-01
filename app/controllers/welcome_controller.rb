@@ -330,9 +330,9 @@ def liftopia_referral
     render 'jobs', layout: 'recruiting'
   end
 
-  def jobs_get_started
+  def join_the_team
     @instructor = Instructor.new
-    render 'jobs_get_started', layout: 'recruiting'
+    render 'join_the_team', layout: 'recruiting'
   end
 
   def apply
