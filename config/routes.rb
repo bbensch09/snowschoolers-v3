@@ -73,6 +73,8 @@ Rails.application.routes.draw do
 
   # root to: "lessons#new"
   root to: "welcome#index"
+  get 'jobs' => 'welcome#jobs'
+  get 'join-the-team' => 'welcome#join_the_team'
 
   #backup index
   get 'winter' => 'welcome#index_backup_may2017'

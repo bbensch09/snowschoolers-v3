@@ -1,21 +1,26 @@
+console.log("Lesson.js loaded");
+
 var dt = new Date();
 var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
 var hour = dt.getHours();
 if (hour > 15) {
-    var MIN_DATE = 2
-  } else {
     var MIN_DATE = 1
+  } else {
+    var MIN_DATE = 0
   };
 
 var day = dt.getDate();
 var month = dt.getMonth() + 1;
 var year = dt.getYear() +1900;
 var date = year + "-" + month + "-" + day;
-var opening_date = new Date("2018-12-07");
+var opening_date = new Date("2018-11-22");
 
+// logs today's date
 console.log(date);
+
 if (Date.now() <= opening_date) {
-  var MIN_DATE = '2018-12-07';
+  var MIN_DATE = '2018-11-22';
+  // logs the season start date
   console.log(MIN_DATE);
 }
 
@@ -59,22 +64,7 @@ var LESSON = {
   // setDatepicker: function() { LESSON._date.datepicker({ minDate: MIN_DATE, maxDate: '2018-04-15', dateFormat: 'yy-mm-dd' }); },
 
   setDatepicker: function() {
-  var blocked_dates_array = ['2018-12-10','2018-12-11','2018-12-12','2018-12-13',
-  '2018-12-18','2018-12-19','2018-12-20',
-  '2019-01-08','2019-01-09','2019-01-10',
-  '2019-01-15','2019-01-16','2019-01-17',
-  '2019-01-22','2019-01-23','2019-01-24',
-  '2019-01-29','2019-01-30','2019-01-31',
-  '2019-02-05','2019-02-06','2019-02-07',
-  '2019-02-12','2019-02-13','2019-02-14',
-  // '2019-02-19','2019-02-20','2019-02-21', President's week
-  '2019-02-26','2019-02-27','2019-02-28',
-  '2019-03-05','2019-03-06','2019-03-07',
-  '2019-03-12','2019-03-13','2019-03-14',
-  '2019-03-19','2019-03-20','2019-03-21',
-  '2019-03-26','2019-03-27','2019-03-28',
-  '2019-04-02','2019-04-03','2019-04-04',
-  ];
+  var blocked_dates_array = ['2018-03-13','2018-03-14','2018-03-15','2018-03-20','2018-03-21','2018-03-22','2018-03-27','2018-03-28','2018-03-29','2018-04-03','2018-04-04','2018-04-05','2018-04-10','2018-04-11','2018-04-12'];
   LESSON._date.datepicker({
     beforeShowDay: function(date){
       var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
@@ -84,7 +74,6 @@ var LESSON = {
     maxDate: '2019-04-15',
     dateFormat: 'yy-mm-dd'
   });
-
   LESSON._date2.datepicker({
     beforeShowDay: function(date){
       var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
@@ -265,7 +254,7 @@ var maxStudentsListener = function(){
   $('#add-student-button').click(function(e){
     var studentCount = $('.nested-fields').length
     console.log('student count is '+studentCount);
-    if (studentCount >= 4){
+    if (studentCount >= 20){
       $('#add-student-button').addClass('hidden');
       $('#max-students-warning').removeClass('hidden');
       console.log('hide button to add more students.');
@@ -318,56 +307,104 @@ var calculateTotalListener = function() {
 }
 
 var toggleElementListener = function(){
-  $('#toggle-today-lessons').click(function(e){
+  $('#submit-question1a').click(function(e){
     e.preventDefault();
-    $('#today-lessons').toggleClass('hidden');
-    console.log("lessons for today toggled, buttons switched.");
+    $('#question1').toggleClass('hidden');
+    $('#question2').toggleClass('hidden');
+    console.log("question 1 answered, next question revealed.");
+  });
+  $('#submit-question1b').click(function(e){
+    e.preventDefault();
+    $('#question1').toggleClass('hidden');
+    $('#question2').toggleClass('hidden');
+    console.log("question 1 answered, next question revealed.");
+  });
+  $('#submit-question1c').click(function(e){
+    e.preventDefault();
+    $('#question1').toggleClass('hidden');
+    $('#question2').toggleClass('hidden');
+    console.log("question 1 answered, next question revealed.");
+  });
+  $('#submit-question1d').click(function(e){
+    e.preventDefault();
+    $('#question1').toggleClass('hidden');
+    $('#question2').toggleClass('hidden');
+    console.log("question 1 answered, next question revealed.");
+  });
+  $('#submit-question1e').click(function(e){
+    e.preventDefault();
+    $('#question1').toggleClass('hidden');
+    $('#question2').toggleClass('hidden');
+    console.log("question 1 answered, next question revealed.");
+  });
+  $('#submit-question1f').click(function(e){
+    e.preventDefault();
+    $('#question1').toggleClass('hidden');
+    $('#question2').toggleClass('hidden');
+    console.log("question 1 answered, next question revealed.");
+  });
+// question 2
+  $('#submit-question2').click(function(e){
+    e.preventDefault();
+    $('#question2').toggleClass('hidden');
+    $('#question3').toggleClass('hidden');
+    console.log("question 2 answered, next question revealed.");
+  });
+  $('#submit-question2b').click(function(e){
+    e.preventDefault();
+    $('#thinking-face').toggleClass('hidden');
+    console.log("question 2 answered incorrectly....");
   });
 
-  $('#toggle-tomorrow-lessons').click(function(e){
+
+// question 3
+  $('#submit-question3').click(function(e){
     e.preventDefault();
-    $('#tomorrow-lessons').toggleClass('hidden');
-    console.log("lessons for tomorrow toggled, buttons switched.");
+    $('#question3').toggleClass('hidden');
+    $('#apply-form').toggleClass('hidden');
+    console.log("question 3 answered, show application.");
+  });
+  $('#submit-question3b').click(function(e){
+    e.preventDefault();
+    $('#thinking-face3b').toggleClass('hidden');
+    console.log("question 2 answered incorrectly....");
   });
 
-  $('#toggle-completed-lessons').click(function(e){
-    e.preventDefault();
-    $('#completed-lessons').toggleClass('hidden');
-    console.log("lessons revealed, buttons switched.");
-  });
-    $('#toggle-available-lessons').click(function(e){
-    e.preventDefault();
-    $('#available-lessons').toggleClass('hidden');
-    console.log("toggle today's lessons, buttons switched.");
-  });
-   $('#toggle-upcoming-lessons').click(function(e){
-    e.preventDefault();
-    $('#upcoming-lessons').toggleClass('hidden');
-    console.log("lessons revealed, buttons switched.");
-  });
-    $('#toggle-filter-options').click(function(e){
-    e.preventDefault();
-    $('#secondary-search-filters').toggleClass('hidden-unless-desktop');
-    console.log("filters revealed.");
-  });
-    $('#toggle-more-info').click(function(e){
-    e.preventDefault();
-    $('#more-info').toggleClass('hidden');
-    console.log("info revealed.");
-  });
-    $('.needs-rental').change(function(e){
-    e.preventDefault();
-    // $('.student-rental-information').toggleClass('hidden');
-    rental_state = $('.needs-rental').val();
-    console.log("current rental_state is "+rental_state);
-    if (rental_state == 'true') {
-    $('.student-rental-information').removeClass('hidden');
-    console.log("rental info revealed");
-    } else {
-      $('.student-rental-information').addClass('hidden');
-      console.log('keep rental info hidden');
-    };
-  });
+
+// old toggle elements
+  //  $('#toggle-upcoming-lessons').click(function(e){
+  //   e.preventDefault();
+  //   $('#upcoming-lessons').toggleClass('hidden');
+  //   console.log("lessons revealed, buttons switched.");
+  // });
+  //   $('#toggle-available-lessons').click(function(e){
+  //   e.preventDefault();
+  //   $('#available-lessons').toggleClass('hidden');
+  //   console.log("lessons revealed, buttons switched.");
+  // });
+  //   $('#toggle-filter-options').click(function(e){
+  //   e.preventDefault();
+  //   $('#secondary-search-filters').toggleClass('hidden-unless-desktop');
+  //   console.log("filters revealed.");
+  // });
+  //   $('#toggle-more-info').click(function(e){
+  //   e.preventDefault();
+  //   $('#more-info').toggleClass('hidden');
+  //   console.log("info revealed.");
+  // });
+  //   $('.needs-rental').change(function(e){
+  //   e.preventDefault();
+  //   // $('.student-rental-information').toggleClass('hidden');
+  //   rental_state = $('.needs-rental').val();
+  //   console.log("current rental_state is "+rental_state);
+  //   if (rental_state == 'true') {
+  //   $('.lodging-reservation-input').removeClass('hidden');
+  //   console.log("lodging info revealed");
+  //   } else {
+  //     $('.lodging-reservation-input').addClass('hidden');
+  //     console.log('keep lodging info hidden');
+  //   };
+  // });
 }
 
 $(function(){

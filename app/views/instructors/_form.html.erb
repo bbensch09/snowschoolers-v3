@@ -78,7 +78,13 @@
     <br>
   </div>
     <% end %>
-    <h4><b>Contact Info</b> </h4>
+    
+    <h3 class="center form-title"><b>Apply to Join</b> </h3>
+    <% if current_user %> 
+          <a href="#form-filled" id="autofill_application_form" class="btn btn-success">Autofill</a> <br>
+    <% end %>
+
+    <h4><b>Basic Info</b> </h4>
     <div class="col-md-6 col-xs-12 vertical-padding">
       <%= f.text_field :first_name, placeholder: 'First name', class: 'form-control', required:true %>
     </div>

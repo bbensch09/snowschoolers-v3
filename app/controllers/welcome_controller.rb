@@ -325,6 +325,16 @@ def liftopia_referral
    end
 
 
+  def jobs
+    # render 'rental_agreement', layout: 'rental_agreement_layout'
+    render 'jobs', layout: 'recruiting'
+  end
+
+  def join_the_team
+    @instructor = Instructor.new
+    render 'join_the_team', layout: 'recruiting'
+  end
+
   def apply
     @instructor = Instructor.new
     GoogleAnalyticsApi.new.event('instructor-recruitment', 'load-application-page')

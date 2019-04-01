@@ -10,6 +10,7 @@
 }
 #recruiting-landing-page{
   padding-top:20px;
+  min-height: 150vh;
 }
 .buffer{
   min-height:50px;
@@ -24,10 +25,16 @@
 .white-transparent-bg{
   background: rgba(255, 255, 255, 0.8);
   border-radius: 0.5rem;
+  border: 1px solid black;
 }
 .black-transparent-bg{
   background: rgba(0, 0, 0, 0.3);
   border-radius: 0.5rem;
+}
+.navy-transparent-bg{
+  background: rgba(9, 35, 64, 0.6);
+  border-radius: 0.5rem;
+  border: 1px solid black;
 }
 .why-ss{
   border-radius: 0.5rem;
@@ -146,8 +153,10 @@
   max-width: 200px;
   word-wrap: break-word;
 }
-.apply-container{
-  max-width: 800px;
+.apply-container {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .avatar-thumbnail{
   height:80px;
@@ -223,7 +232,7 @@
   width: 200px;
 }
 .teach-with-us-form-container{
-  max-width: 36vw;
+  /*max-width: 36vw;*/
 }
 
 /*DESKTOP ONLY ADJUSTMENTS*/

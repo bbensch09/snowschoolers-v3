@@ -1,0 +1,94 @@
+
+<!-- REGISTER -->
+<div id="apply" class="navy-text">
+ <div class="apply-container">
+  <%= form_for @instructor do |f| %>
+  <% if @instructor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@instructor.errors.count, "error") %> prohibited this instructor from being saved:</h2>
+
+      <ul>
+      <% @instructor.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="complete-instructor-bio-section">
+    
+    <h3 class="center form-title"><b>Apply to Join</b> </h3>
+    <% if current_user %> 
+          <a href="#form-filled" id="autofill_application_form" class="btn btn-success">Autofill</a> <br>
+    <% end %>
+  <h4 class="mobile-form-question"><b>Basic Info</b></h4>
+    <div class="col-md-6 vertical-padding">
+      <%= f.text_field :first_name, placeholder: 'First name', class: 'form-control', required:true %>
+    </div>
+    <div class="col-md-6 vertical-padding">
+      <%= f.text_field :last_name, placeholder: 'Last name', class: 'form-control', required:true %>
+    </div>
+  </div>
+  <div class="">
+    <div class="col-md-6 vertical-padding">
+      <!-- %= f.text_field :username, value: current_user.email, class: 'form-control', required:true %> -->
+      <%= f.text_field :username, placeholder: "email@example.com", class: 'form-control', required:true %>
+    </div>
+    <div class="col-md-6 vertical-padding">
+      <%= f.text_field :phone_number, placeholder: 'Phone number', class: 'form-control' %>
+    </div>
+  </div>
+  <div class="col-md-6">
+  <h4 class="mobile-form-question"> In what city are you based? </h4>
+    <%= f.text_field :city, placeholder: 'i.e. Tahoe City, CA', class: 'form-control', required:true %>
+  </div>
+  <div class="col-md-6">
+  <h4 class="mobile-form-question"> What sports do you teach? </h4>
+  <%= f.collection_check_boxes :sport_ids, Sport.all, :id, :name do |sport| %>
+      <div class="collection-check-box form-control">
+        <%= sport.check_box %>
+        <%= sport.label %>
+      </div>
+      <% end %>
+  </div>
+  <div class="col-md-12">
+    <hr class="hr-navy">
+  </div>
+  <!-- <h4> Preferred Resorts (select up to 4)</h4> -->
+  <h4 class="mobile-form-question"> What <b>resort(s)</b> did you teach at during the '18/19 season?</h4>
+  <div class="col-md-12">
+      <%= f.text_field :preferred_locations, rows: 3, placeholder: "Feel free to share all of the places you've taught before." , class: 'form-control', required:true %>
+    <br>
+  </div>
+  <h4 class="mobile-form-question"><b>Professional certifications</b> (PSIA, AASI, etc.) </h4>
+  <div class="col-md-12">
+    <%= f.text_field :certification, placeholder: 'Do you hold any certifications?', class: 'form-control', required:true %>
+    <br>
+  </div>
+  <h4 class="mobile-form-question"><b>When</b> are you free for a phone interview?</h4>
+  <div class="col-md-12">
+    <%= f.text_field :intro, rows:5, placeholder: 'weekdays after 5pm / anytime btw 8am and 6pm / etc.', class: 'form-control', required:true %>
+    <br>
+  </div>
+  <h4 class="mobile-form-question"><b>How</b> did you hear about our community?</h4>
+  <div class="col-md-12">
+    <%= f.text_field :how_did_you_hear, rows:5, placeholder: 'e.g. my best friend Johnny just texted it to me. His email is johnny@example.com', class: 'form-control', required:true %>
+  </div>
+  <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
+  <hr>
+  <div class="row">
+    <div class="center vertical-padding">
+      <% if controller.action_name == 'edit' %>
+      <%= f.submit "Update Instructor Profile", class: "amp-button" %>
+      <% else %>
+      <%= f.submit "Submit Application", class: "amp-button" %>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+</div>
+<div class="spacer">
+</div>
+
+</div>
+<!-- /REGISTER -->
