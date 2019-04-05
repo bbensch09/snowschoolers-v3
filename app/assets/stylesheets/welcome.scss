@@ -29,6 +29,15 @@ body {
             box-sizing: border-box;
 }
 
+.recruiting-body {
+/*disables horizontal scroll */
+    overflow: hidden;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
 .prompt-box{
     position: absolute;
     top: 40%;
@@ -340,8 +349,8 @@ width: 200px;
   #header-creative .header-content .header-content-inner h1 {
     font-size: 50px;
     font-family: "futura-pt-bold", sans-serif;
-    font-weight: bold;
-    text-transform: uppercase;
+    /*font-weight: bold;*/
+    /*text-transform: uppercase;*/
 }  
   #header-creative .header-content .header-content-inner p {
     font-size: 24px;
@@ -585,7 +594,12 @@ body {
   font-size: 0.5em;
 }
 .recruiting-text{
-  font-size: 1.1em;
+  font-size: 1em;
+}
+.cvps-list, .cvps-list li{
+  text-align: left;
+  font-size: 0.8em;
+  line-height: 1.2em;
 }
 .price-comparison{
   display:block;
@@ -1688,7 +1702,11 @@ h2.blog-cta{
   max-width: 90vw;
   }
   #homeHeading{
-    font-size: 1.5em;
+    font-size: 1.3em;
+  }
+  .hr-no-margin{
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
   }
   .btn-xl {
     padding: 15px 30px;
