@@ -1,22 +1,33 @@
-console.log("Lesson.js loaded");
+$(document).ready(function(){
+    console.log("#1 loading lessons.js");
+
+});
+
+
+console.log("#2Lesson.js loaded");
 
 var dt = new Date();
 var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
 var hour = dt.getHours();
 if (hour > 15) {
-    var MIN_DATE = 1
+    var DATES_BUFFER = 0
   } else {
-    var MIN_DATE = 0
+    var DATES_BUFFER = 1
   };
 
 var day = dt.getDate();
+var day = day+DATES_BUFFER
+console.log("The day values is set to "+day)
 var month = dt.getMonth() + 1;
 var year = dt.getYear() +1900;
 var date = year + "-" + month + "-" + day;
 var opening_date = new Date("2018-11-22");
 
 // logs today's date
-console.log(date);
+console.log("DATES_BUFFER is set to: "+DATES_BUFFER);
+var MIN_DATE = date
+console.log("The minimum bookable date is "+MIN_DATE);
+
 
 if (Date.now() <= opening_date) {
   var MIN_DATE = '2018-11-22';
@@ -65,7 +76,7 @@ var LESSON = {
 
   setDatepicker: function() {
   var blocked_dates_array = ['2019-04-01','2019-04-02','2019-04-03','2019-04-04',
-  '2019-04-06','2019-04-08','2019-04-09','2019-04-10','2019-04-11','2019-04-15','2019-04-16','2019-04-17','2019-04-18'
+  '2019-04-08','2019-04-08','2019-04-09','2019-04-10','2019-04-11','2019-04-15','2019-04-16','2019-04-17','2019-04-18'
   ];
   LESSON._date.datepicker({
     beforeShowDay: function(date){
