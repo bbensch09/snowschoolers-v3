@@ -320,6 +320,15 @@ var calculateTotalListener = function() {
 }
 
 var toggleElementListener = function(){
+  $('#jobs-cta').click(function(e){
+    e.preventDefault();
+    $('#recruiting-landing-page').toggleClass('hidden');
+    $('#header-creative').toggleClass('hidden');
+    $('#learn-more').toggleClass('hidden');
+    // $('#jobs-contact-us-footer').toggleClass('hidden');
+    console.log("jobs-cta clicked; begin on-boarding questions.");
+  });
+// begin question prompts
   $('#submit-question1a').click(function(e){
     e.preventDefault();
     $('#question1').toggleClass('hidden');

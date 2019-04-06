@@ -327,6 +327,7 @@ def liftopia_referral
 
   def jobs
     # render 'rental_agreement', layout: 'rental_agreement_layout'
+    @instructor = Instructor.new
     render 'jobs', layout: 'recruiting'
   end
 
