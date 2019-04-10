@@ -1,9 +1,9 @@
 class LessonsController < ApplicationController
   respond_to :html
   skip_before_action :authenticate_user!, only: [:new, :granlibakken, :new_request, :create, :complete, :confirm_reservation, :update, :show, :edit, :rental_agreement, :skier_types]
-  before_action :set_lesson, only: [:show, :complete, :update, :edit, :edit_wages, :add_private_request, :remove_private_request, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_instructor, :admin_confirm_deposit, :admin_assign_instructor, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications, :send_review_reminders_to_student, :rental_agreement]
+  before_action :set_lesson, only: [:show, :duplicate, :complete, :update, :edit, :edit_wages, :add_private_request, :remove_private_request, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_instructor, :admin_confirm_deposit, :admin_assign_instructor, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications, :send_review_reminders_to_student, :rental_agreement]
   before_action :skip_product_id, except: [:create, :update]
-  before_action :save_lesson_params_and_redirect, only: [:create]
+  before_action :save_lesson_params_and_redirect, only: [:create, :duplicate]
   before_action :set_admin_skip_validations
   # before_action :authenticate_from_cookie!, only: [:complete, :confirm_reservation, :update, :show, :edit]
 
@@ -456,6 +456,17 @@ class LessonsController < ApplicationController
     @lesson.hourly_bonus = 0
     @lesson.bonus_category = 'N/A'
     @lesson.save
+    redirect_to @lesson
+  end
+
+  def duplicate
+    # @lesson_time = @lesson.lesson_time
+    new_lesson = @lesson.dup
+    # new_lesson.assign_attributes(lesson_params)
+    new_lesson.lesson_time =  @lesson.lesson_time #LessonTime.find_or_create_by(lesson_time_params)
+    new_lesson.product_name = @lesson.slot
+    new_lesson.save!
+    @lesson = new_lesson
     redirect_to @lesson
   end
 
