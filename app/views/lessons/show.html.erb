@@ -64,6 +64,7 @@
 
           <hr>
           <%= link_to "Send Reminder Email", send_day_before_reminder_email_path(@lesson), class: "btn btn-success" %> (goes to student & cc instructor)
+          <%= link_to "Create Duplicate Lesson", duplicate_path(@lesson), method: :put, class: "btn btn-warning" %>
           <li>Client phone number: <%= @lesson.phone_number %> </li>
           <li>Lesson wages: <%= number_to_currency(@lesson.wages+@lesson.bonus_wages) %> total; base:<%= number_to_currency(@lesson.wages)%>; bonus:<%= number_to_currency(@lesson.bonus_wages)%> </li>
           <% if @lesson.hourly_bonus %>

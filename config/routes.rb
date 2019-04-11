@@ -244,6 +244,7 @@ Rails.application.routes.draw do
   get '/lessons/:id/edit_wages' => 'lessons#edit_wages', as: :edit_wages
   get '/lessons/:id/add_private_request' => 'lessons#add_private_request', as: :add_private_request
   get '/lessons/:id/remove_private_request' => 'lessons#remove_private_request', as: :remove_private_request
+  put  'lessons/:id/duplicate'   => 'lessons#duplicate',   as: :duplicate
 
 
 
