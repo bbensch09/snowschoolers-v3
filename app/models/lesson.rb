@@ -1125,6 +1125,7 @@ class Lesson < ActiveRecord::Base
   def add_group_lesson_to_section
     puts "!!!! skip adding to section if private lesson !!!!!"
     return true if self.private_lesson?
+    return true if self.class_type == "tickets"
     return true if self.section_id && self.sport_id == self.section.sport_id && self.date == self.section.date
     existing_sections = self.available_sections
       if self.available_sections.count == 0
@@ -1667,6 +1668,7 @@ private
 
   def instructors_must_be_available
     return true if self.skip_validations
+    return true if self.class_type == "tickets"
     puts "!!! checking if group class type"
     # don't automatically approve group lessons if private instructors are sold out
     # return true if group_lesson?
