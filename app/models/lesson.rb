@@ -1122,6 +1122,24 @@ class Lesson < ActiveRecord::Base
     sections = sections.select{|section| section.has_capacity?}
   end
 
+  def ticket_price
+    return 0 if self.activity != 'tickets'
+    case activity
+    when 'Child'
+      return CHILD_HW_TICKET_PRICE
+    when 'Teen'
+      return TEEN_HW_TICKET_PRICE
+    when 'Adult'
+      return ADULT_HW_TICKET_PRICE
+    else
+      return 60
+    end
+  end
+
+  def total_ticket_price
+    self.ticket_price * self.num_days
+  end
+
   def add_group_lesson_to_section
     puts "!!!! skip adding to section if private lesson !!!!!"
     return true if self.private_lesson?

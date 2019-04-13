@@ -1,3 +1,8 @@
+# TICKET PRICES
+CHILD_HW_TICKET_PRICE = 30
+TEEN_HW_TICKET_PRICE = 45
+ADULT_HW_TICKET_PRICE = 60
+
 ADMIN_PHONE_NUMBERS = ['408-315-2900','775-657-1317']
 
 # Peak Dates include all Saturdays plus Dec. 25, January 1, February 15th, February 19-23

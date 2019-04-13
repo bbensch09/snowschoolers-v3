@@ -11,7 +11,24 @@
           </article>
 
             <h1 class="center">Authorize Payment</h1>
+
             <div id="booking-details-container" class="booking-details">
+              <% if @lesson.class_type == "tickets" %>
+
+                  <div class='colm-md-12 col-xs-12'>
+                      <ul>
+                          <li><span class="lesson-detail-topic">Ticket Type:</span> <%= @lesson.activity %></li>
+                          <li><span class="lesson-detail-topic">Price per student:</span> <%= number_to_currency(@lesson.ticket_price) %></li>
+                          <li><span class="lesson-detail-topic">Total price:</span> <%= @lesson.total_ticket_price %></li>                    
+                          <% if @lesson.package_info %>
+                          <br><span class="italic"> <%= @lesson.package_info %></span>
+                          <% end %>
+                      </ul>
+                  </div>
+
+              <% else @lesson.group_lesson? %>
+
+
               <div class="row full-width">
                 <div class="col-xs-4 col-md-3">
                   <b>Type:</b>
@@ -144,6 +161,8 @@
                   <% end %>
                 </div>
               </div>
+
+            <% end %>
             </div>
 
               
