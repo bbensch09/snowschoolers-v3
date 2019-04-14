@@ -354,6 +354,15 @@ class LessonsController < ApplicationController
     if params["commit"] == "Book Lesson" || params["commit"] == "GET STARTED"
       puts "!!!! lesson successfully intiated"
       create_lesson_and_redirect
+    elsif params["commit"] == "BUY NOW"
+      puts "!!!!lift ticket purchase begun"
+      @lesson = Lesson.new(lesson_params)
+      @lesson.requested_location = 8
+      @lesson.lesson_time_id = Lesson.last.lesson_time_id
+      @lesson.lesson_price = 60
+      @lesson.state = "ready_to_book"
+      @lesson.save!
+      redirect_to @lesson
     else
       puts "!!!parms not set as expected"
       session[:lesson] = params[:lesson]
@@ -711,6 +720,7 @@ class LessonsController < ApplicationController
   end
 
   def save_lesson_params_and_redirect
+    return true if params["commit"] == "BUY NOW"
     puts "!!!!! params are below: #{params}"
     puts params[:lesson][:activity]
     puts params[:lesson][:lesson_time][:date]

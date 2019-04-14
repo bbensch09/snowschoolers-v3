@@ -84,7 +84,9 @@
     </div>
 
     <div class="details-info-box">
+        <% unless @lesson.class_type == 'tickets' %>
         <%= render partial: 'price_details' %>
+        <% end %>
     </div>
     <div class='details-info-box'>
         <%= render partial: 'student_details' %>

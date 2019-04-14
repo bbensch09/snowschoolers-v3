@@ -1,5 +1,17 @@
     <p><b>Pricing Details</b></p>
-    <% if @lesson.group_lesson? %>
+    <% if @lesson.class_type == "tickets" %>
+            <div class='colm-md-12 col-xs-12'>
+                <ul>
+                    <li><span class="lesson-detail-topic">Ticket Type:</span> <%= @lesson.activity %></li>
+                    <li><span class="lesson-detail-topic">Price per student:</span> <%= number_to_currency(@lesson.ticket_price) %></li>
+                    <li><span class="lesson-detail-topic">Total price:</span> <%= @lesson.total_ticket_price %></li>                    
+                    <% if @lesson.package_info %>
+                    <br><span class="italic"> <%= @lesson.package_info %></span>
+                    <% end %>
+                </ul>
+            </div>
+
+    <% elsif @lesson.group_lesson? %>
     <div class='colm-md-12 col-xs-12'>
         <ul>
             <li><span class="lesson-detail-topic">Number of students:</span> <%= @lesson.students.count %></li>
@@ -30,6 +42,7 @@
             <% end %>
             <li><span class="lesson-detail-topic">Lift & rentals subtotal:</span> <%= number_to_currency(@lesson.package_cost) %></li>
             <li><span class="lesson-detail-topic">Direct lesson cost:</span> <%= number_to_currency(@lesson.product.price) %></li>
+            <li><span class="lesson-detail-topic">Total Price:</span> <%= number_to_currency(@lesson.price) %></li>
             <% if @lesson.price == @lesson.lesson_price %>
             <li><span class="lesson-detail-topic">Final Price:</span> <%= number_to_currency(@lesson.price) %></li>
             <% elsif @lesson.admin_price_adjustment %>
