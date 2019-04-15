@@ -128,7 +128,7 @@ Rails.application.routes.draw do
   get '/liftopia' => 'welcome#liftopia_referral'
   get '/homewood-season-pass' => 'welcome#homewood_pass_referral'
   get '/shop/:id' => 'welcome#comparison_shopping_referral'
-  get '/tickets' => 'welcome#tickets'
+  get '/tickets' => 'lessons#tickets'
 
   # Begin resort referrals
   get '/kirkwood' => 'welcome#kirkwood_referral'

@@ -261,7 +261,9 @@ class LessonMailer < ActionMailer::Base
   def send_lesson_request_notification(lesson)
     @lesson = lesson
     return if @lesson.email_notifications_status == 'disabled'
-    if @lesson.guest_email.nil? || @lesson.guest_email == ""
+    if @lesson.class_type == 'tickets'
+      mail(to: @lesson.guest_email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, notify@snowschoolers.com", subject: "Homewood Lift Tickets Purchase Confirmation")
+    elsif @lesson.guest_email.nil? || @lesson.guest_email == ""
       mail(to: @lesson.requester.email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, notify@snowschoolers.com", subject: "Private Lesson Confirmation: Thanks for booking with Snow Schoolers for #{@lesson.date.strftime("%b %-d")}")
     else
       mail(to: @lesson.guest_email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, notify@snowschoolers.com", subject: "Private Lesson Confirmation: Thanks for booking with Snow Schoolers for #{@lesson.date.strftime("%b %-d")}")

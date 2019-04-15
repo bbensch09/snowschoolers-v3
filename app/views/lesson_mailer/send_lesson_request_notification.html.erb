@@ -4,6 +4,20 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
+    <% if @lesson.class_type == 'tickets' %>
+      <p>
+        Thanks for purchasing Homewood lift tickets! Your confirmation number is <%= @lesson.confirmation_number %>.
+      </p>
+      <p>
+        Your tickets will be available for in-person pickup any morning between April 16th and April 21st, which is our final day of operations this season. It is best to email us at <href="mailto:hello@snowschoolers.com">hello@snowschoolers.com, or call us at 530-430-7669 in advance when you know approximately what time you'll arrive. That way we can be ready to meet you and get you on your way.
+      </p>
+      <p>
+        Sincerely, <br>
+        The Snow Schoolers team
+      </p>
+      
+    <% else %>
+    
     <% if @lesson.requester.name %>
       <p>Hello <%= @lesson.requester.name.split(" ").first %>,</p>
       <% else %>
@@ -61,5 +75,6 @@
       Snow Schoolers Guest Services <br>
       hello@snowschoolers.com
     </p>
+    <% end %>
   </body>
 </html>

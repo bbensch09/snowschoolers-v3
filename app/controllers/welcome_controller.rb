@@ -6,10 +6,6 @@ class WelcomeController < ApplicationController
     protect_from_forgery :except => [:sumo_success]
 
 
-  def tickets
-    @lesson = Lesson.new
-  end
-
   def new_hire_packet
     file = "public/Homewood-Hire-Packet-2016-2017.pdf"
     if File.exists?(file)

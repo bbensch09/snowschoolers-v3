@@ -19,12 +19,15 @@
                       <ul>
                           <li><span class="lesson-detail-topic">Ticket Type:</span> <%= @lesson.activity %></li>
                           <li><span class="lesson-detail-topic">Price per student:</span> <%= number_to_currency(@lesson.ticket_price) %></li>
-                          <li><span class="lesson-detail-topic">Total price:</span> <%= @lesson.total_ticket_price %></li>                    
+                          <li><span class="lesson-detail-topic">Total price:</span> <%= number_to_currency(@lesson.total_ticket_price) %></li>                    
                           <% if @lesson.package_info %>
                           <br><span class="italic"> <%= @lesson.package_info %></span>
                           <% end %>
                       </ul>
                   </div>
+                  <p class="warning">
+                    <b> Note - </b> In order to purchase multiple types of tickets (Adult/Teen/Child) you will unfortunately have to process multiple orders.
+                  </p>
 
               <% else @lesson.group_lesson? %>
 
