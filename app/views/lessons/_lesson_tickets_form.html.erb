@@ -18,9 +18,9 @@
                   <tr>
                       <th class="center price-header" colspan="6">
                           <h1 class="navy-text">
-                              <span>SPRING 2019 DISCOUNT LIFT RATES</span>
+                              <span>CLEARANCE SALE - HOMEWOOD LIFT TICKETS</span>
                           </h1>
-                          <h3 class="center navy-text">Buy Online & Save 50% vs. the Ticket Window</h3>
+                          <h3 class="center navy-text">Buy Online & Save Over 50% vs. the Ticket Window</h3>
                       </th>
                   </tr>
                   
@@ -91,11 +91,9 @@
       <div class="col-md-3 time-slot-input">
         <%= f.input :num_days, as: :select, collection: [1,2,3,4,5,6,7,8,9,10], selected: 1, include_blank: 'Number of Tickets', label: false %>
       </div>
-      <% if current_user.nil? %>
       <div class="col-md-2 guest-email-input">
-        <%= f.input :guest_email, as: :string, placeholder: "your_email@example.com", label: false %>
+        <%= f.email_field :guest_email, placeholder: "your_email@example.com", class: "form-control", type: 'email', required:true, label: false %>
       </div>
-      <% end %>
     </p>
   </div>
 

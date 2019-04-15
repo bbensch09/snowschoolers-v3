@@ -97,10 +97,16 @@ class Lesson < ActiveRecord::Base
         class_type_code = 'GROUP'
       when 'private'
         class_type_code = 'PRIVATE'
+      when 'tickets'
+        class_type_code = 'TICKETS'
       else 'NA'
     end
     id = self.id.to_s
-    confirmation_number = l+'-'+class_type_code+'-'+date+'-'+id+rental_code
+    if self.class_type == 'tickets'
+      confirmation_number = l+'-'+class_type_code+'-'+id+rental_code
+    else
+      confirmation_number = l+'-'+class_type_code+'-'+date+'-'+id+rental_code
+    end
   end
 
   def contact_email
@@ -1123,7 +1129,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def ticket_price
-    return 0 if self.activity != 'tickets'
+    return 0 if self.class_type != 'tickets'
     case activity
     when 'Child'
       return CHILD_HW_TICKET_PRICE

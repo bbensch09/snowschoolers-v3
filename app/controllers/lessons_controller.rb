@@ -1,11 +1,15 @@
 class LessonsController < ApplicationController
   respond_to :html
-  skip_before_action :authenticate_user!, only: [:new, :granlibakken, :new_request, :create, :complete, :confirm_reservation, :update, :show, :edit, :rental_agreement, :skier_types]
+  skip_before_action :authenticate_user!, only: [:new, :tickets, :granlibakken, :new_request, :create, :complete, :confirm_reservation, :update, :show, :edit, :rental_agreement, :skier_types]
   before_action :set_lesson, only: [:show, :duplicate, :complete, :update, :edit, :edit_wages, :add_private_request, :remove_private_request, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_instructor, :admin_confirm_deposit, :admin_assign_instructor, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications, :send_review_reminders_to_student, :rental_agreement]
   before_action :skip_product_id, except: [:create, :update]
   before_action :save_lesson_params_and_redirect, only: [:create]
   before_action :set_admin_skip_validations
   # before_action :authenticate_from_cookie!, only: [:complete, :confirm_reservation, :update, :show, :edit]
+
+  def tickets
+    @lesson = Lesson.new
+  end
 
   def rental_agreement
     @students = @lesson.students
@@ -441,7 +445,10 @@ class LessonsController < ApplicationController
       if @lesson.promo_code
         LessonMailer.send_promo_redemption_notification(@lesson).deliver!
       end
-      if @lesson.group_lesson?
+      if @lesson.class_type == 'tickets'
+        LessonMailer.send_lesson_request_notification(@lesson).deliver!
+        flash[:notice] = 'Thank you, your tickets have been purchased successfully! If you have any questions, please email hello@snowschoolers.com.'        
+      elsif @lesson.group_lesson?
         LessonMailer.send_group_lesson_request_notification(@lesson).deliver!
         flash[:notice] = 'Thank you, your lesson request was successful. If you have any questions, please email hello@snowschoolers.com.'
       else
