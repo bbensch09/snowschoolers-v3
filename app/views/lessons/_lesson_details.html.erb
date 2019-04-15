@@ -64,7 +64,7 @@
           <span class="lesson-detail-topic">Reservation Name:</span> <%= @lesson.requester_name %> <br>
           <span class="lesson-detail-topic">Class Type:</span> <%= @lesson.class_type_text %> <br>
           <span class="lesson-detail-topic">Phone:</span> <%= @lesson.phone_number %> <br>
-          <span class="lesson-detail-topic">Email:</span> <%= @lesson.guest_email ? @lesson.guest_email :  @lesson.requester.email %> <br>
+          <span class="lesson-detail-topic">Email:</span> <%= @lesson.requester ? @lesson.requester.email : @lesson.guest_email %> <br>
           <span class="lesson-detail-topic">Location:</span>  <%= @lesson.location.name %><br>
           <!-- <span class="lesson-detail-topic">Sport:</span>  <%= @lesson.activity %><br> -->
           <span class="lesson-detail-topic">Date:</span> <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %><br>
