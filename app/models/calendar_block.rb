@@ -106,11 +106,11 @@ class CalendarBlock < ActiveRecord::Base
 	def self.remaining_dates_in_season
 		dates = []
 		date = Date.today
-		while date.to_s < '2019-04-15'
+		while date.to_s <= '2019-04-21'
 			dates << date
 			date = date +1
 		end
-		dates
+		return dates
 	end
 
 
