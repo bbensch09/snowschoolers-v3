@@ -9,10 +9,12 @@ console.log("#2Lesson.js loaded");
 var dt = new Date();
 var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
 var hour = dt.getHours();
-if (hour > 15) {
-    var DATES_BUFFER = 0
-  } else {
+console.log("hour of day is "+hour);
+
+if (hour < 15) { //if before 3pm PST, allow bookings for next day
     var DATES_BUFFER = 1
+  } else {
+    var DATES_BUFFER = 2
   };
 
 var day = dt.getDate();
