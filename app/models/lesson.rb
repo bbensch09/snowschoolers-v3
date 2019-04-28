@@ -759,6 +759,14 @@ class Lesson < ActiveRecord::Base
     eligible_states.include?(state) && self.this_season?
   end
 
+  def has_review?
+    return true if self.review && self.review.rating != nil
+  end
+
+  def has_review_and_feedback?
+    return true if self.review && self.review.review != nil
+  end
+
   def non_lesson_revenue
     lift_only_revenue = self.students_without_gear * 15
     rental_packages_revenue = self.students_with_gear * 30
