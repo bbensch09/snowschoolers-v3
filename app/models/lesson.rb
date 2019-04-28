@@ -1,3 +1,5 @@
+require 'csv'
+
 class Lesson < ActiveRecord::Base
   include ApplicationHelper
   belongs_to :requester, class_name: 'User', foreign_key: 'requester_id'
@@ -436,6 +438,17 @@ class Lesson < ActiveRecord::Base
     return total
   end
 
+  def self.to_csv(options = {})
+    desired_columns = %w{ id start_time lesson_time_id activity product_name instructor_id state public_feedback_for_student how_did_you_hear
+    }
+    CSV.generate(headers: true) do |csv|
+      csv << desired_columns
+      all.each do |lesson|
+        csv << lesson.attributes.values_at(*desired_columns)
+      end
+    end
+  end
+
   def this_season?
     self.lesson_time.date.to_s >= '2018-12-01'
   end
@@ -757,6 +770,14 @@ class Lesson < ActiveRecord::Base
     eligible_states = ['finalizing','finalizing payment & reviews','Payment complete','waiting for review','waiting for payment','Lesson Complete','confirmed','booked','pending instructor','seeking replacement instructor']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
     eligible_states.include?(state) && self.this_season?
+  end
+
+  def has_review?
+    return true if self.review && self.review.rating != nil
+  end
+
+  def has_review_and_feedback?
+    return true if self.review && self.review.review != nil
   end
 
   def non_lesson_revenue
