@@ -1,3 +1,5 @@
+require 'csv'
+
 class Lesson < ActiveRecord::Base
   include ApplicationHelper
   belongs_to :requester, class_name: 'User', foreign_key: 'requester_id'
@@ -434,6 +436,17 @@ class Lesson < ActiveRecord::Base
       total += instructor.prime_days_booked
     end
     return total
+  end
+
+  def self.to_csv(options = {})
+    desired_columns = %w{ id start_time lesson_time_id activity product_name instructor_id state public_feedback_for_student how_did_you_hear
+    }
+    CSV.generate(headers: true) do |csv|
+      csv << desired_columns
+      all.each do |lesson|
+        csv << lesson.attributes.values_at(*desired_columns)
+      end
+    end
   end
 
   def this_season?

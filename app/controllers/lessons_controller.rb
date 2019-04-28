@@ -51,9 +51,10 @@ class LessonsController < ApplicationController
   def all_booked_lessons_this_season
     @lessons = Lesson.all.select{|lesson| lesson.booked? && lesson.this_season? }
     @lessons = @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
+    @lessons_for_csv = Lesson.all
     respond_to do |format|
           format.html {render 'search_results_archived_jan2019'}
-          format.csv { send_data @lessons.to_csv, filename: "private-lessons-export-#{Date.today}.csv" }
+          format.csv { send_data @lessons_for_csv.to_csv, filename: "all-lessons-export-#{Date.today}.csv" }
         end
   end
 
