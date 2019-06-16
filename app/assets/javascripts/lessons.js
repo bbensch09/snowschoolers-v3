@@ -86,7 +86,7 @@ var LESSON = {
       return [ blocked_dates_array.indexOf(string) == -1 ]
     },
     minDate: MIN_DATE,
-    maxDate: '2019-04-21',
+    maxDate: '2019-08-31',
     dateFormat: 'yy-mm-dd'
   });
   LESSON._date2.datepicker({
@@ -95,7 +95,7 @@ var LESSON = {
       return [ blocked_dates_array.indexOf(string) == -1 ]
     },
     minDate: MIN_DATE,
-    maxDate: '2019-04-21',
+    maxDate: '2019-08-31',
     dateFormat: 'yy-mm-dd'
     });
   },
