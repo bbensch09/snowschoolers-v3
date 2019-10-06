@@ -9,6 +9,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://localhost:3000','https://snowchoolers-v2-2016.herokuapp.com', '/http:\/\/snowchoolers-v2-2016.herokuapp.com.*/','https://wwww.snowschoolers.com', 'http://wwww.snowschoolers.com.*/' ]
 
 
+  config.hosts << "www.snowschoolers.com"
   
 
   # Code is not reloaded between requests.
