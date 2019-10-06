@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "~> 2.3.0"
+ruby "~> 2.6.3"
 
 # gem to enable popper tooltips; did not work as of 11.25.18
 # gem 'popper_js'
@@ -15,7 +15,7 @@ gem "simple_calendar", "~> 2.0"
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-gem 'jquery-ui-rails', '5.0.5'
+gem 'jquery-ui-rails'#, '5.0.5'
 gem 'jquery-timepicker-rails'
 #added to try to replace bootstrap datetimepicker(?)
 gem 'bootstrap-datepicker-rails'
@@ -49,7 +49,7 @@ gem 'whenever', :require => false
 gem 'stripe'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 # gem 'rails', '5.0.0.1'
-gem 'rails', '5.0.0.1'
+# gem 'rails', '5.0.0'
 #ensure that puma server is available
 gem 'puma'
 # Use postgresql as the database for Active Record
@@ -119,7 +119,7 @@ end
 # gem 'capistrano', group: :development
 
 gem 'devise'
-gem 'formtastic', '~> 3.0'
+gem 'formtastic'#, '~> 3.0'
 gem 'formtastic-bootstrap'
 gem 'omniauth-facebook', '~> 4.0.0'
 gem 'cocoon', '>= 1.2.0'

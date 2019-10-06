@@ -15,7 +15,7 @@ require 'csv'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-ActiveSupport.halt_callback_chains_on_return_false = false
+# ActiveSupport.halt_callback_chains_on_return_false = false
 
 module SnowSchoolers
   class Application < Rails::Application
@@ -40,6 +40,10 @@ module SnowSchoolers
   config.enable_dependency_loading = true
   config.autoload_paths << Rails.root.join('lib')
 
+  # # attempted patch 10.6.19 for cyper secret https://github.com/rails/rails/issues/25448
+  # secret = ENV['SECRET_KEY'] # this represent a 64 chars key used on ruby 2.3
+  # encryptor = ActiveSupport::MessageEncryptor.new(secret[0..31], secret)
+  # encryptor.decrypt_and_verify(data)
 
   #LOAD local ENV variables
     config.before_configuration do

@@ -9,7 +9,7 @@ Rails.application.configure do
   config.active_job.queue_adapter = :delayed_job
 
   #show additional error messages raised in callbacks
-  config.active_record.raise_in_transactional_callbacks = true
+  # config.active_record.raise_in_transactional_callbacks = true
 
   config.cache_classes = false
 
