@@ -2,7 +2,7 @@ class LessonMailer < ActionMailer::Base
   include ApplicationHelper
   include Resque::Mailer
   default from: 'SnowSchoolers.com <hello@snowschoolers.com>' #cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>"
-  before_filter :log_mailer_action
+  before_action :log_mailer_action
 
   def log_mailer_action
     puts "!!! logging action mailer before filter. currently does nothing"
