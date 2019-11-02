@@ -4,15 +4,56 @@
 <p id="notice"><%= notice %></p>
 
 <div class="first-fold-hero">
-  <img src="https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg" class="img-hero">  
+  <!-- <img src="https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg" class="img-hero">   -->
+  <img src="https://s3.amazonaws.com/snowschoolers/other-resorts/granlibakken-ski-area.jpg" class="img-hero">  
   <div class="text-overlay">
     <h1><%= @location.name %></h1>    
   </div>
 </div>
-<section>
-  <div>
-  <strong>Calendar Status:</strong> <%= @location.calendar_status %>
-  <strong>Region:</strong> <%= @location.region %>    
+<section class="bg-primary bg-grey center-content">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="maps-container">
+        <iframe
+        width="400"
+        height="600"
+        frameborder="0"
+        src="https://www.google.com/maps/embed/v1/place?key=<%= ENV["GOOGLE_MAPS_API"] %>
+          &q=<%= @location.address %>" allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+    <div class='col-md-6'>
+      <h2> <b>Location </b>
+        <span class="span-buffer">   </span> 
+      </h2>
+        <ul>
+          <li><%= @location.address %> <a href="https://www.google.com/maps/place/Granlibakken+Tahoe/@39.1561654,-120.1565678,17z/data=!3m1!4b1!4m8!3m7!1s0x80997d862ca04451:0xbe2330dfc1e3324e!5m2!4m1!1i2!8m2!3d39.1561613!4d-120.1543791" class="navy-link">(Google Maps)</a></li>
+        </ul>
+      <h2>
+        <b>How to Get Here</b>
+          <ul class="">
+            <li class="how-to-get-here-list-parent"> By Car</li>
+              <ul>
+                <li>From Reno: 1hr 15min from Reno International Airport (RNO). Take I-80 West to Truckee, then highway 89 South to Tahoe City.</li>
+                <li>From Sacramento: 2hrs from Sacramento International Airport (SAC). I-80 East to Truckee, then highway 89 South to Tahoe City.</li>
+                <li>From San Francisco: 3hrs 40min from downtown San Francisco. I-80 East to Truckee, then highway 89 South to Tahoe City.</li>
+              </ul>
+            <li class="how-to-get-here-list-parent"> Rideshare (Uber or Lyft)</li>
+              <ul>
+                <li>From Tahoe City: <10min from downtown Tahoe City</li>
+                <li>From Truckee: 25min (with no traffic, expect up to 1hr on busy Saturday mornings or snow days)</li>
+                <li>From Kings Beach: 22min (with no traffic, expect 45min on busy days) </li>
+                <li>From South Lake Tahoe: 55min (no traffic). *Note* that after storms 89-North is often closed and only way is to go countert-clockwise around the lake, which takes at least 1hr 20min.</li>
+              </ul>
+            <li class="how-to-get-here-list-parent"> Best Airports</li>
+              <ul>
+                <li>Reno (RNO) - closest option with <a href="https://www.renoairport.com/flight-info/non-stopsone-stops" class="navy-link">direct flights</a> from most major US airports (LAX, Chicago, Salt Lake, Denver, Seattle, Dallas, New York, etc.)</li>
+                <li>San Francisco (SFO) - service to/from any major international airports.</li>
+              </ul>
+          </ul>
+      </h2>
+    </div>
   </div>
 </section>
 <%= link_to 'Edit', edit_location_path(@location) %> |
