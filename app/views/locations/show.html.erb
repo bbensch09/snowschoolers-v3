@@ -3,35 +3,18 @@
 
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Ski Area name:</strong>
-  <%= @location.name %>
-</p>
-<p>
-  <strong>Partner Status:</strong>
-  <%= @location.partner_status %>
-</p>
-<p>
-  <strong>Calendar Status:</strong>
-  <%= @location.calendar_status %>
-</p>
-<p>
-  <strong>Region:</strong>
-  <%= @location.region %>
-</p>
-<p>
-  <strong>State:</strong>
-  <%= @location.state %>
-</p>
-<p>
-  <strong>city:</strong>
-  <%= @location.city %>
-</p>
-<p>
-  <strong>state_abbreviation:</strong>
-  <%= @location.state_abbreviation %>
-</p>
-
+<div class="first-fold-hero">
+  <img src="https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg" class="img-hero">  
+  <div class="text-overlay">
+    <h1><%= @location.name %></h1>    
+  </div>
+</div>
+<section>
+  <div>
+  <strong>Calendar Status:</strong> <%= @location.calendar_status %>
+  <strong>Region:</strong> <%= @location.region %>    
+  </div>
+</section>
 <%= link_to 'Edit', edit_location_path(@location) %> |
 <%= link_to 'Back', locations_path %>
 </div>

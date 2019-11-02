@@ -69,6 +69,8 @@ Rails.application.routes.draw do
   resources :locations do
         collection {post :import}
   end
+  get 'resorts/:id' => 'locations#show', as: :show_resort
+
   resources :charges
 
   # root to: "lessons#new"

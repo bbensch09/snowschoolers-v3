@@ -1,4 +1,25 @@
-/*// Place all the styles related to the Resorts controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-*/
+.first-fold-hero{
+    position: relative;
+	width:100%;
+	height: 90vh;
+	margin-left: auto;
+	margin-right: auto;
+    display: inline-block; /* Make the width of box same as image */
+}
+.img-hero {
+	width:100%;
+	height: 90vh;
+}
+
+.first-fold-hero .text-overlay{
+		position: absolute;
+        z-index: 999;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        top: 40%; /* Adjust this value to move the positioned div up and down */
+        text-align: center;
+        width: 60%; /* Set the width of the positioned div */
+        color: white;
+        background: black;
+}
