@@ -12,32 +12,31 @@
     <div class="header-content">
         <div class="header-content-inner">
             <h1 id="homeHeading" class="home-header">SKI SCHOOL MADE SIMPLE<br>
-                <!-- <span class="smaller-text">'19/20 Lessons are now on SALE!  -->
-                <span class="smaller-text">'19/20 Lessons go on sale Nov 4th! 
+                <!-- <span class="homepage-smaller-text">'19/20 Lessons are now on SALE! </span>  -->
+                <!-- <br> -->
+                <!-- <span class="homepage-smaller-text">'19/20 Lessons go on sale Nov 4th!  -->
                     <span class="hidden-unless-mobile"><br></span> 
-                    <!-- Enjoy the off season!  -->
-                    <span class="hidden-unless-mobile"><br></span>                     
                 </span>
 
-<!--                 <span class="smaller-text">Lowest Prices. 
+                <span class="homepage-smaller-text">Lowest Prices. 
                     <span class="hidden-unless-mobile"><br></span> 
                     Best instructors. 
                     <span class="hidden-unless-mobile"><br></span> 
                     No morning hassle.
                 </span>
- -->            
+            
             <!-- <span class="smaller-text">Closing Day is April 21st. Get Spring Clearance Lift Tickets for just $30.</span> <br> -->
             <!-- <a href="/tickets" class="btn btn-primary btn-lg page-scroll powder-btn">Buy Lift Tickets</a> -->
             
             <br>
 
             <!-- <span class="smaller-text">Book spring skiing lessons by Saturday 4.21</span> <br> -->
-<!--             <a href="#book-a-lesson" class="btn btn-primary btn-lg page-scroll powder-btn">Book a Private Lesson</a>
-            <a href="#book-a-group-lesson" class="btn btn-secondary btn-lg page-scroll powder-btn">Book a Group Lesson</a>
- -->
+            <a href="/book/granlibakken" class="btn btn-primary btn-lg page-scroll powder-btn">Book at Granlibakken</a>
+            <a href="/book/homewood" class="btn btn-secondary btn-lg page-scroll powder-btn">Book at Homewood</a>
+
             <hr>
 
-            <span class="smaller-text">Interested in teaching with us this winter?</span>
+            <span class="homepage-smaller-text">Interested in teaching with us this winter?</span>
             <br>
             <a href="/apply" class="btn btn-primary btn-lg page-scroll fixed-width-170">Apply Now for '19/20</a>
             <a href="/become-a-certified-ski-instructor" class="btn btn-secondary btn-lg page-scroll powder-btn">Get Certified</a>
@@ -78,30 +77,6 @@
      <h3 class="center navy-text">Know what to expect on your first day with these 7 must-knows: </h3>
      <h4 class="center"><a href="https://medium.com/@snowschoolers/what-to-expect-on-your-first-day-skiing-5db1048e82bd" class="btn btn-xl btn-default" target="_blank">See 7 Quick Tips for Beginners</a> </h4>
 </section>
-<section id="why-snowschoolers" class="">
-    <div class="container">
-            <div class="row">
-                <h2 class="section-heading text-center navy-text">WHY SNOWSCHOOLERS</h2>
-                <p class="why-snowschoolers-text navy-text text-left">
-                As a team of lifelong skiers, we believe anyone should be able learn how to ski or snowboard, and without spending thousands of dollars. Whether it's your first time on snow, or whether you're an experienced skier looking to take your skills to the next level, we're here to ensure you have the <b>perfect lesson experience</b>.
-                </p>
-<!--                 <div style="position:relative;height:0;" class="youtube-embed-container">
-                    <iframe src="https://www.youtube.com/embed/CDfe0YY5zOE?rel=0?ecver=2" class="iframe-youtube" allowfullscreen></iframe>
-                </div> -->
-            </div>
-            <div class="container vertical-divider">
-                <div class="call-to-action">
-                    <h2 class="navy-text">Book your first lesson today!</h2>
-                    <h4><a href="/lessons/new" class="green-link green-button">GET STARTED</a></h4>
-                </div>
-                <div class="call-to-action">
-                    <h2 class="navy-text">Interested in becoming an instructor?</h2>
-                    <h4><a href="/apply" class="green-link green-button">APPLY TODAY</a></h4>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <section id="book-a-lesson" class="pricing-section">
     <div id="lesson-flow-background">
@@ -110,13 +85,7 @@
         </div>
     </div>
 </section>
-<section id="book-a-group-lesson" class="group-pricing-section pricing-section">
-    <div id="lesson-flow-background">
-        <div class="homepage-lesson-container center">
-            <%= render partial: "lessons/group_lesson_new_form" %>
-        </div>
-    </div>
-</section>
+
 <section id="where-do-we-teach" class="bg-grey">
     <div class="container">
             <div id="more-info" class="row">
@@ -211,9 +180,34 @@
                    <a href="/lessons/new" class="btn btn-primary btn-xl page-scroll">Get Started</a>
             </div>
         </div>
-        <%= render partial: 'full_pricing' %>
     </section>
-<section class="bg-primary" id="blog">
+
+<section id="why-snowschoolers" class="bg-primary">
+    <div class="container">
+            <div class="row">
+                <h2 class="section-heading text-center navy-text">WHY SNOWSCHOOLERS</h2>
+                <p class="why-snowschoolers-text navy-text text-left">
+                As a team of lifelong skiers, we believe anyone should be able learn how to ski or snowboard, and without spending thousands of dollars. Whether it's your first time on snow, or whether you're an experienced skier looking to take your skills to the next level, we're here to ensure you have the <b>perfect lesson experience</b>.
+                </p>
+<!--                 <div style="position:relative;height:0;" class="youtube-embed-container">
+                    <iframe src="https://www.youtube.com/embed/CDfe0YY5zOE?rel=0?ecver=2" class="iframe-youtube" allowfullscreen></iframe>
+                </div> -->
+            </div>
+            <div class="container vertical-divider">
+                <div class="call-to-action">
+                    <h2 class="navy-text">Book your first lesson today!</h2>
+                    <h4><a href="/lessons/new" class="green-link green-button">GET STARTED</a></h4>
+                </div>
+                <div class="call-to-action">
+                    <h2 class="navy-text">Interested in becoming an instructor?</h2>
+                    <h4><a href="/apply" class="green-link green-button">APPLY TODAY</a></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+        
+<section class="bg-grey" id="blog">
     <div class="row blog-promo-container">
         <h2 class="center navy-text blog-cta">Hungry for more info? Check out the latest from our <a href="/blog/latest" class="green-link">blog!</a></h2>
     </div>
@@ -222,6 +216,10 @@
         <h2 class="section-heading navy-text">Learning to ski or snowboard is hard. <br> Booking a lesson online shouldn't be.</h2>
         <a href="#book-a-lesson" class="btn btn-primary btn-lg page-scroll btn-text-larger">Book a Lesson Today</a>
     </div>
+</section>
+
+<section class="bg-primary">
+            <%= render partial: 'full_pricing' %>
 </section>
 
 <section class="bg-grey" id="about">

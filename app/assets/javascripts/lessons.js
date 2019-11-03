@@ -23,7 +23,7 @@ console.log("The day values is set to "+day)
 var month = dt.getMonth() + 1;
 var year = dt.getYear() +1900;
 var date = year + "-" + month + "-" + day;
-var opening_date = new Date("2018-11-22");
+var opening_date = new Date("2019-11-01");
 
 // logs today's date
 console.log("DATES_BUFFER is set to: "+DATES_BUFFER);
@@ -32,7 +32,7 @@ console.log("The minimum bookable date is "+MIN_DATE);
 
 
 if (Date.now() <= opening_date) {
-  var MIN_DATE = '2018-11-22';
+  var MIN_DATE = '2019-11-01';
   // logs the season start date
   console.log(MIN_DATE);
 }
@@ -86,7 +86,7 @@ var LESSON = {
       return [ blocked_dates_array.indexOf(string) == -1 ]
     },
     minDate: MIN_DATE,
-    maxDate: '2019-08-31',
+    maxDate: '2020-04-31',
     dateFormat: 'yy-mm-dd'
   });
   LESSON._date2.datepicker({
@@ -95,7 +95,7 @@ var LESSON = {
       return [ blocked_dates_array.indexOf(string) == -1 ]
     },
     minDate: MIN_DATE,
-    maxDate: '2019-08-31',
+    maxDate: '2020-04-31',
     dateFormat: 'yy-mm-dd'
     });
   },

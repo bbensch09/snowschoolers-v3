@@ -1,17 +1,25 @@
+
+<section id="#book-a-lesson" class="bg-navy center-content lesson-new-form-header">
+      <h1 class="center text-white">
+        *Please note* Lessons for the 19/20 lesson are not yet on sale. <br> Reservations will be accepted starting Nov 4th! 
+      </h1>
+
+      <% if @promo_location.nil? %>
+        <h2> At which mountain would you like to book a lesson? </h2>
+          <a href="/book/granlibakken" class="btn btn-primary btn-lg page-scroll powder-btn">Book at Granlibakken</a>
+          <a href="/book/homewood" class="btn btn-primary btn-lg page-scroll powder-btn">Book at Homewood</a>
+          <% @resort_name = 'SNOWSCHOOLERS' %>
+        <% else %>
+          <!-- <p class="alert">The promo_location is set to: %=@promo_location%> </p> -->
+          <% @resort_name = Location.find(@promo_location).name.upcase %>
+      <% end %>
+</section>
+
+<section class="bg-primary lesson-new-form-header">
+  
 <%= semantic_form_for @lesson do |f| %>
   <div class="lesson-form-container">
-
-      <div class="new-lesson-pricing-container">
-
-        <h1 class="center">
-          *Please note* Lessons for the 19/20 lesson are not yet on sale. Reservations will be accepted starting Nov 4th! 
-        </h1>
-
-        <%= render partial: "welcome/prices_simple" %>
-      </div>
-
-      <hr class="deposit-hr-navy hidden-unless-mobile">
-
+    
       <% if alert %>
         <div id="alert2" class="alert alert-danger alert-dismissible fade in" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -21,10 +29,11 @@
         </div>
       <% end %>
 
+
       <div class="new-lesson-caption">
 
         <div class="block">
-          <h3 class="center mobile-book-cta">BOOK A PRIVATE LESSON</h3>
+          <h3 class="center mobile-book-cta">BOOK A LESSON at <%= @resort_name %> </h3>
         </div>
 
         <div class="block">
@@ -35,15 +44,19 @@
         </h1>
         <div class="block inputs form-inputs">
             <div class="col-md-2">
-              <%= f.input :activity, as: :select, collection: ['Ski', 'Snowboard'], selected:@activity, include_blank: 'Lesson Type', label: false %>
+              <%= f.input :activity, as: :select, collection: ['Ski', 'Snowboard'], selected:@activity, include_blank: 'Select Sport', label: false %>
             </div>
 
             <div class="col-md-3">
-              <% if current_user && current_user.user_type == "Snow Schoolers Employee" || session[:granlibakken] == 'true' %>
-              <%= f.input :requested_location , as: :select, collection: Location.where("id=? OR id =?",8,24).sort_by { |location| location.name.downcase} , selected: @promo_location, include_blank: 'Location', label: false %>
-                <% else %>
-              <%= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase} , selected: @promo_location, include_blank: 'Location', label: false %>
-              <% end %>
+              <!-- old location selector -->
+<!--               % if current_user && current_user.user_type == "Snow Schoolers Employee" || session[:granlibakken] == 'true' %>
+              %= f.input :requested_location , as: :select, collection: Location.where("id=? OR id =?",8,24).sort_by { |location| location.name.downcase} , selected: @promo_location, include_blank: 'Location', label: false %>
+                % else %>
+              %= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase} , selected: @promo_location, include_blank: 'Location', label: false %>
+               % end %>
+ -->
+             <%= f.input :class_type, as: :select, collection: ['Private', 'Group'], selected:@class_type, include_blank: 'Lesson Type', label: false %>
+
             </div>
             <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
               <div class="col-md-2">
@@ -64,7 +77,7 @@
         </div>
 
         <%= f.input :state, as: :hidden, input_html: { value: 'new' } %>
-        <%= f.input :class_type, as: :hidden, input_html: { value: 'private' } %>
+        <%= f.input :requested_location, as: :hidden, input_html: { value: @promo_location.to_i } %>
         <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
     <div id="get-started-form-button" class="row clear-both">
         <h1 class="new-lesson-ctas-list center">
@@ -76,9 +89,11 @@
                 <% end %>
             <!-- <a href='/lessons-availability' class= 'btn btn-success btn-lg'> SEE AVAILABLE TIMES </a> -->
     </div>
+</section>
 
 
-      </div>
+  <%= render partial: "welcome/prices_simple" %>
+
 
 <!--       <% if @instructor_requested %>
         <div class="selected-instructor-container">
@@ -115,6 +130,5 @@
         </div>
     <% end %>    -->
 
-  </div>
 
 <% end %>

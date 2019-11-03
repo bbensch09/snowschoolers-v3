@@ -102,6 +102,7 @@ h4,
 h5,
 h6 {
   font-family: 'Palanquin', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1;
 }
 p {
   font-size: 20px;
@@ -593,6 +594,10 @@ body {
 .smaller-text{
   font-size: 0.8em;
 line-height: 1.2;
+}
+.homepage-smaller-text{
+  font-size: 0.5em;
+  line-height: 1;
 }
 .medium-text{
   font-size: 0.9em;
@@ -1492,6 +1497,7 @@ h2.blog-cta{
 
 .container {
     width: 1300px;
+    max-width: 100%;
 }
 .report-container{
   width: 96vw;
