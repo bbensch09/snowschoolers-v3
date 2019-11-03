@@ -69,6 +69,8 @@ Rails.application.routes.draw do
   resources :locations do
         collection {post :import}
   end
+  get 'resorts/:id' => 'locations#show', as: :show_resort
+
   resources :charges
 
   # root to: "lessons#new"
@@ -147,6 +149,7 @@ Rails.application.routes.draw do
   get '/granlibakken-group-lessons' => 'welcome#granlibakken_lesssons_referral'
   get '/sky-tavern' => 'welcome#sky_tavern_referral'
   get '/granlibakken' => 'lessons#granlibakken'
+  get '/granlibakken-2020' => 'locations#granlibakken'
   get '/homewood' => 'lessons#homewood'
   get '/future-daily-roster' => 'lessons#future_daily_roster'
   get '/daily-roster' => 'lessons#daily_roster'

@@ -1,38 +1,376 @@
-<div id="middle" class="container">
-  <div class="white">
+<!-- <img src="https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg" class="img-hero">   -->
 
-<p id="notice"><%= notice %></p>
+<section id="header-creative" class="top-section">
+    <ul id="slider" class="mc-cycle" style="display: block; height: 100%; width: 100%;">
+        <div class="mc-image" title="background photo" style="background-image: url('https://snowschoolers.s3.amazonaws.com/granlibakken-powder-morning.jpg'); height: 100%; width: 100%;" data-href=""></div>
+        <!-- <div class="mc-image" title="background photo" style="background-image: url('https://tahoephotographictours.com/wp-content/uploads/2013/06/Heavenly.jpg'); height: 100%; width: 100%;" data-href=""></div> -->
+    </ul>
+<!--         <div id="homepage-background">
+                <img src="https://s3.amazonaws.com/snowschoolers/images/demo/slider/snow-less.jpg" alt="background photo" class="bg-photo" alt="" />
+        </div>
+    -->
+    <div class="header-content">
+        <div class="header-content-inner">
+            <h1 id="homeHeading" class="home-header">GRANLIBAKKEN TAHOE<br>
+                  <!-- <h1><%= @location.name %></h1>     -->
+            <hr>
+            <span class="smaller-text">Welcome to Tahoe's Most Family-friendly Ski Hill</span>
+            <br>
+              <!-- <a href="#book-a-lesson" class="btn btn-primary btn-lg page-scroll powder-btn">Book a Private Lesson</a> -->
+              <a href="#lesson-types" class="btn btn-secondary btn-lg page-scroll powder-btn">Book a Lesson</a>
+            </h1>
+        </div>
+    </div>
+</section>
 
-<p>
-  <strong>Ski Area name:</strong>
-  <%= @location.name %>
-</p>
-<p>
-  <strong>Partner Status:</strong>
-  <%= @location.partner_status %>
-</p>
-<p>
-  <strong>Calendar Status:</strong>
-  <%= @location.calendar_status %>
-</p>
-<p>
-  <strong>Region:</strong>
-  <%= @location.region %>
-</p>
-<p>
-  <strong>State:</strong>
-  <%= @location.state %>
-</p>
-<p>
-  <strong>city:</strong>
-  <%= @location.city %>
-</p>
-<p>
-  <strong>state_abbreviation:</strong>
-  <%= @location.state_abbreviation %>
-</p>
+ <section class="bg-white">
+      <div class="container">
+        <div class="col-md-9">
+          <h1 class="center">Everything you need to know about <b>GRANLIBAKKEN</b></h1>
+          <ul class="resort-highlights">
+            <li>Widely considered the best spot in Tahoe for <b>first time</b> skiers and snowboarders.</li>
+            <li>Much <b>smaller</b> than nearyby resorts (such as Homewood, Squaw or Northstar), but great for families looking for an authentic introduction to winter sports.</li>
+            <li>The <b>most affordable</b> skiing & sledding option in Tahoe. Lift tickets are just $35 and private lessons start at only $80!</li>
+            <li>While definitely "small and intimate", you'll find all the core amenities your family needs, including a full kitchen with wine and beer, and an outdoor patio with fire pits. </li>
+            <li>When you or your kids are tired of skiing, they can enjoy <b>all-day sledding for free</b> with their lift ticket. The sled hill is one of the only fully managed sledding operations in Tahoe with staff at the top and bottom to ensure safety of both kids and adults.</li>
+            <li>Granlibakken is also the oldest continuously operating snowsports hill in Tahoe, originally founded in the 1920s@!</li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+            <img src="https://snowschoolers.s3.amazonaws.com/granlibakken-sign.jpg" class="resort-highlights-img">
+            <p class="center medium-text">
+              More info at <a href="https://granlibakken.com/" class="navy-link">Granlibakken.com</a>
+            </p>            
+        </div>  
+      </div>
+</section>
 
-<%= link_to 'Edit', edit_location_path(@location) %> |
-<%= link_to 'Back', locations_path %>
-</div>
-</div>
+<section class="bg-grey center-content">
+  <div class="container">
+    <div class="col-md-4">
+      <div class="maps-container">
+        <iframe
+        width="400"
+        height="600"
+        frameborder="0"
+        src="https://www.google.com/maps/embed/v1/place?key=<%= ENV["GOOGLE_MAPS_API"] %>
+          &q=<%= @location.address %>" allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+    <div class='col-md-6'>
+      <h2> <b>Location </b>
+        <span class="span-buffer">   </span> 
+      </h2>
+        <ul>
+          <li><%= @location.address %> <a href="https://www.google.com/maps/place/Granlibakken+Tahoe/@39.1561654,-120.1565678,17z/data=!3m1!4b1!4m8!3m7!1s0x80997d862ca04451:0xbe2330dfc1e3324e!5m2!4m1!1i2!8m2!3d39.1561613!4d-120.1543791" class="navy-link">(Google Maps)</a></li>
+        </ul>
+      <h2>
+        <b>How to Get Here</b>
+          <ul class="">
+            <li class="how-to-get-here-list-parent"> By Car</li>
+              <ul>
+                <li>From Reno: 1hr 15min from Reno International Airport (RNO). Take I-80 West to Truckee, then highway 89 South to Tahoe City.</li>
+                <li>From Sacramento: 2hrs from Sacramento International Airport (SAC). I-80 East to Truckee, then highway 89 South to Tahoe City.</li>
+                <li>From San Francisco: 3hrs 40min from downtown San Francisco. I-80 East to Truckee, then highway 89 South to Tahoe City.</li>
+              </ul>
+            <li class="how-to-get-here-list-parent"> Rideshare (Uber or Lyft)</li>
+              <ul>
+                <li>From Tahoe City: <10min from downtown Tahoe City</li>
+                <li>From Truckee: 25min (with no traffic, expect up to 1hr on busy Saturday mornings or snow days)</li>
+                <li>From Kings Beach: 22min (with no traffic, expect 45min on busy days) </li>
+                <li>From South Lake Tahoe: 55min (no traffic). *Note* that after storms 89-North is often closed and only way is to go countert-clockwise around the lake, which takes at least 1hr 20min.</li>
+              </ul>
+            <li class="how-to-get-here-list-parent"> Best Airports</li>
+              <ul>
+                <li>Reno (RNO) - closest option with <a href="https://www.renoairport.com/flight-info/non-stopsone-stops" class="navy-link">direct flights</a> from most major US airports (LAX, Chicago, Salt Lake, Denver, Seattle, Dallas, New York, etc.)</li>
+                <li>San Francisco (SFO) - service to/from any major international airports.</li>
+              </ul>
+          </ul>
+      </h2>
+    </div>
+  </div>
+</section>
+
+ <section class="bg-white">
+      <div class="container">
+        <h1 class="center">Mountain Stats</h1>
+        <div class="col-md-6">
+            <img src="https://s3.amazonaws.com/snowschoolers/ski-hut-meeting-location.jpg" class="resort-mountain-stats-img">
+            <p class="center medium-text"></p>
+        </div>  
+
+        <div class="col-md-6">
+          <ul class="resort-highlights">
+            <li>Hours of Operation: 8:30am-4pm daily</li>
+              <ul>
+                <li>Ski hill closed midweek Tues-Thurs; daily during holidays</li>
+                <li>Open 7 days/week for sledding</li>
+              </ul>
+            <li>Surface Lifts: 2 (one rope tow, one poma)</li>
+            <li>Vertical feet: 300</li>
+            <li>Skiable terrain: 74 acres</li>
+            <li>Beginner terrain: 2 trails</li>
+            <li>Intermediate terrain: 3 trails</li>
+            <li>Advanced terrain: 0 trails</li>          
+
+          </ul>
+        </div>
+      </div>
+</section>
+
+<section id="lesson-types" class="bg-primary bg-grey center-content schedule-granlinbakken">
+      <div class="container">
+        <h1 class="center">Choose a Lesson Type</h1>
+        <div class="col-md-12">
+         <!-- begin pricing schedule template -->
+            <div class="snip1214">
+              <div class="plan">
+                <h3 class="plan-title">
+                  2hr Groups
+                </h3>
+                <div class="plan-cost"><span class="plan-type">Starting at </span><span class="plan-price">$80</span></div>
+                <ul class="plan-features">
+                  <li><i class="ion-checkmark"> </i>Most affordable</li>
+                  <li><i class="ion-checkmark"> </i>Afternoons 1:45-3:45pm</li>
+                  <li><i class="ion-checkmark"> </i>Max of up to 6 students in a group</li>
+                  <li><i class="ion-checkmark"> </i>Beginners Only</li>
+                  <li><i class="ion-checkmark"> </i>Mixed ages (kids & adults usually separate)</li>
+                  <li><i class="ion-checkmark"> </i>Lift ticket included</li>
+                </ul>
+                <div class="plan-select"><a href="/lessons/new">Book Now</a></div>
+              </div>
+              <div class="plan">
+                <h3 class="plan-title">
+                  1hr Privates
+                </h3>
+                <div class="plan-cost"><span class="plan-type">Starting at </span><span class="plan-price">$80</span></div>
+                <ul class="plan-features">
+                  <li><i class="ion-checkmark"> </i>Most popular</li>
+                  <li><i class="ion-checkmark"> </i>Dedicated private instructor</li>
+                  <li><i class="ion-checkmark"> </i>Flexible start times: <br>830am, 945am, 11am, or 1215pm </li>
+                  <li><i class="ion-checkmark"> </i>Lift ticket included</li>
+                  <li><i class="ion-checkmark"> </i>Add up to 4 friends or family members for +$40/pp</li>
+                </ul>
+                <div class="plan-select"><a href="/lessons/new">Book Now</a></div>
+              </div>
+              <div class="plan featured">
+                <h3 class="plan-title">
+                  Half-Day Privates
+                </h3>
+                <div class="plan-cost"><span class="plan-type">Starting at </span><span class="plan-price">$200</span></div>
+                <ul class="plan-features">
+                  <li><i class="ion-checkmark"> </i>Best value</li>
+                  <li><i class="ion-checkmark"> </i>Dedicated private instructor</li>
+                  <li><i class="ion-checkmark"> </i>Morning slot: 10am - 1245pm </li>
+                  <li><i class="ion-checkmark"> </i>Afternoon slot: 115pm - 4pm </li>
+                  <li><i class="ion-checkmark"> </i>Lift ticket included</li>
+                  <li><i class="ion-checkmark"> </i>Add up to 4 friends or family members for +$40/pp</li>
+                </ul>
+                <div class="plan-select"><a href="/lessons/new">Book Now</a></div>
+              </div>
+              <div class="plan">
+                <h3 class="plan-title">
+                  Full-day Privates
+                </h3>
+                <div class="plan-cost"><span class="plan-type">Starting at </span><span class="plan-price">$350</span></div>
+                <ul class="plan-features">
+                  <li><i class="ion-checkmark"> </i>Most convenient</li>
+                  <li><i class="ion-checkmark"> </i>Lesson time: 10am - 4pm </li>
+                  <li><i class="ion-checkmark"> </i>Split up day as you wish (lunch & hot cocoa breaks, etc.) </li>
+                  <li><i class="ion-checkmark"> </i>Lift ticket included</li>
+                  <li><i class="ion-checkmark"> </i>Add up to 4 friends or family members for +$40/pp</li>
+                </ul>
+                <div class="plan-select"><a href="/lessons/new">Book Now</a></div>
+              </div>
+            </div>
+
+        </div>
+      </div>
+</section>
+
+ <section class="bg-white">
+      <div class="container">
+        <div class="col-md-4">
+            <img src="https://snowschoolers.s3.amazonaws.com/private-snowboard.jpg" class="resort-mountain-stats-img">
+            <hr>
+            <img src="https://snowschoolers.s3.amazonaws.com/beginner-group.jpg" class="resort-mountain-stats-img">
+        </div>  
+
+        <div class="col-md-8">
+
+        <table class="col-lg-11 col-xs-12 pricing-table">
+          <thead class="">
+            <tr>
+                <th class="center price-header" colspan="5">
+                    <h1>PRIVATE LESSON PRICES</h1>
+                </th>
+            </tr>
+            <tr>
+              <th class="sub-header" colspan="5">
+                <h3 class="navy-text">Lesson packages with rental equipment included:</h3>
+              </th>
+            </tr>
+            <tr class="">
+              <th class="col-xs-4 text-warning center"></th>
+              <th class="pricing-snowschoolers col-xs-4">Daily Rate<br></th>
+              <th class="pricing-snowschoolers col-xs-4">Holiday Rate<br></th>
+            </tr>
+            <tr>
+              <th class="col-xs-4 text-warning center"></th>
+              <th class="pricing-snowschoolers col-xs-4"><br></th>
+              <th class="holiday-dates col-xs-4">Holidays: Dec 21-Jan 6, Jan 19-20, and Feb 16-24</th>
+            </tr>
+          </thead>
+
+          <% if (Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil) %>
+          <h1 class='text-danger center'> Pricing Not Yet Available </h1>
+
+          <% else %>
+
+          <tbody>
+            <tr>
+                <td class="pricing-length grey-side-borders pricing-grey-background col-xs-2">1hr Lessons</td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:'Regular',is_rental:true).first.price, :precision => 0) %>
+                </td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:'Holiday',is_rental:true).first.price, :precision => 0) %>
+                </td>
+            </tr>
+            <tr>
+                <td class="pricing-length grey-side-borders col-xs-2">Half-days (10am or 115pm start)</td>
+                <td class="pricing-snowschoolers">
+                    <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',calendar_period:'Regular',is_rental:true).first.price, :precision => 0) %>
+                </td>
+                <td class="pricing-snowschoolers">
+                    <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',calendar_period:'Holiday',is_rental:true).first.price, :precision => 0) %>
+                </td>
+            </tr>
+            <tr>
+                <td class="pricing-length grey-side-borders pricing-grey-background col-xs-2">Full-days (10am start)</td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"6.00",product_type:'private_lesson',calendar_period:'Regular',is_rental:true).first.price, :precision => 0) %>
+                </td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"6.00",product_type:'private_lesson',calendar_period:'Holiday',is_rental:true).first.price, :precision => 0) %>
+                </td>
+            </tr>
+          </tbody>
+          <% end %>
+        </table>
+        <table class="col-lg-11 col-xs-12 pricing-table">
+          <thead class="">
+            <tr>
+              <th class="sub-header" colspan="5">
+                <h3 class="navy-text">Lesson packages WITHOUT any rental equipment:</h3>
+              </th>
+            </tr>
+            <tr class="">
+              <th class="col-xs-4 text-warning center"></th>
+              <th class="pricing-snowschoolers col-xs-4">Daily Rate<br></th>
+              <th class="pricing-snowschoolers col-xs-4">Holiday Rate<br></th>
+            </tr>
+            <tr>
+              <th class="col-xs-4 text-warning center"></th>
+              <th class="pricing-snowschoolers col-xs-4"><br></th>
+              <th class="holiday-dates col-xs-4">Holidays: Dec 21-Jan 6, Jan 19-20, and Feb 16-24</th>
+            </tr>
+          </thead>
+
+          <% if (Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil) %>
+          <h1 class='text-danger center'> Pricing Not Yet Available </h1>
+
+          <% else %>
+
+          <tbody>
+            <tr>
+                <td class="pricing-length grey-side-borders pricing-grey-background col-xs-2">1hr Lessons</td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:'Regular',is_rental:false).first.price, :precision => 0) %>
+                </td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:'Holiday',is_rental:false).first.price, :precision => 0) %>
+                </td>
+            </tr>
+            <tr>
+                <td class="pricing-length grey-side-borders col-xs-2">Half-days (10am or 115pm start)</td>
+                <td class="pricing-snowschoolers">
+                    <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',calendar_period:'Regular',is_rental:false).first.price, :precision => 0) %>
+                </td>
+                <td class="pricing-snowschoolers">
+                    <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',calendar_period:'Holiday',is_rental:false).first.price, :precision => 0) %>
+                </td>
+            </tr>
+            <tr>
+                <td class="pricing-length grey-side-borders pricing-grey-background col-xs-2">Full-days (10am start)</td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"6.00",product_type:'private_lesson',calendar_period:'Regular',is_rental:false).first.price, :precision => 0) %>
+                </td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"6.00",product_type:'private_lesson',calendar_period:'Holiday',is_rental:false).first.price, :precision => 0) %>
+                </td>
+            </tr>
+          </tbody>
+          <% end %>
+        </table>
+
+        <table class="col-lg-11 col-xs-12 pricing-table">
+          <thead class="">
+            <tr>
+                <th class="center price-header" colspan="5">
+                    <h1>GROUP LESSON PRICES</h1>
+                </th>
+            </tr>
+            <tr>
+              <th class="sub-header" colspan="5">
+                <h3 class="navy-text">All group lessons are 2hrs and start at 1:45pm</h3>
+              </th>
+            </tr>
+            <tr class="">
+              <th class="col-xs-4 text-warning center"></th>
+              <th class="pricing-snowschoolers col-xs-4">Daily Rate<br></th>
+              <th class="pricing-snowschoolers col-xs-4">Holiday Rate<br></th>
+            </tr>
+            <tr>
+              <th class="col-xs-4 text-warning center"></th>
+              <th class="pricing-snowschoolers col-xs-4"><br></th>
+              <th class="holiday-dates col-xs-4">Holidays: Dec 21-Jan 6, Jan 19-20, and Feb 16-24</th>
+            </tr>
+          </thead>
+
+          <% if (Product.where(location_id:24,length:"1.00",product_type:'group_lesson',calendar_period:Location.find(24).calendar_status).first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil) %>
+          <h1 class='text-danger center'> Pricing Not Yet Available </h1>
+
+          <% else %>
+
+          <tbody>
+            <tr>
+                <td class="pricing-length grey-side-borders pricing-grey-background col-xs-2">Without rental equipment</td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"2.00",product_type:'group_lesson',calendar_period:'Regular',is_rental:false).first.price, :precision => 0) %>
+                </td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"2.00",product_type:'group_lesson',calendar_period:'Holiday',is_rental:false).first.price, :precision => 0) %>
+                </td>
+            </tr>
+            <tr>
+                 <td class="pricing-length grey-side-borders pricing-grey-background col-xs-2"><b>WITH</b> rental equipment</td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"2.00",product_type:'group_lesson',calendar_period:'Regular',is_rental:true).first.price, :precision => 0) %>
+                </td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"2.00",product_type:'group_lesson',calendar_period:'Holiday',is_rental:true).first.price, :precision => 0) %>
+                </td>
+            </tr>
+          </tbody>
+          <% end %>
+        </table>              
+          
+        </div>
+      </div>
+</section>
+
+        
+
+

@@ -1,4 +1,5 @@
 class LocationsController < ApplicationController
+  respond_to :html
   before_action :set_location, only: [:show, :edit, :update, :destroy]
   skip_before_action :authenticate_user!
 
@@ -22,6 +23,11 @@ class LocationsController < ApplicationController
   # GET /locations/1
   # GET /locations/1.json
   def show    
+  end
+
+  def granlibakken
+    @location = Location.find(24)
+    render 'show'
   end
 
   # GET /locations/new

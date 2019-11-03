@@ -427,7 +427,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <% end %>
 
 </div>
-<% if controller.controller_name != "welcome" %>
+<% unless ["welcome","locations"].include?(controller.controller_name) %>
 <% images = ['https://s3.amazonaws.com/snowschoolers/big-blue-bar-Jan29.jpg','https://s3.amazonaws.com/snowschoolers/Jan24-hw-twitter.jpg','https://s3.amazonaws.com/snowschoolers/Jan13-theface-powder.jpg'] %>
 <div class="page-container">
     <ul id="slider" class="mc-cycle" style="display: block; height: 100%; width: 100%;">
