@@ -25,6 +25,11 @@ class LocationsController < ApplicationController
   def show    
   end
 
+  def granlibakken
+    @location = Location.find(24)
+    render 'show'
+  end
+
   # GET /locations/new
   def new
     @location = Location.new
