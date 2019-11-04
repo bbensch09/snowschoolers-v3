@@ -1160,7 +1160,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def available_sections
-    sections = Section.where(sport_id:self.sport_id,date:self.lesson_time.date,slot:self.lesson_time.slot)
+    sections = Section.where(sport_id:self.sport_id,date:self.lesson_time.date)
     sections = sections.select{|section| section.has_capacity?}
   end
 

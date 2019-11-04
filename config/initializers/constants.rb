@@ -18,7 +18,7 @@ HW_HOLIDAYS = [
 GB_HOLIDAYS = ['2019-12-20','2019-12-21','2019-12-22','2019-12-23','2019-12-24','2019-12-25','2019-12-26','2019-12-27','2019-12-28','2019-12-29','2019-12-30','2019-12-31','2020-01-01','2020-01-02','2020-01-03','2020-01-04','2020-01-05','2020-01-18','2020-01-19','2020-01-20','2020-02-15','2020-02-16','2020-02-17','2020-02-18','2020-02-19','2020-02-20','2020-02-21','2020-02-22','2020-02-23']
 
 
-PRIVATE_SLOTS = ['Early Bird (8:45-9:45am)', '1hr Private 10am', '1hr Private 11:15am', '1hr Private 12:30pm','Half-day Morning (10am-12:45pm)', 'Half-day Afternoon (1:15-4pm)','Full-day (10am-4pm)']
+PRIVATE_SLOTS = ['Early Bird (8:45-9:45am)', '1hr Private 10am', '1hr Private 11:15am', '1hr Private 12:30pm','Half-day Morning (10am-12:45pm)', 'Half-day Afternoon (1:15-4pm)','Full-day (10am-4pm)','2hr Afternoon 1:45pm-3:45pm']
 GROUP_SLOTS = ['2hr Afternoon 1:45pm-3:45pm']
 
 BOOT_SIZES = [
