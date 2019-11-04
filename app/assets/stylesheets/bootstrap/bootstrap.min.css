@@ -420,7 +420,6 @@ h6,
 .h6 {
     font-family: inherit;
     font-weight: 500;
-    line-height: 1.1;
     color: inherit
 }
 
@@ -2727,7 +2726,7 @@ fieldset[disabled] .btn-link:focus {
     padding: 12px 18px;
     font-size: 15px;
     line-height: 1.33;
-    border-radius: 6px
+    border-radius: 6px;
 }
 
 .btn-sm,
@@ -5360,6 +5359,10 @@ a.thumbnail.active {
     background-color: #fcf8e3;
     border-color: #faebcc;
     color: #8a6d3b
+}
+.alert-warning-pdp {
+    color: #fcf8e3;
+    /*background-color: white;*/
 }
 
 .alert-warning hr {

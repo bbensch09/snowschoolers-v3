@@ -1,95 +1,84 @@
-<% if Location.find(24).partner_status == 'Inactive' %>
-    <% granlibakken_class = 'hidden' %>
-  <% else %>
-    <% granlibakken_class = '' %>
-<% end %>
-<section id="prices_simple" class="pricing-new-lesson">
-    <h1 class="text-left">
-        <span><a href="#book-a-group-lesson" class="btn btn-primary">See Group Lesson Rates</a></span>
-    </h1>
-    <div class="pricing-container">
-          <% if (Product.where(location_id:8,length:"1.00",product_type:'private_lesson').first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson').first == nil) %>
-          <h3 class='text-danger center'> Pricing Not Yet Available </h3>
-          <% else %>
-        <table class="col-lg-12 col-xs-12 pricing-table">
-          <thead class="">
-            <tr>
-                <th class="center price-header" colspan="6">
-                    <h1 class="navy-text">
-                        <span>2018/19 PRIVATE LESSON RATES</span>
-                    </h1>
-                    <h3 class="center navy-text">Book Early and Save over 50% Compared to Other Resorts</h3>
-                </th>
-            </tr>
-            
-            <tr class="price-schools">
-              <th class="col-xs-2 text-warning center">*<%=Location.find(24).calendar_status %> pricing* </th>
-              <!-- <th class="col-xs-2 text-warning center">*January Sale Pricing Until Jan 24th* </th> -->
-              <th class="pricing-snowschoolers col-xs-2">Homewood* <br> <span class="">(Lesson-only)</span> </th>
-              <th class="pricing-snowschoolers col-xs-2">Granlibakken** <br> <span class="">(Lesson-only)</span> </th>
-              <th class="pricing-snowschoolers col-xs-2 <%=granlibakken_class %>">Granlibakken** <br> <span class="">(Lift + Rentals)</span> </th>
-              <th class="hidden-unless-desktop pricing-competitors-names">Northstar </th>
-              <th class="hidden-unless-desktop pricing-competitors-names">Squaw Valley</th>
-            </tr>
-          </thead>
+<section id="lesson-types" class="bg-primary bg-grey center-content schedule-granlinbakken">
+      <div class="container">
+        <h1 class="center resorts-section-h1">Compare Lesson Choices</h1>
+        <div class="col-md-12">
+         <!-- begin pricing schedule template -->
+            <div class="snip1214">
+              <div class="plan">
+                <h3 class="plan-title">
+                  2hr Groups
+                </h3>
+                <div class="plan-cost"><span class="plan-type">Starting at </span><span class="plan-price">$80</span></div>
+                <ul class="plan-features">
+                  <li><i class="ion-checkmark"> </i>Most affordable</li>
+                  <li><i class="ion-checkmark"> </i>Afternoons 1:45-3:45pm</li>
+                  <li><i class="ion-checkmark"> </i>Max of up to 6 students in a group</li>
+                  <li><i class="ion-checkmark"> </i>Beginners Only</li>
+                  <li><i class="ion-checkmark"> </i>Mixed ages (kids & adults usually separate)</li>
+                  <li><i class="ion-checkmark"> </i>Lift ticket included</li>
+                </ul>
+                <div class="plan-select"><a href="/lessons/new">Book Now</a></div>
+              </div>
+              <div class="plan">
+                <h3 class="plan-title">
+                  1hr Privates
+                </h3>
+                <div class="plan-cost"><span class="plan-type">Starting at </span><span class="plan-price">$80</span></div>
+                <ul class="plan-features">
+                  <li><i class="ion-checkmark"> </i>Most popular</li>
+                  <li><i class="ion-checkmark"> </i>Dedicated private instructor</li>
+                  <li><i class="ion-checkmark"> </i>Flexible start times: <br>830am, 945am, 11am, or 1215pm </li>
+                  <li><i class="ion-checkmark"> </i>Lift ticket included</li>
+                  <li><i class="ion-checkmark"> </i>Add up to 4 friends or family members for +$40/pp</li>
+                </ul>
+                <div class="plan-select"><a href="/lessons/new">Book Now</a></div>
+              </div>
+              <div class="plan featured">
+                <h3 class="plan-title">
+                  Half-Day Privates
+                </h3>
+                <div class="plan-cost"><span class="plan-type">Starting at </span><span class="plan-price">$200</span></div>
+                <ul class="plan-features">
+                  <li><i class="ion-checkmark"> </i>Best value</li>
+                  <li><i class="ion-checkmark"> </i>Dedicated private instructor</li>
+                  <li><i class="ion-checkmark"> </i>Morning slot: 10am - 1245pm </li>
+                  <li><i class="ion-checkmark"> </i>Afternoon slot: 115pm - 4pm </li>
+                  <li><i class="ion-checkmark"> </i>Lift ticket included</li>
+                  <li><i class="ion-checkmark"> </i>Add up to 4 friends or family members for +$40/pp</li>
+                </ul>
+                <div class="plan-select"><a href="/lessons/new">Book Now</a></div>
+              </div>
+              <div class="plan">
+                <h3 class="plan-title">
+                  Full-day Privates
+                </h3>
+                <div class="plan-cost"><span class="plan-type">Starting at </span><span class="plan-price">$350</span></div>
+                <ul class="plan-features">
+                  <li><i class="ion-checkmark"> </i>Most convenient</li>
+                  <li><i class="ion-checkmark"> </i>Lesson time: 10am - 4pm </li>
+                  <li><i class="ion-checkmark"> </i>Split up day as you wish (lunch & hot cocoa breaks, etc.) </li>
+                  <li><i class="ion-checkmark"> </i>Lift ticket included</li>
+                  <li><i class="ion-checkmark"> </i>Add up to 4 friends or family members for +$40/pp</li>
+                </ul>
+                <div class="plan-select"><a href="/lessons/new">Book Now</a></div>
+              </div>
+            </div>
 
-          <tbody>
-            <tr>
-                <td class="grey-side-borders pricing-length pricing-grey-background">Early-bird (9-10am)</td>
-                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background">
-                    <%= number_to_currency(Product.where(location_id:8,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
-                </td>
-                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background ">
-                    <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
-                </td>
-                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background <%=granlibakken_class %>">
-                    <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',is_rental:true,calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
-                </td>
-                <td class="hidden-unless-desktop grey-side-borders pricing-competitors pricing-grey-background">N/A</td>
-                <td class="hidden-unless-desktop grey-side-borders pricing-competitors pricing-grey-background">N/A</td>
-            </tr>
-            <tr>
-                <td class="grey-side-borders pricing-length">Half-day (10-12:45pm; 1:15-4pm)</td>
-                <td class="grey-side-borders pricing-snowschoolers">
-                <%= number_to_currency(Product.where(location_id:8,length:"3.00",product_type:'private_lesson',calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
-                </td>
-                <td class="grey-side-borders pricing-snowschoolers ">
-                <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %> 
-                </td>
-                <td class="grey-side-borders pricing-snowschoolers <%=granlibakken_class %>">
-                <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',is_rental:true,calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
-                </td>
-                <td class="hidden-unless-desktop pricing-competitors">$620</td>
-                <td class="hidden-unless-desktop pricing-competitors">$539</td>
-            </tr>
-            <tr>
-                <td class="grey-side-borders pricing-length pricing-grey-background">Full-day (10-4pm)</td>
-                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background">
-                <%= number_to_currency(Product.where(location_id:8,length:"6.00",product_type:'private_lesson',calendar_period:Location.find(8).calendar_status).first.price, :precision => 0) %>
-                </td>
-                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background ">
-                <%= number_to_currency(Product.where(location_id:24,length:"6.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
-                </td>
-                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background <%=granlibakken_class %>">
-                <%= number_to_currency(Product.where(location_id:24,length:"6.00",product_type:'private_lesson',is_rental:true,calendar_period:Location.find(24).calendar_status).first.price, :precision => 0) %>
-                </td>
-                <td class="hidden-unless-desktop grey-side-borders pricing-competitors pricing-grey-background">$900</td>
-                <td class="hidden-unless-desktop grey-side-borders pricing-competitors pricing-grey-background">$759</td>
-            </tr>
-          </tbody>
-          <% end %>
-        </table>
-        <div class="row col-md-12 price-details">
+        </div>
+      </div>
+</section>
+
+<section class="bg-navy resorts-pdp-cta">
+        <div class="row container price-details text-white">
             <h4 class='left'>
                 All private lessons can include <b>up to 5 people</b>.                 
             </h4> 
             <h4 class='left'>
-                <a href=#full-pricing class="green-link">Click here</a> to review the full pricing calendar for holidays.
+                To review the full pricing calendar for a given mountain, you must first click into the resort detail page (e.g. <a href="/granlibakken" class="green-link">Granlibakken</a> or <a href="/homewood" class="green-link">Homewood</a>).
             </h4>
-            <h4 class="left alert-warning">ATTENTION: If you are interested in a midweek lesson (Tues-Thurs), we may have instructor availability but <b> ONLY </b> at Homewood. Please shoot us a quick email at <a href="mailto:hello@snowschoolers.com" class="green-link">hello@snowschoolers.com</a>, and we'll be happy to confirm availability and assist you with your reservation.
-            <h4 class="left alert-warning hidden">ATTENTION: Due to unfavorable snow conditions, Granlibakken Ski Hill is temporarily closed, and so all lessons are currently taking place at Homewood. We expect Granlibakken to re-open on January 19th. If you would like to reserve a lesson at Granlibakken for the 19th or after, <a href=<%= root_path+"?granlibakken=true#book-a-lesson" %> class="green-link">please first click here to reload this page</a> and then proceed with your reservation.
+            <h4 class="left alert-warning-pdp">ATTENTION: If you are interested in a midweek lesson (Tues-Thurs), we may have instructor availability but <b> ONLY </b> at Homewood. Please shoot us a quick email at <a href="mailto:hello@snowschoolers.com" class="green-link">hello@snowschoolers.com</a>, and we'll be happy to confirm availability and assist you with your reservation.
+            <h4 class="left alert-warning-pdp hidden">ATTENTION: Due to unfavorable snow conditions, Granlibakken Ski Hill is temporarily closed, and so all lessons are currently taking place at Homewood. We expect Granlibakken to re-open on January 19th. If you would like to reserve a lesson at Granlibakken for the 19th or after, <a href=<%= root_path+"?granlibakken=true#book-a-lesson" %> class="green-link">please first click here to reload this page</a> and then proceed with your reservation.
                 <br><br>
                 If you have questions about the latest conditions forecast or if you need assistance rescheduling a previously booked lesson, please email us at <a href="mailto:hello@snowschoolers.com" class="green-link">hello@snowschoolers.com</a> or call us directly at <a href="tel:5304307669" class="green-link">530-430-SNOW</a>.</h4>            
         </div>
-    </div>
 </section>

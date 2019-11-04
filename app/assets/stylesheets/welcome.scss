@@ -102,6 +102,7 @@ h4,
 h5,
 h6 {
   font-family: 'Palanquin', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1;
 }
 p {
   font-size: 20px;
@@ -591,7 +592,12 @@ body {
 }
 
 .smaller-text{
+  font-size: 0.8em;
+line-height: 1.2;
+}
+.homepage-smaller-text{
   font-size: 0.5em;
+  line-height: 1;
 }
 .medium-text{
   font-size: 0.9em;
@@ -1369,6 +1375,7 @@ section.pricing-new-lesson{
 }
 .home-header{
   font-family: 'Palanquin', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1;
 }
 .strikethrough{
   text-decoration: line-through;
@@ -1490,6 +1497,7 @@ h2.blog-cta{
 
 .container {
     width: 1300px;
+    max-width: 100%;
 }
 .report-container{
   width: 96vw;
@@ -1634,6 +1642,7 @@ h2.blog-cta{
     font-size: 1.8em;
     padding-left: 5px;
     padding-right: 5px;
+    line-height: 1.1;
   }
   h2 {
     font-size: 1.6em;

@@ -1,0 +1,295 @@
+<!-- old pricing from 2019 -->
+
+<section id="full-pricing" class="container">
+    <div class="">
+        <h1 class="center navy-text">Full Pricing Schedule</h1>
+        <table class="col-lg-11 col-xs-12 pricing-table">
+          <thead class="">
+            <tr>
+                <th class="center price-header" colspan="5">
+                    <h1>PRIVATE LESSONS AT HOMEWOOD</h1>
+                </th>
+            </tr>
+            <tr class="">
+              <th class="col-xs-2 text-warning center"></th>
+              <th class="pricing-snowschoolers col-xs-2">Daily Rate<br></th>
+              <th class="pricing-snowschoolers col-xs-4">Peak Rate<br></th>
+              <th class="pricing-snowschoolers col-xs-4">Holiday Rate<br></th>
+            </tr>
+            <tr>
+              <th class="col-xs-2 text-warning center"></th>
+              <th class="pricing-snowschoolers col-xs-2"><br></th>
+              <th class="holiday-dates col-xs-4">Peak days: Saturdays, Dec. 25, Jan 1, Feb 14th, Feb 18-22<br></th>
+              <th class="holiday-dates col-xs-4">Holidays: Dec 22–24, Dec 26-31, Jan 19-20, Feb 16–17, and Feb 23.<br></th>
+            </tr>
+          </thead>
+
+          <% if (Product.where(location_id:8,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(8).calendar_status).first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil) %>
+          <h1 class='text-danger center'> Pricing Not Yet Available </h1>
+
+          <% else %>
+
+          <tbody>
+            <tr>
+                <td class="pricing-length grey-side-borders pricing-grey-background col-xs-3">Early-bird (9-10am)</td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:8,length:"1.00",product_type:'private_lesson',calendar_period:'Regular').first.price, :precision => 0) %>
+                </td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:8,length:"1.00",product_type:'private_lesson',calendar_period:'Peak').first.price, :precision => 0) %>
+                </td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:8,length:"1.00",product_type:'private_lesson',calendar_period:'Holiday').first.price, :precision => 0) %>
+                </td>
+            </tr>
+            <tr>
+                <td class="pricing-length grey-side-borders col-xs-3">Half-day (10-12:45pm; 1:15pm-4pm)</td>
+                <td class="pricing-snowschoolers">
+                    <%= number_to_currency(Product.where(location_id:8,length:"3.00",product_type:'private_lesson',calendar_period:'Regular').first.price, :precision => 0) %>
+                </td>
+                <td class="pricing-snowschoolers">
+                    <%= number_to_currency(Product.where(location_id:8,length:"3.00",product_type:'private_lesson',calendar_period:'Peak').first.price, :precision => 0) %>
+                </td>
+                <td class="pricing-snowschoolers">
+                    <%= number_to_currency(Product.where(location_id:8,length:"3.00",product_type:'private_lesson',calendar_period:'Holiday').first.price, :precision => 0) %>
+                </td>
+            </tr>
+            <tr>
+                <td class="pricing-length grey-side-borders pricing-grey-background col-xs-3">Full-day (10-4pm)</td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:8,length:"6.00",product_type:'private_lesson',calendar_period:'Regular').first.price, :precision => 0) %>
+                </td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:8,length:"6.00",product_type:'private_lesson',calendar_period:'Peak').first.price, :precision => 0) %>
+                </td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:8,length:"6.00",product_type:'private_lesson',calendar_period:'Holiday').first.price, :precision => 0) %>
+                </td>
+            </tr>
+          </tbody>
+          <% end %>
+        </table>
+
+        <hr class="deposit-hr-navy">
+
+        <table class="col-lg-11 col-xs-12 pricing-table">
+          <thead class="">
+            <tr>
+                <th class="center price-header" colspan="5">
+                    <h1>PRIVATE LESSONS AT Granlibakken</h1>
+                </th>
+            </tr>
+            <tr>
+              <th class="sub-header" colspan="5">
+                <h3 class="navy-text">Lesson packages with rental equipment included:</h3>
+              </th>
+            </tr>
+            <tr class="">
+              <th class="col-xs-4 text-warning center"></th>
+              <th class="pricing-snowschoolers col-xs-4">Daily Rate<br></th>
+              <th class="pricing-snowschoolers col-xs-4">Holiday Rate<br></th>
+            </tr>
+            <tr>
+              <th class="col-xs-4 text-warning center"></th>
+              <th class="pricing-snowschoolers col-xs-4"><br></th>
+              <th class="holiday-dates col-xs-4">Holidays: Dec 21-Jan 6, Jan 19-20, and Feb 16-24</th>
+            </tr>
+          </thead>
+
+          <% if (Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil) %>
+          <h1 class='text-danger center'> Pricing Not Yet Available </h1>
+
+          <% else %>
+
+          <tbody>
+            <tr>
+                <td class="pricing-length grey-side-borders pricing-grey-background col-xs-2">Early Bird (8:45am - 9:45am)</td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:'Regular',is_rental:true).first.price, :precision => 0) %>
+                </td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:'Holiday',is_rental:true).first.price, :precision => 0) %>
+                </td>
+            </tr>
+            <tr>
+                <td class="pricing-length grey-side-borders col-xs-2">Half-day (10-12:45pm; 1:15pm-4pm)</td>
+                <td class="pricing-snowschoolers">
+                    <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',calendar_period:'Regular',is_rental:true).first.price, :precision => 0) %>
+                </td>
+                <td class="pricing-snowschoolers">
+                    <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',calendar_period:'Holiday',is_rental:true).first.price, :precision => 0) %>
+                </td>
+            </tr>
+            <tr>
+                <td class="pricing-length grey-side-borders pricing-grey-background col-xs-2">Full-day (10-4pm)</td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"6.00",product_type:'private_lesson',calendar_period:'Regular',is_rental:true).first.price, :precision => 0) %>
+                </td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"6.00",product_type:'private_lesson',calendar_period:'Holiday',is_rental:true).first.price, :precision => 0) %>
+                </td>
+            </tr>
+          </tbody>
+          <% end %>
+        </table>
+        <table class="col-lg-11 col-xs-12 pricing-table">
+          <thead class="">
+            <tr>
+              <th class="sub-header" colspan="5">
+                <h3 class="navy-text">Lesson packages WITHOUT any rental equipment:</h3>
+              </th>
+            </tr>
+            <tr class="">
+              <th class="col-xs-4 text-warning center"></th>
+              <th class="pricing-snowschoolers col-xs-4">Daily Rate<br></th>
+              <th class="pricing-snowschoolers col-xs-4">Holiday Rate<br></th>
+            </tr>
+            <tr>
+              <th class="col-xs-4 text-warning center"></th>
+              <th class="pricing-snowschoolers col-xs-4"><br></th>
+              <th class="holiday-dates col-xs-4">Holidays: Dec 21-Jan 6, Jan 19-20, and Feb 16-24</th>
+            </tr>
+          </thead>
+
+          <% if (Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil) %>
+          <h1 class='text-danger center'> Pricing Not Yet Available </h1>
+
+          <% else %>
+
+          <tbody>
+            <tr>
+                <td class="pricing-length grey-side-borders pricing-grey-background col-xs-2">Early Bird (8:45am - 9:45am)</td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:'Regular',is_rental:false).first.price, :precision => 0) %>
+                </td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:'Holiday',is_rental:false).first.price, :precision => 0) %>
+                </td>
+            </tr>
+            <tr>
+                <td class="pricing-length grey-side-borders col-xs-2">Half-day (10-12:45pm; 1:15pm-4pm)</td>
+                <td class="pricing-snowschoolers">
+                    <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',calendar_period:'Regular',is_rental:false).first.price, :precision => 0) %>
+                </td>
+                <td class="pricing-snowschoolers">
+                    <%= number_to_currency(Product.where(location_id:24,length:"3.00",product_type:'private_lesson',calendar_period:'Holiday',is_rental:false).first.price, :precision => 0) %>
+                </td>
+            </tr>
+            <tr>
+                <td class="pricing-length grey-side-borders pricing-grey-background col-xs-2">Full-day (10-4pm)</td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"6.00",product_type:'private_lesson',calendar_period:'Regular',is_rental:false).first.price, :precision => 0) %>
+                </td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"6.00",product_type:'private_lesson',calendar_period:'Holiday',is_rental:false).first.price, :precision => 0) %>
+                </td>
+            </tr>
+          </tbody>
+          <% end %>
+        </table>
+
+        <hr class="deposit-hr-navy">
+
+        <table class="col-lg-11 col-xs-12 pricing-table">
+          <thead class="">
+            <tr>
+                <th class="center price-header" colspan="5">
+                    <h1>GROUP LESSONS AT Granlibakken</h1>
+                </th>
+            </tr>
+            <tr>
+              <th class="sub-header" colspan="5">
+                <h3 class="navy-text">Lessons with rental equipment included:</h3>
+              </th>
+            </tr>
+            <tr class="">
+              <th class="col-xs-4 text-warning center"></th>
+              <th class="pricing-snowschoolers col-xs-4">Daily Rate<br></th>
+              <th class="pricing-snowschoolers col-xs-4">Holiday Rate<br></th>
+            </tr>
+            <tr>
+              <th class="col-xs-4 text-warning center"></th>
+              <th class="pricing-snowschoolers col-xs-4"><br></th>
+              <th class="holiday-dates col-xs-4">Holidays: Dec 21-Jan 6, Jan 19-20, and Feb 16-24</th>
+            </tr>
+          </thead>
+
+          <% if (Product.where(location_id:24,length:"1.00",product_type:'group_lesson',calendar_period:Location.find(24).calendar_status).first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil) %>
+          <h1 class='text-danger center'> Pricing Not Yet Available </h1>
+
+          <% else %>
+
+          <tbody>
+            <tr>
+                <td class="pricing-length grey-side-borders pricing-grey-background col-xs-2">Early Bird (8:45am - 9:45am)</td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'group_lesson',calendar_period:'Regular',is_rental:true).first.price, :precision => 0) %>
+                </td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'group_lesson',calendar_period:'Holiday',is_rental:true).first.price, :precision => 0) %>
+                </td>
+            </tr>
+            <tr>
+                <td class="pricing-length grey-side-borders col-xs-2">2hr Group Lesson (10am-12pm, 1-3pm)</td>
+                <td class="pricing-snowschoolers">
+                    <%= number_to_currency(Product.where(location_id:24,length:"2.00",product_type:'group_lesson',calendar_period:'Regular',is_rental:true).first.price, :precision => 0) %>
+                </td>
+                <td class="pricing-snowschoolers">
+                    <%= number_to_currency(Product.where(location_id:24,length:"2.00",product_type:'group_lesson',calendar_period:'Holiday',is_rental:true).first.price, :precision => 0) %>
+                </td>
+            </tr>
+          </tbody>
+          <% end %>
+        </table>
+
+        <table class="col-lg-11 col-xs-12 pricing-table">
+          <thead class="">
+            <tr>
+              <th class="sub-header" colspan="5">
+                <h3 class="navy-text">Lessons WITHOUT rental equipment:</h3>
+              </th>
+            </tr>
+            <tr class="">
+              <th class="col-xs-4 text-warning center"></th>
+              <th class="pricing-snowschoolers col-xs-4">Daily Rate<br></th>
+              <th class="pricing-snowschoolers col-xs-4">Holiday Rate<br></th>
+            </tr>
+            <tr>
+              <th class="col-xs-4 text-warning center"></th>
+              <th class="pricing-snowschoolers col-xs-4"><br></th>
+              <th class="holiday-dates col-xs-4">Holidays: Dec 21-Jan 6, Jan 19-20, and Feb 16-24</th>
+            </tr>
+          </thead>
+
+          <% if (Product.where(location_id:24,length:"1.00",product_type:'group_lesson',calendar_period:Location.find(24).calendar_status).first == nil || Product.where(location_id:24,length:"1.00",product_type:'private_lesson',calendar_period:Location.find(24).calendar_status).first == nil) %>
+          <h1 class='text-danger center'> Pricing Not Yet Available </h1>
+
+          <% else %>
+
+          <tbody>
+            <tr>
+                <td class="pricing-length grey-side-borders pricing-grey-background col-xs-2">Early Bird (8:45am - 9:45am)</td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'group_lesson',calendar_period:'Regular',is_rental:false).first.price, :precision => 0) %>
+                </td>
+                <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
+                    <%= number_to_currency(Product.where(location_id:24,length:"1.00",product_type:'group_lesson',calendar_period:'Holiday',is_rental:false).first.price, :precision => 0) %>
+                </td>
+            </tr>
+            <tr>
+                <td class="pricing-length grey-side-borders col-xs-2">2hr Group Lesson (10am-12pm, 1-3pm) </td>
+                <td class="pricing-snowschoolers">
+                    <%= number_to_currency(Product.where(location_id:24,length:"2.00",product_type:'group_lesson',calendar_period:'Regular',is_rental:false).first.price, :precision => 0) %>
+                </td>
+                <td class="pricing-snowschoolers">
+                    <%= number_to_currency(Product.where(location_id:24,length:"2.00",product_type:'group_lesson',calendar_period:'Holiday',is_rental:false).first.price, :precision => 0) %>
+                </td>
+            </tr>
+          </tbody>
+          <% end %>
+        </table>
+
+
+
+    </div>
+</section>

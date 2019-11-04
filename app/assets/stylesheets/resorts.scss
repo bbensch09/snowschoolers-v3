@@ -31,7 +31,7 @@
 .span-buffer{ padding-left: 20px; }
 .underline {text-decoration: underline;}
 .resort-highlights{
-    font-size: 1.6em;
+    font-size: 1.3em;
     line-height: 1.5;
 }
 .resort-highlights-img{
@@ -53,6 +53,9 @@
 section.resorts-pdp-cta{
 	min-height: 200px !important;
 }
+.resorts-section-h1{
+	margin-bottom: 25px;
+}
 
 
 /*begin pricing table snippets*/
@@ -69,7 +72,7 @@ section.resorts-pdp-cta{
   margin: 40px 10px;
 }
 .snip1214 .plan {
-  margin: 0;
+  margin-bottom: 10px;
   width: 25%;
   height: 400px;
   position: relative;
@@ -136,7 +139,7 @@ section.resorts-pdp-cta{
 	right: 25%;
 }
 .snip1214 .plan-select a {
-  background-color: #222f3d;
+  background-color: #55C9B2;
   color: #ffffff;
   text-decoration: none;
   padding: 0.5em 1em;
@@ -190,6 +193,16 @@ section.resorts-pdp-cta{
   .snip1214 .featured {
     margin-top: 0;
   }
+  .snip1214 .plan-select {
+    /* border-top: 1px solid #d2d7e2; */
+    padding: 10px 10px 0;
+    position: absolute;
+    bottom: 5px;
+    right: 25%;
+	}
+	.snip1214 .featured {
+  	margin-bottom: 10px;
+	}
 }
 @media only screen and (max-width: 440px) {
   .snip1214 .plan {
