@@ -215,10 +215,16 @@ class Lesson < ActiveRecord::Base
       when PRIVATE_SLOTS.first
         return "1.00"
       when PRIVATE_SLOTS.second
-        return "3.00"
+        return "1.00"
       when PRIVATE_SLOTS.third
-        return "3.00"
+        return "1.00"
       when PRIVATE_SLOTS.fourth
+        return "1.00"
+      when PRIVATE_SLOTS.fifth
+        return "3.00"
+      when PRIVATE_SLOTS.sixth
+        return "3.00"
+      when PRIVATE_SLOTS.seventh
         return "6.00"
       else
         return "2.00"
@@ -243,53 +249,62 @@ class Lesson < ActiveRecord::Base
             product = Product.where(location_id:self.location.id,length:"6.00",product_type:"private_lesson"  ).first
           
           #pricing for Granlibakken GROUPS
-          #Early-bird, no rental
-          elsif self.slot == GROUP_SLOTS.first && self.location.id == 24 && self.class_type == 'group' && !self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"group_lesson",is_lift_rental_package:false).first
-          #Early-bird, with rental
-          elsif self.slot == GROUP_SLOTS.first && self.location.id == 24 && self.class_type == 'group' && self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"group_lesson",is_lift_rental_package:true).first
-          #2hr morning lesson, no rental
-          elsif self.slot == GROUP_SLOTS.second && self.location.id == 24 && self.class_type == 'group' && !self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:"2.00",calendar_period:calendar_period,product_type:"group_lesson",is_lift_rental_package:false).first
-          #2hr morning lesson, with rental
-          elsif self.slot == GROUP_SLOTS.second && self.location.id == 24 && self.class_type == 'group' && self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:"2.00",calendar_period:calendar_period,product_type:"group_lesson",is_lift_rental_package:true).first
           #2hr afternoons lesson, no rental
-          elsif self.slot == GROUP_SLOTS.third && self.location.id == 24 && self.class_type == 'group' && !self.includes_rental_package?
+          elsif self.slot == GROUP_SLOTS.first && self.location.id == 24 && self.class_type == 'group' && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"2.00",calendar_period:calendar_period,slot:"Afternoon",product_type:"group_lesson",is_lift_rental_package:false).first
           #2hr afternoons lesson, with rental
-          elsif self.slot == GROUP_SLOTS.third && self.location.id == 24 && self.class_type == 'group' && self.includes_rental_package?
+          elsif self.slot == GROUP_SLOTS.first && self.location.id == 24 && self.class_type == 'group' && self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"2.00",calendar_period:calendar_period,slot:"Afternoon",product_type:"group_lesson",is_lift_rental_package:true).first
 
 
           #pricing for Granlibakken PRIVATES
           #early bird w/o rental
           elsif self.slot == PRIVATE_SLOTS.first && self.location.id == 24 && self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:true).first
+            product = Product.where(location_id:self.location.id,length:"1.00",slot:'Early-bird',calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:true).first
           #early bird w/ rental
           elsif self.slot == PRIVATE_SLOTS.first && self.location.id == 24 && !self.includes_rental_package?
+            product = Product.where(location_id:self.location.id,length:"1.00",slot:'Early-bird',calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
+
+          #1hr morning private w/o rental @10am start
+          elsif self.slot == PRIVATE_SLOTS.second && self.location.id == 24 && self.includes_rental_package?
+            product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:true).first
+          #1hr morning private WITH rental @10am start
+          elsif self.slot == PRIVATE_SLOTS.second && self.location.id == 24 && !self.includes_rental_package?
+            product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
+
+          #1hr morning private w/o rental @1115am start
+          elsif self.slot == PRIVATE_SLOTS.third && self.location.id == 24 && self.includes_rental_package?
+            product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:true).first
+          #1hr morning private WITH rental @1115am start
+          elsif self.slot == PRIVATE_SLOTS.third && self.location.id == 24 && !self.includes_rental_package?
+            product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
+
+          #1hr morning private w/o rental @1230pm start
+          elsif self.slot == PRIVATE_SLOTS.fourth && self.location.id == 24 && self.includes_rental_package?
+            product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:true).first
+          #1hr morning private WITH rental @1230pm start
+          elsif self.slot == PRIVATE_SLOTS.fourth && self.location.id == 24 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
 
           #pricing for morning GB half-day package
-          elsif self.slot == PRIVATE_SLOTS.second && self.location.id == 24 && self.includes_rental_package?
+          elsif self.slot == PRIVATE_SLOTS.fifth && self.location.id == 24 && self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:true).first
           #pricing for morning GB half-day lesson only
-          elsif self.slot == PRIVATE_SLOTS.second && self.location.id == 24 && !self.includes_rental_package?
+          elsif self.slot == PRIVATE_SLOTS.fifth && self.location.id == 24 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
 
           #pricing for afternoon GB half-day package
-          elsif self.slot == PRIVATE_SLOTS.third && self.location.id == 24 && self.includes_rental_package?
+          elsif self.slot == PRIVATE_SLOTS.sixth && self.location.id == 24 && self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,slot:"Afternoon",product_type:"private_lesson",is_lift_rental_package:true).first
           #pricing for afternoon GB half-day lesson only
-          elsif self.slot == PRIVATE_SLOTS.third && self.location.id == 24 && !self.includes_rental_package?
+          elsif self.slot == PRIVATE_SLOTS.sixth && self.location.id == 24 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,slot:"Afternoon",product_type:"private_lesson",is_lift_rental_package:false).first
 
           #pricing for GB full-day lesson package
-          elsif self.slot == PRIVATE_SLOTS.fourth  && self.location.id == 24 && self.includes_rental_package?
+          elsif self.slot == PRIVATE_SLOTS.seventh  && self.location.id == 24 && self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:true).first
           #pricing for GB full-day lesson only
-          elsif self.slot == PRIVATE_SLOTS.fourth  && self.location.id == 24 && !self.includes_rental_package?
+          elsif self.slot == PRIVATE_SLOTS.seventh  && self.location.id == 24 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
 
 
@@ -302,24 +317,24 @@ class Lesson < ActiveRecord::Base
             product = Product.where(location_id:self.location.id,length:"1.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
 
           #pricing for morning homewood half-day package
-          elsif self.slot == PRIVATE_SLOTS.second && self.location.id == 8 && self.includes_rental_package?
+          elsif self.slot == PRIVATE_SLOTS.fifth && self.location.id == 8 && self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
           #pricing for morning homewood half-day lesson only
-          elsif self.slot == PRIVATE_SLOTS.second && self.location.id == 8 && !self.includes_rental_package?
+          elsif self.slot == PRIVATE_SLOTS.fifth && self.location.id == 8 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
 
           #pricing for afternoon homewood half-day package
-          elsif self.slot == PRIVATE_SLOTS.third && self.location.id == 8 && self.includes_rental_package?
+          elsif self.slot == PRIVATE_SLOTS.sixth && self.location.id == 8 && self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,slot:"Afternoon",product_type:"private_lesson",is_lift_rental_package:false).first
           #pricing for afternoon homewood half-day lesson only
-          elsif self.slot == PRIVATE_SLOTS.third && self.location.id == 8 && !self.includes_rental_package?
+          elsif self.slot == PRIVATE_SLOTS.sixth && self.location.id == 8 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,slot:"Afternoon",product_type:"private_lesson",is_lift_rental_package:false).first
 
           #pricing for homewood full-day lesson package
-          elsif self.slot == PRIVATE_SLOTS.fourth  && self.location.id == 8 && self.includes_rental_package?
+          elsif self.slot == PRIVATE_SLOTS.seventh  && self.location.id == 8 && self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
           #pricing for homewood full-day lesson only
-          elsif self.slot == PRIVATE_SLOTS.fourth  && self.location.id == 8 && !self.includes_rental_package?
+          elsif self.slot == PRIVATE_SLOTS.seventh  && self.location.id == 8 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
         end
         unless product.nil?
@@ -1605,6 +1620,7 @@ def available_instructors?
   end
 
   def send_sms_to_admin
+      return if ENV['twilio_status'] == "inactive"
       return true if self.skip_validations
       recipient = "408-315-2900"
       body = "ALERT - no instructors are available to teach #{self.requester.name} at #{self.product.start_time} on #{self.lesson_time.date} at #{self.location.name}. The last person to decline was #{Instructor.find(LessonAction.last.instructor_id).username}."
@@ -1622,6 +1638,7 @@ def available_instructors?
   def notify_admin_private_lessons_sold_out(lesson_time,activity,guest_email)
       # lesson = Lesson.find(lesson_id)
       # recipient = "408-315-2900"
+      return if ENV['twilio_status'] == "inactive"
       guest = guest_email ? guest_email : 'a new customer'
       body = "ALERT - #{guest} attempted to request a private #{activity} lesson on #{lesson_time.date}. The lesson is a #{lesson_time.slot}. We have no more instructors available based on the current calendar. We must activate more instructors before selling additional lessons at this time."
       @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']    
@@ -1636,6 +1653,7 @@ def available_instructors?
   end
 
   def notify_admin_group_lessons_sold_out(lesson_time,activity,guest_email)
+      return if ENV['twilio_status'] == "inactive"
       recipient = "408-315-2900"
       guest = guest_email ? guest_email : 'a new customer'
       body = "ALERT - #{guest} attempted to request a group #{activity} lesson on #{lesson_time.date}. The lesson is a #{lesson_time.slot}. We have no more instructors available based on the current calendar. We must activate more instructors before selling additional lessons at this time."
