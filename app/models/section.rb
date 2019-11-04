@@ -63,8 +63,8 @@ class Section < ApplicationRecord
 	end
 
 	def self.generate_all_sections
-		dates = ['2018-12-16','2018-12-17','2018-12-18','2018-12-22','2018-12-23','2018-12-24','2018-12-25','2018-12-26','2018-12-27','2018-12-28','2018-12-29','2018-12-30','2018-12-31',
-		'2019-01-01','2019-01-02','2019-01-03','2019-01-04','2019-01-05','2019-01-06','2019-01-07','2019-01-08','2019-01-12','2019-01-13','2019-01-14','2019-01-15','2019-01-19','2019-01-20','2019-01-21','2019-01-22','2019-01-26','2019-01-27','2019-01-28','2019-01-29','2019-02-02','2019-02-03','2019-02-04','2019-02-05','2019-02-09','2019-02-10','2019-02-11','2019-02-12','2019-02-16','2019-02-17','2019-02-18','2019-02-19','2019-02-20','2019-02-21','2019-02-22','2019-02-23','2019-02-24','2019-02-25','2019-02-26','2019-03-02','2019-03-03','2019-03-04','2019-03-05','2019-03-09','2019-03-10','2019-03-11','2019-03-12','2019-03-16','2019-03-17','2019-03-18','2019-03-19','2019-03-23','2019-03-24','2019-03-25','2019-03-26','2019-03-30','2019-03-31','2019-04-01','2019-04-02','2019-04-06','2019-04-07','2019-04-08','2019-04-09','2019-04-13','2019-04-14','2019-04-15']
+		dates = ['2019-12-14','2019-12-15','2019-12-16','2019-12-17','2019-12-18','2019-12-22','2019-12-23','2019-12-24','2019-12-25','2019-12-26','2019-12-27','2019-12-28','2019-12-29','2019-12-30','2019-12-31',
+		'2020-01-01','2020-01-02','2020-01-03','2020-01-04','2020-01-05','2020-01-06','2020-01-07','2020-01-08','2020-01-12','2020-01-13','2020-01-14','2020-01-15','2020-01-19','2020-01-20','2020-01-21','2020-01-22','2020-01-26','2020-01-27','2020-01-28','2020-01-29','2020-02-02','2020-02-03','2020-02-04','2020-02-05','2020-02-09','2020-02-10','2020-02-11','2020-02-12','2020-02-16','2020-02-17','2020-02-18','2020-02-19','2020-02-20','2020-02-21','2020-02-22','2020-02-23','2020-02-24','2020-02-25','2020-02-26','2020-03-02','2020-03-03','2020-03-04','2020-03-05','2020-03-09','2020-03-10','2020-03-11','2020-03-12','2020-03-16','2020-03-17','2020-03-18','2020-03-19','2020-03-23','2020-03-24','2020-03-25','2020-03-26','2020-03-30','2020-03-31','2020-04-01','2020-04-02','2020-04-06','2020-04-07','2020-04-08','2020-04-09','2020-04-13','2020-04-14','2020-04-15']
 		dates.each do |date|
 			if Section.where(date:date).count == 0
 				Section.seed_sections(date)
@@ -73,56 +73,56 @@ class Section < ApplicationRecord
 	end
 
 	def self.seed_sections(date = Date.today)
-		#Early-Birds
-		Section.create!({
-			date: date,
-			name: 'Early Bird Skiing',
-			slot: GROUP_SLOTS.first,
-			sport_id: 1,
-			level: 'Beginner',
-			capacity: 5
-			})
-		Section.create!({
-			date: date,
-			name: 'Early Bird Snowboarding',
-			slot: GROUP_SLOTS.first,
-			sport_id: 2,
-			level: 'Beginner',
-			capacity: 5
-			})
-		#Morning Groups
-		Section.create!({
-			date: date,
-			name: '2hr Morning Skiing',
-			slot: GROUP_SLOTS.second,
-			sport_id: 1,
-			level: 'First-timer',
-			capacity: 5
-			})
-		Section.create!({
-			date: date,
-			name: '2hr Morning Snowboarding',
-			slot: GROUP_SLOTS.second,
-			sport_id: 2,
-			level: 'First-timer',
-			capacity: 5
-			})
+		# #Early-Birds
+		# Section.create!({
+		# 	date: date,
+		# 	name: 'Early Bird Skiing',
+		# 	slot: GROUP_SLOTS.first,
+		# 	sport_id: 1,
+		# 	level: 'Beginner',
+		# 	capacity: 5
+		# 	})
+		# Section.create!({
+		# 	date: date,
+		# 	name: 'Early Bird Snowboarding',
+		# 	slot: GROUP_SLOTS.first,
+		# 	sport_id: 2,
+		# 	level: 'Beginner',
+		# 	capacity: 5
+		# 	})
+		# #Morning Groups
+		# Section.create!({
+		# 	date: date,
+		# 	name: '2hr Morning Skiing',
+		# 	slot: GROUP_SLOTS.second,
+		# 	sport_id: 1,
+		# 	level: 'First-timer',
+		# 	capacity: 5
+		# 	})
+		# Section.create!({
+		# 	date: date,
+		# 	name: '2hr Morning Snowboarding',
+		# 	slot: GROUP_SLOTS.second,
+		# 	sport_id: 2,
+		# 	level: 'First-timer',
+		# 	capacity: 5
+		# 	})
 		#Afternoon Groups
 		Section.create!({
 			date: date,
 			name: '2hr Afternoon Skiing',
-			slot: GROUP_SLOTS.third,
+			slot: GROUP_SLOTS.first,
 			sport_id: 1,
 			level: 'Beginner',
-			capacity: 5
+			capacity: 6
 			})
 		Section.create!({
 			date: date,
 			name: '2hr Afternoon Snowboarding',
-			slot: GROUP_SLOTS.third,
+			slot: GROUP_SLOTS.first,
 			sport_id: 2,
 			level: 'Beginner',
-			capacity: 5
+			capacity: 6
 			})
 
 	end
