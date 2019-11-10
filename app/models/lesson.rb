@@ -222,9 +222,9 @@ class Lesson < ActiveRecord::Base
         return "1.00"
       when PRIVATE_SLOTS.fifth
         return "3.00"
-      when PRIVATE_SLOTS.sixth
+      when PRIVATE_SLOTS[5]
         return "3.00"
-      when PRIVATE_SLOTS.seventh
+      when PRIVATE_SLOTS[6]
         return "6.00"
       else
         return "2.00"
@@ -294,17 +294,17 @@ class Lesson < ActiveRecord::Base
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
 
           #pricing for afternoon GB half-day package
-          elsif self.slot == PRIVATE_SLOTS.sixth && self.location.id == 24 && self.includes_rental_package?
+          elsif self.slot == PRIVATE_SLOTS[5] && self.location.id == 24 && self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,slot:"Afternoon",product_type:"private_lesson",is_lift_rental_package:true).first
           #pricing for afternoon GB half-day lesson only
-          elsif self.slot == PRIVATE_SLOTS.sixth && self.location.id == 24 && !self.includes_rental_package?
+          elsif self.slot == PRIVATE_SLOTS[5] && self.location.id == 24 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,slot:"Afternoon",product_type:"private_lesson",is_lift_rental_package:false).first
 
           #pricing for GB full-day lesson package
-          elsif self.slot == PRIVATE_SLOTS.seventh  && self.location.id == 24 && self.includes_rental_package?
+          elsif self.slot == PRIVATE_SLOTS[6]  && self.location.id == 24 && self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:true).first
           #pricing for GB full-day lesson only
-          elsif self.slot == PRIVATE_SLOTS.seventh  && self.location.id == 24 && !self.includes_rental_package?
+          elsif self.slot == PRIVATE_SLOTS[6]  && self.location.id == 24 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
 
 
@@ -324,17 +324,17 @@ class Lesson < ActiveRecord::Base
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
 
           #pricing for afternoon homewood half-day package
-          elsif self.slot == PRIVATE_SLOTS.sixth && self.location.id == 8 && self.includes_rental_package?
+          elsif self.slot == PRIVATE_SLOTS[5] && self.location.id == 8 && self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,slot:"Afternoon",product_type:"private_lesson",is_lift_rental_package:false).first
           #pricing for afternoon homewood half-day lesson only
-          elsif self.slot == PRIVATE_SLOTS.sixth && self.location.id == 8 && !self.includes_rental_package?
+          elsif self.slot == PRIVATE_SLOTS[5] && self.location.id == 8 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"3.00",calendar_period:calendar_period,slot:"Afternoon",product_type:"private_lesson",is_lift_rental_package:false).first
 
           #pricing for homewood full-day lesson package
-          elsif self.slot == PRIVATE_SLOTS.seventh  && self.location.id == 8 && self.includes_rental_package?
+          elsif self.slot == PRIVATE_SLOTS[6]  && self.location.id == 8 && self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
           #pricing for homewood full-day lesson only
-          elsif self.slot == PRIVATE_SLOTS.seventh  && self.location.id == 8 && !self.includes_rental_package?
+          elsif self.slot == PRIVATE_SLOTS[6]  && self.location.id == 8 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:"6.00",calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
         end
         unless product.nil?
