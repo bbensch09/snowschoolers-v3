@@ -1,4 +1,20 @@
-<% if @promo_location.nil? %>
+<% if @promo_location && @promo_location != 24%>
+    <% @resort_name = Location.find(@promo_location).name %>
+    <% @cta_visibility = "hidden" %>
+
+<section id="#book-a-lesson" class="bg-navy center-content lesson-new-form-header">
+      <!-- <h1 class="center text-white">*Please note* Lessons for the 19/20 lesson are not yet on sale. <br> Reservations will be accepted starting Nov 4th! </h1> -->
+      <div class="center row">
+        <h2 class="text-white"> We are not yet accepting reservations at <%= @resort_name %> for the 19/20 season. If you wish to book directly you may do so by making a lesson reservation at Granlibakken, or email us with your dates and group information and we'll reach out when we're able to assist you with making at reservation at <%= @resort_name %>.  </h2>
+          <a href="/granlibakken" class="btn btn-primary btn-lg page-scroll powder-btn">Book at Granlibakken</a>
+          <a href="mailto:support@snowschoolers.com" class="btn btn-secondary btn-lg page-scroll powder-btn">Get Notified when <%= @resort_name %> Lessons go on sale</a>
+          <% @resort_name = 'SNOWSCHOOLERS' %>
+      </div>
+</section>
+
+<% elsif @promo_location.nil? %>
+
+    <% @cta_visibility = "hidden" %>
 
 <section id="#book-a-lesson" class="bg-navy center-content lesson-new-form-header">
       <!-- <h1 class="center text-white">*Please note* Lessons for the 19/20 lesson are not yet on sale. <br> Reservations will be accepted starting Nov 4th! </h1> -->
@@ -10,10 +26,13 @@
       </div>
 </section>
 
-  <% else %>
+<% elsif @promo_location == 24 %>
+    <% @resort_name = Location.find(@promo_location).name %>
+    <% @cta_visibility = "unhidden" %>
     <!-- <p class="alert">The promo_location is set to: %=@promo_location%> </p> -->
-    <% @resort_name = Location.find(@promo_location).name.upcase %>
 <% end %>
+
+<div class=<%=@cta_visibility%> >
 
 <section class="bg-primary lesson-new-form-header">
   
@@ -33,7 +52,7 @@
       <div class="new-lesson-caption">
 
         <div class="block">
-          <h3 class="center mobile-book-cta">BOOK A LESSON at <%= @resort_name %> </h3>
+          <h3 class="center mobile-book-cta">BOOK A LESSON at <%= @resort_name.upcase %> </h3>
         </div>
 
         <div class="block">
@@ -88,8 +107,10 @@
                 <!-- <li> <button id='browser-instructors-cta' href="/browse" value="Browse Instructors" class="btn btn-default btn-lg">Browse instructors</button></li> -->
                 <% end %>
             <!-- <a href='/lessons-availability' class= 'btn btn-success btn-lg'> SEE AVAILABLE TIMES </a> -->
+          </h1>
     </div>
 </section>
+</div>
 
 
   <%= render partial: "welcome/prices_simple" %>
