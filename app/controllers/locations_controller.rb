@@ -27,6 +27,7 @@ class LocationsController < ApplicationController
 
   def granlibakken
     @location = Location.find(24)
+    @lesson = Lesson.new
     render 'show'
   end
 
