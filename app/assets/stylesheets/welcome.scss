@@ -29,6 +29,476 @@ body {
             box-sizing: border-box;
 }
 
+.beginner-intro-questions{
+  text-align: left;
+  margin-left: 25vw;
+  font-weight: normal !important;
+  font-style: italic;
+  font-size: 0.6em;
+}
+.toc-sections{
+  text-align: left;
+  margin-left: 25vw;
+  font-weight: normal !important;
+  line-height: 1.4;
+  font-size: 1.6em;
+  color: #000;
+}
+.guide-lists{
+  text-align: left;
+  margin-left: 10vw;
+  font-weight: normal !important;
+  line-height: 1.4;
+  font-size: 1.6em;
+}
+.north-vs-south{
+  text-align: left;
+  margin-left: 5vw;
+  font-size: 1.5em;
+  line-height: 1.2;
+}
+.about-tahoe{
+  text-align: left;
+  font-size: 1.5em;
+}
+.font-smaller{
+  font-size: 0.8em !important;
+}
+.beginner-intro{
+  margin-bottom: 5px !important;
+}
+.tahoe-map{
+  float: right;
+  max-height: 400px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px solid #3b5998;
+}
+.navy-border{
+    border: 1px solid #3b5998;
+}
+
+.blog-bg{
+  background-color: #fff;
+}
+#blog{
+  min-height: 320px !important;
+}
+.blog-header{
+    font-weight: bold;
+    font-size: 3.5em;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+}
+.left{text-align: left;}
+.airbnb-logo{
+  float:right;
+  max-height: 100px;
+  border: 1px solid black;
+}
+.tire-chains-photo{
+  float:right;
+  height: 200px;
+}
+.skibutlers-logo{
+  float:right;
+  height: 180px;
+}
+.liftopia-logo{
+  float: right;
+  height: 100px;
+}
+.resort-photo{
+    height: auto;
+    max-height: 60vh;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+.resort-photo-container{
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    max-width: 800px;
+    clear:both;
+}
+.sledding-map{
+  width: 300px;
+  border: 1px solid #3b5998;
+  padding-left: 10px;
+  padding-right: 10px;
+  float: right;
+}
+.uber-lyft-logo,{
+  width: 400px;
+  border: 1px solid #3b5998;
+  padding-left: 10px;
+  padding-right: 10px;
+  float: right;
+}
+.inner-carpool-list {
+  font-size:  0.9em;
+  line-height: 1.2;
+  margin-top: 10px;
+}
+.hp-photo-margin{
+    max-width: 100%;
+    height: auto;
+    max-height: 60vh;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+.info-box{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+#about-tahoe h2.how-it-works{
+  height: 70px;
+}
+.jump-below{
+  font-size: 0.7em;
+  font-style: italic;
+  color: #3b5998;
+}
+.driving-times{
+  font-size: 0.9em;
+  font-style: italic;
+  color: #fff;
+}
+.skip-to-bottom{
+  margin-bottom: 0px;
+}
+.resort-photo-header{
+  min-height: 75px;
+}
+.new-lesson-container{
+  /*margin-top: 50px;*/
+  width: 100%;
+  max-width: 1150px;
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+}
+.lesson-form-container{
+  width: 100%;
+}
+.new-lesson-pricing-container{
+  width: 100%;
+}
+.new-lesson-call-cta, .requested-instructor{
+  margin: auto;
+  width:40%;
+  height: 300px;
+  display: inline-block;
+  color: #fff;
+  background:rgba(0,0,0,0.5);
+  min-height: 210px;
+  padding-bottom: 5px;
+}
+.requested-instructor-container-adjustment{
+  top:-46px;
+  margin-left:20px;
+  position: relative;
+}
+
+section.pricing-new-lesson{
+  background-color: rgba(255,255,255,0.8);
+  min-height: 210px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-top: 10px;
+}
+.new-lesson-caption{
+  color:#fff !important;
+  width: 100%;
+  min-height: 230px;
+  font-size:2em;
+  line-height: 1.5em;
+  padding:6px;
+  background-color: rgba(59, 89, 152, 1);
+  margin:0;
+  clear:both !important;
+  display:inline-block;
+}
+.selected-instructor-container{
+  position: relative;
+  float: right;
+  width: 20%;
+  z-index: 3;
+  color: #fff;
+  height: 230px;
+  color:#fff !important;
+  padding:6px;
+  background:rgba(0,0,0,0.5);
+  margin:0;
+  margin-bottom:2px;
+}
+.selected-instructor-container-empty{
+  width:20%;
+  height: 300px;
+  background:rgba(0,0,0,0.5);
+}
+.cta-subtext{
+  font-size: 1em;
+}
+.homewood-logo{
+  height: 60px;
+  max-width: 200px;
+  margin-top: 4px !important;
+}
+.blue-box-highlight, .btn-apply-homewood{
+    color: white;
+    background-color: #073765;
+}
+.blue-box-highlight{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.hw-blue-text{
+  color: #073765;
+}
+.teams-header{
+  text-transform: uppercase;
+}
+.off-site-subtext{
+  font-size: 0.7em !important;
+}
+.lift-tickets-container{
+  min-height: 600px;
+}
+#myModalLabel{
+  font-size: 1.6em;
+}
+.text-notice{
+  font-size: 1.1em;
+}
+.modal-prompt{
+  font-size: 1.7em;
+}
+.modal-close-to-continue{
+  font-style: italic;
+  text-align: center;
+  font-size: 0.9em;
+}
+.aw-mc-promo, .aw-six-hours, .aw-more-block, .aw-more-block {
+  display: none;
+}
+.aw-emergency-header{
+  height: 50px;
+}
+.weather-widget-container{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.aw-widget-36hour-inner{
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90% !important;
+}
+.btn-secondary{
+  background-color: #fff !important;
+  color: #000 !important;
+  border: 1px #000;
+  /*color: #DF5DDF !important; dark gray*/
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+.btn-box {
+  width: 45%;
+  height: 200px;
+  background-color: white;
+  border-radius: 0;
+  border: 1px solid #36454f;
+}
+.btn-primary{
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+.btn-secondary:hover{
+  background-color: #55C9B2;
+}
+#get-started-form-button{
+  padding-top: 0;
+}
+.row{
+  padding-top: 20px;
+}
+.blog-container{
+  max-width: 1100px;
+  margin: auto;
+  position: relative;
+  padding: 10px 15px 10px 15px;
+}
+.subheader-divider{
+  margin-bottom: 10px !important;
+  margin-top: 10px !important;
+}
+.youtube-embed-container, .fluid-width-video-wrapper iframe {
+  min-height: 350px;
+  max-height: 60vh;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 80px;
+}
+.blog-promo-container{
+  margin-bottom: 0px;
+}
+.hr-white{
+  color: #fff;
+}
+
+#homepage-background{
+  width:auto;
+  height:100%;
+  max-height:95vh;
+  top:-50px;
+  position: absolute;
+  z-index: -10;
+}
+#lesson-flow-background img{
+  min-width:100vw;
+  height:105vh;
+  width: auto;
+  top:-60px;
+  position: absolute;
+  z-index: -10;
+}
+.iframe-youtube{
+  width: 800px;
+  height: 400px;
+}
+.ss-logo{
+  width: 300px;
+  height: 80px;
+}
+.home-header{
+  font-family: 'Palanquin', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1;
+}
+.strikethrough{
+  text-decoration: line-through;
+}
+#about{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-top: 0;
+}
+.fb-login-btn{
+  max-width: 100%;
+  width: 50%;
+}
+#user_email, #user_password{
+  width: 40%;
+  padding: 10px;
+}
+
+.homepage-lesson-container {
+  margin-top: 50px;
+  width: 1150px;
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: white;
+}
+#full-lesson{
+  background-color: rgba(255, 255, 255, 0.8);
+  min-height: 400px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-top: 10px;
+}
+h2.blog-cta{
+  margin-bottom: 0px;
+}
+.group-lesson-links{
+  list-style: none;
+}
+#apply{
+  /*width:35vw;*/
+}
+.wages-headline li{
+  font-size: 1.3em;
+  list-style: none;
+  padding-left: 20%;
+  text-align: left;
+  line-height: 1.5;
+  color: #fff;
+}
+.wage-rates-container{
+  color:#fff;
+}
+.wage-rates-details li{
+  font-size: 1.2em;
+  text-align: left;
+  line-height: 1.4;
+  margin-left: 100px;
+  color: #fff;
+}
+.bonus-amount{
+  padding-right: 20%;
+}
+.wide-container{
+  max-width: 1400px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.amp-button {
+    font-family: 'futura-pt-bold',sans-serif;
+    /*font-weight: bold;*/
+    background-color: #0080bb;
+    border: 0;
+    font-size: 1.8em;
+    line-height: 60px;
+    text-align: left;
+    color: #ffffff;
+    padding: 0 30px;
+    margin-left: 10px;
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+}
+.amp-button-small{
+  font-size: 1.1em;
+  line-height: 1.4em;
+  width: 25vw;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+
+}
+.amp-button.dark:hover, .amp-button.dark:focus, .amp-button.primary:hover, .amp-button.primary:focus, .amp-button.progress:hover, .amp-button.progress:focus, .amp-button.progress-alt:hover, .amp-button.progress-alt:focus, .amp-button.previous:hover, .amp-button.previous:focus, .amp-button.outline:hover, .amp-button.outline:focus {
+    background-color: #006695;
+    transition: background-color 0.1s ease-in;
+    transition-delay: 0.4s;
+    color: #ffffff;
+    text-decoration: none;
+}
+.amp-button:hover {
+    background-color:#fff;
+    color: #0080bb;
+}
+
+.bg-navy {
+    color: #36454f;
+    background-color: #092340;
+}
+
 .recruiting-body {
 /*disables horizontal scroll */
     overflow: hidden;
@@ -1023,474 +1493,8 @@ text-align: center;
 @media all and (max-width: 500px) {
 .vid-info .acronym { display: none; }
 }
-.beginner-intro-questions{
-  text-align: left;
-  margin-left: 25vw;
-  font-weight: normal !important;
-  font-style: italic;
-  font-size: 0.6em;
-}
-.toc-sections{
-  text-align: left;
-  margin-left: 25vw;
-  font-weight: normal !important;
-  line-height: 1.4;
-  font-size: 1.6em;
-  color: #000;
-}
-.guide-lists{
-  text-align: left;
-  margin-left: 10vw;
-  font-weight: normal !important;
-  line-height: 1.4;
-  font-size: 1.6em;
-}
-.north-vs-south{
-  text-align: left;
-  margin-left: 5vw;
-  font-size: 1.5em;
-  line-height: 1.2;
-}
-.about-tahoe{
-  text-align: left;
-  font-size: 1.5em;
-}
-.font-smaller{
-  font-size: 0.8em !important;
-}
-.beginner-intro{
-  margin-bottom: 5px !important;
-}
-.tahoe-map{
-  float: right;
-  max-height: 400px;
-  padding-left: 10px;
-  padding-right: 10px;
-  border: 1px solid #3b5998;
-}
-.navy-border{
-    border: 1px solid #3b5998;
-}
 
-.blog-bg{
-  background-color: #fff;
-}
-#blog{
-  min-height: 320px !important;
-}
-.blog-header{
-    font-weight: bold;
-    font-size: 3.5em;
-    text-align: center;
-    text-transform: uppercase;
-    color: #fff;
-}
-.left{text-align: left;}
-.airbnb-logo{
-  float:right;
-  max-height: 100px;
-  border: 1px solid black;
-}
-.tire-chains-photo{
-  float:right;
-  height: 200px;
-}
-.skibutlers-logo{
-  float:right;
-  height: 180px;
-}
-.liftopia-logo{
-  float: right;
-  height: 100px;
-}
-.resort-photo{
-    height: auto;
-    max-height: 60vh;
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-}
-.resort-photo-container{
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    max-width: 800px;
-    clear:both;
-}
-.sledding-map{
-  width: 300px;
-  border: 1px solid #3b5998;
-  padding-left: 10px;
-  padding-right: 10px;
-  float: right;
-}
-.uber-lyft-logo,{
-  width: 400px;
-  border: 1px solid #3b5998;
-  padding-left: 10px;
-  padding-right: 10px;
-  float: right;
-}
-.inner-carpool-list {
-  font-size:  0.9em;
-  line-height: 1.2;
-  margin-top: 10px;
-}
-.hp-photo-margin{
-    max-width: 100%;
-    height: auto;
-    max-height: 60vh;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-}
-.info-box{
-  padding-top: 20px;
-  padding-bottom: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-}
-#about-tahoe h2.how-it-works{
-  height: 70px;
-}
-.jump-below{
-  font-size: 0.7em;
-  font-style: italic;
-  color: #3b5998;
-}
-.driving-times{
-  font-size: 0.9em;
-  font-style: italic;
-  color: #fff;
-}
-.skip-to-bottom{
-  margin-bottom: 0px;
-}
-.resort-photo-header{
-  min-height: 75px;
-}
-.new-lesson-container{
-  /*margin-top: 50px;*/
-  width: 1150px;
-  position: relative;
-  margin-right: auto;
-  margin-left: auto;
-}
-.lesson-form-container{
-  width: 100%;
-}
-.new-lesson-pricing-container{
-  width: 100%;
-}
-.new-lesson-call-cta, .requested-instructor{
-  margin: auto;
-  width:40%;
-  height: 300px;
-  display: inline-block;
-  color: #fff;
-  background:rgba(0,0,0,0.5);
-  min-height: 210px;
-  padding-bottom: 5px;
-}
-.requested-instructor-container-adjustment{
-  top:-46px;
-  margin-left:20px;
-  position: relative;
-}
 
-section.pricing-new-lesson{
-  background-color: rgba(255,255,255,0.8);
-  min-height: 210px;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  margin-top: 10px;
-}
-.new-lesson-caption{
-  color:#fff !important;
-  width: 100%;
-  min-height: 230px;
-  font-size:2em;
-  line-height: 1.5em;
-  padding:6px;
-  background-color: rgba(59, 89, 152, 1);
-  margin:0;
-  clear:both !important;
-  display:inline-block;
-}
-.selected-instructor-container{
-  position: relative;
-  float: right;
-  width: 20%;
-  z-index: 3;
-  color: #fff;
-  height: 230px;
-  color:#fff !important;
-  padding:6px;
-  background:rgba(0,0,0,0.5);
-  margin:0;
-  margin-bottom:2px;
-}
-.selected-instructor-container-empty{
-  width:20%;
-  height: 300px;
-  background:rgba(0,0,0,0.5);
-}
-.cta-subtext{
-  font-size: 1em;
-}
-.homewood-logo{
-  height: 60px;
-  max-width: 200px;
-  margin-top: 4px !important;
-}
-.blue-box-highlight, .btn-apply-homewood{
-    color: white;
-    background-color: #073765;
-}
-.blue-box-highlight{
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-.hw-blue-text{
-  color: #073765;
-}
-.teams-header{
-  text-transform: uppercase;
-}
-.off-site-subtext{
-  font-size: 0.7em !important;
-}
-.lift-tickets-container{
-  min-height: 600px;
-}
-#myModalLabel{
-  font-size: 1.6em;
-}
-.text-notice{
-  font-size: 1.1em;
-}
-.modal-prompt{
-  font-size: 1.7em;
-}
-.modal-close-to-continue{
-  font-style: italic;
-  text-align: center;
-  font-size: 0.9em;
-}
-.aw-mc-promo, .aw-six-hours, .aw-more-block, .aw-more-block {
-  display: none;
-}
-.aw-emergency-header{
-  height: 50px;
-}
-.weather-widget-container{
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-.aw-widget-36hour-inner{
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 90% !important;
-}
-.btn-secondary{
-  background-color: #fff !important;
-  color: #000 !important;
-  border: 1px #000;
-  /*color: #DF5DDF !important; dark gray*/
-  margin-top: 4px;
-  margin-bottom: 4px;
-}
-.btn-box {
-  width: 45%;
-  height: 200px;
-  background-color: white;
-  border-radius: 0;
-  border: 1px solid #36454f;
-}
-.btn-primary{
-  margin-top: 4px;
-  margin-bottom: 4px;
-}
-.btn-secondary:hover{
-  background-color: #55C9B2;
-}
-#get-started-form-button{
-  padding-top: 0;
-}
-.row{
-  padding-top: 20px;
-}
-.blog-container{
-  max-width: 1100px;
-  margin: auto;
-  position: relative;
-  padding: 10px 15px 10px 15px;
-}
-.subheader-divider{
-  margin-bottom: 10px !important;
-  margin-top: 10px !important;
-}
-.youtube-embed-container, .fluid-width-video-wrapper iframe {
-  min-height: 350px;
-  max-height: 60vh;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 80px;
-}
-.blog-promo-container{
-  margin-bottom: 0px;
-}
-.hr-white{
-  color: #fff;
-}
-
-#homepage-background{
-  width:auto;
-  height:100%;
-  max-height:95vh;
-  top:-50px;
-  position: absolute;
-  z-index: -10;
-}
-#lesson-flow-background img{
-  min-width:100vw;
-  height:105vh;
-  width: auto;
-  top:-60px;
-  position: absolute;
-  z-index: -10;
-}
-.iframe-youtube{
-  width: 800px;
-  height: 400px;
-}
-.ss-logo{
-  width: 300px;
-  height: 80px;
-}
-.home-header{
-  font-family: 'Palanquin', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
-  line-height: 1;
-}
-.strikethrough{
-  text-decoration: line-through;
-}
-#about{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  padding-top: 0;
-}
-.fb-login-btn{
-  max-width: 100%;
-  width: 50%;
-}
-#user_email, #user_password{
-  width: 40%;
-  padding: 10px;
-}
-
-.homepage-lesson-container {
-  margin-top: 50px;
-  width: 1150px;
-  position: relative;
-  margin-right: auto;
-  margin-left: auto;
-  background-color: white;
-}
-#full-lesson{
-  background-color: rgba(255, 255, 255, 0.8);
-  min-height: 400px;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  margin-top: 10px;
-}
-h2.blog-cta{
-  margin-bottom: 0px;
-}
-.group-lesson-links{
-  list-style: none;
-}
-#apply{
-  /*width:35vw;*/
-}
-.wages-headline li{
-  font-size: 1.3em;
-  list-style: none;
-  padding-left: 20%;
-  text-align: left;
-  line-height: 1.5;
-  color: #fff;
-}
-.wage-rates-container{
-  color:#fff;
-}
-.wage-rates-details li{
-  font-size: 1.2em;
-  text-align: left;
-  line-height: 1.4;
-  margin-left: 100px;
-  color: #fff;
-}
-.bonus-amount{
-  padding-right: 20%;
-}
-.wide-container{
-  max-width: 1400px;
-  margin-right: auto;
-  margin-left: auto;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-.amp-button {
-    font-family: 'futura-pt-bold',sans-serif;
-    /*font-weight: bold;*/
-    background-color: #0080bb;
-    border: 0;
-    font-size: 1.8em;
-    line-height: 60px;
-    text-align: left;
-    color: #ffffff;
-    padding: 0 30px;
-    margin-left: 10px;
-    border-radius: 4px;
-    position: relative;
-    cursor: pointer;
-    text-transform: uppercase;
-    text-decoration: none;
-    display: inline-block;
-}
-.amp-button-small{
-  font-size: 1.1em;
-  line-height: 1.4em;
-  width: 25vw;
-  margin-bottom: 10px;
-  padding-bottom: 5px;
-  padding-top: 5px;
-
-}
-.amp-button.dark:hover, .amp-button.dark:focus, .amp-button.primary:hover, .amp-button.primary:focus, .amp-button.progress:hover, .amp-button.progress:focus, .amp-button.progress-alt:hover, .amp-button.progress-alt:focus, .amp-button.previous:hover, .amp-button.previous:focus, .amp-button.outline:hover, .amp-button.outline:focus {
-    background-color: #006695;
-    transition: background-color 0.1s ease-in;
-    transition-delay: 0.4s;
-    color: #ffffff;
-    text-decoration: none;
-}
-.amp-button:hover {
-    background-color:#fff;
-    color: #0080bb;
-}
-
-.bg-navy {
-    color: #36454f;
-    background-color: #092340;
-}
 
 /*Desktop specific adjustments*/
 @media (min-width: 1200px) {
@@ -1739,7 +1743,7 @@ h2.blog-cta{
     font-size: 2em;
   }
   .powder-btn{
-    font-size: 0.5em;
+    font-size: 0.9em;
   }
   .disclaimer{
     padding-left:20px;
@@ -1887,11 +1891,11 @@ h2.blog-cta{
     float:none;
     clear: both;
     position: relative;
-    width: 100vw;
+    width: 100%;
     padding-top: 30px;
   }
   .mobile-call-cta{
-    margin-top: 300px;
+    margin-top: 30px;
     min-height: 50px;
   }
   .mobile-book-cta{

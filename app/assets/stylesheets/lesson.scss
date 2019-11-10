@@ -334,7 +334,7 @@ form{
   font-size: 1.2em
 }
 #new_lesson{
-  height:90vh;
+  max-height:90vh;
 }
 #slider .caption{
   bottom: 0px;
@@ -379,7 +379,9 @@ h3{
   padding-right: 15px;
   padding-left: 15px;
 }
-
+.new-lesson-container {
+    width: 100%;
+}
 
 
 }

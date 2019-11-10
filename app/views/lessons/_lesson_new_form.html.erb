@@ -1,4 +1,4 @@
-<% if @promo_location && @promo_location != 24%>
+<% if @promo_location && @promo_location == 8%>
     <% @resort_name = Location.find(@promo_location).name %>
     <% @cta_visibility = "hidden" %>
 
@@ -14,7 +14,7 @@
       </div>
 </section>
 
-<% elsif @promo_location.nil? %>
+<% elsif @promo_location.nil? || @promo_location !=24 %>
 
     <% @cta_visibility = "hidden" %>
 
