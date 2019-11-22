@@ -23,7 +23,7 @@ console.log("The day values is set to "+day)
 var month = dt.getMonth() + 1;
 var year = dt.getYear() +1900;
 var date = year + "-" + month + "-" + day;
-var opening_date = new Date("2019-11-01");
+var opening_date = new Date("2019-12-14");
 
 // logs today's date
 console.log("DATES_BUFFER is set to: "+DATES_BUFFER);
@@ -32,7 +32,7 @@ console.log("The minimum bookable date is "+MIN_DATE);
 
 
 if (Date.now() <= opening_date) {
-  var MIN_DATE = '2019-11-01';
+  var MIN_DATE = '2019-12-14';
   // logs the season start date
   console.log(MIN_DATE);
 }
