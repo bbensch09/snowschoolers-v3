@@ -1,4 +1,3 @@
-
 .logo, .logo:visited {
   color: #fff;
   font-size: 35px;
@@ -79,7 +78,7 @@ div.maximage-controls #slider_prev:hover {
 #new_user{
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /*align-items: center;*/
 }
 
 #new_user input{

@@ -14,7 +14,7 @@
             <%= devise_error_messages! %>
 
             <div class="row">
-              <div class="form-group">
+              <div class="left form-group">
                 <div class="col-md-12">
                   <%= f.label :email %><br />
                   <%= f.email_field :email, :autofocus => true, class: "form-control", type: 'email', required:true, label: false %>
@@ -40,7 +40,7 @@
             <% end %>
             <div class="row">
               <div class="col-md-12">
-                <%= f.submit "Sign up", class: "btn sign-up-btn pull-right push-bottom" %>
+                <%= f.submit "Sign up", class: "btn btn-primary pull-right push-bottom" %>
               </div>
             </div>
           <% end %>
