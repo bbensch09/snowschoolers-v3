@@ -369,7 +369,7 @@ class LessonsController < ApplicationController
       @lesson.lesson_price = 60
       @lesson.state = "ready_to_book"
       @lesson.save!
-      redirect_to @lesson
+      redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
     else
       puts "!!!params not set as expected"
       session[:lesson] = params[:lesson]
@@ -461,21 +461,21 @@ class LessonsController < ApplicationController
       flash[:conversion] = 'TRUE'
       puts "!!!!!!!! Lesson deposit successfully charged"
     end
-    respond_with @lesson
+      redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
   end
 
   def add_private_request
     @lesson.hourly_bonus = 10
     @lesson.bonus_category = 'private request'
     @lesson.save
-    redirect_to @lesson
+    redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
   end
 
   def remove_private_request
     @lesson.hourly_bonus = 0
     @lesson.bonus_category = 'N/A'
     @lesson.save
-    redirect_to @lesson
+    redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
   end
 
   def duplicate
@@ -486,7 +486,7 @@ class LessonsController < ApplicationController
     new_lesson.deposit_status = nil
     new_lesson.save!
     @lesson = new_lesson
-    redirect_to @lesson
+    redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
   end
 
   def update
@@ -547,7 +547,7 @@ class LessonsController < ApplicationController
       determine_update_state
       puts "!!!!!Lesson NOT saved, update notices determined by 'determine update state' method...?"
     end
-    respond_with @lesson
+    redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
   end
 
   def show
@@ -563,20 +563,20 @@ class LessonsController < ApplicationController
     @lesson.update(state: 'canceled',instructor_id:nil)
     send_cancellation_email_to_instructor
     flash[:notice] = 'Your lesson has been canceled.'
-    redirect_to @lesson
+    redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
   end
 
   def admin_confirm_instructor
     @lesson.state = 'confirmed'
     @lesson.save
-    redirect_to @lesson
+    redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}&admin_confirmed=true"
   end
 
   def admin_confirm_deposit
     @lesson.deposit_status = 'confirmed'
     @lesson.state = 'booked'
     @lesson.save
-    redirect_to @lesson
+    redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}&admin_deposit_confirmed=true"
   end
 
   def admin_assign_instructor
@@ -584,29 +584,29 @@ class LessonsController < ApplicationController
     @lesson.instructor_id = params[:instructor_id]
     @lesson.state = 'pending instructor'
     @lesson.save
-    redirect_to @lesson
+    redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}&admin_instructor_assigned=true"
   end
 
   def enable_email_notifications
       session[:disable_email] = 'enabled'
       puts "!!!!session variable set and marked to: #{session[:disable_email]}"
-      redirect_to @lesson
+    redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
   end
 
   def disable_email_notifications
       session[:disable_email] = 'disabled'
-      redirect_to @lesson
+    redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
   end
 
   def enable_sms_notifications
       session[:disable_sms] = 'enabled'
       puts "!!!!session variable set and marked to: #{session[:disable_sms]}"
-      redirect_to @lesson
+    redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
   end
 
   def disable_sms_notifications
       session[:disable_sms] = 'disabled'
-      redirect_to @lesson
+    redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
   end
 
   def set_instructor
@@ -632,7 +632,7 @@ class LessonsController < ApplicationController
       LessonMailer.send_lesson_gb_confirmation(@lesson).deliver!
     end
     @lesson.send_sms_to_requester
-    redirect_to @lesson
+    redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
     else
      redirect_to @lesson, notice: "Error: could not accept lesson. #{@lesson.errors.full_messages}"
     end
@@ -654,7 +654,7 @@ class LessonsController < ApplicationController
     end
     flash[:notice] = 'You have declined the request; another instructor has now been notified.'
     # LessonMailer.send_lesson_confirmation(@lesson).deliver!
-    redirect_to @lesson
+    redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
   end
 
   def remove_instructor
@@ -675,14 +675,14 @@ class LessonsController < ApplicationController
       @lesson.send_sms_to_admin
     end
     send_instructor_cancellation_emails
-    redirect_to @lesson
+    redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
   end
 
   def mark_lesson_complete
     puts "the params are {#{params}"
     @lesson.state = 'finalizing'
     @lesson.save
-    redirect_to @lesson
+    redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
   end
 
   def confirm_lesson_time

@@ -465,15 +465,15 @@ class Lesson < ActiveRecord::Base
   end
 
   def this_season?
-    self.lesson_time.date.to_s >= '2018-12-01'
+    self.lesson_time.date.to_s >= '2019-12-01'
   end
 
   def last_season?
-    self.lesson_time.date.to_s <= '2018-04-30' && self.lesson_time.date.to_s >= '2017-12-01'
+    self.lesson_time.date.to_s <= '2019-04-30' && self.lesson_time.date.to_s >= '2018-12-01'
   end
 
   def first_season?
-    self.lesson_time.date.to_s <= '2017-04-30'
+    self.lesson_time.date.to_s <= '2018-04-30'
   end
 
   def self.completed_lessons
