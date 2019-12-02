@@ -1191,7 +1191,7 @@ class Lesson < ActiveRecord::Base
       if self.available_sections.count == 0
       puts "!!!!!!!! The requested time slot is full!!!!!"
       self.state = 'This section is unfortunately full, please choose another time slot.'
-      errors.add(:lesson, "There is unfortunately no more open spots in this group lesson, please try another time slot or contact us at 530-430-SNOW.")
+      errors.add(:lesson, "There is unfortunately no more open spots in this group lesson, please try another time slot or contact us by email at hello@snowschoolers.com or by phone at 530-430-SNOW.")
       notify_admin_group_lessons_sold_out(self.lesson_time,self.activity,self.guest_email)
       return false
       end
@@ -1203,7 +1203,7 @@ class Lesson < ActiveRecord::Base
   def confirm_section_valid
     if self.section.nil?
       if self.available_sections.count == 0
-          errors.add(:lesson, "There is unfortunately no more open spots in this group lesson, please try another time slot or contact us at 530-430-SNOW.")
+          errors.add(:lesson, "There is unfortunately no more open spots in this group lesson, please try another time slot or contact us by email at hello@snowschoolers.com or by phone at 530-430-SNOW.")
           return false
       end
       self.section_id = self.available_sections.first.id

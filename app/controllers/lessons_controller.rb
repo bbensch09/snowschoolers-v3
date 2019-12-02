@@ -207,7 +207,7 @@ class LessonsController < ApplicationController
     if current_user && (current_user.user_type == 'Ski Area Partner' || current_user.user_type == 'Snow Schoolers Employee' || current_user.email == 'brian@snowschoolers.com')
       all_days = Section.select(:date).distinct.sort{|a,b| a.date <=> b.date}
       @days = all_days.keep_if{|a| a.date >= Date.today}
-      @days = @days.first(30)
+      # @days = @days.first(30)
       @new_date = Section.new
       @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.state.nil? }
       # @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
@@ -758,11 +758,12 @@ class LessonsController < ApplicationController
       # LessonMailer.notify_admin_lesson_request_begun(@lesson, @user_email).deliver!
       else
         @activity = session[:lesson].nil? ? nil : session[:lesson]["activity"]
-        @promo_location = session[:lesson].nil? ? nil : session[:lesson]["requested_location"]
+        # @promo_location = session[:lesson].nil? ? nil : session[:lesson]["requested_location"]
         @slot = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["slot"]
         @date = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["date"]
+        @promo_location = 24
         if @lesson.group_lesson?
-          render 'new_group'
+          render 'new'
         else
           render 'new'
         end
