@@ -7,6 +7,7 @@ Rails.application.configure do
 
 
   config.hosts << "www.snowschoolers.com"
+  config.hosts << "demo.snowschoolers.com"
 
   #set queue adapter for delayed jobs
   config.active_job.queue_adapter = :delayed_job

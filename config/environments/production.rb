@@ -10,6 +10,7 @@ Rails.application.configure do
 
 
   config.hosts << "www.snowschoolers.com"
+  config.hosts << "demo.snowschoolers.com"
   
 
   # Code is not reloaded between requests.
