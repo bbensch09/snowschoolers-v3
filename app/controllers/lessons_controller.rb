@@ -374,7 +374,7 @@ class LessonsController < ApplicationController
       puts "!!!params not set as expected"
       session[:lesson] = params[:lesson]
       flash.now[:alert] = "In order to book a lesson, please select a specific date, time, sport, and location."
-      redirect_to '#book-a-lesson'
+      redirect_to '/book/granlibakken'
     end
   end
 
@@ -712,7 +712,7 @@ class LessonsController < ApplicationController
   def validate_new_lesson_params
     if params[:lesson].nil? || params[:lesson][:lesson_time][:date].length < 10
       flash[:alert] = "Please be sure to select a sport, location, date and time."
-      redirect_to '#book-a-lesson'
+      redirect_to '/book/granlibakken'
     else
       session[:lesson] = params[:lesson]
     end
