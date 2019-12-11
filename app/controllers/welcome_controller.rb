@@ -6,6 +6,9 @@ class WelcomeController < ApplicationController
     protect_from_forgery :except => [:sumo_success]
 
 
+  def experiences_test
+  end
+  
   def new_hire_packet
     file = "public/Homewood-Hire-Packet-2016-2017.pdf"
     if File.exists?(file)

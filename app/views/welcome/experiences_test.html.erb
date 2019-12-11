@@ -1,0 +1,102 @@
+<% title "Private Ski & Snowboard Lessons in Tahoe" %>
+<% meta_tag :description, "Snow Schoolers is an online platform for private ski & snowboard lessons. Easily browse profiles & reviews, then book a private ski or snowboard lesson  with our fleet of expert, certified instructors. We collaborate closely with each of our ski area partners to ensure a consistent brand experience while maximizing the financial return of ski school operations to the mountain." %>
+
+<section id="header-creative" class="top-section">
+    <ul id="slider" class="mc-cycle" style="display: block; height: 100%; width: 100%;">
+        <div class="mc-image bg-photo" title="background photo" style="background-image: url('https://s3.amazonaws.com/snowschoolers/homewood-xmas-morning.jpg'); height: 100%; width: 100%;" data-href=""></div>
+    </ul>
+<!--         <div id="homepage-background">
+                <img src="https://s3.amazonaws.com/snowschoolers/images/demo/slider/snow-less.jpg" alt="background photo" class="bg-photo" alt="" />
+        </div>
+    -->
+    <div class="header-content">
+        <div class="header-content-inner">
+            <h1 id="homeHeading" class="home-header">SKI SCHOOL MADE SIMPLE<br>
+                <!-- <span class="homepage-smaller-text">'19/20 Lessons are now on SALE! </span>  -->
+                <!-- <br> -->
+                <!-- <span class="homepage-smaller-text">'19/20 Lessons go on sale Nov 4th!  -->
+                    <span class="hidden-unless-mobile"><br></span> 
+                </span>
+
+                <span class="homepage-smaller-text">Lowest Prices. 
+                    <span class="hidden-unless-mobile"><br></span> 
+                    Best instructors. 
+                    <span class="hidden-unless-mobile"><br></span> 
+                    No morning hassle.
+                </span>
+            
+            <!-- <span class="smaller-text">Closing Day is April 21st. Get Spring Clearance Lift Tickets for just $30.</span> <br> -->
+            <!-- <a href="/tickets" class="btn btn-primary btn-lg page-scroll powder-btn">Buy Lift Tickets</a> -->
+            
+            <br>
+
+            <div class="airbnb-embed-frame" data-id="1288099" data-view="experience_booking" data-eid="MTA0MjQ2NTk1" data-image="true" data-title_and_info="true" data-currency="USD"><a href="https://www.airbnb.com/experiences/1288099?source=booking_widget">View On Airbnb</a><a href="https://www.airbnb.com/experiences/1288099?source=booking_widget" rel="nofollow"></a><script async="" src="https://www.airbnb.com/embeddable/airbnb_jssdk"></script></div>
+
+            <hr>
+
+        </div>
+    </div>
+</section>
+
+<section class="bg-grey" id="blog">
+    <div class="row blog-promo-container">
+        <h2 class="center navy-text blog-cta">Hungry for more info? Check out the latest from our <a href="/blog/latest" class="green-link">blog!</a></h2>
+    </div>
+    <hr class="deposit-hr-navy">
+    <div class="text-center">
+        <h2 class="section-heading navy-text">Learning to ski or snowboard is hard. <br> Booking a lesson online shouldn't be.</h2>
+        <a href="#book-a-lesson" class="btn btn-primary btn-lg page-scroll btn-text-larger">Book a Lesson Today</a>
+    </div>
+</section>
+
+<section class="bg-primary">
+            <%= render partial: 'full_pricing' %>
+</section>
+
+<section class="bg-grey" id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-xs12 text-center">
+                <!-- <a href="/lessons/new" class="btn btn-primary btn-xl page-scroll">Book your lesson now</a> -->
+                <h3 class="beta-sign-up-offer navy-text" id="subscribe">
+                    <!-- Not ready to book today? <br> We are always expanding to new resorts, and occasionally giving away free schwag to lucky customers. Enter your email below to subscribe for updates. -->
+                    Want to learn more? Enter your email below and we'd love to be in touch. Or feel free to give us a call or send us an email and we will get back to you as soon as possible!
+
+                </h3>
+                <div class="col-md-12 beta_user-sign-up">
+                <%= form_for(@beta_user = BetaUser.new) do |f| %>
+                <% if @beta_user.errors.any? %>
+                    <div id="error_explanation">
+                        <h2><%= pluralize(@beta_user.errors.count, "error") %> prohibited this beta_user from being saved:</h2>
+                        <ul>
+                            <% @beta_user.errors.full_messages.each do |message| %>
+                            <li><%= message %></li>
+                            <% end %>
+                        </ul>
+                    </div>
+                    <% end %>
+                    <div class="email-input center">
+                    <%= f.email_field :email, autofocus: false, class:"black-text form-control beta-sign-up", placeholder:"Enter Email", required: true  %>
+                    <%= f.submit "Learn More", class:"btn btn-primary btn-lg page-scroll btn-text-larger" %>
+                    <!-- <h3 class="offer-limitations">*First 100 sign ups receive 20% off their first lesson.</h3> -->
+                    <!-- <h3 class="text-white">Instructors at Snow Schoolers loving sharing their passion for the mountain, and don't care to see your wallet drained. </h3> -->
+                </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-2 text-center">
+                <i class="fa fa-phone fa-3x sr-contact"></i>
+                <p class="navy-text">(530)430-SNOW</p>
+            </div>
+            <div class="col-lg-4 text-center">
+                <i class="fa fa-envelope-o fa-3x sr-contact"></i>
+                <p><a href="mailto:hello@snowschoolers.com" class="navy-text" target="_blank">hello@snowschoolers.com</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="//load.sumome.com/" data-sumo-site-id="a1fbda8d7365cdee08d4a5985659bb680581b2dd4281ce27f0f246ffaa655693" async="async"></script>
