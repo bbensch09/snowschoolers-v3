@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     collection {post :delete_all}
     # post :select_resource
   end
+  get 'experiences-test' => 'welcome#experiences_test'
   put 'rentals/:id/select_resource' => 'rentals#select_resource', as: :select_resource
   put 'rentals/:id/remove_resource' => 'rentals#remove_resource', as: :remove_resource
   get 'rental-agreements/:id' => 'lessons#rental_agreement', as: :rental_agreement
