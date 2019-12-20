@@ -108,7 +108,7 @@
                       <% amount = (@lesson.price.to_f*100).to_i %>
                       <%= number_to_currency(@lesson.price) %>
     
-                      <% if @lesson.product.calendar_period == 'Holiday' || @lesson.product.calendar_period == 'Peak' %>
+                      <% if @lesson.product && (@lesson.product.calendar_period == 'Holiday' || @lesson.product.calendar_period == 'Peak') %>
                         (holiday pricing)
                       <% end %>
           
