@@ -341,6 +341,11 @@ class Lesson < ActiveRecord::Base
           puts "===lesson id is #{self.id}. preparing to save new product_id"
           self.update({product_id:product.id})
         end
+        if product.nil?
+        # hard-code product id for default fallback option
+        puts "!!!! since no matching product was found, setting id to hard coded value of 980191086, which will show error to user and prevent other errors"
+        self.update({product_id:980191086})
+        end
       end
       return product
   end
