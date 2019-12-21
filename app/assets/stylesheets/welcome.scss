@@ -21,9 +21,9 @@ html, body {
 */
 
 body {
-    overflow: hidden;
-    width: 100%;
-/*removing the above two lines will allow horizontal scroll for daily-roster*/
+/*    overflow: hidden;
+    width: 100%;*/
+/*removing (enabling) the above two lines will allow (disallow) horizontal scroll for daily-roster*/
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
@@ -1066,7 +1066,7 @@ body {
 line-height: 1.2;
 }
 .homepage-smaller-text{
-  font-size: 0.5em;
+  font-size: 0.7em;
   line-height: 1;
 }
 .medium-text{
@@ -1743,7 +1743,7 @@ text-align: center;
     font-size: 2em;
   }
   .powder-btn{
-    font-size: 0.9em;
+    font-size: 0.8em;
   }
   .disclaimer{
     padding-left:20px;
