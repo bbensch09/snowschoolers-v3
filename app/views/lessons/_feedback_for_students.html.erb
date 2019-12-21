@@ -1,0 +1,38 @@
+<div class="row">
+<% if current_user && ((@lesson.instructor && current_user == @lesson.instructor.user) || current_user.user_type == "Snow Schoolers Employee") %>
+  <% @lesson.report_card = ReportCard.new unless @lesson.report_card %>
+  <%= semantic_form_for @lesson.report_card do |f| %>
+
+
+<% @lesson.students.each do |student| %>
+<h3 class="student-name"><%= student.name %> (age <%= student.age_range %>)</h3>
+<ul>
+  <li>
+      <h3 class="italic">Before the lesson, they were a <%=student.most_recent_level %></h3>
+  </li>
+</ul>
+        <%= render 'student_feedback_fields', f: student %>
+<% end %> 
+
+  <div class="col-md-12">
+    <label><b> Other Feedback for the Lesson as a Whole</b></label>
+    <%= f.input :public_feedback_for_student, as: :text, input_html: { required:true }, placeholder: "Describe each students current ability level and progress made. What should they continue to focus on?", class: "feedback-for-student" , label:false %>
+
+  </div>
+  <div class="col-md-12">
+    <%= f.submit "Submit Feedback", class: "btn btn-success" %>
+  </div>
+  <% end %>
+<% elsif current_user.nil? %>
+  <h3>
+    <a href="#" class="btn btn-default" data-toggle="modal" data-target="#loginModal">Log in to update this lesson.</a>
+  </h3>
+<% else %>
+  <div class="col-md-6">
+    <h4 class="alert-warning  ">
+      Waiting for instructor to confirm lesson start and end times.
+    </h4>
+  </div>
+<% end %>
+</div>
+<hr>

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :skills
+  resources :report_cards
   resources :resources do
     collection {post :import}
     collection {post :delete_all}

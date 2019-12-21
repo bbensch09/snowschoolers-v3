@@ -1,0 +1,21 @@
+<%= semantic_form_for @report_card do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :student_id %>
+    <%= f.input :lesson_id %>
+    <%= f.input :instructor_id %>
+    <%= f.input :attitude_grade %>
+    <%= f.input :safety_grade %>
+    <%= f.input :effort_grade %>
+    <%= f.input :ability_level %>
+    <%= f.input :activty %>
+    <%= f.input :qualitative_feeback %>
+    <%= f.input :balance %>
+    <%= f.input :edge_control %>
+    <%= f.input :pressure_control %>
+    <%= f.input :rotary_control %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>

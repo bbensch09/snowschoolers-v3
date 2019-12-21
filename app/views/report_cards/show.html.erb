@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @report_card.student_id %>
+</p>
+
+<p>
+  <strong>Lesson:</strong>
+  <%= @report_card.lesson_id %>
+</p>
+
+<p>
+  <strong>Instructor:</strong>
+  <%= @report_card.instructor_id %>
+</p>
+
+<p>
+  <strong>Attitude grade:</strong>
+  <%= @report_card.attitude_grade %>
+</p>
+
+<p>
+  <strong>Safety grade:</strong>
+  <%= @report_card.safety_grade %>
+</p>
+
+<p>
+  <strong>Effort grade:</strong>
+  <%= @report_card.effort_grade %>
+</p>
+
+<p>
+  <strong>Ability level:</strong>
+  <%= @report_card.ability_level %>
+</p>
+
+<p>
+  <strong>Activty:</strong>
+  <%= @report_card.activty %>
+</p>
+
+<p>
+  <strong>Qualitative feeback:</strong>
+  <%= @report_card.qualitative_feeback %>
+</p>
+
+<p>
+  <strong>Balance:</strong>
+  <%= @report_card.balance %>
+</p>
+
+<p>
+  <strong>Edge control:</strong>
+  <%= @report_card.edge_control %>
+</p>
+
+<p>
+  <strong>Pressure control:</strong>
+  <%= @report_card.pressure_control %>
+</p>
+
+<p>
+  <strong>Rotary control:</strong>
+  <%= @report_card.rotary_control %>
+</p>
+
+<%= link_to 'Edit', edit_report_card_path(@report_card) %> |
+<%= link_to 'Back', report_cards_path %>

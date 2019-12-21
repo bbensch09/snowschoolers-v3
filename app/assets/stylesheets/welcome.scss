@@ -552,7 +552,7 @@ hr.light {
   border-color: white;
 }
 .bold{
-  font-weight: bold;
+  font-weight: bold !important;
 }
 a {
   -webkit-transition: all 0.35s;

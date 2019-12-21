@@ -13,10 +13,10 @@
   <% if (current_user && current_user.instructor && @lesson.completable?) || (current_user && @lesson.instructor && @lesson.instructor == current_user.instructor) || (current_user && current_user.user_type == "Snow Schoolers Employee") && @lesson.private_lesson? %>
     <% if @lesson.pending_instructor? %>
       <%= link_to "Confirm Updates", set_instructor_path, method: :put, class: "btn btn-default" %>
+      <%= link_to "Drop It", remove_instructor_path, method: :put, class: "btn btn-warning" %>
     <% end %>
-    <%= link_to "Drop It", remove_instructor_path, method: :put, class: "btn btn-warning" %>
     <% if @lesson.date <= Date.today %>
-      <%= link_to "Mark Lesson Complete", mark_lesson_complete_path, method: :put, class: "btn btn-success" %>
+      <%= link_to "Complete Lesson Feedback", mark_lesson_complete_path, method: :put, class: "btn btn-success" %>
     <% end %>
   <% end %>
 

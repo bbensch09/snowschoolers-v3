@@ -13,6 +13,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :product #, class_name: 'Product', foreign_key: 'product_id'
   belongs_to :section
   has_many :rentals
+  has_one :report_card
   accepts_nested_attributes_for :students, reject_if: :all_blank, allow_destroy: true
 
   validates :requested_location, :lesson_time, presence: true
@@ -1133,6 +1134,16 @@ class Lesson < ActiveRecord::Base
       student_levels << student.most_recent_level[6].to_i
     end
     return student_levels.max
+  end
+
+  def levels_range
+    return false if self.students.nil?
+    student_levels = []
+    self.students.each do |student|
+      #REFACTOR ALERT extract the 7th character from student experience level, which yields the level#, such as in 'Level 2 - wedge turns...'
+      student_levels << student.most_recent_level[6].to_i
+    end
+    return [student_levels.min..(student_levels.max+1)]
   end
 
   def athlete
