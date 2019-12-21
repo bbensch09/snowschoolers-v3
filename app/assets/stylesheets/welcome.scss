@@ -21,9 +21,9 @@ html, body {
 */
 
 body {
-    overflow: hidden;
-    width: 100%;
-/*removing the above two lines will allow horizontal scroll for daily-roster*/
+/*    overflow: hidden;
+    width: 100%;*/
+/*removing (enabling) the above two lines will allow (disallow) horizontal scroll for daily-roster*/
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
