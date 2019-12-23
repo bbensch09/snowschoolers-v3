@@ -840,6 +840,6 @@ class LessonsController < ApplicationController
   end
 
   def lesson_time_params
-    params[:lesson].require(:lesson_time).permit(:date, :slot)
+    params[:lesson].permit(:lesson_time,:date, :slot)
   end
 end
