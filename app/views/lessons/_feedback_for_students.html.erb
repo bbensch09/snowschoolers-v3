@@ -13,7 +13,6 @@
         </li>
       </ul>
 
-
   <%= f.inputs do %>
     <%= f.input :student_id %>
     <%= f.input :lesson_id %>
@@ -31,8 +30,59 @@
   <% end %>
 
 
+<%= f.inputs do %>
+    <div class='row'>
+          <h3 class="underline">Student's effort & attitude:</h3>
+            <%= f.select :effort_grade,
+              ["Excellent","Good","Okay","Needs Improvement"], {}, {class: 'form-control ability-level', required:true,
+               include_blank: "", label: false} %>              
+    </div>
 
-      <!-- %= render 'student_feedback_fields' %> -->
+    <div class='row'>
+          <h3 class="underline">Skills & exercises we learned today:</h3>
+            <input type="checkbox" id="selectAllSnowboardLevels" class="bold" value="selectAll"> Select / De-select All<br/><br/>
+            <%= f.collection_check_boxes :skills_practiced_ids, Skill.where(ability_level:@lesson.levels_range), :id, :name do |skill| %>
+              <div class="collection-check-box">
+                <%= skill.check_box(class: 'snowboard-checkbox') %>
+                <%= skill.label %>
+              </div>
+            <% end %>
+    </div>
+
+<!--     <div class='row'>
+          <h3 class="underline">Skills & exercises to focus on in next lesson:</h3>
+            <input type="checkbox" id="selectAllSnowboardLevels" class="bold" value="selectAll"> Select / De-select All<br/><br/>
+            <%= f.collection_check_boxes :skills_recommended, Skill.where(ability_level:@lesson.levels_range), :id, :name do |skill| %>
+              <div class="collection-check-box">
+                <%= skill.check_box(class: 'snowboard-checkbox') %>
+                <%= skill.label %>
+              </div>
+            <% end %>
+    </div>
+ -->
+    <div class='row'>
+            <h3>After today's lesson, their level is: </h3>
+            <%= f.select :ability_level,
+              ["Level 1 - First-timer",
+              "Level 2 - Green Bean - can safely stop on beginner terrain.",
+              "Level 3 - Green Machine - can turn in both directions.",
+              "Level 4 - Blue Beginner - can link turns with moderate speed.",
+              "Level 5 - Blue Boss - mostly parallel turns.",
+              "Level 6 - Parallel Pro",
+              "Level 7 - Basic Black",
+              "Level 8 - Mogul Master",
+              "Level 9 - Professor of Off-Piste"], {}, {class: 'form-control ability-level', required:true,
+               include_blank: "Approximately what level of ability is the student?", label: false} %>              
+    </div>
+
+    <hr class="deposit-hr-navy">
+
+<% if current_user %>
+<%= f.input :requester_id, as: :hidden, input_html: { value: current_user.id } %>
+<% end %>
+
+<% end %>
+
 
     <% end %>
 
