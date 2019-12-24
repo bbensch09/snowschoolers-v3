@@ -144,7 +144,8 @@ class LessonsController < ApplicationController
     @date = params[:date]
     @date.nil? ? @date = Date.today+2 : @date
     lessons = Lesson.all.select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.state.nil? }
-    lessons = lessons.sort_by{|lesson| lesson.activity}
+    # lessons = lessons.sort_by{|lesson| lesson.activity}.reverse
+    lessons = lessons.sort_by{|lesson| lesson.start_time}
     @todays_lessons = lessons.select{|lesson| lesson.date.to_s == @date && lesson.state != 'canceled' }
   end
 
