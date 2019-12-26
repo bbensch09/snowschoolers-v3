@@ -393,7 +393,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def airbnb?
-    if self.package_info.include?('airbnb')
+    if self.package_info && self.package_info.downcase.include?('airbnb')
       return true
     else 
       return false
