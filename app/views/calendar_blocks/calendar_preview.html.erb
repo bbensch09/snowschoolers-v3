@@ -1,0 +1,55 @@
+<% title "Calendar & Staffing Calendar Preview" %>
+
+<div id="middle" class="calendar-container">
+  <div class="white">
+<div class="container"></div>
+
+<div class="row center">
+</div>
+
+<table class="instructors-table">
+
+  <thead>
+    <tr>
+      <th class="lessons-table-cells lesson-date">Date</th>
+      <th class="lessons-table-cells lesson-date">Total Lesson Bookings</th>
+      <th class="lessons-table-cells lesson-date">Total Staff</th>
+      <th class="lessons-table-cells lesson-date">Ski Lessons</th>
+      <th class="lessons-table-cells lesson-date">Skiers</th>
+      <th class="lessons-table-cells lesson-date">Snowboarder Lessons</th>
+      <th class="lessons-table-cells lesson-date">Snowboarders</th>
+      <th class="lessons-table-cells lesson-date">XO</th>
+    </tr>
+  </thead>
+
+
+  <tbody>
+    <% @dates.each do |date| %>
+    <tr>
+      <td colspan="1" class="daily-roster-section-break"><%=date %> </td>
+      <!-- total booked lessons -->
+      <td colspan="1" class="daily-roster-section-break"><%= @lessons.select{|lesson| lesson.date.to_s == date.to_s}.count %> </td>
+      <!-- total staff -->
+      <td> TBD (8) </td>
+      <!-- total skier staff -->
+      <td> TBD (6) </td>
+      <!-- total ski lessons -->
+      <td colspan="1" class="daily-roster-section-break"><%= @lessons.select{|lesson| lesson.date.to_s == date.to_s && lesson.activity == "Ski"}.count %> </td>
+      <!-- total SB staff -->
+      <td> TBD (2) </td>
+      <!-- total snowboard lessons -->
+      <td colspan="1" class="daily-roster-section-break"><%= @lessons.select{|lesson| lesson.date.to_s == date.to_s && lesson.activity == "Snowboard"}.count %> </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="buffer"></div>
+
+<section id="mobile-view" class="hidden-unless-mobile">
+
+<div id="calendar"></div>
+
+</section>
+</div>
+</div>
