@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :skills
+  resources :report_cards
   resources :resources do
     collection {post :import}
     collection {post :delete_all}
@@ -50,6 +52,7 @@ Rails.application.routes.draw do
   resources :calendar_blocks
   post 'calendar_blocks/create_10_week_recurring_block' => 'calendar_blocks#create_10_week_recurring_block', as: :create_10_week_recurring_block
   get 'admin-calendar' => 'calendar_blocks#admin_calendar', as: :admin_calendar
+  get 'calendar-preview' => 'calendar_blocks#calendar_preview', as: :calendar_preview
   get 'calendar' => 'calendar_blocks#availability', as: :manage_availability
   get 'availability/:id' => 'calendar_blocks#individual_availability', as: :individual_availability
   get 'refresh-calendar' => 'calendar_blocks#refresh_calendar', as: :refresh_calendar

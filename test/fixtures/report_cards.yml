@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  student_id: 1
+  lesson_id: 1
+  instructor_id: 1
+  attitude_grade: MyString
+  safety_grade: MyString
+  effort_grade: MyString
+  ability_level: 1
+  activty: MyString
+  qualitative_feeback: MyText
+  balance: MyString
+  edge_control: MyString
+  pressure_control: MyString
+  rotary_control: MyString
+
+two:
+  student_id: 1
+  lesson_id: 1
+  instructor_id: 1
+  attitude_grade: MyString
+  safety_grade: MyString
+  effort_grade: MyString
+  ability_level: 1
+  activty: MyString
+  qualitative_feeback: MyText
+  balance: MyString
+  edge_control: MyString
+  pressure_control: MyString
+  rotary_control: MyString

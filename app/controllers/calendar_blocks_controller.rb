@@ -45,6 +45,21 @@ class CalendarBlocksController < ApplicationController
     render 'admin_availability'
   end
 
+  def calendar_preview
+    date = params[:date]
+    date.nil? ? date = Date.today+2 : date
+    min_date = date -10
+    lessons = Lesson.all.select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.state.nil? }
+    lessons = lessons.to_a.keep_if{|lesson| lesson.date >= Date.today-10 && lesson.date <= Date.today+10}
+    @lessons = lessons.sort_by{|lesson| lesson.date}
+    @count = @lessons.count
+    dates = []
+    (1..20).each do |x|
+      dates << min_date + x
+    end
+    @dates = dates
+  end
+
   def set_all_days_available
     instructor_id = @instructor.id
     CalendarBlock.open_all_days(instructor_id)

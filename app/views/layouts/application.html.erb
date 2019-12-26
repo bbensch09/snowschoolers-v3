@@ -154,8 +154,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
            <!-- <li>  <a href="/"> <span class="glyphicon glyphicon glyphicon-home" aria-hidden="true"></span> </a></li> -->
            <!-- <li> <a href="/search" class="btn-success"> Search</a></li> -->
            <li> <a href="/instructors" class="btn-success"> Admin</a></li>
-           <li><a href="/daily-roster" class="btn-success"> Daily</a></li>
-           <li><a href="/future-daily-roster?date=<%=Date.tomorrow.to_s%>">View Future Dates</a></li>
+           <li><a href="/daily-roster" class="btn-success"> Today</a></li>
+           <li><a href="/future-daily-roster?date=<%=Date.tomorrow.to_s%>">Future Dates</a></li>
            <li> <a href="/rentals" class="btn-success"> Rentals</a></li>
            <li> <a href="/search" class="btn-success"> Search</a></li>
            <% if current_user.instructor %>
@@ -164,7 +164,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <li><a href="/lessons" class="sign-up-btn"> PRIVATES </a></li>
             <li><a href="/group_lessons" class="sign-up-btn"> GROUPS </a></li>
             <li><a href="/manage_group_lessons" class="sign-up-btn"> GRP SECTIONS </a></li>
-            <li><a href="/browse" class="hidden sign-up-btn">INSTRUCTORS</a></li>
+            <li><a href="/browse" class="sign-up-btn">BROWSE</a></li>
+            <li><%= link_to 'PREVIEW', '/calendar-preview', class: 'sign-up-btn' %></li>
             <li><%= link_to 'CALENDAR', '/calendar', class: 'sign-up-btn' %></li>
             <li><%= link_to 'PROFILE', '/profile', class: 'sign-up-btn' %></li>
             <li> <%= link_to 'LOGOUT', destroy_user_session_path %> </li>

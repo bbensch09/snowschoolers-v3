@@ -13,6 +13,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :product #, class_name: 'Product', foreign_key: 'product_id'
   belongs_to :section
   has_many :rentals
+  has_one :report_card
   accepts_nested_attributes_for :students, reject_if: :all_blank, allow_destroy: true
 
   validates :requested_location, :lesson_time, presence: true
@@ -99,6 +100,8 @@ class Lesson < ActiveRecord::Base
         class_type_code = 'GROUP'
       when 'private'
         class_type_code = 'PRIVATE'
+      when ''
+        class_type_code = 'UNKNOWN'
       when 'tickets'
         class_type_code = 'TICKETS'
       else 'NA'
@@ -107,7 +110,7 @@ class Lesson < ActiveRecord::Base
     if self.class_type == 'tickets'
       confirmation_number = l+'-'+class_type_code+'-'+id+rental_code
     else
-      confirmation_number = l+'-'+class_type_code+'-'+date+'-'+id+rental_code
+      confirmation_number = l+'-'+class_type_code.to_s+'-'+date+'-'+id+rental_code
     end
   end
 
@@ -359,6 +362,9 @@ class Lesson < ActiveRecord::Base
         # end
       if product_id.nil?
         set_product_from_lesson_params
+      elsif product_id == 980191086
+        return Product.where(location_id:24,length:"1.00",slot:'Early-bird',product_type:"private_lesson",is_lift_rental_package:true).first
+
       else
         return Product.find(product_id)
         puts "!!! lesson has stored product_id - skip rest of method to assign product"
@@ -1133,6 +1139,16 @@ class Lesson < ActiveRecord::Base
       student_levels << student.most_recent_level[6].to_i
     end
     return student_levels.max
+  end
+
+  def levels_range
+    return false if self.students.nil?
+    student_levels = []
+    self.students.each do |student|
+      #REFACTOR ALERT extract the 7th character from student experience level, which yields the level#, such as in 'Level 2 - wedge turns...'
+      student_levels << student.most_recent_level[6].to_i
+    end
+    return [student_levels.min..(student_levels.max+1)]
   end
 
   def athlete

@@ -441,6 +441,15 @@ var toggleElementListener = function(){
   //     console.log('keep lodging info hidden');
   //   };
   // });
+
+
+  // toggle feedback boxes
+     $('.btn-toggleFeedback').click(function(e){
+    e.preventDefault();
+    $('.qualitative_feeback').toggleClass('hidden');
+    console.log("show or hide qualitative_feeback text area");
+  });
+
 }
 
 $(function(){
