@@ -14,34 +14,28 @@
       </ul>
 
   <%= f.inputs do %>
-    <%= f.input :student_id %>
-    <%= f.input :lesson_id %>
-    <%= f.input :instructor_id %>
-    <%= f.input :attitude_grade %>
-    <%= f.input :safety_grade %>
-    <%= f.input :effort_grade %>
-    <%= f.input :ability_level %>
-    <%= f.input :activty %>
-    <%= f.input :qualitative_feeback %>
-    <%= f.input :balance %>
-    <%= f.input :edge_control %>
-    <%= f.input :pressure_control %>
-    <%= f.input :rotary_control %>
-  <% end %>
+    <div class="hidden">
+      <%= f.input :student_id, as: :string, input_html: {required: true, class:"form-control", value: student.id} %>
+    </div>
+    <div class="hidden">
+      <%= f.input :lesson_id, as: :string, input_html: {required: true, class:"form-control", value: @lesson.id} %>
+    </div>
+    <div class="hidden">
+      <%= f.input :instructor_id, as: :string, input_html: {required: true, class:"form-control", value: @lesson.instructor_id} %>
+    </div>
 
-
-<%= f.inputs do %>
     <div class='row'>
           <h3 class="underline">Student's effort & attitude:</h3>
-            <%= f.select :effort_grade,
-              ["Excellent","Good","Okay","Needs Improvement"], {}, {class: 'form-control ability-level', required:true,
-               include_blank: "", label: false} %>              
+          
+
+            <%= f.input :effort_grade, as: :select, collection: ["Best-in-class!","Great","Okay","Needs Improvement"], selected: 'Great', include_blank: '', :input_html => { :class => 'form-control ability-level'}, label: false %>
+
     </div>
 
     <div class='row'>
           <h3 class="underline">Skills & exercises we learned today:</h3>
             <input type="checkbox" id="selectAllSnowboardLevels" class="bold" value="selectAll"> Select / De-select All<br/><br/>
-            <%= f.collection_check_boxes :skills_practiced_ids, Skill.where(ability_level:@lesson.levels_range), :id, :name do |skill| %>
+            <%= f.collection_check_boxes :attitude_grade, Skill.where(ability_level:@lesson.levels_range), :id, :name do |skill| %>
               <div class="collection-check-box">
                 <%= skill.check_box(class: 'snowboard-checkbox') %>
                 <%= skill.label %>
@@ -49,20 +43,9 @@
             <% end %>
     </div>
 
-<!--     <div class='row'>
-          <h3 class="underline">Skills & exercises to focus on in next lesson:</h3>
-            <input type="checkbox" id="selectAllSnowboardLevels" class="bold" value="selectAll"> Select / De-select All<br/><br/>
-            <%= f.collection_check_boxes :skills_recommended, Skill.where(ability_level:@lesson.levels_range), :id, :name do |skill| %>
-              <div class="collection-check-box">
-                <%= skill.check_box(class: 'snowboard-checkbox') %>
-                <%= skill.label %>
-              </div>
-            <% end %>
-    </div>
- -->
     <div class='row'>
             <h3>After today's lesson, their level is: </h3>
-            <%= f.select :ability_level,
+            <%= f.input :ability_level, as: :select, collection:
               ["Level 1 - First-timer",
               "Level 2 - Green Bean - can safely stop on beginner terrain.",
               "Level 3 - Green Machine - can turn in both directions.",
@@ -71,27 +54,30 @@
               "Level 6 - Parallel Pro",
               "Level 7 - Basic Black",
               "Level 8 - Mogul Master",
-              "Level 9 - Professor of Off-Piste"], {}, {class: 'form-control ability-level', required:true,
-               include_blank: "Approximately what level of ability is the student?", label: false} %>              
+              "Level 9 - Professor of Off-Piste"], selected: student.most_recent_level,
+               include_blank: "", :input_html => { :class => 'form-control ability-level'}, label: false %>              
     </div>
+
+      <a href="#toggleFeedback" class="btn btn-primary btn-xs btn-toggleFeedback">Add More Feedback</a>
+      <div id="" class="hidden qualitative_feeback">
+        <%= f.input :qualitative_feeback, as: :text, input_html: { required:false }, placeholder: "Describe eany unique challenges or areas of progress for the student.", class: "feedback-for-student" , label:false %>
+      </div>
 
     <hr class="deposit-hr-navy">
 
-<% if current_user %>
-<%= f.input :requester_id, as: :hidden, input_html: { value: current_user.id } %>
-<% end %>
-
-<% end %>
-
-
+    <% if current_user %>
+    <%= f.input :requester_id, as: :hidden, input_html: { value: current_user.id } %>
     <% end %>
 
+  <% end %>
 
-  <div class="col-md-12">
-    <label><b> Other Feedback for the Lesson as a Whole</b></label>
-    <%= f.input :qualitative_feeback, as: :text, input_html: { required:true }, placeholder: "Describe each students current ability level and progress made. What should they continue to focus on?", class: "feedback-for-student" , label:false %>
 
-  </div>
+<% end %>
+
+<!--   <div class="col-md-12">
+    <label><b> Any other feedback for the entire lesson? </b></label>
+  </div> -->  
+
   <div class="col-md-12">
     <%= f.submit "Submit Feedback", class: "btn btn-success" %>
   </div>
