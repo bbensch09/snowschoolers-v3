@@ -400,6 +400,14 @@ class Lesson < ActiveRecord::Base
     end
   end
 
+  def partially_booked?
+    if self.deposit_status && self.deposit_status == "partially booked"
+      return true
+    else 
+      return false
+    end
+  end
+
   def private_request?
     if self.bonus_category == 'private request'
       return 'Yes'

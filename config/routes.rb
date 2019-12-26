@@ -235,6 +235,7 @@ Rails.application.routes.draw do
   put   'lessons/:id/admin_confirm_instructor'      => 'lessons#admin_confirm_instructor',      as: :admin_confirm_instructor
   put   'lessons/:id/admin_confirm_deposit'      => 'lessons#admin_confirm_deposit',      as: :admin_confirm_deposit
   put   'lessons/:id/admin_confirm_airbnb'      => 'lessons#admin_confirm_airbnb',      as: :admin_confirm_airbnb
+  put   'lessons/:id/admin_confirm_booked_with_modification'      => 'lessons#admin_confirm_booked_with_modification',      as: :admin_confirm_booked_with_modification
   put   'lessons/:id/admin_assign_instructor'      => 'lessons#admin_assign_instructor',      as: :admin_assign_instructor
   get   'lessons/:id/disable_email_notifications'      => 'lessons#disable_email_notifications',      as: :disable_email_notifications
   get   'lessons/:id/enable_email_notifications'      => 'lessons#enable_email_notifications',      as: :enable_email_notifications
