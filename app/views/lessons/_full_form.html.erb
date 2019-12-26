@@ -12,6 +12,7 @@
     <%  if ENV['HOST_DOMAIN'] == "localhost:3000" || current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.email == "bbensch@gmail.com") %>
     <div id="autofill-container" class="admin-viewable">
       <a href="#fill" id="autofill_complete_form" class="btn btn-primary">Autofill Form</a>
+      <%= link_to "Mark as Airbnb Lesson", admin_confirm_airbnb_path, method: :put, class: "btn btn-default btn-airbnb" %>
     </div>
     <% end %>
 
