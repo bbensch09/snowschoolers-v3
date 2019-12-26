@@ -549,7 +549,7 @@ class LessonsController < ApplicationController
       determine_update_state
       puts "!!!!!Lesson NOT saved, update notices determined by 'determine update state' method...?"
     end
-    if @lesson.promo_code && lesson.promo_code.promo_code == "AIRBNBX"
+    if @lesson.promo_code && @lesson.promo_code.promo_code == "AIRBNBX"
       @lesson.state = "booked"
       @lesson.deposit_status = "paid through Airbnb"
       @lesson.package_info += "this lesson was updated with the promo_code AIRBNBX and has $0 balance"
