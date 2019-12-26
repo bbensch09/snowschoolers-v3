@@ -485,6 +485,7 @@ class LessonsController < ApplicationController
     new_lesson.students = @lesson.students
     new_lesson.skip_validations = true
     new_lesson.deposit_status = nil
+    #erase previous lesson feedback & start/end times
     new_lesson.save!
     @lesson = new_lesson
     redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
