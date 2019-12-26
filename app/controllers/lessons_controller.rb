@@ -135,8 +135,8 @@ class LessonsController < ApplicationController
   def daily_roster
     lessons = Lesson.all.select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.airbnb? || lesson.state.nil? }
     lessons = lessons.sort_by{|lesson| lesson.start_time}
-    @todays_lessons = lessons.select{|lesson| lesson.date == Date.today && lesson.state != 'canceled' }
-    @tomorrows_lessons = lessons.to_a.keep_if{|lesson| lesson.date == Date.today+1 && lesson.state != 'canceled' }
+    @todays_lessons = lessons.select{|lesson| (lesson.date == Date.today || lesson.date == '2016-09-12') && lesson.state != 'canceled' }
+    @tomorrows_lessons = lessons.to_a.keep_if{|lesson| (lesson.date == Date.today+1 || lesson.date == '2016-09-12') && lesson.state != 'canceled' }
     render 'daily_roster'
   end
 
@@ -859,6 +859,6 @@ class LessonsController < ApplicationController
   end
 
   def lesson_time_params
-    params[:lesson].permit(:lesson_time,:date, :slot)
+    params[:lesson].require(:lesson_time).permit(:date, :slot)  
   end
 end
