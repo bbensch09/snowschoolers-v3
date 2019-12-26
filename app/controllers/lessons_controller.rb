@@ -3,7 +3,7 @@ class LessonsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:new, :tickets, :granlibakken, :homewood, :new_request, :create, :complete, :confirm_reservation, :update, :skier_types, :show, :rental_agreement]
   # low friction hackey solution -- don't require authentication for most customer-facing pages; removed temporarily May 2019
   # skip_before_action :authenticate_user!, only: [:new, :tickets, :granlibakken, :new_request, :create, :complete, :confirm_reservation, :update, :show, :edit, :rental_agreement, :skier_types]
-  before_action :set_lesson, only: [:show, :duplicate, :complete, :update, :edit, :edit_wages, :add_private_request, :remove_private_request, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_instructor, :admin_confirm_deposit, :admin_confirm_airbnb, :admin_assign_instructor, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications, :send_review_reminders_to_student, :rental_agreement]
+  before_action :set_lesson, only: [:show, :duplicate, :complete, :update, :edit, :edit_wages, :add_private_request, :remove_private_request, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_instructor, :admin_confirm_deposit, :admin_confirm_airbnb, :admin_confirm_booked_with_modification, :admin_assign_instructor, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications, :send_review_reminders_to_student, :rental_agreement]
   before_action :skip_product_id, except: [:create, :update]
   before_action :save_lesson_params_and_redirect, only: [:create]
   before_action :set_admin_skip_validations
@@ -133,7 +133,7 @@ class LessonsController < ApplicationController
   end
 
   def daily_roster
-    lessons = Lesson.all.select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.airbnb? || lesson.state.nil? }
+    lessons = Lesson.all.select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.airbnb? || lesson.partially_booked? || lesson.state.nil? }
     lessons = lessons.sort_by{|lesson| lesson.start_time}
     @todays_lessons = lessons.select{|lesson| (lesson.date == Date.today || lesson.date == '2016-09-12') && lesson.state != 'canceled' }
     @tomorrows_lessons = lessons.to_a.keep_if{|lesson| (lesson.date == Date.today+1 || lesson.date == '2016-09-12') && lesson.state != 'canceled' }
@@ -143,7 +143,7 @@ class LessonsController < ApplicationController
   def future_daily_roster
     @date = params[:date]
     @date.nil? ? @date = Date.today+2 : @date
-    lessons = Lesson.all.select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.airbnb? || lesson.state.nil? }
+    lessons = Lesson.all.select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.airbnb?  || lesson.partially_booked? || lesson.state.nil? }
     # lessons = lessons.sort_by{|lesson| lesson.activity}.reverse
     lessons = lessons.sort_by{|lesson| lesson.start_time}
     @todays_lessons = lessons.select{|lesson| lesson.date.to_s == @date && lesson.state != 'canceled' }
@@ -549,10 +549,10 @@ class LessonsController < ApplicationController
       determine_update_state
       puts "!!!!!Lesson NOT saved, update notices determined by 'determine update state' method...?"
     end
-    if @lesson.price == 0.0
+    if @lesson.promo_code && lesson.promo_code.promo_code == "AIRBNBX"
       @lesson.state = "booked"
       @lesson.deposit_status = "paid through Airbnb"
-      @lesson.package_info = "Airbnb confirmed booking. Customer has already paid through Airbnb."
+      @lesson.package_info += "this lesson was updated with the promo_code AIRBNBX and has $0 balance"
       @lesson.save!
     end
     redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
@@ -593,6 +593,12 @@ class LessonsController < ApplicationController
       @lesson.update!(state:"booked")
       @lesson.update!(deposit_status:"paid through Airbnb")
       @lesson.update!(package_info:"Airbnb confirmed booking. Customer has already paid through Airbnb.")
+      redirect_to @lesson
+  end
+
+  def admin_confirm_booked_with_modification
+      set_admin_skip_validations
+      @lesson.update!(deposit_status:"partially booked")
       redirect_to @lesson
   end
 
