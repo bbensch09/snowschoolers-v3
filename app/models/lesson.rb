@@ -392,6 +392,14 @@ class Lesson < ActiveRecord::Base
     end
   end
 
+  def airbnb?
+    if self.package_info.include?('airbnb')
+      return true
+    else 
+      return false
+    end
+  end
+
   def private_request?
     if self.bonus_category == 'private request'
       return 'Yes'
