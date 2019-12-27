@@ -347,7 +347,8 @@ class LessonsController < ApplicationController
   def new_request
     puts "!!! processing instructor request; Session variable is: #{session[:lesson]}"
     @lesson = Lesson.new
-    @promo_location = session[:lesson].nil? ? nil : session[:lesson]["requested_location"]
+    # @promo_location = session[:lesson].nil? ? nil : session[:lesson]["requested_location"]
+    @promo_location = 24
     @activity = session[:lesson].nil? ? nil : session[:lesson]["activity"]
     @slot = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?) ? nil : session[:lesson]["lesson_time"]["slot"]
     @date = (session[:lesson].nil? || session[:lesson]["lesson_time"].nil?)  ? nil : session[:lesson]["lesson_time"]["date"]
