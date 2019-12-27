@@ -633,31 +633,36 @@ class LessonsController < ApplicationController
   end
 
   def set_instructor
+    if @lesson.state == 'confirmed'
+      flash[:notice] = "Unfortunately another instructor has already claimed this lesson. If you're interested in teaching at this time and you don't see other lessons available, please contact Brian or Adam."
+      redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
+    else
     @lesson.instructor_id = current_user.instructor.id
     @lesson.state = 'confirmed'
-    if @lesson.save
-    l = LessonAction.find_or_create_by!({
-      lesson_id: @lesson.id,
-      instructor_id: current_user.instructor.id,
-      })
-    l.action = "Accept"
-    l.save
-    c = CalendarBlock.find_or_create_by!({
+        if @lesson.save
+        l = LessonAction.find_or_create_by!({
+        lesson_id: @lesson.id,
+        instructor_id: current_user.instructor.id,
+        })
+        l.action = "Accept"
+        l.save
+        c = CalendarBlock.find_or_create_by!({
         date: @lesson.lesson_time.date,
         instructor_id: current_user.instructor.id,
         })
-      c.state = 'Booked'
-      c.lesson_time_id = @lesson.lesson_time_id
-      c.save
-    if @lesson.location.id == 8
-      LessonMailer.send_lesson_hw_confirmation(@lesson).deliver!
-    elsif @lesson.location.id == 24
-      LessonMailer.send_lesson_gb_confirmation(@lesson).deliver!
-    end
-    @lesson.send_sms_to_requester
-    redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
-    else
-     redirect_to @lesson, notice: "Error: could not accept lesson. #{@lesson.errors.full_messages}"
+        c.state = 'Booked'
+        c.lesson_time_id = @lesson.lesson_time_id
+        c.save
+            if @lesson.location.id == 8
+            LessonMailer.send_lesson_hw_confirmation(@lesson).deliver!
+            elsif @lesson.location.id == 24
+            LessonMailer.send_lesson_gb_confirmation(@lesson).deliver!
+            end
+        @lesson.send_sms_to_requester
+        redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
+        else
+        redirect_to @lesson, notice: "Error: could not accept lesson. #{@lesson.errors.full_messages}"
+        end
     end
   end
 
