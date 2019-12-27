@@ -57,6 +57,10 @@ class CalendarBlocksController < ApplicationController
     (1..20).each do |x|
       dates << min_date + x
     end
+    # last year lessons & dates
+    lessons_last_year = Lesson.all.select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.state.nil? }
+    lessons_last_year = lessons_last_year.to_a.keep_if{|lesson| lesson.date >= Date.today-375 && lesson.date <= Date.today+375}
+    @lessons_last_year = lessons_last_year.sort_by{|lesson| lesson.date}    
     @dates = dates
   end
 

@@ -13,12 +13,16 @@
     <tr>
       <th class="lessons-table-cells lesson-date">Date</th>
       <th class="lessons-table-cells lesson-date">Total Lesson Bookings</th>
-      <th class="lessons-table-cells lesson-date">Total Staff</th>
+      <!-- <th class="lessons-table-cells lesson-date">Total Staff</th> -->
       <th class="lessons-table-cells lesson-date">Ski Lessons</th>
-      <th class="lessons-table-cells lesson-date">Skiers</th>
+      <!-- <th class="lessons-table-cells lesson-date">Skiers</th> -->
       <th class="lessons-table-cells lesson-date">Snowboarder Lessons</th>
-      <th class="lessons-table-cells lesson-date">Snowboarders</th>
-      <th class="lessons-table-cells lesson-date">XO</th>
+      <!-- <th class="lessons-table-cells lesson-date">Snowboarders</th> -->
+      <!-- <th class="lessons-table-cells lesson-date">XO</th> -->
+      <th class="lessons-table-cells lesson-date">Date Last Year</th>
+      <th class="lessons-table-cells lesson-date">Total Lessons LY</th>
+      <th class="lessons-table-cells lesson-date">Ski Lessons LY</th>
+      <th class="lessons-table-cells lesson-date">SB Lessons LY</th>
     </tr>
   </thead>
 
@@ -30,15 +34,20 @@
       <!-- total booked lessons -->
       <td colspan="1" class="daily-roster-section-break"><%= @lessons.select{|lesson| lesson.date.to_s == date.to_s}.count %> </td>
       <!-- total staff -->
-      <td> TBD (8) </td>
+      <!-- <td> TBD (8) </td> -->
       <!-- total skier staff -->
-      <td> TBD (6) </td>
+      <!-- <td> TBD (6) </td> -->
       <!-- total ski lessons -->
       <td colspan="1" class="daily-roster-section-break"><%= @lessons.select{|lesson| lesson.date.to_s == date.to_s && lesson.activity == "Ski"}.count %> </td>
       <!-- total SB staff -->
-      <td> TBD (2) </td>
+      <!-- <td> TBD (2) </td> -->
       <!-- total snowboard lessons -->
       <td colspan="1" class="daily-roster-section-break"><%= @lessons.select{|lesson| lesson.date.to_s == date.to_s && lesson.activity == "Snowboard"}.count %> </td>
+      <% date_year_ago = (date - 365) %>
+      <td colspan="1" class="daily-roster-section-break year-ago"><%=date-365 %> </td>
+      <td colspan="1" class="daily-roster-section-break year-ago"><%= @lessons_last_year.select{|lesson| lesson.date.to_s == date_year_ago.to_s}.count %> </td>
+      <td colspan="1" class="daily-roster-section-break year-ago"><%= @lessons_last_year.select{|lesson| lesson.date.to_s == date_year_ago.to_s && lesson.activity == "Ski"}.count %> </td>
+      <td colspan="1" class="daily-roster-section-break year-ago"><%= @lessons_last_year.select{|lesson| lesson.date.to_s == date_year_ago.to_s && lesson.activity == "Snowboard"}.count %> </td>
     </tr>
     <% end %>
   </tbody>
