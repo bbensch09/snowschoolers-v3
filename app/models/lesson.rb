@@ -656,7 +656,11 @@ class Lesson < ActiveRecord::Base
   end
 
   def location
-    Location.find(self.requested_location.to_i)
+    if self.requested_location.nil?
+      Location.find(24)
+    else
+      Location.find(self.requested_location.to_i)
+    end
   end
 
   def active?
