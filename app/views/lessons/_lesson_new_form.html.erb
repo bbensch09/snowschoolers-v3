@@ -14,6 +14,10 @@
       </div>
 </section>
 
+<% elsif @instructor_requested %>
+
+  <h3 class="center notice">You've selected <span class="navy-text bold"><%= @instructor_requested.name.upcase %> </span> as your preferred instructor.</h3>
+
 <% elsif @promo_location.nil? || @promo_location !=24 %>
 
     <% @cta_visibility = "hidden" %>
