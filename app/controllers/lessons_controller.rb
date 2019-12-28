@@ -300,7 +300,7 @@ class LessonsController < ApplicationController
   def send_day_before_reminder_email
     puts "!!!!sending reminder email to both student & instructor"
     LessonMailer.send_day_before_reminder_email(@lesson.id).deliver!
-    redirect_to lessons_path
+    redirect_to @lesson
   end
 
   def sugarbowl
