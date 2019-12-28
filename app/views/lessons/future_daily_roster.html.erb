@@ -110,7 +110,7 @@
       <td colspan="12" class="daily-roster-section-break">Afternoon Ski Groups </td>
     </tr>
     <% @todays_lessons.each do |lesson| %>
-        <% if lesson.product.slot == 'Afternoon' && lesson.product.product_type == 'group_lesson' && lesson.activity == 'Ski'%>
+        <% if lesson.product.slot == 'Afternoon' && lesson.length == '2.00' && lesson.activity == 'Ski'%>
           <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
         <% end %>
     <% end %>
@@ -119,7 +119,7 @@
       <td colspan="12" class="daily-roster-section-break">Afternoon SB Groups </td>
     </tr>
     <% @todays_lessons.each do |lesson| %>
-        <% if lesson.product.slot == 'Afternoon' && lesson.product.product_type == 'group_lesson' && lesson.activity == 'Snowboard'%>
+        <% if lesson.product.slot == 'Afternoon' && lesson.length == '2.00' && lesson.activity == 'Snowboard'%>
           <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
         <% end %>
     <% end %>
