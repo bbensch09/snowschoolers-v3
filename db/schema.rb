@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_21_063200) do
+ActiveRecord::Schema.define(version: 2019_12_31_124706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -295,7 +295,7 @@ ActiveRecord::Schema.define(version: 2019_12_21_063200) do
     t.string "calendar_period"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "length"
+    t.float "length"
     t.string "slot"
     t.string "start_time"
     t.string "product_type"
