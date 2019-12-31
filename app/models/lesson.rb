@@ -363,7 +363,7 @@ class Lesson < ActiveRecord::Base
       if product_id.nil?
         set_product_from_lesson_params
       elsif product_id == 980191086
-        return Product.where(location_id:24,length:"1.00",slot:'Early-bird',product_type:"private_lesson",is_lift_rental_package:true).first
+        return Product.where(location_id:24,slot:'Early-bird',product_type:"private_lesson",is_lift_rental_package:true).first
 
       else
         return Product.find(product_id)

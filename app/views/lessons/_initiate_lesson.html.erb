@@ -52,7 +52,12 @@
               </div>
 
               <div class="col-md-3 time-slot-input">
-                <%= lt_f.input :slot, as: :select, collection: PRIVATE_SLOTS, selected: @slot, include_blank: 'Time', label: false %>
+                <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.email == "bbensch@gmail.com") %>
+                <%= lt_f.input :slot, as: :select, collection: ADMIN_SLOTS, include_blank: 'Select Time', label: false, required:true %>
+                <% else %>
+                <%= lt_f.input :slot, as: :select, collection: PRIVATE_SLOTS, include_blank: 'Select Time', label: false, required:true %>
+                <% end %>
+
               </div>
               <% if current_user.nil? %>
               <div class="col-md-2 guest-email-input">
