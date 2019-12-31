@@ -43,6 +43,30 @@ class Lesson < ActiveRecord::Base
     end
   end
 
+  def self.migrate_lesson_slots
+      Lesson.all.to_a.each do |lesson|
+        if lesson.slot == 'Early Bird (8:45-9:45am)'
+          lesson.lesson_time.update({slot:'1hr Early Bird 8:45-9:45am'})
+        elsif lesson.slot == '1hr Private 10am' 
+          lesson.lesson_time.update({slot:'1hr Private 10:00am'})
+        elsif lesson.slot == '1hr Private 11:15am'
+          lesson.lesson_time.update({slot:'1hr Private 11:15am'})        
+        elsif lesson.slot == '1hr Private 12:30pm'
+          lesson.lesson_time.update({slot:'1hr Private 12:30pm'})          
+        elsif lesson.slot == 'Half-day Morning (10am-12:45pm)'
+          lesson.lesson_time.update({slot:'Half-day Morning 10:00am-12:45pm'})          
+        elsif lesson.slot == 'Half-day Afternoon (1:15-4pm)'
+          lesson.lesson_time.update({slot:'Half-day Afternoon 1:15-4:00pm'})          
+        elsif lesson.slot == 'Full-day (10am-4pm)'
+          lesson.lesson_time.update({slot:'Full-day (10:00am-4:00pm)'})          
+        elsif lesson.slot == '2hr Afternoon 1:45pm-3:45pm'
+          lesson.lesson_time.update({slot:'2hr Group Afternoon 1:45pm-3:45pm'})
+        else
+          puts "!!! no updates made"
+        end          
+      end
+  end
+
   def group_lesson?
     self.class_type == 'group'
   end
@@ -257,19 +281,19 @@ class Lesson < ActiveRecord::Base
           
           #pricing for Airbnb PRIVATES
           #2hr afternoons lesson with rental
-          elsif self.slot == 'Airbnb Morning 10:00am-12:00pm' && self.location.id == 24
-            product = Product.where(location_id:self.location.id,length:2.00,calendar_period:calendar_period,slot:"Morning",product_type:"private_lesson",name:'Airbnb Private Morning').first
+          elsif self.slot == 'Airbnb Morning 10:00am-12:00pm' && self.location.id == 24 && self.class_type == "private"
+            product = Product.where(location_id:self.location.id,length:2.00,calendar_period:calendar_period,slot:"Airbnb Morning 10:00am-12:00pm",product_type:"private_lesson").first
           #2hr afternoons lesson, with rental
-          elsif self.slot == 'Airbnb Afternoon 1:30-3:30pm' && self.location.id == 24
-            product = Product.where(location_id:self.location.id,length:2.00,calendar_period:calendar_period,slot:"Afternoon",product_type:"private_lesson",name:'Airbnb Private Afternoon').first
+          elsif self.slot == 'Airbnb Afternoon 1:30-3:30pm' && self.location.id == 24 && self.class_type == "private"
+            product = Product.where(location_id:self.location.id,length:2.00,calendar_period:calendar_period,slot:"Airbnb Afternoon 1:30-3:30pm",product_type:"private_lesson").first
 
           #pricing for Airbnb GROUPS
           #2hr afternoons lesson, with rental
-          elsif self.slot == 'Airbnb Morning 10:00am-12:00pm' && self.location.id == 24 && self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:2.00,slot:"Morning",product_type:"group_lesson",name:'Airbnb Morning groups').first
+          elsif self.slot == 'Airbnb Morning 10:00am-12:00pm' && self.location.id == 24 && self.class_type == "group"
+            product = Product.where(location_id:self.location.id,length:2.00,slot:"Airbnb Morning 10:00am-12:00pm",product_type:"group_lesson").first
           #2hr afternoons lesson, with rental
-          elsif self.slot == 'Airbnb Afternoon 1:30-3:30pm' && self.location.id == 24 && self.includes_rental_package?
-            product = Product.where(location_id:24,length:2.00,slot:"Afternoon",product_type:"group_lesson",name:'Airbnb Afternoon Group').first
+          elsif self.slot == 'Airbnb Afternoon 1:30-3:30pm' && self.location.id == 24 && self.class_type == "group"
+            product = Product.where(location_id:self.location.id,length:2.00,slot:"Airbnb Afternoon 1:30-3:30pm",product_type:"group_lesson").first
 
 
           #pricing for Granlibakken GROUPS
@@ -397,7 +421,7 @@ class Lesson < ActiveRecord::Base
         # if @skip_product_id == 'blue'
         #   return Product.find(self.product_id)
         # end
-      if product_id.nil?
+      if product_id.nil? or Product.where(id:product_id).count == 0
         set_product_from_lesson_params
       elsif product_id == 980191086
         return Product.where(location_id:24,slot:'Early-bird',product_type:"private_lesson",is_lift_rental_package:true).first
