@@ -21,7 +21,9 @@ var day = dt.getDate();
 var day = day+DATES_BUFFER
 console.log("The day values is set to "+day)
 var month = dt.getMonth() + 1;
+console.log("The month values is set to "+month)
 var year = dt.getYear() +1900;
+console.log("The year values is set to "+year)
 var date = year + "-" + month + "-" + day;
 var opening_date = new Date("2019-12-14");
 
@@ -35,6 +37,11 @@ if (Date.now() <= opening_date) {
   var MIN_DATE = '2019-12-14';
   // logs the season start date
   console.log(MIN_DATE);
+}
+if (month == 12 && year == 2019 && day ==32) {
+  var MIN_DATE = '2020-01-01';
+  // logs the season start date
+  console.log('MIN date set to: '+MIN_DATE);
 }
 
 var LESSON = {
