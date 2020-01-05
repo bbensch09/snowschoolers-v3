@@ -29,7 +29,7 @@
       <td colspan="12" class="daily-roster-section-break">Early Bird Private Ski </td>
     </tr>
     <% @todays_lessons.each do |lesson| %>
-        <% if lesson.product.slot == 'Early-bird' && lesson.product.product_type == 'private_lesson' && lesson.activity == 'Ski' %>
+        <% if lesson.slot == '1hr Early Bird 8:45-9:45am' && lesson.activity == 'Ski' %>
           <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
         <% end %>
     <% end %>
@@ -37,7 +37,7 @@
       <td colspan="12" class="daily-roster-section-break">Early Bird Private SB </td>
     </tr>
     <% @todays_lessons.each do |lesson| %>
-        <% if lesson.product.slot == 'Early-bird' && lesson.product.product_type == 'private_lesson' && lesson.activity == 'Snowboard' %>
+        <% if lesson.slot == '1hr Early Bird 8:45-9:45am' && lesson.activity == 'Snowboard' %>
           <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
         <% end %>
     <% end %>
@@ -50,18 +50,26 @@
       <td colspan="12" class="daily-roster-section-break">Morning Half-Day Ski Privates </td>
     </tr>
     <% @todays_lessons.each do |lesson| %>
-        <% if lesson.product.slot == 'Morning' && lesson.product.product_type == 'private_lesson' && lesson.length == '3.00'  && lesson.activity == 'Ski'%>
+        <% if lesson.slot == 'Half-day Morning 10:00am-12:45pm'  && lesson.activity == 'Ski'%>
           <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
         <% end %>
+        <% if lesson.slot == 'Airbnb Morning 10:00am-12:00pm' && lesson.activity == 'Ski'%>
+          <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
+        <% end %>
+
     <% end %>
 
     <tr>
       <td colspan="12" class="daily-roster-section-break">Morning Half-Day SB Privates </td>
     </tr>
     <% @todays_lessons.each do |lesson| %>
-        <% if lesson.product.slot == 'Morning' && lesson.product.product_type == 'private_lesson' && lesson.length == '3.00'  && lesson.activity == 'Snowboard'%>
+        <% if lesson.slot == 'Half-day Morning 10:00am-12:45pm' && lesson.activity == 'Snowboard'%>
           <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
         <% end %>
+        <% if lesson.slot == 'Airbnb Morning 10:00am-12:00pm' && lesson.activity == 'Snowboard'%>
+          <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
+        <% end %>
+
     <% end %>
 
     <!-- Morning 1hr slots -->
@@ -70,7 +78,7 @@
       <td colspan="12" class="daily-roster-section-break">Morning 1hr Ski Privates </td>
     </tr>
     <% @todays_lessons.each do |lesson| %>
-        <% if lesson.product.slot == 'Morning' && lesson.length == '1.00' && lesson.activity == 'Ski' %>
+        <% if lesson.slot.include?('1hr Private') && lesson.activity == 'Ski' %>
           <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
         <% end %>
     <% end %>
@@ -79,7 +87,7 @@
       <td colspan="12" class="daily-roster-section-break">Morning 1hr SB Privates </td>
     </tr>
     <% @todays_lessons.each do |lesson| %>
-        <% if lesson.product.slot == 'Morning' && lesson.length == '1.00' && lesson.activity == 'Snowboard' %>
+        <% if lesson.slot.include?('1hr Private') && lesson.activity == 'Snowboard' %>
           <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
         <% end %>
     <% end %>
@@ -90,7 +98,7 @@
       <td colspan="12" class="daily-roster-section-break">Afternoon Half-Day Ski Privates </td>
     </tr>
     <% @todays_lessons.each do |lesson| %>
-        <% if lesson.product.slot == 'Afternoon' && lesson.product.product_type == 'private_lesson' && lesson.length == '3.00'  && lesson.activity == 'Ski'%>
+        <% if lesson.slot == 'Half-day Afternoon 1:15-4:00pm' && lesson.activity == 'Ski'%>
           <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
         <% end %>
     <% end %>
@@ -99,7 +107,7 @@
       <td colspan="12" class="daily-roster-section-break">Afternoon Half-Day SB Privates </td>
     </tr>
     <% @todays_lessons.each do |lesson| %>
-        <% if lesson.product.slot == 'Afternoon' && lesson.product.product_type == 'private_lesson' && lesson.length == '3.00'  && lesson.activity == 'Snowboard'%>
+        <% if lesson.slot == 'Half-day Afternoon 1:15-4:00pm' && lesson.activity == 'Snowboard'%>
           <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
         <% end %>
     <% end %>
@@ -110,16 +118,23 @@
       <td colspan="12" class="daily-roster-section-break">Afternoon Ski Groups </td>
     </tr>
     <% @todays_lessons.each do |lesson| %>
-        <% if lesson.product.slot == 'Afternoon' && lesson.length == '2.00' && lesson.activity == 'Ski'%>
+        <% if lesson.slot == '2hr Group Afternoon 1:45pm-3:45pm' && lesson.activity == 'Ski'%>
           <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
         <% end %>
+        <% if lesson.slot == 'Airbnb Afternoon 1:30-3:30pm' && lesson.activity == 'Ski'%>
+          <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
+        <% end %>
+
     <% end %>
 
     <tr>
       <td colspan="12" class="daily-roster-section-break">Afternoon SB Groups </td>
     </tr>
     <% @todays_lessons.each do |lesson| %>
-        <% if lesson.product.slot == 'Afternoon' && lesson.length == '2.00' && lesson.activity == 'Snowboard'%>
+        <% if lesson.slot == '2hr Group Afternoon 1:45pm-3:45pm' && lesson.activity == 'Snowboard'%>
+          <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
+        <% end %>
+        <% if lesson.slot == 'Airbnb Afternoon 1:30-3:30pm' && lesson.activity == 'Snowboard'%>
           <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
         <% end %>
     <% end %>
@@ -130,7 +145,7 @@
       <td colspan="12" class="daily-roster-section-break">Full Day Privates (10am start) </td>
     </tr>
     <% @todays_lessons.each do |lesson| %>
-        <% if lesson.product.slot == 'All day' && lesson.product.product_type == 'private_lesson' %>
+        <% if lesson.slot == 'Full-day (10:00am-4:00pm)' %>
           <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
         <% end %>
     <% end %>
