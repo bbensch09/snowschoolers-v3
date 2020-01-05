@@ -38,7 +38,7 @@ if (Date.now() <= opening_date) {
   // logs the season start date
   console.log(MIN_DATE);
 }
-if (month == 12 && year == 2019 && day ==32) {
+if (month == 12 && year == 2019 && day ==33) {
   var MIN_DATE = '2020-01-01';
   // logs the season start date
   console.log('MIN date set to: '+MIN_DATE);
