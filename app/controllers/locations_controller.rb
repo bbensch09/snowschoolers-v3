@@ -23,6 +23,7 @@ class LocationsController < ApplicationController
   # GET /locations/1
   # GET /locations/1.json
   def show    
+    @lesson = Lesson.new
   end
 
   def granlibakken
