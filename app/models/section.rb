@@ -172,9 +172,9 @@ class Section < ApplicationRecord
 					terms_accepted: true,
 					how_did_you_hear: 100,
 					requester_name: 'John Parent',
-					product_id: Product.where(location_id:24,length:"1.00").sample.id,
+					product_id: Product.where(location_id:24,length:1.00).sample.id,
 					section_id: section.id,
-					product_name: Product.where(location_id:24,length:"1.00").sample.name,
+					product_name: Product.where(location_id:24,length:1.00).sample.name,
 					class_type: 'group',
 					state: "booked"
 					})

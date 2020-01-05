@@ -57,10 +57,10 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { :host => ENV['HOST_DOMAIN'] }
   config.action_mailer.delivery_method = :smtp
   #during dev testing, uncomment the ENV variable below to disable Twilio messages
-  # ENV['twilio_status'] = "inactive"
-  ENV['twilio_status'] = "active"
-  # config.action_mailer.perform_deliveries = false
-  config.action_mailer.perform_deliveries = true
+  ENV['twilio_status'] = "inactive"
+  # ENV['twilio_status'] = "active"
+  config.action_mailer.perform_deliveries = false
+  # config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
   config.action_mailer.smtp_settings = {
