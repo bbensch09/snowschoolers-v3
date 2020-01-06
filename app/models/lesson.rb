@@ -299,10 +299,10 @@ class Lesson < ActiveRecord::Base
           #pricing for Granlibakken GROUPS
           #2hr afternoons lesson, no rental
           elsif self.slot == '2hr Group Afternoon 1:45pm-3:45pm' && self.location.id == 24 && self.class_type == 'group' && !self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:2.00,calendar_period:calendar_period,slot:"Afternoon",product_type:"group_lesson",is_lift_rental_package:false).first
+            product = Product.where(location_id:self.location.id,length:2.00,calendar_period:calendar_period,product_type:"group_lesson",is_lift_rental_package:false).first
           #2hr afternoons lesson, with rental
           elsif self.slot == '2hr Group Afternoon 1:45pm-3:45pm' && self.location.id == 24 && self.class_type == 'group' && self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:2.00,calendar_period:calendar_period,slot:"Afternoon",product_type:"group_lesson",is_lift_rental_package:true).first
+            product = Product.where(location_id:self.location.id,length:2.00,calendar_period:calendar_period,product_type:"group_lesson",is_lift_rental_package:true).first
 
 
           #pricing for Granlibakken PRIVATES
@@ -357,10 +357,10 @@ class Lesson < ActiveRecord::Base
 
           #pricing for afternoon GB half-day package
           elsif self.slot == 'Half-day Afternoon 1:15-4:00pm' && self.location.id == 24 && self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:3.00,slot:'Half-day Afternoon 1:15-4:00pm',calendar_period:calendar_period,slot:"Afternoon",product_type:"private_lesson",is_lift_rental_package:true).first
+            product = Product.where(location_id:self.location.id,length:3.00,slot:'Half-day Afternoon 1:15-4:00pm',calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:true).first
           #pricing for afternoon GB half-day lesson only
           elsif self.slot == 'Half-day Afternoon 1:15-4:00pm' && self.location.id == 24 && !self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:3.00,slot:'Half-day Afternoon 1:15-4:00pm',calendar_period:calendar_period,slot:"Afternoon",product_type:"private_lesson",is_lift_rental_package:false).first
+            product = Product.where(location_id:self.location.id,length:3.00,slot:'Half-day Afternoon 1:15-4:00pm',calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
 
           #pricing for GB full-day lesson package
           elsif self.slot == 'Full-day (10:00am-4:00pm)'  && self.location.id == 24 && self.includes_rental_package?
