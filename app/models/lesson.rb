@@ -44,6 +44,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def self.migrate_lesson_slots
+      config.action_mailer.perform_deliveries = false
       Lesson.all.to_a.each do |lesson|
         if lesson.slot == 'Early Bird (8:45-9:45am)'
           lesson.lesson_time.update({slot:'1hr Early Bird 8:45-9:45am'})
@@ -63,7 +64,8 @@ class Lesson < ActiveRecord::Base
           lesson.lesson_time.update({slot:'2hr Group Afternoon 1:45pm-3:45pm'})
         else
           puts "!!! no updates made"
-        end          
+        end
+        config.action_mailer.perform_deliveries = true
       end
   end
 
