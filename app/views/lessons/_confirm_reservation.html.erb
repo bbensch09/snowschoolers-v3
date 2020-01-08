@@ -111,6 +111,11 @@
                       <% if @lesson.product && (@lesson.product.calendar_period == 'Holiday' || @lesson.product.calendar_period == 'Peak') %>
                         (holiday pricing)
                       <% end %>
+
+                      <% if @lesson.product_id == 980191086 %>
+                          <span class="text-danger"><br>You have selected date or time or location combination that is not permitted. Please contact guest services at hello@snowschoolers.com and we can assist with selecting an appropriate lesson.</span>
+                      <% end %>
+
           
                       <% if @lesson.promo_code %>
                       <p class="italic">Original price: <%= number_to_currency(@lesson.original_price) %></p>
@@ -119,6 +124,7 @@
                     <% else %>
                       <% amount =(@lesson.lesson_price.to_f*100).to_i %>
                       <p><%= number_to_currency(@lesson.lesson_price.to_s) %></p>
+
                   <% end %>
 
                   </span>

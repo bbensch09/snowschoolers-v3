@@ -1,3 +1,4 @@
+<% title "Complete Lesson Reservation" %>
   <div id="lesson-flow-background">
       <img src="https://s3.amazonaws.com/snowschoolers/images/demo/slider/thredbo-village-resort-hero.jpg" alt="" />
   </div>
@@ -153,6 +154,13 @@
               <label>Price</label>
                 <h2> <span id="lesson-price"><%= number_to_currency(@lesson.price) %></span></h2>
             </div>
+           
+            <% if @lesson.product_id == 980191086 %>
+              <div class="col-md-12">
+                <h3><span class="text-danger">You have selected date or time or location combination that is not permitted. Please contact guest services at hello@snowschoolers.com and we can assist with selecting an appropriate lesson.</span></h3>
+              </div>
+            <% end %>
+
             <div class="col-md-12">
               <h4 class="text-warning left">Note: The price above will update based on number of students in lesson. Final price will be confirmed on the next page.</h4>
             </div>
