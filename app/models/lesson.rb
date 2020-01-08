@@ -44,7 +44,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def self.migrate_lesson_slots
-      config.action_mailer.perform_deliveries = false
+    ActionMailer::Base.perform_deliveries = false
       Lesson.all.to_a.each do |lesson|
         if lesson.slot == 'Early Bird (8:45-9:45am)'
           lesson.lesson_time.update({slot:'1hr Early Bird 8:45-9:45am'})
@@ -65,8 +65,20 @@ class Lesson < ActiveRecord::Base
         else
           puts "!!! no updates made"
         end
-        config.action_mailer.perform_deliveries = true
       end
+    ActionMailer::Base.perform_deliveries = false
+  end
+
+  def self.match_all_lessons_with_products
+    ActionMailer::Base.perform_deliveries = false
+      Lesson.all.to_a.each do |lesson|
+        if lesson.product.nil?
+          puts "!!!! found a lesson w/o matching product, so setting it to error product_id. Lesson ID was #{lesson.id}"
+          lesson.product_id = Product.find(980191086).id
+          lesson.save!
+        end
+      end
+    ActionMailer::Base.perform_deliveries = false
   end
 
   def group_lesson?
@@ -382,25 +394,29 @@ class Lesson < ActiveRecord::Base
 
 
           # MUST FIX ALL HOMEWOOD PRODUCTS & PRICING WHEN REACTIVATED
+          # default HW lessons to show 9,999 to ensure no one accidently books.
+          elsif self.location.id ==8
+            product = Product.find(980191086)
+            @check_999_products = true
           #pricing for morning homewood half-day package
-          elsif self.slot == PRIVATE_SLOTS.fifth && self.location.id == 8 && self.includes_rental_package?
+          elsif self.slot.include?("Half-day Morning") && self.location.id == 8 && self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:3.0,calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
           #pricing for morning homewood half-day lesson only
-          elsif self.slot == PRIVATE_SLOTS.fifth && self.location.id == 8 && !self.includes_rental_package?
+          elsif self.slot.include?("Half-day Morning") && self.location.id == 8 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:3.0,calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
 
           #pricing for afternoon homewood half-day package
-          elsif self.slot == PRIVATE_SLOTS[5] && self.location.id == 8 && self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:3.0,calendar_period:calendar_period,slot:"Afternoon",product_type:"private_lesson",is_lift_rental_package:false).first
+          elsif self.slot.include?("Half-day Afternoon") && self.location.id == 8 && self.includes_rental_package?
+            product = Product.where(location_id:self.location.id,length:3.0,calendar_period:calendar_period,slot:"Half-day Afternoon 1:15-4:00pm",product_type:"private_lesson",is_lift_rental_package:false).first
           #pricing for afternoon homewood half-day lesson only
-          elsif self.slot == PRIVATE_SLOTS[5] && self.location.id == 8 && !self.includes_rental_package?
-            product = Product.where(location_id:self.location.id,length:3.0,calendar_period:calendar_period,slot:"Afternoon",product_type:"private_lesson",is_lift_rental_package:false).first
+          elsif self.slot.include?("Half-day Afternoon") && self.location.id == 8 && !self.includes_rental_package?
+            product = Product.where(location_id:self.location.id,length:3.0,calendar_period:calendar_period,slot:"Half-day Afternoon 1:15-4:00pm",product_type:"private_lesson",is_lift_rental_package:false).first
 
           #pricing for homewood full-day lesson package
-          elsif self.slot == PRIVATE_SLOTS[6]  && self.location.id == 8 && self.includes_rental_package?
+          elsif self.slot.include?("Full-day") && self.location.id == 8 && self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:6.0,calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
           #pricing for homewood full-day lesson only
-          elsif self.slot == PRIVATE_SLOTS[6]  && self.location.id == 8 && !self.includes_rental_package?
+          elsif self.slot.include?("Full-day") && self.location.id == 8 && !self.includes_rental_package?
             product = Product.where(location_id:self.location.id,length:6.0,calendar_period:calendar_period,product_type:"private_lesson",is_lift_rental_package:false).first
         end
         unless product.nil?
@@ -408,8 +424,10 @@ class Lesson < ActiveRecord::Base
           self.update({product_id:product.id})
         end
         if product.nil? && state == 'new'
-        # hard-code product id for default fallback option
-        puts "!!!! since no matching product was found, setting id to hard coded value of 980191086, which will show error to user and prevent other errors"
+          product = Product.find(980191086)
+          @check_999_products = true
+          # hard-code product id for default fallback option
+          puts "!!!! since no matching product was found, setting id to hard coded value of 980191086, which will show error to user and prevent other errors"
         self.update({product_id:980191086})
         end
       end
@@ -423,14 +441,13 @@ class Lesson < ActiveRecord::Base
         # if @skip_product_id == 'blue'
         #   return Product.find(self.product_id)
         # end
-      if product_id.nil? or Product.where(id:product_id).count == 0
+      if product_id.nil? || (product_id == 980191086 && @check_999_products != true)
+      # triggerd stack level too deep error (?)
+      # if product_id.nil? or Product.where(id:product_id).count == 0 or product_id == 980191086
         set_product_from_lesson_params
-      elsif product_id == 980191086
-        return Product.where(location_id:24,slot:'Early-bird',product_type:"private_lesson",is_lift_rental_package:true).first
-
-      else
-        return Product.find(product_id)
+      elsif product_id
         puts "!!! lesson has stored product_id - skip rest of method to assign product"
+        return Product.find(product_id)
       end
   end
 
@@ -1509,10 +1526,12 @@ def available_instructors?
 
   def self.booked_instructors(lesson_time)
     puts "checking for booked instructors on #{lesson_time.date} during the #{lesson_time.slot} slot"
-    if lesson_time.slot == 'Full-day (10am-4pm)'
-      booked_lessons = Lesson.select{|lesson| lesson.date == lesson_time.date && lesson.lesson_time.slot != PRIVATE_SLOTS.first}
+    if lesson_time.slot == 'Full-day (10:00am-4:00pm)'
+      booked_lessons = Lesson.select{|lesson| lesson.date == lesson_time.date && lesson.booked? && lesson.lesson_time.slot != '1hr Early Bird 8:45-9:45am'}
     else
-      booked_lessons = Lesson.select{|lesson| lesson.date == lesson_time.date && lesson.product && lesson.product.start_time == lesson_time.start_time}
+      # this logic needs to be entirely re-worked now that we have 1hr lessons which overlap with half-days
+      # booked_lessons = Lesson.select{|lesson| lesson.date == lesson_time.date && lesson.product && lesson.product.start_time == lesson_time.start_time}
+      booked_lessons = Lesson.select{|lesson| lesson.date == lesson_time.date && lesson.booked? }
     end
     puts "There is/are #{booked_lessons.count} lesson(s) already booked at this time."
     booked_instructors = []
@@ -1864,7 +1883,7 @@ private
 
   def send_lesson_request_to_instructors
     return true if group_lesson?
-    if self.active? && self.confirmable? && self.deposit_status == 'confirmed' && self.state != "pending instructor" && self.available_instructors.any?
+    if self.active? && self.product && self.confirmable? && self.deposit_status == 'confirmed' && self.state != "pending instructor" && self.available_instructors.any?
       LessonMailer.send_lesson_request_to_instructors(self).deliver!
       puts "!!!!!lesson email sent to all available instructors"
       self.send_sms_to_instructor
