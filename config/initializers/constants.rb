@@ -19,7 +19,7 @@ GB_HOLIDAYS = ['2019-12-20','2019-12-21','2019-12-22','2019-12-23','2019-12-24',
 
 
 PRIVATE_SLOTS = [
-	'1hr Early Bird 8:45-9:45am','1hr Private 10:00am','1hr Private 11:15am','1hr Private 12:30pm','1hr Private 1:45pm','1hr Private 3:00pm','Half-day Morning 10:00am-12:45pm','Half-day Afternoon 1:15-4:00pm','2hr Group Afternoon 1:45pm-3:45pm','Full-day (10:00am-4:00pm)'
+	'1hr Early Bird 8:45-9:45am','1hr Private 10:00am','1hr Private 11:15am','1hr Private 12:30pm','Half-day Morning 10:00am-12:45pm','Half-day Afternoon 1:15-4:00pm','2hr Group Afternoon 1:45pm-3:45pm','Full-day (10:00am-4:00pm)'
 ]
 
 GROUP_SLOTS = ['2hr Group Afternoon 1:45pm-3:45pm']
