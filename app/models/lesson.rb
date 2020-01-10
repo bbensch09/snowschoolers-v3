@@ -446,8 +446,13 @@ class Lesson < ActiveRecord::Base
       # if product_id.nil? or Product.where(id:product_id).count == 0 or product_id == 980191086
         set_product_from_lesson_params
       elsif product_id
-        puts "!!! lesson has stored product_id - skip rest of method to assign product"
-        return Product.find(product_id)
+        if Product.where(id:product_id).count == 0
+          puts "!!! product_id exists, but the there is now product found in database with that ID (e.g. 54)"
+          set_product_from_lesson_params
+        else
+          puts "!!! lesson has stored product_id - skip rest of method to assign product"
+          return Product.find(product_id)
+        end
       end
   end
 
