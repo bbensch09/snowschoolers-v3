@@ -56,7 +56,7 @@
             <td class="lessons-table-cells lesson-date"><%= lesson.id %></td>
             <td class="lessons-table-cells lesson-date"><%= lesson_url(lesson) %></td>
             <td class="lessons-table-cells lesson-date"><%= lesson.start_time %></td>
-            <td class="lessons-table-cells lesson-date"><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
+            <td class="lessons-table-cells lesson-date"><%= lesson.lesson_time.date.strftime("%m/%d/%Y") %></td>
             <td class="lessons-table-cells lesson-type"><%= lesson.activity %></td>
             <td><%= link_to "#{lesson.product_name}", lesson, class: "" %></td>
             <td class="lessons-table-cells lesson-date"><%= lesson.instructor_assigned? ? lesson.instructor.name : "TBD" %></td>
