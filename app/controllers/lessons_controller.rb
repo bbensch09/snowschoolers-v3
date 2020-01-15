@@ -68,7 +68,7 @@ class LessonsController < ApplicationController
     @bonus_wages = @instructor.bonus_wages_this_season
     respond_to do |format|
           format.html {render 'my_lessons_this_season'}
-          format.csv { send_data @@lessons.to_csv, filename: "my-lessons-this-season-export-#{Date.today}.csv" }
+          format.csv { send_data @lessons.to_csv, filename: "my-lessons-this-season-export-#{Date.today}.csv" }
         end
   end
 
