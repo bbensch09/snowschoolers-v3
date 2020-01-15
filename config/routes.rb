@@ -175,6 +175,10 @@ Rails.application.routes.draw do
         get :show_candidate
       end
   end
+
+  get 'mypayroll/:id' => 'lessons#my_lessons_this_season', as: :my_lessons_this_season
+
+
   get '/admin_index' => 'instructors#admin_index'
   get 'lessons/admin_index' => 'lessons#admin_index'
   get 'past_rentals' => 'rentals#past_rentals_index'
