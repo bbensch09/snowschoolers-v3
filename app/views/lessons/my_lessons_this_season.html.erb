@@ -1,0 +1,153 @@
+<% title "My Lessons - #{@instructor.name}" %>
+<body id="lessons-this-season">
+<div id="middle" class="report-container lesson-index-mobile">
+  <div class="white">
+
+  <!-- %= render partial: 'lessons/season_summary_stats' %> -->
+
+
+<div class="center">
+  <div class="buffer"></div>
+      <%= link_to "Export to CSV", my_lessons_this_season_path(format: "csv"), class: 'btn btn-lg btn-success' %>
+</div>
+
+<!-- SECTION 0 - AVAILABLE LESSON REQUESTS FOR INSTRUCTORS -->
+<div id="available-lessons" class="">
+<table class="instructors-table">
+  <thead>
+    <tr>
+      <th class="lessons-table-cells lesson-date">Count</th>
+      <th class="lessons-table-cells lesson-date">Lesson ID</th>
+      <th class="lessons-table-cells lesson-date">Time</th>
+      <th class="lessons-table-cells lesson-date">Date</th>
+      <th class="lessons-table-cells lesson-type">Sport</th>
+      <th class="lessons-table-cells lesson-type">Type</th>
+<!-- wages info       -->
+      <th class="lessons-table-cells">Price</th>
+      <th class="lessons-table-cells">Student Count</th>
+      <th class="lessons-table-cells lesson-instructor">Kids?</th>
+      <th class="lessons-table-cells lesson-instructor">Private Request?</th>
+      <th class="lessons-table-cells lesson-instructor">Rain?</th>
+      <th class="lessons-table-cells lesson-instructor">Bonus Rate</th>
+      <th class="lessons-table-cells lesson-instructor">Bonus Wages</th>
+      <th class="lessons-table-cells">Wage Rate</th>
+      <th class="lessons-table-cells">Length</th>
+      <th class="lessons-table-cells">Wages</th>
+      <th class="lessons-table-cells">Bonus Rate</th>
+      <th class="lessons-table-cells">Bonus Pay</th>
+<!-- customer info -->
+      <th class="lessons-table-cells lesson-instructor">Customer</th>
+      <th class="lessons-table-cells lesson-student">State</th>
+      <th class="lessons-table-cells lesson-student">Reviewed?</th>
+      <th class="lessons-table-cells lesson-student">Reviewed w/ Feedback?</th>
+      <th class="lessons-table-cells lesson-student">Rating</th>
+      <th class="lessons-table-cells lesson-student">NPS</th>
+      <th class="lessons-table-cells lesson-student">Feedback</th>
+      <th class="lessons-table-cells">Location</th>
+      <th class="lessons-table-cells">Rentals?</th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <% @lessons.each_with_index do |lesson, index| %>
+          <tr>
+            <td class="lessons-table-cells lesson-date"><%= index+1 %></td>
+            <td class="lessons-table-cells lesson-date"><%= lesson.id %></td>
+            <td class="lessons-table-cells lesson-date"><%= lesson.start_time %></td>
+            <td class="lessons-table-cells lesson-date"><%= lesson.lesson_time.date.strftime("%m/%d/%Y") %></td>
+            <td class="lessons-table-cells lesson-type"><%= lesson.activity %></td>
+            <td><%= link_to "#{lesson.product_name}", lesson, class: "" %></td>
+<!-- wages info       -->      
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.price) %></td>
+            <td class="lessons-table-cells lesson-type"><%= lesson.students.count %></td>
+            <td class="lessons-table-cells lesson-date"><%= lesson.kids_under_6? %></td>
+            <td class="lessons-table-cells lesson-date"><%= lesson.private_request? %></td>
+            <td class="lessons-table-cells lesson-date"><%= lesson.bad_weather? %></td>
+            <td class="lessons-table-cells lesson-date"><%= lesson.bonus_rate %></td>
+            <td class="lessons-table-cells lesson-date"><%= lesson.bonus_wages %></td>
+            <td class="lessons-table-cells lesson-type"><%= lesson.instructor ? lesson.instructor.wage_rate  : 16 %></td>            
+            <td class="lessons-table-cells lesson-type"><%= lesson.length %></td>            
+            <td class="lessons-table-cells lesson-type"><%= link_to number_to_currency(lesson.wages), edit_wages_path(lesson)%></td>
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.bonus_rate) %></td>
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.bonus_wages) %></td>
+<!-- customer info -->
+            <td class="lessons-table-cells lesson-date"><%= lesson.requester ? lesson.requester.email : lesson.guest_email %></td>
+            <td class="lessons-table-cells"><%= lesson.state %></td>
+            <td class="lessons-table-cells"><%= lesson.has_review? %></td>
+            <td class="lessons-table-cells"><%= lesson.has_review_and_feedback? %></td>
+            <% if lesson.review %>
+            <td class="lessons-table-cells"><%= lesson.review.rating ? lesson.review.rating : 'N/A' %></td>
+            <td class="lessons-table-cells"><%= lesson.review.nps ? lesson.review.nps : 'N/A' %></td>
+            <td class="lessons-table-cells"><%= lesson.review.review ? lesson.review.review : 'N/A' %></td>
+            <% else %>
+            <td class="lessons-table-cells"><%= lesson.has_review? %></td>
+            <td class="lessons-table-cells"><%= lesson.has_review? %></td>
+            <td class="lessons-table-cells"><%= lesson.has_review? %></td>
+            <% end %>
+            <td class="lessons-table-cells lesson-type"><%= lesson.location.name %></td>
+            <td class="lessons-table-cells lesson-type"><%= lesson.includes_rental_package? ? "Yes" : "No" %></td>
+          </tr>
+      <% end %>
+  </tbody>
+</table>
+</div>
+<hr>
+<div class="wage-totals">
+  <table class="instructors-table">
+  <thead>
+    <tr>
+      <th class="lessons-table-cells lesson-date">Count</th>
+      <th class="lessons-table-cells lesson-date">Lesson ID</th>
+      <th class="lessons-table-cells lesson-date">Time</th>
+      <th class="lessons-table-cells lesson-date">Date</th>
+      <th class="lessons-table-cells lesson-type">Sport</th>
+      <th class="lessons-table-cells lesson-type">Type</th>
+<!-- wages info       -->
+      <th class="lessons-table-cells">Price</th>
+      <th class="lessons-table-cells">Student Count</th>
+      <th class="lessons-table-cells lesson-instructor">Kids?</th>
+      <th class="lessons-table-cells lesson-instructor">Private Request?</th>
+      <th class="lessons-table-cells lesson-instructor">Rain?</th>
+      <th class="lessons-table-cells">Length</th>
+      <th class="lessons-table-cells lesson-instructor">Bonus Rate</th>
+      <th class="lessons-table-cells lesson-instructor">Bonus Wages</th>
+      <th class="lessons-table-cells">Wage Rate</th>
+      <th class="lessons-table-cells">Wages</th>
+      <th class="lessons-table-cells">Total Gross Earnings</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+            <td class="lessons-table-cells lesson-date"></td>
+            <td class="lessons-table-cells lesson-date"></td>
+            <td class="lessons-table-cells lesson-date"></td>
+            <td class="lessons-table-cells lesson-date"></td>
+            <td class="lessons-table-cells lesson-type"></td>
+            <td class="lessons-table-cells lesson-type"></td>
+<!-- wages info       -->      
+            <td class="lessons-table-cells lesson-type">gross revenue (TBD)</td>
+            <td class="lessons-table-cells lesson-type">total students (TBD) <!-- %= lesson.students.count %> --></td>
+            <td class="lessons-table-cells lesson-date">count of kids lessons (TBD)</td>
+            <td class="lessons-table-cells lesson-date">count of PRs (TBD)</td>
+            <td class="lessons-table-cells lesson-date">count of rain lessons (TBD)</td>
+            <td class="lessons-table-cells lesson-type">hours taught (TBD)</td>            
+            <td class="lessons-table-cells lesson-date"></td>
+            <td class="lessons-table-cells lesson-date"><%= number_to_currency(@bonus_wages) %></td>
+            <td class="lessons-table-cells lesson-type"></td>            
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(@raw_wages) %></td>
+            <td class="lessons-table-cells lesson-type"><%= number_to_currency(@bonus_wages + @raw_wages) %></td>
+    </tr>
+  </tbody>
+
+</div>
+
+<!-- SECTION 1 - PREVIOUS LESSONS -->
+<div id="completed-lessons" class="hidden">
+<!-- <h1>Previously Paid Payroll</h1> -->
+
+
+</div>
+</div>
+</div>
+</body>

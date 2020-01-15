@@ -57,13 +57,22 @@ class Instructor < ActiveRecord::Base
     self.base_rate ? self.base_rate : 16
   end
 
-  def total_wages
-    lessons = Lesson.select{|lesson| lesson.eligible_for_payroll? }
+  def raw_wages_this_season
+    lessons = Lesson.select{|lesson| lesson.eligible_for_payroll? && lesson.instructor_id == self.id }
     wages = 0
     lessons.each do |lesson|
         wages += lesson.wages
     end
     return wages
+  end
+
+  def bonus_wages_this_season
+    lessons = Lesson.select{|lesson| lesson.eligible_for_payroll? && lesson.instructor_id == self.id }
+    bonus_wages = 0
+    lessons.each do |lesson|
+        bonus_wages += lesson.bonus_wages
+    end
+    return bonus_wages
   end
 
   def paid_wages_to_date

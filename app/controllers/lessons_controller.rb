@@ -7,6 +7,7 @@ class LessonsController < ApplicationController
   before_action :skip_product_id, except: [:create, :update]
   before_action :save_lesson_params_and_redirect, only: [:create]
   before_action :set_admin_skip_validations
+  before_action :set_instructor, only: [:my_lessons_this_season]
   # before_action :authenticate_from_cookie!, only: [:complete, :confirm_reservation, :update, :show, :edit]
 
   def tickets
@@ -55,8 +56,19 @@ class LessonsController < ApplicationController
     @lessons = @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
     @lessons_for_csv = Lesson.all
     respond_to do |format|
-          format.html {render 'search_results_archived_jan2019'}
-          format.csv { send_data @lessons_for_csv.to_csv, filename: "all-lessons-export-#{Date.today}.csv" }
+          format.html {render 'all_lessons_this_season'}
+          format.csv { send_data @lessons_for_csv.to_csv, filename: "all-lessons-this-season-export-#{Date.today}.csv" }
+        end
+  end
+
+  def my_lessons_this_season
+    @lessons = Lesson.all.select{|lesson| lesson.booked? && lesson.this_season? && lesson.instructor_id == @instructor.id}
+    @lessons = @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
+    @raw_wages = @instructor.raw_wages_this_season
+    @bonus_wages = @instructor.bonus_wages_this_season
+    respond_to do |format|
+          format.html {render 'my_lessons_this_season'}
+          format.csv { send_data @@lessons.to_csv, filename: "my-lessons-this-season-export-#{Date.today}.csv" }
         end
   end
 
@@ -874,4 +886,16 @@ class LessonsController < ApplicationController
   def lesson_time_params
     params[:lesson].require(:lesson_time).permit(:date, :slot)  
   end
+
+  def set_instructor      
+    names = params[:id].split("-")
+    if names.first.to_i > 0
+      @instructor = Instructor.find(params[:id])
+    else
+      names = params[:id].gsub("-"," ")
+      puts "!!!names is #{names}."
+      @instructor = Instructor.all.select{|instructor| instructor.name.parameterize == params[:id]}.first
+    end
+  end
+
 end
