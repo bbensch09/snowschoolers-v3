@@ -576,6 +576,15 @@ class Lesson < ActiveRecord::Base
     end
   end
 
+  def self.to_csv2(options = {})
+    CSV.open(lessons,'w') do |csv|
+      csv << %w{ id start_time lesson_time_id activity product_name instructor_id state public_feedback_for_student how_did_you_hear}
+      Lesson.where(instructor_id:1).each do |l|
+        csv << l.attributes.values
+      end
+    end
+  end
+
   def this_season?
     self.lesson_time.date.to_s >= '2019-12-01'
   end

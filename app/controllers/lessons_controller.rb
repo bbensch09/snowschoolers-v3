@@ -64,11 +64,13 @@ class LessonsController < ApplicationController
   def my_lessons_this_season
     @lessons = Lesson.all.select{|lesson| lesson.booked? && lesson.this_season? && lesson.instructor_id == @instructor.id}
     @lessons = @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
+    @lessons_for_csv = @lessons
+    # @lessons_for_csv = @lessons.to_a
     @raw_wages = @instructor.raw_wages_this_season
     @bonus_wages = @instructor.bonus_wages_this_season
     respond_to do |format|
           format.html {render 'my_lessons_this_season'}
-          format.csv { send_data @lessons.to_csv, filename: "my-lessons-this-season-export-#{Date.today}.csv" }
+          format.csv { send_data @lessons_for_csv.to_csv, filename: "my-lessons-this-season-export-#{Date.today}.csv" }
         end
   end
 
