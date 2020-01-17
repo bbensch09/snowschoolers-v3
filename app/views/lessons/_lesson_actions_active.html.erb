@@ -8,6 +8,8 @@
     <%= button_to "Accept Lesson Request", set_instructor_path, method: :put, class: "btn btn-success" %>
     <br>
     <%= button_to "Decline Lesson Request", decline_instructor_path, method: :put, class: "btn btn-danger" %>
+    <% elsif current_user && current_user.instructor && @lesson.confirmable? %>
+      <%= link_to 'Manage Calendar Availability to Accept Lessons for this date.', individual_availability_path(current_user.instructor), class: 'btn btn-default' %>
   <% end %>
 
   <% if (current_user && current_user.instructor && @lesson.completable?) || (current_user && @lesson.instructor && @lesson.instructor == current_user.instructor) || (current_user && current_user.user_type == "Snow Schoolers Employee") && @lesson.private_lesson? %>
