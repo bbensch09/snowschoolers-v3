@@ -32,9 +32,10 @@
           <% end %>
           <%= semantic_form_for @lesson do |f| %>
           <!-- include lesson time fields to update lesson instructor manually -->
-            <div class="hidden">
+            <div class="">
                 <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
                 <div class='row'>
+                  <h4 class="alert-danger">[optional] - Admin can change date/time directly from here. Do not leave blank if current lesson values are not selected.</h4>
                   <div class="col-md-4">
                     <label class="lesson-label">Date</label>
                     <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker', required:true }, placeholder: 'Pick a date', label: false %>
@@ -46,7 +47,7 @@
                     <% if @lesson.group_lesson? %>
                     <%= lt_f.input :slot, as: :select, collection: GROUP_SLOTS, include_blank: 'Time Slot', label: false, required:true %>
                     <% else %>
-                    <%= lt_f.input :slot, as: :select, collection: PRIVATE_SLOTS, include_blank: 'Time Slot', label: false, required:true %>
+                    <%= lt_f.input :slot, as: :select, collection: ADMIN_SLOTS, include_blank: 'Time Slot', label: false, required:true %>
                     <% end %>
                   </div>
                 </div>
