@@ -7,22 +7,18 @@ class RentalsController < ApplicationController
   def index
     if current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner"
       @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? }
-      @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.includes_rental_package? && !lesson.canceled?}
+      @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.includes_rental_package? && !lesson.canceled? && lesson.lesson_time.date >= Date.today}
       @past_lessons = @lessons.select{|lesson| lesson.lesson_time.date < Date.today }
-      @lessons = @lessons.select{|lesson| lesson.lesson_time.date >= Date.today }
       @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
-      @todays_lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.today && lesson.includes_rental_package? }
       else
-        @lessons = current_user.lessons
-        @todays_lessons = current_user.lessons.to_a.keep_if{|lesson| lesson.date == Date.today }
+        @lessons = current_user.lessons.to_a.keep_if{|lesson| lesson.date >= Date.today }
     end
   end
 
   def rentals_today
     if current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner"
       @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? }
-      @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.includes_rental_package? && !lesson.canceled?}
-      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.today && lesson.includes_rental_package? }
+      @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.includes_rental_package? && !lesson.canceled? && lesson.date == Date.today}
       else
         @lessons = current_user.lessons
     end
@@ -32,8 +28,7 @@ class RentalsController < ApplicationController
   def rentals_tomorrow
     if current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner"
       @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? }
-      @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.includes_rental_package? && !lesson.canceled?}
-      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.date == Date.tomorrow && lesson.includes_rental_package? }
+      @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.includes_rental_package? && !lesson.canceled? && lesson.date == Date.tomorrow}
       else
         @lessons = current_user.lessons
     end
