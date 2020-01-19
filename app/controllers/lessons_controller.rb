@@ -7,7 +7,7 @@ class LessonsController < ApplicationController
   before_action :skip_product_id, except: [:create, :update]
   before_action :save_lesson_params_and_redirect, only: [:create]
   before_action :set_admin_skip_validations
-  before_action :set_instructor, only: [:my_lessons_this_season]
+  before_action :set_instructor_from_url, only: [:my_lessons_this_season]
   # before_action :authenticate_from_cookie!, only: [:complete, :confirm_reservation, :update, :show, :edit]
 
   def tickets
@@ -889,7 +889,7 @@ class LessonsController < ApplicationController
     params[:lesson].require(:lesson_time).permit(:date, :slot)  
   end
 
-  def set_instructor      
+  def set_instructor_from_url      
     names = params[:id].split("-")
     if names.first.to_i > 0
       @instructor = Instructor.find(params[:id])
