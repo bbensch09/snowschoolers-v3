@@ -23,6 +23,18 @@
 
   <tbody>
 
+    <!-- Lessons with missing time slots (?) -->
+
+    <tr>
+      <td colspan="12" class="daily-roster-section-break">Lessons with Missing Time Slots (error?) </td>
+    </tr>
+    <% @todays_lessons.each do |lesson| %>
+        <% if lesson.slot == "" %>
+          <%= render partial: 'daily_roster_table_contents', locals: { lesson: lesson} %>
+        <% end %>
+    <% end %>
+
+
     <!-- Early bird slots -->
 
     <tr>
