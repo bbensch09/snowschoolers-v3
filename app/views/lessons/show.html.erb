@@ -44,17 +44,17 @@
 
                   <div class="col-md-4">
                     <label class="lesson-label">Slot</label>
-                    <% if @lesson.group_lesson? %>
-                    <%= lt_f.input :slot, as: :select, collection: GROUP_SLOTS, include_blank: 'Time Slot', label: false, required:true %>
-                    <% else %>
                     <%= lt_f.input :slot, as: :select, collection: ADMIN_SLOTS, include_blank: 'Time Slot', label: false, required:true %>
-                    <% end %>
                   </div>
                 </div>
               <% end %>
             </div>
           <!-- end hidden lesson time fields -->
 
+          <div class="row">
+            <div class="col-md-3"><%= f.input :class_type, as: :select, collection: ['private', 'group'], selected:@lesson.class_type, include_blank: 'Lesson Type', label: false %>
+            </div>
+          </div>
           <h4>Select an instructor by last name:
             <%= f.select :instructor_id, options_from_collection_for_select(Instructor.active_instructors.sort {|a,b| a.last_name <=> b.last_name}, :id, :last_name, selected:@instructor_id), include_blank:true %>
             <%= f.submit "Assign Instructor Directly", class: "btn btn-success" %>
