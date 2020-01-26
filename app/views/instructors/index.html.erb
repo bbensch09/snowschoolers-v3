@@ -36,6 +36,7 @@
       <th>Email</th>
       <th>Admin Actions</th>
       <th>Status?</th>
+      <th>Wage Rate</th>
       <th>Home resort</th>
       <th>Max Ski Level</th>
       <th>Max Snowboard Level</th>
@@ -66,6 +67,7 @@
         <td><%= link_to 'Revoke', revoke_instructor_path(instructor), method: :post, class: 'btn btn-danger' %></td>
         <% end %>
         <td>Currently <%= instructor.status %></td>
+        <td><%= instructor.base_rate %></td>
         <td>
         <%if instructor.locations && instructor.locations.include?(current_user.location) %>
           <%= current_user.location.name %>
