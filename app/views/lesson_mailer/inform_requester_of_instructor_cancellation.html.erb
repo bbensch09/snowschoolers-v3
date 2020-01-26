@@ -4,8 +4,8 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <% if @lesson.guest_email.nil? %>
-      <p>Hello <%= @lesson.requester.name.split(" ").first %>,</p>
+    <% if @lesson.requester.name %>
+      <p>Hello <%= @lesson.requester.name %>,</p>
       <% else %>
       <p>Hello,</p>
     <% end %>

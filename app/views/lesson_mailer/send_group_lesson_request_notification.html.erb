@@ -5,7 +5,7 @@
   </head>
   <body>
     <% if @lesson.requester.name %>
-      <p>Hello <%= @lesson.requester.name.split(" ").first %>,</p>
+      <p>Hello <%= @lesson.requester.name %>,</p>
       <% else %>
       <p>Hello,</p>
     <% end %>
