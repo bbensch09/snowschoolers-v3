@@ -52,7 +52,13 @@
           <!-- end hidden lesson time fields -->
 
           <div class="row">
-            <div class="col-md-3"><%= f.input :class_type, as: :select, collection: ['private', 'group'], selected:@lesson.class_type, include_blank: 'Lesson Type', label: false %>
+            <div class="col-md-3">
+              <label class="lesson-label">Group or Private?</label>
+              <%= f.input :class_type, as: :select, collection: ['private', 'group'], selected:@lesson.class_type, include_blank: 'Lesson Type', label: false %>
+            </div>
+            <div class="col-md-3">
+              <label class="lesson-label">Airbnb Confirmation Reference#</label>
+                <%= f.input :additional_info, as: :string, placeholder: "e.g. TAXX3HXY", label: false %>
             </div>
           </div>
           <h4>Select an instructor by last name:
