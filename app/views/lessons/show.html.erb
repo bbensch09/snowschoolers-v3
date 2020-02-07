@@ -63,7 +63,7 @@
           </div>
           <h4>Select an instructor by last name:
             <%= f.select :instructor_id, options_from_collection_for_select(Instructor.active_instructors.sort {|a,b| a.last_name <=> b.last_name}, :id, :last_name, selected:@instructor_id), include_blank:true %>
-            <%= f.submit "Assign Instructor Directly", class: "btn btn-success" %>
+            <%= f.submit "Update Lesson", class: "btn btn-success" %>
             <%= link_to 'Add Private Request', add_private_request_path(@lesson), class: 'btn btn-success' %>
             <%= link_to 'Remove PR', remove_private_request_path(@lesson), class: 'btn btn-danger' %>
           </h4>

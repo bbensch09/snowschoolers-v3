@@ -1633,7 +1633,7 @@ def available_instructors?
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_AUTH']
       snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
-      first_instructor = self.available_instructors.any? ? self.available_instructors[0..3].sample : "Admin"
+      first_instructor = self.available_instructors.any? ? self.available_instructors[0..3].sample : Instructor.where(username:"brian@snowschoolers.com").first
       instructor_id = first_instructor.id
       recipient = first_instructor.phone_number ? first_instructor.phone_number : "4083152900"
       case self.state
@@ -1897,7 +1897,7 @@ private
 
   def send_lesson_request_to_instructors
     return true if group_lesson?
-    if self.active? && self.product && self.confirmable? && self.deposit_status == 'confirmed' && self.state != "pending instructor" && self.available_instructors.any?
+    if self.active? && self.product && self.confirmable? && self.deposit_status == 'confirmed' && self.state != "pending instructor" && self.email_notifications_status != 'disabled'
       LessonMailer.send_lesson_request_to_instructors(self).deliver!
       puts "!!!!!lesson email sent to all available instructors"
       self.send_sms_to_instructor
