@@ -517,7 +517,7 @@ class LessonsController < ApplicationController
     if @lesson.guest_email
       if User.find_by_email(@lesson.guest_email.downcase)
           @lesson.requester_id = User.find_by_email(@lesson.guest_email.downcase).id
-          puts "!!!! user is checking out as guest; found matching email from previous entry"
+          puts "!!!! lesson guest email exists; found matching email from previous entry"
       else
           User.create!({
           email: @lesson.guest_email,
@@ -558,7 +558,11 @@ class LessonsController < ApplicationController
       # LessonMailer.test_email(@lesson.id).deliver_in(2.seconds)
       # LessonMailer.test_email.deliver_at(Time.parse('2017-12-20 16:20:00 -0800'))
       end
-      send_lesson_update_notice_to_instructor
+      # TO CLEAN UP -- lesson updates now handled at model level vs. LessonsController
+      # unless current_user && current_user.user_type == "Snow Schoolers Employee"
+      #   puts "!!!! sent SMS & emails to available instructors"
+      #   send_lesson_update_notice_to_instructor
+      # end
       puts "!!!! Lesson update saved; update notices sent"
     else
       determine_update_state
