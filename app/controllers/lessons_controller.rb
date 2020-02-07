@@ -571,7 +571,11 @@ class LessonsController < ApplicationController
     if @lesson.promo_code && @lesson.promo_code.promo_code == "AIRBNBX"
       @lesson.state = "booked"
       @lesson.deposit_status = "paid through Airbnb"
-      @lesson.package_info += "this lesson was updated with the promo_code AIRBNBX and has $0 balance"
+      if @lesson.package_info.nil? 
+        @lesson.package_info = "this lesson was updated with the promo_code AIRBNBX and has $0 balance"
+      else
+        @lesson.package_info += "this lesson was updated with the promo_code AIRBNBX and has $0 balance"
+      end
       @lesson.save!
     end
     redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
