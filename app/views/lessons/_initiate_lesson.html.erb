@@ -18,7 +18,7 @@
         <div class="block">
           <h3 class="center mobile-book-cta"><%= @resort_name ? "BOOK A LESSON at #{@resort_name.upcase}" : 'BOOK A LESSON' %> </h3>
           <h4 class="center">
-            Based on current weather conditions, we are expecting an opening day of Saturday December 14th. 
+            <!-- Based on current weather conditions, we are expecting an opening day of Saturday December 14th.  -->
             <!-- <br> We unfortunately WILL NOT be open over the Thanksgiving holiday weekend. -->
           </h4>
         </div>
@@ -47,7 +47,7 @@
             </div>
             <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
               <div class="col-md-2">
-                <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker', value:@date, required:true }, placeholder: 'Date', label: false %>
+                <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker', value:@date, required:true, autocomplete:"off" }, placeholder: 'Date', label: false %>
                 <span class="search-area-icon"></span>
               </div>
 

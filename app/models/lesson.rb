@@ -30,6 +30,7 @@ class Lesson < ActiveRecord::Base
   #Check to ensure an instructor is available before booking
   validate :instructors_must_be_available, on: :create
   validate :group_students_are_old_enough, on: :update
+  validate :time_slot_matches_group_or_private, on: :update
   validate :add_group_lesson_to_section, on: :create
   after_save :send_lesson_request_to_instructors
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
@@ -1293,6 +1294,22 @@ class Lesson < ActiveRecord::Base
       else
         puts "!!!!students are all old enough for groups"
       end
+    end
+  end
+
+  def time_slot_matches_group_or_private
+    if self.group_lesson?
+      if !VALID_GROUP_SLOTS.include?(self.slot)
+        errors.add(:lesson, "You've selected a group lesson with at private lesson time. Group lessons are only offered at 1:45pm, so please select that time slot to continue.")
+        return false
+      end
+    elsif self.private_lesson?
+      if VALID_GROUP_SLOTS.include?(self.slot)
+        errors.add(:lesson, "You've selected a private lesson at the group time slot. Please please a valid private lesson time to continue.")
+        return false
+      end
+    else
+      return true
     end
   end
 

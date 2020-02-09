@@ -18,7 +18,12 @@
     <% end %>
 
     <%= semantic_form_for @lesson do |f| %>
-      <%= f.semantic_errors :instructor %>
+
+      <h1 class="warning">
+        <%= f.semantic_errors :lesson %>
+        <%= f.semantic_errors :instructor %>
+      </h1>
+
       <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
     <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.email == "bbensch@gmail.com") %>
         <div class="admin-viewable">
@@ -88,7 +93,7 @@
         </div>
     <% end %>
     <% if current_user.nil? || current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee" %>
-      <div class='row'>
+<!--       <div class='row'>
         <% if @lesson.private_lesson? %>
         <h2><b>Private Lesson Request Form</b> -
           <spand class="text-smaller italic">To book a <b>group lesson</b>, <a href="/lessons/new#group-request" class="green-link">click here</a>.</span>
@@ -98,7 +103,7 @@
           <spand class="text-smaller italic">To book a <b>private lesson</b>, <a href="/lessons/new#private-request" class="green-link">click here</a>.</span>
         </h2>
         <% end %>
-      </div>
+      </div> -->
 
       <h1 class="warning">
         <%= f.semantic_errors :lesson %>
@@ -124,19 +129,24 @@
             </div>
 
             <div class="col-md-6">
+              <label class="lesson-label">Group or Private?</label>
+              <%= f.input :class_type, as: :select, collection: ['private', 'group'], selected:@lesson.class_type, include_blank: 'Lesson Type', label: false %>
+              <h4 class="text-warning"> Please note group lessons are only available at 1:45pm</h4>
+            </div>
+<!--             <div class="col-md-6">
               <label class="lesson-label">Location</label>
                 <% if current_user && current_user.user_type == "Snow Schoolers Employee" || session[:granlibakken] == 'true' %>
                 <%= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase} , include_blank: 'Location', label: false %>
                   <% else %>
                 <%= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase} , include_blank: 'Location', label: false %>
                 <% end %>
-            </div>
+            </div> --> 
           </div>
           <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
             <div class='row'>
               <div class="col-md-4">
                 <label class="lesson-label">Date</label>
-                <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker', required:true }, placeholder: 'Pick a date', label: false %>
+                <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker', required:true, autocomplete:"off" }, placeholder: 'Pick a date', label: false %>
                 <span class="search-area-icon"></span>
               </div>
 
@@ -162,7 +172,7 @@
             <% end %>
 
             <div class="col-md-12">
-              <h4 class="text-warning left">Note: The price above will update based on number of students in lesson. Final price will be confirmed on the next page.</h4>
+              <h4 class="text-warning left">Please note that the final price is based on the number of students in your reservation. If booking for more than one student, the fee is an additonal $40 per student without rentals, or $60 with rentals.</h4>
             </div>
           </div>
                     <div class='row'>

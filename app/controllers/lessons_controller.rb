@@ -1,6 +1,6 @@
 class LessonsController < ApplicationController
   respond_to :html
-  skip_before_action :authenticate_user!, only: [:new, :tickets, :granlibakken, :homewood, :new_request, :create, :complete, :confirm_reservation, :update, :skier_types, :show, :rental_agreement]
+  skip_before_action :authenticate_user!, only: [:new, :tickets, :granlibakken, :homewood, :new_request, :create, :complete, :confirm_reservation, :update, :edit, :skier_types, :show, :rental_agreement]
   # low friction hackey solution -- don't require authentication for most customer-facing pages; removed temporarily May 2019
   # skip_before_action :authenticate_user!, only: [:new, :tickets, :granlibakken, :new_request, :create, :complete, :confirm_reservation, :update, :show, :edit, :rental_agreement, :skier_types]
   before_action :set_lesson, only: [:show, :duplicate, :complete, :update, :edit, :edit_wages, :add_private_request, :remove_private_request, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_instructor, :admin_confirm_deposit, :admin_confirm_airbnb, :admin_confirm_booked_with_modification, :admin_assign_instructor, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications, :send_review_reminders_to_student, :rental_agreement]
@@ -548,6 +548,18 @@ class LessonsController < ApplicationController
     unless @lesson.deposit_status == 'confirmed'
       @lesson.state = 'ready_to_book'
     end
+
+    if @lesson.promo_code && @lesson.promo_code.promo_code == "AIRBNBX"
+      @lesson.state = "booked"
+      @lesson.deposit_status = "paid through Airbnb"
+      if @lesson.package_info.nil? 
+        @lesson.package_info = "this lesson was updated with the promo_code AIRBNBX and has $0 balance"
+      else
+        @lesson.package_info += "this lesson was updated with the promo_code AIRBNBX and has $0 balance"
+      end
+      @lesson.save!
+    end
+
     if @lesson.save
       @lesson.set_product_from_lesson_params
       GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-updated', params[:ga_client_id])
@@ -564,21 +576,12 @@ class LessonsController < ApplicationController
       #   send_lesson_update_notice_to_instructor
       # end
       puts "!!!! Lesson update saved; update notices sent"
+      redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
     else
       determine_update_state
       puts "!!!!!Lesson NOT saved, update notices determined by 'determine update state' method...?"
+      redirect_to complete_lesson_path(@lesson)
     end
-    if @lesson.promo_code && @lesson.promo_code.promo_code == "AIRBNBX"
-      @lesson.state = "booked"
-      @lesson.deposit_status = "paid through Airbnb"
-      if @lesson.package_info.nil? 
-        @lesson.package_info = "this lesson was updated with the promo_code AIRBNBX and has $0 balance"
-      else
-        @lesson.package_info += "this lesson was updated with the promo_code AIRBNBX and has $0 balance"
-      end
-      @lesson.save!
-    end
-    redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
   end
 
   def show
