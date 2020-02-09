@@ -580,7 +580,8 @@ class LessonsController < ApplicationController
     else
       determine_update_state
       puts "!!!!!Lesson NOT saved, update notices determined by 'determine update state' method...?"
-      redirect_to complete_lesson_path(@lesson)
+      # redirect_to complete_lesson_path(@lesson)
+      render 'complete'
     end
   end
 

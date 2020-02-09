@@ -19,11 +19,6 @@
 
     <%= semantic_form_for @lesson do |f| %>
 
-      <h1 class="warning">
-        <%= f.semantic_errors :lesson %>
-        <%= f.semantic_errors :instructor %>
-      </h1>
-
       <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
     <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.email == "bbensch@gmail.com") %>
         <div class="admin-viewable">
