@@ -1305,7 +1305,7 @@ class Lesson < ActiveRecord::Base
       end
     elsif self.private_lesson?
       if VALID_GROUP_SLOTS.include?(self.slot)
-        errors.add(:lesson, "You've selected a private lesson at the group time slot. Please please a valid private lesson time to continue.")
+        errors.add(:lesson, "You've selected a private lesson at the group time slot. Please select a valid private lesson time to continue.")
         return false
       end
     else
