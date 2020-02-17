@@ -497,12 +497,33 @@ class LessonsController < ApplicationController
   def duplicate
     new_lesson = @lesson.dup
     new_lesson.lesson_time =  @lesson.lesson_time #LessonTime.find_or_create_by(lesson_time_params)
-    new_lesson.students = @lesson.students
+    # new_lesson.students = @lesson.students
+    @lesson.students.each do |student|
+      Student.create!({
+        name: student.name,
+        age_range: student.age_range,
+        gender: student.gender,
+        lesson_history: "copied from previous lesson",
+        relationship_to_requester: student.relationship_to_requester,
+        most_recent_experience: student.most_recent_experience,
+        most_recent_level: student.most_recent_level,
+        shoe_size: student.shoe_size,
+        height_feet: student.height_feet,
+        height_inches: student.height_inches,
+        weight: student.weight,
+        lesson_id: nil
+      })
+    end
     new_lesson.skip_validations = true
     new_lesson.deposit_status = nil
     #erase previous lesson feedback & start/end times
     new_lesson.save!
     @lesson = new_lesson
+    new_students = Student.where(lesson_id:nil)
+    new_students.each do |student|
+      student.lesson_id = @lesson.id
+      student.save!
+    end
     redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
   end
 
