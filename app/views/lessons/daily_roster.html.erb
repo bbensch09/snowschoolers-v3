@@ -7,7 +7,9 @@
   <div class="col-md-12">
     <ul>
       <li>Lessons Today: <%= @todays_lessons.count %></li>
+      <li>Total students today: <%= Lesson.count_students_on_date(Date.today) %></li>
       <li>Lessons Tomorrow: <%= @tomorrows_lessons.count %></li>
+      <li>Students tomorrow: <%= Lesson.count_students_on_date(Date.today+1) %></li>
     </ul>
     <div class="inline-block">
       <a href="#hideLessons" class="btn btn-success" id="toggle-today-lessons">Show Today's Lessons </a>

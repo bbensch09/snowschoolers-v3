@@ -1574,6 +1574,16 @@ def available_instructors?
     return booked_instructors
   end
 
+  def self.count_students_on_date(date)
+    lessons = Lesson.all.select{|lesson| lesson.lesson_time.date.to_s == date }
+    lessons = lessons.select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.airbnb? || lesson.partially_booked? || lesson.state.nil? }
+    count = 0
+    lessons.each do |lesson|
+      count += lesson.students.count
+    end
+    return count
+  end
+
   # def self.find_booked_lessons(lesson_time)
   #   lessons_in_same_slot = Lesson.where('lesson_time_id = ?', lesson_time.id)
   #   overlapping_full_day_lessons = self.find_full_day_lessons(lesson_time)
