@@ -12,7 +12,7 @@
               <td><%= link_to "#{lesson.product.name}", lesson, class: "btn btn-default btn-fixed-width" %></td>
             <% end %>
             <% if lesson.requester %>
-              <td class="lessons-table-cells lesson-student"><%= lesson.requester_name %>, <%= lesson.phone_number %></td>
+              <td class="lessons-table-cells lesson-student"><%= lesson.requester_name %> <br> <%= number_to_phone(lesson.phone_number)%></td>
               <% else %>
               <td class="lessons-table-cells lesson-student"><%= lesson.guest_email %></td>
             <% end %>
