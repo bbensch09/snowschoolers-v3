@@ -39,7 +39,7 @@
       <li>Your instructor's name: <%= link_to @lesson.instructor.name, @lesson.instructor %></li>
       <li>Instructor phone number: <%= @lesson.instructor.phone_number %>; Feel free to contact your instructor directly the day of your lesson if you have any questions. </li>
       <% end %>
-      <li>Your phone number: <%= @lesson.phone_number %>; Your instructor will use this number to contact you in the morning if there is any trouble meeting at the location above. You can also expect to receive SMS notifications to this number when your lesson is complete.</li>
+      <li>Your phone number: <%= number_to_phone(@lesson.phone_number) %>; Your instructor will use this number to contact you in the morning if there is any trouble meeting at the location above. You can also expect to receive SMS notifications to this number when your lesson is complete.</li>
       <li>Date: <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %></li>
       <li>Lesson Product: <%= @lesson.product.name %></li>
       <li>Start Time: <%= @lesson.start_time %></li>

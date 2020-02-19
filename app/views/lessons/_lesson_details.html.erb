@@ -74,7 +74,7 @@
         <h4 class="slot-details-mobile">
           <span class="lesson-detail-topic">Reservation Name:</span> <%= @lesson.requester_name %> <br>
           <span class="lesson-detail-topic">Class Type:</span> <%= @lesson.class_type_text %> <br>
-          <span class="lesson-detail-topic">Phone:</span> <%= @lesson.phone_number %> <br>
+          <span class="lesson-detail-topic">Phone:</span> <%= number_to_phone(@lesson.phone_number) %> <br>
           <span class="lesson-detail-topic">Email:</span> <%= @lesson.requester ? @lesson.requester.email : @lesson.guest_email %> <br>
           <span class="lesson-detail-topic">Location:</span>  <%= @lesson.location.name %><br>
           <!-- <span class="lesson-detail-topic">Sport:</span>  <%= @lesson.activity %><br> -->

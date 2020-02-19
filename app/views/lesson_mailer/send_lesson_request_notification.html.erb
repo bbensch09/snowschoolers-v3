@@ -55,6 +55,7 @@
       <li>Date: <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %></li>
       <li>Lesson Product: <%= @lesson.product.name %></li>
       <li>Start Time: <%= @lesson.start_time %></li>
+      <li>Contact phone number: <%= number_to_phone(@lesson.phone_number) %>; your assigned instructor may use this number to contact you before the lesson to make sure you know where to meet or to confirm that you're arriving early enough to fitted with you rentals and still start your lesson on time. You can also expect to receive SMS notifications to this number when your lesson is complete.</li>
       <li>Students: <%= @lesson.students.map(&:name).join(', ') %></li>
       <li>Objectives: <%= @lesson.objectives %></li>
     </ul>
