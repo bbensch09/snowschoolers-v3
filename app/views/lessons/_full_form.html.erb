@@ -147,7 +147,7 @@
 
               <div class="col-md-4">
                 <label class="lesson-label">Slot</label>
-              <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.email == "bbensch@gmail.com") %>
+              <% if (current_user && current_user.user_type == "Snow Schoolers Employee") || (@lesson.promo_code && @lesson.promo_code.promo_code == "AIRBNBX") || session[:promo_code] == "AIRBNBX" %>
                 <%= lt_f.input :slot, as: :select, collection: ADMIN_SLOTS, include_blank: 'Time Slot', label: false, required:true %>
                 <% else %>
                 <%= lt_f.input :slot, as: :select, collection: PRIVATE_SLOTS, include_blank: 'Time Slot', label: false, required:true %>
