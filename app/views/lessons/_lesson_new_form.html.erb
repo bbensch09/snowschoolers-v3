@@ -14,6 +14,15 @@
       </div>
 </section>
 
+<% elsif Date.today.to_s <= "2020-02-24" %>
+
+<section id="#admin-only-lessons" class="bg-navy center-content lesson-new-form-header">
+      <!-- <h1 class="center text-white">*Please note* Lessons for the 19/20 lesson are not yet on sale. <br> Reservations will be accepted starting Nov 4th! </h1> -->
+      <div class="center row">
+        <h2 class="text-white"> We will have limited lesson availability for Sunday, Feb 23rd and Monday, Feb 24th, and so are not accepting online reservations anymore for those days. We likely do still have a few spots open, so if you are interested, please call us at 530-430-SNOW, or email us at <a href="mailto:hello@snowschoolers.com?subject=Interested%20in%20Lessons%20&body=Please%20let%20me%20know%20when%20lessons%20are%20available.%20Thanks!" target="_blank" class="green-link">hello@snowschoolers.com</a> with your dates and group information and we'll reach out when we're able to assist you with making at reservation. </h2>
+      </div>
+</section>
+  
 <% elsif @instructor_requested %>
 
   <h3 class="center notice">You've selected <span class="navy-text bold"><%= @instructor_requested.name.upcase %> </span> as your preferred instructor.</h3>
@@ -36,6 +45,7 @@
     <% @resort_name = Location.find(@promo_location).name %>
     <% @cta_visibility = "unhidden" %>
     <!-- <p class="alert">The promo_location is set to: %=@promo_location%> </p> -->
+
 <% end %>
 
 <div class=<%=@cta_visibility%> >
