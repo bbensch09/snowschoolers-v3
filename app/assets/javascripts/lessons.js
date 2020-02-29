@@ -31,6 +31,17 @@ var opening_date = new Date("2019-12-14");
 console.log("DATES_BUFFER is set to: "+DATES_BUFFER);
 var MIN_DATE = date
 console.log("The minimum bookable date is "+MIN_DATE);
+
+// adjustments for end of month to make calendar still work.
+// This code needs to be adjusted before each season.
+if (MIN_DATE == '2019-12-32') {
+  MIN_DATE = '2020-01-01';
+  console.log("The minimum bookable date was changed to 2020-03-01.");
+}
+if (MIN_DATE == '2020-1-32') {
+  MIN_DATE = '2020-02-01';
+  console.log("The minimum bookable date was changed to 2020-02-01.");
+}
 if (MIN_DATE == '2020-2-30') {
   MIN_DATE = '2020-03-01';
   console.log("The minimum bookable date was changed to 2020-03-01.");
