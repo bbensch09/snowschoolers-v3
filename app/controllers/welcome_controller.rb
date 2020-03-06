@@ -340,6 +340,10 @@ def liftopia_referral
     render 'join_the_team', layout: 'recruiting'
   end
 
+  def extenuating_circumstances
+    render 'extenuating_circumstances'
+  end
+
   def apply
     @instructor = Instructor.new
     GoogleAnalyticsApi.new.event('instructor-recruitment', 'load-application-page')
