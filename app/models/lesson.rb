@@ -479,7 +479,11 @@ class Lesson < ActiveRecord::Base
   end
 
   def airbnb?
-    if self.package_info && self.package_info.downcase.include?('airbnb')
+    if !self.additional_info.nil? && self.additional_info.include?("T")
+      puts "!!!! lesson classified as Airbnb and has confirmation code indicating has been paid."
+      return true
+    elsif
+      self.package_info && self.package_info.downcase.include?('airbnb')
       return true
     else 
       return false
@@ -906,7 +910,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def booked?
-    self.deposit_status == 'confirmed' || self.deposit_status == 'pending_new_payment'
+    self.deposit_status == 'confirmed' || self.deposit_status == 'pending_new_payment' || self.airbnb?
   end
 
   def eligible_for_payroll?
