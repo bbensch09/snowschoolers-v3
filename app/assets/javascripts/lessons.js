@@ -50,6 +50,10 @@ if (MIN_DATE == '2020-3-32') {
   MIN_DATE = '2020-04-01';
   console.log("The minimum bookable date was changed to 2020-04-01.");
 }
+if (MIN_DATE == '2020-3-16') {
+  MIN_DATE = '2020-03-15'
+  console.log("The minimum bookable date was changed to 2020-03-14 for Squaw/COVID-19.");
+}
 
 
 if (Date.now() <= opening_date) {
