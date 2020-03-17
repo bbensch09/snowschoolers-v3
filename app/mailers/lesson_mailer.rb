@@ -262,11 +262,11 @@ class LessonMailer < ActionMailer::Base
     @lesson = lesson
     return if @lesson.email_notifications_status == 'disabled'
     if @lesson.class_type == 'tickets'
-      mail(to: @lesson.guest_email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, notify@snowschoolers.com", subject: "Homewood Lift Tickets Purchase Confirmation")
+      mail(to: @lesson.guest_email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, info@snowschoolers.com", subject: "Homewood Lift Tickets Purchase Confirmation")
     elsif @lesson.guest_email.nil? || @lesson.guest_email == ""
-      mail(to: @lesson.requester.email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, notify@snowschoolers.com", subject: "Private Lesson Confirmation: Thanks for booking with Snow Schoolers for #{@lesson.date.strftime("%b %-d")}")
+      mail(to: @lesson.requester.email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, info@snowschoolers.com", subject: "Private Lesson Confirmation: Thanks for booking with Snow Schoolers for #{@lesson.date.strftime("%b %-d")}")
     else
-      mail(to: @lesson.guest_email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, notify@snowschoolers.com", subject: "Private Lesson Confirmation: Thanks for booking with Snow Schoolers for #{@lesson.date.strftime("%b %-d")}")
+      mail(to: @lesson.guest_email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, info@snowschoolers.com", subject: "Private Lesson Confirmation: Thanks for booking with Snow Schoolers for #{@lesson.date.strftime("%b %-d")}")
     end
   end
 
