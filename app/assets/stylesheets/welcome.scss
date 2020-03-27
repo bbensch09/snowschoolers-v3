@@ -1521,6 +1521,9 @@ text-align: center;
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/
 @media (max-width: 768px) {
 
+  h2.covid-alert{
+    line-height: 25px;
+  }
   .btn-text-larger{
     font-size: 1.0em;
   }
