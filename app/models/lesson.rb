@@ -614,6 +614,10 @@ class Lesson < ActiveRecord::Base
     Lesson.where(focus_area:'Exclude')
   end
 
+  def excluded_lesson?
+    return true if self.focus_area == 'Exclude'
+  end
+
   def self.open_lesson_requests
     lessons = Lesson.where(state:'booked',instructor_id:nil)
     lessons.select{|lesson| lesson.this_season?}
@@ -1927,7 +1931,7 @@ private
   end
 
   def send_lesson_request_to_instructors
-    return true if group_lesson?
+    return true if group_lesson? || excluded_lesson?
     if self.active? && self.product && self.confirmable? && self.deposit_status == 'confirmed' && self.state != "pending instructor" && self.email_notifications_status != 'disabled'
       LessonMailer.send_lesson_request_to_instructors(self).deliver!
       puts "!!!!!lesson email sent to all available instructors"
