@@ -142,9 +142,15 @@
     <br>
   </div>
   <h4><b>How</b> did you first hear about Snow Schoolers?</h4>
-  <div class="col-md-6 col-xs-12">
+  <div class="col-md-12">
     <%= f.select :how_did_you_hear, [['From a Friend',1],['Facebook',2],['Google',3],['From a Flyer',4],['Linkedin',5],['Other',100]], {}, {class: 'form-control', required:true, include_blank:false} %>
+    <br>
   </div>
+  <h4><b>Do you love to ski or snowboard?</h4>
+  <div class="col-md-12">
+    <div class="g-recaptcha" data-sitekey="6Lc3GvwUAAAAAAFw0oBk3dRO67ll9PtI6Mg0lcvV"></div>
+  </div>
+
   <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
   <div class="row">
     <div class="col-md-12 vertical-padding">
