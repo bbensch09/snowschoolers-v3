@@ -129,7 +129,7 @@ Rails.application.routes.draw do
   get '/homewood-kids-lessons' => 'welcome#homewood_kids_lesson_referral'
   get '/homewood-adult-lessons' => 'welcome#homewood_adult_lesson_referral'
   get '/march-madness' => 'welcome#march-madness'
-  get '/march-madness-challenge' => 'welcome#index'
+  get '/march-madness-challenge' => 'welcome#index' #changed to root due to spammy hits
   get '/blog/latest' => 'blogs#latest'
   get '/team-offsites' => 'welcome#team_offsites'
   get '/liftopia' => 'welcome#liftopia_referral'
