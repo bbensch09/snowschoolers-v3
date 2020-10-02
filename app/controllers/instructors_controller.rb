@@ -90,7 +90,7 @@ class InstructorsController < ApplicationController
     @instructor.adults_initial_rank = 1
 
     respond_to do |format|
-      if @instructor.save
+      if verify_recaptcha(model: @instructor) && @instructor.save
         # ga_test_cid = params[:ga_client_id]
         # puts "The GA ga_client_id is #{ga_test_cid}."
         session[:instructor_id] = @instructor.id

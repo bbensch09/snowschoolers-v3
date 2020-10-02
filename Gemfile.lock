@@ -118,6 +118,10 @@ GEM
       warden (~> 1.2.3)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.7.6)
+    dotenv-rails (2.7.6)
+      dotenv (= 2.7.6)
+      railties (>= 3.2)
     erubi (1.9.0)
     et-orbi (1.2.4)
       tzinfo
@@ -169,6 +173,7 @@ GEM
       turbolinks
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
+    json (2.3.1)
     jwt (2.2.1)
     libv8 (3.16.14.19)
     loofah (2.5.0)
@@ -273,6 +278,8 @@ GEM
       thor (>= 0.20.3, < 2.0)
     rake (13.0.1)
     rdoc (6.2.1)
+    recaptcha (5.5.0)
+      json
     redis (4.1.4)
     redis-namespace (1.7.0)
       redis (>= 3.0.4)
@@ -382,6 +389,7 @@ DEPENDENCIES
   coffee-rails
   delayed_job_active_record
   devise
+  dotenv-rails
   exception_notification
   faker
   formtastic
@@ -403,6 +411,7 @@ DEPENDENCIES
   rails-controller-testing
   rails_12factor
   railties
+  recaptcha
   redis
   resque
   resque-scheduler

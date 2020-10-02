@@ -1,4 +1,4 @@
-  <div class="teach-with-us-form-container">
+<div class="teach-with-us-form-container">
 
 <!-- REGISTER -->
 <div id="apply" class="navy-text">
@@ -148,7 +148,7 @@
   </div>
   <h4><b>Do you love to ski or snowboard?</h4>
   <div class="col-md-12">
-    <div class="g-recaptcha" data-sitekey="6Lc3GvwUAAAAAAFw0oBk3dRO67ll9PtI6Mg0lcvV"></div>
+        <%= recaptcha_tags %>
   </div>
 
   <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
