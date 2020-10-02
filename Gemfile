@@ -127,6 +127,10 @@ gem 'cocoon', '>= 1.2.0'
 gem 'faker'
 gem 'hirb'
 
+gem 'dotenv-rails', :require => 'dotenv/rails-now'
+
+gem "recaptcha", require: "recaptcha/rails"
+
 
 # Heroku
 group :production do

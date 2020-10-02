@@ -148,13 +148,12 @@
   </div>
   <h4><b>Do you love to ski or snowboard?</h4>
   <div class="col-md-12">
-    <!-- <div class="g-recaptcha" data-sitekey="6Lc3GvwUAAAAAAFw0oBk3dRO67ll9PtI6Mg0lcvV"></div> -->
-        <%= recaptcha_tags %>
+    <div class="g-recaptcha" data-sitekey="6Lc3GvwUAAAAAAFw0oBk3dRO67ll9PtI6Mg0lcvV"></div>
   </div>
 
   <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
   <div class="row">
-    <div class="col-md-12 vertical-padding recaptcha-hidden">
+    <div class="col-md-12 vertical-padding recaptcha-success">
       <% if controller.action_name == 'edit' %>
       <%= f.submit "Update Instructor Profile", class: "btn btn-primary btn-xl page-scroll pull-right push-bottom" %>
       <% else %>
