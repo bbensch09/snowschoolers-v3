@@ -1,7 +1,6 @@
 $(document).ready(function(){
     applyFormListener();
     selectAllLevelsListener();
-    toggleSubmitButton();
     console.log("capturing form entries");
 });
 
