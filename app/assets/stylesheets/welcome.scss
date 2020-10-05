@@ -429,8 +429,6 @@ h2.blog-cta{
 .wages-headline li{
   font-size: 1.3em;
   list-style: none;
-  padding-left: 20%;
-  text-align: left;
   line-height: 1.5;
   color: #fff;
 }
@@ -1222,7 +1220,7 @@ h2.how-it-works {
 h2 {
     font-size: 2em;
     font-weight: 200;
-    line-height: 42px;
+    /*line-height: 42px;*/
     /*margin: 0 0 32px 0;*/
     margin-top: 0px;
     margin-right: 0px;
@@ -1547,9 +1545,10 @@ text-align: center;
     font-size: 1.1em;
   }
 
-  h4{
+/*removed to make hta_form more readabnle*/
+/*  h4{
     font-size: 0.8em
-  }
+  }*/
 
   .prompt-box{
     top:50%;
@@ -1939,6 +1938,11 @@ text-align: center;
 .service-box h3{
   font-size: 1.5em;
   text-decoration: underline;
+}
+.wages-headline, .wages-headline li{
+  padding-left: 10%;
+  text-align: left;  
+  list-style: circle;
 }
 
 }
