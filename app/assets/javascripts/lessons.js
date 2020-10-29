@@ -25,7 +25,7 @@ console.log("The month values is set to "+month)
 var year = dt.getYear() +1900;
 console.log("The year values is set to "+year)
 var date = year + "-" + month + "-" + day;
-var opening_date = new Date("2019-12-14");
+var opening_date = new Date("2020-12-04");
 
 // logs today's date
 console.log("DATES_BUFFER is set to: "+DATES_BUFFER);
@@ -34,21 +34,21 @@ console.log("The minimum bookable date is "+MIN_DATE);
 
 // adjustments for end of month to make calendar still work.
 // This code needs to be adjusted before each season.
-if (MIN_DATE == '2019-12-32') {
-  MIN_DATE = '2020-01-01';
-  console.log("The minimum bookable date was changed to 2020-03-01.");
+if (MIN_DATE == '2020-12-32') {
+  MIN_DATE = '2021-01-01';
+  console.log("The minimum bookable date was changed to 2021-01-01.");
 }
-if (MIN_DATE == '2020-1-32') {
-  MIN_DATE = '2020-02-01';
-  console.log("The minimum bookable date was changed to 2020-02-01.");
+if (MIN_DATE == '2021-1-32') {
+  MIN_DATE = '2021-02-01';
+  console.log("The minimum bookable date was changed to 2021-02-01.");
 }
-if (MIN_DATE == '2020-2-30') {
-  MIN_DATE = '2020-03-01';
-  console.log("The minimum bookable date was changed to 2020-03-01.");
+if (MIN_DATE == '2021-2-30') {
+  MIN_DATE = '2021-03-01';
+  console.log("The minimum bookable date was changed to 2021-03-01.");
 }
-if (MIN_DATE == '2020-3-32') {
-  MIN_DATE = '2020-04-01';
-  console.log("The minimum bookable date was changed to 2020-04-01.");
+if (MIN_DATE == '2021-3-32') {
+  MIN_DATE = '2021-04-01';
+  console.log("The minimum bookable date was changed to 2021-04-01.");
 }
 // if (MIN_DATE == '2020-3-16') {
 //   MIN_DATE = '2020-03-15'
@@ -57,12 +57,12 @@ if (MIN_DATE == '2020-3-32') {
 
 
 if (Date.now() <= opening_date) {
-  var MIN_DATE = '2019-12-14';
+  var MIN_DATE = '2020-12-04';
   // logs the season start date
-  console.log(MIN_DATE);
+  console.log("Today is before opening day, and so the first bookable day is " + MIN_DATE);
 }
-if (month == 12 && year == 2019 && day ==33) {
-  var MIN_DATE = '2020-01-01';
+if (month == 12 && year == 2022 && day ==33) {
+  var MIN_DATE = '2021-01-01';
   // logs the season start date
   console.log('MIN date set to: '+MIN_DATE);
 }
@@ -107,25 +107,22 @@ var LESSON = {
   // setDatepicker: function() { LESSON._date.datepicker({ minDate: MIN_DATE, maxDate: '2018-04-15', dateFormat: 'yy-mm-dd' }); },
 
   setDatepicker: function() {
-  var blocked_dates_array = ['2019-12-17','2019-12-18','2019-12-19',
-  '2020-01-07','2020-01-08','2020-01-09',
-  '2020-01-14','2020-01-15','2020-01-16',
-  '2020-01-21','2020-01-22','2020-01-23',
-  '2020-01-28','2020-01-29','2020-01-30',
-  '2020-02-04','2020-02-05','2020-02-06',
-  '2020-02-11','2020-02-12','2020-02-13','2020-02-21','2020-02-24',
-  '2020-02-25','2020-02-26','2020-02-27',
-  '2020-03-03','2020-03-04','2020-03-05',
-  '2020-03-10','2020-03-11','2020-03-12',
-  '2020-03-17','2020-03-18','2020-03-19',
-  '2020-03-24','2020-03-25','2020-03-26',
-  '2020-03-31','2020-04-01','2020-04-02',
-  '2020-04-07','2020-04-08','2020-04-09',
-  // dates blocked for covid-19
-  '2020-03-21','2020-03-22','2020-03-23',
-  '2020-03-27','2020-03-28','2020-03-29','2020-03-30',
-  '2020-04-03','2020-04-04','2020-04-05','2020-04-06',
-  '2020-04-10','2020-04-11','2020-04-12',
+  var blocked_dates_array = ['2020-12-08','2020-12-09','2020-12-10',
+  '2020-12-15','2020-12-16','2020-12-17',
+  '2021-01-05','2021-01-06','2021-01-07',
+  '2021-01-12','2021-01-13','2021-01-14',
+  '2021-01-19','2021-01-20','2021-01-21',
+  '2021-01-26','2021-01-27','2021-01-28',
+  '2021-02-02','2021-02-03','2021-02-04',
+  '2021-02-09','2021-02-10','2021-02-11',
+  '2021-02-23','2021-02-24','2021-02-25',
+  '2021-03-02','2021-03-03','2021-03-04',
+  '2021-03-09','2021-03-10','2021-03-11',
+  '2021-03-16','2021-03-17','2021-03-18',
+  '2021-03-23','2021-03-24','2021-03-25',
+  '2021-03-30','2021-03-31','2021-04-01',
+  // '2021-04-06','2021-04-07','2021-04-08', //easter week
+  '2021-04-13','2021-04-14','2021-04-15',
   ];
   LESSON._date.datepicker({
     beforeShowDay: function(date){
@@ -133,7 +130,7 @@ var LESSON = {
       return [ blocked_dates_array.indexOf(string) == -1 ]
     },
     minDate: MIN_DATE,
-    maxDate: '2020-04-12',
+    maxDate: '2021-04-19',
     dateFormat: 'yy-mm-dd'
   });
   LESSON._date2.datepicker({
@@ -142,7 +139,7 @@ var LESSON = {
       return [ blocked_dates_array.indexOf(string) == -1 ]
     },
     minDate: MIN_DATE,
-    maxDate: '2020-04-12',
+    maxDate: '2021-04-19',
     dateFormat: 'yy-mm-dd'
     });
   },

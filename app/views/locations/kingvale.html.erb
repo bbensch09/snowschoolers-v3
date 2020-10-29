@@ -1,0 +1,147 @@
+
+<% title "#{@location.name} - Resort Details" %>
+<!-- <img src="https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg" class="img-hero">   -->
+
+<section id="header-creative" class="top-section">
+    <ul id="slider" class="mc-cycle" style="display: block; height: 100%; width: 100%;">
+        <div class="mc-image" title="background photo" style="background-image: url('https://snowschoolers.s3.amazonaws.com/Kingvale-Sled-Hill-and-80-1280x853.jpg'); height: 100%; width: 100%;" data-href=""></div>
+        <!-- <div class="mc-image" title="background photo" style="background-image: url('https://tahoephotographictours.com/wp-content/uploads/2013/06/Heavenly.jpg'); height: 100%; width: 100%;" data-href=""></div> -->
+    </ul>
+<!--         <div id="homepage-background">
+                <img src="https://s3.amazonaws.com/snowschoolers/images/demo/slider/snow-less.jpg" alt="background photo" class="bg-photo" alt="" />
+        </div>
+    -->
+    <div class="header-content">
+        <div class="header-content-inner">
+            <h1 id="homeHeading" class="home-header black-text">KINGVALE<br>
+                  <!-- <h1><%= @location.name %></h1>     -->
+            <hr>
+            </h1>
+            <span class="smaller-text">Tahoe's Closest Snowpark. <br> Only 2.5hrs from the Bay Area!</span>
+            <br>
+              <a href="#ComingSoon" class="btn btn-secondary btn-lg page-scroll powder-btn">Book a Lesson</a>
+              <a href="#ComingSoon" class="btn btn-primary btn-lg page-scroll powder-btn">Reserve a Sledding Ticket</a>
+        </div>
+    </div>
+</section>
+
+ <section class="bg-white">
+      <div class="container">
+        <div class="col-md-9">
+          <h1 class="center resorts-section-h1"><b> KINGVALE </b> - what you need to know</h1>
+          <ul class="resort-highlights">
+            <li>Considered the best spot in Tahoe for <b>first time</b> skiers and snowboarders.</li>
+            <li><b>Much smaller</b> than nearyby resorts (such as Homewood, Squaw or Northstar), but great for families looking for an authentic introduction to winter sports.</li>
+            <li>The <b>most affordable</b> skiing & sledding option in Tahoe. Lift tickets are just $35 and private lessons start at only $80!</li>
+            <li>Is often described as <b>"small and intimate,"</b> but with all the core amenities your family needs, including a full kitchen with wine and beer, and an outdoor patio with fire pits. </li>
+            <li>All lift tickets come with <b>free all-day sledding</b> with sled included. The sled hill is one of the only fully managed sledding operations in Tahoe with staff at the top and bottom to ensure safety of both kids and adults.</li>
+            <li>Lastly, Granlibakken is the <b>oldest</b> continuously operating snowsports hill in Tahoe, originally founded in the 1920s!</li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+            <img src="https://snowschoolers.s3.amazonaws.com/granlibakken-sign.jpg" class="resort-highlights-img">
+            <p class="center medium-text">
+              More info at <a href="https://granlibakken.com/" class="navy-link">Granlibakken.com</a>
+            </p>            
+        </div>  
+      </div>
+</section>
+
+
+<%= render partial: "welcome/prices_simple" %>
+
+<%= render partial: "lessons/initiate_lesson", locals: { lesson: @lesson} %>
+
+<%= render partial: "welcome/full_pricing" %>
+
+
+<section class="bg-grey center-content">
+  <div class="container">
+    <h1 class="center resorts-section-h1">Where is Granlibakken?</h1>
+    <div class="col-md-4">
+      <div class="maps-container">
+        <iframe
+        width="400"
+        height="600"
+        frameborder="0"
+        src="https://www.google.com/maps/embed/v1/place?key=<%= ENV["GOOGLE_MAPS_API"] %>
+          &q=<%= @location.address %>" allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+    <div class='col-md-6'>
+      <h2> <b>Address </b>
+        <span class="span-buffer">   </span> 
+      </h2>
+        <ul>
+          <li><%= @location.address %> <a href="https://www.google.com/maps/place/Granlibakken+Tahoe/@39.1561654,-120.1565678,17z/data=!3m1!4b1!4m8!3m7!1s0x80997d862ca04451:0xbe2330dfc1e3324e!5m2!4m1!1i2!8m2!3d39.1561613!4d-120.1543791" class="navy-link">(Google Maps Directions)</a></li>
+        </ul>
+      <h2>
+        <b>How to Get Here</b>
+          <ul class="">
+            <li class="how-to-get-here-list-parent"> By Car</li>
+              <ul>
+                <li>From Reno: 1hr 15min from Reno International Airport (RNO). Take I-80 West to Truckee, then highway 89 South to Tahoe City.</li>
+                <li>From Sacramento: 2hrs from Sacramento International Airport (SAC). I-80 East to Truckee, then highway 89 South to Tahoe City.</li>
+                <li>From San Francisco: 3hrs 40min from downtown San Francisco. I-80 East to Truckee, then highway 89 South to Tahoe City.</li>
+              </ul>
+            <li class="how-to-get-here-list-parent"> Rideshare (Uber or Lyft)</li>
+              <ul>
+                <li>From Tahoe City: <10min from downtown Tahoe City</li>
+                <li>From Truckee: 25min (with no traffic, expect up to 1hr on busy Saturday mornings or snow days)</li>
+                <li>From Kings Beach: 22min (with no traffic, expect 45min on busy days) </li>
+                <li>From South Lake Tahoe: 55min (no traffic). *Note* that after storms 89-North is often closed and only way is to go countert-clockwise around the lake, which takes at least 1hr 20min.</li>
+              </ul>
+            <li class="how-to-get-here-list-parent"> Best Airports</li>
+              <ul>
+                <li>Reno (RNO) - closest option with <a href="https://www.renoairport.com/flight-info/non-stopsone-stops" class="navy-link">direct flights</a> from most major US airports (LAX, Chicago, Salt Lake, Denver, Seattle, Dallas, New York, etc.)</li>
+                <li>San Francisco (SFO) - service to/from any major international airports.</li>
+              </ul>
+          </ul>
+      </h2>
+    </div>
+  </div>
+</section>
+
+ <section class="bg-white">
+      <div class="container">
+        <h1 class="center resorts-section-h1">Mountain Stats</h1>
+        <div class="col-md-6">
+            <img src="https://s3.amazonaws.com/snowschoolers/ski-hut-meeting-location.jpg" class="resort-mountain-stats-img">
+            <p class="center medium-text"></p>
+        </div>  
+
+        <div class="col-md-6">
+          <ul class="resort-highlights">
+            <li>Hours of Operation: 8:30am-4pm daily</li>
+              <ul>
+                <li>Ski hill closed midweek Tues-Thurs except for holidays.</li>
+                <li>Ski hill open 7 days/week during holidays.</li>
+                <li>Sledding open 7 days/week all winter round.</li>
+              </ul>
+            <li>Surface Lifts: 2 (one rope tow, one poma)</li>
+            <li>Vertical feet: 300</li>
+            <li>Skiable terrain: 74 acres</li>
+            <li>Beginner terrain: 2 trails</li>
+            <li>Intermediate terrain: 3 trails</li>
+            <li>Advanced terrain: 0 trails</li>          
+
+          </ul>
+        </div>
+      </div>
+</section>
+
+
+<section id="lesson-types" class="bg-navy center-content resorts-pdp-cta">
+      <div class="container">
+        <h1 class="center white-text resorts-section-h1">GET STARTED 
+          <hr>
+          <a href="/book/granlibakken" class="btn btn-primary btn-lg page-scroll powder-btn">Book a Private Lesson</a>
+          <a href="/book/granlibakken" class="btn btn-secondary btn-lg page-scroll powder-btn">Book a Group Lesson</a>
+        </h1>
+      </div>
+</section>
+
+        
+
+

@@ -43,7 +43,7 @@
               %= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase} , selected: @promo_location, include_blank: 'Location', label: false %>
                % end %>
  -->
-             <%= f.input :class_type, as: :select, collection: ['private', 'group'], selected:@class_type, include_blank: 'Lesson Type', label: false %>
+             <%= f.input :class_type, as: :select, collection: ['private'], selected:'private', include_blank: 'No Group Lessons due to COVID-19', label: false %>
 
             </div>
             <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
