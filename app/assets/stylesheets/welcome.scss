@@ -28,7 +28,24 @@ body {
        -moz-box-sizing: border-box;
             box-sizing: border-box;
 }
-
+#explore-mountains{
+  clear:both;
+}
+#pandemic-pledge-text{
+  margin-left:auto;
+  margin-right:auto;
+  width:90%;
+  max-width: 800px;
+  margin-top:20px;
+}
+#pandemic-pledge-text div div ul li, #pandemic-pledge-text.div.div.ul {
+    font-size: 1.6em !important;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+.pandemic-header{
+  font-size: 3em;
+}
 .beginner-intro-questions{
   text-align: left;
   margin-left: 25vw;
@@ -483,11 +500,11 @@ h2.blog-cta{
 .amp-button {
     font-family: 'futura-pt-bold',sans-serif;
     /*font-weight: bold;*/
-    background-color: #0080bb;
+    background-color: #3b5998;
     border: 0;
     font-size: 1.8em;
     line-height: 60px;
-    text-align: left;
+    text-align: center;
     color: #ffffff;
     padding: 0 30px;
     margin-left: 10px;
@@ -516,7 +533,7 @@ h2.blog-cta{
 }
 .amp-button:hover {
     background-color:#fff;
-    color: #0080bb;
+    color: #3b5998;
 }
 
 .bg-navy {
@@ -1601,13 +1618,13 @@ text-align: center;
     margin-bottom: 10px;
     padding-bottom: 5px;
     padding-top: 5px;
-    font-size: 1.4em;
+    font-size: 1.2em;
     line-height: 1.4em;
   }
 
   .intro-questions{
     margin-top: 15px;
-    font-size: 1.4em;
+    font-size: 2em;
   }
 
   label {

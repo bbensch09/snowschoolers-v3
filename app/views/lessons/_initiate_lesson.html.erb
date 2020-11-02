@@ -37,7 +37,7 @@
           <%= f.semantic_errors :instructor %>
         </h1>
         <div class="block inputs form-inputs">
-            <div class="col-md-2">
+            <div class="col-md-3">
               <%= f.input :activity, as: :select, collection: ['Ski', 'Snowboard'], selected:@activity, include_blank: 'Select Sport', label: false %>
             </div>
 
@@ -53,12 +53,12 @@
 
             </div>
             <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
-              <div class="col-md-2">
+              <div class="col-md-3">
                 <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker', value:@date, required:true, autocomplete:"off" }, placeholder: 'Date', label: false %>
                 <span class="search-area-icon"></span>
               </div>
 
-              <div class="col-md-3 time-slot-input">
+              <div class="col-md-3">
                 <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.email == "bbensch@gmail.com") %>
                 <%= lt_f.input :slot, as: :select, collection: ADMIN_SLOTS, include_blank: 'Select Time', label: false, required:true %>
                 <% else %>

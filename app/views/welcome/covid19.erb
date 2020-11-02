@@ -1,0 +1,80 @@
+<% title 'COVID-19: The Pandemic Pledge' %>
+<% meta_tag :description, "We seek to keep ourselves and our community safe during the pandemic by wearing masks, practicing social distancing, and abiding by all local public health guidelines." %>
+
+<section id="pandemic-pledge-page" class="top-section">
+    <ul id="slider" class="mc-cycle" style="display: block; height: 100%; width: 100%;">
+        <div class="mc-image" title="background photo" style="background-image: url('https://snowschoolers.s3.amazonaws.com/Jan13-chute-powder-reduced.jpg'); height: 100%; width: 100%;" data-href="">
+            <!-- https://www.evo.com/travel-guides/ski-snowboard/wyoming/jackson-hole -->
+        </div>
+    </ul>
+
+    <h1 class="white-text center pandemic-header">Winter 2020/21 Pandemic Pledge</h1>
+
+    <div class="" id="pandemic-question1">
+        <div class="prompt-box col-md-12 col-xs-12 white-transparent-bg">
+            <h3 class="center intro-questions navy-text">
+                Will you maintain a social distance of at least 6ft from any other guests that are not part of your household while at the mountain?
+            </h3>
+           <h4 class="center">
+               <a href="#next" id="submit-question1" class="amp-button amp-button-small page-scroll">Of course!</a>
+               <a href="#" id="submit-question1b" class="amp-button amp-button-small page-scroll">Maybe</a>
+               <span class="hidden white-text" id="thinking-face"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/155/thinking-face_1f914.png" height="50" /> <br>...try again...
+               </span>
+           </h4>
+        </div>                
+    </div>
+
+    <div class="hidden" id="pandemic-question2">
+        <div class="prompt-box col-md-12 col-xs-12 navy-transparent-bg">
+            <h3 class="center intro-questions white-text">
+                Will you wear a mask at all times where social distancing is not possible, including inddor and outdoor spaces, such as chair lifts or lift lines.
+            </h3>
+           <h4 class="center">
+               <a href="#next" id="submit-question2" class="amp-button amp-button-small page-scroll">Of course!</a>
+               <a href="#" id="submit-question2b" class="amp-button amp-button-small page-scroll">Maybe</a>
+               <span class="hidden white-text" id="thinking-face2"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/155/thinking-face_1f914.png" height="50" /> <br>...try again...
+               </span>
+           </h4>
+        </div>                
+    </div>        
+
+
+    <div class="hidden" id="question3">
+        <div class="prompt-box col-md-12 col-xs-12 white-transparent-bg">
+            <h3 class="center intro-questions navy-text">
+                Will you stay home if you're at all feeling sick, even if it snowed 2+ feet of fresh?
+            </h3>
+           <h4 class="center">
+               <a href="#" id="submit-question3b" class="amp-button amp-button-small page-scroll">Never too sick for powder.</a>
+               <span class="hidden navy-text" id="thinking-face3"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/155/thinking-face_1f914.png" height="50" /> <br>...try again...
+               </span>
+               <a href="#next" id="submit-question3" class="amp-button amp-button-small page-scroll">Yes, safety first!</a>
+           </h4>
+        </div>                
+    </div>        
+
+    <div class="hidden" id="pandemic-pledge-text"> 
+            <div class="col-md-12 col-xs-12 white-transparent-bg mobile-no-padding">                    
+                <div class="col-md-12">
+                  <h2 class="center">Thank you for committing to keeping the slopes Covid-free!</h2>
+                    <hr class="deposit-hr-navy">
+                    <%= render partial: 'lessons/pandemic_pledge' %>
+                </div>
+            </div>                
+    </div>
+    
+</section>
+
+<section id="explore-mountains" class="bg-navy center-content lesson-new-form-header">
+      <div class="center row">
+        <h2 class="text-white"> At which mountain would you like to visit? </h2>
+        <h1>
+          <a href="/granlibakken" class="btn btn-primary btn-lg page-scroll powder-btn">Explore Granlibakken</a>
+          <a href="/kingvale" class="btn btn-secondary btn-lg page-scroll powder-btn">Explore Kingvale</a>
+          <a href="/homewood" class="btn btn-tertiary btn-lg page-scroll powder-btn">Explore Homewood</a>
+          <% @resort_name = 'SNOWSCHOOLERS' %>
+        </h1>
+      </div>
+</section>
+
+  

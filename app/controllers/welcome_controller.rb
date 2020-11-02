@@ -8,6 +8,9 @@ class WelcomeController < ApplicationController
 
   def experiences_test
   end
+
+  def pandemic
+  end
   
   def new_hire_packet
     file = "public/Homewood-Hire-Packet-2016-2017.pdf"

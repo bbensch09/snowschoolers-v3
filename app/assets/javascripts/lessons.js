@@ -365,6 +365,8 @@ var calculateTotalListener = function() {
   });
 }
 
+// javascript for Ikon Incentive and Pandemic Pledge
+
 var toggleElementListener = function(){
   $('#jobs-cta').click(function(e){
     e.preventDefault();
@@ -374,7 +376,7 @@ var toggleElementListener = function(){
     // $('#jobs-contact-us-footer').toggleClass('hidden');
     console.log("jobs-cta clicked; begin on-boarding questions.");
   });
-// begin question prompts
+// begin question prompts for ikon
   $('#submit-question1a').click(function(e){
     e.preventDefault();
     $('#question1').toggleClass('hidden');
@@ -438,6 +440,46 @@ var toggleElementListener = function(){
     console.log("question 2 answered incorrectly....");
   });
 
+
+// begin question prompts for pandemic pledge
+  $('#submit-question1').click(function(e){
+    e.preventDefault();
+    $('#pandemic-question1').toggleClass('hidden');
+    $('#pandemic-question2').toggleClass('hidden');
+    console.log("question 1 answered, next question revealed.");
+  });
+  $('#submit-question1b').click(function(e){
+    e.preventDefault();
+    $('#thinking-face').toggleClass('hidden');
+    console.log("question 2 answered incorrectly....");
+  });
+ 
+// question 2
+  $('#submit-question2').click(function(e){
+    e.preventDefault();
+    $('#pandemic-question2').toggleClass('hidden');
+    $('#pandemic-question3').toggleClass('hidden');
+    console.log("question 2 answered, next question revealed.");
+  });
+  $('#submit-question2b').click(function(e){
+    e.preventDefault();
+    $('#thinking-face2').toggleClass('hidden');
+    console.log("question 2 answered incorrectly....");
+  });
+
+
+// question 3
+  $('#submit-question3').click(function(e){
+    e.preventDefault();
+    $('#pandemic-question3').toggleClass('hidden');
+    $('#pandemic-pledge-text').toggleClass('hidden');
+    console.log("question 3 answered, show application.");
+  });
+  $('#submit-question3b').click(function(e){
+    e.preventDefault();
+    $('#thinking-face3').toggleClass('hidden');
+    console.log("question 3 answered incorrectly....");
+  });
 
 // old toggle elements
   //  $('#toggle-upcoming-lessons').click(function(e){
