@@ -29,12 +29,14 @@ class LocationsController < ApplicationController
 
   def granlibakken
     @location = Location.find(24)
+    @promo_location = 24
     @lesson = Lesson.new
     render 'granlibakken'
   end
 
   def kingvale
     @location = Location.find(25)
+    @promo_location = 25
     @lesson = Lesson.new
     render 'kingvale'
   end
