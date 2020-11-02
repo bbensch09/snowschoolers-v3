@@ -11,6 +11,7 @@ Rails.application.configure do
 
   config.hosts << "www.snowschoolers.com"
   config.hosts << "demo.snowschoolers.com"
+  config.hosts << "snowschoolers-heroku-18.herokuapp.com"
   
 
   # Code is not reloaded between requests.
