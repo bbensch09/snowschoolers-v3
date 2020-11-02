@@ -1,4 +1,11 @@
 <section class="bg-primary lesson-new-form-header">
+
+<% if @promo_location && @promo_location == 25 %>
+    <% @resort_styling = "kingvale-book-container" %>
+    <% else %>
+    <% @resort_styling = "granlibakken-book-container" %>
+<% end %>
+
   
 <%= semantic_form_for @lesson do |f| %>
   <div class="lesson-form-container">
@@ -13,8 +20,7 @@
       <% end %>
 
 
-      <div class="new-lesson-caption">
-
+    <div class=<%=@resort_styling%> >
         <div class="block">
           <h3 class="center mobile-book-cta"><%= @resort_name ? "BOOK A LESSON at #{@resort_name.upcase}" : 'BOOK A LESSON' %> </h3>
           <h4 class="center">
@@ -31,7 +37,7 @@
           <%= f.semantic_errors :instructor %>
         </h1>
         <div class="block inputs form-inputs">
-            <div class="col-md-2">
+            <div class="col-md-3">
               <%= f.input :activity, as: :select, collection: ['Ski', 'Snowboard'], selected:@activity, include_blank: 'Select Sport', label: false %>
             </div>
 
@@ -43,16 +49,16 @@
               %= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase} , selected: @promo_location, include_blank: 'Location', label: false %>
                % end %>
  -->
-             <%= f.input :class_type, as: :select, collection: ['private', 'group'], selected:@class_type, include_blank: 'Lesson Type', label: false %>
+             <%= f.input :class_type, as: :select, collection: ['private'], selected:'private', include_blank: 'No Group Lessons due to COVID-19', label: false %>
 
             </div>
             <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
-              <div class="col-md-2">
+              <div class="col-md-3">
                 <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker', value:@date, required:true, autocomplete:"off" }, placeholder: 'Date', label: false %>
                 <span class="search-area-icon"></span>
               </div>
 
-              <div class="col-md-3 time-slot-input">
+              <div class="col-md-3">
                 <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.email == "bbensch@gmail.com") %>
                 <%= lt_f.input :slot, as: :select, collection: ADMIN_SLOTS, include_blank: 'Select Time', label: false, required:true %>
                 <% else %>
@@ -85,6 +91,17 @@
                 <% end %>
             <!-- <a href='/lessons-availability' class= 'btn btn-success btn-lg'> SEE AVAILABLE TIMES </a> -->
           </h1>
+          <h4 class="center">
+            Looking for sledding tickets? Advance tickets are recommended (but not required) due to pandemic-related capacity constraints.
+          </h4>
+          <h4 class="center">
+            <% if @promo_location && @promo_location == 25 %>
+              <a href="#sledding" class="btn btn-secondary btn-lg page-scroll powder-btn">Book Sledding</a>
+            <% end %>
+            <% if @promo_location && @promo_location == 24 %>
+              <a href="http://sledding.granlibakken.com/" target="_blank" class="btn btn-secondary btn-lg page-scroll powder-btn">Book Sledding</a>
+            <% end %>
+          </h4>
     </div>
 </section>
 

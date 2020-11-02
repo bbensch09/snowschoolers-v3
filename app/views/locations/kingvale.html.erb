@@ -1,0 +1,214 @@
+
+<% title "#{@location.name} - Resort Details" %>
+<!-- <img src="https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg" class="img-hero">   -->
+
+<section id="header-creative" class="top-section">
+  <ul id="slider" class="mc-cycle" style="display: block; height: 100%; width: 100%;">
+    <div class="mc-image" title="background photo" style="background-image: url('https://snowschoolers.s3.amazonaws.com/Kingvale-Sled-Hill-and-80-1280x853.jpg'); height: 100%; width: 100%; " data-href=""></div>
+    <!-- <div class="mc-image" title="background photo" style="background-image: url('https://tahoephotographictours.com/wp-content/uploads/2013/06/Heavenly.jpg'); height: 100%; width: 100%;" data-href=""></div> -->
+  </ul>
+<!--         <div id="homepage-background">
+                <img src="https://s3.amazonaws.com/snowschoolers/images/demo/slider/snow-less.jpg" alt="background photo" class="bg-photo" alt="" />
+        </div>
+      -->
+      <div class="header-content">
+        <div class="header-content-inner">
+          <h1 id="homeHeading" class="resort-header navy-text white-transparent-bg">KINGVALE</h1>
+          <hr>
+          <h3 class="navy-text resort-header white-transparent-bg">
+            Tahoe's closest snow park has joined Snow Schoolers! <br> 
+            <span class="hidden-unless-mobile">
+                <hr class="deposit-hr-navy">
+            </span> 
+            Affordable winter adventures, only 2.5hrs from the Bay Area.
+          </h3>
+          <a href="/book/kingvale" class="btn btn-secondary btn-lg page-scroll powder-btn">Book a Lesson</a>
+          <a href="#sledding" class="btn btn-primary btn-lg page-scroll powder-btn">Reserve Sledding Tickets</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white">
+      <div class="container">
+        <div class="col-md-9">
+          <h1 class="center resorts-section-h1"><b> KINGVALE Overview </b> </h1>
+          <ul class="resort-highlights">
+            <li>Kingvale is the <b>closest snow play area to the Bay Area</b>. Right off of I-80 at exit 171, it's close enough for day trips, and well before Donner summit so you can usually get here without needing chains.</li>
+            <li>Kingvale was one of Tahoe's original ski areas, founded in the 60's, but has gone through multiple ownership changes over the years. We're <b> reopening this winter </b> for skiing and snowboarding for the first time in decade!</li>
+            <li> While much smaller</b> than nearyby resorts (such as Squaw or Northstar), Kingvale is great for families looking for an authentic introduction to winter sports, with <b> perfect terrain for first time</b> skiers and snowboarders.</li>
+            <li>Like all Snow Schoolers locations, Kingvale offers <b>affordable skiing & sledding options</b> in Tahoe. Enjoy sledding for just $15, lift tickets for $50, and private lessons starting at only $80!</li>
+            <li>We have very minimal indoor facilities, but since there's still a pandemic going on, we hope that's not what you're looking for anyhow. We do have a handful of propane heaters with outdoor seating, and plenty of hot cocoa from the food truck! </li>
+            <li>All ski lift tickets include <b>free all-day sledding</b>. The sled hill is fully supervised with staff at the top and bottom to ensure the safety of both active sledders and unwitting bystanders.</li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <img src="http://www.sierrasnowplay.com/photos/kingvale_snowplay.jpg" class="resort-highlights-img">
+          <p class="center medium-text">
+            More info at <a href="#Coming-Soon" class="navy-link">Kingvale.Snowschoolers.com</a>
+          </p>            
+        </div>  
+      </div>
+    </section>
+
+
+    <%= render partial: "welcome/prices_simple" %>
+
+    <%= render partial: "lessons/initiate_lesson", locals: { lesson: @lesson} %>
+
+    <%= render partial: "welcome/full_pricing" %>
+
+
+    <section class="bg-grey center-content" id="sledding">
+      <div class="container">
+        <h1 class="center resorts-section-h1">Sledding at Kingvale</h1>
+        <div class='col-md-6'>
+          <h2> 
+            Safe Snowplay for All Ages
+          </h2>
+          <ul>
+            <li>Our hill is groomed daily by our dedicated snow operations staff.</li>
+            <li>Fencing separates the sled hill into distinct zones for various degrees of speed. Each zone has staff members at the top and bottom ensuring that all guests remain safe.</li>
+            <li>The "Primetime" zone has a capacity constraint of 150 active sledders at a time, due to state social distancing requirements. All sledding tickets include a dedicated 1.5hr time slot to access this zone. During the rest of the day, if the Primetime zone is at capacity, you are permitted to sled in all other zones, which are big enough that we do not anticipate any capacity constraints. </li>
+            <li>Sledders are not permitted to use the ski lifts.</li>
+            <li>Only specific sled types are allowed to maxmize safety. Sleds can be purchased at the hill for $25, we do offer scholarship sleds for local Placer & Nevada county students.</li>
+          </ul>
+          
+          <h2> How to Purchase Sledding Tickets</h2>
+            <ul class="">
+              <li>Tickets are $20 per person throught the winter, and $25 on holidays.</li>
+              <li class="how-to-get-here-list-parent">Online Tickets</li>
+              <ul>
+                <li>Our online ticketing system will be available by Dec 1st!
+                </li>
+              </ul>            
+              <h2>
+                <a href="#Coming-Soon" class="btn btn-primary btn-lg page-scroll powder-btn">Sledding Tickets - coming soon!</a>                
+              </h2>
+              <li class="how-to-get-here-list-parent">In-person</li>
+              <ul>
+                <li>We prefer but do not require advance reservations for sledding tickets. Tickets can be purchased with cash or credit card at the ticket-window.</li>
+              </ul>            
+
+            </ul>
+          </h2>
+        </div>
+        <div class="col-md-6">
+          <img src="https://snowschoolers.s3.amazonaws.com/kingvale-sledding-wide.jpeg" class="resort-mountain-stats-img">
+          <p class="center medium-text"></p>
+        </div>  
+      </div>
+    </section>
+
+    <section class="bg-white">
+      <div class="container">
+        <h1 class="center resorts-section-h1">Pandemic Policies</h1>
+        <div class="row">
+          <div class="col-md-4">
+            <img src="https://snowschoolers.s3.amazonaws.com/kingvale-sledding.jpeg" class="resort-mountain-stats-img">
+            <p class="center medium-text"></p>
+          </div>  
+          <div class="col-md-8 col-xs-8" id="pandemic-pledge-text"> 
+            <p class="navy-text">
+              In order to purchase a lesson or sledding ticket to enter the snow park, all guests must take the pandemic pledge. Any failure to follow the necessary health & safety policies in the park will result having park privileges revoked.
+            </p>
+            <hr class="deposit-hr-navy">            
+            <div class=" white-transparent-bg mobile-no-padding">                    
+                <h2 class="center">Pandemic Pledge:</h2>
+                <div class="resort-highlights">
+                  <%= render partial: 'lessons/pandemic_pledge' %>
+                </div>
+              </div>
+            </div>                
+          </div>
+        </div>        
+      </div>
+    </section>
+
+      <section class="bg-grey center-content">
+        <div class="container">
+          <h1 class="center resorts-section-h1">Where is Kingvale?</h1>
+          <div class="col-md-4">
+            <div class="maps-container">
+              <iframe
+              width="400"
+              height="600"
+              frameborder="0"
+              src="https://www.google.com/maps/embed/v1/place?key=<%= ENV["GOOGLE_MAPS_API"] %>
+              &q=<%= @location.address %>" allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+        <div class='col-md-6'>
+          <h2> <b>Address </b>
+            <span class="span-buffer">   </span> 
+          </h2>
+          <ul>
+            <li><%= @location.address %> <a href="https://www.google.com/maps/place/Kingvale+Tubes+R+US/@39.3131747,-120.4493961,17z/data=!3m1!4b1!4m5!3m4!1s0x809bebd263b41d0f:0xd79eed5a315fbd7b!8m2!3d39.3131747!4d-120.4472074" class="navy-link">(Google Maps Directions)</a></li>
+          </ul>
+          <h2>
+            <b>How to Get Here</b>
+            <ul class="">
+              <li class="how-to-get-here-list-parent"> By Car</li>
+              <ul>
+                <li>From Sacramento: 1hr 25min from Sacramento International Airport (SAC). Simply get onto I-80 East and lookout for exit 171.</li>
+                <li>From San Francisco: 2hrs 40min from downtown San Francisco. Also I-80 East the hole way, and you'll see the hill on the right as you approach exit 171.</li>
+                <li>From Reno: an easy 50min trip from Reno International Airport (RNO). Take I-80 West past Truckee, continue up and over Donner summit, and continue until exit 171.</li>
+              </ul>
+              <li class="how-to-get-here-list-parent"> Rideshare (Uber or Lyft)</li>
+              <ul>
+                <li>From Truckee: 19min (with no traffic, expect up to 40min if there's significant snow; chain control is often in effect over the summit.</li>
+                <li>From Tahoe City: 35min from downtown Tahoe City. Expect well over an hour on busy weekend days, as 89-North gets very congested from Squaw/Alpine traffic. </li>
+              </ul>
+              <li class="how-to-get-here-list-parent"> Best Airports</li>
+              <ul>
+                <li>Reno (RNO) - closest option with <a href="https://www.renoairport.com/flight-info/non-stopsone-stops" class="navy-link">direct flights</a> from most major US airports (LAX, Chicago, Salt Lake, Denver, Seattle, Dallas, New York, etc.)</li>
+                <li>San Francisco (SFO) - service to/from any major international airports.</li>
+              </ul>
+            </ul>
+          </h2>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white">
+      <div class="container">
+        <h1 class="center resorts-section-h1">Mountain Stats</h1>
+        <div class="col-md-6">
+          <img src="https://snowschoolers.s3.amazonaws.com/kingvale-sledding-wide.jpeg" class="resort-mountain-stats-img">
+          <p class="center medium-text"></p>
+        </div>  
+
+        <div class="col-md-6">
+          <ul class="resort-highlights">
+            <li>Hours of Operation: 8:30am-4pm daily</li>
+            <ul>
+              <li>The ski hill closed midweek Tues-Thurs except for holidays.</li>
+              <li>The ski hill open 7 days/week during holidays.</li>
+              <li>Sledding remains open 7 days/week all winter round.</li>
+            </ul>
+            <li>Surface Lifts: 2 (one magic carpet, one rope tow)</li>
+            <li>Vertical feet: 400</li>
+            <li>Skiable terrain: 200 acres</li>
+            <li>Beginner terrain: 2 trails</li>
+            <li>Intermediate terrain: 4 trails</li>
+            <li>Advanced terrain: 0 trails</li>          
+
+          </ul>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="lesson-types" class="bg-navy center-content resorts-pdp-cta">
+      <div class="container">
+        <h1 class="center white-text resorts-section-h1">GET STARTED 
+          <hr>
+          <a href="/book/kingvale" class="btn btn-primary btn-lg page-scroll powder-btn">Book a Ski or Snowboard Lesson</a>
+          <a href="#sledding" class="btn btn-secondary btn-lg page-scroll powder-btn">Buy Sledding Tickets</a>
+        </h1>
+      </div>
+    </section>
+
+
+
+

@@ -153,9 +153,14 @@ Rails.application.routes.draw do
   get '/donner-ski-ranch' => 'welcome#donner_ski_ranch_referral'
   get '/granlibakken-group-lessons' => 'welcome#granlibakken_lesssons_referral'
   get '/sky-tavern' => 'welcome#sky_tavern_referral'
+
+  # begin common user flows
+  get '/covid19' => 'welcome#covid19'
   get '/book/homewood' => 'lessons#homewood'
   get '/book/granlibakken' => 'lessons#granlibakken'
+  get '/book/kingvale' => 'lessons#kingvale'
   get '/granlibakken' => 'locations#granlibakken'
+  get '/kingvale' => 'locations#kingvale'
   get '/homewood' => 'lessons#homewood'
   get '/future-daily-roster' => 'lessons#future_daily_roster'
   get '/daily-roster' => 'lessons#daily_roster'
