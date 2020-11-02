@@ -1162,7 +1162,9 @@ class Lesson < ActiveRecord::Base
   def cost_per_additional_student_with_gear
     case self.location.id
       when 24
-        return 60
+        return 75
+      when 25
+        return 75
       when 8
         return 0
       else
@@ -1173,7 +1175,9 @@ class Lesson < ActiveRecord::Base
   def cost_per_additional_student_without_gear
     case self.location.id
       when 24
-        return 40
+        return 50
+      when 25
+        return 50
       when 8
         return 0
       else

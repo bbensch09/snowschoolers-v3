@@ -228,6 +228,30 @@ section.pricing-new-lesson{
   clear:both !important;
   display:inline-block;
 }
+.granlibakken-book-container{
+  color:#000 !important;
+  width: 100%;
+  min-height: 230px;
+  font-size:2em;
+  line-height: 1.5em;
+  padding:6px;
+  background-color: rgba(0, 0, 0, 0.08);
+  margin:0;
+  clear:both !important;
+  display:inline-block;
+}
+.kingvale-book-container{
+  color:#fff !important;
+  width: 100%;
+  min-height: 230px;
+  font-size:2em;
+  line-height: 1.5em;
+  padding:6px;
+  background-color: #34495e;
+  margin:0;
+  clear:both !important;
+  display:inline-block;
+}
 .selected-instructor-container{
   position: relative;
   float: right;
@@ -991,7 +1015,7 @@ fieldset[disabled] .btn-default.active {
 }
 .btn-tertiary, .btn-tertiary:visited {
   color: white;
-  background-color: black;
+  background-color: #34495e;
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   transition: all 0.35s;

@@ -143,19 +143,19 @@
           <thead class="">
             <tr>
                 <th class="center price-header" colspan="5">
-                    <h1>GROUP LESSON PRICES</h1>
+                    <h1>GROUP LESSONS</h1>
                 </th>
             </tr>
             <tr>
               <th class="sub-header" colspan="5">
-                <h3 class="navy-text">All group lessons are 2hrs and start at 1:45pm</h3>
+                <h3 class="text-danger">Due to the pandemic, group lessons are unavailable.</h3>
               </th>
             </tr>
-            <tr class="">
+            <!-- <tr class="">
               <th class="col-xs-4 text-warning center"></th>
               <th class="pricing-snowschoolers col-xs-4">Daily Rate<br></th>
               <th class="pricing-snowschoolers col-xs-4">Holiday<br></th>
-            </tr>
+            </tr -->>
           </thead>
 
           <% if (Product.where(location_id:24,length:2.00,product_type:'group_lesson',calendar_period:Location.find(24).calendar_status).first == nil || Product.where(location_id:24,length:2.00,product_type:'group_lesson',calendar_period:Location.find(24).calendar_status).first == nil) %>
@@ -163,7 +163,7 @@
 
           <% else %>
 
-          <tbody>
+          <!-- <tbody>
             <tr>
                 <td class="pricing-length grey-side-borders pricing-grey-background col-xs-8">Without rental equipment</td>
                 <td class="grey-side-borders pricing-snowschoolers pricing-grey-background col-xs-2">
@@ -182,7 +182,7 @@
                     <%= number_to_currency(Product.where(location_id:24,length:2.00,product_type:'group_lesson',calendar_period:'Holiday',is_rental:true).first.price, :precision => 0) %>
                 </td>
             </tr>
-          </tbody>
+          </tbody> -->
           <% end %>
         </table>              
           
