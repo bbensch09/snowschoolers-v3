@@ -118,24 +118,24 @@
 
           <div class='row'>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
               <label>Lesson Type</label>
               <%= f.select :activity, ['Ski', 'Snowboard'], {}, {class: 'form-control', required:true, include_blank:'Lesson Type'} %>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
               <label class="lesson-label">Group or Private?</label>
               <%= f.input :class_type, as: :select, collection: ['private', 'group'], selected:@lesson.class_type, include_blank: 'Lesson Type', label: false %>
-              <h4 class="text-warning"> Please note group lessons are only available at 1:45pm</h4>
+              <!-- <h4 class="text-warning"> Please note group lessons are only available at 1:45pm</h4> -->
             </div>
-<!--             <div class="col-md-6">
+            <div class="col-md-4">
               <label class="lesson-label">Location</label>
                 <% if current_user && current_user.user_type == "Snow Schoolers Employee" || session[:granlibakken] == 'true' %>
                 <%= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase} , include_blank: 'Location', label: false %>
                   <% else %>
                 <%= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase} , include_blank: 'Location', label: false %>
                 <% end %>
-            </div> --> 
+            </div> 
           </div>
           <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
             <div class='row'>
@@ -167,7 +167,7 @@
             <% end %>
 
             <div class="col-md-12">
-              <h4 class="text-warning left">Please note that the final price is based on the number of students in your reservation. If booking for more than one student, the fee is an additonal $40 per student without rentals, or $60 with rentals.</h4>
+              <h4 class="text-warning left">Please note that the final price is based on the number of students in your reservation. If booking for more than one student, the fee is an additonal $50 per student without rentals, or $75 with rentals.</h4>
             </div>
           </div>
                     <div class='row'>
@@ -195,11 +195,11 @@
               <label>Zip Code</label> <span class="text-smaller"></span>
               <%= f.text_field :zip_code, as: :number, placeholder: '94102', class: 'form-control', required:true, include_blank:false %>
             </div>
-            <div class="col-md-6">
+<!--             <div class="col-md-6">
               <label>Driver's License #</label> <span class="text-smaller"></span>
               <%= f.text_field :drivers_license, placeholder: 'D555-1111', class: 'form-control', required:false, include_blank:false %>
             </div>
-
+ -->
           </div>
 
           <h4>Student <strong>Info</strong></h4>
