@@ -1,3 +1,9 @@
+<% if @promo_location && @promo_location == 25 %>
+    <% @resort_slug = 'kingvale' %>
+    <% else %>
+    <% @resort_slug='granlibakken' %>
+<% end %>
+
 <section id="lesson-types" class="bg-primary bg-grey center-content schedule-granlinbakken">
       <div class="container">
         <h1 class="center resorts-section-h1">Compare Lesson Choices</h1>
@@ -17,7 +23,7 @@
                   <li><i class="ion-checkmark"> </i>Mixed ages (kids & adults usually separate)</li>
                   <li><i class="ion-checkmark"> </i>Lift ticket included</li>
                 </ul>
-                <div class="plan-select"><a href="/book/granlibakken">Book Now</a></div>
+                <div class="plan-select"><a href="/book/<%=@resort_slug%>">Book Now</a></div>
               </div> -->
               <div class="plan">
                 <h3 class="plan-title">
@@ -31,7 +37,7 @@
                   <li><i class="ion-checkmark"> </i>Lift ticket included</li>
                   <li><i class="ion-checkmark"> </i>Add up to 4 friends or family members for +$50/pp</li>
                 </ul>
-                <div class="plan-select"><a href="/book/granlibakken">Book Now</a></div>
+                <div class="plan-select"><a href="/book/<%=@resort_slug%>">Book Now</a></div>
               </div>
               <div class="plan featured">
                 <h3 class="plan-title">
@@ -46,7 +52,7 @@
                   <li><i class="ion-checkmark"> </i>Lift ticket included</li>
                   <li><i class="ion-checkmark"> </i>Add up to 4 friends or family members for +$50/pp</li>
                 </ul>
-                <div class="plan-select"><a href="/book/granlibakken">Book Now</a></div>
+                <div class="plan-select"><a href="/book/<%=@resort_slug%>">Book Now</a></div>
               </div>
               <div class="plan">
                 <h3 class="plan-title">
@@ -60,7 +66,7 @@
                   <li><i class="ion-checkmark"> </i>Lift ticket included</li>
                   <li><i class="ion-checkmark"> </i>Add up to 4 friends or family members for +$50/pp</li>
                 </ul>
-                <div class="plan-select"><a href="/book/granlibakken">Book Now</a></div>
+                <div class="plan-select"><a href="/book/<%=@resort_slug%>">Book Now</a></div>
               </div>
             </div>
 
