@@ -125,7 +125,7 @@
 
             <div class="col-md-4">
               <label class="lesson-label">Group or Private?</label>
-              <%= f.input :class_type, as: :select, collection: ['private', 'group'], selected:@lesson.class_type, include_blank: 'Lesson Type', label: false %>
+              <%= f.input :class_type, as: :select, collection: ['private'], selected:@lesson.class_type, include_blank: 'No Group Lessons due to COVID-19', label: false %>
               <!-- <h4 class="text-warning"> Please note group lessons are only available at 1:45pm</h4> -->
             </div>
             <div class="col-md-4">

@@ -29,7 +29,7 @@
                     <b> Note - </b> In order to purchase multiple types of tickets (Adult/Teen/Child) you will unfortunately have to process multiple orders.
                   </p>
 
-              <% else @lesson.group_lesson? %>
+              <% else %>
 
 
               <div class="row full-width">
@@ -90,6 +90,9 @@
                     <span class="left">
                       <%if @lesson.includes_rental_package? %>
                         Included
+                        <% if @lesson.location.id == 25 %>
+                              <h4 class="text-warning left">Please note that your reservation includes a $40 "rental deposit" for your rentals. We are partnering with <a href="" class="navy-text" target="_blank">Ski Butlers</a> to provide equipment to all lesson customers at Kingvale this season. As such, this $40 will go directly to Ski Butlers to cover a "basic" package. Shortly after booking, a representative from Ski Butlers will contact you to confirm your information and rental delivery details. If for any reason you are not able to secure appropriate equipment from Ski Butlers, this rental deposit amount will be fully refunded. </h4>
+                        <% end %> 
                       <% else %>
                         Not Included  
                     <% end %>
