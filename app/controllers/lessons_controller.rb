@@ -549,7 +549,7 @@ class LessonsController < ApplicationController
       else
           User.create!({
           email: @lesson.guest_email,
-          password: 'homewood_temp_2017',
+          password: 'snowschoolers',
           user_type: "Student",
           name: "#{@lesson.guest_email}"
           })
@@ -560,7 +560,7 @@ class LessonsController < ApplicationController
     if @lesson.is_gift_voucher? && current_user.user_type == "Snow Schoolers Employee" && @lesson.requester_id.nil?
       @user = User.new({
           email: @lesson.gift_recipient_email,
-          password: 'homewood_temp_2017',
+          password: 'snowschoolers',
           user_type: "Student",
           name: "#{@lesson.gift_recipient_name}"
         })

@@ -4,13 +4,17 @@
 
 <section id="#book-a-lesson" class="bg-navy center-content lesson-new-form-header">
       <!-- <h1 class="center text-white">*Please note* Lessons for the 19/20 lesson are not yet on sale. <br> Reservations will be accepted starting Nov 4th! </h1> -->
-      <div class="center row">
-        <h2 class="text-white"> We are not yet accepting reservations at <%= @resort_name %> for the 19/20 season. If you wish to book directly you may do so by making a lesson reservation at Granlibakken, or <a href="mailto:hello@snowschoolers.com?subject=Interested%20in%20Lessons%20&body=Please%20let%20me%20know%20when%20lessons%20are%20available.%20Thanks!" target="_blank" class="green-link">email us</a> with your dates and group information and we'll reach out when we're able to assist you with making at reservation at <%= @resort_name %>.  </h2>
-          <a href="/granlibakken" class="btn btn-primary btn-lg page-scroll powder-btn">Book at Granlibakken</a>
+      <div class="col-md-12">
+        <h2 class="text-white"> We are not yet accepting online reservations at <%= @resort_name %> for the 20/21 season, and expect to only have limited capacity there through the season. If you are a returning customer and interested in booking another lesson with us, we can very likley assist you directly in booking your next lesson at Homewood. 
+        </h2>
+        <hr class="hr-white">
+        <h2 class="text-white"> Please simply shoot us a <a href="mailto:hello@snowschoolers.com?subject=Interested%20in%20Lessons%20at%20Homewood&body=Please%20let%20me%20know%20when%20lessons%20are%20available.%20Thanks!" target="_blank" class="green-link">quick email</a> with your dates, your requesetd instrucotr, and party's core information (names, ages, etc.) and a member of our team will follow up directly. For new customers, we highly encourage you to book a lesson at either our <a href="/granlibakken" class="green-link">Granlibakken</a> or <a href="/kingvale" class="green-link">Kingvale</a> locations, where we are able to offer full availability of beginner through intermediate lessons. </h2>
+        <h2 class="center">
+          <a href="/book/granlibakken" class="btn btn-primary btn-lg page-scroll powder-btn">Book at Granlibakken</a>
+          <a href="/book/kingvale" class="btn btn-secondary btn-lg page-scroll powder-btn">Book at Kingvale</a>
+        </h2>
     <% @resort_name = Location.find(@promo_location).name %>
-          <a href="mailto:hello@snowschoolers.com?subject=Interested%20in%20Lessons%20&body=Please%20let%20me%20know%20when%20lessons%20are%20available.%20Thanks!" target="_blank" class="btn btn-secondary btn-lg page-scroll powder-btn">Get notified when <%= @resort_name %>
-           lessons go on sale</a>
-          <% @resort_name = 'SNOWSCHOOLERS' %>
+    <% @resort_name = 'SNOWSCHOOLERS' %>
       </div>
 </section>
 
@@ -55,9 +59,13 @@
   <%= render partial: "lessons/initiate_lesson", locals: { lesson: @lesson} %>
 </div>
 
-
+<div class=<%=@cta_visibility%> >
   <%= render partial: "welcome/prices_simple" %>
+</div>
 
+<div class=<%=@cta_visibility%> >
+  <%= render partial: 'welcome/full_pricing' %>
+</div>
 
 <!--       % if @instructor_requested %>
         <div class="selected-instructor-container">
