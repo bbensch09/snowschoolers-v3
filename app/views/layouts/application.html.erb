@@ -202,11 +202,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <%= link_to 'Sign Up', new_user_registration_path(date: params[:date], slot: params[:slot]), class: 'sign-up-btn' %>
               </li>
             <% else %>
-              <li><a href="/become-a-certified-ski-instructor"class="sign-up-btn">LEARN TO TEACH</a></li>
-              <!-- <li><a href="/blog" target="_blank" class="sign-up-btn">BLOG</a></li> -->
+              <li><a href="/granlibakken"class="sign-up-btn">EXPLORE GRANLIBAKKEN</a></li>
+              <li><a href="/kingvale"class="sign-up-btn">EXPLORE KINGVALE</a></li>
+              <!-- <li><a href="/become-a-certified-ski-instructor"class="sign-up-btn">LEARN TO TEACH</a></li> -->
               <!-- <li><a href="/tahoe-season-passes" class="sign-up-btn">Shop Deals</a></li> -->
-              <li><a href="/browse" class="sign-up-btn">INSTRUCTORS</a></li>
-              <li> <%= link_to 'TEACH WITH US', '/apply', class: 'sign-up-btn' %></li>
+              <li><a href="/browse" class="sign-up-btn">BROWSE INSTRUCTORS</a></li>
+              <li> <%= link_to 'JOIN THE TEAM', '/apply', class: 'sign-up-btn' %></li>
+              <li><a href="/blog" target="_blank" class="sign-up-btn">READ THE BLOG</a></li>
               <li><a href="#" class="sign-up-btn" data-toggle="modal" data-target="#registerModal">REGISTER</a></li>
               <li><a href="#" class="sign-up-btn" data-toggle="modal" data-target="#loginModal">LOG IN</a></li>
             <% end %>
