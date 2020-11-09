@@ -116,13 +116,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span id="user_email">UUID: <%=current_user.id %></span>
   </h3>
 
-  <script type="text/javascript">
-    // creating a global variable for show user id to debug (previously for heap analytics)
-    var SS_USER_ID = '<%= current_user.id %>';
-    var USER_TYPE = '<%= current_user.user_type %>';
-    var USER_STATE = 'signed-in';
-  </script>
-
 <% else %>
 
   <script type="text/javascript">
