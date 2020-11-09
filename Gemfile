@@ -4,8 +4,8 @@ ruby "~> 2.6.3"
 # gem to enable popper tooltips; did not work as of 11.25.18
 # gem 'popper_js'
 
-#gem for server-side API calls for from Heap
-gem 'heap', '~> 1.0'
+# gem for server-side API calls for from Heap #removed 11.8.20 as was still seeing Heap network calls... (?)
+# gem 'heap', '~> 1.0'
 
 #Gems for new mobile-friendly calendar w/ gCal support
 gem 'fullcalendar-rails'
