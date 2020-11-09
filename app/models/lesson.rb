@@ -1821,12 +1821,16 @@ def available_instructors?
       end
   end
 
-  def notify_admin_private_lessons_sold_out(lesson_time,activity,guest_email)
+  def notify_admin_private_lessons_sold_out(lesson_time,activity,guest_email,location_name)
       # lesson = Lesson.find(lesson_id)
       # recipient = "408-315-2900"
       return if ENV['twilio_status'] == "inactive"
-      guest = guest_email ? guest_email : 'a new customer'
-      body = "ALERT - #{guest} attempted to request a private #{activity} lesson on #{lesson_time.date}. The lesson is a #{lesson_time.slot}. We have no more instructors available based on the current calendar. We must activate more instructors before selling additional lessons at this time."
+      if guest_email.length == 0 
+        guest = 'an anonymous customer'
+      else
+        guest = guest_email
+      end
+      body = "ALERT - #{guest} attempted to request a private #{activity} lesson on #{lesson_time.date} at #{location_name}. The lesson is a #{lesson_time.slot}. We have no more instructors available based on the current calendar. We must activate more instructors before selling additional lessons at this time."
       @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_AUTH']    
       ADMIN_PHONE_NUMBERS.each do |recipient|
           @client.api.account.messages.create({
@@ -1925,7 +1929,7 @@ private
       return true
     else
       errors.add(:lesson, "Error: unfortunately we are sold out of instructors at that time. Please choose another time slot, or contact us by phone at 530-430-SNOW or email hello@snowschoolers.com for the latest information on instructor availability.")
-      notify_admin_private_lessons_sold_out(self.lesson_time, self.activity, self.guest_email)
+      notify_admin_private_lessons_sold_out(self.lesson_time, self.activity, self.guest_email, self.location.name)
       return false
     end
   end

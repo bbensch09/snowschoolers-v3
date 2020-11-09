@@ -1,10 +1,13 @@
 <section class="bg-primary lesson-new-form-header">
 
-<% if @promo_location && @promo_location == 25 %>
-    <% @resort_styling = "kingvale-book-container" %>
-    <% else %>
-    <% @resort_styling = "granlibakken-book-container" %>
+<% if @universal_location && @universal_location == true %>
+    <% @resort_styling = "universal-book-container" %>
+    <% elsif @promo_location && @promo_location == 25 %>
+        <% @resort_styling = "kingvale-book-container" %>
+    <% elsif @promo_location && @promo_location == 24 %>
+        <% @resort_styling = "granlibakken-book-container" %>
 <% end %>
+
 
   
 <%= semantic_form_for @lesson do |f| %>
@@ -41,17 +44,18 @@
               <%= f.input :activity, as: :select, collection: ['Ski', 'Snowboard'], selected:@activity, include_blank: 'Select Sport', label: false %>
             </div>
 
+      <% if @universal_location == true %>
             <div class="col-md-3">
-              <!-- old location selector -->
-<!--               % if current_user && current_user.user_type == "Snow Schoolers Employee" || session[:granlibakken] == 'true' %>
-              %= f.input :requested_location , as: :select, collection: Location.where("id=? OR id =?",8,24).sort_by { |location| location.name.downcase} , selected: @promo_location, include_blank: 'Location', label: false %>
-                % else %>
-              %= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase} , selected: @promo_location, include_blank: 'Location', label: false %>
-               % end %>
- -->
-             <%= f.input :class_type, as: :select, collection: ['private'], selected:'private', include_blank: 'No Group Lessons due to COVID-19', label: false %>
+                <%= f.input :requested_location , as: :select, collection: Location.active_partners.sort_by { |location| location.name.downcase} , include_blank: 'Location', label: false %>
+            </div> 
+      <% else %>
+            <%= f.input :requested_location, as: :hidden, input_html: { value: @promo_location.to_i } %>
+      <% end %>
 
+            <div class="col-md-2">
+             <%= f.input :class_type, as: :select, collection: ['private'], selected:'private', include_blank: 'No Group Lessons due to COVID-19', label: false %>
             </div>
+
             <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
               <div class="col-md-3">
                 <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker', value:@date, required:true, autocomplete:"off" }, placeholder: 'Date', label: false %>
@@ -76,7 +80,6 @@
         </div>
 
         <%= f.input :state, as: :hidden, input_html: { value: 'new' } %>
-        <%= f.input :requested_location, as: :hidden, input_html: { value: @promo_location.to_i } %>
         <% if @instructor_requested %>
           <%= f.input :instructor_id, as: :hidden, input_html: { value: @instructor_requested.id.to_i } %>
         <% end %>

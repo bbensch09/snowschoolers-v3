@@ -844,7 +844,7 @@ class LessonsController < ApplicationController
         # @promo_location = session[:lesson].nil? ? nil : session[:lesson]["requested_location"]
         @slot = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["slot"]
         @date = session[:lesson].nil? ? nil : session[:lesson]["lesson_time"]["date"]
-        @promo_location = 24
+        @universal_location = true
         if @lesson.group_lesson?
           render 'new'
         else
