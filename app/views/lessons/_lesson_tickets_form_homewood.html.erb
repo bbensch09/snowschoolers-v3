@@ -1,4 +1,3 @@
-
 <%= semantic_form_for @lesson do |f| %>
 <div class="lesson-form-container">
 
@@ -9,7 +8,6 @@
   <% else %>
     <% granlibakken_class = '' %>
 <% end %>
-
       <section id="prices_simple" class="pricing-new-lesson">
           <div class="pricing-container">
                 <% if (Product.where(location_id:8,length:1.00,product_type:'private_lesson').first == nil || Product.where(location_id:24,length:1.00,product_type:'private_lesson').first == nil) %>
@@ -20,41 +18,35 @@
                   <tr>
                       <th class="center price-header" colspan="6">
                           <h1 class="navy-text">
-                              <span>KINGVALE SLEDDING TICKETS</span>
+                              <span>CLEARANCE SALE - HOMEWOOD LIFT TICKETS</span>
                           </h1>
-                          <h3 class="center navy-text">Skip the Line and Go Straight to the Sled Hill when you Purchase Online!</h3>
+                          <h3 class="center navy-text">Buy Online & Save Over 50% vs. the Ticket Window</h3>
                       </th>
                   </tr>
-
-                  <h3 class="text-warning">Due to the on-going COVID-19 pandemic, the sled hill will have a max capacity of <%=SLEDHILL_CAPACITY %> active sledders. As such, we will be holding 4 daily sledding sessions of 1.5hrs each on the main sled hill. The upper overflow sled hill will remain open throughout the day for any ticketholder. Please select your preferred time slot at the time of purchase, which guarantees that you will be able to enter the main sled hill at that time. If the main sled hill is not at capacity, ticket holders for other time slots will be permitted to enter the main area, until capacity is reached. </h3>
                   
                   <tr class="price-schools">
-                    <th class="col-xs-2 text-warning">Time Slot</th>
+                    <th class="col-xs-2 text-warning">Type of Ticket</th>
                     <!-- <th class="col-xs-2 text-warning center">*January Sale Pricing Until Jan 24th* </th> -->
-                    <th class="pricing-snowschoolers col-xs-2">Price</th>
+                    <th class="pricing-snowschoolers col-xs-2">Online Today</th>
+                    <th class="pricing-snowschoolers col-xs-2">Ticket Window @Homewood </th>
                   </tr>
                 </thead>
 
                 <tbody>
                   <tr>
-                      <td class="grey-side-borders pricing-length pricing-grey-background">Early-bird (9-1030am)</td>
-                      <td class="grey-side-borders pricing-snowschoolers pricing-grey-background"><%= number_to_currency(CHILD_HW_TICKET_PRICE) %></td>
-                      <td class="hidden-unless-desktop pricing-competitors pricing-grey-background strikethrough">$20</td>
+                      <td class="grey-side-borders pricing-length pricing-grey-background">Child (5-12)</td>
+                      <td class="grey-side-borders pricing-snowschoolers pricing-grey-background"><%= number_to_currency(CHILD_HW_TICKET_PRICE) %> (57% off)</td>
+                      <td class="hidden-unless-desktop pricing-competitors pricing-grey-background strikethrough">$69</td>
                   </tr>
                   <tr>
-                      <td class="grey-side-borders pricing-length pricing-grey-background">Morning (11am-1230pm)</td>
-                      <td class="grey-side-borders pricing-snowschoolers pricing-grey-background"><%= number_to_currency(TEEN_HW_TICKET_PRICE) %></td>
-                      <td class="hidden-unless-desktop pricing-competitors pricing-grey-background strikethrough">$20</td>
+                      <td class="grey-side-borders pricing-length pricing-grey-background">Teen (13-18)</td>
+                      <td class="grey-side-borders pricing-snowschoolers pricing-grey-background"><%= number_to_currency(TEEN_HW_TICKET_PRICE) %> (51% off)</td>
+                      <td class="hidden-unless-desktop pricing-competitors pricing-grey-background strikethrough">$89</td>
                   </tr>
                   <tr>
-                      <td class="grey-side-borders pricing-length pricing-grey-background">Midday (1-230pm)</td>
-                      <td class="grey-side-borders pricing-snowschoolers pricing-grey-background"><%= number_to_currency(ADULT_HW_TICKET_PRICE) %></td>
-                      <td class="hidden-unless-desktop pricing-competitors pricing-grey-background strikethrough">$20</td>
-                  </tr>
-                  <tr>
-                      <td class="grey-side-borders pricing-length pricing-grey-background">Closing(3-430pm)</td>
-                      <td class="grey-side-borders pricing-snowschoolers pricing-grey-background"><%= number_to_currency(ADULT_HW_TICKET_PRICE) %></td>
-                      <td class="hidden-unless-desktop pricing-competitors pricing-grey-background strikethrough">$15</td>
+                      <td class="grey-side-borders pricing-length pricing-grey-background">Adult (18+)</td>
+                      <td class="grey-side-borders pricing-snowschoolers pricing-grey-background"><%= number_to_currency(ADULT_HW_TICKET_PRICE) %> (53% off)</td>
+                      <td class="hidden-unless-desktop pricing-competitors pricing-grey-background strikethrough">$129</td>
                   </tr>
                 </tbody>
                 <% end %>
@@ -90,11 +82,11 @@
     </h1>
     <div class="block inputs form-inputs">
       <div class="col-md-2">
-        <%= f.input :activity, as: :select, collection: ['Early-bird (9-1030am)', 'Morning (11am-1230pm)','Midday (1-230pm)','Closing(3-430pm)'], include_blank: 'Ticket Type', label: false %>
+        <%= f.input :activity, as: :select, collection: ['Child', 'Teen','Adult'], include_blank: 'Ticket Type', label: false %>
       </div>
 
       <div class="col-md-3">
-          <%= f.input :requested_location , as: :string, placeholder: "Kingvale", label: false %>
+          <%= f.input :requested_location , as: :string, placeholder: "Homewood", label: false %>
       </div>
       <div class="col-md-3 time-slot-input">
         <%= f.input :num_days, as: :select, collection: [1,2,3,4,5,6,7,8,9,10], selected: 1, include_blank: 'Number of Tickets', label: false %>
