@@ -32,7 +32,7 @@ class Applicant < ApplicationRecord
 
   def send_admin_notification
       @applicant = Applicant.last
-      LessonMailer.new_homewood_application_received(@applicant).deliver!
+      LessonMailer.new_kingvale_application_received(@applicant).deliver!
       puts "an admin notification has been sent."
   end  
 
