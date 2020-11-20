@@ -13,6 +13,7 @@
     <tr>
       <th>ID</th>
       <th class="column-wrap">Email</th>
+      <th class="column-wrap">Confirmed_at</th>
       <th>User Type</th>
       <th>Resort Affiliation</th>
       <th></th>
@@ -26,6 +27,7 @@
       <tr>
         <td><%= user.id %></td>
         <td><%=  user.email %></td>
+        <td><%=  user.confirmed_at %></td>
         <td><%= user.user_type %></td>
         <td> <% if user.location %> <%= user.location.name%> <%end%></td>
         <td><%= link_to 'Edit', admin_edit_user_path(user) %></td>
