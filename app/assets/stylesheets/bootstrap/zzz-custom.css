@@ -85,6 +85,12 @@ div.maximage-controls #slider_prev:hover {
   width: 100%;
   padding: 10px;
 }
+.email-permission{
+  width: 10% !important;
+}
+.remember-box {
+  width: 300px;
+}
 
 #header ul.nav li:hover>a {
   background-color: transparent;
