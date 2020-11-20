@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   resources :selfies
   resources :contestants
   resources :applicants
-  get 'apply-to-homewood' => 'applicants#apply'
+  get 'apply-to-kingvale' => 'applicants#apply'
 
   resources :sports
 
