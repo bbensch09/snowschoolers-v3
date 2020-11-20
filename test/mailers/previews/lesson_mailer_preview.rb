@@ -162,6 +162,11 @@ class LessonMailerPreview < ActionMailer::Preview
     mail(to: 'brian+marc@snowschoolers.com', cc:'brian@snowschoolers.com', subject: "Submitted Application: #{@applicant.email} has applied to join Homewood")
   end
 
+  def new_kingvale_application_received(applicant)
+    @applicant = applicant
+    mail(to: 'brian+marc@snowschoolers.com', cc:'brian@snowschoolers.com', subject: "Submitted Application: #{@applicant.email} has applied to join Kingvale")
+  end
+
   def new_review_submitted(review)
     @review = review
     mail(to: 'brian@snowschoolers.com', subject: "Review submitted: #{@review.reviewer.email} has provided their review")
