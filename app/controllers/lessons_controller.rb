@@ -164,8 +164,9 @@ class LessonsController < ApplicationController
   end
 
   def index
+    puts "The current MAX_INDEX_LIMIT is #{LESSON_INDEX_MAX}"
     if current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee"
-      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.state.nil? }
+      @lessons = Lesson.last(LESSON_INDEX_MAX).to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.state.nil? }
       @lessons = @lessons.select{|lesson| lesson.this_season? && lesson.date >= Date.yesterday }
       # @lessons = @lessons.select{|lesson| lesson.private_lesson?}
       @lessons = @lessons.keep_if{|lesson| !lesson.canceled?}
@@ -807,7 +808,7 @@ class LessonsController < ApplicationController
       if @lesson
         @lesson.skip_validations = true
       else
-      puts "no lesson found yet"
+      # puts "no lesson found yet"
       end
     end
   end
