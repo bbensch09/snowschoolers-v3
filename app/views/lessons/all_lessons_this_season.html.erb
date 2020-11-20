@@ -11,7 +11,7 @@
   <%= render partial: 'lessons/search' %>
 </div>
 
-<!-- SECTION 0 - AVAILABLE LESSON REQUESTS FOR INSTRUCTORS -->
+<!-- SECTION - TABLE OF ALL LESSON INFO -->
 <div id="available-lessons" class="">
 <table class="instructors-table">
   <thead>
@@ -31,13 +31,13 @@
       <th class="lessons-table-cells lesson-instructor">Kids bonus?</th>
       <th class="lessons-table-cells lesson-instructor">Private Request?</th>
       <th class="lessons-table-cells lesson-instructor">Bad Weather?</th>
-      <th class="lessons-table-cells lesson-instructor">Bonus Rate</th>
-      <th class="lessons-table-cells lesson-instructor">Bonus Wages</th>
-      <th class="lessons-table-cells">Wage Rate</th>
-      <th class="lessons-table-cells">Length</th>
-      <th class="lessons-table-cells">Wages</th>
-      <th class="lessons-table-cells">Bonus Rate</th>
-      <th class="lessons-table-cells">Bonus Pay</th>
+      <!-- <th class="lessons-table-cells lesson-instructor">Bonus Rate</th> -->
+      <!-- <th class="lessons-table-cells lesson-instructor">Bonus Wages</th> -->
+      <!-- <th class="lessons-table-cells">Wage Rate</th> -->
+      <!-- <th class="lessons-table-cells">Length</th> -->
+      <!-- <th class="lessons-table-cells">Wages</th> -->
+      <!-- <th class="lessons-table-cells">Bonus Rate</th> -->
+      <!-- <th class="lessons-table-cells">Bonus Pay</th> -->
 <!-- customer info -->
       <th class="lessons-table-cells lesson-instructor">Customer</th>
       <th class="lessons-table-cells lesson-student">State</th>
@@ -69,13 +69,13 @@
             <td class="lessons-table-cells lesson-date"><%= lesson.kids_under_6? %></td>
             <td class="lessons-table-cells lesson-date"><%= lesson.private_request? %></td>
             <td class="lessons-table-cells lesson-date"><%= lesson.bad_weather? %></td>
-            <td class="lessons-table-cells lesson-date"><%= lesson.bonus_rate %></td>
-            <td class="lessons-table-cells lesson-date"><%= lesson.bonus_wages %></td>
-            <td class="lessons-table-cells lesson-type"><%= lesson.instructor ? lesson.instructor.wage_rate  : 16 %></td>            
-            <td class="lessons-table-cells lesson-type"><%= lesson.length %></td>            
-            <td class="lessons-table-cells lesson-type"><%= link_to number_to_currency(lesson.wages), edit_wages_path(lesson)%></td>
-            <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.bonus_rate) %></td>
-            <td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.bonus_wages) %></td>
+            <!-- <td class="lessons-table-cells lesson-date">%= lesson.bonus_rate %></td> -->
+            <!-- <td class="lessons-table-cells lesson-date">%= lesson.bonus_wages %></td> -->
+            <!-- td class="lessons-table-cells lesson-type"><%= lesson.instructor ? lesson.instructor.wage_rate  : 16 %></td>             -->
+            <!-- td class="lessons-table-cells lesson-type"><%= lesson.length %></td>             -->
+            <!-- td class="lessons-table-cells lesson-type"><%= link_to number_to_currency(lesson.wages), edit_wages_path(lesson)%></td> -->
+            <!-- td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.bonus_rate) %></td> -->
+            <!-- td class="lessons-table-cells lesson-type"><%= number_to_currency(lesson.bonus_wages) %></td> -->
 <!-- customer info -->
             <td class="lessons-table-cells lesson-date"><%= lesson.requester ? lesson.requester.email : lesson.guest_email %></td>
             <td class="lessons-table-cells"><%= lesson.state %></td>

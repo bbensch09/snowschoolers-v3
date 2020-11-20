@@ -542,11 +542,7 @@ class Lesson < ActiveRecord::Base
       else
       rate = self.bonus_rate
     end
-    if self.product
       amount = self.product.length.to_i * rate
-    else
-      amount = 0
-    end
     return amount
   end
 
@@ -593,16 +589,28 @@ class Lesson < ActiveRecord::Base
   end
 
   def this_season?
-    self.lesson_time.date.to_s >= '2019-12-01'
+    self.lesson_time.date.to_s >= '2020-11-01'
   end
 
   def last_season?
+    self.lesson_time.date.to_s <= '2020-04-30' && self.lesson_time.date.to_s >= '2019-12-01'
+  end
+
+  def winter_2019?
     self.lesson_time.date.to_s <= '2019-04-30' && self.lesson_time.date.to_s >= '2018-12-01'
   end
 
-  def first_season?
-    self.lesson_time.date.to_s <= '2018-04-30'
+  def winter_2018?
+    self.lesson_time.date.to_s <= '2018-04-30' && self.lesson_time.date.to_s >= '2017-12-01'
   end
+
+  def winter_2017?
+    self.lesson_time.date.to_s <= '2017-04-30' && self.lesson_time.date.to_s >= '2016-12-01'
+  end
+
+  # def first_season?
+  #   self.lesson_time.date.to_s <= '2018-04-30'
+  # end
 
   def self.completed_lessons
     lessons = Lesson.all.select{|lesson| lesson.this_season? && lesson.completed? }
@@ -1081,13 +1089,17 @@ class Lesson < ActiveRecord::Base
     puts "!!!! running Lesson.price method to determine current price."
     # begin work to reduce price/product calls which are causing application errors
     # return self.lesson_price if self.lesson_price != nil
-    product = self.product
-    if product.nil?
+    # product = self.product
+    if self.product_id.nil?
+      set_product_from_lesson_params
       return 0
       # returning integer rather than string formula to ensure price can always be summed
       # return "Please confirm date & time to see price."
+    elsif Product.find(product_id).nil?
+      set_product_from_lesson_params
+      return 0
     else
-    price = product.price.to_f + self.package_cost
+      price = Product.find(product_id).price.to_f + self.package_cost
     end
     if self.class_type == 'group'
       price = product.price * [1,self.students.count].max
