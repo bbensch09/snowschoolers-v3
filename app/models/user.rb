@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   after_create :send_admin_notification
 
   def self.to_csv(options = {})
-    desired_columns = %w{id email name user_type resort_affiliation created_at}
+    desired_columns = %w{id email confirmed_at name user_type resort_affiliation created_at}
     CSV.generate(headers: true) do |csv|
       csv << desired_columns
       all.each do |user|
