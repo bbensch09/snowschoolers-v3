@@ -38,6 +38,18 @@
         <%= f.hidden_field :date, value: params[:date] %>
         <%= f.hidden_field :slot, value: params[:slot] %>
         <% end %>
+        <h4>
+          <b>Do we have permission to email you?</b>
+        </h4>
+        <div class="col-md-12 term-checkbox">
+            <span class="remember-box checkbox ">
+              <label for="rememberme" class="lesson-label">
+                  <%= f.check_box :user_type, id: "rememberme", required: true, class: "email-permission"  %>
+                  Yes, I agree to the <span><a href="/terms_of_service" target="_blank">Terms and Conditions</a>.</span>
+              </label>
+            </span>
+        </div>
+
         <h4><b>Do you love to the mountains?</h4>
           <div class="col-md-12">
             <%= recaptcha_tags %>
