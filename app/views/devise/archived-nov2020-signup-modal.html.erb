@@ -1,0 +1,19 @@
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <%= devise_error_messages! %>
+            <div class="field center">
+              <%= f.email_field :email, placeholder: "Email", autofocus: true, class: "form-control", type: 'email', required:true, label: false %>
+            </div>
+            <div class="field center">
+              <% if @minimum_password_length %>
+              <em>(<%= @minimum_password_length %> characters minimum)</em>
+              <% end %>
+              <%= f.password_field :password, placeholder: "password", autocomplete: "off", class: "form-control", type: 'password', required:true, label: false %>
+            </div>
+            <div class="field center">
+              <%= f.password_field :password_confirmation,  placeholder: "confirm password", autocomplete: "off", class: "form-control", type: 'password', required:true, label: false %>
+            </div>
+            <br>
+            <div class="actions center">
+              <%= f.submit "Register", class: "btn btn-success"%>
+            </div>
+          <% end %>
