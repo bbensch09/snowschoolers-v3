@@ -5,44 +5,48 @@
       <h3>Get <strong>Started</strong> </h3>
     </header>
 
-      <div class="row">
+    <div class="row">
 
-        <!-- REGISTER -->
-        <div class="col-md-6">
+      <!-- REGISTER -->
+      <div class="col-md-6">
 
-          <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-            <%= devise_error_messages! %>
+        <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+        <%= devise_error_messages! %>
 
-            <div class="row">
-              <div class="left form-group">
-                <div class="col-md-12">
-                  <%= f.label :email %><br />
-                  <%= f.email_field :email, :autofocus => true, class: "form-control", type: 'email', required:true, label: false %>
-                </div>
-              </div>
+        <div class="row">
+          <div class="left form-group">
+            <div class="col-md-12">
+              <%= f.label :email %><br />
+              <%= f.email_field :email, :autofocus => true, class: "form-control", type: 'email', required:true, label: false %>
             </div>
-            <div class="row">
-              <div class="form-group">
-                <div class="col-md-6">
-                  <%= f.label :password %><br />
-                  <%= f.password_field :password, class: "form-control", type: 'password', required:true, label: false %>
-                </div>
-                <div class="col-md-6">
-                  <%= f.label :password_confirmation %><br />
-                  <%= f.password_field :password_confirmation, class: "form-control", type: 'password', required:true, label: false %>
-                  <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
-                </div>
-              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <div class="col-md-6">
+              <%= f.label :password %><br />
+              <%= f.password_field :password, class: "form-control", type: 'password', required:true, label: false %>
             </div>
-            <% if params[:date] && params[:slot] %>
-              <%= f.hidden_field :date, value: params[:date] %>
-              <%= f.hidden_field :slot, value: params[:slot] %>
-            <% end %>
-            <div class="row">
-              <div class="col-md-12">
-                <%= f.submit "Sign up", class: "btn btn-primary pull-right push-bottom" %>
-              </div>
+            <div class="col-md-6">
+              <%= f.label :password_confirmation %><br />
+              <%= f.password_field :password_confirmation, class: "form-control", type: 'password', required:true, label: false %>
+              <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
             </div>
+          </div>
+        </div>
+        <% if params[:date] && params[:slot] %>
+        <%= f.hidden_field :date, value: params[:date] %>
+        <%= f.hidden_field :slot, value: params[:slot] %>
+        <% end %>
+        <h4><b>Do you love to the mountains?</h4>
+          <div class="col-md-12">
+            <%= recaptcha_tags %>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <%= f.submit "Sign up", class: "btn btn-primary pull-right push-bottom" %>
+            </div>
+          </div>
           <% end %>
 
           <div class="facebook-box">
@@ -56,8 +60,8 @@
               <div class="col-md-3"></div>
               <div class="col-md-6">
                 <%- resource_class.omniauth_providers.each do |provider| %>
-                  <%= link_to "Login or Register", omniauth_authorize_path(resource_name, provider), class: "#{provider.to_s}-login form-control" %><br />
-                  <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
+                <%= link_to "Login or Register", omniauth_authorize_path(resource_name, provider), class: "#{provider.to_s}-login form-control" %><br />
+                <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
                 <% end -%>
               </div>
               <div class="col-md-3"></div>
@@ -88,40 +92,40 @@
       </div>
 
 
-    <hr />
+      <hr />
 
-    <!-- CALLOUT -->
-    <div class="alert alert-default fade in">
+      <!-- CALLOUT -->
+      <div class="alert alert-default fade in">
 
-      <div class="row">
+        <div class="row">
 
-        <div class="col-md-9 col-sm-8"><!-- left text -->
-          <h4 class="nomargin">Contact <strong>Customer Support</strong></h4>
-          <p class="nomargin">
-            If you're looking for more help or have a question to ask, please contact us.
-          </p>
-        </div><!-- /left text -->
+          <div class="col-md-9 col-sm-8"><!-- left text -->
+            <h4 class="nomargin">Contact <strong>Customer Support</strong></h4>
+            <p class="nomargin">
+              If you're looking for more help or have a question to ask, please contact us.
+            </p>
+          </div><!-- /left text -->
 
 
-        <div class="col-md-3 col-sm-4 text-right"><!-- right btn -->
-          <a href="mailto:hello@snowschoolers.com" target="_blank" class="btn btn-primary btn-lg">CONTACT</a>
-        </div><!-- /right btn -->
+          <div class="col-md-3 col-sm-4 text-right"><!-- right btn -->
+            <a href="mailto:hello@snowschoolers.com" target="_blank" class="btn btn-primary btn-lg">CONTACT</a>
+          </div><!-- /right btn -->
+
+        </div>
 
       </div>
+      <!-- /CALLOUT -->
+
 
     </div>
-    <!-- /CALLOUT -->
-
-
   </div>
-</div>
 
 
-<!-- SLIDER -->
-<!-- <img id="cycle-loader" src="https://s3.amazonaws.com/snowschoolers/images/spinner.gif" alt="loader" /> -->
+  <!-- SLIDER -->
+  <!-- <img id="cycle-loader" src="https://s3.amazonaws.com/snowschoolers/images/spinner.gif" alt="loader" /> -->
 
-<div id="lesson-flow-background">
-      <img src="https://s3.amazonaws.com/snowschoolers/images/demo/slider/chamonix-skiing.jpg" alt="" />
-</div>
+  <div id="lesson-flow-background">
+    <img src="https://s3.amazonaws.com/snowschoolers/images/demo/slider/chamonix-skiing.jpg" alt="" />
+  </div>
 
 <!-- /SLIDER
