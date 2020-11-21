@@ -12,7 +12,7 @@
 
       <section id="prices_simple" class="pricing-new-lesson">
           <div class="pricing-container">
-                <% if (Product.where(location_id:8,length:1.00,product_type:'private_lesson').first == nil || Product.where(location_id:24,length:1.00,product_type:'private_lesson').first == nil) %>
+                <% if (Product.where(location_id:25,product_type:'sledding_ticket').first == nil || Product.where(location_id:25,product_type:'sledding_ticket').first == nil) %>
                 <h3 class='text-danger center'> Pricing Not Yet Available </h3>
                 <% else %>
               <table class="col-lg-12 col-xs-12 pricing-table">
@@ -31,30 +31,31 @@
                   <tr class="price-schools">
                     <th class="col-xs-2 text-warning">Time Slot</th>
                     <!-- <th class="col-xs-2 text-warning center">*January Sale Pricing Until Jan 24th* </th> -->
-                    <th class="pricing-snowschoolers col-xs-2">Price</th>
+                    <th class="pricing-snowschoolers col-xs-2">Standard Price</th>
+                    <th class="pricing-snowschoolers col-xs-2">Holiday Price</th>
                   </tr>
                 </thead>
 
                 <tbody>
                   <tr>
                       <td class="grey-side-borders pricing-length pricing-grey-background">Early-bird (9-1030am)</td>
-                      <td class="grey-side-borders pricing-snowschoolers pricing-grey-background"><%= number_to_currency(CHILD_HW_TICKET_PRICE) %></td>
-                      <td class="hidden-unless-desktop pricing-competitors pricing-grey-background strikethrough">$20</td>
+                      <td class="grey-side-borders pricing-snowschoolers pricing-grey-background"><%= number_to_currency(SLEDDING_REGULAR, precision:0) %></td>
+                      <td class="grey-side-borders pricing-snowschoolers pricing-grey-background">$20</td>
                   </tr>
                   <tr>
                       <td class="grey-side-borders pricing-length pricing-grey-background">Morning (11am-1230pm)</td>
-                      <td class="grey-side-borders pricing-snowschoolers pricing-grey-background"><%= number_to_currency(TEEN_HW_TICKET_PRICE) %></td>
-                      <td class="hidden-unless-desktop pricing-competitors pricing-grey-background strikethrough">$20</td>
+                      <td class="grey-side-borders pricing-snowschoolers pricing-grey-background"><%= number_to_currency(SLEDDING_REGULAR, precision:0) %></td>
+                      <td class="grey-side-borders pricing-snowschoolers pricing-grey-background">$25</td>
                   </tr>
                   <tr>
                       <td class="grey-side-borders pricing-length pricing-grey-background">Midday (1-230pm)</td>
-                      <td class="grey-side-borders pricing-snowschoolers pricing-grey-background"><%= number_to_currency(ADULT_HW_TICKET_PRICE) %></td>
-                      <td class="hidden-unless-desktop pricing-competitors pricing-grey-background strikethrough">$20</td>
+                      <td class="grey-side-borders pricing-snowschoolers pricing-grey-background"><%= number_to_currency(SLEDDING_REGULAR, precision:0) %></td>
+                      <td class="grey-side-borders pricing-snowschoolers pricing-grey-background">$25</td>
                   </tr>
                   <tr>
                       <td class="grey-side-borders pricing-length pricing-grey-background">Closing(3-430pm)</td>
-                      <td class="grey-side-borders pricing-snowschoolers pricing-grey-background"><%= number_to_currency(ADULT_HW_TICKET_PRICE) %></td>
-                      <td class="hidden-unless-desktop pricing-competitors pricing-grey-background strikethrough">$15</td>
+                      <td class="grey-side-borders pricing-snowschoolers pricing-grey-background"><%= number_to_currency(SLEDDING_REGULAR, precision:0) %></td>
+                      <td class="grey-side-borders pricing-snowschoolers pricing-grey-background">$25</td>
                   </tr>
                 </tbody>
                 <% end %>
@@ -89,29 +90,36 @@
       <%= f.semantic_errors :instructor %>
     </h1>
     <div class="block inputs form-inputs">
-      <div class="col-md-2">
-        <%= f.input :activity, as: :select, collection: ['Early-bird (9-1030am)', 'Morning (11am-1230pm)','Midday (1-230pm)','Closing(3-430pm)'], include_blank: 'Ticket Type', label: false %>
-      </div>
+        <!-- %= f.input :activity, as: :select, collection: ['Early-bird (9-1030am)', 'Morning (11am-1230pm)','Midday (1-230pm)','Closing(3-430pm)'], include_blank: 'Ticket Type', label: false %> -->
 
-      <div class="col-md-3">
-          <%= f.input :requested_location , as: :string, placeholder: "Kingvale", label: false %>
-      </div>
-      <div class="col-md-3 time-slot-input">
-        <%= f.input :num_days, as: :select, collection: [1,2,3,4,5,6,7,8,9,10], selected: 1, include_blank: 'Number of Tickets', label: false %>
-      </div>
-      <div class="col-md-2 guest-email-input">
-        <%= f.email_field :guest_email, placeholder: "your_email@example.com", class: "form-control", type: 'email', required:true, label: false %>
+        <%= f.input :requested_location , as: :hidden, collection: Location.active_partners.sort_by { |location| location.name.downcase} , selected: 25, include_blank: 'Location', label: false %>
+
+            <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
+              <div class="col-md-3">
+                <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker', value:@date, class:'date-input center', required:true, autocomplete:"off" }, placeholder: 'Date', label: false %>
+                <!-- <span class="search-area-icon"></span> -->
+              </div>
+              <div class="col-md-6"> <!-- offset-md-3 -->
+                <%= lt_f.input :slot, as: :select, collection: ['Early-bird (9-10:30am)', 'Morning (11am-12:30pm)','Midday (1-2:30pm)','Closing(3-4:30pm)'], include_blank: 'Time Slot', label: false, required:true %>
+              </div>
+            <% end %>
+
+<!--       <div class="col-md-3 time-slot-input">
+        %= f.input :num_days, as: :select, collection: [1,2,3,4,5,6,7,8,9,10], selected: 1, include_blank: 'Number of Tickets', label: false %>
+      </div> -->
+      <div class="col-md-3 guest-email-input">
+        <%= f.email_field :guest_email, placeholder: "your_email@example.com", class: "form-control", type: 'email', required:false, label: false %>
       </div>
     </p>
   </div>
 
   <%= f.input :state, as: :hidden, input_html: { value: 'new' } %>
-  <%= f.input :class_type, as: :hidden, input_html: { value: 'tickets' } %>
+  <%= f.input :class_type, as: :hidden, input_html: { value: 'sledding' } %>
   <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
   <div id="get-started-form-button" class="row clear-both">
     <h1 class="new-lesson-ctas-list center">
       <!-- %= f.action :submit, as: :input, button_html: { class: 'btn btn-default btn-lg', value: 'Book Lesson' } %> -->
-      <%= f.action :submit, :label => "BUY NOW", as: :input, button_html: { class: 'btn btn-lg btn-primary' } %>
+      <%= f.action :submit, :label => "RESERVE NOW", as: :input, button_html: { class: 'btn btn-lg btn-primary' } %>
       <% if @instructor_requested.nil? %>
       <!-- <li>  OR </li> -->
       <!-- <li> <button id='browser-instructors-cta' href="/browse" value="Browse Instructors" class="btn btn-default btn-lg">Browse instructors</button></li> -->

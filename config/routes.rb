@@ -135,7 +135,7 @@ Rails.application.routes.draw do
   get '/liftopia' => 'welcome#liftopia_referral'
   get '/homewood-season-pass' => 'welcome#homewood_pass_referral'
   get '/shop/:id' => 'welcome#comparison_shopping_referral'
-  get '/tickets' => 'lessons#tickets'
+  get '/kingvale/sledding' => 'lessons#tickets'
 
   # Begin resort referrals
   get '/kirkwood' => 'welcome#kirkwood_referral'
@@ -256,6 +256,7 @@ Rails.application.routes.draw do
   put   'lessons/:id/mark_lesson_complete'   => 'lessons#mark_lesson_complete',   as: :mark_lesson_complete
   patch 'lessons/:id/confirm_lesson_time' => 'lessons#confirm_lesson_time', as: :confirm_lesson_time
   get   'lessons/:id/complete'            => 'lessons#complete',            as: :complete_lesson
+  get   'sledding/:id/complete'            => 'lessons#complete_sledding_ticket',            as: :complete_sledding_ticket
   get   'lessons/:id/send_reminder_sms_to_instructor' => 'lessons#send_reminder_sms_to_instructor',  as: :send_reminder_sms_to_instructor
   get   'lessons/:id/send_day_before_reminder_email' => 'lessons#send_day_before_reminder_email',  as: :send_day_before_reminder_email
   get   'lessons/:id/send_review_reminders_to_student' => 'lessons#send_review_reminders_to_student',  as: :send_review_reminders_to_student
@@ -266,6 +267,7 @@ Rails.application.routes.draw do
   get '/lessons/:id/add_private_request' => 'lessons#add_private_request', as: :add_private_request
   get '/lessons/:id/remove_private_request' => 'lessons#remove_private_request', as: :remove_private_request
   put  'lessons/:id/duplicate'   => 'lessons#duplicate',   as: :duplicate
+  get 'release_of_liability/:id' => 'welcome#release_of_liability', as: :release_of_liability
 
 
 

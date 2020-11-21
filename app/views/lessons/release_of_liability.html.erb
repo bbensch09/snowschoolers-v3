@@ -1,0 +1,44 @@
+<div class="container liability-text">
+<h1>
+	SNOW SCHOOLERS INC. SLEDDING & SKI HILL 2020/21 SEASON
+</h1>
+<% if @lesson.paid? %> 
+	<% waiver_status = "E-SIGNED ON " + @lesson.updated_at.strftime("%b %-d %y at %I:%M %p") %>
+	<% else %>
+	<% waiver_status = "HAS NOT YET BEEN E-SIGNED" %>
+<% end %>
+<h4>
+THIS DOCUMENT HAS BEEN DIGITALLY GENERATED AND <span class="green-text"><%= waiver_status %></span>.
+</h4>
+<hr>
+<p>
+	PLEASE READ CAREFULLY BEFORE SIGNING. THIS IS A RELEASE OF LIABILITY AND WAIVER OF CERTAIN LEGAL RIGHTS.
+</p>
+
+<p>
+Full Name: <span class="release-of-liability-input"> <%= @lesson.requester_name %> </span>
+<br>Address: <span class="release-of-liability-input"> <%= @lesson.street_address %> </span>					  
+<br><span class="release-of-liability-input"> <%= @lesson.city %>, <%= @lesson.state_code %> <%= @lesson.zip_code %> </span>
+<br>Driver’s License #: <span class="release-of-liability-input"> <%= @lesson.drivers_license %> </span>	
+<br>Phone: <span class="release-of-liability-input"> <%= @lesson.phone_number %> </span>
+
+</p>
+
+ <%= render partial: 'lessons/release_of_liability_text' %>
+
+
+Participant Names and Ages:   	
+<ul>
+	<% @lesson.students.each do |student| %>
+	<li><span class="release-of-liability-input"> <%=student.name %>, age <%=student.age_range %></span></li>
+	<% end %>
+</ul>
+<p>
+User’s Signature: <span class="signature"> <%= @lesson.requester_name %> </span>
+<br>Date: <span class="release-of-liability-input"> <%= @lesson.updated_at.strftime("%b %-d, %Y") %></span>
+<br>
+
+</p>
+<div class="buffer"></div>
+<div class="buffer"></div>
+</div>

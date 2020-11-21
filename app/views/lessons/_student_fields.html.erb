@@ -1,3 +1,55 @@
+<% if @lesson.class_type == "sledding" %>
+
+<div class='nested-fields student-box'>
+  <%= f.inputs do %>
+    <div class='row'>
+      <div class='col-md-6'>
+        <label>Participant Name</label>
+        <span class='remove-student'>(<%= link_to_remove_association "Remove Student", f, class: 'remove-student' %>)</span>
+        <%= f.text_field :name, placeholder: "Full name of student", class: "form-control sledder-name", label: false, required:true %>
+      </div>
+      <div class='col-md-3'>
+        <label>Age</label>
+        <%= f.text_field :age_range, as: :number, class: "form-control sledder-age age-range-inputs", label: false, required:true %>
+        <!-- %= f.text_field :age, class: "form-control", label: false, required:true %> -->
+      </div>
+      <div class='col-md-3'>
+        <label>Gender</label>
+        <%= f.select :gender, ['Male', 'Female'], {}, {class: 'gender form-control', required:true, include_blank: 'Gender'} %>
+      </div>
+    </div>
+    <div class='row'>
+          <% if current_user %>
+          <%= f.input :requester_id, as: :hidden, input_html: { value: current_user.id } %>
+          <% end %>
+    </div>
+
+
+      <div class='col-md-12'>
+        <label class="lesson-label">About the student</label>
+        <%= f.input :relationship_to_requester, as: :select, collection: ['I am the student.', 'Student is a friend.', 'Student is my significant other.','Student is my child.'], selected: 'I am the student.', include_blank: 'How is this student related to you?', :input_html => { :class => 'relationship-student'}, label: false %>
+      </div>
+      <div class='col-md-12'>
+            <label>Ability level </label>
+            <%= f.select :most_recent_level,
+              ["Level 1 - first-time ever, no previous experience.",
+              "Level 2 - can safely stop on beginner green circle terrain.",
+              "Level 3 - can makes wedge turns (heel-side turns for snowboarding) in both directions on beginner terrain.",
+              "Level 4 - can link turns with moderate speed on all beginner terrain.",
+              "Level 5 - can make mostly parallel turns (S-turns for snowboarding) and safely navigate intermediate runs.",
+              "Level 6 - can confidently link parallel turns across all intermediate terrain.",
+              "Level 7 - can control speed, rhythm, and shape of turns across variety of intermediate and advanced terrain.",
+              "Level 8 - can ski moguls and off-piste terrain in all snow conditions.",
+              "Level 9 - can confidently and safely ski expert-only (double-black diamond) terrain."], {}, {class: 'form-control ability-level', required:true,
+               include_blank: "Approximately what level of ability is the student?", label: false} %>              
+      </div>
+
+    
+  <% end %>
+</div>
+
+<% else %>
+
 <div class='nested-fields student-box'>
   <%= f.inputs do %>
     <div class='row'>
@@ -44,7 +96,7 @@
 <% else %>      
     <div class="student-rental-information">
       <h4>Rental Equipment <strong>Info</strong></h4>
-      <% if @lesson.location.id == 25 %>
+      <% if @lesson.location.id == 25 && @lesson.class_type !="sledding" %>
           <h4 class="text-warning left">Currently all rental equipment at our Kingvale location is provided in partnership with <a href="" class="navy-text" target="_blank">Ski Butlers</a>. As such, by selecting the option to include rental equipment in your reservation, you authorize us to share your information with Ski Butlers directly. Your lesson payment with this reservation will cover a one-day rental of the "basic package" from Ski Butlers. Shortly after booking they will contact you to confirm your information and whether you wish to have your equipment delivered to your cabin the day before your lesson, or at the mountain the day of. Likewise at that point if you wish to upgrade to a performance package or add additional days, you may do so at that time.</h4>
       <% end %>
       <div class='col-md-3'>
@@ -89,3 +141,5 @@
     </div>
   <% end %>
 </div>
+
+<% end %>

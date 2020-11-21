@@ -13,7 +13,64 @@
             <h1 class="center">Authorize Payment</h1>
 
             <div id="booking-details-container" class="booking-details">
-              <% if @lesson.class_type == "tickets" %>
+              <% if @lesson.class_type == "sledding" %>
+
+                  <div class="row full-width">
+                    <div class="col-xs-4 col-md-3">
+                      <b>Date:</b>
+                    </div>
+                    <div class="col-xs-8 col-md-9">
+                        <span class="left">
+                          <%= @lesson.lesson_time.date.strftime("%b %d, %Y") %>
+                        </span>
+                    </div>
+                  </div>
+                  <div class="row full-width">
+                    <div class="col-xs-4 col-md-3">
+                      <b>Price:</b>
+                    </div>
+                    <div class="col-xs-8 col-md-9">
+                      <span class="left">
+                      <% amount = (@lesson.price.to_f*100).to_i %>
+                      <% if @lesson.lesson_price.nil? || @lesson.price == @lesson.lesson_price %>
+              
+                          <% if @lesson.promo_code %>
+                            <br><span class="strikethrough">Original: $25.00</span>
+                            <br>Promo: <%= @lesson.promo_code.promo_code %>
+                            <br>Final price: <%= number_to_currency(@lesson.price) %>
+                          <%else%>
+                            <%= number_to_currency(@lesson.price) %>    
+                            <% if @lesson.product.calendar_period == 'Holiday' || @lesson.product.calendar_period == 'Peak' %>
+                              (holiday pricing)
+                            <% end %>
+
+                          <% end %>
+                        <% else %>
+                        <!-- show custom prices for admin setup lessons -->
+                          <% amount =(@lesson.lesson_price.to_f*100).to_i %>
+                          <p><%= number_to_currency(@lesson.lesson_price.to_s) %></p>
+                      <% end %>
+                      </span>                  
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <ul class="student-list-confirm-reservation">
+                        <% @lesson.students.each do |student| %>
+                          <li><%= student.name %>, age <%= student.age_range %></li>
+                        <% end %>
+                      </ul>
+                      <% if @lesson.participants_2_and_under > 0 %>
+                          <h4 class="text-danger" id="age-warning">Note: Kids age 2 and under are FREE.</h4>
+                      <% end %>
+                    </div>
+                  </div>
+
+                  <p class="warning">
+                    <b> Note - </b> In order to purchase sledding tickets for multiple sessions for the main sled area, you will unfortunately have to process multiple orders.
+                  </p>
+
+              <% elsif @lesson.class_type == "tickets" %>
 
                   <div class='colm-md-12 col-xs-12'>
                       <ul>

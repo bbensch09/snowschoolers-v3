@@ -1,9 +1,9 @@
 class LessonsController < ApplicationController
   respond_to :html
-  skip_before_action :authenticate_user!, only: [:new, :tickets, :granlibakken,:kingvale, :homewood, :new_request, :create, :complete, :confirm_reservation, :update, :edit, :skier_types, :show, :rental_agreement]
+  skip_before_action :authenticate_user!, only: [:new, :tickets, :granlibakken,:kingvale, :homewood, :new_request, :create, :complete, :complete_sledding_ticket, :confirm_reservation, :update, :edit, :skier_types, :show, :rental_agreement]
   # low friction hackey solution -- don't require authentication for most customer-facing pages; removed temporarily May 2019
   # skip_before_action :authenticate_user!, only: [:new, :tickets, :granlibakken, :new_request, :create, :complete, :confirm_reservation, :update, :show, :edit, :rental_agreement, :skier_types]
-  before_action :set_lesson, only: [:show, :duplicate, :complete, :update, :edit, :edit_wages, :add_private_request, :remove_private_request, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_instructor, :admin_confirm_deposit, :admin_confirm_airbnb, :admin_confirm_booked_with_modification, :admin_assign_instructor, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications, :send_review_reminders_to_student, :rental_agreement]
+  before_action :set_lesson, only: [:show, :duplicate, :complete, :complete_sledding_ticket, :update, :edit, :edit_wages, :add_private_request, :remove_private_request, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_instructor, :admin_confirm_deposit, :admin_confirm_airbnb, :admin_confirm_booked_with_modification, :admin_assign_instructor, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications, :send_review_reminders_to_student, :rental_agreement]
   before_action :skip_product_id, except: [:create, :update]
   before_action :save_lesson_params_and_redirect, only: [:create]
   before_action :set_admin_skip_validations
@@ -12,6 +12,7 @@ class LessonsController < ApplicationController
 
   def tickets
     @lesson = Lesson.new
+    @promo_location = 25
   end
 
   def rental_agreement
@@ -385,6 +386,16 @@ class LessonsController < ApplicationController
     if params["commit"] == "Book Lesson" || params["commit"] == "GET STARTED"
       puts "!!!! lesson successfully intiated"
       create_lesson_and_redirect
+    elsif params["commit"] == "RESERVE NOW"
+      puts "!!!!sledding ticket purchase begun"
+      @lesson = Lesson.new(lesson_params)
+      @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
+      @lesson.requested_location = 25
+      @lesson.skip_validations = true
+      @lesson.save!
+      redirect_to complete_sledding_ticket_path(@lesson)
+      # redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
+
     elsif params["commit"] == "BUY NOW"
       puts "!!!!lift ticket purchase begun"
       @lesson = Lesson.new(lesson_params)
@@ -414,6 +425,21 @@ class LessonsController < ApplicationController
       value: @lesson.id + 30,
       expires: 1.year.from_now
     }
+  end
+
+  def complete_sledding_ticket
+    @lesson_time = @lesson.lesson_time
+    @product_name = @lesson.product_name
+    @slot = @lesson.slot
+    @promo_code = PromoCode.new
+    GoogleAnalyticsApi.new.event('sledding-tickets', 'load-full-form')
+    flash.now[:notice] = "You're almost there! We just need a few more details."
+    flash[:complete_form] = 'TRUE'
+    cookies[:lesson] = {
+      value: @lesson.id + 30,
+      expires: 1.year.from_now
+    }
+    render 'full_sledding_form'
   end
 
   def edit
@@ -472,7 +498,10 @@ class LessonsController < ApplicationController
       if @lesson.promo_code
         LessonMailer.send_promo_redemption_notification(@lesson).deliver!
       end
-      if @lesson.class_type == 'tickets'
+      if @lesson.class_type == 'sledding'
+        LessonMailer.send_lesson_request_notification(@lesson).deliver!
+        flash[:notice] = 'Thank you, your tickets have been purchased successfully! If you have any questions, please email hello@snowschoolers.com.'        
+      elsif @lesson.class_type == 'tickets'
         LessonMailer.send_lesson_request_notification(@lesson).deliver!
         flash[:notice] = 'Thank you, your tickets have been purchased successfully! If you have any questions, please email hello@snowschoolers.com.'        
       elsif @lesson.group_lesson?
@@ -589,7 +618,11 @@ class LessonsController < ApplicationController
       @lesson.save!
     end
 
-    if @lesson.save
+    if @lesson.class_type == "sledding"
+      @lesson.skip_validations = true
+      @lesson.save!
+      redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
+      elsif @lesson.save
       @lesson.set_product_from_lesson_params
       GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-updated', params[:ga_client_id])
       @user_email = current_user ? current_user.email : "unknown"
