@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   validates :password, length: { in: 5..128 }, on: :update, allow_blank: true
 
   has_many :lessons, foreign_key: 'requester_id'
+  has_many :tickets, foreign_key: 'requester_id'
   has_many :reviews
   has_many :transactions
   has_many :students, class_name: 'Student', foreign_key: 'requester_id'

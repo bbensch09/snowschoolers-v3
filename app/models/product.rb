@@ -3,6 +3,7 @@ class Product < ActiveRecord::Base
   belongs_to :location
   has_many :product_calendars
   has_many :lessons
+  has_many :tickets
 
   def current_price
     matched_prices = ProductCalendar.where(product_id:self.id,date:Date.today)

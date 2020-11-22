@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_31_124706) do
+ActiveRecord::Schema.define(version: 2020_11_22_191453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -485,6 +485,47 @@ ActiveRecord::Schema.define(version: 2019_12_31_124706) do
     t.string "skier_type"
     t.string "board_direction"
     t.boolean "poles_requested"
+    t.integer "ticket_id"
+  end
+
+  create_table "tickets", force: :cascade do |t|
+    t.integer "requester_id"
+    t.string "deposit_status"
+    t.integer "lesson_time_id"
+    t.string "activity"
+    t.string "requester_name"
+    t.string "requested_location"
+    t.string "phone_number"
+    t.string "state"
+    t.string "actual_start_time"
+    t.boolean "terms_accepted"
+    t.string "guest_email"
+    t.string "how_did_you_hear"
+    t.integer "num_days"
+    t.decimal "booking_order_value"
+    t.boolean "is_gift_voucher"
+    t.string "gift_recipient_email"
+    t.string "gift_recipient_name"
+    t.integer "product_id"
+    t.decimal "admin_price_adjustment"
+    t.integer "promo_code_id"
+    t.string "planned_start_time"
+    t.string "payment_status"
+    t.string "payment_method"
+    t.string "payment_date"
+    t.text "additional_info"
+    t.string "ticket_type"
+    t.string "street_address"
+    t.string "city"
+    t.string "state_code"
+    t.string "zip_code"
+    t.string "drivers_license"
+    t.boolean "skip_validations"
+    t.string "administrator_notes"
+    t.boolean "multi_product_order"
+    t.boolean "refund_issued"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "transactions", id: :serial, force: :cascade do |t|

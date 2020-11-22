@@ -1,55 +1,3 @@
-<% if @lesson.class_type == "sledding" %>
-
-<div class='nested-fields student-box'>
-  <%= f.inputs do %>
-    <div class='row'>
-      <div class='col-md-6'>
-        <label>Participant Name</label>
-        <span class='remove-student'>(<%= link_to_remove_association "Remove Student", f, class: 'remove-student' %>)</span>
-        <%= f.text_field :name, placeholder: "Full name of student", class: "form-control sledder-name", label: false, required:true %>
-      </div>
-      <div class='col-md-3'>
-        <label>Age</label>
-        <%= f.text_field :age_range, as: :number, class: "form-control sledder-age age-range-inputs", label: false, required:true %>
-        <!-- %= f.text_field :age, class: "form-control", label: false, required:true %> -->
-      </div>
-      <div class='col-md-3'>
-        <label>Gender</label>
-        <%= f.select :gender, ['Male', 'Female'], {}, {class: 'gender form-control', required:true, include_blank: 'Gender'} %>
-      </div>
-    </div>
-    <div class='row'>
-          <% if current_user %>
-          <%= f.input :requester_id, as: :hidden, input_html: { value: current_user.id } %>
-          <% end %>
-    </div>
-
-
-      <div class='col-md-12'>
-        <label class="lesson-label">About the student</label>
-        <%= f.input :relationship_to_requester, as: :select, collection: ['I am the student.', 'Student is a friend.', 'Student is my significant other.','Student is my child.'], selected: 'I am the student.', include_blank: 'How is this student related to you?', :input_html => { :class => 'relationship-student'}, label: false %>
-      </div>
-      <div class='col-md-12'>
-            <label>Ability level </label>
-            <%= f.select :most_recent_level,
-              ["Level 1 - first-time ever, no previous experience.",
-              "Level 2 - can safely stop on beginner green circle terrain.",
-              "Level 3 - can makes wedge turns (heel-side turns for snowboarding) in both directions on beginner terrain.",
-              "Level 4 - can link turns with moderate speed on all beginner terrain.",
-              "Level 5 - can make mostly parallel turns (S-turns for snowboarding) and safely navigate intermediate runs.",
-              "Level 6 - can confidently link parallel turns across all intermediate terrain.",
-              "Level 7 - can control speed, rhythm, and shape of turns across variety of intermediate and advanced terrain.",
-              "Level 8 - can ski moguls and off-piste terrain in all snow conditions.",
-              "Level 9 - can confidently and safely ski expert-only (double-black diamond) terrain."], {}, {class: 'form-control ability-level', required:true,
-               include_blank: "Approximately what level of ability is the student?", label: false} %>              
-      </div>
-
-    
-  <% end %>
-</div>
-
-<% else %>
-
 <div class='nested-fields student-box'>
   <%= f.inputs do %>
     <div class='row'>
@@ -141,5 +89,3 @@
     </div>
   <% end %>
 </div>
-
-<% end %>

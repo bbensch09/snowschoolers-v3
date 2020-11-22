@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :tickets
   resources :skills
   resources :report_cards
   resources :resources do
@@ -135,7 +136,20 @@ Rails.application.routes.draw do
   get '/liftopia' => 'welcome#liftopia_referral'
   get '/homewood-season-pass' => 'welcome#homewood_pass_referral'
   get '/shop/:id' => 'welcome#comparison_shopping_referral'
-  get '/kingvale/sledding' => 'lessons#tickets'
+  
+# sledding key routes
+  get 'sledding/calendar' => 'lessons#capacity_last_next_14', as: :capacity_calendar
+  get 'sledding/admin_index' => 'tickets#index', as: :sledding_admin_index
+  get 'sledding/roster-today' => 'tickets#roster_today', as: :sledding_roster_today
+  get 'sledding/roster-today-print' => 'tickets#roster_today_print', as: :sledding_roster_today_print
+  get 'sledding/roster-tomorrow' => 'tickets#roster_tomorrow', as: :sledding_roster_tomorrow
+  get 'sledding/roster-tomorrow-print' => 'tickets#roster_tomorrow_print', as: :sledding_roster_tomorrow_print
+  get 'sledding/admin_index_all' => 'tickets#admin_index_all', as: :sledding_admin_index_all
+  put 'sledding/check-in/:id' => 'tickets#sledding_check_in', as: :sledding_check_in
+  put 'sledding/cancel-check-in/:id' => 'tickets#sledding_check_in_reverse', as: :sledding_check_in_reverse
+  get '/kingvale/sledding2' => 'lessons#tickets'
+  get '/kingvale/sledding' => 'tickets#new'
+  get 'tickets/:id/complete' => 'tickets#complete',  as: :complete_sledding_ticket
 
   # Begin resort referrals
   get '/kirkwood' => 'welcome#kirkwood_referral'
@@ -256,7 +270,6 @@ Rails.application.routes.draw do
   put   'lessons/:id/mark_lesson_complete'   => 'lessons#mark_lesson_complete',   as: :mark_lesson_complete
   patch 'lessons/:id/confirm_lesson_time' => 'lessons#confirm_lesson_time', as: :confirm_lesson_time
   get   'lessons/:id/complete'            => 'lessons#complete',            as: :complete_lesson
-  get   'sledding/:id/complete'            => 'lessons#complete_sledding_ticket',            as: :complete_sledding_ticket
   get   'lessons/:id/send_reminder_sms_to_instructor' => 'lessons#send_reminder_sms_to_instructor',  as: :send_reminder_sms_to_instructor
   get   'lessons/:id/send_day_before_reminder_email' => 'lessons#send_day_before_reminder_email',  as: :send_day_before_reminder_email
   get   'lessons/:id/send_review_reminders_to_student' => 'lessons#send_review_reminders_to_student',  as: :send_review_reminders_to_student

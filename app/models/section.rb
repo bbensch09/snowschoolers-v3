@@ -1,5 +1,6 @@
 class Section < ApplicationRecord
 	has_many :lessons
+	has_many :tickets
 	belongs_to :sport
 	belongs_to :instructor
 	belongs_to :shift

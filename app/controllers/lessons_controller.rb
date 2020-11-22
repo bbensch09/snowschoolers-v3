@@ -386,16 +386,6 @@ class LessonsController < ApplicationController
     if params["commit"] == "Book Lesson" || params["commit"] == "GET STARTED"
       puts "!!!! lesson successfully intiated"
       create_lesson_and_redirect
-    elsif params["commit"] == "RESERVE NOW"
-      puts "!!!!sledding ticket purchase begun"
-      @lesson = Lesson.new(lesson_params)
-      @lesson.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
-      @lesson.requested_location = 25
-      @lesson.skip_validations = true
-      @lesson.save!
-      redirect_to complete_sledding_ticket_path(@lesson)
-      # redirect_to "/lessons/#{@lesson.id}?state=#{@lesson.state}"
-
     elsif params["commit"] == "BUY NOW"
       puts "!!!!lift ticket purchase begun"
       @lesson = Lesson.new(lesson_params)
@@ -425,21 +415,6 @@ class LessonsController < ApplicationController
       value: @lesson.id + 30,
       expires: 1.year.from_now
     }
-  end
-
-  def complete_sledding_ticket
-    @lesson_time = @lesson.lesson_time
-    @product_name = @lesson.product_name
-    @slot = @lesson.slot
-    @promo_code = PromoCode.new
-    GoogleAnalyticsApi.new.event('sledding-tickets', 'load-full-form')
-    flash.now[:notice] = "You're almost there! We just need a few more details."
-    flash[:complete_form] = 'TRUE'
-    cookies[:lesson] = {
-      value: @lesson.id + 30,
-      expires: 1.year.from_now
-    }
-    render 'full_sledding_form'
   end
 
   def edit

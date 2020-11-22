@@ -1,0 +1,96 @@
+<div class="col-md-12">
+  <%= form_tag confirm_reservation_path do %>
+
+  <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
+  <article class="center">
+    <% if flash[:error].present? %>
+    <div id="error_explanation">
+      <p><%= flash[:error] %></p>
+    </div>
+    <% end %>
+  </article>
+
+  <h1 class="center">Authorize Payment</h1>
+
+  <div id="booking-details-container" class="booking-details">
+
+    <div class="row full-width">
+      <div class="col-xs-4 col-md-3">
+        <b>Date:</b>
+      </div>
+      <div class="col-xs-8 col-md-9">
+        <span class="left">
+          <%= @ticket.lesson_time.date.strftime("%b %d, %Y") %>
+        </span>
+      </div>
+    </div>
+    <div class="row full-width">
+      <div class="col-xs-4 col-md-3">
+        <b>Price:</b>
+      </div>
+      <div class="col-xs-8 col-md-9">
+        <span class="left">
+          <% amount = (@ticket.price.to_f*100).to_i %>
+          <% if @ticket.booking_order_value.nil? || @ticket.price == @ticket.booking_order_value %>
+
+              <% if @ticket.promo_code %>
+              <br><span class="strikethrough">Original: $25.00</span>
+              <br>Promo: <%= @ticket.promo_code.promo_code %>
+              <br>Final price: <%= number_to_currency(@ticket.price) %>
+              <%else%>
+              <%= number_to_currency(@ticket.price) %>    
+              <% if @ticket.product.calendar_period == 'Holiday' || @ticket.product.calendar_period == 'Peak' %>
+              (holiday pricing)
+              <% end %>
+
+          <% end %>
+          <% else %>
+            <!-- show custom prices for admin adjusted ticket reservations -->
+            <% amount =(@ticket.booking_order_value.to_f*100).to_i %>
+            <p><%= number_to_currency(@ticket.booking_order_value.to_s) %></p>
+          <% end %>
+        </span>                  
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <ul class="student-list-confirm-reservation">
+          <% @ticket.students.each do |student| %>
+          <li><%= student.name %>, age <%= student.age_range %></li>
+          <% end %>
+        </ul>
+        <% if @ticket.participants_2_and_under > 0 %>
+        <h4 class="text-danger" id="age-warning">Note: Kids age 2 and under are FREE.</h4>
+        <% end %>
+      </div>
+    </div>
+
+    <p class="warning">
+      <b> Note - </b> In order to purchase sledding tickets for multiple sessions for the main sled area, you will unfortunately have to process multiple orders.
+    </p>
+
+    </div>
+
+
+    <div class="col-md-12 center">
+      <label class="amount"></label>
+      <%= link_to 'Edit Reservation', edit_ticket_path(@ticket), class: "center btn btn-sm btn-primary" %>
+      <br>
+      <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+      data-description="Thanks for choosing Snow Schoolers!"
+      data-name="Snow Schoolers, Inc"
+      data-image="http://granlibakken.com/wp-content/uploads/cropped-tin-g-32x32.png"
+      data-amount=<%= amount %>
+      data-locale="auto"
+      data-zip-code="true">
+    </script>
+    <%= render partial: "lessons/cancellation_policy" %>
+  </div>
+
+  <% end %>
+  <div class="col-md-12">
+    <hr class="deposit-hr-navy">
+  </div>
+
+</div>

@@ -33,6 +33,12 @@ class LessonMailer < ActionMailer::Base
       mail(to: 'notify@snowschoolers.com', cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", subject: "Lesson Request complete, ready for deposit - #{@lesson.date.strftime("%b %-d")}.")
   end
 
+  def notify_admin_sledding_full_form_updated(ticket_id)
+      @ticket = Ticket.find(ticket_id)
+      @user_email = @ticket.guest_email ? @ticket.guest_email : @ticket.requester.email
+      mail(to: 'brian@snowschoolers.com', cc: "Sledding Supervisors <#{ENV['SUPERVISOR_EMAIL']}>", subject: "Sledding Reservation stated, ready for payment - #{@ticket.date.strftime("%b %-d")}.")
+  end
+
   def notify_admin_beta_user(beta_user)
       @beta_user = beta_user
       mail(to: 'brian@snowschoolers.com', subject: "New Beta User - #{@beta_user.email}.")
