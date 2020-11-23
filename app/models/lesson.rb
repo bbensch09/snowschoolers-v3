@@ -145,8 +145,6 @@ class Lesson < ActiveRecord::Base
         class_type_code = 'UNKNOWN'
       when 'tickets'
         class_type_code = 'TICKETS'
-      when 'sledding'
-        class_type_code = 'SLED'
       else 'NA'
     end
     id = self.id.to_s
@@ -439,16 +437,6 @@ class Lesson < ActiveRecord::Base
       return product
   end
 
-  def set_sledding_product
-    puts "begin to set sledding product"
-    # check if it is a holiday or not based on date of ticket
-      calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
-      product = Product.where(product_type:"sledding_ticket",calendar_period:calendar_period).first
-      self.product_id=product.id
-      self.save
-      return product
-  end
-
   def product
       puts "!!!!!! begining Lesson.product"
         # HACKY CODE TO REMOVE --  added in effort to reduce latency by storing/retrievingproduct_id
@@ -456,10 +444,7 @@ class Lesson < ActiveRecord::Base
         # if @skip_product_id == 'blue'
         #   return Product.find(self.product_id)
         # end
-      if self.class_type == "sledding"
-        # set_sledding_product
-        return Product.find(4)
-      elsif product_id.nil? || (product_id == 980191086 && @check_999_products != true)
+      if product_id.nil? || (product_id == 980191086 && @check_999_products != true)
       # triggerd stack level too deep error (?)
       # if product_id.nil? or Product.where(id:product_id).count == 0 or product_id == 980191086
         set_product_from_lesson_params
@@ -1361,8 +1346,6 @@ class Lesson < ActiveRecord::Base
         errors.add(:lesson, "You've selected a private lesson at the group time slot. Please select a valid private lesson time to continue.")
         return false
       end
-    elsif self.class_type == "sledding"
-      return true
     else
       return true
     end
@@ -1371,12 +1354,6 @@ class Lesson < ActiveRecord::Base
   def available_sections
     sections = Section.where(sport_id:self.sport_id,date:self.lesson_time.date)
     sections = sections.select{|section| section.has_capacity?}
-  end
-
-  def sledding_ticket_price
-  end
-
-  def total_sledding_price
   end
 
   def participants_2_and_under
@@ -1388,32 +1365,6 @@ class Lesson < ActiveRecord::Base
     end
     return count
   end
-
-  def check_session_capacity
-    if (current_session_capacity + self.students.count) <= SLEDHILL_CAPACITY
-      return current_session_capacity
-    else
-      errors.add(:lesson,"Unfortunately this sledding session is sold out. Please try another time slot. To see which sessions still have capacity, visit tickets.granlibakken.com/sledding/calendar.")
-      return false
-    end
-
-  end
-
-  def current_session_capacity
-    other_bookings_on_same_day = Lesson.where(lesson_time_id:self.lesson_time_id).to_a
-    same_session_bookings = other_bookings_on_same_day.keep_if{|l| l.lesson_time.slot == self.lesson_time.slot && l.paid?}
-    tickets = 0
-    same_session_bookings.each do |booking|
-      tickets+= booking.students.count
-    end
-    puts "!!! There are #{same_session_bookings.count} other bookings already"
-    return tickets
-  end
-
-  def session_capacity_remaining
-    return SLEDHILL_CAPACITY - current_session_capacity
-  end
-
 
   def ticket_price
     return 0 if self.class_type != 'tickets'
@@ -1437,7 +1388,6 @@ class Lesson < ActiveRecord::Base
     puts "!!!! skip adding to section if private lesson !!!!!"
     return true if self.private_lesson?
     return true if self.class_type == "tickets"
-    return true if self.class_type == "sledding"
     return true if self.section_id && self.sport_id == self.section.sport_id && self.date == self.section.date
     existing_sections = self.available_sections
       if self.available_sections.count == 0
@@ -2000,7 +1950,6 @@ private
   def instructors_must_be_available
     return true if self.skip_validations
     return true if self.class_type == "tickets"
-    return true if self.class_type == "sledding"
     puts "!!! checking if group class type"
     # don't automatically approve group lessons if private instructors are sold out
     # return true if group_lesson?

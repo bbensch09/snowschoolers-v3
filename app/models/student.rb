@@ -1,6 +1,5 @@
 class Student < ActiveRecord::Base
   belongs_to :lesson
-  belongs_to :ticket
   belongs_to :requester, class_name: 'User', foreign_key: 'requester_id'
   has_many :rentals
   has_many :report_cards

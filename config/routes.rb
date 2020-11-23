@@ -150,6 +150,7 @@ Rails.application.routes.draw do
   get '/kingvale/sledding2' => 'lessons#tickets'
   get '/kingvale/sledding' => 'tickets#new'
   get 'tickets/:id/complete' => 'tickets#complete',  as: :complete_sledding_ticket
+  post 'tickets/:id/confirm_reservation' => 'tickets#confirm_reservation', as: :confirm_sledding_reservation
 
   # Begin resort referrals
   get '/kirkwood' => 'welcome#kirkwood_referral'
@@ -274,7 +275,6 @@ Rails.application.routes.draw do
   get   'lessons/:id/send_day_before_reminder_email' => 'lessons#send_day_before_reminder_email',  as: :send_day_before_reminder_email
   get   'lessons/:id/send_review_reminders_to_student' => 'lessons#send_review_reminders_to_student',  as: :send_review_reminders_to_student
   post 'lessons/:id/confirm_reservation'              => 'lessons#confirm_reservation', as: :confirm_reservation
-  post 'tickets/:id/confirm_reservation'              => 'tickets#confirm_reservation', as: :confirm_sledding_reservation
   put 'lessons/:id/issue_refund'              => 'lessons#issue_refund', as: :issue_refund
   put 'lessons/:id/reissue_invoice'              => 'lessons#reissue_invoice', as: :reissue_invoice
   get '/lessons/:id/edit_wages' => 'lessons#edit_wages', as: :edit_wages
