@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <% if @ticket.requester_name %>
+  <p>Hello <%= @ticket.requester_name %>,</p>
+  <% else %>
+  <p>Hello,</p>
+  <% end %>
+
+  <p>
+    Thanks for reserving your sledding tickets at Kingvale! Your confirmation number is <%= @ticket.confirmation_number %>.
+  </p>  
+
+  <h4>What happens now?</h4>
+  <ul>
+    <li>
+      You have <b>successfully booked your sledding reservation</b>. All you need to do is be sure to save this email, and in particular the confirmation number above. When you arrive at the snow park, you'll need to show this confirmation number to a snowpark associate for them to check you in. If you have lost the confirmation number for any reason, please feel free to reach out to us at <a href="mailto:hello@snowschoolers.com">hello@snowschoolers.com</a> or by phone at 530-430-SNOW.
+    </li>
+    <li>Please complete a required release of liability waiver prior to the start of your lesson. The waiver can be found at <a href="https://waiver.smartwaiver.com/v/snowschoolers2021" class="navy-link">https://waiver.smartwaiver.com/v/snowschoolers2021</a></li>
+    <li>Because sledding has a limited capacity this year due to the pandemic, please plan to arrive at the ski hill at least 15min prior to your sledding session time so that you can have time to park and get checked in.
+    </li>
+  </ul>
+
+  <h4>Reservation Details</h4>
+  <ul>
+    <li>Number of Tickets: <%= @ticket.participants.count %></li>
+    <li>Location: <%= @ticket.location.name %></li>
+    <li>Date: <%= @ticket.date.strftime("%A %b #{@ticket.date.day.ordinalize}, %Y") %></li>
+    <li>Product: <%= @ticket.product.name %></li>
+    <li>Contact phone number: <%= number_to_phone(@ticket.phone_number) %></li>
+  </ul>
+
+  <!-- %= render partial: 'tickets/price_details' %> -->
+
+  <!-- %= render partial: 'tickets/participant_details' %> -->
+
+
+  <p>
+    If you need to make any changes to your reservation, please visit: <a href=<%= ticket_url(@ticket) %> ><%= ticket_url(@ticket) %></a>.
+  </p>
+
+  <p>If you have any questions or if there is anything we can do to help you prepare for your upcoming reservation, please don't be afraid to reach out.</p>
+  <p>
+    Sincerely,
+    <br>
+    Snow Schoolers Guest Services <br>
+    hello@snowschoolers.com
+  </p>
+</body>
+</html>

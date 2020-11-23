@@ -1,5 +1,5 @@
 <div class="col-md-12">
-  <%= form_tag confirm_reservation_path do %>
+  <%= form_tag confirm_sledding_reservation_path do %>
 
   <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
   <article class="center">
@@ -21,6 +21,16 @@
       <div class="col-xs-8 col-md-9">
         <span class="left">
           <%= @ticket.lesson_time.date.strftime("%b %d, %Y") %>
+        </span>
+      </div>
+    </div>
+    <div class="row full-width">
+      <div class="col-xs-4 col-md-3">
+        <b>Date:</b>
+      </div>
+      <div class="col-xs-8 col-md-9">
+        <span class="left">
+          <%= @ticket.lesson_time.slot %>
         </span>
       </div>
     </div>
@@ -55,8 +65,8 @@
     <div class="row">
       <div class="col-xs-12">
         <ul class="student-list-confirm-reservation">
-          <% @ticket.students.each do |student| %>
-          <li><%= student.name %>, age <%= student.age_range %></li>
+          <% @ticket.participants.each do |participant| %>
+          <li><%= participant.name %>, age <%= participant.age_range %></li>
           <% end %>
         </ul>
         <% if @ticket.participants_2_and_under > 0 %>
@@ -77,15 +87,15 @@
       <%= link_to 'Edit Reservation', edit_ticket_path(@ticket), class: "center btn btn-sm btn-primary" %>
       <br>
       <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+      data-key="<%= ENV['PUBLISHABLE_KEY_SLEDDING'] %>"
+      data-image="https://snowschoolers.s3.amazonaws.com/SnowSchoolers-favicon.png"
       data-description="Thanks for choosing Snow Schoolers!"
       data-name="Snow Schoolers, Inc"
-      data-image="http://granlibakken.com/wp-content/uploads/cropped-tin-g-32x32.png"
       data-amount=<%= amount %>
       data-locale="auto"
       data-zip-code="true">
     </script>
-    <%= render partial: "lessons/cancellation_policy" %>
+    <%= render partial: "tickets_cancellation_policy" %>
   </div>
 
   <% end %>

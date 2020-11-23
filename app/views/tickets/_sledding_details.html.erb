@@ -25,11 +25,11 @@
     <% end %>
   </div>
 
-  <% if @ticket.deposit_status == 'confirmed' && @ticket.waiver? %>
+  <% if @ticket.booked? %>
   <p class="left">
     <b> Release of Liability </b>
     <br>
-    You must also complete a required release of liability waiver prior to the start of your lesson. Please find the waiver at <a href="https://waiver.smartwaiver.com/v/snowschoolers2021" class="navy-link">https://waiver.smartwaiver.com/v/snowschoolers2021</a>
+    You must also complete a required release of liability waiver prior to entering the snow park. Please find the waiver at <a href="https://waiver.smartwaiver.com/v/snowschoolers2021" class="navy-link">https://waiver.smartwaiver.com/v/snowschoolers2021</a>
   </p>
   <% end %>
 
@@ -57,5 +57,5 @@
   <%= render partial: 'price_details' %>
 </div>
 <div class='details-info-box'>
-  <%= render partial: 'student_details' %>
+  <%= render partial: 'participant_details' %>
 </div>

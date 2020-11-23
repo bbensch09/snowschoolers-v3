@@ -9,8 +9,7 @@
     <% if ENV['HOST_DOMAIN'] == "localhost:3000" || current_user && (current_user.user_type == "Granlibakken Employee" || current_user.user_type == "Ski Area Partner" || current_user.email == "brian@snowschoolers.com") %>
     <div id="autofill-container" class="admin-viewable">
       <a href="#fill" id="autofill_complete_form" class="btn btn-success">Autocomplete all fields</a> <br>
-      <h3>Total tickets already sold for this date/session: <%=@ticket.current_session_capacity %> tickets.</h3>
-      config.assets.initialize_on_precompile = false
+      <h3>Total tickets already sold for this date/session: <%=@ticket.current_session_volume %> tickets.</h3>
       <% if session[:refund] == true %>
       <h3> To issue a full refund: </h3>
       <ol>
@@ -77,11 +76,16 @@
 
     <div class='row'>
       <div class="col-md-6">
-        <%if @ticket.session_capacity_remaining <=10 %> 
-        <h2 class="text-danger">
-          Warning: there's only <%=@ticket.session_capacity_remaining%> ticket(s) available for this session. Book now before we sell out!
-        </h2>
+        <%if @ticket.session_capacity_remaining <=10 && @ticket.session_capacity_remaining >0 %> 
+            <h2 class="text-danger">
+              Warning: there's only <%=@ticket.session_capacity_remaining%> ticket(s) available for this session. Book now before we sell out!
+            </h2>
+        <%elsif @ticket.session_capacity_remaining <=0  %> 
+            <h2 class="text-danger">
+              Unfortunately this time slot is SOLD OUT. Please try a different time slot. If you cannot find an available slot, please email us at <a href="mailto:hello@snowschoolers.com?subject=Sledding%Capacity?" target="_blank" class="navy-link">hello@snowschoolers.com</a> and we can tell you what days and times still have availability.
+            </h2>
         <%end%>
+            <hr>
         <h4><strong>Customer Info</strong></h4>
         <% if current_user.nil? || current_user.email == "brian@snowschoolers.com" %>
         <div class='row'>
@@ -152,11 +156,11 @@
             <h4 class="text-warning">Please add the names and ages of sledding participants, including your own name from above if your are participating.</h4>
             <h4 class="text-danger" id="age-warning">Note: toddlers age 2 and under are FREE and do not need tickets.</h4>
             <div id='ticket_students_input'>
-              <%= f.semantic_fields_for :students do |student| %>
-              <%= render 'student_fields', f: student %>
+              <%= f.semantic_fields_for :participants do |participant| %>
+                  <%= render 'participant_fields', f: participant %>
               <% end %>
               <div class='links'>
-                <%= link_to_add_association 'Add Another Participant', f, :students, limit: 20, class: 'btn btn-default', id:'add-student-button' %>
+                <%= link_to_add_association 'Add Another Participant', f, :participants, limit: 20, class: 'btn btn-default', id:'add-participant-button' %>
                 <h4 class="text-danger hidden" id="max-students-warning">Note: only 20 students may be registered at a time. To book tickets for 20 or more, please visit make separate purchases
                 </h4>
               </div>

@@ -147,12 +147,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner") %>
            <!-- <li>  <a href="/"> <span class="glyphicon glyphicon glyphicon-home" aria-hidden="true"></span> </a></li> -->
            <!-- <li> <a href="/search" class="btn-success"> Search</a></li> -->
-           <li> <a href="/instructors" class="btn-success"> Admin</a></li>
-           <li><a href="/daily-roster" class="btn-success"> Today</a></li>
-           <li><a href="/future-daily-roster?date=<%=Date.tomorrow.to_s%>" class="btn-success">Future Dates</a></li>
+           <li> <a href="/instructors" class="btn-success"> Staff</a></li>
+           <li> <a href="/sledding/calendar" class="btn-success"> Sledding Capacity</a></li>
+           <li><a href="/daily-roster" class="btn-success"> Lessons Today</a></li>
+           <li><a href="/future-daily-roster?date=<%=Date.tomorrow.to_s%>" class="btn-success">Future Lessons</a></li>
            <li> <a href="/rentals" class="btn-success"> Rentals</a></li>
            <li> <a href="/search" class="btn-success"> Search</a></li>
-           <li> <a href="/book/granlibakken" class="btn btn-success">Book at GB</a></li>
+           <li> <a href="/book/granlibakken" class="btn btn-secondary">Book at GB</a></li>
+           <li> <a href="/book/granlibakken" class="btn btn-tertiary">Book at KV</a></li>
            <% if current_user.instructor %>
            <li><%= link_to current_user.email, instructor_path(current_user.instructor) %></li>
            <% end %>

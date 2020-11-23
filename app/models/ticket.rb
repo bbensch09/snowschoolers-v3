@@ -1,23 +1,23 @@
 class Ticket < ApplicationRecord
 	belongs_to :requester, class_name: 'User', foreign_key: 'requester_id'
 	belongs_to :lesson_time
-	has_many :students
+	has_many :participants
 	has_one :review
 	belongs_to :promo_code
 	has_many :transactions
   belongs_to :product #, class_name: 'Product', foreign_key: 'product_id'
   belongs_to :section
-  accepts_nested_attributes_for :students, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :participants, reject_if: :all_blank, allow_destroy: true
 
   validates :requested_location, presence: true
   validates :phone_number, presence: true, on: :update
   validates :terms_accepted, inclusion: { in: [true], message: 'must accept terms' }, on: :update
-  # validate :student_exists, on: :update
+  validate :participant_exists, on: :update
 
-  # confirm students are all over the age of 8
+  # old -- used to confirm participants are all over the age of 8 (for group lessons)
   # validate :age_validator, on: :update
-  # validate :check_session_capacity
-  before_save :check_session_capacity
+  validate :session_has_capacity?
+  before_save :session_has_capacity?
   before_save :confirm_valid_promo_code
 
 
@@ -53,12 +53,12 @@ class Ticket < ApplicationRecord
   	date = self.lesson_time.date.to_s.gsub("-","")
   	date = date[4..-1]
   	case self.location.name
-  	when 'Granlibakken'
+  	when 'Kingvale'
   		l = 'SLED'
   	else
   		l = 'XX'
   	end
-  	ticket_count = self.students.count.to_s
+  	ticket_count = self.participants.count.to_s
   	id = self.id.to_s.rjust(4,"0")
   	confirmation_number = l+'-'+id+'-'+date+'-'+ticket_count
   end
@@ -104,11 +104,7 @@ class Ticket < ApplicationRecord
   end
 
   def product
-  	if self.product_id.nil?
-  		Product.where(location_id:self.location.id, name:self.lesson_time.slot,calendar_period:self.location.calendar_status).first
-  	else
-  		Product.where(id:self.product_id).first
-  	end
+  		Product.where(location_id:self.location.id,product_type:"sledding_ticket",calendar_period:self.lookup_calendar_period(self.lesson_time.date,25)).first        
   end
 
   def final_charge
@@ -210,7 +206,7 @@ def last_season?
 end  
 
 def self.total_tickets_this_season
-	tickets = Ticket.where(state:'booked')
+	tickets = Ticket.where(state:'booked').to_a
 	tickets = tickets.keep_if{|ticket| ticket.this_season?}
 end
 
@@ -223,9 +219,23 @@ def self.total_ticket_revenue_this_season
 	return total
 end
 
+def self.todays_tickets
+  tickets = Ticket.where(state:'booked').to_a
+  tickets = tickets.keep_if{|ticket| ticket.date == Date.today()}
+end
+
+def self.todays_ticket_revenue
+  tickets = Ticket.todays_tickets
+  revenue = 0
+  tickets.each do |ticket|
+    revenue += ticket.price.to_i
+  end
+  return revenue
+end
+
 def participants_2_and_under
 	count = 0
-	self.students.each do |participant|
+	self.participants.each do |participant|
 		if participant.age_range.to_i <= 2
 			count +=1
 		end
@@ -242,7 +252,7 @@ def price
   elsif self.booking_order_value
   	price = self.booking_order_value
   else
-  	price = product.price * [1,(self.students.count - self.participants_2_and_under)].max
+  	price = product.price * [1,(self.participants.count - self.participants_2_and_under)].max
   end
   if self.promo_code
   	case self.promo_code.discount_type
@@ -258,7 +268,7 @@ return price.to_s
 end
 
 def price_per_student
-	return (self.price.to_f) / (self.students.count)
+	return (self.price.to_f) / (self.participants.count)
 end
 
 def self.to_csv(options = {})
@@ -273,37 +283,37 @@ def self.to_csv(options = {})
 	end
 end
 
-def check_session_capacity
-	if (current_session_capacity + self.students.count) <= SLEDHILL_CAPACITY
-		puts "!!! the current remaining sledding tickets is #{session_capacity_remaining}"
-		return current_session_capacity
+def session_has_capacity?
+	if session_capacity_remaining - self.participants.count > 0
+		puts "!!! the current remaining sledding tickets is #{self.session_capacity_remaining}"
+		return true
 	else
-		errors.add(:lesson,"Unfortunately this sledding session is sold out. Please try another time slot. To see which sessions still have capacity, visit tickets.granlibakken.com/sledding/calendar.")
+		errors.add(:ticket,"Unfortunately this sledding session is sold out. Please try another time slot. To see which sessions still have capacity, visit tickets.granlibakken.com/sledding/calendar.")
 		return false
 	end
 
 end
 
-def current_session_capacity
+def current_session_volume
 	other_bookings_on_same_day = Ticket.where(lesson_time_id:self.lesson_time_id).to_a
-	same_session_bookings = other_bookings_on_same_day.keep_if{|t| t.lesson_time.slot == self.lesson_time.slot && t.paid?}
+	same_session_bookings = other_bookings_on_same_day.keep_if{|t| t.lesson_time.slot == self.lesson_time.slot && t.booked?}
 	tickets = 0
 	same_session_bookings.each do |booking|
-		tickets+= booking.students.count
+		tickets+= booking.participants.count
 	end
-	puts "!!! There are #{same_session_bookings.count} other bookings already"
+	puts "!!! There are #{same_session_bookings.count} other bookings already and #{tickets} already booked.}"
 	return tickets
 end
 
 def session_capacity_remaining
-	return SLEDHILL_CAPACITY - current_session_capacity
+	return SLEDHILL_CAPACITY - current_session_volume
 end  
 
 private
 
-def student_exists
-	puts "!!!!!checking if at least one student exists"
-	errors.add(:students, "count must be greater than zero") unless students.any?
+def participant_exists
+	puts "!!!!!checking if at least one participant exists"
+	errors.add(:participants, "count must be greater than zero") unless participants.any?
 end
 
 def confirm_valid_promo_code
@@ -315,17 +325,17 @@ def confirm_valid_promo_code
 		return false
     # weekday redemptions
 elsif self.promo_code.description == 'groupon 2-ticket weekday redemption' && (self.num_days !=2 || self.date.wday >4)
-	errors.add(:lesson, "ERROR: Your promo code is valid for 2 students on Mon-Thurs. Please be sure to enter 2 student names and select an appropriate date. If you've reached this error already, please close this window and reopen your unique URL in a new tab.")
+	errors.add(:lesson, "ERROR: Your promo code is valid for 2 participants on Mon-Thurs. Please be sure to enter 2 student names and select an appropriate date. If you've reached this error already, please close this window and reopen your unique URL in a new tab.")
 	return false
 elsif self.promo_code.description == 'groupon 4-ticket weekday redemption' && (self.num_days != 4 || self.date.wday >4)
-	errors.add(:lesson, "ERROR: Your promo code is valid for 4 students on Mon-Thurs. Please be sure to enter 2 student names and select an appropriate date. If you've reached this error already, please close this window and reopen your unique URL in a new tab.")
+	errors.add(:lesson, "ERROR: Your promo code is valid for 4 participants on Mon-Thurs. Please be sure to enter 2 student names and select an appropriate date. If you've reached this error already, please close this window and reopen your unique URL in a new tab.")
 	return false
     # weekend redemptions
 elsif self.promo_code.description == 'groupon 2-ticket weekend redemption' && (self.num_days !=2  || self.date.wday <=4)
-	errors.add(:lesson, "ERROR: Your promo code is valid for 2 students on weekends only (Fri-Sun). Please be sure to enter 2 student names and select an appropriate date. If you've reached this error already, please close this window and reopen your unique URL in a new tab.")
+	errors.add(:lesson, "ERROR: Your promo code is valid for 2 participants on weekends only (Fri-Sun). Please be sure to enter 2 student names and select an appropriate date. If you've reached this error already, please close this window and reopen your unique URL in a new tab.")
 	return false
 elsif self.promo_code.description == 'groupon 4-ticket weekend redemption' && (self.num_days != 4  || self.date.wday <=4)
-	errors.add(:lesson, "ERROR: Your promo code is valid for 4 students on weekends only (Fri-Sun). Please be sure to enter 2 student names and select an appropriate date. If you've reached this error already, please close this window and reopen your unique URL in a new tab.")
+	errors.add(:lesson, "ERROR: Your promo code is valid for 4 participants on weekends only (Fri-Sun). Please be sure to enter 2 student names and select an appropriate date. If you've reached this error already, please close this window and reopen your unique URL in a new tab.")
 	return false
 else
 	return true

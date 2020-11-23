@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_22_191453) do
+ActiveRecord::Schema.define(version: 2020_11_23_050217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -273,6 +273,17 @@ ActiveRecord::Schema.define(version: 2020_11_22_191453) do
     t.datetime "updated_at"
   end
 
+  create_table "participants", force: :cascade do |t|
+    t.bigint "ticket_id"
+    t.string "name"
+    t.string "age_range"
+    t.string "gender"
+    t.string "booking_history"
+    t.string "experience"
+    t.string "relationship_to_requester"
+    t.index ["ticket_id"], name: "index_participants_on_ticket_id"
+  end
+
   create_table "pre_season_location_requests", id: :serial, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at"
@@ -526,6 +537,7 @@ ActiveRecord::Schema.define(version: 2020_11_22_191453) do
     t.boolean "refund_issued"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "check_in_status"
   end
 
   create_table "transactions", id: :serial, force: :cascade do |t|

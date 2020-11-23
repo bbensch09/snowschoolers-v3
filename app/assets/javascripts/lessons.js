@@ -295,6 +295,7 @@ $(window).bind('page:change', function() { LESSON.init(); });
 $(document).ready(function(){
   if($('.remove-student').length <=1){
     $('#add-student-button').click();
+    $('#add-participant-button').click();
     // console.log("loaded first student.");
   };
   if($('#preSeasonModalButton').length > 0){
@@ -313,7 +314,7 @@ var maxStudentsListener = function(){
   $('#add-student-button').click(function(e){
     var studentCount = $('.nested-fields').length
     console.log('student count is '+studentCount);
-    if (studentCount >= 20){
+    if (studentCount >= 10){
       $('#add-student-button').addClass('hidden');
       $('#max-students-warning').removeClass('hidden');
       console.log('hide button to add more students.');

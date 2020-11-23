@@ -17,11 +17,11 @@
       <li>Slot: <%= @ticket.slot %> </li>
       <li>Phone number: <%= @ticket.phone_number %> </li>
       <li>State: <%= @ticket.state %> </li>
-      <h4>Students</h4>
-      <% @ticket.students.each do |student| %>
-      <li> <b>Name:</b>        <%= student.name %> </li>
-      <li> <b>Age Range:</b> <%= student.age_range %> </li>
-      <li><b>Gender:</b><%= student.gender %></li>
+      <h4>Participants</h4>
+      <% @ticket.participants.each do |participant| %>
+      <li> <b>Name:</b>        <%= participant.name %> </li>
+      <li> <b>Age Range:</b> <%= participant.age_range %> </li>
+      <li><b>Gender:</b><%= participant.gender %></li>
       <% end %>
     </ul>
   </body>

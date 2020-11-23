@@ -36,7 +36,7 @@ class LessonMailer < ActionMailer::Base
   def notify_admin_sledding_full_form_updated(ticket_id)
       @ticket = Ticket.find(ticket_id)
       @user_email = @ticket.guest_email ? @ticket.guest_email : @ticket.requester.email
-      mail(to: 'brian@snowschoolers.com', cc: "Sledding Supervisors <#{ENV['SUPERVISOR_EMAIL']}>", subject: "Sledding Reservation stated, ready for payment - #{@ticket.date.strftime("%b %-d")}.")
+      mail(to: 'brian@snowschoolers.com', cc: "Sledding Supervisors <#{ENV['KINGVALE_SUPERVISORS']}>", subject: "Sledding Reservation started, ready for payment - #{@ticket.date.strftime("%b %-d")}.")
   end
 
   def notify_admin_beta_user(beta_user)
@@ -280,6 +280,11 @@ class LessonMailer < ActionMailer::Base
       mail(to: @lesson.guest_email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, info@snowschoolers.com", subject: "Private Lesson Confirmation: Thanks for booking with Snow Schoolers for #{@lesson.date.strftime("%b %-d")}")
     end
   end
+
+def send_sledding_confirmation(ticket)
+  @ticket = ticket
+    mail(to: @ticket.guest_email,  cc: "Supervisors <#{ENV['KINGVALE_SUPERVISORS']}>", subject: "Kingvale Sledding Ticket Confirmation: Thanks for booking for #{@ticket.date.strftime("%b %-d")}")
+end
 
 def send_group_lesson_request_notification(lesson)
     @lesson = lesson
