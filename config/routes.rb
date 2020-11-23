@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :tickets
   resources :skills
   resources :report_cards
   resources :resources do
@@ -135,7 +136,20 @@ Rails.application.routes.draw do
   get '/liftopia' => 'welcome#liftopia_referral'
   get '/homewood-season-pass' => 'welcome#homewood_pass_referral'
   get '/shop/:id' => 'welcome#comparison_shopping_referral'
-  get '/tickets' => 'lessons#tickets'
+  
+# sledding key routes
+  get 'sledding/calendar' => 'tickets#capacity_last_next_14', as: :capacity_calendar
+  get 'sledding/tickets-all' => 'tickets#index', as: :sledding_tickets_all
+  get 'sledding/roster-today' => 'tickets#roster_today', as: :sledding_roster_today
+  get 'sledding/roster-today-print' => 'tickets#roster_today_print', as: :sledding_roster_today_print
+  get 'sledding/roster-tomorrow' => 'tickets#roster_tomorrow', as: :sledding_roster_tomorrow
+  get 'sledding/roster-tomorrow-print' => 'tickets#roster_tomorrow_print', as: :sledding_roster_tomorrow_print
+  put 'sledding/check-in/:id' => 'tickets#sledding_check_in', as: :sledding_check_in
+  put 'sledding/cancel-check-in/:id' => 'tickets#sledding_check_in_reverse', as: :sledding_check_in_reverse
+  put 'tickets/:id/reissue_invoice'              => 'tickets#reissue_invoice', as: :rebook_ticket
+  get '/kingvale/sledding' => 'tickets#new'
+  get 'tickets/:id/complete' => 'tickets#complete',  as: :complete_sledding_ticket
+  post 'tickets/:id/confirm_reservation' => 'tickets#confirm_reservation', as: :confirm_sledding_reservation
 
   # Begin resort referrals
   get '/kirkwood' => 'welcome#kirkwood_referral'
@@ -266,6 +280,7 @@ Rails.application.routes.draw do
   get '/lessons/:id/add_private_request' => 'lessons#add_private_request', as: :add_private_request
   get '/lessons/:id/remove_private_request' => 'lessons#remove_private_request', as: :remove_private_request
   put  'lessons/:id/duplicate'   => 'lessons#duplicate',   as: :duplicate
+  get 'release_of_liability/:id' => 'welcome#release_of_liability', as: :release_of_liability
 
 
 

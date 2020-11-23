@@ -2,6 +2,7 @@ class Review < ActiveRecord::Base
   belongs_to :instructor
   belongs_to :reviewer, class_name: 'User', foreign_key: 'reviewer_id'
   belongs_to :lesson
+  belongs_to :ticket
   # after_save :send_admin_notification
 
 

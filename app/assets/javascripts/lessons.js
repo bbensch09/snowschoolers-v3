@@ -25,7 +25,7 @@ console.log("The month values is set to "+month)
 var year = dt.getYear() +1900;
 console.log("The year values is set to "+year)
 var date = year + "-" + month + "-" + day;
-var opening_date = new Date("2020-12-04");
+var opening_date = new Date("2020-12-11");
 
 // logs today's date
 console.log("DATES_BUFFER is set to: "+DATES_BUFFER);
@@ -57,7 +57,7 @@ if (MIN_DATE == '2021-3-32') {
 
 
 if (Date.now() <= opening_date) {
-  var MIN_DATE = '2020-12-04';
+  var MIN_DATE = '2020-12-11';
   // logs the season start date
   console.log("Today is before opening day, and so the first bookable day is " + MIN_DATE);
 }
@@ -107,7 +107,9 @@ var LESSON = {
   // setDatepicker: function() { LESSON._date.datepicker({ minDate: MIN_DATE, maxDate: '2018-04-15', dateFormat: 'yy-mm-dd' }); },
 
   setDatepicker: function() {
-  var blocked_dates_array = ['2020-12-08','2020-12-09','2020-12-10',
+  var blocked_dates_array = [
+  '2020-12-01','2020-12-02','2020-12-03',
+  '2020-12-08','2020-12-09','2020-12-10',
   '2020-12-15','2020-12-16','2020-12-17',
   '2021-01-05','2021-01-06','2021-01-07',
   '2021-01-12','2021-01-13','2021-01-14',
@@ -138,7 +140,7 @@ var LESSON = {
       var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
       return [ blocked_dates_array.indexOf(string) == -1 ]
     },
-    minDate: MIN_DATE,
+    minDate: '2020-11-27',
     maxDate: '2021-04-19',
     dateFormat: 'yy-mm-dd'
     });
@@ -295,6 +297,7 @@ $(window).bind('page:change', function() { LESSON.init(); });
 $(document).ready(function(){
   if($('.remove-student').length <=1){
     $('#add-student-button').click();
+    $('#add-participant-button').click();
     // console.log("loaded first student.");
   };
   if($('#preSeasonModalButton').length > 0){
@@ -313,7 +316,7 @@ var maxStudentsListener = function(){
   $('#add-student-button').click(function(e){
     var studentCount = $('.nested-fields').length
     console.log('student count is '+studentCount);
-    if (studentCount >= 20){
+    if (studentCount >= 10){
       $('#add-student-button').addClass('hidden');
       $('#max-students-warning').removeClass('hidden');
       console.log('hide button to add more students.');

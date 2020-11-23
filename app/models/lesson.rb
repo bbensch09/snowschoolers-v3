@@ -790,6 +790,12 @@ class Lesson < ActiveRecord::Base
     return true if self.date == Date.today && active_states.include?(state)
   end
 
+  def paid?
+    active_states = ['booked','confirmed','Lesson Complete','finalizing payment & reviews','waiting for review','finalizing']
+    return true if active_states.include?(state) && self.date > Date.today
+  end
+
+
   def upcoming?
     active_states = ['new','booked','confirmed','seeking replacement instructor','pending instructor', 'pending requester','Lesson Complete','finalizing payment & reviews','waiting for review','finalizing','ready_to_book']
     return true if active_states.include?(state) && self.date > Date.today
@@ -1350,6 +1356,16 @@ class Lesson < ActiveRecord::Base
     sections = sections.select{|section| section.has_capacity?}
   end
 
+  def participants_2_and_under
+    count = 0
+    self.students.each do |participant|
+      if participant.age_range.to_i <= 2
+        count +=1
+      end
+    end
+    return count
+  end
+
   def ticket_price
     return 0 if self.class_type != 'tickets'
     case activity
@@ -1389,7 +1405,7 @@ class Lesson < ActiveRecord::Base
   def confirm_section_valid
     if self.section.nil?
       if self.available_sections.count == 0
-          errors.add(:lesson, "There is unfortunately no more open spots in this group lesson, please try another time slot or contact us by email at hello@snowschoolers.com or by phone at 530-430-SNOW.")
+          errors.add(:lesson, "Invalid group section. There is unfortunately no more open spots in this group lesson, please try another time slot or contact us by email at hello@snowschoolers.com or by phone at 530-430-SNOW.")
           return false
       end
       self.section_id = self.available_sections.first.id

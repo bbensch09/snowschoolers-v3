@@ -1,0 +1,100 @@
+<% title 'Advance Purchase Sledding Tickets' %>
+<% meta_tag :description, "Easily book a private ski or snowboard lesson with our fleet of expert, certified instructors. Snow Schoolers is an online platform for private lessons. You can easily browse profiles & reviews, then book a private ski or snowboard lesson  with our fleet of expert, certified instructors. We collaborate closely with each of our ski area partners to ensure a consistent brand experience while maximizing the financial return of ski school operations to the mountain." %>
+
+<div id="middle" class="container">
+  <div class="white">
+
+    <div id="lesson-flow-background">
+      <img src="https://s3.amazonaws.com/snowschoolers/images/demo/slider/snow-less.jpg" class="bg-photo" alt="" />
+    </div>
+
+    <div class="new-lesson-container">
+
+
+<% if @promo_location && @promo_location == 8%>
+    <% @cta_visibility = "hidden" %>
+
+
+<section id="#book-a-lesson" class="bg-navy center-content lesson-new-form-header">
+      <!-- <h1 class="center text-white">*Please note* Lessons for the 19/20 lesson are not yet on sale. <br> Reservations will be accepted starting Nov 4th! </h1> -->
+      <div class="col-md-12">
+        <h2 class="text-white"> Unfortunately sledding is not offered at Homewood at this time. 
+        </h2>
+        <hr class="hr-white">
+        <h2 class="text-white"> If you are interested in sledding at Homewood, please simply shoot us a <a href="mailto:hello@snowschoolers.com?subject=Interested%20in%20Lessons%20at%20Homewood&body=Please%20let%20me%20know%20when%20lessons%20are%20available.%20Thanks!" target="_blank" class="green-link">quick email</a> with your name, dates, and what interests you about sledding at Homewood, and we will include your name & request to the Homewood leadership team. We love sledding too, and would love to see it happen at Homewood soon! For this season, we welcome you to book a sledding ticket at our <a href="/kingvale" class="green-link">Kingvale</a> location, where we have upwards of 400 vertical feet of available sledding terrain, ranging from mellow and toddler-friendly to steep and advanced.  </h2>
+        <h2 class="center">
+          <!-- <a href="/book/granlibakken" class="btn btn-primary btn-lg page-scroll powder-btn">Book at Granlibakken</a> -->
+          <!-- <a href="/book/kingvale" class="btn btn-secondary btn-lg page-scroll powder-btn">Book at Kingvale</a> -->
+        </h2>
+    <% @resort_name = 'SNOWSCHOOLERS' %>
+      </div>
+</section>
+
+<!-- PLACEHOLDER DATE to disable bookings for tomorrow if capacity is already full -->
+<% elsif Date.today.to_s <= "2020-02-23" %> 
+
+<section id="#admin-only-lessons" class="bg-navy center-content lesson-new-form-header">
+      <!-- <h1 class="center text-white">*Please note* Lessons for the 19/20 lesson are not yet on sale. <br> Reservations will be accepted starting Nov 4th! </h1> -->
+      <div class="center row">
+        <h2 class="text-white"> We will have limited sledding availability for XX-XX-XXXX and so are no longer accepting online reservations anymore for those days. We may still have a few spots open, so if you are interested, please call us at 530-430-SNOW, or email us at <a href="mailto:hello@snowschoolers.com?subject=Interested%20in%20Sledding%20Tickets%20&body=Please%20let%20me%20know%20when%20lessons%20are%20available.%20Thanks!" target="_blank" class="green-link">hello@snowschoolers.com</a> with your dates and group information and we'll reach out when we're able to assist you with making at reservation. </h2>
+      </div>
+</section>
+  
+<% elsif @promo_location && @promo_location ==24 %>
+
+    <% @cta_visibility = "hidden" %>
+
+<section id="#granlibakken-sledding-referral" class="bg-navy center-content lesson-new-form-header">
+      <!-- <h1 class="center text-white">*Please note* Lessons for the 19/20 lesson are not yet on sale. <br> Reservations will be accepted starting Nov 4th! </h1> -->
+      <div class="center row">
+        <h2 class="text-white"> Purchase sledding tickets in-advance at Granlibakken! </h2>
+        <h4 class="text-warning">
+          Note that sledding tickets for Granlibakken are booked from our sister website, which is previewed below. If you encounter any usability issues, please simply visit <a href="sledding.granlibakken.com" class="green-link" target="_blank">sledding.granlibakken.com</a> directly.
+        </h4>
+        <iframe src="http://sledding.granlibakken.com/"
+        width="800"
+        height="600"
+        frameborder="0">
+        </iframe>
+      </div>
+</section>
+
+<% elsif @promo_location && @promo_location ==25 %>
+    <%if @promo_location %>
+      <% @resort_name = Location.find(@promo_location).name %>
+      <% else %>
+      <% @resort_name = 'SNOWSCHOOLERS' %>
+    <% end %>
+    <% @cta_visibility = "unhidden" %>
+    <!-- <p class="alert">The promo_location is set to: %=@promo_location%> </p> -->
+
+<% end %>
+
+
+      <section id="book-a-lesson" class="pricing-section">
+        <div id="lesson-flow-background" class=<%=@cta_visibility%> >
+          <div class="homepage-lesson-container center" id="private-request">
+            <!-- %= render partial: "lessons/sledding_tickets_form" %> -->
+            <%= render 'initiate_new_sledding_reservation', ticket: @ticket %>
+
+          </div>
+        </div>
+      </section>
+
+
+      <section class="hidden-unless-mobile mobile-call-cta">
+        <div class="new-lesson-call-cta">
+          <h1 class="center">QUESTIONS?</h1>
+          <p class="white-text center">Call Us Today!
+            <br>
+            <i class="fa fa-phone fa-3x sr-contact"></i>
+            <br>
+          (530)430-SNOW</p>
+        </div>
+      </section>
+      <div class="buffer hidden-unless-desktop"></div>
+
+    </div>
+
+  </div>
+</div>

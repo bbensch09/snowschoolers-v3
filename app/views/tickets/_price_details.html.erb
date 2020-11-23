@@ -1,0 +1,13 @@
+    <p><b>Pricing Details</b></p>
+    
+    <div class='colm-md-12 col-xs-12'>
+        <ul>
+            <li><span class="lesson-detail-topic">Sledding Tickets</span> <%= @ticket.participants.count %></li>
+            <li><span class="lesson-detail-topic">Total Price:</span> <%= number_to_currency(@ticket.price) %></li>
+            <% if @ticket.promo_code_id %>                
+                <li><span class="lesson-detail-topic">Initial price:</span> <%= number_to_currency(@ticket.participants.count*25) %> </li>
+                <li><span class="lesson-detail-topic">Adjustments:</span> <%= number_to_currency(@ticket.admin_price_adjustment) %></li>
+                <li><span class="lesson-detail-topic">Final price:</span> <%= number_to_currency(@ticket.price) %></li>
+            <% end %>
+        </ul>
+    </div>

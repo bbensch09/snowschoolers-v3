@@ -1110,8 +1110,10 @@ fieldset[disabled] .btn-primary.active {
 }
 .btn-xl {
   padding: 15px 30px;
-  font-size: 1.2em;
+  font-size: 0.8em;
   white-space: normal;
+  color: #34495e !important;
+  font-weight: bold;
 }
 ::-moz-selection {
   color: white;

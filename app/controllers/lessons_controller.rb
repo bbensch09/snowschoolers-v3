@@ -10,10 +10,6 @@ class LessonsController < ApplicationController
   before_action :set_instructor_from_url, only: [:my_lessons_this_season]
   # before_action :authenticate_from_cookie!, only: [:complete, :confirm_reservation, :update, :show, :edit]
 
-  def tickets
-    @lesson = Lesson.new
-  end
-
   def rental_agreement
     @students = @lesson.students
     render 'rental_agreement', layout: 'rental_agreement_layout'

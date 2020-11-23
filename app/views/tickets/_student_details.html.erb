@@ -1,0 +1,11 @@
+<p><b>Sledding Participants Info</b></p>
+  <% @ticket.Participants.each do |participant| %>
+    <div class='row'>
+      <div class='col-md-12'>
+        <h4><b><%= participant.name %></b></h4>
+          <ul>
+            <li><span class="student-detail-topic">Age: </span><%= participant.age_range %></li>
+            <li><span class="student-detail-topic">Gender: </span><%= participant.gender %></li>
+          </ul>
+      </div>
+<% end %>

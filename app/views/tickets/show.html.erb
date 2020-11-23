@@ -1,0 +1,74 @@
+<% title "Sledding Ticket Details" %>
+
+<div id="middle" class="container">
+  <div class="white row">
+    <% if current_user && (current_user.user_type == "Snow Schoolers Employee") %>
+    <div class="row vertical-padding admin-viewable">
+    <h4> (ADMIN ONLY VIEW) </h4>
+          <%= semantic_form_for @ticket do |f| %>
+          <!-- include lesson time fields to update lesson instructor manually -->
+            <div class="">
+                <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
+                <div class='row'>
+                  <h4 class="alert-danger">[optional] - Admin can change date/time directly from here. Do not leave blank if current time slot values are not selected.</h4>
+                  <div class="col-md-4">
+                    <label class="lesson-label">Date</label>
+                    <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker', required:true }, placeholder: 'Pick a date', label: false %>
+                    <span class="search-area-icon"></span>
+                  </div>
+
+                  <div class="col-md-4">
+                    <label class="lesson-label">Slot</label>
+                    <%= lt_f.input :slot, as: :select, collection: SLEDDING_SLOTS, include_blank: 'Time Slot', label: false, required:true %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <!-- end hidden lesson time fields -->
+
+          <div class="row">
+            <div class="col-md-3">
+              <label class="lesson-label">Airbnb Confirmation Reference#</label>
+                <%= f.input :additional_info, as: :string, placeholder: "e.g. TAXX3HXY", label: false %>
+            </div>
+          </div>
+          <% end %>
+          <hr>
+          <%= link_to "Send Reminder Email", send_day_before_reminder_email_path(@ticket), class: "btn btn-success" %> (goes to student & cc instructor)
+          <%= link_to "Create Duplicate Lesson", duplicate_path(@ticket), method: :put, class: "btn btn-warning" %>
+          <p>Client phone number: <%= @ticket.phone_number %> </p>
+        <%= link_to "Admin Confirm Deposit", admin_confirm_deposit_path, method: :put, class: "btn btn-default" %>
+        <%= link_to "Confirm Add to Schedule", admin_confirm_booked_with_modification_path, method: :put, class: "btn btn-default btn-airbnb" %>
+        <%= link_to 'Edit Booking', edit_ticket_path(@ticket), class: "btn btn-success" %> <span> </span>
+        <%= link_to 'Edit Booking & Reissue Deposit', rebook_ticket_path(@ticket), method: :put, class: "btn btn-warning" %><span> </span>
+        <%= link_to 'Edit Booking & Issue Refund', issue_refund_path(@ticket), method: :put, class: "btn btn-danger" %><span> </span>
+        <%= link_to 'Cancel Booking', @ticket, method: :delete, data: { confirm: 'Are you sure you want to cancel this lesson?' }, class: "btn btn-danger" %></td>
+
+    </div>
+    <% end %>
+
+    <% if @ticket.ready_for_deposit? %>
+      <%= render partial: 'confirm_ticket_reservation' %>
+    <% end %>
+
+    <% if current_user && current_user.instructor.nil? && @ticket.state == "booked" || @ticket.state == "confirmed" %>
+      <!-- <script src="https://www.smartwaiver.com/m/webpl/f.js?webpl_waiver=584daa0c8f287&webpl_title=Please%20now%20sign%20your%20waiver&webpl_align=Left&webpl_fontsize=20&webpl_background=%2355c9b2&webpl_fontcolor=%23ffffff&webpl_font=Verdana" type="text/javascript"></script> -->
+    <% end %>
+
+
+    <%= render partial: 'sledding_details' %>
+
+    <% if @ticket.canceled? %>
+      <p>This ticket has been canceled.</p>
+    <% end %>
+              <%= render partial: "tickets_cancellation_policy" %>
+  </div>
+</div>
+
+<!-- SLIDER -->
+<!-- <img id="cycle-loader" src="https://s3.amazonaws.com/snowschoolers/images/spinner.gif" alt="loader" /> -->
+
+<ul id="slider" class="mc-cycle" style="display: block; height: 100%; width: 100%;">
+    <div class="mc-image bg-photo" title="background photo" style="background-image: url('https://snowschoolers.s3.amazonaws.com/Kingvale-Sled-Hill-and-80-1280x853.jpg'); height: 100%; width: 100%;" data-href=""
+    </div>
+</ul>

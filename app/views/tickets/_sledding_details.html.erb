@@ -1,0 +1,61 @@
+  <% if @ticket.paid? %>
+  <h1 class="center">
+    Thank you for booking a snowpark reservation with Snow Schoolers!
+  </h1>
+  <h3><b> What happens next?</b></h3>
+  <ol>
+    <li>Review our <a href="/covid19" class="navy-link">pandemic policies</a> again. Help us keep the community safe, and ensure we all get to enjoy a full winter season.</li>
+    <li>Complete the <a href = "https://waiver.smartwaiver.com/v/snowschoolers2021" class="green-link">online waiver</a> for yourself and all participants.</li>
+    <li>Find and save your confirmation number below.</li>
+  </ol>
+  <hr>
+  <% end %>
+  <p>
+    <b>Reservation status:</b>
+    <%= @ticket.state %>
+  </p>
+
+  <div class="details-info-box">
+    <% if @ticket.booked? %>
+    <p class="confirmation-number">
+      <b> Confirmation Receipt </b>
+      <br>
+      Your reservation confirmation number is: <span style="font-weight: bold; font-size:18px;"><%=@ticket.confirmation_number%></span>. Please either print this page or save the confirmation email you should automaticaly receive, as you will need to show your confirmation number the morning of your lesson as proof of payment. Please also find your sledding reservation details below.
+    </p>
+    <% end %>
+  </div>
+
+  <% if @ticket.booked? %>
+  <p class="left">
+    <b> Release of Liability </b>
+    <br>
+    You must also complete a required release of liability waiver prior to entering the snow park. Please find the waiver at <a href="https://waiver.smartwaiver.com/v/snowschoolers2021" class="navy-link">https://waiver.smartwaiver.com/v/snowschoolers2021</a>
+  </p>
+  <% end %>
+
+  <hr class="deposit-hr-navy">
+
+  <p><b>Reservation Summary</b></p>
+
+  <div class='row'>
+
+    <div class="col-md-12 col-xs-12">
+      <h4 class="slot-details-mobile">
+        <span class="lesson-detail-topic">Reservation Name:</span> <%= @ticket.requester_name %> <br>
+        <span class="lesson-detail-topic">Phone:</span> <%= number_to_phone(@ticket.phone_number) %> <br>
+        <span class="lesson-detail-topic">Email:</span> <%= @ticket.requester ? @ticket.requester.email : @ticket.guest_email %> <br>
+        <span class="lesson-detail-topic">Location:</span>  <%= @ticket.location.name %><br>
+        <!-- <span class="lesson-detail-topic">Sport:</span>  <%= @ticket.activity %><br> -->
+        <span class="lesson-detail-topic">Date:</span> <%= @ticket.date.strftime("%A %b #{@ticket.date.day.ordinalize}, %Y") %><br>
+        <span class="lesson-detail-topic">Time Slot:</span> 
+        <span class=""> <%= @ticket.slot %></span> <br><br>
+      </h4>
+    </div>
+  </div>
+
+<div class="details-info-box">
+  <%= render partial: 'price_details' %>
+</div>
+<div class='details-info-box'>
+  <%= render partial: 'participant_details' %>
+</div>
