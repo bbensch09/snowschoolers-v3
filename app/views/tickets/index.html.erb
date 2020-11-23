@@ -16,9 +16,12 @@
 
     <hr>
 
+    <%= link_to "All Sledding Tickets", tickets_path(format: "html"), class: 'btn btn btn-tertiary' %>
+    <%= link_to "Sledding Today", sledding_roster_today_path(format: "html"), class: 'btn btn btn-default' %>
     <%= link_to "Print Today's Roster", sledding_roster_today_print_path(format: "html"), class: 'btn btn btn-default', target:'_blank' %>
-    <%= link_to "Print Tomorrow's Roster", sledding_roster_tomorrow_print_path(format: "html"), class: 'btn btn btn-default', target:'_blank' %>
-    <%= link_to "Capacity Calendar", capacity_calendar_path(format: "html"), class: 'btn btn btn-default', target:'_blank' %>
+    <%= link_to "Sledding Tomorrow", sledding_roster_tomorrow_path(format: "html"), class: 'btn btn btn-secondary' %>
+    <%= link_to "Print Tomorrow's Roster", sledding_roster_tomorrow_print_path(format: "html"), class: 'btn btn btn-secondary', target:'_blank' %>
+    <%= link_to "Capacity Calendar", capacity_calendar_path(format: "html"), class: 'btn btn btn-tertiary' %>
 
     <table class="sledding-table daily-roster">
       <thead>

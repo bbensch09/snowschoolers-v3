@@ -147,7 +147,6 @@ Rails.application.routes.draw do
   put 'sledding/check-in/:id' => 'tickets#sledding_check_in', as: :sledding_check_in
   put 'sledding/cancel-check-in/:id' => 'tickets#sledding_check_in_reverse', as: :sledding_check_in_reverse
   put 'tickets/:id/reissue_invoice'              => 'tickets#reissue_invoice', as: :rebook_ticket
-  get '/kingvale/sledding2' => 'lessons#tickets'
   get '/kingvale/sledding' => 'tickets#new'
   get 'tickets/:id/complete' => 'tickets#complete',  as: :complete_sledding_ticket
   post 'tickets/:id/confirm_reservation' => 'tickets#confirm_reservation', as: :confirm_sledding_reservation

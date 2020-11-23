@@ -245,7 +245,7 @@ class TicketsController < ApplicationController
     @tickets = @tickets.select{ |ticket| ticket.date == Date.today}
     @tickets = @tickets.sort! { |a,b| a.id <=> b.id }
     respond_to do |format|
-          format.html {render 'admin_index'}
+          format.html {render 'index'}
           format.csv { send_data @tickets_to_export.to_csv, filename: "group-tickets-export-#{Date.today}.csv" }
     end
   end
@@ -255,7 +255,7 @@ class TicketsController < ApplicationController
     @tickets = @tickets.select{ |ticket| ticket.date == Date.today}
     @tickets = @tickets.sort! { |a,b| a.id <=> b.id }
     respond_to do |format|
-          format.html {render 'admin_index', layout: 'liability_release_layout'}
+          format.html {render 'index', layout: 'liability_release_layout'}
     end
   end
 
@@ -266,7 +266,7 @@ class TicketsController < ApplicationController
     @tickets = @tickets.select{ |ticket| ticket.date == Date.tomorrow}
     @tickets = @tickets.sort! { |a,b| a.id <=> b.id }
     respond_to do |format|
-          format.html {render 'admin_index'}
+          format.html {render 'index'}
           format.csv { send_data @tickets_to_export.to_csv, filename: "group-tickets-export-#{Date.today}.csv" }
     end
   end
@@ -276,7 +276,7 @@ class TicketsController < ApplicationController
     @tickets = @tickets.select{ |ticket| ticket.date == Date.tomorrow}
     @tickets = @tickets.sort! { |a,b| a.id <=> b.id }
     respond_to do |format|
-          format.html {render 'admin_index', layout: 'liability_release_layout'}
+          format.html {render 'index', layout: 'liability_release_layout'}
     end
   end
 
