@@ -284,7 +284,8 @@ def self.to_csv(options = {})
 end
 
 def session_has_capacity?
-	if session_capacity_remaining - self.participants.count > 0
+  return true if self.skip_validations
+  if session_capacity_remaining - self.participants.count > 0
 		puts "!!! the current remaining sledding tickets is #{self.session_capacity_remaining}"
 		return true
 	else
