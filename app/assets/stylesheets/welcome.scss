@@ -1281,7 +1281,7 @@ h2.how-it-works {
 @media (max-width: 768px) {
 
 .pricing-container{
-  margin-top: 50px;
+  margin-top: 10px;
   max-width: 100%;
   margin-left: 0%;
   margin-right: 0%;
@@ -2026,6 +2026,21 @@ text-align: center;
   padding-left: 10%;
   text-align: left;  
   list-style: circle;
+}
+.homepage-lesson-container {
+  margin-top: 10px;
+  max-width: 85vw;
+  padding-top: 0px;
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: white;
+}
+.sledding-headline{
+  font-size: 2em;
+}
+.sledding-subheader{
+  font-size: 1.4em;
 }
 
 }

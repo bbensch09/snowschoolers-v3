@@ -9,7 +9,7 @@
     <% if ENV['HOST_DOMAIN'] == "localhost:3000" || current_user && (current_user.user_type == "Granlibakken Employee" || current_user.user_type == "Ski Area Partner" || current_user.email == "brian@snowschoolers.com") %>
     <div id="autofill-container" class="admin-viewable">
       <a href="#fill" id="autofill_complete_form" class="btn btn-success">Autocomplete all fields</a> <br>
-      <h3>Total tickets already sold for this date/session: <%=@ticket.current_session_volume %> tickets.</h3>
+      <h3>Total tickets already sold for this date/session: <%=@ticket.current_session_tickets_sold %> tickets.</h3>
       <% if session[:refund] == true %>
       <h3> To issue a full refund: </h3>
       <ol>
