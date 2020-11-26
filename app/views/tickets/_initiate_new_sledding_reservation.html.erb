@@ -11,11 +11,11 @@
 
     <section id="prices_simple" class="pricing-new-lesson">
       <div class="pricing-container">
-        <h1 class="navy-text center">
+        <h1 class="navy-text center sledding-headline">
           <span>KINGVALE SLEDDING TICKETS</span>
         </h1>
-        <h3 class="center navy-text">Skip the Line and Go Straight to the Sled Hill when you Purchase Online!</h3>
-        <h4 class="navy-text">Due to the on-going COVID-19 pandemic, the sled hill will have a max capacity of <%=SLEDHILL_CAPACITY %> active sledders. As such, we will be holding 4 daily sledding sessions, with each sesesion lasting 90 minutes on the main sled hill. We have upper overflow sled area which we expect to remain open throughout the day for all ticketholders, but requires a bit more hiking uphill. Please select your preferred time slot at the time of purchase, which guarantees that you will be able to enter the main sled hill at that time. If we are not at capacity, ticket holders for other time slots will be permitted to enter the main area, until capacity is reached. </h4>
+        <h3 class="center navy-text sledding-subheader">Skip the Line when you Purchase Online!</h3>
+        <h4 class="navy-text"><span class="underline"><b> COVID UPDATE:</b></span> Due to the on-going pandemic, the sled hill will have a max capacity of <%=SLEDHILL_CAPACITY %> active sledders. As such, we will be holding 4 daily sledding sessions, with each sesesion lasting 90 minutes on the main sled hill. We have upper overflow sled area which we expect to remain open throughout the day for all ticketholders, but requires more hiking uphill and the snow is not as regularly groomed. Please select your preferred time slot at the time of purchase, which guarantees you will be able to enter the main sled hill at that time. If we are not at capacity, all ticket holders will be permitted to enter the main area, until capacity is reached. </h4>
 
         <% if (Product.where(location_id:25,product_type:'sledding_ticket').first == nil || Product.where(location_id:25,product_type:'sledding_ticket').first == nil) %>
         <h3 class='text-danger center'> Pricing Not Yet Available </h3>
@@ -31,7 +31,7 @@
               <th class="pricing-snowschoolers col-xs-2">Session Time Slot</th>
               <!-- <th class="col-xs-2 text-warning center">*January Sale Pricing Until Jan 24th* </th> -->
               <th class="pricing-snowschoolers col-xs-2">Regular Price</th>
-              <th class="pricing-snowschoolers col-xs-2">Holiday Price</th>
+              <th class="pricing-snowschoolers col-xs-2">Holiday Price*</th>
             </tr>
           </thead>
 
@@ -59,6 +59,10 @@
           </tbody>
           <% end %>
         </table>
+        <p class="text-smaller">
+          *Thanksgiving weekend will have regular (non-holiday) pricing. Holidays include Dec 20-Jan 3, Jan 16-18, Feb 13-21.
+        </p>
+        <h3 class="text-danger">Note: There is a parking fee of $20 per vehicle. Cash or credit card will be accepted, but we expect to include parking in the online ticketing process soon. Stay tuned! </h3>
       </div>
     </section>
 
@@ -67,19 +71,19 @@
 
   <hr class="deposit-hr-navy hidden-unless-mobile">
 
-  <% if alert %>
+ <!--  <% if alert %>
   <div id="alert2" class="alert alert-danger alert-dismissible fade in" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
     <p> <%= alert %> <%= notice %> </p>
   </div>
-  <% end %>
+  <% end %> -->
 
   <div class="new-lesson-caption">
 
     <div class="block">
-      <h3 class="center mobile-book-cta">SELECT YOUR LIFT TICKETS</h3>
+      <h3 class="center mobile-book-cta">SELECT YOUR SLEDDING DATE & TIME SLOT</h3>
     </div>
 
     <div class="block">

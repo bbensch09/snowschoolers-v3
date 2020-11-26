@@ -16,8 +16,8 @@ class Ticket < ApplicationRecord
 
   # old -- used to confirm participants are all over the age of 8 (for group lessons)
   # validate :age_validator, on: :update
-  validate :session_has_capacity?
-  before_save :session_has_capacity?
+  validate :check_session_capacity
+  before_save :check_session_capacity
   before_save :confirm_valid_promo_code
 
 
@@ -283,8 +283,8 @@ def self.to_csv(options = {})
 	end
 end
 
-def session_has_capacity?
-  return true if self.skip_validations
+def check_session_capacity
+  return true if self.skip_validations == true
   if session_capacity_remaining - self.participants.count > 0
 		puts "!!! the current remaining sledding tickets is #{self.session_capacity_remaining}"
 		return true
@@ -295,19 +295,21 @@ def session_has_capacity?
 
 end
 
-def current_session_volume
-	other_bookings_on_same_day = Ticket.where(lesson_time_id:self.lesson_time_id).to_a
-	same_session_bookings = other_bookings_on_same_day.keep_if{|t| t.lesson_time.slot == self.lesson_time.slot && t.booked?}
+def current_session_tickets_sold
+	same_session_entries = Ticket.where(lesson_time_id:self.lesson_time_id).to_a
+  puts "!!! there are #{same_session_entries.count} bookings found in same_session_entries"
+	same_session_paid_bookings = same_session_entries.keep_if{|t| t.booked?}
 	tickets = 0
-	same_session_bookings.each do |booking|
+	same_session_paid_bookings.each do |booking|
 		tickets+= booking.participants.count
+    puts "!!! added #{booking.participants.count} tickets to running total"
 	end
-	puts "!!! There are #{same_session_bookings.count} other bookings already and #{tickets} already booked.}"
+	puts "!!! There are #{same_session_paid_bookings.count} other bookings already and #{tickets} already booked.}"
 	return tickets
 end
 
 def session_capacity_remaining
-	return SLEDHILL_CAPACITY - current_session_volume
+	return SLEDHILL_CAPACITY - current_session_tickets_sold
 end  
 
 private

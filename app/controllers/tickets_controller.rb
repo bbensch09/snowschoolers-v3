@@ -64,17 +64,18 @@ class TicketsController < ApplicationController
     @ticket.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
     @slot = @lesson_time.slot
     @ticket.requested_location = 25
-    # @ticket.skip_validations = true
-    # @ticket.save!
+    if current_user && (current_user.email == 'brian@snowschoolers.com' || current_user.user_type == 'Snow Schoolers Employee')
+      puts "!!!current user is admin, preparing to set skip_validations boolean to true."
+      session[:skip_validations] = true
+      @ticket.skip_validations = true
+    end
 
-    respond_to do |format|
-      if @ticket.save
-        format.html { redirect_to complete_sledding_ticket_path(@ticket), notice: "Almost there! We just need a few more details." }
-        format.json { render :show, status: :created, location: @ticket }
-      else
-        format.html { render :new }
-        format.json { render json: @ticket.errors, status: :unprocessable_entity }
-      end
+    if @ticket.save
+        redirect_to complete_sledding_ticket_path(@ticket)
+        flash[:notice] = "Almost there! We just need a few more details."
+    else
+        flash[:alert] = "Unfortunately that sledding session is already at capacity. Please pick another time."
+        render 'new'
     end
   end
 
@@ -151,7 +152,7 @@ class TicketsController < ApplicationController
     end
 
     puts "!!!! prepare to save ticket reservation"
-    if @ticket.session_has_capacity?
+    if @ticket.check_session_capacity
       puts "!!!confirmed there is capacity remaining and this ticket can proceed to payment. if full, rediect back."
     else
       flash[:alert] = "Unfortunately that sledding session is already at capacity. Please pick another time."
@@ -203,7 +204,7 @@ class TicketsController < ApplicationController
           @ticket.state = 'booked'
         end
         puts "!!!!!About to save state & deposit status after processing tickets#update"
-        @ticket.save!
+        @ticket.save
       GoogleAnalyticsApi.new.event('lesson-requests', 'deposit-submitted', params[:ga_client_id])
       if @ticket.promo_code
         LessonMailer.send_promo_redemption_notification(@ticket).deliver!
@@ -283,8 +284,8 @@ class TicketsController < ApplicationController
   def capacity_last_next_14
     if params[:date]
         min_date = params[:date].to_date
-      elsif Date.today <= "2020-12-04".to_date
-        min_date = "2020-12-04".to_date
+      elsif Date.today <= "2020-11-27".to_date
+        min_date = "2020-11-27".to_date
       else min_date = Date.today - 3
     end
     max_date = min_date + 16
