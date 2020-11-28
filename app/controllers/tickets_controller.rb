@@ -225,6 +225,13 @@ class TicketsController < ApplicationController
     render 'full_form'
   end
 
+  def admin_confirm_cash
+    @lesson.deposit_status = 'confirmed'
+    @lesson.state = 'booked'
+    @lesson.save
+    redirect_to "/tickets/#{@lesson.id}?state=#{@lesson.state}&admin_deposit_confirmed=true"
+  end  
+
   def sledding_check_in
       @ticket = Ticket.find(params[:id])
       @ticket.check_in_status = 'checked-in'
