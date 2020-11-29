@@ -106,31 +106,31 @@
         </div>
         <% end %>
         <div class='row'>
-          <div class="col-md-6 ">
+          <div class="col-md-6 hidden">
             <label>Your Name</label>
             <%= f.text_field :requester_name, value: 'Sledding Walk-in Customer', class: "form-control", required:true, label: false %>
           </div>
-          <div class="col-md-6 ">
+          <div class="col-md-6 hidden">
             <label>Phone</label> <span class="text-smaller"></span>
             <%= f.text_field :phone_number, value: "530-430-7669", as: :number, placeholder: 'xxx-xxx-xxxx', class: 'form-control', required:true, include_blank:false %>
           </div>
-          <div class="col-md-6 ">
+          <div class="col-md-6 hidden">
             <label>Address</label> <span class="text-smaller"></span>
             <%= f.text_field :street_address, value: '1234 StreetName', class: 'form-control', required:true, include_blank:false %>
           </div>
-          <div class="col-md-6 ">
+          <div class="col-md-6 hidden">
             <label>City</label> <span class="text-smaller"></span>
             <%= f.text_field :city, value: 'Tahoe City', class: 'form-control', required:true, include_blank:false %>
           </div>
-          <div class="col-md-3 ">
+          <div class="col-md-3 hidden">
             <label>State</label> <span class="text-smaller"></span>
             <%= f.text_field :state_code, value: 'CA', class: 'form-control', required:true, include_blank:false %>
           </div>
-          <div class="col-md-3 ">
+          <div class="col-md-3 hidden">
             <label>Zip Code</label> <span class="text-smaller"></span>
             <%= f.text_field :zip_code, as: :number, value: '96145', class: 'form-control', required:true, include_blank:false %>
           </div>
-          <div class="col-md-6 ">
+          <div class="col-md-6 hidden">
             <label>Driver's License #</label> <span class="text-smaller"></span>
             <%= f.text_field :drivers_license, value: 'D555-1111', class: 'form-control', required:false, include_blank:false %>
           </div>
