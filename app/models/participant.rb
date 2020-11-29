@@ -109,5 +109,5 @@ class Participant < ActiveRecord::Base
   end
 
 
-  validates :name, :age_range, :gender, presence: true
+  validates :name, :age_range, presence: true
 end
