@@ -86,6 +86,19 @@
               <td colspan="1" class="lessons-table-cells"><%= SLEDHILL_CAPACITY - day_slot_tickets %> left </td>
               <td colspan="1" class="lessons-table-cells"><%= number_to_percentage((day_slot_tickets*100)/SLEDHILL_CAPACITY, precision:0) %> full </td>
             </tr>
+        <!-- daily total all sessions -->
+            <tr>
+              <td colspan="1" class="lessons-table-cells daily-roster-section-break"><%=date %> </td>
+              <td colspan="1" class="lessons-table-cells daily-roster-section-break">Daily Totals</td>
+              <td colspan="1" class="lessons-table-cells daily-roster-section-break"><%= @tickets.select{|ticket| ticket.date.to_s == date.to_s}.count %> </td>
+                <% day_slot_bookings =  @tickets.select{|ticket| ticket.date.to_s == date.to_s } %>
+                <% day_slot_tickets = 0 %>
+                <% day_slot_bookings.each do |b| day_slot_tickets += b.participants.count end %>
+              <td colspan="1" class="lessons-table-cells daily-roster-section-break"><%=day_slot_tickets %> sold </td>
+              <td colspan="1" class="lessons-table-cells daily-roster-section-break"><%= SLEDHILL_CAPACITY %> max </td>
+              <td colspan="1" class="lessons-table-cells daily-roster-section-break"><%= SLEDHILL_CAPACITY - day_slot_tickets %> left </td>
+              <td colspan="1" class="lessons-table-cells daily-roster-section-break"><%= number_to_percentage((day_slot_tickets*100)/(SLEDHILL_CAPACITY*4), precision:0) %> full </td>
+            </tr>
         <tr>
           <td colspan="7" class="daily-roster-section-break"><span>---</span></td>
         </tr>
