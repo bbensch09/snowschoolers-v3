@@ -15,6 +15,10 @@
           <span>KINGVALE SLEDDING TICKETS</span>
         </h1>
         <h3 class="center navy-text sledding-subheader">Skip the Line when you Purchase Online!</h3>
+        <h2 class="center">
+          <a href="/sled-now" class="btn btn-primary btn-xl page-scroll powder-btn">Book Sledding Tickets for Today</a>          
+        </h2>
+        
         <h4 class="navy-text"><span class="underline"><b> COVID UPDATE:</b></span> Due to the on-going pandemic, the sled hill will have a max capacity of <%=SLEDHILL_CAPACITY %> active sledders. As such, we will be holding 4 daily sledding sessions, with each sesesion lasting 90 minutes on the main sled hill. We have upper overflow sled area which we expect to remain open throughout the day for all ticketholders, but requires more hiking uphill and the snow is not as regularly groomed. Please select your preferred time slot at the time of purchase, which guarantees you will be able to enter the main sled hill at that time. If we are not at capacity, all ticket holders will be permitted to enter the main area, until capacity is reached. </h4>
 
         <% if (Product.where(location_id:25,product_type:'sledding_ticket').first == nil || Product.where(location_id:25,product_type:'sledding_ticket').first == nil) %>
@@ -83,7 +87,7 @@
   <div class="new-lesson-caption">
 
     <div class="block">
-      <h3 class="center mobile-book-cta">SELECT YOUR SLEDDING DATE & TIME SLOT</h3>
+      <h3 class="center mobile-book-cta">SELECT YOUR A DATE & TIME SLOT FOR ADVANCE PURCHASES</h3>
     </div>
 
     <div class="block">

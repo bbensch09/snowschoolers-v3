@@ -1,0 +1,54 @@
+<% title "Release of Liability Agreement" %>
+<div class="container liability-text">
+
+  <h2 class="center">
+    SNOW SCHOOLERS RELEASE OF LIABILITY AGREEMENT - 2020/21
+  </h2>
+  <ul class="instructions">
+    <li>By purchasing sledding tickets via our contactless reservation system, the persons named below have herby authorized their consent to an e-signature of this release form.</li>
+  </ul>
+
+  <% if @ticket.paid? %> 
+  <% waiver_status = "E-SIGNED ON " + @ticket.updated_at.strftime("%b %-d %y at %I:%M %p") %>
+  <% else %>
+  <% waiver_status = "HAS NOT YET BEEN E-SIGNED" %>
+  <% end %>
+  <h4>
+    THIS DOCUMENT HAS BEEN DIGITALLY GENERATED AND <span class="bold text-danger"><%= waiver_status %></span>.
+  </h4>
+  <hr>
+  <p>
+    PLEASE READ CAREFULLY BEFORE SIGNING. THIS IS A RELEASE OF LIABILITY AND WAIVER OF CERTAIN LEGAL RIGHTS.
+  </p>
+
+  <p>
+    Full Name: <span class="bold text-danger "> <%= @ticket.participants.empty? ? "TBD" : @ticket.participants.first.name %> </span>
+    <br>Contact Email: <span class="bold text-danger "> <%= @ticket.guest_email %> </span>            
+  </p>
+
+  <%= render partial: 'lessons/release_of_liability_text' %>
+
+
+  Participant Names and Ages:     
+  <ul>
+    <% @ticket.participants.each do |participant| %>
+    <li><span class="bold text-danger "> <%=participant.name %>, age <%=participant.age_range %></span></li>
+    <% end %>
+  </ul>
+  <p>
+    User’s Signature: <span class="signature bold text-danger"> <%= @ticket.participants.empty? ? "TBD" : @ticket.participants.first.name %> </span>
+    <br>Date: <span class=""> <%= @ticket.updated_at.strftime("%b %-d, %Y") %></span>
+    <br>
+  </p>
+
+  <h2>PARENT'S OR GUARDIAN'S ADDITIONAL INDEMNIFICATION</h2>
+  <p>
+    (Must be completed for participants under the age of 18)
+  </p>
+  <p>
+    In consdiration of <span class="bold text-danger"> <%= @ticket.participants_under_age_18 %> </span> (minor's names) ("Minor") being permitted by SS to participate in its activities and to use its equipment and facilities, I further agree to indemnify and hold harmless SS from any and all claims which are brought by, or on behalf of Minor, and which are in any way connected with such use or participation by Minor.
+  </p>
+
+  <div class="buffer"></div>
+  <div class="buffer"></div>
+</div>

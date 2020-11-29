@@ -146,11 +146,13 @@ Rails.application.routes.draw do
   get 'sledding/roster-tomorrow-print' => 'tickets#roster_tomorrow_print', as: :sledding_roster_tomorrow_print
   put 'sledding/check-in/:id' => 'tickets#sledding_check_in', as: :sledding_check_in
   put 'sledding/cancel-check-in/:id' => 'tickets#sledding_check_in_reverse', as: :sledding_check_in_reverse
-  put   'lessons/:id/admin_confirm_cash'      => 'lessons#admin_confirm_cash',      as: :admin_confirm_cash
   put 'tickets/:id/reissue_invoice'              => 'tickets#reissue_invoice', as: :rebook_ticket
   get '/kingvale/sledding' => 'tickets#new'
   get 'tickets/:id/complete' => 'tickets#complete',  as: :complete_sledding_ticket
   post 'tickets/:id/confirm_reservation' => 'tickets#confirm_reservation', as: :confirm_sledding_reservation
+  put  'tickets/:id/admin_confirm_cash'      => 'tickets#admin_confirm_cash',      as: :admin_confirm_cash
+  get 'sled-now' => 'tickets#create_walk_in_sledding_ticket', as: :walk_in_sledding_ticket
+  get 'sledding-liability-release/:id' => 'tickets#liability_release_agreement', as: :liability_release
 
   # Begin resort referrals
   get '/kirkwood' => 'welcome#kirkwood_referral'

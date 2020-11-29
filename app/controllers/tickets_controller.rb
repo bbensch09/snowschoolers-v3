@@ -1,8 +1,8 @@
 class TicketsController < ApplicationController
   respond_to :html
-  skip_before_action :authenticate_user!, only: [:index, :new, :create, :complete, :complete_sledding_ticket, :confirm_reservation, :update, :edit, :show, :liability_release_agreement]
+  skip_before_action :authenticate_user!, only: [:index, :new, :create, :complete, :complete_sledding_ticket, :confirm_reservation, :update, :edit, :show, :liability_release_agreement, :create_walk_in_sledding_ticket]
   # low friction hackey solution -- don't require authentication for most customer-facing pages; removed temporarily May 2019
-  before_action :set_ticket, only: [:show, :duplicate, :complete, :complete_sledding_ticket, :update, :edit, :edit_wages, :destroy, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :mark_lesson_complete,  :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_deposit, :admin_confirm_airbnb, :admin_confirm_booked_with_modification, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications, :send_review_reminders_to_student, :liability_release_agreement]
+  before_action :set_ticket, only: [:show, :duplicate, :complete, :complete_sledding_ticket, :update, :edit, :edit_wages, :destroy, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :mark_lesson_complete,  :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_deposit, :admin_confirm_airbnb, :admin_confirm_booked_with_modification, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications, :send_review_reminders_to_student, :liability_release_agreement, :admin_confirm_cash]
   before_action :set_admin_skip_validations
 
 
@@ -60,7 +60,6 @@ class TicketsController < ApplicationController
   # POST /tickets.json
   def create
     @ticket = Ticket.new(ticket_params)
-
     @ticket.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
     @slot = @lesson_time.slot
     @ticket.requested_location = 25
@@ -70,6 +69,24 @@ class TicketsController < ApplicationController
       @ticket.skip_validations = true
     end
 
+    if @ticket.save
+        redirect_to complete_sledding_ticket_path(@ticket)
+        flash[:notice] = "Almost there! We just need a few more details."
+    else
+        flash[:alert] = "Unfortunately that sledding session is already at capacity. Please pick another time."
+        render 'new'
+    end
+  end
+
+  def create_walk_in_sledding_ticket
+    walk_in_ticket_params = {
+      date:LessonTime.next_available_date,
+      slot:LessonTime.next_available_slot,
+    }
+    @ticket = Ticket.new
+    @ticket.lesson_time = @ticket_time = LessonTime.find_or_create_by(walk_in_ticket_params)
+    @slot = @ticket_time.slot
+    @ticket.requested_location = 25
     if @ticket.save
         redirect_to complete_sledding_ticket_path(@ticket)
         flash[:notice] = "Almost there! We just need a few more details."
@@ -226,10 +243,12 @@ class TicketsController < ApplicationController
   end
 
   def admin_confirm_cash
-    @lesson.deposit_status = 'confirmed'
-    @lesson.state = 'booked'
-    @lesson.save
-    redirect_to "/tickets/#{@lesson.id}?state=#{@lesson.state}&admin_deposit_confirmed=true"
+    @ticket.deposit_status = 'confirmed'
+    @ticket.state = 'booked'
+    @ticket.payment_method = 'cash'
+    @ticket.save
+    flash[:notice] = "Success! Successfully recorded a cash payment for this booking."
+    redirect_to "/tickets/#{@ticket.id}?state=#{@ticket.state}&admin_cash_payment=true"
   end  
 
   def sledding_check_in

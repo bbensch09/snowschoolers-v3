@@ -77,64 +77,63 @@
     <div class='row'>
       <div class="col-md-6">
         <%if @ticket.session_capacity_remaining <=10 && @ticket.session_capacity_remaining >0 %> 
-            <h2 class="text-danger">
-              Warning: there's only <%=@ticket.session_capacity_remaining%> ticket(s) available for this session. Book now before we sell out!
-            </h2>
+        <h2 class="text-danger">
+          Warning: there's only <%=@ticket.session_capacity_remaining%> ticket(s) available for this session. Book now before we sell out!
+        </h2>
         <%elsif @ticket.session_capacity_remaining <=0  %> 
-            <h2 class="text-danger">
-              Unfortunately this time slot is SOLD OUT. Please try a different time slot. If you cannot find an available slot, please email us at <a href="mailto:hello@snowschoolers.com?subject=Sledding%Capacity?" target="_blank" class="navy-link">hello@snowschoolers.com</a> and we can tell you what days and times still have availability.
-            </h2>
+        <h2 class="text-danger">
+          Unfortunately this time slot is SOLD OUT. Please try a different time slot. If you cannot find an available slot, please email us at <a href="mailto:hello@snowschoolers.com?subject=Sledding%Capacity?" target="_blank" class="navy-link">hello@snowschoolers.com</a> and we can tell you what days and times still have availability.
+        </h2>
         <%end%>
-            <hr>
+        <hr>
         <h4><strong>Customer Info</strong></h4>
         <% if current_user.nil? || current_user.email == "brian@snowschoolers.com" %>
         <div class='row'>
-          <div class="col-md-12">
+          <div class="col-md-6">
             <label>Email</label>
             <%= f.email_field :guest_email, placeholder: "email@example.com", class: "form-control", type: 'email', required:true, label: false %>
+          </div>
+          <div class="col-md-6">
+            <label>Price</label>
+              <h2> <span id="lesson-price">
+              <% if @ticket.lookup_calendar_period(@ticket.date,25) == 'Holiday' %>
+              <%= number_to_currency(SLEDDING_HOLIDAY) %></span></h2>
+              <% else %> 
+              <%= number_to_currency(SLEDDING_REGULAR) %></span></h2>
+              <% end %>
+              <div id="calendar-status" class="hidden"><%= @ticket.lookup_calendar_period(@ticket.date,25) %></div>
           </div>
         </div>
         <% end %>
         <div class='row'>
-          <div class="col-md-6">
+          <div class="col-md-6 hidden">
             <label>Your Name</label>
-            <%= f.text_field :requester_name, value: @ticket.requester_name, class: "form-control", required: true, label: false %>
+            <%= f.text_field :requester_name, value: @ticket.guest_email, class: "form-control", required: false, label: false %>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 hidden">
             <label>Phone</label> <span class="text-smaller"></span>
-            <%= f.text_field :phone_number, as: :number, placeholder: 'xxx-xxx-xxxx', class: 'form-control', required:true, include_blank:false %>
+            <%= f.text_field :phone_number, as: :number, placeholder: 'xxx-xxx-xxxx', class: 'form-control', required:false, include_blank:false %>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 hidden">
             <label>Address</label> <span class="text-smaller"></span>
-            <%= f.text_field :street_address, placeholder: '1234 StreetName', class: 'form-control', required:true, include_blank:false %>
+            <%= f.text_field :street_address, placeholder: '1234 StreetName', class: 'form-control', required:false, include_blank:false %>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 hidden">
             <label>City</label> <span class="text-smaller"></span>
-            <%= f.text_field :city, placeholder: 'San Francisco', class: 'form-control', required:true, include_blank:false %>
+            <%= f.text_field :city, placeholder: 'San Francisco', class: 'form-control', required:false, include_blank:false %>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 hidden">
             <label>State</label> <span class="text-smaller"></span>
-            <%= f.text_field :state_code, placeholder: 'CA', class: 'form-control', required:true, include_blank:false %>
+            <%= f.text_field :state_code, placeholder: 'CA', class: 'form-control', required:false, include_blank:false %>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 hidden">
             <label>Zip Code</label> <span class="text-smaller"></span>
-            <%= f.text_field :zip_code, as: :number, placeholder: '94102', class: 'form-control', required:true, include_blank:false %>
+            <%= f.text_field :zip_code, as: :number, placeholder: '94102', class: 'form-control', required:false, include_blank:false %>
           </div>
-<!--             <div class="col-md-6">
-              <label>Driver's License #</label> <span class="text-smaller"></span>
-              <%= f.text_field :drivers_license, placeholder: 'D555-1111', class: 'form-control', required:false, include_blank:false %>
-            </div> -->
-
-            <div class="col-md-6">
-              <label>Price</label>
-              <h2> <span id="lesson-price">
-                <% if @ticket.lookup_calendar_period(@ticket.date,25) == 'Holiday' %>
-                <%= number_to_currency(SLEDDING_HOLIDAY) %></span></h2>
-                <% else %> 
-                <%= number_to_currency(SLEDDING_REGULAR) %></span></h2>
-                <% end %>
-                <div id="calendar-status" class="hidden"><%= @ticket.lookup_calendar_period(@ticket.date,25) %></div>
-              </div>
+          <div class="col-md-6 hidden">
+            <label>Driver's License #</label> <span class="text-smaller"></span>
+            <%= f.text_field :drivers_license, placeholder: 'D555-1111', class: 'form-control', required:false, include_blank:false %>
+          </div>
 
               <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
               <div class='row'>
@@ -157,7 +156,7 @@
             <h4 class="text-danger" id="age-warning">Note: toddlers age 2 and under are FREE, but must still be included in your reservation.</h4>
             <div id='ticket_students_input'>
               <%= f.semantic_fields_for :participants do |participant| %>
-                  <%= render 'participant_fields', f: participant %>
+              <%= render 'participant_fields', f: participant %>
               <% end %>
               <div class='links'>
                 <%= link_to_add_association 'Add Another Participant', f, :participants, limit: 20, class: 'btn btn-default', id:'add-participant-button' %>
@@ -189,7 +188,7 @@
                     <p id="accept-terms">
                       <%= f.check_box :terms_accepted, id: "rememberme", required: true  %>
                       By checking this box, I acknowledge that I have read and fully agree to the <span>
-                        <%= link_to 'Release of Liability', release_of_liability_path(@ticket.id), target:"_blank", class:"black-link", target:"_blank" %></span> and the <span><a href="/terms_of_service" target="_blank" class='black-link'> Terms of Service </a></span> governing this website.
+                        <%= link_to 'Release of Liability', liability_release_path(@ticket.id), target:"_blank", class:"black-link", target:"_blank" %></span> and the <span><a href="/terms_of_service" target="_blank" class='black-link'> Terms of Service </a></span> governing this website.
                       </p>
 
                     </label>
