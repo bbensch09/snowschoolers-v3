@@ -16,8 +16,8 @@ class Ticket < ApplicationRecord
 
   # old -- used to confirm participants are all over the age of 8 (for group lessons)
   # validate :age_validator, on: :update
-  validate :check_session_capacity
-  before_save :check_session_capacity
+  # validate :check_session_capacity
+  # before_save :check_session_capacity
   before_save :confirm_valid_promo_code
 
 
