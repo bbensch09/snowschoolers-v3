@@ -26,6 +26,15 @@ class Ticket < ApplicationRecord
   	return true if self.requester_name.include?("John Doe")
   end
 
+  def participants_under_age_18
+    kids = self.participants.to_a.keep_if{|participant| participant.age_range.to_i < 18}
+    kids_names = []
+    kids.each do |participant|
+      kids_names << participant.name
+    end
+    kids_names.join(', ')
+  end
+
   def self.set_dates_for_sample_bookings
   	today = LessonTime.find_or_create_by(date:Date.today)
   	tomorrow = LessonTime.find_or_create_by(date:Date.tomorrow)

@@ -24,25 +24,14 @@
                 </div>
               <% end %>
             </div>
-          <!-- end hidden lesson time fields -->
-
-          <div class="row">
-            <div class="col-md-3">
-              <label class="lesson-label">Airbnb Confirmation Reference#</label>
-                <%= f.input :additional_info, as: :string, placeholder: "e.g. TAXX3HXY", label: false %>
-            </div>
-          </div>
           <% end %>
+          
           <hr>
-          <%= link_to "Send Reminder Email", send_day_before_reminder_email_path(@ticket), class: "btn btn-success" %> (goes to student & cc instructor)
-          <%= link_to "Create Duplicate Lesson", duplicate_path(@ticket), method: :put, class: "btn btn-warning" %>
-          <p>Client phone number: <%= @ticket.phone_number %> </p>
-        <%= link_to "Admin Confirm Deposit", admin_confirm_deposit_path, method: :put, class: "btn btn-default" %>
-        <%= link_to "Confirm Add to Schedule", admin_confirm_booked_with_modification_path, method: :put, class: "btn btn-default btn-airbnb" %>
+        <%= link_to "Process Cash Payment", admin_confirm_cash_path(@ticket), method: :put, class: "btn btn-default btn-airbnb" %>
         <%= link_to 'Edit Booking', edit_ticket_path(@ticket), class: "btn btn-success" %> <span> </span>
         <%= link_to 'Edit Booking & Reissue Deposit', rebook_ticket_path(@ticket), method: :put, class: "btn btn-warning" %><span> </span>
         <%= link_to 'Edit Booking & Issue Refund', issue_refund_path(@ticket), method: :put, class: "btn btn-danger" %><span> </span>
-        <%= link_to 'Cancel Booking', @ticket, method: :delete, data: { confirm: 'Are you sure you want to cancel this lesson?' }, class: "btn btn-danger" %></td>
+        <%= link_to 'Cancel Booking', @ticket, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
 
     </div>
     <% end %>

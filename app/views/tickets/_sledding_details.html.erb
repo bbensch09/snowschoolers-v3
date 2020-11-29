@@ -1,26 +1,26 @@
   <% if @ticket.paid? %>
   <h1 class="center">
-    Thank you for booking a snowpark reservation with Snow Schoolers!
+    Thank you for booking your snowpark ticket(s) with Snow Schoolers!
   </h1>
   <h3><b> What happens next?</b></h3>
   <ol>
     <li>Review our <a href="/covid19" class="navy-link">pandemic policies</a> again. Help us keep the community safe, and ensure we all get to enjoy a full winter season.</li>
-    <li>Complete the <a href = "https://waiver.smartwaiver.com/v/snowschoolers2021" class="green-link">online waiver</a> for yourself and all participants.</li>
-    <li>Find and save your confirmation number below.</li>
+<!--     <li>Complete the <a href = "https://waiver.smartwaiver.com/v/snowschoolers2021" class="green-link">online waiver</a> for yourself and all participants.</li>
+ -->    <li>Find and save your confirmation number below.</li>
   </ol>
   <hr>
   <% end %>
   <p>
-    <b>Reservation status:</b>
+    <b>Booking status:</b>
     <%= @ticket.state %>
   </p>
 
   <div class="details-info-box">
     <% if @ticket.booked? %>
     <p class="confirmation-number">
-      <b> Confirmation Receipt </b>
-      <br>
-      Your reservation confirmation number is: <span style="font-weight: bold; font-size:18px;"><%=@ticket.confirmation_number%></span>. Please either print this page or save the confirmation email you should automaticaly receive, as you will need to show your confirmation number the morning of your lesson as proof of payment. Please also find your sledding reservation details below.
+      <b> Confirmation Receipt:</b>
+      Your confirmation number is <span style="font-weight: bold; font-size:18px;"><%=@ticket.confirmation_number%></span>.
+      <br>Please print this page or save the confirmation email you will automaticaly receive. You will need to show your confirmation number to a staff member to receive wristbands to enter the snow park.
     </p>
     <% end %>
   </div>
@@ -29,7 +29,9 @@
   <p class="left">
     <b> Release of Liability </b>
     <br>
-    You must also complete a required release of liability waiver prior to entering the snow park. Please find the waiver at <a href="https://waiver.smartwaiver.com/v/snowschoolers2021" class="navy-link">https://waiver.smartwaiver.com/v/snowschoolers2021</a>
+    By purchasing your sledding ticket(s) you have agreed to Snow Schoolers' terms of service and release of liability. You may print and review the full liability release at the link below.
+    <br>
+    <span class="lesson-detail-topic"> <%= link_to 'View Release of Liability', liability_release_path(@ticket.id), class:"btn btn-tertiary", target:"_blank" %><br>
   </p>
   <% end %>
 
