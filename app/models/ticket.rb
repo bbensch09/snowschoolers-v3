@@ -12,12 +12,12 @@ class Ticket < ApplicationRecord
   validates :requested_location, presence: true
   validates :phone_number, presence: true, on: :update
   validates :terms_accepted, inclusion: { in: [true], message: 'must accept terms' }, on: :update
-  # validate :participant_exists, on: :update
+  validate :participant_exists, on: :update
 
   # old -- used to confirm participants are all over the age of 8 (for group lessons)
   # validate :age_validator, on: :update
-  # validate :check_session_capacity
-  # before_save :check_session_capacity
+  validate :check_session_capacity
+  before_save :check_session_capacity
   before_save :confirm_valid_promo_code
 
 
