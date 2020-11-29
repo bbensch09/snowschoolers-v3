@@ -247,6 +247,7 @@ class TicketsController < ApplicationController
     @ticket.state = 'booked'
     @ticket.payment_method = 'cash'
     @ticket.save
+    LessonMailer.send_sledding_confirmation(@ticket).deliver!
     flash[:notice] = "Success! Successfully recorded a cash payment for this booking."
     redirect_to "/tickets/#{@ticket.id}?state=#{@ticket.state}&admin_cash_payment=true"
   end  
