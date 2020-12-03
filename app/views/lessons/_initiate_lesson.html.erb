@@ -58,7 +58,11 @@
 
             <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
               <div class="col-md-3">
-                <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker', value:@date, required:true, autocomplete:"off" }, placeholder: 'Date', label: false %>
+                <% if @promo_location && @promo_location == 25 %>
+                  <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker3', value:@date, required:true, autocomplete:"off" }, placeholder: 'Date', label: false %>
+                  <% else %> 
+                  <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker', value:@date, required:true, autocomplete:"off" }, placeholder: 'Date', label: false %>
+                <% end %>
                 <span class="search-area-icon"></span>
               </div>
 

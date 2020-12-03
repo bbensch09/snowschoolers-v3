@@ -72,6 +72,7 @@ var LESSON = {
     // important objects
     LESSON._date = $('#datepicker');
     LESSON._date2 = $('#datepicker2');
+    LESSON._date3 = $('#datepicker3');
     LESSON._slot = $('#lesson_lesson_time_slot');
     LESSON._duration = $('#lesson_duration');
     LESSON._durations = {
@@ -108,8 +109,8 @@ var LESSON = {
 
   setDatepicker: function() {
   var blocked_dates_array = [
-  '2020-12-01','2020-12-02','2020-12-03',
-  '2020-12-08','2020-12-09','2020-12-10',
+  '2020-12-01','2020-12-02','2020-12-03','2020-12-04','2020-12-07',
+  '2020-12-08','2020-12-09','2020-12-10','2020-12-11','2020-12-14',
   '2020-12-15','2020-12-16','2020-12-17',
   '2021-01-05','2021-01-06','2021-01-07',
   '2021-01-12','2021-01-13','2021-01-14',
@@ -144,6 +145,16 @@ var LESSON = {
     maxDate: '2021-04-19',
     dateFormat: 'yy-mm-dd'
     });
+  LESSON._date3.datepicker({
+    beforeShowDay: function(date){
+      var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+      return [ blocked_dates_array.indexOf(string) == -1 ]
+    },
+    minDate: '2020-12-23',
+    maxDate: '2021-04-19',
+    dateFormat: 'yy-mm-dd'
+    });
+
   },
 
   // var TODAYS_DATE = new Date().getDate();
