@@ -25,7 +25,7 @@ console.log("The month values is set to "+month)
 var year = dt.getYear() +1900;
 console.log("The year values is set to "+year)
 var date = year + "-" + month + "-" + day;
-var opening_date = new Date("2020-12-11");
+var opening_date = new Date("2020-12-18");
 
 // logs today's date
 console.log("DATES_BUFFER is set to: "+DATES_BUFFER);
@@ -57,7 +57,7 @@ if (MIN_DATE == '2021-3-32') {
 
 
 if (Date.now() <= opening_date) {
-  var MIN_DATE = '2020-12-11';
+  var MIN_DATE = '2020-12-18';
   // logs the season start date
   console.log("Today is before opening day, and so the first bookable day is " + MIN_DATE);
 }
@@ -150,7 +150,7 @@ var LESSON = {
       var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
       return [ blocked_dates_array.indexOf(string) == -1 ]
     },
-    minDate: '2020-12-23',
+    minDate: '2020-12-26',
     maxDate: '2021-04-19',
     dateFormat: 'yy-mm-dd'
     });
