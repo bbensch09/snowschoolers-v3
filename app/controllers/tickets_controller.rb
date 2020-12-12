@@ -180,6 +180,7 @@ class TicketsController < ApplicationController
       @user_email = current_user ? current_user.email : "unknown"
       if @ticket.state == "ready_to_book"
         LessonMailer.notify_admin_sledding_full_form_updated(@ticket.id).deliver!
+        @ticket.send_waiver_link_to_customers_phone
       end
       puts "!!!! Ticket update saved; update notices sent"
       redirect_to "/tickets/#{@ticket.id}?state=#{@ticket.state}"
