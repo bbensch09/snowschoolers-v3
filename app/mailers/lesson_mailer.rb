@@ -139,6 +139,13 @@ class LessonMailer < ActionMailer::Base
       mail(to: 'brian@snowschoolers.com', cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", subject: "SMS sent to #{@recipient}")
   end
 
+  def notify_admin_sms_logs_sledding(ticket,recipient,body)
+      @ticket = ticket
+      @recipient = recipient
+      @body = body
+      mail(to: 'brian+sms_logs@snowschoolers.com', subject: "Sledding SMS sent to #{@recipient}")
+  end
+
   def send_admin_notify_invalid_phone_number(lesson)
       @lesson = lesson
       mail(to: 'brian@snowschoolers.com', subject: "Alert - Failed to send SMSto #{@lesson.phone_number}")

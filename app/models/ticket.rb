@@ -21,6 +21,22 @@ class Ticket < ApplicationRecord
   before_save :confirm_valid_promo_code
 
 
+  def send_waiver_link_to_customers_phone
+    return if ENV['twilio_status'] == "inactive"
+    account_sid = ENV['TWILIO_SID']
+    auth_token = ENV['TWILIO_AUTH']
+    snow_schoolers_twilio_number = ENV['TWILIO_NUMBER']
+    recipient = self.phone_number
+    body = "Thanks for visiting us! In order to complete your reservation, please click below to sign your waiver. https://waiver.smartwaiver.com/v/snowschoolers2021"
+    @client = Twilio::REST::Client.new account_sid, auth_token
+          @client.api.account.messages.create({
+          :to => recipient,
+          :from => "#{snow_schoolers_twilio_number}",
+          :body => body
+      })
+    LessonMailer.notify_admin_sms_logs_sledding(self,recipient,body).deliver!
+  end
+
   def is_sample_booking?
   	return false if self.requester_name.nil?
   	return true if self.requester_name.include?("John Doe")
@@ -138,7 +154,7 @@ end
 
 def paid?
 	active_states = ['booked','confirmed',]
-	return true if active_states.include?(state) && self.date > Date.today
+	return true if active_states.include?(state)
 end
 
 def upcoming?

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h4>Snow Schoolers Sledding SMS Logs for <%= DateTime.now %> </h4>
+    <ul>
+    <% if @ticket.id %>
+      <li>Reservation URL: <%= ticket_url(@ticket) %></li>
+      <li>Requester name: <%= @ticket.requester.email %></li>
+      <li>Tickets: <%= @ticket.participants.count %></li>
+      <li>Phone number: <%= @recipient %></li>
+    <% end %>
+      <li>Content of SMS: <%= @body %></li>
+    </ul>
+  </body>
+</html>
