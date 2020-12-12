@@ -154,7 +154,7 @@ end
 
 def paid?
 	active_states = ['booked','confirmed',]
-	return true if active_states.include?(state) && self.date > Date.today
+	return true if active_states.include?(state)
 end
 
 def upcoming?
