@@ -175,20 +175,20 @@
 
           <div class="row">
             <div class="col-md-6">
-              <h4><strong>Release of Liability</strong>
-                <a href="#accept-terms" class="btn btn-default"> Scroll to bottom</a>
+              <a href="#accept-terms" class="btn btn-default"> Jump to bottom</a>
+              <h4><strong>PARTICIPANT AGREEMENT, RELEASE AND ASSUMPTION OF RISK</strong>
               </h4>
 
               <div class="col-md-12">
                 <span class="checkbox ">
                   <label for="rememberme">
 
-                    <%= render partial: 'lessons/release_of_liability_text' %>
+                    <%= render partial: 'lessons/release_of_liability_2021_text' %>
 
                     <p id="accept-terms">
                       <%= f.check_box :terms_accepted, id: "rememberme", required: true  %>
                       By checking this box, I acknowledge that I have read and fully agree to the <span>
-                        <%= link_to 'Release of Liability', liability_release_path(@ticket.id), target:"_blank", class:"black-link", target:"_blank" %></span> and the <span><a href="/terms_of_service" target="_blank" class='black-link'> Terms of Service </a></span> governing this website.
+                        <%= link_to 'Release of Liability', liability_release_path(@ticket.id), target:"_blank", class:"black-link", target:"_blank" %></span> and the <span><a href="/terms_of_service" target="_blank" class='black-link'> Terms of Service</a></span>.
                       </p>
 
                     </label>
