@@ -12,6 +12,9 @@ class WelcomeController < ApplicationController
   def pandemic
   end
   
+  def thanks
+  end
+
   def new_hire_packet
     file = "public/Homewood-Hire-Packet-2016-2017.pdf"
     if File.exists?(file)
