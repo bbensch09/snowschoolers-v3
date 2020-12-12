@@ -87,7 +87,6 @@
         <%end%>
         <hr>
         <h4><strong>Customer Info</strong></h4>
-        <% if current_user.nil? || current_user.email == "brian@snowschoolers.com" %>
         <div class='row'>
           <div class="col-md-6">
             <label>Email</label>
@@ -99,7 +98,7 @@
           </div>
 
         </div>
-        <% end %>
+
         <div class='row'>
           <div class="col-md-6 hidden">
             <label>Your Name</label>
