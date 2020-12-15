@@ -1342,7 +1342,8 @@ class Lesson < ActiveRecord::Base
         return false
       end
     elsif self.private_lesson?
-      if !PRIVATE_SLOTS.include?(self.slot)
+      # Admin slots includes options for booking an Aibrnb time slot
+      if !ADMIN_SLOTS.include?(self.slot)
         errors.add(:lesson, "You've selected a private lesson at the group time slot. Please select a valid private lesson time to continue.")
         return false
       end
