@@ -14,7 +14,27 @@
     <div id="autofill-container" class="admin-viewable">
       <a href="#fill" id="autofill_complete_form" class="btn btn-primary">Autofill Form</a>
       <%= link_to "Mark as Airbnb Lesson", admin_confirm_airbnb_path, method: :put, class: "btn btn-default btn-airbnb" %>
+
+      <% if session[:refund] == true %>
+        <h3> To issue a full refund: </h3>
+          <ol>
+            <li>
+                <a href="https://dashboard.stripe.com/payments" id="stripe-refund" target="_blank" class="btn btn-warning">Issue Refund in Stripe</a> <br><br>
+            </li>
+            <li><%= link_to 'Mark Lesson as Canceled', issue_full_refund_path(@lesson), method: :put, class: "btn btn-danger" %></li>
+          </ol>
+
+        <h3> To issue a partial refund: </h3>
+          <ol>
+            <li>
+              <a href="https://dashboard.stripe.com/payments" id="stripe-refund" target="_blank" class="btn btn-warning"> First process the partial refund in Stripe.</a>
+            </li>
+            <li>Then enter the refund reason as 'Package info' below, along with the final amount due as 'Total Price'. </li>
+            <li>Then click to <a href="#full-form-submit-btn" class="btn btn-success">Re-confirm the reservation</a> </li>
+          </ol>
+      <% end %>
     </div>
+
     <% end %>
 
     <%= semantic_form_for @lesson do |f| %>
@@ -303,7 +323,7 @@
           </div>
           <div class="col-md-3">
             <%= f.input :state, as: :hidden, input_html: { value: @state } %>
-            <%= f.submit button_text, class: 'btn sign-up-btn btn-primary pull-right continue-to-payment-btn' %>
+            <%= f.submit button_text, class: 'btn sign-up-btn btn-primary pull-right continue-to-payment-btn', id:"full-form-submit-btn" %>
           </div>
 
         </div>

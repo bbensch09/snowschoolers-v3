@@ -280,6 +280,7 @@ Rails.application.routes.draw do
   get   'lessons/:id/send_review_reminders_to_student' => 'lessons#send_review_reminders_to_student',  as: :send_review_reminders_to_student
   post 'lessons/:id/confirm_reservation'              => 'lessons#confirm_reservation', as: :confirm_reservation
   put 'lessons/:id/issue_refund'              => 'lessons#issue_refund', as: :issue_refund
+  put 'lessons/:id/issue_full_refund'              => 'lessons#issue_full_refund', as: :issue_full_refund
   put 'lessons/:id/reissue_invoice'              => 'lessons#reissue_invoice', as: :reissue_invoice
   get '/lessons/:id/edit_wages' => 'lessons#edit_wages', as: :edit_wages
   get '/lessons/:id/add_private_request' => 'lessons#add_private_request', as: :add_private_request

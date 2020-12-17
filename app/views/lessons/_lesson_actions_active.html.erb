@@ -26,8 +26,9 @@
     <% if @lesson.is_gift_voucher? && @lesson.state == "gift_voucher_reserved" && current_user.email == @lesson.gift_recipient_email.downcase %>
       <%= link_to 'Book Lesson Dates', edit_lesson_path(@lesson), class: "btn btn-default" %>
       <% else %>
-      <%= link_to 'Edit Lesson', edit_lesson_path(@lesson) %>
-      <%= link_to 'Cancel Lesson', @lesson, method: :delete, class: "btn btn-warning" %>
+      <!-- %= link_to 'Edit Lesson', edit_lesson_path(@lesson) %> -->
+       <a href="mailto:hello@snowschoolers.com?subject=Need%20to%20Cancel%20or%20Modify%20%My%20Lesson" class="btn btn-warning" target="_blank">Request to Cancel Lesson</a>
+       <p>Cancellations can only be done through guest services. Email us at <a href="mailto:hello@snowschoolers.com" class="link-navy">hello@snowschoolers.com</a></p>
     <% end %>
     <% if @lesson.instructor && @lesson.date <= Date.today %>
     <%= link_to "Mark Lesson Complete", mark_lesson_complete_path, method: :put, class: "btn btn-success" %>
