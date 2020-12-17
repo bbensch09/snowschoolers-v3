@@ -82,7 +82,7 @@ Rails.application.routes.draw do
   root to: "welcome#index"
   get 'jobs' => 'welcome#jobs'
   get 'join-the-team' => 'welcome#join_the_team'
-  get 'extenuating-circumstances' => 'welcome#extenuating_circumstances'
+  get 'extenuating-circumstances' => 'welcome#extenuating_circumstances', as: :extenuating_circumstances
 
   #backup index
   get 'winter' => 'welcome#index_backup_may2017'

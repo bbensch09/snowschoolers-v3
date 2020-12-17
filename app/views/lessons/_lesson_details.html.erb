@@ -10,6 +10,7 @@
     <li>Still need accommodations? Book a room today at the <a href="http://granlibakken.com/north-tahoe-lodging-packages/" class="navy-link">Granlibakken Lodge</a>!</li>
   </ol>
   <hr>
+
   <p>
     <b>Lesson status:</b>
       <%= @lesson.state %>
@@ -63,6 +64,13 @@
         You must also complete a required release of liability waiver prior to the start of your lesson. Please find the waiver at <a href="https://waiver.smartwaiver.com/v/snowschoolers2021" class="navy-link">https://waiver.smartwaiver.com/v/snowschoolers2021</a>
       </p>
       <% end %>
+
+
+      <p>
+        <b> COVID Cancellation Policy </b>
+        <br>
+        Given the on-going pandemic, we recognize that your travel plans may change due to events beyond your control. If you have questions about how refunds are handled for COVID-related cancellations, please review our <%= link_to "extenuating circumstances policy", extenuating_circumstances_path, class:"navy-link" %>.
+      </p>
 
       <hr class="deposit-hr-navy">
 
