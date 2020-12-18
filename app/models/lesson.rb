@@ -675,8 +675,16 @@ class Lesson < ActiveRecord::Base
   end
 
   def self.canceled_lessons
-    lessons = Lesson.where(state:'canceled')
-    lessons.select{|lesson| lesson.this_season?}
+    lessons = Lesson.all
+    lessons.select{|lesson| lesson.state.downcase.include?("Canceled") && lesson.this_season?}
+  end
+
+  def canceled?
+    if self.state.downcase.include?("canceled")
+      return true
+    else
+      false
+    end                                                  
   end
 
 
@@ -881,10 +889,6 @@ class Lesson < ActiveRecord::Base
 
   def new?
     state == 'new'
-  end
-
-  def canceled?
-    state == 'canceled'
   end
 
   def pending_instructor?

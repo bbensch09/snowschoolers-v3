@@ -145,8 +145,8 @@ class LessonsController < ApplicationController
   def daily_roster
     lessons = Lesson.all.select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.airbnb? || lesson.partially_booked? || lesson.state.nil? }
     lessons = lessons.sort_by{|lesson| lesson.start_time}
-    @todays_lessons = lessons.select{|lesson| (lesson.date == Date.today || lesson.date == '2016-09-12') && lesson.state != 'canceled' }
-    @tomorrows_lessons = lessons.to_a.keep_if{|lesson| (lesson.date == Date.today+1 || lesson.date == '2016-09-12') && lesson.state != 'canceled' }
+    @todays_lessons = lessons.select{|lesson| (lesson.date == Date.today || lesson.date == '2016-09-12') && !lesson.canceled? }
+    @tomorrows_lessons = lessons.to_a.keep_if{|lesson| (lesson.date == Date.today+1 || lesson.date == '2016-09-12') && !lesson.canceled? }
     render 'daily_roster'
   end
 
@@ -156,7 +156,7 @@ class LessonsController < ApplicationController
     lessons = Lesson.all.select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.airbnb?  || lesson.partially_booked? || lesson.state.nil? }
     # lessons = lessons.sort_by{|lesson| lesson.activity}.reverse
     lessons = lessons.sort_by{|lesson| lesson.start_time}
-    @todays_lessons = lessons.select{|lesson| lesson.date.to_s == @date && lesson.state != 'canceled' }
+    @todays_lessons = lessons.select{|lesson| lesson.date.to_s == @date && !lesson.canceled? }
   end
 
   def index
@@ -188,8 +188,8 @@ class LessonsController < ApplicationController
 
   def daily_group_roster
     lessons = Lesson.where(class_type: "group").select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.state.nil? }
-    @todays_lessons = lessons.select{|lesson| lesson.date == Date.today && lesson.state != 'canceled' }
-    @tomorrows_lessons = lessons.keep_if{|lesson| lesson.date == Date.today + 1 && lesson.state != 'canceled' }
+    @todays_lessons = lessons.select{|lesson| lesson.date == Date.today && !lesson.canceled? }
+    @tomorrows_lessons = lessons.keep_if{|lesson| lesson.date == Date.today + 1 && !lesson.canceled? }
     render 'daily_group_roster'
   end
 
