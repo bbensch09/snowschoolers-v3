@@ -128,7 +128,7 @@
               <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
                 <div class="col-md-6">
                   <label>Date</label>
-                  <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker', value:@ticket.date, required:true, autocomplete:"off" }, placeholder: 'Pick a date', label: false %>
+                  <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker2', value:@ticket.date, required:true, autocomplete:"off" }, placeholder: 'Pick a date', label: false %>
                 </div>
                 <div class="col-md-6">
                   <label>Time Slot</label>
