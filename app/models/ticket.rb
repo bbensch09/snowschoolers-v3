@@ -83,9 +83,14 @@ class Ticket < ApplicationRecord
   	else
   		l = 'XX'
   	end
+    if self.num_days & self.num_days >=2
+      custom="-MultiDay-"+num_days.to_s
+    else
+      custom=""
+    end
   	ticket_count = self.participants.count.to_s
   	id = self.id.to_s.rjust(4,"0")
-  	confirmation_number = l+'-'+id+'-'+date+'-'+ticket_count
+  	confirmation_number = l+'-'+id+'-'+date+'-'+ticket_count+custom
   end
 
   def self.mark_all_confirmed
