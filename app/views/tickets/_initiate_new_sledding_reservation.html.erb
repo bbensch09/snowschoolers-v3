@@ -19,7 +19,7 @@
           <a href="/sled-now" class="btn btn-primary btn-xl page-scroll powder-btn">Book Sledding Tickets for Today</a>          
         </h2>
         
-        <h4 class="navy-text"><span class="underline"><b> COVID UPDATE:</b></span> Due to the on-going pandemic, the sled hill will have a max capacity of <%=SLEDHILL_CAPACITY %> active sledders. As such, we will be holding 4 daily sledding sessions, with each sesesion lasting 90 minutes on the main sled hill. We have upper overflow sled area which we expect to remain open throughout the day for all ticketholders, but requires more hiking uphill and the snow is not as regularly groomed. Please select your preferred time slot at the time of purchase, which guarantees you will be able to enter the main sled hill at that time. If we are not at capacity, all ticket holders will be permitted to enter the main area, until capacity is reached. </h4>
+        <h4 class="navy-text"><span class="underline"><b> COVID UPDATE:</b></span> Due to the on-going pandemic, the sled hill must limit the maximum capacity of active sledders. As such, we will be issuing a limited number of different colored wristbands for the morning and afternoon "sessions." While your ticket is good for sledding and snowplay all-day long, your session indicates when you have "priority." On days that we reach the hill's capacity, we will occassionally need to close the hill for a 10-15min break in the afternoon. We then let in the priority wristbands (e.g. the afternoon color) back in first while we record a precise count. If you have a morning wristband, you'll be instructed to proceed to the upper overflow area where there is plenty of room for snowplay but no groomed runs for sledding. If we are not at capacity, all ticket holders will be permitted to enter the main area, until capacity is reached. </h4>
 
         <% if (Product.where(location_id:25,product_type:'sledding_ticket').first == nil || Product.where(location_id:25,product_type:'sledding_ticket').first == nil) %>
         <h3 class='text-danger center'> Pricing Not Yet Available </h3>
@@ -66,7 +66,7 @@
         <p class="text-smaller">
           *Thanksgiving weekend will have regular (non-holiday) pricing. Holidays include Dec 20-Jan 3, Jan 16-18, Feb 13-21.
         </p>
-        <h3 class="text-danger">Note: There is a parking fee of $20 per vehicle. Cash or credit card will be accepted, but we expect to include parking in the online ticketing process soon. Stay tuned! </h3>
+        <h3 class="text-danger">Note: There is a parking fee of $20 per vehicle. Cash only unfortunately. We do expect to include parking in the online ticketing process soon. Stay tuned! </h3>
       </div>
     </section>
 

@@ -35,7 +35,7 @@ class LessonTime < ActiveRecord::Base
   def self.slots_still_open_today
     array = []
     SLEDDING_SLOTS.each do |slot|
-      if Time.now <= LessonTime.find_start_time(slot)
+      if Time.now <= LessonTime.find_start_time(slot) #this should be 30min before the end of the current session.
         array << slot
       end
     end
@@ -46,13 +46,17 @@ class LessonTime < ActiveRecord::Base
   def self.find_start_time(slot)
     case slot
     when 'Early-bird (9-10:30am)'
-      then '9:00 AM'.to_time
+      then '10:00 AM'.to_time
     when 'Morning (11am-12:30pm)'
-      then '11:00 AM'.to_time
+      then '12:00 PM'.to_time
     when 'Midday (1-2:30pm)'
-      then '2:30 PM'.to_time
+      then '2:00 PM'.to_time
     when 'Closing(3-4:30pm)'
-      then '3:00 PM'.to_time
+      then '4:00 PM'.to_time
+    when 'Morning (10am-1pm)'
+      then '12:30 PM'.to_time
+    when 'Afternoon (1pm-4pm)'
+      then '4:00 PM'.to_time
     end
   end
 

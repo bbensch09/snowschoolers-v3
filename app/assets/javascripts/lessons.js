@@ -67,6 +67,8 @@ if (month == 12 && year == 2022 && day ==33) {
   console.log('MIN date set to: '+MIN_DATE);
 }
 
+var MIN_DATE_SLEDDING = MIN_DATE-1ex
+
 var LESSON = {
   init: function(){
     // important objects
@@ -141,7 +143,7 @@ var LESSON = {
       var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
       return [ blocked_dates_array.indexOf(string) == -1 ]
     },
-    minDate: '2020-11-27',
+    minDate: MIN_DATE_SLEDDING,
     maxDate: '2021-04-19',
     dateFormat: 'yy-mm-dd'
     });
@@ -150,7 +152,7 @@ var LESSON = {
       var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
       return [ blocked_dates_array.indexOf(string) == -1 ]
     },
-    minDate: '2020-12-26',
+    minDate: '2021-01-15',
     maxDate: '2021-04-19',
     dateFormat: 'yy-mm-dd'
     });
