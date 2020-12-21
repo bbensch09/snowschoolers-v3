@@ -53,9 +53,9 @@ class LessonTime < ActiveRecord::Base
       then '2:00 PM'.to_time
     when 'Closing(3-4:30pm)'
       then '4:00 PM'.to_time
-    when 'Morning (10am-1pm)'
+    when 'Morning (9:30am-1pm)'
       then '12:30 PM'.to_time
-    when 'Afternoon (1pm-4pm)'
+    when 'Afternoon (1pm-4:30pm)'
       then '4:00 PM'.to_time
     end
   end

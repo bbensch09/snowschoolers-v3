@@ -28,7 +28,7 @@ KV_HOLIDAYS = ['2020-12-24','2020-12-25','2020-12-26','2020-12-27','2020-12-28',
 
 
 # SLEDDING_SLOTS_4 = ['Early-bird (9-10:30am)', 'Morning (11am-12:30pm)','Midday (1-2:30pm)','Closing(3-4:30pm)']
-SLEDDING_SLOTS = ['Morning (10am-1pm)','Afternoon (1pm-4pm)']
+SLEDDING_SLOTS = ['Morning (9:30am-1pm)','Afternoon (1pm-4:30pm)']
 
 PRIVATE_SLOTS = [
 	'1hr Early Bird 8:45-9:45am','1hr Private 10:00am','1hr Private 11:15am','1hr Private 12:30pm','Half-day Morning 10:00am-12:45pm','Half-day Afternoon 1:15-4:00pm','Full-day (10:00am-4:00pm)'

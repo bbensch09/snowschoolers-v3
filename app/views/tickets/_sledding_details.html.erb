@@ -19,9 +19,11 @@
     <% if @ticket.booked? %>
     <p class="confirmation-number">
       <b> Confirmation Receipt:</b>
-      Your confirmation number is <span style="font-weight: bold; font-size:18px;"><%=@ticket.confirmation_number%></span>.
-      <br>Please print this page or save the confirmation email you will automaticaly receive. You will need to show your confirmation number to a staff member to receive wristbands to enter the snow park.
+      Your confirmation number is below. Please print this page or save the confirmation email you will automaticaly receive. You will need to show your confirmation number to a staff member to receive wristbands to enter the snow park.
     </p>
+    <ul>
+      <li><span style="font-weight: bold; font-size:18px;"><%=@ticket.confirmation_number%></span>.</li>
+    </ul>
     <% end %>
   </div>
 

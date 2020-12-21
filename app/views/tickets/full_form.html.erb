@@ -62,12 +62,12 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-2">
-          <label>Non-Lesson Cost</label>
-          <%= f.input :admin_price_adjustment, as: :string, placeholder: "Enter custom price", label: false %>
+        <div class="col-md-6">
+          <label>Notes for Custom Pricing</label>
+          <%= f.input :additional_info, as: :text, placeholder: "Enter description of the custom pricing offered.", label: false %>
         </div>
         <div class="col-md-2">
-          <label>Total Price</label>
+          <label>Total of Custom Price</label>
           <%= f.input :booking_order_value, as: :string, placeholder: "Enter custom final price", label: false %>
         </div>
       </div>
