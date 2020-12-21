@@ -65,6 +65,15 @@
     <%= render partial: 'lessons/student_details' %>
 
 
+
+    <p>
+      <b> COVID Cancellation Policy </b>
+      <br>
+      Given the on-going pandemic, we recognize that your travel plans may change due to events beyond your control. If you have questions about how refunds are handled for COVID-related cancellations, please review our <%= link_to "extenuating circumstances policy", extenuating_circumstances_url, class:"navy-link" %>.
+    </p>
+
+    <hr>
+
     <p>
       If you need to make any changes to your lesson reservation, please visit: <a href=<%= lesson_url(@lesson) %> ><%= lesson_url(@lesson) %></a>.
     </p>
