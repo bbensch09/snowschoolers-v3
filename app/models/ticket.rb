@@ -83,7 +83,7 @@ class Ticket < ApplicationRecord
   	else
   		l = 'XX'
   	end
-    if self.num_days & self.num_days >=2
+    if !self.num_days.nil?
       custom="-MultiDay-"+num_days.to_s
     else
       custom=""
