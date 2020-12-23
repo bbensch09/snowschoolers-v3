@@ -708,6 +708,16 @@ class Lesson < ActiveRecord::Base
     return total
   end
 
+  def self.revenue_for_lessons(lessons)
+    total = 0
+    lessons.each do |lesson|
+      unless lesson.focus_area == "Exclude"
+        total += lesson.price.to_i
+      end
+    end
+    return total
+  end
+
   def self.closed_booked_revenue
     lessons = Lesson.confirmed_lessons
     total = 0
