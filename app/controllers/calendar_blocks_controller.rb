@@ -50,7 +50,7 @@ class CalendarBlocksController < ApplicationController
     date.nil? ? date = Date.today+2 : date.to_date
     min_date = date -10
     lessons = Lesson.all.select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.state.nil? }
-    lessons = lessons.to_a.keep_if{|lesson| lesson.date >= Date.today-10 && lesson.date <= Date.today+10}
+    lessons = lessons.to_a.keep_if{|lesson| lesson.date >= Date.today-10 && lesson.date <= Date.today+10 && !lesson.canceled?}
     @lessons = lessons.sort_by{|lesson| lesson.date}
     @count = @lessons.count
     dates = []
