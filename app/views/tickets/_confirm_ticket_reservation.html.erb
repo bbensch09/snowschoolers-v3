@@ -62,8 +62,29 @@
         </span>                  
       </div>
     </div>
+
+    <div class="row">
+      <ul>
+
+      <% if @ticket.sleds_purchased %>
+        <li>Sleds purchased: <%= @ticket.sleds_purchased %> for $20 ea. (subtotal: <%= number_to_currency(@ticket.sleds_purchased * 20) %>) </li>
+      <% end %>
+
+      <% unless @ticket.free_participants_redeemed.nil? %>
+        <li>The ticket fee for <%=@ticket.free_participants_redeemed %> participant on this reservation has been waived (value: <%=number_to_currency(@ticket.product.price) %>). </li>
+      <% end %>
+
+      <% if @ticket.retail_items_purchased? %>
+        <li>Additonally, this order includes <%=@ticket.retail_item_quantity %> <%= @ticket.retail_item_name %>(s) at <%= number_to_currency(@ticket.retail_item_price_per_item)%> each. (subtotal: <%= number_to_currency(@ticket.retail_item_quantity * @ticket.retail_item_price_per_item) %> )</li>
+      <% end %>
+
+      </ul>
+    </div>
+
+
     <div class="row">
       <div class="col-xs-12">
+        <h4>Particpants:</h4>
         <ul class="student-list-confirm-reservation">
           <% @ticket.participants.each do |participant| %>
           <li><%= participant.name %>, age <%= participant.age_range %></li>

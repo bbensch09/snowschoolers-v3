@@ -11,10 +11,10 @@
         <%= f.text_field :age_range, as: :number, class: "form-control sledder-age age-range-inputs", label: false, required:true %>
         <!-- %= f.text_field :age, class: "form-control", label: false, required:true %> -->
       </div>
-      <div class='col-md-3'>
+<!--       <div class='col-md-3'>
         <label>Gender</label>
-        <%= f.select :gender, ['Male', 'Female'], {}, {class: 'gender form-control', required:true, include_blank: 'Gender'} %>
-      </div>
+        <%= f.select :gender, ['Male', 'Female'], {}, {class: 'gender form-control', required:false, include_blank: 'Gender'} %>
+      </div> -->
     </div>
     <!-- <div class='row'>
           <% if current_user %>

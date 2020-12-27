@@ -37,6 +37,21 @@ class Ticket < ApplicationRecord
     LessonMailer.notify_admin_sms_logs_sledding(self,recipient,body).deliver!
   end
 
+  def retail_item_price_per_item
+    return self.retail_item_price unless self.retail_item_price.nil?
+    case self.retail_item_name
+      when 'Snow shoe tour'
+        then 50.00
+      when 'Neck gaitor mask'
+        then 20.00
+      when 'Gloves'
+        then 20.00
+      when 'Hand warmers'
+        then 3.00
+      else 0.00
+      end
+  end
+
   def is_sample_booking?
   	return false if self.requester_name.nil?
   	return true if self.requester_name.include?("John Doe")
@@ -284,6 +299,21 @@ def price
   else
   	price = product.price * [1,(self.participants.count - self.participants_2_and_under)].max
   end
+
+  # price of additional retail items & promotions
+  price_extras = 0
+  if !sleds_purchased ==""
+    price_extras += sleds_purchased*20
+  end
+  if !free_participants_redeemed ==""
+    price_extras -= free_participants_redeemed*self.product.price
+  end
+  if !retail_item_name == ""
+    price_extras += self.retail_item_quantity * retail_item_price_per_item
+  end
+  puts "!!!!the subtotal of sleds, promo tickets, and retails items is #{price_extras}}"
+  price = price + price_extras
+
   if self.promo_code
   	case self.promo_code.discount_type
   	when 'cash'
@@ -295,6 +325,11 @@ def price
     end
 end
 return price.to_s
+end
+
+def retail_items_purchased?
+  return true if self.retail_item_name != ""
+  return false
 end
 
 def price_per_student
