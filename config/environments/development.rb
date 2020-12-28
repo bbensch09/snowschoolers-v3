@@ -70,7 +70,8 @@ Rails.application.configure do
     domain: "snowschoolers.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: "brian@snowschoolers.com",
+    #new GMAIL info for hello@snowschoolers.com >> started on 12/28 due to quota limit issue
+    user_name: "hello@snowschoolers.com",
     password: ENV["GMAIL_PASSWORD"]
   }
   #PAPERCLIP AWS S3 CONFIG

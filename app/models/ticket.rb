@@ -328,8 +328,9 @@ return price.to_s
 end
 
 def retail_items_purchased?
-  return true if self.retail_item_name != ""
-  return false
+  return false if self.retail_item_name == "" || self.retail_item_name.nil?
+  return false if self.retail_item_quantity == "" || self.retail_item_quantity.nil?
+  return true
 end
 
 def price_per_student
