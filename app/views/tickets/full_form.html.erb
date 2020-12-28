@@ -6,10 +6,10 @@
     <header class="page-header">
     </header>
 
-    <% if ENV['HOST_DOMAIN'] == "localhost:3000" || current_user && (current_user.user_type == "Granlibakken Employee" || current_user.user_type == "Ski Area Partner" || current_user.email == "brian@snowschoolers.com") %>
+    <% if ENV['HOST_DOMAIN'] == "localhost:3000" || current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner" || current_user.email == "brian@snowschoolers.com") %>
     <div id="autofill-container" class="admin-viewable">
-      <a href="#fill" id="autofill_complete_form" class="btn btn-success">Autocomplete all fields</a> <br>
-      <h3>Total tickets already sold for this date/session: <%=@ticket.current_session_tickets_sold %> tickets.</h3>
+      <a href="#fill" id="autofill_complete_form" class="btn btn-success">Autocomplete all fields</a>
+      <span class="text-larger">      Total tickets already sold for this date/session: <%=@ticket.current_session_tickets_sold %> tickets.</span>
       <% if session[:refund] == true %>
       <h3> To issue a full refund: </h3>
       <ol>
@@ -37,39 +37,52 @@
     <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner" || current_user.email == "brian@snowschoolers.com") %>
     <div id="available-lessons" class="admin-viewable ">
       <div class="col-md-12 vertical-padding">
-        <h4> ADMIN ONLY: Select user email to assign this lesson to a new requester.</h4>
-        <div class="col-md-4">
-          <label> Assign to User: </label> <br>
-          <%= f.select :requester_id, options_from_collection_for_select(User.all.sort {|a,b| a.username_for_admin <=> b.username_for_admin}, :id, :username_for_admin, selected:@ticket.requester_id), include_blank:true %>
+        <h4> CUSTOM PRICING: -- Please use this section for abnormal transactions (e.g. group discounts or last hour deals)</h4>
+        <div class="row-no-padding">
+          <div class="col-md-3">
+            <label>Multi-day ticket? Enter number of days</label>
+            <%= f.input :num_days, as: :string, placeholder: "How many consecutive days?", label: false %>
+          </div>
+            <div class="col-md-2">
+            <label>Total of Custom Price</label>
+            <%= f.input :booking_order_value, as: :string, placeholder: "Enter custom final price", label: false %>
+          </div>
+          <div class="col-md-6">
+            <label>Notes for Custom Pricing</label>
+            <%= f.input :additional_info, as: :string, placeholder: "Enter description of the custom pricing offered.", label: false %>
+          </div>
         </div>
-        <div class="col-md-4">
-          <label>Number of Days</label>
-          <%= f.input :num_days, as: :string, placeholder: "How many consecutive days?", label: false %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <label>Is gift voucher?</label>
-          <%= f.input :is_gift_voucher, as: :radio, :collection=> [true, false], label: false %>
-        </div>
-        <div class="col-md-4">
-          <label>Gift Recipient Name</label>
-          <%= f.input :gift_recipient_name, as: :string, placeholder: "Full Name", label: false %>
-        </div>
-        <div class="col-md-4">
-          <label>Gift Recipient Email</label>
-          <%= f.input :gift_recipient_email, as: :string, placeholder: "Email", label: false %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <label>Notes for Custom Pricing</label>
-          <%= f.input :additional_info, as: :text, placeholder: "Enter description of the custom pricing offered.", label: false %>
-        </div>
-        <div class="col-md-2">
-          <label>Total of Custom Price</label>
-          <%= f.input :booking_order_value, as: :string, placeholder: "Enter custom final price", label: false %>
-        </div>
+        <!-- <hr>         -->
+           <div class="row-no-padding"> 
+        <h4>STANDARD RETAIL PRICING</h4>
+          <h5>Sleds & Sledding Promo Tickets</h5>
+            <div class="col-md-3">
+              <label>Number of Sleds Purchased?</label>
+              <%= f.input :sleds_purchased, as: :string, placeholder: "e.g. 2", label: false %>
+            </div>
+            <div class="col-md-3">
+              <label>Number of Free Participants redeemed?</label>
+              <%= f.input :free_participants_redeemed, as: :string, placeholder: "e.g. 1", label: false %>
+            </div>
+          </div>
+          <h5>Non-sledding Products (e.g. snowshoe tour, handwarmers, gaitor masks)</h5>
+            <div class="row-no-padding">
+              <div class="col-md-3">
+                <label>Item Purchased</label>
+                <%= f.input :retail_item_name, as: :select, collection: ['Snow shoe tour','Neck gaitor mask','Gloves','Hand warmers'], placeholder: "Item name", label: false %>
+              </div>
+              <div class="col-md-3">
+                <label>Quantity</label>
+                <%= f.input :retail_item_quantity, as: :string, placeholder: "Number of items", label: false %>
+              </div>
+              <div class="col-md-3">
+                <label>Price per item</label>
+                <%= f.input :retail_item_price, as: :string, placeholder: "(optional) -- leave blank if normal price", label: false %>
+              </div>
+            </div>
+
+
+
       </div>
     </div>
     <% end %>
@@ -169,12 +182,38 @@
             <div class="row">
             </div>
 
-            <hr>
+            <hr class="hr-navy">
+
+          <div class="col-md-8">
+            <label class="lesson-label">How did you first hear about Snow Schoolers?</label>
+            <%= f.select :how_did_you_hear, [['From a friend',1],['Airbnb',11],['Facebook',2],['Google',3],['I took a previous lesson',10],['I saw it from the highway.',4],['Someone gave me a business card',5],['Tahoe Daves',6],['Ski Butlers',7],['Yelp',8],['Snowglers',9],['Staying at Granlibakken',10],['Other',100]], {}, {class: 'form-control', required:true, include_blank:false} %>
+          </div>
+
+          <% if session[:promo_code] %>
+            <div class="col-md-12">
+              <label class="lesson-label">Referral Code</label>
+                <% pc_id = PromoCode.where(promo_code:session[:promo_code]).first.id %>
+                <%= f.select :promo_code_id, [[session[:promo_code],pc_id],["",nil] ], {}, {class: 'form-control', required:false, include_blank:false} %>
+            </div>
+          <% end %>
 
           </div>
 
+
           <div class="row">
             <div class="col-md-6">
+              
+              <div class="col-md-12 row">
+                  <%= render partial: "tickets/cancellation_policy" %>
+              </div>
+
+              <div class="col-md-12 row">
+                  <p id="pandemic-policy" class="nonrefundable_disclaimer left">
+                    <span class="cancellation-title">Pandemic Pledge</span>
+                  </p>
+                  <%= render partial: "lessons/pandemic_pledge" %>
+              </div>            
+
               <a href="#accept-terms" class="btn btn-default"> Jump to bottom</a>
               <h4><strong>PARTICIPANT AGREEMENT, RELEASE AND ASSUMPTION OF RISK</strong>
               </h4>

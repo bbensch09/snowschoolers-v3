@@ -179,7 +179,7 @@ class TicketsController < ApplicationController
       GoogleAnalyticsApi.new.event('ticket-requests', 'full_form-updated', params[:ga_client_id])
       @user_email = current_user ? current_user.email : "unknown"
       if @ticket.state == "ready_to_book"
-        LessonMailer.notify_admin_sledding_full_form_updated(@ticket.id).deliver!
+        LessonMailer.notify_admin_sledding_full_form_updated(@ticket.id).deliver
         @ticket.send_waiver_link_to_customers_phone
       end
       puts "!!!! Ticket update saved; update notices sent"
@@ -362,7 +362,7 @@ class TicketsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ticket_params
-      params.require(:ticket).permit(:requester_id, :deposit_status, :lesson_time_id, :activity, :requested_location, :requester_name, :phone_number, :state, :actual_start_time, :terms_accepted, :guest_email, :how_did_you_hear, :num_days, :booking_order_value, :is_gift_voucher, :gift_recipient_email, :gift_recipient_name, :product_id, :admin_price_adjustment, :promo_code_id, :planned_start_time, :payment_status, :payment_method, :payment_date, :additional_info, :ticket_type, :street_address, :city, :state_code, :zip_code, :drivers_license, :skip_validations, :administrator_notes, :multi_product_order, :refund_issued, :check_in_status,
+      params.require(:ticket).permit(:requester_id, :deposit_status, :lesson_time_id, :activity, :requested_location, :requester_name, :phone_number, :state, :actual_start_time, :terms_accepted, :guest_email, :how_did_you_hear, :num_days, :booking_order_value, :is_gift_voucher, :gift_recipient_email, :gift_recipient_name, :product_id, :admin_price_adjustment, :promo_code_id, :planned_start_time, :payment_status, :payment_method, :payment_date, :additional_info, :ticket_type, :street_address, :city, :state_code, :zip_code, :drivers_license, :skip_validations, :administrator_notes, :multi_product_order, :refund_issued, :check_in_status, :sleds_purchased, :free_participants_redeemed, :retail_item_name, :retail_item_quantity, :retail_item_price,
       lesson_time_attributes: [:date, :slot],
       participants_attributes: [:id, :name, :age_range, :gender, :_destroy, :requester_id], 
       )

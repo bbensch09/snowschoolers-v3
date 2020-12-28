@@ -21,6 +21,10 @@
                     <label class="lesson-label">Slot</label>
                     <%= lt_f.input :slot, as: :select, collection: SLEDDING_SLOTS, include_blank: 'Time Slot', label: false, required:true %>
                   </div>
+                  <div class="col-md-4">
+                    <label class="lesson-label"></label>
+                    <%= f.submit "Save", class: "btn btn-success" %>
+                  </div>
                 </div>
               <% end %>
             </div>

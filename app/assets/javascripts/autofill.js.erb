@@ -27,7 +27,7 @@ $(document).ready(function(){
 		$('#ticket_city').val("MyCity");
 		$('#ticket_state_code').val("CA");
 		$('#ticket_zip_code').val("94102");
-		$('#ticket_lesson_time_slot').val("Early-bird (9-10:30am)");
+		$('#ticket_lesson_time_slot').val("Morning (9:30am-1pm)");
 		$('#ticket_drivers_license').val("D555-5555");
 		$('#ticket_phone_number').val("408-315-2900");
 		$('#ticket_gear').val("true");
@@ -39,6 +39,7 @@ $(document).ready(function(){
 		var current_time_stamp = Date($.now());
 		$('#lesson_objectives').val("Test lesson created at "+current_time_stamp);
 		$('#lesson_how_did_you_hear').val("100");
+		$('#ticket_how_did_you_hear').val("4");
 		$('#rememberme')[0].checked = true;
 		// Fill Student info
 		$('.name').each(function(index){
