@@ -293,6 +293,11 @@ def send_sledding_confirmation(ticket)
     mail(to: @ticket.guest_email,  cc: "Supervisors <#{ENV['KINGVALE_SUPERVISORS']}>", subject: "Kingvale Sledding Ticket Confirmation: Thanks for booking for #{@ticket.date.strftime("%b %-d")}")
 end
 
+def reminder_sledding_confirmation(ticket)
+  @ticket = ticket
+    mail(to: @ticket.guest_email,  cc: "Supervisors <#{ENV['KINGVALE_SUPERVISORS']}>", subject: "Reminder: Kingvale Sledding Ticket Confirmation: You've booked tickets for #{@ticket.date.strftime("%b %-d")}")
+end
+
 def send_group_lesson_request_notification(lesson)
     @lesson = lesson
     return if @lesson.email_notifications_status == 'disabled'
