@@ -38,6 +38,10 @@ if (MIN_DATE == '2020-12-32') {
   MIN_DATE = '2021-01-01';
   console.log("The minimum bookable date was changed to 2021-01-01.");
 }
+if (MIN_DATE == "2020-12-33") {
+  MIN_DATE = '2021-01-02';
+  console.log("The minimum bookable date was changed to 2021-01-02.");
+}
 if (MIN_DATE == '2021-1-32') {
   MIN_DATE = '2021-02-01';
   console.log("The minimum bookable date was changed to 2021-02-01.");
@@ -114,6 +118,7 @@ var LESSON = {
   '2020-12-01','2020-12-02','2020-12-03','2020-12-04','2020-12-07',
   '2020-12-08','2020-12-09','2020-12-10','2020-12-11','2020-12-14',
   '2020-12-15','2020-12-16','2020-12-17',
+  '2021-01-03','2021-01-04', //closing holidays early on Sunday due to weather, reopening Jan 8th
   '2021-01-05','2021-01-06','2021-01-07',
   '2021-01-12','2021-01-13','2021-01-14',
   '2021-01-19','2021-01-20','2021-01-21',
