@@ -2,7 +2,7 @@ class TicketsController < ApplicationController
   respond_to :html
   skip_before_action :authenticate_user!, only: [:index, :new, :create, :complete, :complete_sledding_ticket, :confirm_reservation, :update, :edit, :show, :liability_release_agreement, :create_walk_in_sledding_ticket]
   # low friction hackey solution -- don't require authentication for most customer-facing pages; removed temporarily May 2019
-  before_action :set_ticket, only: [:show, :duplicate, :complete, :complete_sledding_ticket, :update, :edit, :edit_wages, :destroy, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :mark_lesson_complete,  :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_deposit, :admin_confirm_airbnb, :admin_confirm_booked_with_modification, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications, :send_review_reminders_to_student, :liability_release_agreement, :admin_confirm_cash, :admin_confirm_square]
+  before_action :set_ticket, only: [:show, :duplicate, :complete, :complete_sledding_ticket, :update, :edit, :edit_wages, :destroy, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :mark_lesson_complete,  :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_deposit, :admin_confirm_airbnb, :admin_confirm_booked_with_modification, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications, :send_review_reminders_to_student, :liability_release_agreement, :admin_confirm_cash, :admin_confirm_square, :reminder_sledding_confirmation]
   before_action :set_admin_skip_validations
 
 
@@ -20,7 +20,13 @@ class TicketsController < ApplicationController
       # puts "no ticket found yet"
       end
     end
-  end  
+  end
+
+  def reminder_sledding_confirmation
+    puts "!!!!sending reminder email for tickets, often after CS change"
+    LessonMailer.reminder_sledding_confirmation(@ticket).deliver!
+    redirect_to @ticket
+  end    
 
   # GET /tickets
   # GET /tickets.json
