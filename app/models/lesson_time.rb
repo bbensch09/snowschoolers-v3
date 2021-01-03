@@ -26,7 +26,11 @@ class LessonTime < ActiveRecord::Base
   def self.next_available_date
     LessonTime.slots_still_open_today
     if slots_still_open_today.empty?
-      date = Date.tomorrow
+      d1 = Date.tomorrow
+      while KV_CLOSED_DAYS.include?(d1)
+        d1 += 1
+      end
+      date = d1
     else
       date = Date.today
     end
