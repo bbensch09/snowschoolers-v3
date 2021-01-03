@@ -134,6 +134,26 @@ var LESSON = {
   // '2021-04-06','2021-04-07','2021-04-08', //easter week
   '2021-04-13','2021-04-14','2021-04-15',
   ];
+
+  var kingvale_blocked_dates_array = [
+  '2020-12-01','2020-12-02','2020-12-03','2020-12-04','2020-12-07',
+  '2020-12-08','2020-12-09','2020-12-10','2020-12-11','2020-12-14',
+  '2020-12-15','2020-12-16','2020-12-17',
+  '2021-01-03','2021-01-04', //closing holidays early on Sunday due to weather, reopening Jan 8th
+  '2021-01-05','2021-01-06','2021-01-07',
+  '2021-01-12','2021-01-13','2021-01-14',
+  '2021-01-19','2021-01-20','2021-01-21',
+  '2021-01-26','2021-01-27','2021-01-28',
+  '2021-02-02','2021-02-03','2021-02-04',
+  '2021-02-09','2021-02-10','2021-02-11',
+  '2021-02-23','2021-02-24','2021-02-25',
+  '2021-03-02','2021-03-03','2021-03-04',
+  '2021-03-09','2021-03-10','2021-03-11',
+  '2021-03-16','2021-03-17','2021-03-18',
+  '2021-03-23','2021-03-24','2021-03-25',
+  '2021-03-30','2021-03-31','2021-04-01',
+  '2021-04-13','2021-04-14','2021-04-15',
+  ];
   LESSON._date.datepicker({
     beforeShowDay: function(date){
       var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
@@ -143,6 +163,8 @@ var LESSON = {
     maxDate: '2021-04-19',
     dateFormat: 'yy-mm-dd'
   });
+  
+
   LESSON._date2.datepicker({
     beforeShowDay: function(date){
       var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
@@ -152,6 +174,8 @@ var LESSON = {
     maxDate: '2021-04-19',
     dateFormat: 'yy-mm-dd'
     });
+
+
   LESSON._date3.datepicker({
     beforeShowDay: function(date){
       var string = jQuery.datepicker.formatDate('yy-mm-dd', date);

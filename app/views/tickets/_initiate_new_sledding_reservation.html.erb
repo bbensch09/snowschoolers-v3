@@ -16,7 +16,11 @@
         </h1>
         <h3 class="center navy-text sledding-subheader">Skip the Line when you Purchase Online!</h3>
         <h2 class="center">
+          <% if Date.today.to_s <= "2021-01-04" %>
+          <a href="#datepicker2" class="btn btn-primary btn-xl page-scroll powder-btn">Book Sledding Tickets for Next Weekend</a>          
+          <% else %>
           <a href="/sled-now" class="btn btn-primary btn-xl page-scroll powder-btn">Book Sledding Tickets for Today</a>          
+          <% end %>
         </h2>
         
         <h4 class="navy-text"><span class="underline"><b> COVID UPDATE:</b></span> To prevent overcrowding, we must limit the maximum capacity of active sledders. As such, we now issue a limited number of different colored wristbands for the morning and afternoon "sessions." While your ticket is good for sledding and snowplay all-day long, your session indicates when you have "priority." We will occassionally need to close the hill for a short 10-15min break while we take a precise count of sledders. If we are over capcity and you are not "priority", you'll be instructed to proceed to the overflow area which is just a 5-10min hike uphill where there is still plenty of room for snowplay but with less groomed runs for sledding. </h4>
