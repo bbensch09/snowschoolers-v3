@@ -302,14 +302,18 @@ def price
 
   # price of additional retail items & promotions
   price_extras = 0
-  if !sleds_purchased ==""
+  if self.sleds_purchased && self.sleds_purchased >=1
     price_extras += sleds_purchased*20
+    puts "!!!!the subtotal of sleds is #{price_extras}}"
   end
-  if !free_participants_redeemed ==""
+  if self.free_participants_redeemed && self.free_participants_redeemed >=1
     price_extras -= free_participants_redeemed*self.product.price
+    puts "!!!!the subtotal of sleds minus free participants is #{price_extras}}"  
   end
-  if !retail_item_name == ""
-    price_extras += self.retail_item_quantity * retail_item_price_per_item
+  if self.retail_item_name && self.retail_item_name !=""
+    retail_price = self.retail_item_quantity * retail_item_price_per_item
+    price_extras += retail_price
+    puts "!!!!the subtotal of retail itmes is  #{retail_price}}"
   end
   puts "!!!!the subtotal of sleds, promo tickets, and retails items is #{price_extras}}"
   price = price + price_extras

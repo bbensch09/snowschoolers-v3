@@ -24,12 +24,12 @@ class LessonTime < ActiveRecord::Base
   end
 
   def self.next_available_date
-    LessonTime.slots_still_open_today
-    if slots_still_open_today.empty?
-      d1 = Date.tomorrow
-      while KV_CLOSED_DAYS.include?(d1)
-        d1 += 1
-      end
+    d1 = Date.today
+    while KV_CLOSED_DAYS.include?(d1.to_s)
+      d1 += 1
+    end
+    slots = LessonTime.slots_still_open_today
+    if slots.empty?
       date = d1
     else
       date = Date.today
@@ -37,6 +37,7 @@ class LessonTime < ActiveRecord::Base
   end
 
   def self.slots_still_open_today
+    return [] if KV_CLOSED_DAYS.include?(Date.today.to_s)
     array = []
     SLEDDING_SLOTS.each do |slot|
       if Time.now <= LessonTime.find_start_time(slot) #this should be 30min before the end of the current session.

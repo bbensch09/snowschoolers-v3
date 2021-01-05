@@ -148,8 +148,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
            <!-- <li>  <a href="/"> <span class="glyphicon glyphicon glyphicon-home" aria-hidden="true"></span> </a></li> -->
            <!-- <li> <a href="/search" class="btn-success"> Search</a></li> -->
            <li> <a href="/instructors" class="btn-success"> Staff</a></li>
-           <li> <a href="/sledding/calendar" class="btn-success"> Sledding Capacity</a></li>
-           <li> <a href="/sledding/roster-today" class="btn-success"> Sledding Today</a></li>
+           <li> <a href="/sledding/calendar" class="btn-success"> Sled Capacity</a></li>
+           <li> <a href="/sledding/roster-today" class="btn-secondary"> Sledding Today</a></li>
+           <li><a href="/sledding/future-sledding-roster?date=<%=Date.tomorrow.to_s%>" class="btn-secondary">Future Sledding</a></li>
            <li><a href="/daily-roster" class="btn-success"> Lessons Today</a></li>
            <li><a href="/future-daily-roster?date=<%=Date.tomorrow.to_s%>" class="btn-success">Future Lessons</a></li>
            <li> <a href="/rentals" class="btn-success"> Rentals</a></li>
@@ -161,8 +162,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
            <li><%= link_to current_user.email, instructor_path(current_user.instructor) %></li>
            <% end %>
             <li><a href="/lessons" class="sign-up-btn"> PRIVATES </a></li>
-            <li><a href="/group_lessons" class="sign-up-btn"> GROUPS </a></li>
-            <li><a href="/manage_group_lessons" class="sign-up-btn"> GRP SECTIONS </a></li>
+            <!-- <li><a href="/group_lessons" class="sign-up-btn"> GROUPS </a></li> -->
+            <!-- <li><a href="/manage_group_lessons" class="sign-up-btn"> GRP SECTIONS </a></li> -->
             <li><a href="/browse" class="sign-up-btn">BROWSE</a></li>
             <li><%= link_to 'PREVIEW', '/calendar-preview', class: 'sign-up-btn' %></li>
             <li><%= link_to 'CALENDAR', '/calendar', class: 'sign-up-btn' %></li>
