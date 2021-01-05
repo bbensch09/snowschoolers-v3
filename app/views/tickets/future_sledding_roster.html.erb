@@ -1,0 +1,70 @@
+<p id="notice"><%= notice %></p>
+
+<div class="wide-container">
+  <div id="all-lessons" class="">
+    <h1>Sledding Reservations for <%= @date %> </h1>
+
+    <% if current_user && (current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Snow Schoolers Employee") %>
+    <div class="admin-viewable">
+      <a href='lessons/admin_index' class='btn btn-warning'>View Full Lesson Details</a>
+      <ul>
+        <li>Total Tickets Booked: <%=Ticket.total_tickets_this_season.count %></li>
+        <li>Total Revenue Booked: <%= number_to_currency(Ticket.total_ticket_revenue_this_season) %></li>
+      </ul>
+    </div>
+    <% end %>
+
+    <hr>
+
+    <%= link_to "All Sledding Tickets", tickets_path(format: "html"), class: 'btn btn btn-tertiary' %>
+    <%= link_to "Sledding Today", sledding_roster_today_path(format: "html"), class: 'btn btn btn-default' %>
+    <%= link_to "Print Today's Roster", sledding_roster_today_print_path(format: "html"), class: 'btn btn btn-default', target:'_blank' %>
+    <%= link_to "Sledding Tomorrow", sledding_roster_tomorrow_path(format: "html"), class: 'btn btn btn-secondary' %>
+    <%= link_to "Print Tomorrow's Roster", sledding_roster_tomorrow_print_path(format: "html"), class: 'btn btn btn-secondary', target:'_blank' %>
+    <%= link_to "Capacity Calendar", capacity_calendar_path(format: "html"), class: 'btn btn btn-tertiary' %>
+
+    <table class="sledding-table daily-roster">
+      <thead>
+        <tr>
+          <th class="lessons-table-cells lesson-date">Reservation Date</th>
+          <th class="lessons-table-cells lesson-date">Booking Date</th>
+          <th class="lessons-table-cells">#Tickets</th>
+          <th class="lessons-table-cells lesson-instructor"> Confirmation #</th>
+          <th class="lessons-table-cells lesson-instructor"> Status</th>
+          <th class="lessons-table-cells">Waiver</th>
+          <th class="lessons-table-cells lesson-student">Phone</th>
+          <th class="lessons-table-cells lesson-student">Name</th>
+          <th class="lessons-table-cells lesson-student">Email</th>
+          <th class="lessons-table-cells">State</th>
+          <th class="lessons-table-cells">Price</th>
+          <th class="lessons-table-cells"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @tickets.each do |ticket| %>
+        <tr>
+          <td class="lessons-table-cells lesson-date roster-smaller"><%= ticket.lesson_time.date.strftime("%Y-%m-%d") %></td>
+          <td class="lessons-table-cells lesson-date roster-smaller"><%= ticket.created_at.strftime("%Y-%m-%d") %></td>
+          <td class="lessons-table-cells"><%= ticket.participants.count %></td>
+          <td class="lessons-table-cells lesson-instructor"><%= link_to ticket.confirmation_number, ticket, class: "btn btn-sledding-admin" %></td>
+          <% if ticket.check_in_status.nil? %>
+          <td class="lessons-table-cells"><%= link_to 'Check-in', sledding_check_in_path(ticket.id), method: :put, class:"btn btn-default btn-sledding-admin" %>
+            <% else %>
+            <td class="lessons-table-cells roster-smaller"><%= ticket.check_in_status %></td>
+            <% end %>
+            <td class="lessons-table-cells"><%= link_to 'Print', release_of_liability_path(ticket.id), target:"_blank", class:"btn btn-sledding-admin" %>
+              <td class="lessons-table-cells roster-smaller"><%= ticket.phone_number %></td>
+              <td class="lessons-table-cells"><%= ticket.name %></td>
+              <td class="lessons-table-cells table-word-wrap email-smallest"><%= ticket.guest_email %></td>
+              <td class="lessons-table-cells"><%= ticket.state %></td>
+              <td class="lessons-table-cells"><%= number_to_currency(ticket.price) %></td>
+              <!-- <td><%= link_to 'Delete', ticket, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger" %></td> -->
+              <td class="lessons-table-cells"><%= link_to 'Cancel Check-in', sledding_check_in_reverse_path(ticket.id), method: :put, class:"btn btn-danger btn-sledding-admin" %>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <hr>
+      </div>

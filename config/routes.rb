@@ -145,6 +145,7 @@ Rails.application.routes.draw do
   get 'sledding/roster-today-print' => 'tickets#roster_today_print', as: :sledding_roster_today_print
   get 'sledding/roster-tomorrow' => 'tickets#roster_tomorrow', as: :sledding_roster_tomorrow
   get 'sledding/roster-tomorrow-print' => 'tickets#roster_tomorrow_print', as: :sledding_roster_tomorrow_print
+  get 'sledding/future-sledding-roster' => 'tickets#future_sledding_roster', as: :future_sledding_roster
   put 'sledding/check-in/:id' => 'tickets#sledding_check_in', as: :sledding_check_in
   put 'sledding/cancel-check-in/:id' => 'tickets#sledding_check_in_reverse', as: :sledding_check_in_reverse
   put 'tickets/:id/reissue_invoice'              => 'tickets#reissue_invoice', as: :rebook_ticket
