@@ -186,6 +186,8 @@ class TicketsController < ApplicationController
       @user_email = current_user ? current_user.email : "unknown"
       if @ticket.state == "ready_to_book"
         LessonMailer.notify_admin_sledding_full_form_updated(@ticket.id).deliver
+      end
+      unless (current_user && current_user.user_type == "Snow Schoolers Employee")
         @ticket.send_waiver_link_to_customers_phone
       end
       puts "!!!! Ticket update saved; update notices sent"
@@ -351,6 +353,21 @@ class TicketsController < ApplicationController
     end
     @dates = dates    
     render 'capacity_calendar'
+  end
+
+  def issue_refund
+    @lesson_time = @ticket.lesson_time
+    session[:refund] = true
+    render 'full_form'
+  end
+
+  def mark_sledding_ticket_refunded
+    @ticket = Ticket.find(params[:id])
+    @ticket.skip_validations = true
+    @ticket.state = 'Reservation canceled and refund has been issued.'
+    @ticket.save
+    session[:refund] = nil
+    redirect_to @ticket
   end
 
 

@@ -154,6 +154,8 @@ Rails.application.routes.draw do
   post 'tickets/:id/confirm_reservation' => 'tickets#confirm_reservation', as: :confirm_sledding_reservation
   put  'tickets/:id/admin_confirm_cash'      => 'tickets#admin_confirm_cash',      as: :admin_confirm_cash
   put  'tickets/:id/admin_confirm_square'      => 'tickets#admin_confirm_square',      as: :admin_confirm_square
+  put 'tickets/:id/issue_refund'              => 'tickets#issue_refund', as: :issue_sledding_refund
+  put 'tickets/:id/mark_sledding_ticket_refunded'  => 'tickets#mark_sledding_ticket_refunded', as: :mark_sledding_ticket_refunded
   get   'tickets/:id/reminder_sledding_confirmation' => 'tickets#reminder_sledding_confirmation',  as: :reminder_sledding_confirmation
   get 'sled-now' => 'tickets#create_walk_in_sledding_ticket', as: :walk_in_sledding_ticket
   get 'sledding-liability-release/:id' => 'tickets#liability_release_agreement', as: :liability_release

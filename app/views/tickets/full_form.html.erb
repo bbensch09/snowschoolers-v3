@@ -9,83 +9,12 @@
     <% if ENV['HOST_DOMAIN'] == "localhost:3000" || current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner" || current_user.email == "brian@snowschoolers.com") %>
     <div id="autofill-container" class="admin-viewable">
       <a href="#fill" id="autofill_complete_form" class="btn btn-success">Autocomplete all fields</a>
-      <span class="text-larger">      Total tickets already sold for this date/session: <%=@ticket.current_session_tickets_sold %> tickets.</span>
-      <% if session[:refund] == true %>
-      <h3> To issue a full refund: </h3>
-      <ol>
-        <li>
-          <a href="https://dashboard.stripe.com/payments" id="stripe-refund" target="_blank" class="btn btn-danger">First Issue Refund in Stripe</a> <br><br>
-        </li>
-        <li><%= link_to 'Mark Lesson as Refunded', issue_full_refund_path(@ticket), method: :post, class: "btn btn-warning" %></li>
-      </ol>
-
-      <h3> To issue a partial refund: </h3>
-      <ol>
-        <li>
-          <a href="https://dashboard.stripe.com/payments" id="stripe-refund" target="_blank" class="btn btn-danger"> First issue a partial refund in Stripe.</a>
-        </li>
-        <li>Enter the refund reason as 'Package info' below, along with the final amount due as 'Total Price'. </li>
-        <li>Then click to <a href="#finalize-lesson" class="btn btn-warning">Re-confirm the reservation</a> </li>
-      </ol>
-      <% end %>
     </div>
     <% end %>
 
     <%= semantic_form_for @ticket do |f| %>
     <%= f.semantic_errors :lesson %>
     <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
-    <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner" || current_user.email == "brian@snowschoolers.com") %>
-    <div id="available-lessons" class="admin-viewable ">
-      <div class="col-md-12 vertical-padding">
-        <h4> CUSTOM PRICING: -- Please use this section for abnormal transactions (e.g. group discounts or last hour deals)</h4>
-        <div class="row-no-padding">
-          <div class="col-md-3">
-            <label>Multi-day ticket? Enter number of days</label>
-            <%= f.input :num_days, as: :string, placeholder: "How many consecutive days?", label: false %>
-          </div>
-            <div class="col-md-2">
-            <label>Total of Custom Price</label>
-            <%= f.input :booking_order_value, as: :string, placeholder: "Enter custom final price", label: false %>
-          </div>
-          <div class="col-md-6">
-            <label>Notes for Custom Pricing</label>
-            <%= f.input :additional_info, as: :string, placeholder: "Enter description of the custom pricing offered.", label: false %>
-          </div>
-        </div>
-        <!-- <hr>         -->
-           <div class="row-no-padding"> 
-        <h4>STANDARD RETAIL PRICING</h4>
-          <h5>Sleds & Sledding Promo Tickets</h5>
-            <div class="col-md-3">
-              <label>Number of Sleds Purchased?</label>
-              <%= f.input :sleds_purchased, as: :string, placeholder: "e.g. 2", label: false %>
-            </div>
-            <div class="col-md-3">
-              <label>Number of Free Participants redeemed?</label>
-              <%= f.input :free_participants_redeemed, as: :string, placeholder: "e.g. 1", label: false %>
-            </div>
-          </div>
-          <h5>Non-sledding Products (e.g. snowshoe tour, handwarmers, gaitor masks)</h5>
-            <div class="row-no-padding">
-              <div class="col-md-3">
-                <label>Item Purchased</label>
-                <%= f.input :retail_item_name, as: :select, collection: ['Snow shoe tour','Neck gaitor mask','Gloves','Hand warmers'], placeholder: "Item name", label: false %>
-              </div>
-              <div class="col-md-3">
-                <label>Quantity</label>
-                <%= f.input :retail_item_quantity, as: :string, placeholder: "Number of items", label: false %>
-              </div>
-              <div class="col-md-3">
-                <label>Price per item</label>
-                <%= f.input :retail_item_price, as: :string, placeholder: "(optional) -- leave blank if normal price", label: false %>
-              </div>
-            </div>
-
-
-
-      </div>
-    </div>
-    <% end %>
 
     <div class='row'>
       <div class="col-md-6">
@@ -239,6 +168,83 @@
 
               </div>
             </div>
+
+    <div id="autofill-container" class="admin-viewable">
+      <span class="text-larger">      Total tickets already sold for this date/session: <%=@ticket.current_session_tickets_sold %> tickets.</span>
+      <% if session[:refund] == true %>
+      <h3> To issue a full refund: </h3>
+      <ol>
+        <li>
+          <a href="https://dashboard.stripe.com/payments" id="stripe-refund" target="_blank" class="btn btn-danger">First Issue Refund in Stripe</a> <br><br>
+        </li>
+        <li><%= link_to 'Mark as Refunded', mark_sledding_ticket_refunded_path(@ticket), method: :put, class: "btn btn-warning" %></li>
+      </ol>
+
+      <h3> To issue a partial refund: </h3>
+      <ol>
+        <li>
+          <a href="https://dashboard.stripe.com/payments" id="stripe-refund" target="_blank" class="btn btn-danger"> First issue a partial refund in Stripe.</a>
+        </li>
+        <li>Enter the refund reason as 'Package info' below, along with the final amount due as 'Total Price'. </li>
+        <li>Then click to <a href="#finalize-lesson" class="btn btn-warning">Re-confirm the reservation</a> </li>
+      </ol>
+      <% end %>
+    </div>
+
+    <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner" || current_user.email == "brian@snowschoolers.com") %>
+    <div id="available-lessons" class="admin-viewable ">
+      <div class="col-md-12 vertical-padding">
+        <h4> CUSTOM PRICING: -- Please use this section for abnormal transactions (e.g. group discounts or last hour deals)</h4>
+        <div class="row-no-padding">
+          <div class="col-md-3">
+            <label>Multi-day ticket? Enter number of days</label>
+            <%= f.input :num_days, as: :string, placeholder: "How many consecutive days?", label: false %>
+          </div>
+            <div class="col-md-2">
+            <label>Total of Custom Price</label>
+            <%= f.input :booking_order_value, as: :string, placeholder: "Enter custom final price", label: false %>
+          </div>
+          <div class="col-md-6">
+            <label>Notes for Custom Pricing</label>
+            <%= f.input :additional_info, as: :string, placeholder: "Enter description of the custom pricing offered.", label: false %>
+          </div>
+        </div>
+        <!-- <hr>         -->
+           <div class="row-no-padding"> 
+        <h4>STANDARD RETAIL PRICING</h4>
+          <h5>Sleds & Sledding Promo Tickets</h5>
+            <div class="col-md-3">
+              <label>Number of Sleds Purchased?</label>
+              <%= f.input :sleds_purchased, as: :string, placeholder: "e.g. 2", label: false %>
+            </div>
+            <div class="col-md-3">
+              <label>Number of Free Participants redeemed?</label>
+              <%= f.input :free_participants_redeemed, as: :string, placeholder: "e.g. 1", label: false %>
+            </div>
+          </div>
+          <h5>Non-sledding Products (e.g. snowshoe tour, handwarmers, gaitor masks)</h5>
+            <div class="row-no-padding">
+              <div class="col-md-3">
+                <label>Item Purchased</label>
+                <%= f.input :retail_item_name, as: :select, collection: ['Snow shoe tour','Neck gaitor mask','Gloves','Hand warmers'], placeholder: "Item name", label: false %>
+              </div>
+              <div class="col-md-3">
+                <label>Quantity</label>
+                <%= f.input :retail_item_quantity, as: :string, placeholder: "Number of items", label: false %>
+              </div>
+              <div class="col-md-3">
+                <label>Price per item</label>
+                <%= f.input :retail_item_price, as: :string, placeholder: "(optional) -- leave blank if normal price", label: false %>
+              </div>
+            </div>
+
+
+
+      </div>
+    </div>
+    <% end %>
+
+
 
             <div class="col-md-12">
               <% button_text = "Continue to Payment" %>

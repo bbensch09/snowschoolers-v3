@@ -48,7 +48,7 @@
               <br>Promo: <%= @ticket.promo_code.promo_code %>
               <br>Final price: <%= number_to_currency(@ticket.price) %>
               <%else%>
-              <%= number_to_currency(@ticket.price) %>    
+              <%= number_to_currency(@ticket.price) %>
               <% if @ticket.product.calendar_period == 'Holiday' || @ticket.product.calendar_period == 'Peak' %>
               (holiday pricing)
               <% end %>
