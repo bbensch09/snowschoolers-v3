@@ -36,7 +36,7 @@
         <%= link_to "Send Reminder Email", reminder_sledding_confirmation_path(@ticket), class: "btn btn-success" %>
         <%= link_to 'Edit Reservation', edit_ticket_path(@ticket), class: "btn btn-success" %> <span> </span>
         <%= link_to 'Edit Reservation & Reissue Deposit', rebook_ticket_path(@ticket), method: :put, class: "btn btn-warning" %><span> </span>
-        <%= link_to 'Edit Reservation & Issue Refund', issue_sledding_refund_path(@ticket), method: :post, class: "btn btn-danger" %><span> </span>
+        <%= link_to 'Edit Reservation & Issue Refund', issue_sledding_refund_path(@ticket), method: :put, class: "btn btn-danger" %><span> </span>
         <%= link_to 'Cancel Booking', @ticket, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
 
     </div>
