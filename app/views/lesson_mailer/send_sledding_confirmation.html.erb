@@ -45,6 +45,13 @@
     <li>Contact phone number: <%= number_to_phone(@ticket.phone_number) %></li>
   </ul>
 
+  <h4>Sledding Participant Details</h4>
+  <ul>
+    <% @ticket.participants.each do |participant| %>
+    <li> <%= participant.name %>, age <%= participant.age_range %> </li>
+    <% end %>
+  </ul>
+
   <!-- %= render partial: 'tickets/price_details' %> -->
 
   <!-- %= render partial: 'tickets/participant_details' %> -->

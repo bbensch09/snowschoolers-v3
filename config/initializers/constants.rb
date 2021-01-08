@@ -50,7 +50,7 @@ KV_CLOSED_DAYS = [
 SLEDDING_SLOTS = ['Morning (9:30am-1pm)','Afternoon (1pm-4:30pm)']
 
 PRIVATE_SLOTS = [
-	'1hr Early Bird 8:45-9:45am','1hr Private 10:00am','1hr Private 11:15am','1hr Private 12:30pm','Half-day Morning 10:00am-12:45pm','Half-day Afternoon 1:15-4:00pm','Full-day (10:00am-4:00pm)'
+	'1hr Early Bird 8:45-9:45am','1hr Private 10:00am','1hr Private 11:15am','1hr Private 12:30pm','1hr Private 1:45pm','1hr Private 3:00pm','Half-day Morning 10:00am-12:45pm','Half-day Afternoon 1:15-4:00pm','Full-day (10:00am-4:00pm)'
 ]
 
 GROUP_SLOTS = ['2hr Group Afternoon 1:45pm-3:45pm','Airbnb Morning 10:00am-12:00pm','Airbnb Afternoon 1:30-3:30pm']
