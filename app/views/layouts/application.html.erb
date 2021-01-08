@@ -24,6 +24,22 @@
   <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<!-- Jquery for liability waiver signature --> 
+<!-- attempt 1 -->
+<!--   <script src='jquery.js' type='text/javascript'></script>
+  <script src='jquery-3.0.0.js' type='text/javascript'></script>
+  <script src="libs/jSignature.min.js"></script>
+  <script src="libs/modernizr.js"></script>
+ -->
+<!--[if lt IE 9]>
+<script type="text/javascript" src="libs/flashcanvas.js"></script>
+<![endif]-->
+
+<!-- Jquery for liability waiver signature --> 
+<!-- attempt 2 -->
+
+
   <%= javascript_include_tag "bootstrap/modernizr.min.js" %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
