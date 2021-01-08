@@ -26,6 +26,7 @@ class TicketsController < ApplicationController
     puts "!!!!sending reminder email for tickets, often after CS change"
     LessonMailer.reminder_sledding_confirmation(@ticket).deliver!
     redirect_to @ticket
+    flash[:notice] = "Success! Reminder email has been sent to the customer."
   end    
 
   # GET /tickets

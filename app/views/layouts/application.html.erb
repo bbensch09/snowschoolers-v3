@@ -148,16 +148,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
            <!-- <li>  <a href="/"> <span class="glyphicon glyphicon glyphicon-home" aria-hidden="true"></span> </a></li> -->
            <!-- <li> <a href="/search" class="btn-success"> Search</a></li> -->
            <li> <a href="/instructors" class="btn-success"> Staff</a></li>
-           <li> <a href="/sledding/calendar" class="btn-success"> Sled Capacity</a></li>
-           <li> <a href="/sledding/roster-today" class="btn-secondary"> Sledding Today</a></li>
-           <li><a href="/sledding/future-sledding-roster?date=<%=Date.tomorrow.to_s%>" class="btn-secondary">Future Sledding</a></li>
+           <li> <a href="/sledding/calendar" class="btn-kingvale"> Sled Capacity</a></li>
+           <li> <a href="/sledding/roster-today" class="btn-kingvale"> Sledding Today</a></li>
+           <li><a href="/sledding/future-sledding-roster?date=<%=Date.tomorrow.to_s%>" class="btn-kingvale">Future Sledding</a></li>
            <li><a href="/daily-roster" class="btn-success"> Lessons Today</a></li>
            <li><a href="/future-daily-roster?date=<%=Date.tomorrow.to_s%>" class="btn-success">Future Lessons</a></li>
            <li> <a href="/rentals" class="btn-success"> Rentals</a></li>
            <li> <a href="/search" class="btn-success"> Search</a></li>
            <li> <a href="/book/granlibakken" class="btn btn-secondary">Book at GB</a></li>
            <li> <a href="/book/kingvale" class="btn btn-tertiary">Book at KV</a></li>
-           <li> <a href="/sled-now" class="btn btn-tertiary">Walk-in Sledding</a></li>
+           <li> <a href="/sled-now" class="btn btn-kingvale">Walk-in Sledding</a></li>
            <% if current_user.instructor %>
            <li><%= link_to current_user.email, instructor_path(current_user.instructor) %></li>
            <% end %>
