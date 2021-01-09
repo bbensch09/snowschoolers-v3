@@ -20,6 +20,14 @@ class Instructor < ActiveRecord::Base
     CalendarBlock.where(instructor_id:self.id,state:'Available').count
   end
 
+  def active_locations
+    location_names =[]
+    self.locations.each do |location|
+      location_names << location.name
+    end
+    return location_names
+  end
+
   def days_booked
     CalendarBlock.where(instructor_id:self.id,state:'Booked').count
   end
