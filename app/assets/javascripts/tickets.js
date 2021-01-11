@@ -1,7 +1,3 @@
-$(document).ready(function(){
-
-});
-
 $(document).ready(function() {
 
 	console.log("#successfully loaded tickets.js");
