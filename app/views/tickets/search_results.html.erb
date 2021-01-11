@@ -18,7 +18,8 @@
 <table class="instructors-table">
   <thead>
     <tr>
-      <th class="lessons-table-cells lesson-date"></th>
+      <th class="lessons-table-cells lesson-date">Row#</th>
+      <th class="lessons-table-cells lesson-date">Confirmation#</th>
       <th class="lessons-table-cells lesson-date">Customer Name</th>
       <th class="lessons-table-cells lesson-date">Booking Date (created_at)</th>
       <th class="lessons-table-cells lesson-date">Reservation Date</th>
@@ -37,6 +38,7 @@
       <% @tickets.each_with_index do |ticket, index| %>
           <tr>
             <td class="lessons-table-cells lesson-date"><%= index+1 %></td>
+            <td class="lessons-table-cells lesson-date"><%= ticket.confirmation_number %></td>
             <td class="lessons-table-cells lesson-date"><%= ticket.requester_name %></td>
             <td class="lessons-table-cells lesson-date"><%= ticket.created_at.strftime("%m/%d/%Y") %></td>
             <td class="lessons-table-cells lesson-date"><%= ticket.lesson_time.date.strftime("%m/%d/%Y") %></td>
