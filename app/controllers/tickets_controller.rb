@@ -43,6 +43,17 @@ class TicketsController < ApplicationController
     end
   end
 
+  def search
+    @tickets = Ticket.select{|ticket| ticket.deposit_status == 'confirmed' && ticket.this_season? }
+    @tickets = @tickets.sort! { |a,b| b.lesson_time.date <=> a.lesson_time.date }
+    # @tickets = @tickets.first(100)
+    respond_to do |format|
+          format.html {render 'search_results'}
+          format.csv { send_data Ticket.all.to_csv, filename: "sledding-tickets-export-#{Date.today}.csv" }
+        end
+  end
+
+
   # GET /tickets/1
   # GET /tickets/1.json
   def show

@@ -37,7 +37,7 @@
       <th>Admin Actions</th>
       <th>Status?</th>
       <th>Wage Rate</th>
-      <th>Home resort</th>
+      <th>Active Locations</th>
       <th>Max Ski Level</th>
       <th>Max Snowboard Level</th>
       <th>Rank</th>
@@ -69,10 +69,10 @@
         <td>Currently <%= instructor.status %></td>
         <td><%= instructor.base_rate %></td>
         <td>
-        <%if instructor.locations && instructor.locations.include?(current_user.location) %>
-          <%= current_user.location.name %>
+        <%if instructor.locations %>
+          <%= instructor.active_locations.join(", ") %>
           <% else %>
-          Other
+          (!) No location set
           <%end%>
         </td>
         <%if instructor.ski_levels.any? %>

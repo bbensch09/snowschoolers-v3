@@ -190,6 +190,7 @@ Rails.application.routes.draw do
   get '/daily-group-roster' => 'lessons#daily_group_roster'
   get '/payroll-prep' => 'lessons#payroll_prep'
   get '/search' => 'lessons#search'
+  get '/tickets-search' => 'tickets#search', as: :all_booked_sled_tickets
   get '/all-booked-lessons-this-season' => 'lessons#all_booked_lessons_this_season', as: :all_booked_lessons_this_season
   get '/search-results' => 'lessons#search_results', as: :search_results
 
