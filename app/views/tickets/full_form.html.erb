@@ -9,6 +9,27 @@
     <% if ENV['HOST_DOMAIN'] == "localhost:3000" || current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner" || current_user.email == "brian@snowschoolers.com") %>
     <div id="autofill-container" class="admin-viewable">
       <a href="#fill" id="autofill_complete_form" class="btn btn-success">Autocomplete all fields</a>
+
+      <span class="text-larger">      Total tickets already sold for this date/session: <%=@ticket.current_session_tickets_sold %> tickets.</span>
+      <% if session[:refund] == true %>
+      <h3> To issue a full refund: </h3>
+      <ol>
+        <li>
+          <a href="https://dashboard.stripe.com/payments" id="stripe-refund" target="_blank" class="btn btn-danger">First Issue Refund in Stripe</a> <br><br>
+        </li>
+        <li><%= link_to 'Mark as Refunded', mark_sledding_ticket_refunded_path(@ticket), method: :put, class: "btn btn-warning" %></li>
+      </ol>
+
+      <h3> To issue a partial refund: </h3>
+      <ol>
+        <li>
+          <a href="https://dashboard.stripe.com/payments" id="stripe-refund" target="_blank" class="btn btn-danger"> First issue a partial refund in Stripe.</a>
+        </li>
+        <li>Enter the refund reason as 'Package info' below, along with the final amount due as 'Total Price'. </li>
+        <li>Then click to <a href="#finalize-lesson" class="btn btn-warning">Re-confirm the reservation</a> </li>
+      </ol>
+      <% end %>
+
     </div>
     <% end %>
 
@@ -168,28 +189,6 @@
 
               </div>
             </div>
-
-    <div id="autofill-container" class="admin-viewable">
-      <span class="text-larger">      Total tickets already sold for this date/session: <%=@ticket.current_session_tickets_sold %> tickets.</span>
-      <% if session[:refund] == true %>
-      <h3> To issue a full refund: </h3>
-      <ol>
-        <li>
-          <a href="https://dashboard.stripe.com/payments" id="stripe-refund" target="_blank" class="btn btn-danger">First Issue Refund in Stripe</a> <br><br>
-        </li>
-        <li><%= link_to 'Mark as Refunded', mark_sledding_ticket_refunded_path(@ticket), method: :put, class: "btn btn-warning" %></li>
-      </ol>
-
-      <h3> To issue a partial refund: </h3>
-      <ol>
-        <li>
-          <a href="https://dashboard.stripe.com/payments" id="stripe-refund" target="_blank" class="btn btn-danger"> First issue a partial refund in Stripe.</a>
-        </li>
-        <li>Enter the refund reason as 'Package info' below, along with the final amount due as 'Total Price'. </li>
-        <li>Then click to <a href="#finalize-lesson" class="btn btn-warning">Re-confirm the reservation</a> </li>
-      </ol>
-      <% end %>
-    </div>
 
     <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner" || current_user.email == "brian@snowschoolers.com") %>
     <div id="available-lessons" class="admin-viewable ">
