@@ -45,7 +45,7 @@ class TicketsController < ApplicationController
 
   def search
     @tickets = Ticket.select{|ticket| ticket.deposit_status == 'confirmed' && ticket.this_season? }
-    @tickets = @tickets.sort! { |a,b| b.lesson_time.date <=> a.lesson_time.date }
+    @tickets = @tickets.sort! { |a,b| a.created_at <=> b.created_at }
     # @tickets = @tickets.first(100)
     respond_to do |format|
           format.html {render 'search_results'}
