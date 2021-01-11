@@ -288,6 +288,10 @@ def participants_2_and_under
 	return count
 end
 
+def total_participants
+  self.participant.count
+end
+
 def price
 	calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
       # puts "!!!!lookup calendar period status, it is: #{calendar_period}"
@@ -342,8 +346,7 @@ def price_per_student
 end
 
 def self.to_csv(options = {})
-	desired_columns = %w{
-		id date created_at confirmation_number requester_name phone_number guest_email price
+	desired_columns = %w{ id requester_name created_at date product_name slot total_participants sleds_purchased price payment_method state location
 	}
 	CSV.generate(headers: true) do |csv|
 		csv << desired_columns
@@ -352,6 +355,7 @@ def self.to_csv(options = {})
 		end
 	end
 end
+
 
 def check_session_capacity
   return true if self.skip_validations == true
