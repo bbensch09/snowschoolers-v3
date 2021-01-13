@@ -12,8 +12,11 @@
   <thead>
     <tr>
       <th class="lessons-table-cells lesson-date">Date</th>
-      <th class="lessons-table-cells lesson-date">Total Lesson Bookings</th>
-      <th class="lessons-table-cells lesson-date">Total Booked Revenue</th>
+      <th class="lessons-table-cells lesson-date">Total Bookings</th>
+      <th class="lessons-table-cells lesson-date">Total Revenue</th>
+      <th class="lessons-table-cells lesson-date">LFeedback Submitted</th>
+      <th class="lessons-table-cells lesson-date">#Reviews</th>
+      <th class="lessons-table-cells lesson-date">5-star Reviews</th>
       <th class="lessons-table-cells lesson-date">Ski Lessons</th>
       <!-- <th class="lessons-table-cells lesson-date">Skiers</th> -->
       <th class="lessons-table-cells lesson-date">Snowboarder Lessons</th>
@@ -22,8 +25,8 @@
       <th class="lessons-table-cells lesson-date">Date Last Year</th>
       <th class="lessons-table-cells lesson-date">Lessons LY</th>
       <th class="lessons-table-cells lesson-date">Revenue LY</th>
-      <th class="lessons-table-cells lesson-date">Ski Lessons LY</th>
-      <th class="lessons-table-cells lesson-date">SB Lessons LY</th>
+<!--       <th class="lessons-table-cells lesson-date">Ski Lessons LY</th>
+      <th class="lessons-table-cells lesson-date">SB Lessons LY</th> -->
     </tr>
   </thead>
 
@@ -41,11 +44,17 @@
       <!-- total ski lessons -->
       <% lessons_booked_on_this_day = @lessons.select{|lesson| lesson.date.to_s == date.to_s} %>
       <td colspan="1" class="daily-roster-section-break"><%= number_to_currency(Lesson.revenue_for_lessons(lessons_booked_on_this_day), precision:0) %> </td>
+      <td colspan="1" class="daily-roster-section-break"><%= Lesson.feedback_submitted_by_instructor(lessons_booked_on_this_day) %> </td>
+      <td colspan="1" class="daily-roster-section-break"><%= Lesson.ratings_count(lessons_booked_on_this_day) %> </td>
+      <td colspan="1" class="daily-roster-section-break"><%= Lesson.five_star_ratings_count(lessons_booked_on_this_day) %> </td>
       <td colspan="1" class="daily-roster-section-break"><%= @lessons.select{|lesson| lesson.date.to_s == date.to_s && lesson.activity == "Ski"}.count %> </td>
       <!-- total SB staff -->
       <!-- <td> TBD (2) </td> -->
       <!-- total snowboard lessons -->
       <td colspan="1" class="daily-roster-section-break"><%= @lessons.select{|lesson| lesson.date.to_s == date.to_s && lesson.activity == "Snowboard"}.count %> </td>
+
+<!-- last year values -->
+
       <% date_year_ago = (date - 365) %>
       <td colspan="1" class="daily-roster-section-break year-ago"><%=date-365 %> </td>
       <td colspan="1" class="daily-roster-section-break year-ago"><%= @lessons_last_year.select{|lesson| lesson.date.to_s == date_year_ago.to_s}.count %> </td>
@@ -53,8 +62,8 @@
       <% lessons_booked_on_this_day_last_year = @lessons.select{|lesson| lesson.date.to_s == date_year_ago.to_s} %>
       <td colspan="1" class="daily-roster-section-break"><%= number_to_currency(Lesson.revenue_for_lessons(lessons_booked_on_this_day_last_year), precision:0) %> </td>
 
-      <td colspan="1" class="daily-roster-section-break year-ago"><%= @lessons_last_year.select{|lesson| lesson.date.to_s == date_year_ago.to_s && lesson.activity == "Ski"}.count %> </td>
-      <td colspan="1" class="daily-roster-section-break year-ago"><%= @lessons_last_year.select{|lesson| lesson.date.to_s == date_year_ago.to_s && lesson.activity == "Snowboard"}.count %> </td>
+      <!-- <td colspan="1" class="daily-roster-section-break year-ago"><%= @lessons_last_year.select{|lesson| lesson.date.to_s == date_year_ago.to_s && lesson.activity == "Ski"}.count %> </td> -->
+      <!-- <td colspan="1" class="daily-roster-section-break year-ago"><%= @lessons_last_year.select{|lesson| lesson.date.to_s == date_year_ago.to_s && lesson.activity == "Snowboard"}.count %> </td> -->
     </tr>
     <% end %>
   </tbody>
