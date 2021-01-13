@@ -718,6 +718,36 @@ class Lesson < ActiveRecord::Base
     return total
   end
 
+  def self.feedback_submitted_by_instructor(lessons)
+    count = 0
+    lessons.each do |lesson|
+      if lesson.state == "waiting for review" || lesson.state == "waiting for payment" || lesson.state == "Lesson Complete"
+        count += 1
+      end
+    end
+    return count
+  end
+
+  def self.ratings_count(lessons)
+    ratings = 0
+    lessons.each do |lesson|
+      if lesson.review && lesson.review.rating
+        ratings += 1
+      end
+    end
+    return ratings
+  end
+
+  def self.five_star_ratings_count(lessons)
+    five_star_ratings = 0
+    lessons.each do |lesson|
+      if lesson.review && lesson.review.rating == 5
+        five_star_ratings += 1
+      end
+    end
+    return five_star_ratings
+  end
+
   def self.closed_booked_revenue
     lessons = Lesson.confirmed_lessons
     total = 0
