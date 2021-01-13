@@ -37,7 +37,7 @@
         <!-- 1st sledding session -->
             <tr>
               <td colspan="1" class="lessons-table-cells"><%=date %> </td>
-              <td colspan="1" class="lessons-table-cells">Early-bird (9-10:30am) </td>
+              <td colspan="1" class="lessons-table-cells">Morning Session </td>
               <td colspan="1" class="lessons-table-cells"><%= @tickets.select{|ticket| ticket.date.to_s == date.to_s && ticket.slot == "Morning (9:30am-1pm)"}.count %> </td>
                 <% day_slot_bookings =  @tickets.select{|ticket| ticket.date.to_s == date.to_s && ticket.slot == "Morning (9:30am-1pm)"} %>
                 <% day_slot_tickets = 0 %>
@@ -50,7 +50,7 @@
         <!-- 2ne sledding session -->
             <tr>
               <td colspan="1" class="lessons-table-cells"><%=date %> </td>
-              <td colspan="1" class="lessons-table-cells">Morning (11am-12:30pm) </td>
+              <td colspan="1" class="lessons-table-cells">Afternoon Session </td>
               <td colspan="1" class="lessons-table-cells"><%= @tickets.select{|ticket| ticket.date.to_s == date.to_s && ticket.slot == "Afternoon (1pm-4:30pm)"}.count %> </td>
                 <% day_slot_bookings =  @tickets.select{|ticket| ticket.date.to_s == date.to_s && ticket.slot == "Afternoon (1pm-4:30pm)"} %>
                 <% day_slot_tickets = 0 %>
