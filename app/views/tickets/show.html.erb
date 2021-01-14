@@ -19,7 +19,7 @@
 
                   <div class="col-md-4">
                     <label class="lesson-label">Slot</label>
-                    <%= lt_f.input :slot, as: :select, collection: SLEDDING_SLOTS, include_blank: 'Time Slot', label: false, required:true %>
+                    <%= lt_f.input :slot, as: :select, collection: SLEDDING_SLOTS, value:@ticket.slot, include_blank: false, label: false, required:true %>
                   </div>
                   <div class="col-md-4">
                     <label class="lesson-label"></label>

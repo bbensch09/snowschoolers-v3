@@ -89,6 +89,17 @@ class Ticket < ApplicationRecord
   	end
   end
 
+  def self.assign_session_to_tix_without_session_details
+    unassigned_tickets = Ticket.all.select{|ticket| ticket.slot.blank?}
+    # puts "!!!!!! there were #{unassigned_tickets.count} tix found without sessions."
+    unassigned_tickets.each do |ticket|
+      ticket.lesson_time = lesson_time = LessonTime.find_or_create_by(date:ticket.date.to_s,slot:"Morning (9:30am-1pm)")
+      lesson_time.save!
+      ticket.save!
+      puts "!!!!!! the booking with ID #{ticket.id} was blank and has been assigned to the mnorning."
+    end
+  end
+
   def confirmation_number
   	date = self.lesson_time.date.to_s.gsub("-","")
   	date = date[4..-1]
