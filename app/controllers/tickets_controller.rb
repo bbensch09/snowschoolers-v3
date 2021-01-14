@@ -334,7 +334,7 @@ class TicketsController < ApplicationController
     @date = params[:date]
     @date.nil? ? @date = Date.today+2 : @date
     tickets = Ticket.all.select{|ticket| ticket.booked? }
-    tickets = tickets.sort_by{|tickets| tickets.slot}
+    tickets = tickets.sort_by{|tickets| tickets.id}
     @tickets = tickets.select{|tickets| tickets.date.to_s == @date && !tickets.canceled? }
   end  
 
@@ -365,6 +365,11 @@ class TicketsController < ApplicationController
     end
     @dates = dates    
     render 'capacity_calendar'
+  end
+
+  def assign_tix_to_sessions 
+    Ticket.assign_session_to_tix_without_session_details
+    redirect_to capacity_calendar_path
   end
 
   def issue_refund

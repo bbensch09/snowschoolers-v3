@@ -29,6 +29,7 @@
           <th class="lessons-table-cells lesson-date">Reservation Date</th>
           <th class="lessons-table-cells lesson-date">Booking Date</th>
           <th class="lessons-table-cells">#Tickets</th>
+          <th class="lessons-table-cells">Session</th>
           <th class="lessons-table-cells lesson-instructor"> Confirmation #</th>
           <th class="lessons-table-cells lesson-instructor"> Status</th>
           <th class="lessons-table-cells">Waiver</th>
@@ -42,11 +43,42 @@
       </thead>
 
       <tbody>
-        <% @tickets.each do |ticket| %>
+        <tr>
+          <td colspan="12" class="daily-roster-section-break"> Morning Session Tickets</td>
+        </tr>
+        <% @morning_tickets = @tickets.select{|t|t.slot == "Morning (9:30am-1pm)"} %>
+        <% @morning_tickets.each do |ticket| %>
         <tr>
           <td class="lessons-table-cells lesson-date roster-smaller"><%= ticket.lesson_time.date.strftime("%Y-%m-%d") %></td>
           <td class="lessons-table-cells lesson-date roster-smaller"><%= ticket.created_at.strftime("%Y-%m-%d") %></td>
           <td class="lessons-table-cells"><%= ticket.participants.count %></td>
+          <td class="lessons-table-cells"><%= ticket.slot %></td>
+          <td class="lessons-table-cells lesson-instructor"><%= link_to ticket.confirmation_number, ticket, class: "btn btn-sledding-admin" %></td>
+          <% if ticket.check_in_status.nil? %>
+          <td class="lessons-table-cells"><%= link_to 'Check-in', sledding_check_in_path(ticket.id), method: :put, class:"btn btn-default btn-sledding-admin" %>
+            <% else %>
+            <td class="lessons-table-cells roster-smaller"><%= ticket.check_in_status %></td>
+            <% end %>
+            <td class="lessons-table-cells"><%= link_to 'Print', release_of_liability_path(ticket.id), target:"_blank", class:"btn btn-sledding-admin" %>
+              <td class="lessons-table-cells roster-smaller"><%= ticket.phone_number %></td>
+              <td class="lessons-table-cells"><%= ticket.name %></td>
+              <td class="lessons-table-cells table-word-wrap email-smallest"><%= ticket.guest_email %></td>
+              <td class="lessons-table-cells"><%= ticket.state %></td>
+              <td class="lessons-table-cells"><%= number_to_currency(ticket.price) %></td>
+              <!-- <td><%= link_to 'Delete', ticket, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger" %></td> -->
+              <td class="lessons-table-cells"><%= link_to 'Cancel Check-in', sledding_check_in_reverse_path(ticket.id), method: :put, class:"btn btn-danger btn-sledding-admin" %>
+              </tr>
+              <% end %>
+        <tr>
+          <td colspan="12" class="daily-roster-section-break"> Afternoon Session Tickets</td>
+        </tr>
+          <% @afternoon_tickets = @tickets.select{|t|t.slot != "Morning (9:30am-1pm)"} %>
+          <% @afternoon_tickets.each do |ticket| %>
+        <tr>
+          <td class="lessons-table-cells lesson-date roster-smaller"><%= ticket.lesson_time.date.strftime("%Y-%m-%d") %></td>
+          <td class="lessons-table-cells lesson-date roster-smaller"><%= ticket.created_at.strftime("%Y-%m-%d") %></td>
+          <td class="lessons-table-cells"><%= ticket.participants.count %></td>
+          <td class="lessons-table-cells"><%= ticket.slot %></td>
           <td class="lessons-table-cells lesson-instructor"><%= link_to ticket.confirmation_number, ticket, class: "btn btn-sledding-admin" %></td>
           <% if ticket.check_in_status.nil? %>
           <td class="lessons-table-cells"><%= link_to 'Check-in', sledding_check_in_path(ticket.id), method: :put, class:"btn btn-default btn-sledding-admin" %>
