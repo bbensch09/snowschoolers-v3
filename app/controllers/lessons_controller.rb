@@ -128,7 +128,7 @@ class LessonsController < ApplicationController
 
   def payroll_prep
     if current_user.email == "brian@snowschoolers.com" && params[:instructor].nil?
-      @lessons = Lesson.last(400).select{|lesson| lesson.eligible_for_payroll? && lesson.date <= Date.today }
+      @lessons = Lesson.all.select{|lesson| lesson.eligible_for_payroll? && lesson.date <= Date.today }
     elsif current_user.email == "brian@snowschoolers.com" && params[:instructor]
       puts "!!!!filtering for instructor params"
       instructor = Instructor.all.select{|i| params[:instructor].downcase == i.to_param}
