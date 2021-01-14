@@ -128,7 +128,7 @@ class LessonsController < ApplicationController
 
   def payroll_prep
     if current_user.email == "brian@snowschoolers.com" && params[:instructor].nil?
-      @lessons = Lesson.all.select{|lesson| lesson.eligible_for_payroll? && lesson.date <= Date.today }
+      @lessons = Lesson.last(400).select{|lesson| lesson.eligible_for_payroll? && lesson.date <= Date.today }
     elsif current_user.email == "brian@snowschoolers.com" && params[:instructor]
       puts "!!!!filtering for instructor params"
       instructor = Instructor.all.select{|i| params[:instructor].downcase == i.to_param}
@@ -138,7 +138,7 @@ class LessonsController < ApplicationController
     end
     # @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?|| lesson.canceled? || lesson.booked? || lesson.state.nil? }
     @lessons.sort_by!{|lesson| [lesson.date]}
-    @payroll_total = Lesson.payroll_total(@lessons)
+    @payroll_total_hours = Lesson.payroll_total_hours(@lessons)
     render 'payroll_prep'
   end
 
