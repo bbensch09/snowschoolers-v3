@@ -4,8 +4,7 @@
 <div class="admin-viewable">
   <div class="col-md-12">
     <ul>
-      <li>Wages Current Payroll: <%= number_to_currency(Lesson.total_tips) %></li>
-      <li>Wages Paid to-date: <%= Lesson.paid_wages_to_date %></li>
+      <li>Total Hours Current Payroll: <%= @payroll_total_hours %></li>
     </ul>
     <div class="inline-block">
       <a href="#hideLessons" class="btn btn-success" id="toggle-completed-lessons">Show Lessons for Next Payroll</a>

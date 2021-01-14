@@ -1043,6 +1043,14 @@ class Lesson < ActiveRecord::Base
     return total
   end
 
+  def self.payroll_total_hours(lessons)
+    total = 0
+    lessons.each do |lesson|
+      total += lesson.length
+    end
+    return total
+  end
+
   def self.gross_margin_total(lessons)
     total = 0
     lessons.each do |lesson|
