@@ -259,17 +259,27 @@ end
 
 def last_season?
 	self.lesson_time.date.to_s <= '2020-04-30' && self.lesson_time.date.to_s >= '2019-12-01'
-end  
+end 
 
-def self.total_tickets_this_season
-	tickets = Ticket.where(state:'booked').to_a
-	tickets = tickets.keep_if{|ticket| ticket.this_season?}
+def self.bookings_this_season
+  bookings = Ticket.where(state:'booked').to_a
+  bookings = bookings.keep_if{|ticket| ticket.this_season?}
+end 
+
+def self.total_tickets_sold_this_season
+  bookings = Ticket.bookings_this_season
+  tickets = 0
+  bookings.each do |booking|
+    ticket_count = booking.participants.count
+    tickets += ticket_count
+  end
+  return tickets
 end
 
 def self.total_ticket_revenue_this_season
-	tickets = Ticket.total_tickets_this_season
+	bookings = Ticket.bookings_this_season
 	total = 0
-	tickets.each do |ticket|
+	bookings.each do |ticket|
 		total += ticket.price.to_i
 	end
 	return total
