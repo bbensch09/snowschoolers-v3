@@ -39,18 +39,12 @@
             <%= f.hidden_field :slot, value: params[:slot] %>
           <% end %>
 
-          <div class="row">
-            <div class="col-md-6">
-              <span class="remember-box checkbox">
-                <label for="rememberme">
-                  <%= f.check_box :remember_me, id: "rememberme" %>Remember Me
-                </label>
-              </span>
-            </div>
-            <div class="col-md-6">
-              <%= f.submit "Sign in", class: 'btn sign-up-btn pull-right' %>
-            </div>
-          </div>
+                  <!-- %= f.check_box :remember_me, id: "rememberme", required: true  %> Remember login for next time -->
+
+        <div class="col-md-12">
+          <%= f.submit "Sign in", class: 'btn btn-primary devise-btn' %>
+        </div>
+
         <% end %>
 
         <div class="facebook-box">
@@ -83,9 +77,7 @@
         <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, class: 'input-group new_user' }) do |f| %>
           <%= devise_error_messages! %>
           <%= f.email_field :email, class: 'form-control' %>
-          <span class="input-group-btn">
-            <%= f.submit "SEND", class: 'btn btn-primary' %>
-          </span>
+          <%= f.submit "Reset Password", class: 'btn btn-primary devise-btn' %>
         <% end %>
 
       </div>
@@ -124,7 +116,6 @@
 
 
 <!-- SLIDER -->
-<img id="cycle-loader" src="https://s3.amazonaws.com/snowschoolers/images/spinner.gif" alt="loader" />
 
 <ul id="slider">
   <li><img src="https://s3.amazonaws.com/snowschoolers/images/demo/slider/chamonix-skiing.jpg" alt="" /></li>
