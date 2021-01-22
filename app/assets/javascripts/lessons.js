@@ -181,7 +181,7 @@ var LESSON = {
       var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
       return [ blocked_dates_array.indexOf(string) == -1 ]
     },
-    minDate: '2021-01-15',
+    minDate: '2021-02-01',
     maxDate: '2021-04-19',
     dateFormat: 'yy-mm-dd'
     });
