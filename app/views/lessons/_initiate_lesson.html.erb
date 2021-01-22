@@ -33,12 +33,12 @@
         </div>
 
         <div class="block">
-          <% if Location.find(25).partner_status == "Inactive" %>
+          <% if @promo_location == 25 && Location.find(25).partner_status == "Inactive" %>
               <h2 class="kv-skiing-not-yet-open"> Unfortunately ski lessons at Kingvale have not yet begun. If you are interested in reserving a lesson for February or March, please simply shoot us a <a href="mailto:hello@snowschoolers.com?subject=Interested%20in%20Lessons%20at%20Kingvale%20&body=Please%20let%20me%20know%20when%20lessons%20are%20available.%20Thanks!" target="_blank" class="white-text bold">quick email</a> with your dates, your preferred instructor, and your group's key information (names, ages, etc.) and a member of our team will follow up directly. Alternatively, we highly encourage you to book a lesson at our <a href="/granlibakken" class="white-text bold">Granlibakken</a> location, where we are able to offer full availability of beginner through intermediate lessons. </h2>
               <% toggle_booking_widget = "hidden" %>
             <% else %>
             <% toggle_booking_widget = "unhidden" %>
-            <h1>TESTING</h1>
+            <!-- <h1>TESTING</h1> -->
           <% end %>                  
         </div>
 
