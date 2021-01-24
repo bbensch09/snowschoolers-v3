@@ -4,6 +4,11 @@
   <div class="white row">
     <% if current_user && (current_user.user_type == "Snow Schoolers Employee") %>
     <div class="row vertical-padding admin-viewable">
+
+      <span class="text-larger">      Total bookings (tickets) sold for this date/session: <%= @ticket.current_session_bookings.count %> (<%=@ticket.current_session_tickets_sold %> tickets).</span>
+      <br> <span class="text-larger">  Cash bookings: TBD </span>
+      <br> <span class="text-larger">  Square bookings: TBD </span>
+
     <h4> (ADMIN ONLY VIEW) </h4>
           <%= semantic_form_for @ticket do |f| %>
           <!-- include lesson time fields to update lesson instructor manually -->
@@ -33,6 +38,7 @@
           <hr>
         <%= link_to "Process Cash Payment", admin_confirm_cash_path(@ticket), method: :put, class: "btn btn-default btn-airbnb" %>
         <%= link_to "Mark Paid w/ Square", admin_confirm_square_path(@ticket), method: :put, class: "btn btn-secondary" %>
+        <%= link_to "Mark Split Charge w/ note in Square", admin_confirm_split_charge_path(@ticket), method: :put, class: "btn btn-tertiary" %>
         <%= link_to "Send Reminder Email", reminder_sledding_confirmation_path(@ticket), class: "btn btn-success" %>
         <%= link_to 'Edit Reservation', edit_ticket_path(@ticket), class: "btn btn-success" %> <span> </span>
         <%= link_to 'Edit Reservation & Reissue Deposit', rebook_ticket_path(@ticket), method: :put, class: "btn btn-warning" %><span> </span>

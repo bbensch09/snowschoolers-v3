@@ -309,6 +309,16 @@ def participants_2_and_under
 	return count
 end
 
+def participants_3_and_under
+  count = 0
+  self.participants.each do |participant|
+    if participant.age_range.to_i <= 3
+      count +=1
+    end
+  end
+  return count
+end
+
 def total_participants
   self.participant.count
 end
@@ -322,7 +332,7 @@ def price
   elsif self.booking_order_value
   	price = self.booking_order_value
   else
-  	price = product.price * [1,(self.participants.count - self.participants_2_and_under)].max
+  	price = product.price * [1,(self.participants.count - self.participants_3_and_under)].max
   end
 
   # price of additional retail items & promotions
@@ -390,10 +400,15 @@ def check_session_capacity
 
 end
 
-def current_session_tickets_sold
-	same_session_entries = Ticket.where(lesson_time_id:self.lesson_time_id).to_a
+def current_session_bookings
+  same_session_entries = Ticket.where(lesson_time_id:self.lesson_time_id).to_a
   puts "!!! there are #{same_session_entries.count} bookings found in same_session_entries"
-	same_session_paid_bookings = same_session_entries.keep_if{|t| t.booked?}
+  same_session_paid_bookings = same_session_entries.keep_if{|t| t.booked?}
+  return same_session_paid_bookings
+end
+
+def current_session_tickets_sold
+	same_session_paid_bookings = self.current_session_bookings
 	tickets = 0
 	same_session_paid_bookings.each do |booking|
 		tickets+= booking.participants.count
