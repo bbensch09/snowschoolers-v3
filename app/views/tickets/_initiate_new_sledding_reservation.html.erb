@@ -22,6 +22,11 @@
           <a href="/sled-now" class="btn btn-primary btn-xl page-scroll powder-btn">Book Sledding Tickets for Today</a>          
           <% end %>
         </h2>
+
+        <% if Date.today.to_s == "2021-01-24" %>
+                <h1 class="text-danger"> Unfortunately due to the upcoming winter storm warning (expecting 4+ FEET), our sledhill will be closed on Monday January 25th and likely again closed on Friday January 29th. We will update this section as the forecast evolves, but we will definitely reopen on our before Saturday January 30th. Happy snow days!
+                </h1>
+        <% end %>
         
         <h4 class="navy-text"><span class="underline"><b> COVID UPDATE:</b></span> To prevent overcrowding, we must limit the maximum capacity of active sledders. As such, we now issue a limited number of different colored wristbands for the morning and afternoon "sessions." While your ticket is good for sledding and snowplay all-day long, your session indicates when you have "priority." We will occassionally need to close the hill for a short 10-15min break while we take a precise count of sledders. If we are over capcity and you are not "priority", you'll be instructed to proceed to the overflow area which is just a 5-10min hike uphill where there is still plenty of room for snowplay but with less groomed runs for sledding. </h4>
 
@@ -60,7 +65,7 @@
         <p class="text-smaller">
           *Holiday pricing begins Christmas Eve. Holidays include Dec 24-Jan 3, Jan 16-18, Feb 13-21.
         </p>
-        <h3 class="text-danger">Note: There is a parking fee of $20 per vehicle. Currently only cash is accepted. We expect to include parking with online reservations soon. Stay tuned! </h3>
+        <h3 class="text-warning">Note: There is a parking fee of $20 per vehicle. Currently only cash is accepted. We expect to include parking with online reservations soon. Stay tuned! </h3>
       </div>
     </section>
 
