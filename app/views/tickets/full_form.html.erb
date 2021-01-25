@@ -10,7 +10,9 @@
     <div id="autofill-container" class="admin-viewable">
       <a href="#fill" id="autofill_complete_form" class="btn btn-success">Autocomplete all fields</a>
 
-      <span class="text-larger">      Total tickets already sold for this date/session: <%=@ticket.current_session_tickets_sold %> tickets.</span>
+      <span class="text-larger">      Total bookings (tickets) sold for this date/session: <%= @ticket.current_session_bookings.count %> (<%=@ticket.current_session_tickets_sold %> tickets).</span>
+      <br> <span class="text-larger">  Cash bookings: TBD </span>
+      <br> <span class="text-larger">  Square bookings: TBD </span>
       <% if session[:refund] == true %>
       <h3> To issue a full refund: </h3>
       <ol>

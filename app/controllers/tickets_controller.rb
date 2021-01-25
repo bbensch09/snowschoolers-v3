@@ -2,7 +2,7 @@ class TicketsController < ApplicationController
   respond_to :html
   skip_before_action :authenticate_user!, only: [:index, :new, :create, :complete, :complete_sledding_ticket, :confirm_reservation, :update, :edit, :show, :liability_release_agreement, :create_walk_in_sledding_ticket]
   # low friction hackey solution -- don't require authentication for most customer-facing pages; removed temporarily May 2019
-  before_action :set_ticket, only: [:show, :duplicate, :complete, :complete_sledding_ticket, :update, :edit, :edit_wages, :destroy, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :mark_lesson_complete,  :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_deposit, :admin_confirm_airbnb, :admin_confirm_booked_with_modification, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications, :send_review_reminders_to_student, :liability_release_agreement, :admin_confirm_cash, :admin_confirm_square, :reminder_sledding_confirmation]
+  before_action :set_ticket, only: [:show, :duplicate, :complete, :complete_sledding_ticket, :update, :edit, :edit_wages, :destroy, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :mark_lesson_complete,  :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_deposit, :admin_confirm_airbnb, :admin_confirm_booked_with_modification, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications, :send_review_reminders_to_student, :liability_release_agreement, :admin_confirm_cash, :admin_confirm_square, :admin_confirm_split_charge, :reminder_sledding_confirmation]
   before_action :set_admin_skip_validations
 
 
@@ -281,6 +281,16 @@ class TicketsController < ApplicationController
     LessonMailer.send_sledding_confirmation(@ticket).deliver!
     flash[:notice] = "Success! Successfully recorded a square payment for this booking."
     redirect_to "/tickets/#{@ticket.id}?state=#{@ticket.state}&admin_square_payment=true"
+  end  
+
+  def admin_confirm_split_charge
+    @ticket.deposit_status = 'confirmed'
+    @ticket.state = 'booked'
+    @ticket.payment_method = 'square_split_charge'
+    @ticket.save
+    LessonMailer.send_sledding_confirmation(@ticket).deliver!
+    flash[:notice] = "Success! Successfully recorded a square payment for this booking."
+    redirect_to "/tickets/#{@ticket.id}?state=#{@ticket.state}&admin_split_charge=true"
   end  
 
   def sledding_check_in

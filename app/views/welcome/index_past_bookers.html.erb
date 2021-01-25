@@ -1,0 +1,29 @@
+<div id="middle" class="container">
+  <div class="white">
+
+<h1>All Past Bookers (lessons and tickets)</h1>
+<h4>Total count: <%= @past_bookers.count %> </h4>
+
+  <%= link_to "Export CSV", admin_users_path(format: "csv"), class: 'btn btn-primary' %>
+
+<table class="instructors-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th class="column-wrap">Email - Confirmation #</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @past_bookers.each_with_index do |user,index| %>
+      <tr>
+        <td class="lessons-table-cells lesson-date"><%= index+1 %></td>
+        <td class="lessons-table-cells lesson-date"><%= user %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+</div>
+</div>
