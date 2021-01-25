@@ -225,6 +225,7 @@ Rails.application.routes.draw do
 
   #snowschoolers admin views
   get 'admin_users' => 'welcome#admin_users'
+  get 'past-bookers' => 'welcome#index_past_bookers'
   get 'admin_edit/:id' => 'welcome#admin_edit', as: :admin_edit_user
   get 'users/:id' => 'welcome#admin_show_user', as: :user
   put 'users/:id' => 'welcome#admin_update_user'
