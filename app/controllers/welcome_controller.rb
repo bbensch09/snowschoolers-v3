@@ -317,7 +317,7 @@ def liftopia_referral
     lesson_bookings = Lesson.all.select{|lesson| lesson.booked? }
     past_bookers =[]
     lesson_bookings.each do |lesson|
-      if lesson.requester_id
+      if lesson.requester_id && lesson.requester && lesson.requester.email
         past_bookers << lesson.requester.email + ',' + lesson.confirmation_number
       else
         past_bookers << lesson.guest_email + ',' + lesson.confirmation_number
@@ -326,7 +326,7 @@ def liftopia_referral
 
     ticket_bookings = Ticket.all.to_a.keep_if{|ticket| ticket.lesson_time && ticket.booked? }
     ticket_bookings.each do |booking|
-      if booking.requester_id
+      if booking.requester_id && booking.requester && booking.requester.email
         past_bookers << booking.requester.email + ',' + booking.confirmation_number 
       else
         past_bookers << booking.guest_email + ',' + booking.confirmation_number
