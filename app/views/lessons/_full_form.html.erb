@@ -283,7 +283,7 @@
           </div>
           <div class="col-md-12">
             <label class="lesson-label">How did you first hear about Snow Schoolers?</label>
-            <%= f.select :how_did_you_hear, [['From a friend',1],['Airbnb',11],['Facebook',2],['Google',3],['I took a previous lesson',10],['From a postcard',4],['From someone at Homewood',5],['Tahoe Daves',6],['Ski Butlers',7],['Yelp',8],['Snowglers',9],['Staying at Granlibakken',10],['Other',100]], {}, {class: 'form-control', required:true, include_blank:false} %>
+            <%= f.select :how_did_you_hear, [['From a friend',1],['Airbnb',11],['Instagram',12]['Facebook',2],['Google',3],['I took a previous lesson',10],['I got a business card from someone',4],['Tahoe Daves',6],['Ski Butlers',7],['Yelp',8],['I was staying at Granlibakken',10],['I was driving by',10],['Other',100]], {}, {class: 'form-control', required:true, include_blank:false} %>
           </div>
           <% if session[:promo_code] %>
           <div class="col-md-12">
