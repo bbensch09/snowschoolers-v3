@@ -194,8 +194,9 @@ class LessonMailer < ActionMailer::Base
 
   def new_review_submitted(review)
     @review = review
+    @instructor = @review.lesson.instructor
     return if @review.lesson.email_notifications_status == 'disabled'
-    mail(to: 'brian@snowschoolers.com', subject: "Review submitted: #{@review.reviewer.email} has provided their review")
+    mail(to: 'brian@snowschoolers.com', cc:@instructor.username, subject: "Review submitted: #{@review.reviewer.email} has provided their review")
   end
 
   def instructor_status_activated(instructor)

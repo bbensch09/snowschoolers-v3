@@ -23,8 +23,8 @@
           <% end %>
         </h2>
 
-        <% if Date.today.to_s == "2021-01-24" %>
-                <h1 class="text-danger"> Unfortunately due to the upcoming winter storm warning (expecting 4+ FEET), our sledhill will be closed on Monday January 25th and likely again closed on Friday January 29th. We will update this section as the forecast evolves, but we will definitely reopen on our before Saturday January 30th. Happy snow days!
+        <% if Date.today.to_s <= "2021-01-29" %>
+                <h1 class="text-danger"> Unfortunately due to the severe blizzard conditions we've experienced this week, the sledhill will be closed on Friday January 29th. We will be reopening on Saturday the 30th. If you had made a previous reservation for Friday the 29th, please email us at <a href="hello@snowschoolers.com" class="navy-link">hello@snowschoolers.com</a> and include your confirmation number, so we can happily reschedule your reservation or offer a refund. Drive safe and happy shoveling!
                 </h1>
         <% end %>
         
