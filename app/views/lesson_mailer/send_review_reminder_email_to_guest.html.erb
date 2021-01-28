@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <% if @lesson.requester.name %>
+      <p>Hello <%= @lesson.requester.name %>,</p>
+      <% else %>
+      <p>Hello,</p>
+    <% end %>
+
+    <p>
+      Thanks again for choosing Snow Schoolers. We hope you thoroughly enjoyed your recent Snow Schoolers experience and that your lesson with <%=@lesson.instructor.first_name %> exceeded your expectations.
+    </p>
+    <p>
+      We know that feedback is a gift, and we depend on valuable feedback from customers like you to continue to improve our program. If you can spare just a few minutes and provide a quick review of <%=@lesson.instructor.first_name %>, we would be super appreciative. As a token of our appreciation, we will share a promo code good for 10% off your next booking when your review is completed. 
+    </p>
+
+    <p>
+      You can leave your online review by clicking this link: <%= lesson_url(@lesson) %>
+    </p>
+
+    <p>
+      Note that you will also be prompted to consider giving <%=@lesson.instructor.first_name %> a tip </b> if you feel it was deserved. We know many customers prefer to tip in person so please kindly ignore this prompt if that was the case. Likewise, if you do have constructive feedback to share, please either include it in the review or feel free to reply direclty to this email if you'd rather the feedback be kept private.
+    </p>
+    <h4>Lesson Details</h4>
+    <p>You will be able to your lesson details in your online account, but we wanted to also give you an email record of them as well, below:</p>
+    <ul>
+      <li>Instructor: <%= @lesson.instructor.name %></li>
+      <li>Students: <%= @lesson.students.map(&:name).join(', ') %></li>
+      <li>Location: <%= @lesson.location.name %></li>
+      <li>Date: <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %></li>
+      <li>Slot: <%= @lesson.slot %></li>
+      <li>Booked lesson length: <%= @lesson.product.length.to_f %> hours.
+      </li>
+      <li>Actual lesson length: <%= @lesson.actual_duration %> hours.
+      </li>
+      <% if @lesson.price == @lesson.adjusted_price %>
+          <li>Lesson fee: <%= number_to_currency(@lesson.price, precision: 2) %> </li>
+          <% else %>
+          <li>Original Lesson fee: <%= number_to_currency(@lesson.price, precision: 2) %> </li>
+          <li>Final Lesson fee: <%= number_to_currency(@lesson.adjusted_price, precision: 2) %> </li>
+      <% end %>
+      <li>Objectives: <%= @lesson.objectives %></li>
+      <li><b>Instructor feedback:</b> <em><%=@lesson.public_feedback_for_student%></em></li>
+    </ul>
+    <p>Again, we hope you loved the Snow Schoolers experience, and hope to see you back on the mountain again soon. If you'd like to book a repeat lesson with <%=@lesson.instructor.first_name%>, you can do so online or likewise simply reply with the dates you are interested and one of our concierges will start coordinating schedules.
+    </p>
+
+    <p>Thank you again!</p>
+    <p>
+      Sincerely,
+      <br>
+      Snow Schoolers Guest Services <br>
+      hello@snowschoolers.com
+    </p>
+    <!-- <img src="https://s3.amazonaws.com/snowschoolers/thanks.gif" alt="thanks" height="400" width="700" /> -->
+  </body>
+</html>

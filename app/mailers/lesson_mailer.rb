@@ -344,4 +344,15 @@ def send_group_lesson_request_notification(lesson)
       mail(to: @lesson.guest_email, cc:'notify@snowschoolers.com', subject: 'Please complete your Snow Schoolers online experience!')
     end
   end
+
+  def send_review_reminder_email_to_guest(lesson_id)
+    @lesson = Lesson.find(lesson_id)
+    return if @lesson.email_notifications_status == 'disabled'
+    if @lesson.guest_email.nil?
+      mail(to: @lesson.requester.email, cc:'notify@snowschoolers.com', subject: "Enjoy 10% off your next lesson by leaving a review for your instructor!")
+    else
+      mail(to: @lesson.guest_email, cc:'notify@snowschoolers.com', subject: "Enjoy 10% off your next lesson by leaving a review for your instructor!")
+    end
+  end
+
 end
