@@ -282,6 +282,7 @@ Rails.application.routes.draw do
   put   'lessons/:id/remove_instructor'   => 'lessons#remove_instructor',   as: :remove_instructor
   put   'lessons/:id/mark_lesson_complete'   => 'lessons#mark_lesson_complete',   as: :mark_lesson_complete
   patch 'lessons/:id/confirm_lesson_time' => 'lessons#confirm_lesson_time', as: :confirm_lesson_time
+  get 'lessons/:id/send_review_reminder_to_guest' => 'lessons#send_review_reminder_to_guest', as: :send_review_reminder_to_guest
   get   'lessons/:id/complete'            => 'lessons#complete',            as: :complete_lesson
   get   'lessons/:id/send_reminder_sms_to_instructor' => 'lessons#send_reminder_sms_to_instructor',  as: :send_reminder_sms_to_instructor
   get   'lessons/:id/send_day_before_reminder_email' => 'lessons#send_day_before_reminder_email',  as: :send_day_before_reminder_email

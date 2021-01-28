@@ -1,5 +1,8 @@
 <header class="page-header">
-<h1>We hope you enjoyed your lesson!</h1>
+<h1>Thanks for leaving a review!</h1>
+<h2>
+  Feedback like yours is critical, and as a token of our appreciation, please click the link below to activate a 10% off discount on your next booking. We hope to ski with you again soon! If you feel that your instructor did an amazing job, feel free to leave them a tip below.
+</h2>
 </header>
 
 <div class="complete-payment">
@@ -18,19 +21,13 @@
               <div class="row">
                 <%= link_to 'Modify Tip', edit_transaction_path(@lesson.transactions.last), class: 'btn btn-warning' %>
               <span> | </span>
-                <%= submit_tag "Tell us about your lesson experience", class: 'btn btn-primary btn-xl' %>
+                <%= submit_tag "Submit", class: 'btn btn-primary btn-xl' %>
               </div>
           <% else %>
             <ul class="payment-amounts final-booking-details">
               <!-- <li>base_amount: <%=@lesson.transactions.first.base_amount%></li> -->
               <!-- <li>final_amount: <%=@lesson.transactions.first.final_amount%></li> -->
-              <% if @lesson.lesson_price == @lesson.adjusted_price %>
-                <li>Lesson fee: <%= number_to_currency(@lesson.lesson_price, precision: 2) %> </li>
-                <% else %>
-                <li>Original Reservation Price: <%= number_to_currency(@lesson.lesson_price, precision: 2) %> </li>
-                <li>Adjustments (extra students, rentals, etc.): <%= number_to_currency(@lesson.admin_price_adjustment, precision: 2) %> </li>
-                <li>Final Lesson Price: <%= number_to_currency(@lesson.adjusted_price, precision: 2) %> </li>
-              <% end %>
+              <li>Lesson price: <%= number_to_currency(@lesson.lesson_price, precision: 2) %> </li>
               <li>Tip amount: <%= number_to_currency(@lesson.transactions.last.tip_amount*@lesson.transactions.last.base_amount)%>
               <%= link_to 'Edit Tip', edit_transaction_path(@lesson.transactions.last), class: 'btn btn-default' %></li>
               <li><b>Total Lesson Bill: <%=number_to_currency(@lesson.transactions.last.final_amount)%></b>

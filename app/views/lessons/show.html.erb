@@ -113,10 +113,10 @@
     <% end %>
 
 
-    <% if @lesson.waiting_for_review? && (current_user == @lesson.requester || @lesson.guest_email || current_user && current_user.user_type == "Snow Schoolers Employee") %>
+    <% if @lesson.waiting_for_review? && (current_user == @lesson.requester || !current_user && @lesson.guest_email || current_user && current_user.user_type == "Snow Schoolers Employee") %>
       <%= render partial: 'reviews/form' %>
       <% elsif @lesson.waiting_for_review? && current_user && (current_user.instructor || current_user.user_type == "Snow Schoolers Employee") %>
-          <%= link_to "Remind student to submit their review", mark_lesson_complete_path, method: :get, class: "btn btn-success" %>
+          <%= link_to "Remind Guest to submit their review", send_review_reminder_to_guest_path, class: "btn btn-primary" %>
     <% end %>
 
     <% if @lesson.waiting_for_payment? && (current_user == @lesson.requester || current_user && current_user.user_type == "Snow Schoolers Employee" || (@lesson.guest_email && current_user.nil?) || @lesson.guest_email && current_user && current_user.instructor.nil? ) %>
@@ -126,6 +126,17 @@
             <p>Your student has been notified and prompted to complete and provide their review of the lesson.</p>
           </div>
           <%= link_to "Edit Lesson Times", mark_lesson_complete_path, method: :put, class: "btn btn-success" %>
+    <% end %>
+
+    <% if @lesson.state == "Lesson Complete" %>
+
+      <hr class="hr-navy">
+      <h2 class="center">Thanks again for sharing your feedback! Click the button below to apply a 10% discount to your next booking.</h2>
+      <h2 class="center">
+        <a href="/book/granlibakken?promo_code=SNOWFAM10" class="btn btn-primary btn-xl page-scroll powder-btn">Save 10% on your next lesson</a>
+      </h2>
+      <hr class="hr-navy">
+
     <% end %>
 
     <% unless @lesson.focus_area == "Exclude" %>

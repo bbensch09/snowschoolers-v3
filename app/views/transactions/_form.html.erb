@@ -1,4 +1,4 @@
-<div id="middle" class="container">
+  <div id="middle" class="container">
   <div class="white col-md-6">    
 <% @transaction = Transaction.new unless @lesson && @lesson.transactions.count > 0 %>
 
@@ -7,11 +7,11 @@
     <%= f.input :lesson_id, :input_html => {value: @lesson.id, class: 'hidden'}, label: false %>
     <%= f.input :requester_id, :input_html => {value: @lesson.requester.id, class: 'hidden'}, label: false %>
 <h3>
-    <b> Booked lesson length:</b> <%= booked_length = @lesson.product.length.to_f %> hours. <br>
-    <b> Actual lesson length:</b> <%= actual_length = @lesson.actual_duration %> hours.
+    <!-- <b> Booked lesson length:</b>  -->
+    <% booked_length = @lesson.product.length.to_f %>
+    <b> Lesson length:</b> <%= actual_length = @lesson.actual_duration %> hours.
 </h3>
     <% if actual_length == booked_length && @lesson.admin_price_adjustment.nil? %>
-      <h3 class="italic">No adjustments necessary</h3>
       <%= f.input :base_amount, :input_html => {value: @lesson.price, class: 'hidden'}, label: false %>
     <% else %>
       <!-- <h3>Lesson extended</h3> -->
@@ -19,16 +19,16 @@
     <% end %>
 <!-- <h3>Hourly rate: <%= number_to_currency(75) %> </h3> -->
 <h3>
-  <b>Original Reservation Price:</b> <%= number_to_currency(@lesson.lesson_price) %> <br>
-  <b>Final Lesson Price:</b> <%= number_to_currency(@lesson.adjusted_price) %> <br>
+  <!-- <b>Original Reservation Price:</b> <%= number_to_currency(@lesson.lesson_price) %> <br> -->
+  <b>Lesson Price:</b> <%= number_to_currency(@lesson.price) %> <br>
   <!-- % if (@lesson.adjusted_price.to_i)-(@lesson.lesson_price.to_i) > 0 %> -->
-  <b>Amount Due: </b><%= number_to_currency((@lesson.adjusted_price.to_i)-(@lesson.lesson_price.to_i)) %>
   <!-- % else %> -->
   <!-- <b>Amount Due: </b><%= number_to_currency(0) %> -->
   <!-- % end %> -->
 </h3>
     <% tip_amounts_array = ["15% (#{number_to_currency(@lesson.adjusted_price.to_f*0.15)})","25% (#{number_to_currency(@lesson.adjusted_price.to_f*0.25)})","35% (#{number_to_currency(@lesson.adjusted_price.to_f*0.35)})"] %>
     <%= f.input :tip_amount, as: :select, collection: [[tip_amounts_array[0],0.15],[tip_amounts_array[1],0.25],[tip_amounts_array[2],0.35],['No Tip',0],['Tipped in-person',0.0009]], include_blank: 'Select Tip Amount', label: "Include Instructor Tip (optional)", :input_html => {class:'tip-amount-input', required: true} %>
+  <b>Amount to Tip: </b><%= number_to_currency((@lesson.adjusted_price.to_i)-(@lesson.lesson_price.to_i)) %>
   <% end %>
   <%= f.submit "Confirm Tip Amount", class: 'btn btn-success' %>
   <%= link_to 'Back', @transaction.lesson, class: 'btn btn-default' %>
