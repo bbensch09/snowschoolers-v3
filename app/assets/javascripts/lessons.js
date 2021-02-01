@@ -46,13 +46,25 @@ if (MIN_DATE == '2021-1-32') {
   MIN_DATE = '2021-02-01';
   console.log("The minimum bookable date was changed to 2021-02-01.");
 }
-if (MIN_DATE == '2021-2-30') {
+if (MIN_DATE == '2021-1-33') {
+  MIN_DATE = '2021-02-02';
+  console.log("The minimum bookable date was changed to 2021-02-02.");
+}
+if (MIN_DATE == '2021-2-29') {
   MIN_DATE = '2021-03-01';
   console.log("The minimum bookable date was changed to 2021-03-01.");
+}
+if (MIN_DATE == '2021-2-30') {
+  MIN_DATE = '2021-03-02';
+  console.log("The minimum bookable date was changed to 2021-03-02.");
 }
 if (MIN_DATE == '2021-3-32') {
   MIN_DATE = '2021-04-01';
   console.log("The minimum bookable date was changed to 2021-04-01.");
+}
+if (MIN_DATE == '2021-3-32') {
+  MIN_DATE = '2021-04-02';
+  console.log("The minimum bookable date was changed to 2021-04-02.");
 }
 // if (MIN_DATE == '2020-3-16') {
 //   MIN_DATE = '2020-03-15'
