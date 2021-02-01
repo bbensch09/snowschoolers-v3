@@ -117,6 +117,10 @@
       <%= render partial: 'reviews/form' %>
       <% elsif @lesson.waiting_for_review? && current_user && (current_user.instructor || current_user.user_type == "Snow Schoolers Employee") %>
           <%= link_to "Remind Guest to submit their review", send_review_reminder_to_guest_path, class: "btn btn-primary" %>
+      <% else %>
+        <h3>
+          <a href="#" class="btn btn-default" data-toggle="modal" data-target="#loginModal">Log in to leave a review for your lesson.</a>
+        </h3>
     <% end %>
 
     <% if @lesson.waiting_for_payment? && (current_user == @lesson.requester || current_user && current_user.user_type == "Snow Schoolers Employee" || (@lesson.guest_email && current_user.nil?) || @lesson.guest_email && current_user && current_user.instructor.nil? ) %>
