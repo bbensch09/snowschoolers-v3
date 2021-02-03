@@ -12,6 +12,15 @@
 
       <div class="row">
 
+        <% if session[:ticket_reservation_id] %>
+          <div class="col-md-12">
+             <h2>You're now ready to book your reservation. Click below to review your reservation details and pay by credit card.</h2>
+              <h1 class="center">
+                <a href="/tickets/<%= session[:ticket_reservation_id] %>" class="btn sign-up-btn btn-xl btn-primary">Proceed to Payment</a>
+              </h1>            
+          </div>
+        <% end %>
+
         <div class="col-md-6" class="white-transparent-bg navy-text">
 
           <p>Practice safely stopping with your hands and feet at down at the bottom of the hill, so you don't end up like these guys:</p>
