@@ -35,6 +35,10 @@ class InstructorsController < ApplicationController
     # end
   end
 
+  def contest_leaderboard
+    @instructors = Instructor.where(status: "Active")
+  end
+
   def admin_index
      @instructors = Instructor.all.sort {|a,b| a.id <=> b.id}
   end

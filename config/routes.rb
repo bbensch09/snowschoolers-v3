@@ -212,6 +212,7 @@ Rails.application.routes.draw do
 
 
   get '/admin_index' => 'instructors#admin_index'
+  get '/leaderboard' => 'instructors#contest_leaderboard'
   get 'lessons/admin_index' => 'lessons#admin_index'
   get 'past_rentals' => 'rentals#past_rentals_index'
   get 'browse' => 'instructors#browse'

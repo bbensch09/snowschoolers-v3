@@ -1,0 +1,48 @@
+<% title "Contest Leaderboad" %>
+
+<div id="middle" class="container">
+  <div class="white">
+
+<h1 class="center">
+  Track your Stats!
+</h1>
+<h2>Use the table below to see the latest standings of our Praxis skis contest.</h2>
+
+<table class="instructors-table">
+  <thead>
+    <tr>
+<!--       <th>First</th>
+      <th>Last</th> -->
+      <!-- <th>ID</th> -->
+      <th></th>
+      <th>Name</th>
+      <th>Number of Lessons Taught (since 1/22)</th>
+      <th>Number of 5-star Reviews</th>
+      <th>Percentage of 5-star Reviews</th>
+      <!-- <th>Verified Instructor?</th> -->
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @instructors.each do |instructor| %>
+      <tr>
+        <!-- <td><%= instructor.id %></td> -->
+        <td> <%= link_to image_tag(instructor.avatar.url(:thumb), alt:"avatar-img", class:"img-responsive img-thumbnail avatar-thumbnail"), edit_instructor_path(instructor) %> </td>
+        <td><%= link_to "#{instructor.name}", instructor_path(instructor) %></td>
+        <td><%= instructor.lessons_for_2021_contest.count %></td>
+        <td><%= instructor.reviews_with_5_stars_for_2021_contest.count %></td>
+        <td>
+          <% if instructor.lessons_for_2021_contest.count > 0 %>
+          <%= number_to_percentage((instructor.reviews_with_5_stars_for_2021_contest.count)/(instructor.lessons_for_2021_contest.count)*100, precision:2) %>
+            <% else %>
+            0%
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+</div>
+</div>
