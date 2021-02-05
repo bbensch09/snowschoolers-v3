@@ -1,10 +1,16 @@
+<% title "#{@instructor.name} - Instructor Profile" %>
+
 <div id="middle" class="container">
   <div class="white">
 <div class="profile-container">
   <% if current_user && current_user.instructor %>
-    <div class="row col-md-12">
+    <div class="row col-md-12 admin-viewable">
       <h3 class="text-warning">Instructor status: <%= @instructor.status %> </h3>
-      <p class="text-warning">Questions? Email hello@snowschoolers.com.</p>
+      <h2>Winter 2021 Contest Stats</h2>
+      <ul>
+        <li>Lessons taught since contest began Jan 21st: <%=@instructor.lessons_for_2021_contest.count %> lessons</li>
+        <li># of 5-star reviews since contest began: <%=@instructor.reviews_with_5_stars_for_2021_contest.count %></li>
+      </ul>
       <%= link_to 'Edit Your Profile', edit_instructor_path(@instructor), class: 'btn btn-default' %>
       <%= link_to 'View Calendar', individual_availability_path(@instructor), class: 'btn btn-default' %>
       <%= link_to 'My Lessons This Season (payroll audit)', my_lessons_this_season_path(@instructor), class: 'btn btn-default' %>
@@ -99,11 +105,12 @@
       </p>
       <h4> <%= review.review %></h4>
       <% if review.lesson_id.nil? && review.reviewer.email == "brian@snowschoolers.com"%>
-          <% time_stamp = Lesson.where(state:"Lesson Complete").to_a.sample.created_at.strftime("%B %d, %Y") %>
+          <% time_stamp_of_review = Lesson.where(state:"Lesson Complete").to_a.sample.created_at.strftime("%B %d, %Y") %>
         <% else %>
-          <% time_stamp = review.created_at.strftime("%B %d, %Y") %>
+          <% time_stamp_of_review = review.created_at.strftime("%B %d, %Y") %>
+          <% date_of_lesson = review.lesson.date.strftime("%B %d, %Y") %>
       <% end %>
-      <h5 class="center"> <em> - <%=review.display_name %> on <%= time_stamp %></em></h5>
+      <h5 class="center"> <em> - <%=review.display_name %>, from <%=date_of_lesson %> (review published <%= time_stamp_of_review %>)</em></h5>
     </div>
     <br>
     <hr>

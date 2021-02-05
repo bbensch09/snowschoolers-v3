@@ -175,6 +175,29 @@ class Instructor < ActiveRecord::Base
     return true if self.sports.include?(Sport.where(name:"Telemark Instructor").first)
   end
 
+  def lessons_for_2021_contest
+    lessons=[]
+    self.lessons.each do |lesson|
+      if lesson.date.to_s >= "2021-01-22" && lesson.completed?
+        lessons << lesson
+      end
+    end
+    return lessons
+  end
+
+  def reviews_with_5_stars_for_2021_contest
+    lessons = self.lessons_for_2021_contest
+    reviews = []
+    lessons.each do |lesson|
+      if lesson.review && lesson.review.rating == 5
+        reviews << lesson.review
+      end
+    end
+    return reviews
+  end
+
+
+
   def average_rating
     return 5 if reviews.count == 0
     total_stars = 0
