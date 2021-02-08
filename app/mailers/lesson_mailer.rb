@@ -314,6 +314,11 @@ def send_group_lesson_request_notification(lesson)
     mail(to: @lesson.requester.email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, brian@snowschoolers.com, notify@snowschoolers.com", subject: "The promo code #{@lesson.promo_code.promo_code} has been redeemed for a lesson on #{@lesson.date.strftime("%b %-d")}")
   end
 
+  def send_sledding_promo_redemption_notification(ticket)
+    @ticket = ticket
+    mail(to: @ticket.requester.email,  cc: "Supervisors <#{ENV['KINGVALE_SUPERVISORS']}>,brian@snowschoolers.com", subject: "The promo code #{@ticket.promo_code.promo_code} has been redeemed for a ticket on #{@ticket.date.strftime("%b %-d")}")
+  end
+
   def send_lesson_update_notice_to_instructor(original_lesson, updated_lesson, changed_attributes)
     @original_lesson = original_lesson
     @updated_lesson = updated_lesson

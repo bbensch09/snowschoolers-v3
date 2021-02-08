@@ -251,7 +251,7 @@ class TicketsController < ApplicationController
         @ticket.save
       GoogleAnalyticsApi.new.event('lesson-requests', 'deposit-submitted', params[:ga_client_id])
       if @ticket.promo_code
-        LessonMailer.send_promo_redemption_notification(@ticket).deliver!
+        LessonMailer.send_sledding_promo_redemption_notification(@ticket).deliver!
       end
       LessonMailer.send_sledding_confirmation(@ticket).deliver!
         flash[:notice] = 'Thank you, your tickets have been purchased successfully! If you have any questions, please email hello@snowschoolers.com.'        

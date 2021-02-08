@@ -183,15 +183,22 @@
               <label class="amount"></label>
               <%= link_to 'Edit Reservation', edit_lesson_path(@lesson), class: "center btn btn-sm btn-primary" %>
               <br>
-              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                      data-description="Thanks for choosing Snow Schoolers!"
-                      data-name="Snow Schoolers, Inc"
-                      data-image="http://granlibakken.com/wp-content/uploads/cropped-tin-g-32x32.png"
-                      data-amount=<%= amount %>
-                      data-locale="auto"
-                      data-zip-code="true">
-              </script>
+              <% if @lesson.promo_code && @lesson.promo_code.promo_code == "LOCALSDAY2021" && @lesson.date.to_s != "2021-02-12" %>
+                <h3 class="text-danger">
+                  Unfortunately you've attempted to apply the locals 50% off rate, which is only valid on 2/12/21. 
+                  <br>Please <%= link_to 'Edit Reservation', edit_lesson_path(@lesson, :promo_code => "LOCALSDAY2021"), class: "center btn btn-sm btn-primary" %> and change your date or <%= link_to 'click here', edit_lesson_path(@lesson, :promo_code => "NONE"), class: "center btn btn-sm btn-tertiary" %> to book another day at normal rates.
+                </h3>
+              <% else %>
+                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                        data-description="Thanks for choosing Snow Schoolers!"
+                        data-name="Snow Schoolers, Inc"
+                        data-image="http://granlibakken.com/wp-content/uploads/cropped-tin-g-32x32.png"
+                        data-amount=<%= amount %>
+                        data-locale="auto"
+                        data-zip-code="true">
+                </script>
+              <% end %>
               <%= render partial: "lessons/cancellation_policy" %>
             </div>
 
