@@ -86,10 +86,17 @@ end
 def set_promo_code_cookie_and_session
   if params[:promo_code]
     puts "!!! detected params for :promo code are #{params[:promo_code]}"
-    cookies[:promo_code] = {
-      value: params[:promo_code],
-      expires: 1.year.from_now
-    }
+    # if params[:promo_code] == "NONE"
+    #   cookies[:promo_code] = {
+    #     value: nil,
+    #     expires: 1.second.from_now
+    #   }      
+    # else
+      cookies[:promo_code] = {
+        value: params[:promo_code],
+        expires: 1.year.from_now
+      }
+    # end
     session[:promo_code] = params[:promo_code]
     puts"!!!! cookie has been set to: #{cookies[:promo_code]}."
   end

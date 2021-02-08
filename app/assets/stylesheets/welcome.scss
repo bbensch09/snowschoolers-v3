@@ -825,7 +825,7 @@ aside {
 #header-creative .header-content {
   position: relative;
   text-align: center;
-  padding: 100px 15px 100px;
+  /*padding: 100px 15px 100px;*/
   width: 100%;
 }
 #header-creative .header-content .header-content-inner {
@@ -833,7 +833,7 @@ aside {
   font-size: 30px;
 }
 .homepage-hero-section {
-  margin-top: 200px;
+  margin-top: 60px;
   font-size: 30px;
 }
 .shadow-box-highlight{
@@ -878,12 +878,12 @@ width: 200px;
     min-height: 95vh;
   }
   #header-creative .header-content {
-    position: absolute;
-    top: 35%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    padding: 0 50px;
+    /*position: absolute;*/
+    /*top: 35%;*/
+    /*-webkit-transform: translateY(-50%);*/
+    /*-ms-transform: translateY(-50%);*/
+    /*transform: translateY(-50%);*/
+    /*padding: 0 50px;*/
   }
   #header-creative .header-content .header-content-inner {
     max-width: 1000px;
@@ -1616,8 +1616,9 @@ text-align: center;
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/
 @media (max-width: 768px) {
 
-.btn-secondary{
-  color:white;
+.homepage-hero-section {
+  margin-top: 5vh;
+  font-size: 30px;
 }
 
 .resort-header{

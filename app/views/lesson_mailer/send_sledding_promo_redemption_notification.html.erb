@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <h4>A promo code was redeemed for the ticket reservation below.</h4>
+  <p>
+    Ticket Details:
+  </p>
+  <ul>
+    <li>Promo code: <%= @ticket.promo_code.promo_code %> </li>
+    <li>URL: <%= ticket_url(@ticket) %> </li>
+    <li>Requester Name: <%= @ticket.requester_name %> </li>
+    <li>User: <%= @user_email? @user_email : @ticket.guest_email %> </li>
+    <li>Location: <%= @ticket.location.name %> </li>
+    <li>Date: <%= @ticket.date %> </li>
+    <li>Slot: <%= @ticket.slot %> </li>
+    <li>Phone number: <%= @ticket.phone_number %> </li>
+    <li>State: <%= @ticket.state %> </li>
+  </ul>
+  <%= render partial: 'tickets/price_details' %>
+
+  <p class="left">
+    <b> Release of Liability </b>
+    <br>
+    By purchasing your sledding ticket(s) you have agreed to Snow Schoolers' terms of service and release of liability. You may print and review the full liability release at the link below.
+    <br>
+    <span class="lesson-detail-topic"> <%= link_to 'View Release of Liability', liability_release_url(@ticket.id), class:"btn btn-tertiary", target:"_blank" %><br>
+    </p>
+
+
+    <h4>Reservation Details</h4>
+    <ul>
+      <li>Location: <%= @ticket.location.name %></li>
+      <li>Date: <%= @ticket.date.strftime("%A %b #{@ticket.date.day.ordinalize}, %Y") %></li>
+      <li>Session Time: <%= @ticket.slot %></li>
+      <li>Number of Tickets: <%= @ticket.participants.count %></li>
+      <li>Product: <%= @ticket.product.name %></li>
+      <li>Contact phone number: <%= number_to_phone(@ticket.phone_number) %></li>
+    </ul>
+
+    <h4>Sledding Participant Details</h4>
+    <ul>
+      <% @ticket.participants.each do |participant| %>
+      <li> <%= participant.name %>, age <%= participant.age_range %> </li>
+      <% end %>
+    </ul>
+
+    
+  </body>
+  </html>
