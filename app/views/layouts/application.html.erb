@@ -150,21 +150,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
            <!-- <li> <a href="/search" class="btn-success"> Search</a></li> -->
            <li> <a href="/instructors" class="btn-success"> Staff</a></li>
            <li> <a href="/payroll-prep" class="btn-success"> Payroll</a></li>
-           <li> <a href="/sledding/calendar" class="btn-kingvale"> Sled Capacity</a></li>
            <li> <a href="/sledding/roster-today" class="btn-kingvale"> Sledding Today</a></li>
            <li><a href="/sledding/future-sledding-roster?date=<%=Date.tomorrow.to_s%>" class="btn-kingvale">Future Sledding</a></li>
            <li><a href="/daily-roster" class="btn-success"> Lessons Today</a></li>
            <li><a href="/future-daily-roster?date=<%=Date.tomorrow.to_s%>" class="btn-success">Future Lessons</a></li>
            <li> <a href="/rentals" class="btn-success"> Rentals</a></li>
            <li> <a href="/search" class="btn-success"> Search</a></li>
-           <li> <a href="/tickets-search" class="btn-kingvale"> Sled Data</a></li>
            <li> <a href="/book/granlibakken" class="btn-secondary">Book at GB</a></li>
            <li> <a href="/book/kingvale" class="btn-tertiary">Book at KV</a></li>
            <li> <a href="/sled-now" class="btn-kingvale">Walk-in Sledding</a></li>
            <% if current_user.instructor %>
            <li><%= link_to current_user.email, instructor_path(current_user.instructor) %></li>
            <% end %>
-            <li><%= link_to 'Forecast & Historicals', '/calendar-preview', class: 'sign-up-btn btn-success' %></li>
+            <li> <a href="/sledding/calendar" class="btn-kingvale"> Sledding #s</a></li>
+            <li> <a href="/tickets-search" class="btn-kingvale"> Sled #s Export</a></li>
+            <li><%= link_to 'Lesson #s', '/calendar-preview', class: 'sign-up-btn btn-success' %></li>
             <li><a href="/lessons" class="sign-up-btn"> PRIVATES </a></li>
             <!-- <li><a href="/group_lessons" class="sign-up-btn"> GROUPS </a></li> -->
             <!-- <li><a href="/manage_group_lessons" class="sign-up-btn"> GRP SECTIONS </a></li> -->
