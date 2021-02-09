@@ -368,15 +368,15 @@ class TicketsController < ApplicationController
         min_date = params[:date].to_date
       elsif Date.today <= "2020-11-27".to_date
         min_date = "2020-11-27".to_date
-      else min_date = Date.today - 7
+      else min_date = Date.today - 4
     end
-    max_date = min_date + 16
+    max_date = min_date + 4
     tickets = Ticket.all.select{|ticket| ticket.booked? }
-    tickets = tickets.select{ |ticket| ticket.date >= min_date && ticket.date <= max_date}
+    # tickets = tickets.select{ |ticket| ticket.date >= min_date && ticket.date <= max_date}
     @tickets = tickets.sort_by{|ticket| ticket.date}
     @count = @tickets.count
     dates = []
-    (0..16).each do |x|
+    (0..9).each do |x|
       dates << min_date + x
     end
     @dates = dates    

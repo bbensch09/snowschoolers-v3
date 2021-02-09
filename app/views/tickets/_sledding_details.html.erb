@@ -52,7 +52,8 @@
         <!-- <span class="lesson-detail-topic">Sport:</span>  <%= @ticket.activity %><br> -->
         <span class="lesson-detail-topic">Date:</span> <%= @ticket.date.strftime("%A %b #{@ticket.date.day.ordinalize}, %Y") %><br>
         <span class="lesson-detail-topic">Time Slot:</span> <%= @ticket.slot %> <br>
-        <span class="lesson-detail-topic">Tickets purchased:</span> <%= @ticket.participants.count %> <br><br>
+        <span class="lesson-detail-topic">Tickets purchased:</span> <%= @ticket.participants.count %> <br>
+        <span class="lesson-detail-topic">Total price:</span> <%= number_to_currency(@ticket.price) %> <br><br>
       </h4>
     </div>
 
