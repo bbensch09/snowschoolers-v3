@@ -375,7 +375,7 @@ class TicketsController < ApplicationController
     @tickets = tickets.sort_by{|ticket| ticket.date}
     @count = @tickets.count
     dates = []
-    (0..16).each do |x|
+    (0..9).each do |x|
       dates << min_date + x
     end
     @dates = dates    

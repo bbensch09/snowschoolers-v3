@@ -329,7 +329,7 @@ def price
       # product = Product.where(location_id:25,calendar_period:calendar_period).first
   if self.product.nil?
       return "Product price or product not found" #99 #default lesson price - temporary
-  elsif self.booking_order_value
+  elsif self.booking_order_value && !self.additional_info.blank?
   	price = self.booking_order_value
   else
   	price = product.price * [1,(self.participants.count - self.participants_3_and_under)].max
@@ -352,14 +352,15 @@ def price
   end
   puts "!!!!the subtotal of sleds, promo tickets, and retails items is #{price_extras}}"
   price = price + price_extras
+  puts "!!!! the raw price is #{price}"
 
   if self.promo_code
   	case self.promo_code.discount_type
   	when 'cash'
-        # puts "!!!discount of #{self.promo_code.discount} is applied to total price."
+        puts "!!!discount of #{self.promo_code.discount} is applied to total price."
         price = (price.to_f - self.promo_code.discount.to_f)
     when 'percent'
-        # puts "!!!discount percentage of of #{self.promo_code.discount} is applied to total price."
+        puts "!!!discount percentage of of #{self.promo_code.discount} is applied to total price."
         price = (price.to_f * (1-self.promo_code.discount.to_f/100))
     end
 end
