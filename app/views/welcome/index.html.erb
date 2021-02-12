@@ -42,6 +42,7 @@
             
             <hr>
 
+            <% if Date.today.to_s <= "2021-02-11" %>
             <span class="homepage-smaller-text">
                 Locals Day is Friday 2/12! 
                 <br> Enjoy 50% off all lessons and tickets for those who live or work full-time in Tahoe.
@@ -49,8 +50,8 @@
             <br>
             <a href="/book/granlibakken?promo_code=LOCALSDAY2021" class="btn btn-primary btn-xl page-scroll powder-btn">Lessons for Locals</a>
             <a href="/kingvale/sledding?promo_code=LOCALSDAY2021" class="btn btn-secondary btn-xl page-scroll powder-btn">Sled Like a Local</a>
-            <hr>
-            
+            <hr>            
+            <% end %>
 
             <span class="homepage-smaller-text">
                 We are OPEN for sledding and lessons with limited capacity at both Kingvale and Granlibakken!

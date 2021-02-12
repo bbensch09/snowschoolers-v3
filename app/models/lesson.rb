@@ -1583,8 +1583,30 @@ class Lesson < ActiveRecord::Base
     return available_instructors
   end
 
-def overlapping_slots
-  case self.lesson_time.slot
+def self.lessons_at_slot(date,slot,activity)
+  slots = Lesson.overlapping_slots(slot)
+  puts "!!!found #{slots.count} slots"
+  lesson_times = []
+  lessons = []
+  slots.each do |slot|
+      lt = LessonTime.where(date:date,slot:slot).first
+      unless lt.nil? 
+        lesson_times << lt
+      end
+    end
+  puts "!!!found #{lesson_times.count} slots"
+  lesson_times.each do |lt|
+      matching_lesson_slots = Lesson.where(lesson_time_id:lt.id)
+      matching_lessons = matching_lesson_slots.to_a.keep_if{|lesson| lesson.booked? && lesson.activity == activity}
+      matching_lessons.each do |lesson|
+        lessons << lesson
+      end
+  end
+  return lessons
+end
+
+def self.overlapping_slots(slot)
+  case slot
   when "1hr Early Bird 8:45-9:45am"
     return ["1hr Early Bird 8:45-9:45am"]
   when '1hr Private 10:00am'
@@ -1618,7 +1640,7 @@ def available_instructors?
     #   return true
     else
       all_open_lesson_requests = Lesson.open_lesson_requests
-      overlapping_open_private_lesson_requests = all_open_lesson_requests.select{|lesson| lesson.date == self.date && lesson.overlapping_slots.include?(self.lesson_time.slot) }
+      overlapping_open_private_lesson_requests = all_open_lesson_requests.select{|lesson| lesson.date == self.date && Lesson.overlapping_slots(self.lesson_time.slot).include?(self.lesson_time.slot) }
       overlapping_group_sections = Lesson.group_sections_available(self.date,self.lesson_time)          
       actual_availability_count = available_instructors.count - overlapping_open_private_lesson_requests.count - overlapping_group_sections
       puts "!!!actual available count is currently: #{actual_availability_count}"
