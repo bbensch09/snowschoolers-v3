@@ -1583,6 +1583,31 @@ class Lesson < ActiveRecord::Base
     return available_instructors
   end
 
+def overlapping_slots
+  case self.lesson_time.slot
+  when "1hr Early Bird 8:45-9:45am"
+    return ["1hr Early Bird 8:45-9:45am"]
+  when '1hr Private 10:00am'
+    return ['1hr Private 10:00am','Half-day Morning 10:00am-12:45pm','Full-day (10:00am-4:00pm)']
+  when '1hr Private 11:15am'
+    return ['1hr Private 11:15am','Half-day Morning 10:00am-12:45pm','Full-day (10:00am-4:00pm)']
+  when '1hr Private 12:30pm'
+    return ['1hr Private 12:30pm','Half-day Afternoon 1:15-4:00pm','Full-day (10:00am-4:00pm)']
+  when '1hr Private 1:45pm'
+    return ['1hr Private 1:45pm','Half-day Afternoon 1:15-4:00pm','Full-day (10:00am-4:00pm)']
+  when '1hr Private 3:00pm'
+    return ['1hr Private 3:00pm','Half-day Afternoon 1:15-4:00pm','Full-day (10:00am-4:00pm)']
+  when 'Half-day Morning 10:00am-12:45pm'
+    return ['1hr Private 10:00am','1hr Private 11:15am','1hr Private 12:30pm','Half-day Morning 10:00am-12:45pm','Full-day (10:00am-4:00pm)']
+  when 'Half-day Afternoon 1:15-4:00pm'
+    return ['1hr Private 12:30pm','1hr Private 1:45pm','1hr Private 3:00pm','Half-day Afternoon 1:15-4:00pm','Full-day (10:00am-4:00pm)']    
+  when 'Full-day (10:00am-4:00pm)'
+    return ['1hr Private 10:00am','1hr Private 11:15am','Half-day Morning 10:00am-12:45pm','1hr Private 12:30pm','1hr Private 1:45pm','1hr Private 3:00pm','Half-day Afternoon 1:15-4:00pm','Full-day (10:00am-4:00pm)']
+  else
+    return [] 
+  end
+end
+
 def available_instructors?
     puts "!!!!!! checking to see if there are any available instructors"
     # available_instructors.any? ? true : false
@@ -1593,7 +1618,7 @@ def available_instructors?
     #   return true
     else
       all_open_lesson_requests = Lesson.open_lesson_requests
-      overlapping_open_private_lesson_requests = all_open_lesson_requests.select{|lesson| lesson.date == self.date && lesson.lesson_time.slot == self.lesson_time.slot}
+      overlapping_open_private_lesson_requests = all_open_lesson_requests.select{|lesson| lesson.date == self.date && lesson.overlapping_slots.include?(self.lesson_time.slot) }
       overlapping_group_sections = Lesson.group_sections_available(self.date,self.lesson_time)          
       actual_availability_count = available_instructors.count - overlapping_open_private_lesson_requests.count - overlapping_group_sections
       puts "!!!actual available count is currently: #{actual_availability_count}"
