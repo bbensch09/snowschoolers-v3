@@ -318,7 +318,7 @@ class TicketsController < ApplicationController
     @tickets_to_export = Ticket.all.select{|ticket| ticket.state == "confirmed" && ticket.date == Date.today}
     @tickets = Ticket.all.select{|ticket| ticket.booked? }
     @tickets = @tickets.select{ |ticket| ticket.date == Date.today}
-    @tickets = @tickets.sort! { |a,b| a.id <=> b.id }
+    # @tickets = @tickets.sort! { |a,b| a.id <=> b.id }
     respond_to do |format|
           format.html {render 'index'}
           format.csv { send_data @tickets_to_export.to_csv, filename: "group-tickets-export-#{Date.today}.csv" }
@@ -363,23 +363,16 @@ class TicketsController < ApplicationController
     end
   end
 
-  def capacity_last_next_14
+  def capacity_today
     if params[:date]
-        min_date = params[:date].to_date
+        @date = params[:date].to_date
       # elsif Date.today <= "2020-11-27".to_date
         # min_date = "2020-11-27".to_date
-      else min_date = Date.today - 1
+      else @date = Date.today
     end
-    max_date = min_date + 1
     tickets = Ticket.where(state:"booked")
-    @tickets = tickets.select{ |ticket| ticket.booked? && ticket.date >= min_date && ticket.date <= max_date }
-    # @tickets = tickets.sort_by{|ticket| ticket.date}
+    @tickets = tickets.select{ |ticket| ticket.booked? && ticket.date == @date }
     @count = @tickets.count
-    dates = []
-    (0..3).each do |x|
-      dates << min_date + x
-    end
-    @dates = dates    
     render 'capacity_calendar'
   end
 
