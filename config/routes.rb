@@ -139,7 +139,7 @@ Rails.application.routes.draw do
   get '/shop/:id' => 'welcome#comparison_shopping_referral'
   
 # sledding key routes
-  get 'sledding/calendar' => 'tickets#capacity_last_next_14', as: :capacity_calendar
+  get 'sledding/calendar' => 'tickets#capacity_today', as: :capacity_calendar
   get 'sledding/assign-nil-sessions' => 'tickets#assign_tix_to_sessions', as: :assign_tix_to_sessions
   get 'sledding/tickets-all' => 'tickets#index', as: :sledding_tickets_all
   get 'sledding/roster-today' => 'tickets#roster_today', as: :sledding_roster_today

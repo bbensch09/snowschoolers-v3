@@ -285,13 +285,22 @@ def self.total_ticket_revenue_this_season
 	return total
 end
 
-def self.todays_tickets
+def self.todays_bookings
   tickets = Ticket.where(state:'booked').to_a
   tickets = tickets.keep_if{|ticket| ticket.date == Date.today()}
 end
 
+def self.todays_ticket_count
+  tickets = self.todays_bookings
+  ticket_count = 0
+  tickets.each do |ticket|
+    ticket_count += ticket.participants.count
+  end
+  return ticket_count
+end
+
 def self.todays_ticket_revenue
-  tickets = Ticket.todays_tickets
+  tickets = Ticket.todays_bookings
   revenue = 0
   tickets.each do |ticket|
     revenue += ticket.price.to_i
