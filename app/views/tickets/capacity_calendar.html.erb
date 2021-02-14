@@ -27,10 +27,10 @@
           <th class="lessons-table-cells lesson-instructor"> Bookings</th>
           <th class="lessons-table-cells">Tickets Sold</th>
           <!-- <th class="lessons-table-cells">Revenue</th> -->
+          <th class="lessons-table-cells"></th>
           <th class="lessons-table-cells lesson-instructor"> Session Capacity</th>
           <th class="lessons-table-cells lesson-instructor"> Tickets Remaining</th>
           <th class="lessons-table-cells">Percent Capacity</th>
-          <!-- <th class="lessons-table-cells"></th> -->
         </tr>
       </thead>
 
@@ -47,7 +47,8 @@
               <td colspan="1" class="lessons-table-cells"><%=day_slot_tickets %> sold </td>
                 <!-- % day_slot_revenue = 0 %> -->
                 <!-- % day_slot_bookings.each do |b| day_slot_revenue += b.price.to_f end %> -->
-              <!-- <td colspan="1" class="lessons-table-cells"><%= number_to_currency(day_slot_revenue) %> </td> -->
+              <td colspan="1" class="lessons-table-cells"> 
+                <!-- %= number_to_currency(day_slot_revenue) %> </td> -->
               <td colspan="1" class="lessons-table-cells"><%= SLEDHILL_CAPACITY %> max </td>
               <td colspan="1" class="lessons-table-cells"><%= SLEDHILL_CAPACITY - day_slot_tickets %> left </td>
               <td colspan="1" class="lessons-table-cells"><%= number_to_percentage((day_slot_tickets*100)/SLEDHILL_CAPACITY, precision:0) %> full </td>
@@ -63,7 +64,8 @@
               <td colspan="1" class="lessons-table-cells"><%=day_slot_tickets %> sold </td>
                 <!-- % day_slot_revenue = 0 %> -->
                 <!-- % day_slot_bookings.each do |b| day_slot_revenue += b.price.to_f end %> -->
-              <!-- <td colspan="1" class="lessons-table-cells"><%= number_to_currency(day_slot_revenue) %> </td> -->
+              <td colspan="1" class="lessons-table-cells"> 
+                <!-- %= number_to_currency(day_slot_revenue) %> </td> -->
               <td colspan="1" class="lessons-table-cells"><%= SLEDHILL_CAPACITY %> max </td>
               <td colspan="1" class="lessons-table-cells"><%= SLEDHILL_CAPACITY - day_slot_tickets %> left </td>
               <td colspan="1" class="lessons-table-cells"><%= number_to_percentage((day_slot_tickets*100)/SLEDHILL_CAPACITY, precision:0) %> full </td>
@@ -79,7 +81,8 @@
               <td colspan="1" class="lessons-table-cells daily-roster-section-break"><%=day_slot_tickets %> sold </td>
                 <!-- % day_slot_revenue = 0 %> -->
                 <!-- % day_slot_bookings.each do |b| day_slot_revenue += b.price.to_f end %> -->
-              <!-- <td colspan="1" class="lessons-table-cells daily-roster-section-break"><%= number_to_currency(day_slot_revenue) %> </td> -->
+              <td colspan="1" class="lessons-table-cells daily-roster-section-break">
+                <!-- %= number_to_currency(day_slot_revenue) %> </td> -->
               <td colspan="1" class="lessons-table-cells daily-roster-section-break"><%= SLEDHILL_CAPACITY %> max </td>
               <td colspan="1" class="lessons-table-cells daily-roster-section-break"><%= SLEDHILL_CAPACITY - day_slot_tickets %> left </td>
               <td colspan="1" class="lessons-table-cells daily-roster-section-break"><%= number_to_percentage((day_slot_tickets*100)/(SLEDHILL_CAPACITY*4), precision:0) %> full </td>

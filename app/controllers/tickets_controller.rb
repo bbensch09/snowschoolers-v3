@@ -366,17 +366,17 @@ class TicketsController < ApplicationController
   def capacity_last_next_14
     if params[:date]
         min_date = params[:date].to_date
-      elsif Date.today <= "2020-11-27".to_date
-        min_date = "2020-11-27".to_date
-      else min_date = Date.today - 4
+      # elsif Date.today <= "2020-11-27".to_date
+        # min_date = "2020-11-27".to_date
+      else min_date = Date.today - 1
     end
-    max_date = min_date + 4
-    tickets = Ticket.last(500)
-    tickets = tickets.select{ |ticket| ticket.booked?}
-    @tickets = tickets.sort_by{|ticket| ticket.date}
+    max_date = min_date + 1
+    tickets = Ticket.where(state:"booked")
+    @tickets = tickets.select{ |ticket| ticket.booked? && ticket.date >= min_date && ticket.date <= max_date }
+    # @tickets = tickets.sort_by{|ticket| ticket.date}
     @count = @tickets.count
     dates = []
-    (0..9).each do |x|
+    (0..3).each do |x|
       dates << min_date + x
     end
     @dates = dates    
