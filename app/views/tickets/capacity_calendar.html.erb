@@ -6,10 +6,12 @@
     <div class="admin-viewable">
       <ul>
         <li>Total Tickets Booked this Season: <%=Ticket.total_tickets_sold_this_season %></li>
-        <li>Total Revenue Booked this Season: <%= number_to_currency(Ticket.total_ticket_revenue_this_season) %></li>
+        <!-- <li>Total Revenue Booked this Season:  -->
+          <!-- %= number_to_currency(Ticket.total_ticket_revenue_this_season) %></li> -->
         <li>Bookings Today: <%= Ticket.todays_bookings.count %></li>
         <li>Bookings Today: <%= Ticket.todays_ticket_count %></li>
-        <li>Revenue Today: <%= number_to_currency(Ticket.todays_ticket_revenue) %></li>
+        <!-- <li>Revenue Today:  -->
+          <!-- %= number_to_currency(Ticket.todays_ticket_revenue) %></li> -->
       </ul>
       <%= link_to "View all sled tickets", all_booked_sled_tickets_path, class: 'btn btn-warning' %>   
       <%= link_to "Fix / Assign all blank sessions to morning", assign_tix_to_sessions_path, class: 'btn btn-success' %>   
