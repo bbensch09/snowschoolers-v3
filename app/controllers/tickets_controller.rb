@@ -370,9 +370,10 @@ class TicketsController < ApplicationController
         # min_date = "2020-11-27".to_date
       else @date = Date.today
     end
-    tickets = Ticket.where(state:"booked")
-    @tickets = tickets.select{ |ticket| ticket.booked? && ticket.date == @date }
-    @count = @tickets.count
+    # tickets = Ticket.where(state:"booked")
+    # @tickets = tickets.select{ |ticket| ticket.booked? && ticket.date == @date }
+    # @count = @tickets.count
+    @tickets = Ticket.last(10)
     render 'capacity_calendar'
   end
 
