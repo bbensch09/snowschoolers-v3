@@ -7,6 +7,7 @@
       <ul>
         <li>Total Tickets Booked this Season: <%=Ticket.total_tickets_sold_this_season %></li>
         <li>Total Revenue Booked this Season: <%= number_to_currency(Ticket.total_ticket_revenue_this_season) %></li>
+        <li>Bookings Today: <%= Ticket.todays_bookings.count %></li>
         <li>Tickets Today: <%= Ticket.todays_ticket_count %></li>
         <li>Revenue Today: <%= number_to_currency(Ticket.todays_ticket_revenue) %></li>
       </ul>
@@ -15,71 +16,12 @@
     </div>
     <div class="center">
       <div class="buffer"></div>
-      <%= render partial: 'products/search' %>
+      <!-- %= render partial: 'products/search' %> -->
     </div>
     <% end %>
 
-    <table class="sledding-table daily-roster">
-      <thead>
-        <tr>
-          <th class="lessons-table-cells lesson-date">Reservation Date</th>
-          <th class="lessons-table-cells lesson-date">Session Time</th>
-          <th class="lessons-table-cells lesson-instructor"> Bookings</th>
-          <th class="lessons-table-cells">Tickets Sold</th>
-          <th class="lessons-table-cells lesson-instructor"> Session Capacity</th>
-          <th class="lessons-table-cells lesson-instructor"> Tickets Remaining</th>
-          <th class="lessons-table-cells">Percent Capacity</th>
-          <!-- <th class="lessons-table-cells"></th> -->
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @dates.each do |date| %>
-        <!-- 1st sledding session -->
-            <tr>
-              <td colspan="1" class="lessons-table-cells"><%=date %> </td>
-              <td colspan="1" class="lessons-table-cells">Morning Session </td>
-              <td colspan="1" class="lessons-table-cells"><%= @tickets.select{|ticket| ticket.date.to_s == date.to_s && ticket.slot == "Morning (9:30am-1pm)"}.count %> </td>
-                <% day_slot_bookings =  @tickets.select{|ticket| ticket.date.to_s == date.to_s && ticket.slot == "Morning (9:30am-1pm)"} %>
-                <% day_slot_tickets = 0 %>
-                <% day_slot_bookings.each do |b| day_slot_tickets += b.participants.count end %>
-              <td colspan="1" class="lessons-table-cells"><%=day_slot_tickets %> sold </td>
-              <td colspan="1" class="lessons-table-cells"><%= SLEDHILL_CAPACITY %> max </td>
-              <td colspan="1" class="lessons-table-cells"><%= SLEDHILL_CAPACITY - day_slot_tickets %> left </td>
-              <td colspan="1" class="lessons-table-cells"><%= number_to_percentage((day_slot_tickets*100)/SLEDHILL_CAPACITY, precision:0) %> full </td>
-            </tr>
-        <!-- 2ne sledding session -->
-            <tr>
-              <td colspan="1" class="lessons-table-cells"><%=date %> </td>
-              <td colspan="1" class="lessons-table-cells">Afternoon Session </td>
-              <td colspan="1" class="lessons-table-cells"><%= @tickets.select{|ticket| ticket.date.to_s == date.to_s && ticket.slot == "Afternoon (1pm-4:30pm)"}.count %> </td>
-                <% day_slot_bookings =  @tickets.select{|ticket| ticket.date.to_s == date.to_s && ticket.slot == "Afternoon (1pm-4:30pm)"} %>
-                <% day_slot_tickets = 0 %>
-                <% day_slot_bookings.each do |b| day_slot_tickets += b.participants.count end %>
-              <td colspan="1" class="lessons-table-cells"><%=day_slot_tickets %> sold </td>
-              <td colspan="1" class="lessons-table-cells"><%= SLEDHILL_CAPACITY %> max </td>
-              <td colspan="1" class="lessons-table-cells"><%= SLEDHILL_CAPACITY - day_slot_tickets %> left </td>
-              <td colspan="1" class="lessons-table-cells"><%= number_to_percentage((day_slot_tickets*100)/SLEDHILL_CAPACITY, precision:0) %> full </td>
-            </tr>
-        <!-- daily total all sessions -->
-            <tr>
-              <td colspan="1" class="lessons-table-cells daily-roster-section-break"><%=date %> </td>
-              <td colspan="1" class="lessons-table-cells daily-roster-section-break">Daily Totals</td>
-              <td colspan="1" class="lessons-table-cells daily-roster-section-break"><%= @tickets.select{|ticket| ticket.date.to_s == date.to_s}.count %> </td>
-                <% day_slot_bookings =  @tickets.select{|ticket| ticket.date.to_s == date.to_s } %>
-                <% day_slot_tickets = 0 %>
-                <% day_slot_bookings.each do |b| day_slot_tickets += b.participants.count end %>
-              <td colspan="1" class="lessons-table-cells daily-roster-section-break"><%=day_slot_tickets %> sold </td>
-              <td colspan="1" class="lessons-table-cells daily-roster-section-break"><%= SLEDHILL_CAPACITY %> max </td>
-              <td colspan="1" class="lessons-table-cells daily-roster-section-break"><%= SLEDHILL_CAPACITY - day_slot_tickets %> left </td>
-              <td colspan="1" class="lessons-table-cells daily-roster-section-break"><%= number_to_percentage((day_slot_tickets*100)/(SLEDHILL_CAPACITY*4), precision:0) %> full </td>
-            </tr>
-        <tr>
-          <td colspan="7" class="daily-roster-section-break"><span>---</span></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
+      <!-- %= render partial: 'tickets/tickets_capacity_table' %> -->
+   
   </div>
   <hr>
 </div>
