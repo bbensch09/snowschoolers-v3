@@ -214,7 +214,7 @@ var LESSON = {
       var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
       return [ kingvale_lessons_blocked_dates_array.indexOf(string) == -1 ]
     },
-    minDate: '2021-02-01',
+    minDate: MIN_DATE,
     maxDate: '2021-04-19',
     dateFormat: 'yy-mm-dd'
     });
