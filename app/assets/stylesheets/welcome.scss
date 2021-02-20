@@ -1062,7 +1062,7 @@ fieldset[disabled] .btn-default.active {
   /*font-size: 0.5em;*/
 }
 .btn-tertiary, .btn-tertiary:visited {
-  color: white;
+  color: white !important;
   background-color: #34495e;
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
