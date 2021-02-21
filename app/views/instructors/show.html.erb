@@ -95,7 +95,7 @@
 <h1 class="center"> <%= @instructor.name %>'s Recent Reviews </h1>
 <div class="row reviews-container">
 <div class="">
-  <% current_instructor_reviews = @instructor.reviews.sort { |a,b| b.created_at <=> a.created_at } %>
+  <% current_instructor_reviews = @instructor.reviews.sort { |a,b| b.updated_at <=> a.updated_at } %>
   <% current_instructor_reviews.each do |review| %>
     <div class="individual-review">
       <div class="star-rating" data-score= <%= review.rating %> >
@@ -107,7 +107,7 @@
       <% if review.lesson_id.nil? && review.reviewer.email == "brian@snowschoolers.com"%>
           <% time_stamp_of_review = Lesson.where(state:"Lesson Complete").to_a.sample.created_at.strftime("%B %d, %Y") %>
         <% else %>
-          <% time_stamp_of_review = review.created_at.strftime("%B %d, %Y") %>
+          <% time_stamp_of_review = review.updated_at.strftime("%B %d, %Y") %>
           <% date_of_lesson = review.lesson.date.strftime("%B %d, %Y") %>
       <% end %>
       <h5 class="center"> <em> - <%=review.display_name %>, from <%=date_of_lesson %> (review published <%= time_stamp_of_review %>)</em></h5>
