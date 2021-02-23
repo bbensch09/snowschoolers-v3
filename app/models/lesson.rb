@@ -1640,7 +1640,7 @@ def available_instructors?
     #   return true
     else
       all_open_lesson_requests = Lesson.open_lesson_requests
-      overlapping_open_private_lesson_requests = all_open_lesson_requests.select{|lesson| lesson.date == self.date && Lesson.overlapping_slots(self.lesson_time.slot).include?(self.lesson_time.slot) }
+      overlapping_open_private_lesson_requests = all_open_lesson_requests.select{|lesson| lesson.date == self.date && lesson.location.id == self.location.id && Lesson.overlapping_slots(self.lesson_time.slot).include?(self.lesson_time.slot) }
       overlapping_group_sections = Lesson.group_sections_available(self.date,self.lesson_time)          
       actual_availability_count = available_instructors.count - overlapping_open_private_lesson_requests.count - overlapping_group_sections
       puts "!!!actual available count is currently: #{actual_availability_count}"
