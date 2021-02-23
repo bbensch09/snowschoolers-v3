@@ -1296,9 +1296,9 @@ class Lesson < ActiveRecord::Base
   end
 
   def additional_students_without_gear
-    if self.location.id == 24
+    if self.location.id == 24 || self.location.id ==25
       if self.students_with_gear > 0
-        return self.students_without_gear.to_i
+        return self.students_without_gear.to_i 
       elsif self.students_with_gear == 0
         return (self.students_without_gear - 1).to_i
       else
