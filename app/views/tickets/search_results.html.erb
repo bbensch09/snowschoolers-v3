@@ -27,7 +27,7 @@
       <th class="lessons-table-cells lesson-type">Session</th>
       <th class="lessons-table-cells lesson-instructor"># Tickets</th>
       <th class="lessons-table-cells lesson-instructor"># Sleds Purchased</th>
-      <th class="lessons-table-cells lesson-instructor">Reservation Price</th>
+      <th class="lessons-table-cells lesson-instructor">Booking Order Value*</th>
       <th class="lessons-table-cells lesson-instructor">Payment Method</th>
       <th class="lessons-table-cells lesson-student">Booking State</th>
       <th class="lessons-table-cells">Location</th>
@@ -46,7 +46,7 @@
             <td><%= link_to "#{ticket.product.name}", ticket, class: "" %></td>
             <td class="lessons-table-cells lesson-date"><%= ticket.participants.count %></td>
             <td class="lessons-table-cells lesson-date"><%= ticket.sleds_purchased %></td>
-            <td class="lessons-table-cells lesson-date"><%= ticket.price %></td>
+            <td class="lessons-table-cells lesson-date"><%= number_to_currency(ticket.booking_order_value) %></td>
             <td class="lessons-table-cells lesson-date"><%= ticket.payment_method %></td>
             <td class="lessons-table-cells"><%= ticket.state %></td>
             <td class="lessons-table-cells lesson-type"><%= ticket.location.name %></td>
