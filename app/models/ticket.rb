@@ -369,7 +369,7 @@ def price
         puts "!!!discount of #{self.promo_code.discount} is applied to total price."
         price = (price.to_f - self.promo_code.discount.to_f)
     when 'percent'
-        puts "!!!discount percentage of of #{self.promo_code.discount} is applied to total price."
+        puts "!!!discount percentage of #{self.promo_code.discount} is applied to total price."
         price = (price.to_f * (1-self.promo_code.discount.to_f/100))
     end
 end
