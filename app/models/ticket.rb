@@ -124,6 +124,23 @@ class Ticket < ApplicationRecord
   		ticket.state = 'confirmed'
   		ticket.save!
   	end
+  end
+
+  def self.update_payment_method_and_booking_order_value_for_all_sledding_bookings
+    bookings = Ticket.all.select{|ticket| ticket.state == "booked"}
+    bookings.each do |booking|
+      if booking.booking_order_value.nil?
+        booking.booking_order_value = booking.price
+        puts "!!! preparing to update Ticket ID#{booking.id} with a booking order value of #{booking.price}.!!!"
+        booking.save
+      end
+      if booking.payment_method.nil?
+        booking.payment_method = "stripe"
+        puts "!!! preparing to update Ticket ID#{booking.id} with payment method = stripe.!!!!"
+        booking.save
+      end
+    end
+    return "!!!Successfully updated all bookings!!!"
   end  
 
   def email
