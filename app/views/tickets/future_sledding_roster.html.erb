@@ -9,7 +9,9 @@
       <a href='lessons/admin_index' class='btn btn-warning'>View Full Lesson Details</a>
       <ul>
         <li>Total Tickets Booked: <%=Ticket.total_tickets_sold_this_season %></li>
-        <li>Total Revenue Booked: <%= number_to_currency(Ticket.total_ticket_revenue_this_season) %></li>
+        <li>Total Revenue Booked: N/A 
+          <!-- %= number_to_currency(Ticket.total_ticket_revenue_this_season) %> -->        
+        </li>
       </ul>
     </div>
     <% end %>
