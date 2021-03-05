@@ -134,9 +134,18 @@
             <div class="row">
             </div>
 
-            <hr class="hr-navy">
+          <hr class="hr-navy">
 
-          <div class="col-md-8">
+          <div class="col-md-12 row">
+            <label class="lesson-label">Would you like to purchase any sleds on your visit? </label>
+            <%= f.select :sleds_purchased, [["No, we have our own sleds.",0],["Yes, just one sled - $20.00",1],["2 sleds - $40.00",2],["3 sleds - $60.00",2],["4 sleds - $80.00",2],["5 sleds - $100.00",5]], {}, {class: 'form-control', required:true, include_blank:false} %>
+          </div>          
+
+          <div class="buffer"></div>
+
+          <hr class="hr-navy">
+
+          <div class="col-md-12">
             <label class="lesson-label">How did you first hear about Snow Schoolers?</label>
             <%= f.select :how_did_you_hear, [["Been here before",100],['Saw it while driving by.',102],['From a friend',103],['Airbnb',104],['Facebook',105],['Google',106],['Instagram',106],['Someone gave me a business card',107],['Tahoe Daves',108],['Ski Butlers',109],['Yelp',110],['Other',100]], {}, {class: 'form-control', required:true, include_blank:false} %>
           </div>
