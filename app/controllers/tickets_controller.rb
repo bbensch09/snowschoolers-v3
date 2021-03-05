@@ -72,7 +72,7 @@ class TicketsController < ApplicationController
 
   # GET /tickets/1/edit
   def edit
-    render 'full_form'
+    redirect_to complete_sledding_ticket_path(@ticket)
   end
 
   # POST /tickets

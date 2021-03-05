@@ -138,7 +138,7 @@
 
           <div class="col-md-12 row">
             <label class="lesson-label">Would you like to purchase any sleds on your visit? </label>
-            <%= f.select :sleds_purchased, [["No, we have our own sleds.",0],["Yes, just one sled - $20.00",1],["2 sleds - $40.00",2],["3 sleds - $60.00",2],["4 sleds - $80.00",2],["5 sleds - $100.00",5]], {}, {class: 'form-control', required:true, include_blank:false} %>
+            <%= f.select :sleds_purchased, [["No, we have our own sleds.",0],["Yes, just one sled - $20.00",1],["2 sleds - $40.00",2],["3 sleds - $60.00",3],["4 sleds - $80.00",4],["5 sleds - $100.00",5]], {}, {class: 'form-control', required:true, include_blank:false} %>
           </div>          
 
           <div class="buffer"></div>
@@ -223,10 +223,10 @@
            <div class="row-no-padding"> 
         <h4>STANDARD RETAIL PRICING</h4>
           <h5>Sleds & Sledding Promo Tickets</h5>
-            <div class="col-md-3">
-              <label>Number of Sleds Purchased?</label>
-              <%= f.input :sleds_purchased, as: :string, placeholder: "e.g. 2", label: false %>
-            </div>
+            <!-- <div class="col-md-3"> -->
+              <!-- <label>Number of Sleds Purchased?</label> -->
+              <!-- %= f.input :sleds_purchased, as: :string, placeholder: "e.g. 2", label: false %> -->
+            <!-- </div> -->
             <div class="col-md-3">
               <label>Number of Free Participants redeemed?</label>
               <%= f.input :free_participants_redeemed, as: :string, placeholder: "e.g. 1", label: false %>
