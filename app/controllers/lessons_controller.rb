@@ -156,9 +156,35 @@ class LessonsController < ApplicationController
     @date = params[:date]
     @date.nil? ? @date = Date.today+2 : @date
     lessons = Lesson.all.select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.airbnb?  || lesson.partially_booked? || lesson.state.nil? }
-    # lessons = lessons.sort_by{|lesson| lesson.activity}.reverse
+  
     lessons = lessons.sort_by{|lesson| lesson.start_time}
-    @todays_lessons = lessons.select{|lesson| lesson.date.to_s == @date && !lesson.canceled? }
+    @todays_lessons = lessons.select{|lesson| lesson.date.to_s == @date && !lesson.canceled?}
+    @kv_count = 0
+    @todays_lessons.each do |lesson|
+      if lesson.location.id == 25
+        @kv_count+=1
+      end
+    end
+    @todays_lessons = @todays_lessons.select{|lesson| lesson.location.id == 24}
+  end
+
+  def future_daily_kv_roster
+    @date = params[:date]
+    @date.nil? ? @date = Date.today+2 : @date
+    lessons = Lesson.all.select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.airbnb?  || lesson.partially_booked? || lesson.state.nil? }
+    lessons = lessons.sort_by{|lesson| lesson.start_time}
+
+    lessons = lessons.sort_by{|lesson| lesson.start_time}
+    @todays_lessons = lessons.select{|lesson| lesson.date.to_s == @date && !lesson.canceled?}
+    @gb_count = 0
+    @todays_lessons.each do |lesson|
+      if lesson.location.id == 24
+        @gb_count+=1
+      end
+    end
+    @todays_lessons = @todays_lessons.select{|lesson| lesson.location.id == 25}
+
+    render 'future_daily_roster'
   end
 
   def index

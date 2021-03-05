@@ -188,6 +188,7 @@ Rails.application.routes.draw do
   get '/kingvale' => 'locations#kingvale'
   get '/homewood' => 'lessons#homewood'
   get '/future-daily-roster' => 'lessons#future_daily_roster'
+  get '/future-daily-kv-roster' => 'lessons#future_daily_kv_roster'
   get '/daily-roster' => 'lessons#daily_roster'
   get '/daily-group-roster' => 'lessons#daily_group_roster'
   get '/payroll-prep' => 'lessons#payroll_prep'

@@ -25,7 +25,13 @@
 </div>
 <!-- SECTION 0 - AVAILABLE LESSON REQUESTS FOR INSTRUCTORS -->
 <div id="available-lessons" class="">
-<h1>Lessons for <%= @date %> </h1>
+  <% if @kv_count %>
+<h1>Lessons for <%= @date %> at Kingvale: <%= @kv_count %> lessons <a href="/future-daily-kv-roster?date=<%=@date%>" class="btn btn-tertiary"> View KV Lessons </a></h1>
+<h1>Lessons for <%= @date %> at Granlibakken: <%= @gb_count %> lessons BELOW </h1>
+  <% else %>
+<h1>Lessons for <%= @date %> at Granlibakken: <%= @gb_count %> lessons <a href="/future-daily-roster?date=<%=@date%>" class="btn btn-primary"> View GB Lessons </a></h1>
+<h1>Lessons for <%= @date %> at Kingvale BELOW </h1>
+  <% end %>
 
 <table class="instructors-table">
 
