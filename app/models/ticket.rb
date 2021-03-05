@@ -114,9 +114,14 @@ class Ticket < ApplicationRecord
     else
       custom=""
     end
+    if !self.sleds_purchased.nil?
+      sled_count = "#" + self.sleds_purchased.to_s
+    else
+      sled_count = ""
+    end
   	ticket_count = self.participants.count.to_s
   	id = self.id.to_s.rjust(4,"0")
-  	confirmation_number = l+'-'+id+'-'+date+'-'+ticket_count+custom
+  	confirmation_number = l+'-'+id+'-'+date+'-'+ticket_count+custom+sled_count
   end
 
   def self.mark_all_confirmed
