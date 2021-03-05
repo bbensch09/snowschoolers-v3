@@ -34,6 +34,7 @@
       <th></th>
       <th>Name</th>
       <th>Email</th>
+      <th>Calendar</th>
       <th>Admin Actions</th>
       <th>Status?</th>
       <th>Wage Rate</th>
@@ -60,6 +61,9 @@
         </td> -->
         <td> <%= instructor.user ? instructor.user.email : "N/A - must link to user" %> <br>
           Ph: <%= instructor.phone_number %>
+        </td>
+        <td>
+            <%= link_to 'Calendar', individual_availability_path(instructor), class: 'btn btn-default' %>
         </td>
         <% if instructor.status != "Active" %>
         <td><%= link_to 'Activate', verify_instructor_path(instructor), method: :post, class: 'btn btn-success' %></td>
