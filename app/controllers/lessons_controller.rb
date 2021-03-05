@@ -145,11 +145,18 @@ class LessonsController < ApplicationController
   end
 
   def daily_roster
+    @date = Date.today
     lessons = Lesson.all.select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.airbnb? || lesson.partially_booked? || lesson.state.nil? }
     lessons = lessons.sort_by{|lesson| lesson.start_time}
     @todays_lessons = lessons.select{|lesson| (lesson.date == Date.today || lesson.date == '2016-09-12') && !lesson.canceled? }
     @tomorrows_lessons = lessons.to_a.keep_if{|lesson| (lesson.date == Date.today+1 || lesson.date == '2016-09-12') && !lesson.canceled? }
-    render 'daily_roster'
+    @kv_count = 0
+    @todays_lessons.each do |lesson|
+      if lesson.location.id == 25
+        @kv_count+=1
+      end
+    end
+    render 'future_daily_roster'
   end
 
   def future_daily_roster
@@ -166,6 +173,21 @@ class LessonsController < ApplicationController
       end
     end
     @todays_lessons = @todays_lessons.select{|lesson| lesson.location.id == 24}
+  end
+
+  def daily_kv_roster
+    @date = Date.today
+    lessons = Lesson.all.select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.airbnb? || lesson.partially_booked? || lesson.state.nil? }
+    lessons = lessons.sort_by{|lesson| lesson.start_time}
+    @todays_lessons = lessons.select{|lesson| (lesson.date == Date.today || lesson.date == '2016-09-12') && !lesson.canceled? }
+    @tomorrows_lessons = lessons.to_a.keep_if{|lesson| (lesson.date == Date.today+1 || lesson.date == '2016-09-12') && !lesson.canceled? }
+    @gb_count = 0
+    @todays_lessons.each do |lesson|
+      if lesson.location.id == 25
+        @gb_count+=1
+      end
+    end
+    render 'future_daily_roster'
   end
 
   def future_daily_kv_roster
