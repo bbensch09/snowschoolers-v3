@@ -136,7 +136,7 @@ class LessonMailer < ActionMailer::Base
         @instructor = Instructor.find(instructor_id)
         @instructor_name = @instructor ? @instructor.name : 'not provided'
       end
-      mail(to: 'brian@snowschoolers.com', cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>", subject: "SMS sent to #{@recipient}")
+      mail(to: 'brian@snowschoolers.com', subject: "SMS sent to #{@recipient}")
   end
 
   def notify_admin_sms_logs_sledding(ticket,recipient,body)
