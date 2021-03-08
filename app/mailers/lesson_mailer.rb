@@ -283,9 +283,9 @@ class LessonMailer < ActionMailer::Base
     if @lesson.class_type == 'tickets'
       mail(to: @lesson.guest_email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, info@snowschoolers.com", subject: "Homewood Lift Tickets Purchase Confirmation")
     elsif @lesson.guest_email.nil? || @lesson.guest_email == ""
-      mail(to: @lesson.requester.email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, info@snowschoolers.com", subject: "Private Lesson Confirmation: Thanks for booking with Snow Schoolers for #{@lesson.date.strftime("%b %-d")}")
+      mail(to: @lesson.requester.email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, info@snowschoolers.com", subject: "Private Lesson Confirmation: Thanks for booking with Snow Schoolers for #{@lesson.date.strftime("%b %-d")} at #{@lesson.location.name}")
     else
-      mail(to: @lesson.guest_email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, info@snowschoolers.com", subject: "Private Lesson Confirmation: Thanks for booking with Snow Schoolers for #{@lesson.date.strftime("%b %-d")}")
+      mail(to: @lesson.guest_email,  cc: "Adam Garon <#{ENV['SUPERVISOR_EMAIL']}>, info@snowschoolers.com", subject: "Private Lesson Confirmation: Thanks for booking with Snow Schoolers for #{@lesson.date.strftime("%b %-d")} at #{@lesson.location.name}")
     end
   end
 
