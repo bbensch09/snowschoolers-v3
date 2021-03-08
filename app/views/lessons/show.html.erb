@@ -85,6 +85,8 @@
           <%= link_to "Admin Confirm Instructor", admin_confirm_instructor_path, method: :put, class: "btn btn-default" %>
         <% end %>
         <%= link_to "Admin Confirm Deposit", admin_confirm_deposit_path, method: :put, class: "btn btn-default" %>
+        <%= link_to "Process Cash Payment", admin_confirm_lesson_cash_path(@lesson), method: :put, class: "btn btn-default btn-airbnb" %>
+        <%= link_to "Mark Paid w/ Square", admin_confirm_lesson_square_path(@lesson), method: :put, class: "btn btn-secondary" %>        
         <%= link_to "Confirm Add to Schedule", admin_confirm_booked_with_modification_path, method: :put, class: "btn btn-default btn-airbnb" %>
         <%= link_to 'Add PR or Rain Bonus', edit_wages_path(@lesson), class: 'btn btn-warning' %>
         <%= link_to 'Edit Lesson', edit_lesson_path(@lesson), class: "btn btn-success" %> <span> </span>

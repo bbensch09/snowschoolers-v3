@@ -1242,7 +1242,7 @@ class Lesson < ActiveRecord::Base
       when 24
         return 75
       when 25
-        return 75
+        return 60
       when 8
         return 0
       else
@@ -1255,7 +1255,7 @@ class Lesson < ActiveRecord::Base
       when 24
         return 50
       when 25
-        return 50
+        return 40
       when 8
         return 0
       else
