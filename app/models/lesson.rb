@@ -1640,13 +1640,13 @@ def available_instructors?
     #   return true
     else
       all_open_lesson_requests = Lesson.open_lesson_requests
-      overlapping_booked_private_lessons = all_open_lesson_requests.select{|lesson| lesson.date == self.date && lesson.location.id == self.location.id && Lesson.overlapping_slots(self.lesson_time.slot).include?(self.lesson_time.slot) }
+      overlapping_booked_private_lessons = all_open_lesson_requests.select{|lesson| lesson.date == self.date && lesson.location.id == self.location.id && Lesson.overlapping_slots(self.lesson_time.slot).include?(lesson.lesson_time.slot) }
       # debugging march 2021 >> no group lessons so skipping this step
-      overlapping_group_sections = Lesson.group_sections_available(self.date,self.lesson_time)          
+      # overlapping_group_sections = Lesson.group_sections_available(self.date,self.lesson_time)          
       puts "!!! available instructors count is #{available_instructors.count}"
       puts "!!! overlapping_booked_private_lessons count is #{overlapping_booked_private_lessons.count}"
-      puts "!!! overlapping_group_sections count is #{overlapping_group_sections.count}"
-      actual_availability_count = available_instructors.count - overlapping_booked_private_lessons.count - overlapping_group_sections.count
+      # puts "!!! overlapping_group_sections count is #{overlapping_group_sections.count}"
+      actual_availability_count = available_instructors.count - overlapping_booked_private_lessons.count # - overlapping_group_sections.count
       puts "!!!actual available count is currently: #{actual_availability_count}"
       case actual_availability_count.to_i
       when 2..100
