@@ -1643,12 +1643,13 @@ def available_instructors?
       overlapping_booked_private_lessons = all_open_lesson_requests.select{|lesson| lesson.date == self.date && lesson.location.id == self.location.id && Lesson.overlapping_slots(self.lesson_time.slot).include?(lesson.lesson_time.slot) }
       # debugging march 2021 >> no group lessons so skipping this step
       # overlapping_group_sections = Lesson.group_sections_available(self.date,self.lesson_time)          
-      puts "!!! available instructors count is #{available_instructors.count}"
       puts "!!! overlapping_booked_private_lessons count is #{overlapping_booked_private_lessons.count}"
+      puts "!!! the soldout buffer is set to #{SOLDOUT_BUFFER}."
       # puts "!!! overlapping_group_sections count is #{overlapping_group_sections.count}"
-      actual_availability_count = available_instructors.count - overlapping_booked_private_lessons.count # - overlapping_group_sections.count
-      actual_availability_count = actual_availability_count - 1 #remove one instructor to allow for sold out buffer (e.g. Sam shouldn't need to teach, or part-timers who set themselves as free)
-      puts "!!!actual available count is currently: #{actual_availability_count}"
+      actual_availability_count = available_instructors.count - overlapping_booked_private_lessons.count - SOLDOUT_BUFFER # - overlapping_group_sections.count
+      #remove one instructor to allow for sold out buffer (e.g. Sam shouldn't need to teach, or part-timers who set themselves as free)
+      puts "!!! available instructors for purpose of self-bookings is #{actual_availability_count}"
+      puts "!!!actual available count is currently: #{actual_availability_count + SOLDOUT_BUFFER}"
       case actual_availability_count.to_i
       when 2..100
         puts "!!! Estimated actual availability at this time slot is #{actual_availability_count}"
