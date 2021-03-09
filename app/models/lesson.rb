@@ -1533,14 +1533,14 @@ class Lesson < ActiveRecord::Base
       active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| (instructor.snowboard_levels.any? && instructor.snowboard_levels.max.value >= self.level )}
     end
     puts "!!!!!!! - Step #3 Filtered for level, found #{active_resort_instructors.count} instructors."
-    if kids_lesson?
-      active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| instructor.kids_eligibility == true }
-      puts "!!!!!!! - Step #3b Filtered for kids specialist, now have #{active_resort_instructors.count} instructors."
-    end
-    if seniors_lesson?
-      active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| instructor.seniors_eligibility == true }
-      puts "!!!!!!! - Step #3c Filtered for seniors specialist, now have #{active_resort_instructors.count} instructors."
-    end
+    # if kids_lesson?
+    #   active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| instructor.kids_eligibility == true }
+    #   puts "!!!!!!! - Step #3b Filtered for kids specialist, now have #{active_resort_instructors.count} instructors."
+    # end
+    # if seniors_lesson?
+    #   active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| instructor.seniors_eligibility == true }
+    #   puts "!!!!!!! - Step #3c Filtered for seniors specialist, now have #{active_resort_instructors.count} instructors."
+    # end
     if self.activity == 'Ski'
         active_resort_instructors = active_resort_instructors.to_a.keep_if {|instructor| instructor.ski_instructor? }
       elsif self.activity == "Snowboard"
@@ -1640,9 +1640,13 @@ def available_instructors?
     #   return true
     else
       all_open_lesson_requests = Lesson.open_lesson_requests
-      overlapping_open_private_lesson_requests = all_open_lesson_requests.select{|lesson| lesson.date == self.date && lesson.location.id == self.location.id && Lesson.overlapping_slots(self.lesson_time.slot).include?(self.lesson_time.slot) }
+      overlapping_booked_private_lessons = all_open_lesson_requests.select{|lesson| lesson.date == self.date && lesson.location.id == self.location.id && Lesson.overlapping_slots(self.lesson_time.slot).include?(self.lesson_time.slot) }
+      # debugging march 2021 >> no group lessons so skipping this step
       overlapping_group_sections = Lesson.group_sections_available(self.date,self.lesson_time)          
-      actual_availability_count = available_instructors.count - overlapping_open_private_lesson_requests.count - overlapping_group_sections
+      puts "!!! available instructors count is #{available_instructors.count}"
+      puts "!!! overlapping_booked_private_lessons count is #{overlapping_booked_private_lessons.count}"
+      puts "!!! overlapping_group_sections count is #{overlapping_group_sections.count}"
+      actual_availability_count = available_instructors.count - overlapping_booked_private_lessons.count - overlapping_group_sections.count
       puts "!!!actual available count is currently: #{actual_availability_count}"
       case actual_availability_count.to_i
       when 2..100
@@ -1710,9 +1714,9 @@ def available_instructors?
     else
       # this logic needs to be entirely re-worked now that we have 1hr lessons which overlap with half-days
       # booked_lessons = Lesson.select{|lesson| lesson.date == lesson_time.date && lesson.product && lesson.product.start_time == lesson_time.start_time}
-      booked_lessons = Lesson.select{|lesson| lesson.date == lesson_time.date && lesson.booked? }
+      booked_lessons = Lesson.where(lesson_time_id:lesson_time.id,state:"booked")
     end
-    puts "There is/are #{booked_lessons.count} lesson(s) already booked at this time."
+    puts "There is/are #{booked_lessons.count} lesson(s) already booked at this time slot."
     booked_instructors = []
     booked_lessons.each do |lesson|
       if lesson.instructor_id
