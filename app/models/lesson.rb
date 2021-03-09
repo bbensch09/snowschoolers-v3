@@ -1647,6 +1647,7 @@ def available_instructors?
       puts "!!! overlapping_booked_private_lessons count is #{overlapping_booked_private_lessons.count}"
       # puts "!!! overlapping_group_sections count is #{overlapping_group_sections.count}"
       actual_availability_count = available_instructors.count - overlapping_booked_private_lessons.count # - overlapping_group_sections.count
+      actual_availability_count = actual_availability_count - 1 #remove one instructor to allow for sold out buffer (e.g. Sam shouldn't need to teach, or part-timers who set themselves as free)
       puts "!!!actual available count is currently: #{actual_availability_count}"
       case actual_availability_count.to_i
       when 2..100
