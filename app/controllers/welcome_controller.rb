@@ -326,7 +326,7 @@ def liftopia_referral
     @past_bookers = past_bookers
     respond_to do |format|
           format.html { render :index_past_bookers }
-          format.csv { send_data @exported_users.to_csv, filename: "all_users-#{Date.today}.csv" }
+          format.csv { send_data @past_bookers.to_csv, filename: "all_users-#{Date.today}.csv" }
           format.xls
     end    
 
@@ -347,7 +347,7 @@ def liftopia_referral
     @past_bookers = past_bookers
     respond_to do |format|
           format.html { render :index_past_bookers }
-          format.csv { send_data @exported_users.to_csv, filename: "all_users-#{Date.today}.csv" }
+          format.csv { send_data @past_bookers.to_csv, filename: "all_users-#{Date.today}.csv" }
           format.xls
     end    
   end
