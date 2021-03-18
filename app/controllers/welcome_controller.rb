@@ -313,7 +313,7 @@ def liftopia_referral
     end
   end
 
-  def index_past_bookers
+  def index_past_lesson_bookers
     lesson_bookings = Lesson.all.select{|lesson| lesson.booked_lesson_excluding_airbnb? }
     past_bookers =[]
     lesson_bookings.each do |lesson|
@@ -323,8 +323,19 @@ def liftopia_referral
         past_bookers << lesson.guest_email + ',' + lesson.confirmation_number
       end
     end
+    @past_bookers = past_bookers
+    respond_to do |format|
+          format.html { render :index_past_bookers }
+          format.csv { send_data @exported_users.to_csv, filename: "all_users-#{Date.today}.csv" }
+          format.xls
+    end    
+
+  end
+
+  def index_past_sledding_bookers
 
     ticket_bookings = Ticket.all.to_a.keep_if{|ticket| ticket.lesson_time && ticket.booked? }
+    past_bookers =[]
     ticket_bookings.each do |booking|
       if booking.requester_id && booking.requester && booking.requester.email
         past_bookers << booking.requester.email + ',' + booking.confirmation_number 
@@ -335,7 +346,7 @@ def liftopia_referral
     
     @past_bookers = past_bookers
     respond_to do |format|
-          format.html
+          format.html { render :index_past_bookers }
           format.csv { send_data @exported_users.to_csv, filename: "all_users-#{Date.today}.csv" }
           format.xls
     end    
