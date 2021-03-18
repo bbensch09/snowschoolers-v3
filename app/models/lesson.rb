@@ -977,6 +977,10 @@ class Lesson < ActiveRecord::Base
     self.deposit_status == 'confirmed' || self.deposit_status == 'pending_new_payment' || self.airbnb?
   end
 
+  def booked_lesson_excluding_airbnb?
+        self.deposit_status == 'confirmed'
+  end
+
   def eligible_for_payroll?
     eligible_states = ['finalizing','finalizing payment & reviews','Payment complete','waiting for review','waiting for payment','Lesson Complete','confirmed','booked','pending instructor','seeking replacement instructor']
     #removed 'confirmed' from active states to avoid sending duplicate SMS messages.
