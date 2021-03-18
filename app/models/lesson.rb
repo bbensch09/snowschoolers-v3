@@ -1173,6 +1173,10 @@ class Lesson < ActiveRecord::Base
         price = (price.to_f * (1-self.promo_code.discount.to_f/100))
       end
     end
+    if self.promo_code.promo_code == "CARNIVAL2021"
+      puts "For Spring Carnival, group lessons are FREE but require proof of purchase of a sledding ticket, so default pricing is $10 assuming participant is in costume."
+      price = self.students.count * 10
+    end
     return price.to_f
   end
 

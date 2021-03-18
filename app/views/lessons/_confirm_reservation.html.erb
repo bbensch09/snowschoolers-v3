@@ -91,9 +91,9 @@
                     <span class="left">
                       <%if @lesson.includes_rental_package? %>
                         Included
-                        <% if @lesson.location.id == 25 %>
-                              <h4 class="text-warning left">Please note that your reservation includes a $40 "rental deposit" for your rentals. We are partnering with <a href="" class="navy-text" target="_blank">Ski Butlers</a> to provide equipment to all lesson customers at Kingvale this season. As such, this $40 will go directly to Ski Butlers to cover a "basic" package. Shortly after booking, a representative from Ski Butlers will contact you to confirm your information and rental delivery details. If for any reason you are not able to secure appropriate equipment from Ski Butlers, this rental deposit amount will be fully refunded. </h4>
-                        <% end %> 
+                        <!-- % if @lesson.location.id == 25 %> -->
+                              <!-- <h4 class="text-warning left">Please note that your reservation includes a $40 "rental deposit" for your rentals. We are partnering with <a href="" class="navy-text" target="_blank">Ski Butlers</a> to provide equipment to all lesson customers at Kingvale this season. As such, this $40 will go directly to Ski Butlers to cover a "basic" package. Shortly after booking, a representative from Ski Butlers will contact you to confirm your information and rental delivery details. If for any reason you are not able to secure appropriate equipment from Ski Butlers, this rental deposit amount will be fully refunded. </h4> -->
+                        <!-- % end %>  -->
                       <% else %>
                         Not Included  
                     <% end %>
@@ -122,8 +122,12 @@
 
           
                       <% if @lesson.promo_code %>
-                      <p class="italic">Original price: <%= number_to_currency(@lesson.original_price) %></p>
-                      <p class="italic">Promotional Offer: <%= @lesson.promo_code.description %></p>
+                        <% if @lesson.promo_code.promo_code == "CARNIVAL2021" %>
+                          <p class="italic">Promotional Offer: To redeem a free group lesson as part of the 2021 Spring Carnival, a valid sleddding ticket must be purchased. At the 50% discount (costume required), that price is $10 per person. If you are at Kingvale and have already purchased a sled ticket, please find a staff member and they can validate your ticket and make the lesson registration free.</p>
+                        <% else %>
+                          <p class="italic">Original price: <%= number_to_currency(@lesson.original_price) %></p>
+                          <p class="italic">Promotional Offer: <%= @lesson.promo_code.description %></p>
+                        <% end %>
                       <% end %>
                     <% else %>
                       <% amount =(@lesson.lesson_price.to_f*100).to_i %>
@@ -181,14 +185,20 @@
               
             <div class="col-md-12 center">
               <label class="amount"></label>
+
               <%= link_to 'Edit Reservation', edit_lesson_path(@lesson), class: "center btn btn-sm btn-primary" %>
               <br>
-              <% if @lesson.promo_code && @lesson.promo_code.promo_code == "LOCALSDAY2021" && @lesson.date.to_s != "2021-02-12" %>
-                <h3 class="text-danger">
-                  Unfortunately you've attempted to apply the locals 50% off rate, which is only valid on 2/12/21. 
-                  <br>Please <%= link_to 'Edit Reservation', edit_lesson_path(@lesson, :promo_code => "LOCALSDAY2021"), class: "center btn btn-sm btn-primary" %> and change your date or <%= link_to 'click here', edit_lesson_path(@lesson, :promo_code => "NONE"), class: "center btn btn-sm btn-tertiary" %> to book another day at normal rates.
-                </h3>
-              <% else %>
+              <!-- % if @lesson.promo_code && @lesson.promo_code.promo_code == "LOCALSDAY2021" && @lesson.date.to_s != "2021-02-12" %> -->
+              <% if @lesson.promo_code && @lesson.promo_code.promo_code == "CARNIVAL2021" && @lesson.date.to_s != "2021-03-21" %>
+                 
+                  <h3 class="text-danger">
+                    <!-- Unfortunately you've attempted to apply the locals 50% off rate, which is only valid on 2/12/21.  -->
+                    Unfortunately you've attempted to reserve a free group lesson for the Kingvale Spring Carnival, which is only valid on 3/21/21. 
+                    <br>Please <%= link_to 'Edit Reservation', edit_lesson_path(@lesson, :promo_code => "CARNIVAL2021"), class: "center btn btn-sm btn-primary" %> and change your date or <%= link_to 'click here', edit_lesson_path(@lesson, :promo_code => "NONE"), class: "center btn btn-sm btn-tertiary" %> to book another day at normal rates.
+                  </h3>
+
+                <% else %>
+
                 <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                         data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
                         data-description="Thanks for choosing Snow Schoolers!"

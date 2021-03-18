@@ -28,6 +28,19 @@ body {
        -moz-box-sizing: border-box;
             box-sizing: border-box;
 }
+
+.carnival-highlights{
+    font-size: 0.8em;
+    line-height: 1.1;
+    text-align: left;
+}
+.carnival-highlights-box{
+  margin-left:auto;
+  margin-right:auto;
+  width: 80vw;
+  max-width: 900px;
+}
+
 #ze-snippet, #Embed{
   font-size: 2em;
   color: red;
@@ -1615,6 +1628,10 @@ text-align: center;
 
 /*BEGIN MOBILE STYLE ADJUSTMENTS*/
 @media (max-width: 768px) {
+
+.carnival-header{
+  font-size: 1.2em  
+  }
 
 .homepage-hero-section {
   margin-top: 5vh;

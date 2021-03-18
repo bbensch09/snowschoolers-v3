@@ -398,6 +398,39 @@ end
 return price.to_s
 end
 
+def price_without_promo
+  calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
+      # puts "!!!!lookup calendar period status, it is: #{calendar_period}"
+      # product = Product.where(location_id:25,calendar_period:calendar_period).first
+  if self.product.nil?
+      return "Product price or product not found" #99 #default lesson price - temporary
+  elsif self.booking_order_value && !self.additional_info.blank?
+    price = self.booking_order_value
+  else
+    price = product.price * [1,(self.participants.count - self.participants_3_and_under)].max
+  end
+
+  # price of additional retail items & promotions
+  price_extras = 0
+  if self.sleds_purchased && self.sleds_purchased >=1
+    price_extras += sleds_purchased*20
+    # puts "!!!!the subtotal of sleds is #{price_extras}}"
+  end
+  if self.free_participants_redeemed && self.free_participants_redeemed >=1
+    price_extras -= free_participants_redeemed*self.product.price
+    # puts "!!!!the subtotal of sleds minus free participants is #{price_extras}}"  
+  end
+  if self.retail_item_name && self.retail_item_name !=""
+    retail_price = self.retail_item_quantity * retail_item_price_per_item
+    price_extras += retail_price
+    # puts "!!!!the subtotal of retail itmes is  #{retail_price}}"
+  end
+  # puts "!!!!the subtotal of sleds, promo tickets, and retails items is #{price_extras}}"
+  price = price + price_extras
+  # puts "!!!! the raw price is #{price}"  
+return price.to_s
+end
+
 def retail_items_purchased?
   return false if self.retail_item_name == "" || self.retail_item_name.nil?
   return false if self.retail_item_quantity == "" || self.retail_item_quantity.nil?

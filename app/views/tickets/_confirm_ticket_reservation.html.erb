@@ -46,7 +46,7 @@
           <% if @ticket.booking_order_value.nil? || @ticket.price == @ticket.booking_order_value %>
 
               <% if @ticket.promo_code %>
-              <br><span class="strikethrough">Original: $20.00</span>
+              <br><span class="strikethrough">Original: <%= number_to_currency(@ticket.price_without_promo) %></span>
               <br>Promo code: <%= @ticket.promo_code.promo_code %>
               <br>Final price: <%= number_to_currency(@ticket.price) %>
               <hr>
@@ -111,11 +111,15 @@
       <label class="amount"></label>
       <%= link_to 'Edit Reservation', edit_ticket_path(@ticket), class: "center btn btn-sm btn-primary" %>
       <br>
-      <% if @ticket.promo_code && @ticket.promo_code.promo_code == "LOCALSDAY2021" && @ticket.date.to_s != "2021-02-12" %>
+      <!-- % if @ticket.promo_code && @ticket.promo_code.promo_code == "LOCALSDAY2021" && @ticket.date.to_s != "2021-02-12" %> -->
+      <% if @ticket.promo_code && @ticket.promo_code.promo_code == "CARNIVAL2021" && @ticket.date.to_s != "2021-03-21" %>
+         
           <h3 class="text-danger">
-            Unfortunately you've attempted to apply the locals 50% off rate, which is only valid on 2/12/21. 
-            <br>Please <%= link_to 'Edit Reservation', edit_ticket_path(@ticket, :promo_code => "LOCALSDAY2021"), class: "center btn btn-sm btn-primary" %> and change your date or <%= link_to 'click here', edit_ticket_path(@ticket, :promo_code => "NONE"), class: "center btn btn-sm btn-tertiary" %> to book another day at normal rates.
+            <!-- Unfortunately you've attempted to apply the locals 50% off rate, which is only valid on 2/12/21.  -->
+            Unfortunately you've attempted to apply the 50% off discount for Spring Carnival, which is only valid on 3/21/21. 
+            <br>Please <%= link_to 'Edit Reservation', edit_ticket_path(@ticket, :promo_code => "CARNIVAL2021"), class: "center btn btn-sm btn-primary" %> and change your date or <%= link_to 'click here', edit_ticket_path(@ticket, :promo_code => "NONE"), class: "center btn btn-sm btn-tertiary" %> to book another day at normal rates.
           </h3>
+
         <% else %>
 
         <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
