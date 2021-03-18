@@ -314,7 +314,7 @@ def liftopia_referral
   end
 
   def index_past_bookers
-    lesson_bookings = Lesson.all.select{|lesson| lesson.booked? }
+    lesson_bookings = Lesson.all.select{|lesson| lesson.booked_lesson_excluding_airbnb? }
     past_bookers =[]
     lesson_bookings.each do |lesson|
       if lesson.requester_id && lesson.requester && lesson.requester.email
