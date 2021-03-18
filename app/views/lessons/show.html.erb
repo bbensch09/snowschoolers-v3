@@ -105,6 +105,22 @@
       <!-- <script src="https://www.smartwaiver.com/m/webpl/f.js?webpl_waiver=584daa0c8f287&webpl_title=Please%20now%20sign%20your%20waiver&webpl_align=Left&webpl_fontsize=20&webpl_background=%2355c9b2&webpl_fontcolor=%23ffffff&webpl_font=Verdana" type="text/javascript"></script> -->
     <% end %>
 
+    <% if @lesson.booked? %> 
+      <h1 class="center">
+        Thank you for booking with Snow Schoolers!
+      </h1>
+      <h3><b> What happens next?</b></h3>
+      <ol>
+        <li>Hang tight while our system matches you with the best available instructor for your lesson. You will receive an email when your instructor has been assigned.</li>
+        <li>Please select your rental equipment from available inventory. (if applicable)</li>
+        <li>Complete the <a href="https://waiver.smartwaiver.com/v/snowschoolers2021" class="navy-link"> online waiver</a> for yourself and any participants.</li>
+        <li>Find and save your confirmation number below.</li>
+        <li>Still need accommodations? Book a room today at the <a href="http://granlibakken.com/north-tahoe-lodging-packages/" class="navy-link">Granlibakken Lodge</a>!</li>
+      </ol>
+      <hr>
+    <% end %>
+
+
     <% if @lesson.confirmable? || @lesson.completable? || @lesson.active? %>
       <%= render partial: 'lesson_actions_active' %>
     <% end %>
@@ -119,7 +135,7 @@
       <%= render partial: 'reviews/form' %>
       <% elsif @lesson.waiting_for_review? && current_user && (current_user.instructor || current_user.user_type == "Snow Schoolers Employee") %>
           <%= link_to "Remind Guest to submit their review", send_review_reminder_to_guest_path, class: "btn btn-primary" %>
-      <% else %>
+      <% elsif @lesson.booked? %>
         <h3>
           <a href="#" class="btn btn-default" data-toggle="modal" data-target="#loginModal">Log in to leave a review for your lesson.</a>
         </h3>
