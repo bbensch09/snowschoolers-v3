@@ -1641,7 +1641,7 @@ end
 def available_instructors?
     puts "!!!!!! checking to see if there are any available instructors"
     # available_instructors.any? ? true : false
-    if available_instructors.count == 0
+    if available_instructors.count <= 0
       puts "!!!found zero instructors"
       return false
     # elsif self.requester && (self.requester.user_type == "Snow Schoolers Employee" || self.requester.email == "brian@snowschoolers.com")
