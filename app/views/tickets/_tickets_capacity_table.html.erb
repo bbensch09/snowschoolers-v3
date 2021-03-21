@@ -18,8 +18,8 @@
             <tr>
               <td colspan="1" class="lessons-table-cells"><%=date %> </td>
               <td colspan="1" class="lessons-table-cells">Morning Session </td>
-              <td colspan="1" class="lessons-table-cells"><%= @tickets.select{|ticket| ticket.date.to_s == date.to_s && ticket.slot == "Morning (9:30am-1:30pm)"}.count %> </td>
-                <% day_slot_bookings =  @tickets.select{|ticket| ticket.date.to_s == date.to_s && ticket.slot == "Morning (9:30am-1:30pm)"} %>
+              <td colspan="1" class="lessons-table-cells"><%= @tickets.select{|ticket| ticket.date.to_s == date.to_s && ticket.slot.include?("Morning")}.count %> </td>
+                <% day_slot_bookings =  @tickets.select{|ticket| ticket.date.to_s == date.to_s && ticket.slot.include?("Morning")} %>
                 <% day_slot_tickets = 0 %>
                 <% day_slot_bookings.each do |b| day_slot_tickets += b.participants.count end %>
               <td colspan="1" class="lessons-table-cells"><%=day_slot_tickets %> sold </td>
@@ -31,8 +31,8 @@
             <tr>
               <td colspan="1" class="lessons-table-cells"><%=date %> </td>
               <td colspan="1" class="lessons-table-cells">Afternoon Session </td>
-              <td colspan="1" class="lessons-table-cells"><%= @tickets.select{|ticket| ticket.date.to_s == date.to_s && ticket.slot == "Afternoon (1:30pm-5:30pm)"}.count %> </td>
-                <% day_slot_bookings =  @tickets.select{|ticket| ticket.date.to_s == date.to_s && ticket.slot == "Afternoon (1:30pm-5:30pm)"} %>
+              <td colspan="1" class="lessons-table-cells"><%= @tickets.select{|ticket| ticket.date.to_s == date.to_s && ticket.slot.include?("Afternoon")}.count %> </td>
+                <% day_slot_bookings =  @tickets.select{|ticket| ticket.date.to_s == date.to_s && ticket.slot == ticket.slot.include?("Afternoon")} %>
                 <% day_slot_tickets = 0 %>
                 <% day_slot_bookings.each do |b| day_slot_tickets += b.participants.count end %>
               <td colspan="1" class="lessons-table-cells"><%=day_slot_tickets %> sold </td>
