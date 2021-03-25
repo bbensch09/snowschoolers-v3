@@ -12,6 +12,14 @@
     <% end %>
   </article>
 
+  <% if @ticket.check_for_duplicates == true %>
+    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+     <p> WARNING: It appears you may have entered duplicate participants, which often happens in the case of hitting the "back" button prior to checkout. Please review participant names below. If there are duplicates, please click "Edit" and remove the duplicates before proceeding.</p>
+    </div>
+  <% end %>
   <h1 class="center">Authorize Payment</h1>
 
   <div id="booking-details-container" class="booking-details">

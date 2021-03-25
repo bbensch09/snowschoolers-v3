@@ -20,6 +20,22 @@ class Ticket < ApplicationRecord
   before_save :check_session_capacity
   before_save :confirm_valid_promo_code
 
+  def check_for_duplicates
+    students = self.participants.sort_by(&:name)
+    duplicates = false
+    previous_name = ""
+    previous_age_range = ""
+    students.each do |s|
+      if s.name == previous_name && s.age_range == previous_age_range
+        duplicates = true
+      else
+        previous_name = s.name
+        previous_age_range = s.age_range
+      end
+    end
+    @duplicates = duplicates
+  end  
+
 
   def send_waiver_link_to_customers_phone
     return if ENV['twilio_status'] == "inactive"
