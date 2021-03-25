@@ -14,6 +14,11 @@ class CalendarBlocksController < ApplicationController
     end
   end
 
+  def set_sledhill_capacity_via_calendar_block
+        @calendar_block = CalendarBlock.new
+        @date = Date.today
+  end
+
   def refresh_calendar
     respond_to do |format|
     format.js {render inline: "location.reload();" }
@@ -155,6 +160,19 @@ class CalendarBlocksController < ApplicationController
           @calendar_block.save
           end
         redirect_to calendar_blocks_path
+    elsif params[:commit] == "Set new capacity Constraint"
+      @calendar_block = CalendarBlock.new(calendar_block_params)
+      @calendar_block.lesson_time = @lesson_time = LessonTime.find_or_create_by(lesson_time_params)
+
+      respond_to do |format|
+        if @calendar_block.save
+          format.html { redirect_to @calendar_block, notice: 'Sledhill Capacity has been adjusted.' }
+          format.json { render action: 'show', status: :created, location: @calendar_block }
+        else
+          format.html { render action: 'new' }
+          format.json { render json: @calendar_block.errors, status: :unprocessable_entity }
+        end
+      end
     else
     end
   end

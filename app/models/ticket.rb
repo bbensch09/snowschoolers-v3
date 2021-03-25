@@ -499,8 +499,20 @@ def current_session_tickets_sold
 	return tickets
 end
 
+def this_session_capacity
+  this_session_capacity = SLEDHILL_CAPACITY
+  session_increase_amount = 0
+  capacity_adjustments = CalendarBlock.where(lesson_time_id:self.lesson_time_id)
+  unless capacity_adjustments.empty?
+    session_increase_amount = capacity_adjustments.last.state.to_i
+    this_session_capacity += session_increase_amount
+    puts "!!! This sessions capacity has now been set to #{this_session_capacity}"
+  end
+  return this_session_capacity
+end
+
 def session_capacity_remaining
-	return SLEDHILL_CAPACITY - current_session_tickets_sold
+	return this_session_capacity - current_session_tickets_sold
 end  
 
 private

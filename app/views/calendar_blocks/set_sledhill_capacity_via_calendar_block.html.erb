@@ -1,0 +1,49 @@
+<div id="middle" class="container">
+  <div class="white">
+<h1>Set a new sledhill capacity for the current session</h1>
+
+<%= semantic_form_for @calendar_block do |f| %>
+    <% if @calendar_block.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@calendar_block.errors.count, "error") %> prohibited this calendar_block from being saved:</h2>
+
+      <ul>
+      <% @calendar_block.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.inputs do %>
+      <div class="hidden">
+        <%= f.input :instructor_id, as: :select, collection: Instructor.all.sort_by{ |instructor| instructor.name}, selected:Instructor.first.id, include_blank: 'Instructor', label: false %>
+      </div>
+      <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
+        <div class='row'>
+          <div class="col-md-12">
+            <label>Date</label>
+            <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker2' }, selected:Date.today, placeholder: 'Pick a date', label: false, required:true %>
+            <span class="search-area-icon"></span>
+          </div>
+
+          <div class="col-md-12">
+            <label>Time Slot (All day vs. morning/afternoon)</label>
+            <%= lt_f.input :slot, as: :select, collection: SLEDDING_SLOTS, selected: SLEDDING_SLOTS.last, include_blank: false, :input_html => { :class => 'lesson-slot-input'}, label: false, required:true %>
+          </div>
+          <div class="col-md-12">
+            <label>How many more (or less) sledhill tickets do you want to issue?</label>
+            <%= f.input :state, as: :string, placeholder:'Enter a positive or negative number', include_blank: false, label: false, required:true %>
+          </div>
+        </div>
+      <% end %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action  :submit, :label => "Set new capacity Constraint", :as => :input, :button_html => {class:'btn btn-primary'} %>
+    <%= f.action  :submit, :label => "Create 10-week recurring block", :as => :input %>
+  <% end %>
+<% end %>
+
+</div>
+</div>

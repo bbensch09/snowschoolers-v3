@@ -61,6 +61,7 @@ Rails.application.routes.draw do
   post 'set-all-weekends-available/:id' => 'calendar_blocks#set_all_weekends_available', as: :set_all_weekends_available
   post 'block-all-days/:id' => 'calendar_blocks#block_all_days', as: :block_all_days
   post 'toggle-availability/:id' => 'calendar_blocks#toggle_availability', as: :toggle_availability
+  get 'set-sledhill-capacity' => 'calendar_blocks#set_sledhill_capacity_via_calendar_block', as: :set_sledhill_capacity
 
   # mount Ckeditor::Engine => '/ckeditor'
   resources :lesson_actions
