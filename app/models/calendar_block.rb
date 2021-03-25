@@ -10,6 +10,10 @@ class CalendarBlock < ActiveRecord::Base
 		self.date
 	end
 
+	def date
+		self.lesson_time.date
+	end
+
 	def lesson
 		Lesson.where(instructor_id:self.instructor_id,lesson_time_id:self.lesson_time_id).first
 	end
