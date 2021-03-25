@@ -36,6 +36,23 @@ class Lesson < ActiveRecord::Base
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
   after_save :create_rental_reservation
 
+  def check_for_duplicates
+    students = self.students.sort_by(&:name)
+    duplicates = false
+    previous_name = ""
+    previous_age_range = ""
+    students.each do |s|
+      if s.name == previous_name && s.age_range == previous_age_range
+        duplicates = true
+      else
+        previous_name = s.name
+        previous_age_range = s.age_range
+      end
+    end
+    @duplicates = duplicates
+  end  
+
+
   def self.replace_555_numbers
     lessons = Lesson.where(phone_number: '555-555-5555')
     lessons.each do |l|
