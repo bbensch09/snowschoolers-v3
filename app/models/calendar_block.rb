@@ -11,7 +11,11 @@ class CalendarBlock < ActiveRecord::Base
 	end
 
 	def date
-		self.lesson_time.date
+		if self.lesson_time
+			self.lesson_time.date
+		else
+			return nil
+		end
 	end
 
 	def lesson
