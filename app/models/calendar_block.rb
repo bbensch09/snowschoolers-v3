@@ -10,7 +10,7 @@ class CalendarBlock < ActiveRecord::Base
 		self.date
 	end
 
-	def date
+	def date_from_lesson_time
 		if self.lesson_time
 			self.lesson_time.date
 		else
