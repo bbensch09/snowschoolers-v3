@@ -14,9 +14,9 @@
         <li>Tickets Today: <%= Ticket.todays_ticket_count %></li>
         <li>Ticket Agent name: <%= current_user.name %> </li>
         <ul>
-        <% @agents_tickets = @tickets.keep_if{|t| t.agent_id == current_user.id } %>
+        <% @agents_tickets = @tickets.select{|t| t.agent_id == current_user.id } %>
         <li>Bookings: <%=@agents_tickets.count %> </li>
-        <% @agents_cash_tickets = @agents_tickets.keep_if{|t|t.payment_method == "cash"} %>
+        <% @agents_cash_tickets = @agents_tickets.select{|t|t.payment_method == "cash"} %>
         <li>Bookings from cash: <%=@agents_cash_tickets.count %> </li>
         <% cash_total = 0 %>
         <% @agents_cash_tickets.each do |t| cash_total += t.price.to_f end %>
