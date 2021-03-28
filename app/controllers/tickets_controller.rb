@@ -85,6 +85,7 @@ class TicketsController < ApplicationController
     if current_user && (current_user.email == 'brian@snowschoolers.com' || current_user.user_type == 'Snow Schoolers Employee')
       puts "!!!current user is admin, preparing to set skip_validations boolean to true."
       session[:skip_validations] = true
+      @ticket.agent_id = current_user.id
       @ticket.skip_validations = true
     end
 
@@ -172,6 +173,10 @@ class TicketsController < ApplicationController
       puts "!!!! marking voucher as booked & sending SMS to instructors"
     end
 
+    if current_user && current_user.user_type == "Snow Schoolers Employee"
+      @ticket.agent_id = current_user.id
+    end
+
     unless @ticket.deposit_status == 'confirmed'
       @ticket.state = 'ready_to_book'
     end
@@ -252,6 +257,9 @@ class TicketsController < ApplicationController
       GoogleAnalyticsApi.new.event('lesson-requests', 'deposit-submitted', params[:ga_client_id])
       if @ticket.promo_code
         LessonMailer.send_sledding_promo_redemption_notification(@ticket).deliver!
+      end
+      if current_user && current_user.user_type == "Snow Schoolers Employee"
+        @ticket.agent_id = current_user.id
       end
       LessonMailer.send_sledding_confirmation(@ticket).deliver!
         flash[:notice] = 'Thank you, your tickets have been purchased successfully! If you have any questions, please email hello@snowschoolers.com.'        
@@ -440,7 +448,7 @@ class TicketsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ticket_params
-      params.require(:ticket).permit(:requester_id, :deposit_status, :lesson_time_id, :activity, :requested_location, :requester_name, :phone_number, :state, :actual_start_time, :terms_accepted, :guest_email, :how_did_you_hear, :num_days, :booking_order_value, :is_gift_voucher, :gift_recipient_email, :gift_recipient_name, :product_id, :admin_price_adjustment, :promo_code_id, :planned_start_time, :payment_status, :payment_method, :payment_date, :additional_info, :ticket_type, :street_address, :city, :state_code, :zip_code, :drivers_license, :skip_validations, :administrator_notes, :multi_product_order, :refund_issued, :check_in_status, :sleds_purchased, :free_participants_redeemed, :retail_item_name, :retail_item_quantity, :retail_item_price,
+      params.require(:ticket).permit(:requester_id, :deposit_status, :lesson_time_id, :activity, :requested_location, :requester_name, :phone_number, :state, :actual_start_time, :terms_accepted, :guest_email, :how_did_you_hear, :num_days, :booking_order_value, :is_gift_voucher, :gift_recipient_email, :gift_recipient_name, :product_id, :admin_price_adjustment, :promo_code_id, :planned_start_time, :payment_status, :payment_method, :payment_date, :additional_info, :ticket_type, :street_address, :city, :state_code, :zip_code, :drivers_license, :skip_validations, :administrator_notes, :multi_product_order, :refund_issued, :check_in_status, :sleds_purchased, :free_participants_redeemed, :retail_item_name, :retail_item_quantity, :retail_item_price, :agent_adjustment_memo, :agent_id, :agent_adjustment_amount,
       lesson_time_attributes: [:date, :slot],
       participants_attributes: [:id, :name, :age_range, :gender, :_destroy, :requester_id], 
       )

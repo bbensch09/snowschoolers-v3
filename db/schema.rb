@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_27_035740) do
+ActiveRecord::Schema.define(version: 2021_03_28_225557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -543,6 +543,9 @@ ActiveRecord::Schema.define(version: 2020_12_27_035740) do
     t.string "retail_item_name"
     t.integer "retail_item_quantity"
     t.float "retail_item_price"
+    t.integer "agent_id"
+    t.float "agent_adjustment_amount"
+    t.string "agent_adjustment_memo"
   end
 
   create_table "transactions", id: :serial, force: :cascade do |t|
