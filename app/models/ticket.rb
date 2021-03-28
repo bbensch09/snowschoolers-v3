@@ -20,6 +20,11 @@ class Ticket < ApplicationRecord
   before_save :check_session_capacity
   before_save :confirm_valid_promo_code
 
+  def ticket_agent_name
+    u = User.find(self.agent_id)
+    return u.name
+  end
+
   def check_for_duplicates
     students = self.participants.sort_by(&:name)
     duplicates = false
