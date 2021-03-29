@@ -90,6 +90,14 @@
         <li>Additonally, this order includes <%=@ticket.retail_item_quantity %> <%= @ticket.retail_item_name %>(s) at <%= number_to_currency(@ticket.retail_item_price_per_item)%> each. (subtotal: <%= number_to_currency(@ticket.retail_item_quantity * @ticket.retail_item_price_per_item) %> )</li>
       <% end %>
 
+      <% if @ticket.agent_adjustment_memo? %>
+        <li>Additionally, a cashbox anomoly has been logged for this reservation:</li>
+        <ul>
+              <li><%= number_to_currency(@ticket.agent_adjustment_amount) %> || <%= @ticket.agent_adjustment_memo %> </li>
+              <li class="text-danger">Note that this adjustment is NOT reflected in the total price above.</li>
+        </ul>
+      <% end %>
+
       </ul>
     </div>
 
