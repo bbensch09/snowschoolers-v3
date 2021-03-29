@@ -325,6 +325,7 @@ class TicketsController < ApplicationController
 
   def roster_today
     # Lesson.set_dates_for_sample_bookings
+    @agent_id = params[:agent_id]
     @tickets_to_export = Ticket.all.select{|ticket| ticket.state == "confirmed" && ticket.date == Date.today}
     @tickets = Ticket.all.select{|ticket| ticket.booked? }
     @tickets = @tickets.select{ |ticket| ticket.date == Date.today}

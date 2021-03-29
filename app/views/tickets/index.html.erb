@@ -12,17 +12,31 @@
         <li>Total Revenue this season: TBD </li>
         <li>Bookings Today: <%= Ticket.todays_bookings.count %></li>
         <li>Tickets Today: <%= Ticket.todays_ticket_count %></li>
-        <li>Ticket Agent name: <%= current_user.name %> </li>
+        <% if @agent_id.nil? %>
+          <% current_user_agent = current_user %>
+          <% else %>
+          <% current_user_agent = User.where(id:@agent_id).first %>
+        <% end %>
+        <li>Ticket Agent name: <%= current_user_agent.nil? ? "No agent found" : current_user_agent.name %> </li>
         <ul>
-        <% @agents_tickets = @tickets.select{|t| t.agent_id == current_user.id } %>
-        <li>Bookings: <%=@agents_tickets.count %> </li>
-        <% @agents_cash_tickets = @agents_tickets.select{|t|t.payment_method == "cash"} %>
-        <li>Bookings from cash: <%=@agents_cash_tickets.count %> </li>
-        <% cash_total = 0 %>
-        <% @agents_cash_tickets.each do |t| cash_total += t.price.to_f end %>
-        <li>Revenue from Cash: <%= number_to_currency(cash_total) %> </li>
-
+            <% @agents_tickets = @tickets.select{|t| t.agent_id == current_user_agent.id } %>
+            <li>Bookings: <%=@agents_tickets.count %> </li>
+            <% @agents_cash_tickets = @agents_tickets.select{|t|t.payment_method == "cash"} %>
+            <li>Bookings from cash: <%=@agents_cash_tickets.count %> </li>
+            <% cash_total = 0 %>
+            <% @agents_cash_tickets.each do |t| cash_total += t.price.to_f end %>
+            <li>Revenue from Cash: <%= number_to_currency(cash_total) %> </li>
         </ul>
+        <li>Cash box adjustments:</li>
+          <% agent_cash_anomolies = 0 %>
+          <% agent_anomolies = @tickets.select{|t| t.agent_id == current_user_agent.id && !t.agent_adjustment_amount.nil? } %>
+          <ul>
+            <% agent_anomolies.each do |b| %>
+              <li><span class="agent_adjustment_amount"><%= number_to_currency(b.agent_adjustment_amount) %></span> || <%= b.agent_adjustment_memo %> </li>
+              <% agent_cash_anomolies += b.agent_adjustment_amount %>
+            <% end %> 
+          </ul>
+          <li>Total adjustments: <%= number_to_currency(agent_cash_anomolies) %> </li>
       </ul>
     </div>
     <% end %>

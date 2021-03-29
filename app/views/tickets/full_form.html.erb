@@ -247,10 +247,24 @@
                 <%= f.input :retail_item_price, as: :string, placeholder: "(optional) -- leave blank if normal price", label: false %>
               </div>
             </div>
+          </div>
+       
+
+        <h4> CASH BOX ADJUSTMENTS: -- only use this section to make other abnormal adjustments that may/may not be associated with a sepcific booking.  (e.g. sled sales that aren't associated with a previous reservation, or parking fees paid at the ticket office, etc.)</h4>
+        <div class="row-no-padding">
+          <div class="col-md-6">
+            <label>Amount to adjust cash box by:</label>
+            <%= f.input :agent_adjustment_amount, as: :string, placeholder: "Enter negative number for cash refunds", label: false %>
+          </div>
+            <div class="col-md-6">
+            <label>Description of cash box adjustment</label>
+            <%= f.input :agent_adjustment_memo, as: :string, placeholder: "Explain in 1-2 sentences the reason for the adjustment", label: false %>
+          </div>
+        </div>
 
 
 
-      </div>
+
     </div>
     <% end %>
 
