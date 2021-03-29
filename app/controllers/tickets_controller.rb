@@ -281,6 +281,7 @@ class TicketsController < ApplicationController
     @ticket.deposit_status = 'confirmed'
     @ticket.state = 'booked'
     @ticket.payment_method = 'cash'
+    @ticket.check_in_status = 'checked-in'
     @ticket.save
     LessonMailer.send_sledding_confirmation(@ticket).deliver!
     flash[:notice] = "Success! Successfully recorded a cash payment for this booking."
@@ -291,6 +292,7 @@ class TicketsController < ApplicationController
     @ticket.deposit_status = 'confirmed'
     @ticket.state = 'booked'
     @ticket.payment_method = 'square'
+    @ticket.check_in_status = 'checked-in'
     @ticket.save
     LessonMailer.send_sledding_confirmation(@ticket).deliver!
     flash[:notice] = "Success! Successfully recorded a square payment for this booking."
