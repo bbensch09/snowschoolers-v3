@@ -66,6 +66,10 @@ if (MIN_DATE == '2021-3-32') {
   MIN_DATE = '2021-04-02';
   console.log("The minimum bookable date was changed to 2021-04-02.");
 }
+if (MIN_DATE == '2021-3-33') {
+  MIN_DATE = '2021-04-02';
+  console.log("The minimum bookable date was changed to 2021-04-02.");
+}
 // if (MIN_DATE == '2020-3-16') {
 //   MIN_DATE = '2020-03-15'
 //   console.log("The minimum bookable date was changed to 2020-03-14 for Squaw/COVID-19.");
@@ -144,7 +148,7 @@ var LESSON = {
   '2021-03-15','2021-03-16','2021-03-17','2021-03-18','2021-03-20',
   '2021-03-23','2021-03-24','2021-03-25',
   '2021-03-28','2021-03-29','2021-03-30','2021-03-31','2021-04-01', //block sun & mon due to sell-out risk
-  '2021-04-06','2021-04-07','2021-04-08', //easter week
+  // '2021-04-06','2021-04-07','2021-04-08', //easter week
   '2021-04-13','2021-04-14','2021-04-15',
   ];
 
