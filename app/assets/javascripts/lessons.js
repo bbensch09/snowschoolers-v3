@@ -224,7 +224,7 @@ var LESSON = {
       return [ kingvale_lessons_blocked_dates_array.indexOf(string) == -1 ]
     },
     minDate: MIN_DATE,
-    maxDate: '2021-04-25',
+    maxDate: '2021-04-10',
     dateFormat: 'yy-mm-dd'
     });
 
