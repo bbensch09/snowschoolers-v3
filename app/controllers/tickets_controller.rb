@@ -116,6 +116,31 @@ class TicketsController < ApplicationController
     end
   end
 
+  def create_sled_only_sale
+    walk_in_ticket_params = {
+      date:LessonTime.next_available_date,
+      slot:LessonTime.next_available_slot,
+    }
+    @ticket = Ticket.new
+    @ticket.lesson_time = @ticket_time = LessonTime.find_or_create_by(walk_in_ticket_params)
+    @ticket.additional_info = "This ticket represents a retail only sale (e.g. sleds) and is not attached to any guests specifically."
+    @ticket.activity = "retail"
+    @slot = @ticket_time.slot
+    @ticket.requested_location = 25
+    @ticket.phone_number = "530-430-7669"
+    @ticket.terms_accepted = true
+    if @ticket.save
+        render 'complete_retail_purchase'
+        flash[:notice] = "Almost there! We just need a few more details."
+    else
+        flash[:alert] = "Unfortunately that sledding session is already at capacity. Please pick another time."
+        render 'new'
+    end
+  end
+
+  def complete_retail_purchase
+  end
+
   def complete
     @lesson_time = @ticket.lesson_time
     @slot = @ticket.slot
