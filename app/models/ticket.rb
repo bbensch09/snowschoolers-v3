@@ -390,6 +390,16 @@ def total_participants
   self.participant.count
 end
 
+def set_all_guest_types_to_sledders_if_nil
+  partipants = self.participants
+  participants.each do |participant|
+    if participant.guest_type.nil?
+      participant.guest_type = "Sledding"
+      participant.save
+    end
+  end
+end
+
 def price
 	calendar_period = self.lookup_calendar_period(self.lesson_time.date,self.location.id)
       # puts "!!!!lookup calendar period status, it is: #{calendar_period}"

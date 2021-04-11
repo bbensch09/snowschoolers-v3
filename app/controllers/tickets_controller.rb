@@ -385,9 +385,9 @@ class TicketsController < ApplicationController
   def future_sledding_roster
     @date = params[:date]
     @date.nil? ? @date = Date.today+2 : @date
-    tickets = Ticket.all.select{|ticket| ticket.booked? }
+    tickets = Ticket.all.to_a.keep_if{|ticket| ticket.booked? && ticket.date.to_s == @date && !ticket.canceled? }
     tickets = tickets.sort_by{|tickets| tickets.id}
-    @tickets = tickets.select{|tickets| tickets.date.to_s == @date && !tickets.canceled? }
+    @tickets = tickets
   end  
 
   def roster_tomorrow_print
