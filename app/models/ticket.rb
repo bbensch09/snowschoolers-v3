@@ -541,7 +541,9 @@ end
 private
 
 def participant_exists
-	puts "!!!!!checking if at least one participant exists"
+  puts "!!!!!checking if ticket reservation is for retail only"
+  return true if self.activity == "retail"
+  puts "!!!!!checking if at least one participant exists"
 	errors.add(:participants, "count must be greater than zero") unless participants.any?
 end
 

@@ -1,0 +1,248 @@
+<% title "Retail Only Sale - almost there!" %>
+
+<div id="middle" class="container">
+  <div class="white">
+
+    <header class="page-header">
+    </header>
+
+    <%= semantic_form_for @ticket do |f| %>
+    <%= f.semantic_errors :lesson %>
+    <%= hidden_field_tag 'ga_client_id', '', :class => 'ga-client-id' %>
+
+
+
+    <div class='row hidden'>
+      <div class="col-md-6">
+        <hr>
+        <h4><strong>Customer Info</strong></h4>
+        <div class='row'>
+          <div class="col-md-6">
+            <label>Email</label>
+            <%= f.email_field :guest_email, value: "hello+retail_only@snowschoolers.com", class: "form-control", type: 'email', required:true, label: false %>
+          </div>
+          <div class="col-md-6">
+            <label>Phone</label> <span class="text-smaller"></span>
+            <%= f.text_field :phone_number, as: :number, value: '530-430-7669', class: 'form-control', required:true, include_blank:false %>
+          </div>
+
+        </div>
+
+        <div class='row'>
+          <div class="col-md-6 hidden">
+            <label>Your Name</label>
+            <%= f.text_field :requester_name, value: 'Sledding Guest', class: "form-control", required:true, label: false %>
+          </div>
+          <div class="col-md-6 hidden">
+            <label>Address</label> <span class="text-smaller"></span>
+            <%= f.text_field :street_address, value: '1234 StreetName', class: 'form-control', required:true, include_blank:false %>
+          </div>
+          <div class="col-md-6 hidden">
+            <label>City</label> <span class="text-smaller"></span>
+            <%= f.text_field :city, value: 'Tahoe City', class: 'form-control', required:true, include_blank:false %>
+          </div>
+          <div class="col-md-3 hidden">
+            <label>State</label> <span class="text-smaller"></span>
+            <%= f.text_field :state_code, value: 'CA', class: 'form-control', required:true, include_blank:false %>
+          </div>
+          <div class="col-md-3 hidden">
+            <label>Zip Code</label> <span class="text-smaller"></span>
+            <%= f.text_field :zip_code, as: :number, value: '96145', class: 'form-control', required:true, include_blank:false %>
+          </div>
+          <div class="col-md-6 hidden">
+            <label>Driver's License #</label> <span class="text-smaller"></span>
+            <%= f.text_field :drivers_license, value: 'D555-1111', class: 'form-control', required:false, include_blank:false %>
+          </div>
+
+              <%= f.semantic_fields_for :lesson_time, @lesson_time do |lt_f| %>
+                <div class="col-md-6">
+                  <label>Date</label>
+                  <%= lt_f.input :date, as: :string, input_html: { id: 'datepicker2', value:@ticket.date, required:true, autocomplete:"off" }, placeholder: 'Pick a date', label: false %>
+                </div>
+                <div class="col-md-6">
+                  <label>Time Slot</label>
+                  <%= lt_f.input :slot, as: :select, collection: SLEDDING_SLOTS, value:@slot, include_blank: 'Select Time', label: false, required:true %>
+                </div>
+                <% end %>
+
+          <div class="col-md-6">
+            <label>Price</label>
+              <h2> <span id="lesson-price">
+              <% if @ticket.lookup_calendar_period(@ticket.date,25) == 'Holiday' %>
+              <%= number_to_currency(SLEDDING_HOLIDAY) %></span></h2>
+              <% else %> 
+              <%= number_to_currency(SLEDDING_REGULAR) %></span></h2>
+              <% end %>
+              <div id="calendar-status" class="hidden"><%= @ticket.lookup_calendar_period(@ticket.date,25) %></div>
+          </div>
+
+
+            </div>
+
+            <div class="row">
+            </div>
+
+          <hr class="hr-navy">         
+
+          <div class="buffer"></div>
+
+          <hr class="hr-navy">
+
+          <div class="col-md-12">
+            <label class="lesson-label">How did you first hear about Snow Schoolers?</label>
+            <%= f.select :how_did_you_hear, [["Been here before",100],['Saw it while driving by.',102],['From a friend',103],['Airbnb',104],['Facebook',105],['Google',106],['Instagram',106],['Someone gave me a business card',107],['Tahoe Daves',108],['Ski Butlers',109],['Yelp',110],['Other',100]], {}, {class: 'form-control', required:false, include_blank:false} %>
+          </div>
+
+          <% if session[:promo_code] %>
+            <div class="col-md-12">
+              <label class="lesson-label">Referral Code</label>
+                <% pc_id = PromoCode.where(promo_code:session[:promo_code]).first.id %>
+                <%= f.select :promo_code_id, [[session[:promo_code],pc_id],["",nil] ], {}, {class: 'form-control', required:false, include_blank:false} %>
+            </div>
+          <% end %>
+
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6">
+              
+              <div class="col-md-12 row">
+                  <%= render partial: "tickets/cancellation_policy" %>
+              </div>
+
+              <div class="col-md-12 row">
+                  <p id="pandemic-policy" class="nonrefundable_disclaimer left">
+                    <span class="cancellation-title">Pandemic Pledge</span>
+                  </p>
+                  <%= render partial: "lessons/pandemic_pledge" %>
+              </div>            
+
+              <a href="#accept-terms" class="btn btn-default"> Jump to bottom</a>
+              <h4><strong>PARTICIPANT AGREEMENT, RELEASE AND ASSUMPTION OF RISK</strong>
+              </h4>
+
+              <div class="col-md-12">
+                <span class="checkbox ">
+                  <label for="rememberme">
+
+                    <%= render partial: 'lessons/release_of_liability_2021_text' %>
+
+                    <p id="accept-terms">
+                      <%= f.check_box :terms_accepted, id: "rememberme", required: false  %>
+                      By checking this box, I acknowledge that I have read and fully agree to the <span>
+                        <%= link_to 'Release of Liability', liability_release_path(@ticket.id), target:"_blank", class:"black-link", target:"_blank" %></span> and the <span><a href="/terms_of_service" target="_blank" class='black-link'> Terms of Service</a></span>.
+                      </p>
+
+                    </label>
+                  </span>
+                </div>
+
+                <div class="row">
+                </div>
+
+              </div>
+            </div>
+
+    </div>
+
+<h1> Retail Only Purchases</h1>
+
+    <div class="col-md-12 row">
+      <label class="lesson-label">How many saucer sleds would you like to purchase? </label>
+      <%= f.select :sleds_purchased, [["No, we have our own sleds.",0],["Yes, just one sled - $20.00",1],["2 sleds - $40.00",2],["3 sleds - $60.00",3],["4 sleds - $80.00",4],["5 sleds - $100.00",5]], {}, {class: 'form-control', required:true, include_blank:false} %>
+    </div> 
+      <div class="buffer"></div>
+
+<div class="admin-viewable retail-options-toggle-hidden">
+
+    <% if current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner" || current_user.email == "brian@snowschoolers.com") %>
+    <div id="available-lessons" class="admin-viewable ">
+      <div class="col-md-12 vertical-padding">
+        
+        <!-- <hr>         -->
+        <div class="row-no-padding"> 
+            <h4>CUSTOM RETAIL PRICING</h4>
+        </div>
+                    <div class="row-no-padding">
+              <div class="col-md-3">
+                <label>Item Purchased</label>
+                <%= f.input :retail_item_name, as: :select, collection: ['Snowplay to Sledding Upgrade','Toboggan','Boots','Snow shoe tour','Neck gaitor mask','Gloves','Hand warmers'], placeholder: "Item name", label: false %>
+              </div>
+              <div class="col-md-3">
+                <label>Quantity</label>
+                <%= f.input :retail_item_quantity, as: :string, placeholder: "Number of items", label: false %>
+              </div>
+              <div class="col-md-3">
+                <label>Price per item</label>
+                <%= f.input :retail_item_price, as: :string, placeholder: "(optional) -- leave blank if normal price", label: false %>
+              </div>
+            </div>
+          </div>
+       
+    <h4> CUSTOM PRICING: -- Please use this section to override everythign above and process a one-off abnormal transaction (e.g. group discounts or last hour deals)</h4>
+        <div class="row-no-padding">
+          <div class="col-md-2">
+            <label>Total of Custom Price</label>
+            <%= f.input :booking_order_value, as: :string, placeholder: "Enter custom final price", label: false %>
+          </div>
+          <div class="col-md-6">
+            <label>Notes for Custom Pricing</label>
+            <%= f.input :additional_info, as: :string, placeholder: "Enter description of the custom pricing offered.", label: false %>
+          </div>
+        </div>
+
+    <% end %>
+
+
+
+<% if ENV['HOST_DOMAIN'] == "localhost:3000" || current_user && (current_user.user_type == "Snow Schoolers Employee" || current_user.user_type == "Ski Area Partner" || current_user.email == "brian@snowschoolers.com") %>
+    <div id="autofill-container" class="admin-viewable">
+
+    <% if session[:refund] == true %>
+    <div class="col-md-6">
+      <p> To issue a full refund: </p>
+      <ol>
+        <li>
+          <a href="https://dashboard.stripe.com/payments" id="stripe-refund" target="_blank" class="btn btn-danger">First Issue Refund in Stripe</a> <br><br>
+        </li>
+        <li><%= link_to 'Mark as Refunded', mark_sledding_ticket_refunded_path(@ticket), method: :put, class: "btn btn-warning" %></li>
+      </ol>
+    </div>
+    
+    <div class="col-md-6">
+      <p> To issue a partial refund: </p>
+      <ol>
+        <li>
+          <a href="https://dashboard.stripe.com/payments" id="stripe-refund" target="_blank" class="btn btn-danger"> First issue a partial refund in Stripe.</a>
+        </li>
+        <li>Enter the refund reason as 'Package info' below, along with the final amount due as 'Total Price'. </li>
+        <li>Then click to <a href="#finalize-lesson" class="btn btn-warning">Re-confirm the reservation</a> </li>
+      </ol>
+    </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+   <div class="col-md-12">
+        <% button_text = "Continue to Payment" %>
+            </div>
+            <!-- <div class="col-md-3"> -->
+              <%= f.input :state, as: :hidden, input_html: { value: @state } %>
+              <%= f.input :product_id, as: :hidden, input_html: { value: Product.where(product_type:"sledding_ticket",location_id:@ticket.requested_location,calendar_period:@ticket.location.calendar_status).first.id } %>
+              <h2 class="center">          
+                <%= f.submit button_text, class: 'btn btn-tertiary btn-lg', id: 'finalize-lesson' %>
+              </h2>
+            </div>
+    <% end %>      
+
+    </div>
+    <% end %>
+
+          </div>
+        </div>
+
+        <ul id="slider" class="mc-cycle" style="display: block; height: 100%; width: 100%;">
+          <div class="mc-image bg-photo" title="background photo" style="background-image: url('https://s3.amazonaws.com/snowschoolers/gb-sitting.jpeg'); height: 100%; width: 100%;" data-href="" </div>
+      </ul>
