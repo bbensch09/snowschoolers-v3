@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_28_225557) do
+ActiveRecord::Schema.define(version: 2021_04_11_170510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -281,6 +281,7 @@ ActiveRecord::Schema.define(version: 2021_03_28_225557) do
     t.string "booking_history"
     t.string "experience"
     t.string "relationship_to_requester"
+    t.string "guest_type"
     t.index ["ticket_id"], name: "index_participants_on_ticket_id"
   end
 
