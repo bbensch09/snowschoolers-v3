@@ -371,6 +371,21 @@ def participants_3_and_under
   return count
 end
 
+def sledding_participants
+  all_participants = self.participants 
+  sledders = all_participants.to_a.keep_if{|p| p.guest_type == "Sledding" && p.age_range.to_i > 3}
+end
+
+def spectator_participants
+  all_participants = self.participants 
+  spectators = all_participants.to_a.keep_if{|p| p.guest_type == "Spectators"}
+end
+
+def snowplay_participants
+  all_participants = self.participants 
+  snowplayers = all_participants.to_a.keep_if{|p| p.guest_type == "Snowplay"  && p.age_range.to_i > 3}
+end
+
 def total_participants
   self.participant.count
 end
@@ -384,7 +399,10 @@ def price
   elsif self.booking_order_value && !self.additional_info.blank?
   	price = self.booking_order_value
   else
-  	price = product.price * [1,(self.participants.count - self.participants_3_and_under)].max
+  	# price = product.price * [1,(self.sledding_participants.count - self.participants_3_and_under)].max
+    price = product.price * self.sledding_participants.count
+    price += (self.snowplay_participants.count * SNOWPLAY_PRICE)
+    price += (self.spectator_participants.count * SPECTATOR_PRICE)
   end
 
   # price of additional retail items & promotions

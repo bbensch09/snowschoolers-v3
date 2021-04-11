@@ -18,6 +18,11 @@
       <li>Ski Lessons at 11:15am (1hr, HDM, FD): <%=Lesson.lessons_at_slot(@date,"1hr Private 11:15am","Ski").count %></li>
       <li>SB Lessons at 11:15m (1hr, HDM, FD): <%=Lesson.lessons_at_slot(@date,"1hr Private 11:15am","Snowboard").count %></li>
     </ul>
+    <h4>Remaining availability for walk-ins:</h4>
+    <ul>
+      <li>8:45am EB: TBD </li>
+      <!-- <li>8:45am EB: % Lesson.available_for_walkins(@date,"1hr Early Bird 8:45-9:45am") %> </li> -->
+    </ul>
     <div class="inline-block">
       <a href="#hideLessons" class="btn btn-success" id="toggle-available-lessons">Show Today's Lessons </a>
     </div>

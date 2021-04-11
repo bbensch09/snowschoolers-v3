@@ -79,8 +79,17 @@
       <ul>
 
       <% if @ticket.sleds_purchased %>
-        <li>Sleds purchased: <%= @ticket.sleds_purchased %> for $20 ea. (subtotal: <%= number_to_currency(@ticket.sleds_purchased * 20) %>) </li>
+        <li>Sleds purchased: <%= @ticket.sleds_purchased %> for $20 each (subtotal: <%= number_to_currency(@ticket.sleds_purchased * 20) %>) </li>
       <% end %>
+      <li>
+        Sledders: <%= @ticket.sledding_participants.count %> for $20 each (subtotal: <%= number_to_currency(@ticket.sledding_participants.count * 20) %>)
+      </li>
+      <li>
+        Snowplay: <%= @ticket.snowplay_participants.count %> for $5 each (subtotal: <%= number_to_currency(@ticket.snowplay_participants.count * 5) %>)
+      </li>
+      <li>
+        Specators: <%= @ticket.spectator_participants.count %> (free)
+      </li>
 
       <% unless @ticket.free_participants_redeemed.nil? %>
         <li>The ticket fee for <%=@ticket.free_participants_redeemed %> participant on this reservation has been waived (value: <%=number_to_currency(@ticket.product.price) %>). </li>
@@ -107,7 +116,7 @@
         <h4>Particpants:</h4>
         <ul class="student-list-confirm-reservation">
           <% @ticket.participants.each do |participant| %>
-          <li><%= participant.name %>, age <%= participant.age_range %></li>
+          <li><%= participant.name %>, age <%= participant.age_range %> (<%= participant.guest_type %>) </li>
           <% end %>
         </ul>
         <% if @ticket.participants_2_and_under > 0 %>

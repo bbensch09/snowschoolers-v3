@@ -1538,6 +1538,24 @@ class Lesson < ActiveRecord::Base
     end
   end
 
+  def self.available_for_walkins(date,slot)
+    lesson_times_on_date = LessonTime.where(date:date)
+    overlapping_slots = Lesson.overlapping_slots(slot)
+    lesson_times_at_slot = lesson_times_on_date.to_a.keep_if{|lt| overlapping_slots == lt.slot}
+    active_location_instructors = Location.find(24).instructors.where(status:"Active")
+    blocked_instructors = Lesson.instructors_with_calendar_blocks(lesson_times_on_date.first)
+    lessons_today = Lesson.all.select{|lesson| lesson.date == date }
+    booked_lessons_today = lessons_today.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.booked? || lesson.airbnb?  || lesson.partially_booked? || lesson.state.nil? }
+    already_booked_instructors = Lesson.booked_instructors(lesson_times_on_date.first)
+    puts "!!!!!already booked instructors are #{already_booked_instructors}"
+    available_instructors_today = active_location_instructors - blocked_instructors - already_booked_instructors
+    available_names = []
+    already_booked_instructors.each do |instructor|
+      available_names << instructor.first_name + instructor.last_name
+    end
+    return available_names
+  end
+
 
   def available_instructors
     if self.instructor_id
