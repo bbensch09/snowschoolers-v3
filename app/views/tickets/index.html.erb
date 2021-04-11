@@ -64,6 +64,7 @@
           <th class="lessons-table-cells lesson-student">Email</th>
           <th class="lessons-table-cells">State</th>
           <th class="lessons-table-cells">Price</th>
+          <th class="lessons-table-cells"># of Sledders</th>
           <th class="lessons-table-cells"></th>
         </tr>
       </thead>
@@ -86,6 +87,7 @@
               <td class="lessons-table-cells table-word-wrap email-smallest"><%= ticket.guest_email %></td>
               <td class="lessons-table-cells"><%= ticket.state %></td>
               <td class="lessons-table-cells"><%= number_to_currency(ticket.price) %></td>
+              <td class="lessons-table-cells"><%= ticket.sledding_participants.count %></td>
               <!-- <td><%= link_to 'Delete', ticket, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger" %></td> -->
               <td class="lessons-table-cells"><%= link_to 'Cancel Check-in', sledding_check_in_reverse_path(ticket.id), method: :put, class:"btn btn-danger btn-sledding-admin" %>
               </tr>
