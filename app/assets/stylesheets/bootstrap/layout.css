@@ -205,7 +205,7 @@ a, a:hover, a:active,
 	#header ul.nav {
 		float:left;
 		margin:0 0 0 50px; padding:0;
-    margin-top: -40px;
+	    /*margin-top: -40px;*/
 	}
 	#header ul.nav li,
 	#header ul.nav li a {
