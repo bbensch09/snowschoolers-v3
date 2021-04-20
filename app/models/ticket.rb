@@ -16,6 +16,7 @@ class Ticket < ApplicationRecord
 
   # old -- used to confirm participants are all over the age of 8 (for group lessons)
   # validate :age_validator, on: :update
+  validate :check_open_status
   validate :check_session_capacity
   before_save :check_session_capacity
   before_save :confirm_valid_promo_code
@@ -511,7 +512,14 @@ def check_session_capacity
 		errors.add(:ticket,"Unfortunately this sledding session is sold out. Please try another time slot. To see which sessions still have capacity, visit tickets.granlibakken.com/sledding/calendar.")
 		return false
 	end
+end
 
+def check_open_status
+  if KV_OPEN_DAYS.include?(self.date.to_s)
+    return true
+  else
+    return false
+  end
 end
 
 def current_session_bookings
