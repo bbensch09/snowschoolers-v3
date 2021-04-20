@@ -224,6 +224,14 @@ class TicketsController < ApplicationController
       flash[:alert] = "Unfortunately that sledding session is already at capacity. Please pick another time."
     end
 
+    puts "!!!! check if ticket status is open"
+    if @ticket.check_open_status
+      puts "!!!confirmed that hill is open and can proceed to payment. if not, redirect back."
+      flash[:notice] = 'Almost there! Please enter your payment info to complete your reservation.'              
+    else
+      flash[:alert] = "Unfortunately that sledhill will not open on your selected date. To confirm when we will be open, please call 530-430-SNOW or email us at hello@snowschoolers.com"
+    end
+
     if @ticket.save
       GoogleAnalyticsApi.new.event('ticket-requests', 'full_form-updated', params[:ga_client_id])
       @user_email = current_user ? current_user.email : "unknown"

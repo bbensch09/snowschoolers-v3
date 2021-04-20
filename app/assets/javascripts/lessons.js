@@ -214,7 +214,7 @@ var LESSON = {
       return [ kingvale_sledding_blocked_dates_array.indexOf(string) == -1 ]
     },
     minDate: MIN_DATE_SLEDDING,
-    maxDate: '2021-04-25',
+    maxDate: '2021-04-11',
     dateFormat: 'yy-mm-dd'
     });
 
