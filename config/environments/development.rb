@@ -9,6 +9,7 @@ Rails.application.configure do
   config.hosts << "www.snowschoolers.com"
   config.hosts << "demo.snowschoolers.com"
   config.hosts << "snowschoolers-heroku-18.herokuapp.com"
+  config.hosts << "snowschoolers-production.herokuapp.com"
 
   #set queue adapter for delayed jobs
   config.active_job.queue_adapter = :delayed_job
