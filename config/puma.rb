@@ -5,7 +5,7 @@ threads threads_count, threads_count
 preload_app!
 
 rackup      DefaultRackup
-port        ENV['PORT']     || 3001 #changed to 3001 because while it was set to 3000 would try to launch ttwo TCP port instances and would trigger this error >> Address already in use - bind(2) (Errno::EADDRINUSE)
+# port        ENV['PORT']     || 3001 #changed to 3001 because while it was set to 3000 would try to launch ttwo TCP port instances and would trigger this error >> Address already in use - bind(2) (Errno::EADDRINUSE)
 environment ENV['RACK_ENV'] || 'development'
 
 on_worker_boot do
