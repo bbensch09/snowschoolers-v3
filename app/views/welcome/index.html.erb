@@ -80,10 +80,19 @@
             <a href="/kingvale/sledding?promo_code=LOCALSDAY2021" class="btn btn-secondary btn-xl page-scroll powder-btn">Sled Like a Local</a>
             <hr>            
             <% end %>
+            <% if Date.today.to_s <= "2021-09-01" %>
             <span class="homepage-smaller-text">
-                Thanks for a great season! Both our Kingvale and Granlibakken locations are now closed for the '20/21 winter. See you next year! 
+                Thanks for a great winter season! 
+                <br> Both our Kingvale and Granlibakken locations are now closed for the '20/21 winter. 
+                <br> Looking for outdoor adventures this summer?
+                <br> The same great team behind Snow Schoolers is now offering guided paddleboard tours all summer long at our sister website <a href="www.tahoecitywatersports.com" class="green-link"> www.taheocitywatersports.com</a>. 
+                <!-- <br> Enjoy fun in the Tahoe Sun all summer long! -->
             </span>
+            <h1 class="center">
+                <a href="www.tahoecitywatersports.com" class="btn btn-primary btn-xl page-scroll powder-btn">Book a Summer Tour</a>
+            </h1>
 
+            <% end %> 
 <!--             <span class="homepage-smaller-text">
                 We are OPEN for sledding and lessons with limited capacity at both our Kingvale and Granlibakken locations. 
                 <br> <a href="/covid19" class="green-link">Masks are still required</a>, even though shelter-in-place is now lifted. Please book in-advance!
@@ -91,16 +100,17 @@
                 <!-- <a href="/covid19" class="btn btn-tertiary btn-lg page-scroll powder-btn">Take our Pandemic Pledge</a>                
             </span>
  -->            <span class="homepage-smaller-text">
-                <br> Follow us on <a href="https://www.instagram.com/kingvalesnowpark" class="green-link">Instagram</a> for more details, or call us at 530-430-SNOW with any questions. 
+                <!-- <br> Follow us on <a href="https://www.instagram.com/kingvalesnowpark" class="green-link">Instagram</a> for more details, or call us at 530-430-SNOW with any questions.  -->
             </span>
 
             <br>
 
-            <a href="#closedForSeason" class="btn btn-secondary btn-xl page-scroll powder-btn">Book Sledding at Kingvale</a>
+        <div class="hidden">
+            <a href="#closedForSeason" class="btn btn-secondary btn-lg page-scroll powder-btn">Book Sledding at Kingvale</a>
             <hr>
             <!-- <br> -->
-            <a href="#closedForSeason" class="btn btn-primary btn-xl page-scroll powder-btn">Book Lessons at Granlibakken</a>
-            <a href="#closedForSeason" class="btn btn-tertiary btn-xl page-scroll powder-btn">Book Lessons at Kingvale</a>
+            <a href="#closedForSeason" class="btn btn-primary btn-lg page-scroll powder-btn">Book Lessons at Granlibakken</a>
+            <a href="#closedForSeason" class="btn btn-tertiary btn-lg page-scroll powder-btn">Book Lessons at Kingvale</a>
             <hr>
             <span class="homepage-smaller-text">
                 Also at Kingvale we now offer guided snowshoeing and snowmobiling tours! Snowshoeing is just $49/person for 2hrs and snowmobiling starts at just $80 a session! Book online or request more info below.
@@ -113,7 +123,8 @@
                 To book sledding at Granlibakken, please visit our sister website or click below to make your reservation in just a few clicks.
             </span>
             <br>
-                <a href="http://sledding.granlibakken.com" target="_blank" class="btn btn-primary btn-lg page-scroll powder-btn">Book Sledding at Granlibakken</a>               
+                <a href="http://sledding.granlibakken.com" target="_blank" class="btn btn-primary btn-lg page-scroll powder-btn">Book Sledding at Granlibakken</a>  
+        </div>               
             </h1>
         </div>
     </div>
