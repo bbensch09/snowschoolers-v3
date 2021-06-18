@@ -867,7 +867,7 @@ class Lesson < ActiveRecord::Base
 
   def paid?
     active_states = ['booked','confirmed','Lesson Complete','finalizing payment & reviews','waiting for review','finalizing']
-    return true if active_states.include?(state) && self.date > Date.today
+    return true if active_states.include?(state)
   end
 
 
