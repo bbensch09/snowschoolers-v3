@@ -166,6 +166,7 @@ Rails.application.routes.draw do
   get 'sled-now' => 'tickets#create_walk_in_sledding_ticket', as: :walk_in_sledding_ticket
   get 'sled-sale' => 'tickets#create_sled_only_sale', as: :create_sled_only_sale
   get 'sledding-liability-release/:id' => 'tickets#liability_release_agreement', as: :liability_release
+  get 'lessons-liability-release/:id' => 'lessons#liability_release_agreement', as: :lesson_liability_release
 
   # Begin resort referrals
   get '/kirkwood' => 'welcome#kirkwood_referral'

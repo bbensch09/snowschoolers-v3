@@ -36,6 +36,15 @@ class Lesson < ActiveRecord::Base
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
   after_save :create_rental_reservation
 
+  def students_under_age_18
+    kids = self.students.to_a.keep_if{|student| student.age_range.to_i < 18}
+    kids_names = []
+    kids.each do |student|
+      kids_names << student.name
+    end
+    kids_names.join(', ')
+  end  
+
   def check_for_duplicates
     students = self.students.sort_by(&:name)
     duplicates = false

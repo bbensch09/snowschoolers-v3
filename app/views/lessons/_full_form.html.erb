@@ -300,10 +300,13 @@
               <%= render partial: "lessons/pandemic_pledge" %>
           </div>
 
-          <div class="col-md-12 term-checkbox">
-            <span class="remember-box checkbox ">
+          <div class="col-md-12">
+            <span class="checkbox">
               <label for="rememberme" class="lesson-label">
-                  <%= f.check_box :terms_accepted, id: "rememberme", required: true  %>I agree to the <span><a href="/terms_of_service" target="_blank">Terms and Conditions</a></span>
+                  <%= f.check_box :terms_accepted, id: "rememberme", required: true  %>
+                  <!-- I agree to the <span><a href="/terms_of_service" target="_blank">Terms and Conditions</a></span> -->
+                  By checking this box, I acknowledge that I have read and fully agree to the <span> <%= link_to 'Release of Liability', lesson_liability_release_path(@lesson.id), target:"_blank", class:"black-link", target:"_blank" %></span> and the <span><a href="/terms_of_service" target="_blank" class='black-link'> Terms of Service</a></span>.
+
               </label>
             </span>
         </div>
