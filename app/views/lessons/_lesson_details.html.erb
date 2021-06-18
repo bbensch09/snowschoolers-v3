@@ -47,8 +47,10 @@
       <% if @lesson.deposit_status == 'confirmed' && @lesson.waiver? %>
       <p class="left">
       <b> Release of Liability </b>
+      <br> 
+        By agreeing to purchase this reservation, you have agreed to the Release of Liability and accept the intrinsic risks of this activity. Your e-signed copy can be found here: <%= link_to 'Release of Liability', lesson_liability_release_path(@lesson.id), target:"_blank", class:"btn btn-tertiary", target:"_blank" %>
       <br>
-        You must also complete a required release of liability waiver prior to the start of your lesson. Please find the waiver at <a href="https://waiver.smartwaiver.com/v/snowschoolers2021" class="navy-link">https://waiver.smartwaiver.com/v/snowschoolers2021</a>
+        <!-- You must also complete a required release of liability waiver prior to the start of your lesson. Please find the waiver at <a href="https://waiver.smartwaiver.com/v/snowschoolers2021" class="navy-link">https://waiver.smartwaiver.com/v/snowschoolers2021</a> -->
       </p>
       <% end %>
 

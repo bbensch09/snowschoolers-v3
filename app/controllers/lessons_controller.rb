@@ -5,7 +5,7 @@ class LessonsController < ApplicationController
   # low friction hackey solution -- don't require authentication for most customer-facing pages; removed temporarily May 2019
   # restoring required authentication during off-season due to PII / privacy inquiry
   # skip_before_action :authenticate_user!, only: [:new, :tickets, :granlibakken,:kingvale, :homewood, :new_request, :create, :complete, :confirm_reservation, :update, :edit, :skier_types, :show, :rental_agreement]
-  before_action :set_lesson, only: [:show, :duplicate, :complete, :update, :edit, :edit_wages, :add_private_request, :remove_private_request, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_instructor, :admin_confirm_deposit, :admin_confirm_airbnb, :admin_confirm_booked_with_modification, :admin_assign_instructor, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications, :send_review_reminders_to_student, :rental_agreement, :issue_full_refund, :send_review_reminder_to_guest, :admin_confirm_square, :admin_confirm_cash]
+  before_action :set_lesson, only: [:show, :duplicate, :complete, :update, :edit, :edit_wages, :add_private_request, :remove_private_request, :destroy, :send_reminder_sms_to_instructor, :reissue_invoice, :issue_refund, :confirm_reservation, :admin_reconfirm_state, :decline_instructor, :remove_instructor, :mark_lesson_complete, :confirm_lesson_time, :set_instructor, :authenticate_from_cookie, :send_day_before_reminder_email, :admin_confirm_instructor, :admin_confirm_deposit, :admin_confirm_airbnb, :admin_confirm_booked_with_modification, :admin_assign_instructor, :enable_email_notifications, :disable_email_notifications, :enable_sms_notifications, :disable_sms_notifications, :send_review_reminders_to_student, :rental_agreement, :issue_full_refund, :send_review_reminder_to_guest, :admin_confirm_square, :admin_confirm_cash, :liability_release_agreement]
   before_action :skip_product_id, except: [:create, :update]
   before_action :save_lesson_params_and_redirect, only: [:create]
   before_action :set_admin_skip_validations
@@ -16,6 +16,11 @@ class LessonsController < ApplicationController
     @students = @lesson.students
     render 'rental_agreement', layout: 'rental_agreement_layout'
   end
+
+  def liability_release_agreement
+    @participants = @lesson.students
+    render 'lesson_liability_release_agreement', layout: 'rental_agreement_layout'
+  end  
 
   def skier_types
   end
