@@ -36,7 +36,7 @@
     <% end %>
   </ul>
   <p>
-    User’s Signature: <span class="signature bold text-danger"> <%= @lesson.students.empty? ? "TBD" : @lesson.students.first.name %> </span>
+    User’s Signature: <span class="signature bold text-danger"> <%= @lesson.students.empty? ? "TBD" : @lesson.requester_name %> </span>
     <br>Date: <span class=""> <%= @lesson.updated_at.strftime("%b %-d, %Y") %></span>
     <br>
   </p>
