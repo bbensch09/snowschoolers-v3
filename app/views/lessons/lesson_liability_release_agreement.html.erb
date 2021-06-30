@@ -22,7 +22,7 @@
   </p>
 
   <p>
-    Full Name: <span class="bold text-danger "> <%= @lesson.students.empty? ? "TBD" : @lesson.students.first.name %> </span>
+    Full Name: <span class="bold text-danger "> <%= @lesson.students.empty? ? "TBD" : @lesson.requester_name %> </span>
     <br>Contact Email: <span class="bold text-danger "> <%= @lesson.guest_email %> </span>            
   </p>
 
