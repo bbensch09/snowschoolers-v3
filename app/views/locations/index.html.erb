@@ -7,7 +7,7 @@
 <h2>
   <%= file_field_tag :file, class: 'form-control' %> <%= submit_tag "Import Locations from CSV", class: 'btn btn-default' %>
 <% end %> | 
-  <%= link_to "Export CSV", locations_path(format: "csv"), class: 'btn btn-primary' %> 
+  <%= link_to "Export CSV", locations_path(format: "csv"), class: 'btn btn-primary' %> |  <%= link_to 'Delete All Locations', delete_all_locations_path, method: :delete_all, data: { confirm: 'Are you sure?' },  class: 'btn btn-danger' %>
 </h2>
 
 
